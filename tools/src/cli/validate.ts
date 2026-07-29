@@ -26,6 +26,7 @@ import { PATHS, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
 import {
   checkNullAccounting,
+  checkPlaceholderEntities,
   checkProvenance,
   checkProvenanceDoc,
   checkRecomputation,
@@ -77,7 +78,9 @@ function main(): number {
   // --- registry -----------------------------------------------------------
   for (const file of walkFiles(PATHS.registryEntities, (n) => n.endsWith('.json'))) {
     counts.registry++;
-    findings.push(...schemaFindings('registry', readData(file), file));
+    const data = readData(file);
+    findings.push(...schemaFindings('registry', data, file));
+    findings.push(...checkPlaceholderEntities(data, file));
   }
 
   // --- groupings ----------------------------------------------------------

@@ -88,6 +88,11 @@
           "description": "Slug of the district that operates this entity. NOTE: the AOE API's ParentOrg/OperatedBy fields carry inverted meanings between towns and schools -- for a town, ParentOrg is its union district and OperatedBy is its SU; for a school, ParentOrg is its SU and OperatedBy is its district. The sync untangles this; do not read the raw fields directly.",
           "default": null
         },
+        "reporting_only": {
+          "type": "boolean",
+          "description": "True for AOE reporting buckets rather than real organizations -- a town record named UNKNOWN is how residency is recorded for pupils whose town is not established. These are kept because other records reference them, but no average daily membership is awarded to them: they contribute no weighted pupils, owe no budget in the coverage matrix, and cannot take part in a merger scenario. Recording it here keeps the constraint in the data rather than in the memory of whoever writes the next query.",
+          "default": false
+        },
         "member_towns": {
           "type": "array",
           "description": "Slugs of towns whose students this district serves. Populated for districts, empty for other types.",

@@ -23,6 +23,7 @@
       "successor_basis": null,
       "supervisory_union": "su/burlington",
       "operated_by": "town/burlington",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -51,6 +52,7 @@
       "successor_basis": null,
       "supervisory_union": "su/essex-north",
       "operated_by": "town/canaan",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -79,6 +81,7 @@
       "successor_basis": null,
       "supervisory_union": "techcenter/central-vermont-career-center",
       "operated_by": "techcenter/central-vermont-career-center",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "https://cvtcc.org/",
@@ -102,6 +105,7 @@
       "successor_basis": null,
       "supervisory_union": "techcenter/central-vermont-career-center",
       "operated_by": "techcenter/central-vermont-career-center",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -130,6 +134,7 @@
       "successor_basis": null,
       "supervisory_union": "su/franklin-northeast",
       "operated_by": "ud/enosburgh-richford-88",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -158,6 +163,7 @@
       "successor_basis": null,
       "supervisory_union": "su/lamoille-north",
       "operated_by": "ud/lamoille-north-modified-b-058",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -186,6 +192,7 @@
       "successor_basis": null,
       "supervisory_union": "su/hartford",
       "operated_by": "town/hartford",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -214,6 +221,7 @@
       "successor_basis": null,
       "supervisory_union": "su/north-country",
       "operated_by": "ud/north-country-union-high",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -242,6 +250,7 @@
       "successor_basis": null,
       "supervisory_union": "su/maple-run",
       "operated_by": "ud/maple-run-57",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -270,6 +279,7 @@
       "successor_basis": null,
       "supervisory_union": "techcenter/patricia-hannaford-career-center",
       "operated_by": "techcenter/patricia-hannaford-career-center",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -298,6 +308,7 @@
       "successor_basis": null,
       "supervisory_union": null,
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://www.hannafordcareercenter.org/",
@@ -321,6 +332,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orange-southwest",
       "operated_by": "ud/orange-southwest-59",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -349,6 +361,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orange-east",
       "operated_by": "ud/oxbow-91",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -377,6 +390,7 @@
       "successor_basis": null,
       "supervisory_union": null,
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://www.rvtc.org/",
@@ -400,6 +414,7 @@
       "successor_basis": null,
       "supervisory_union": "techcenter/river-valley-technical-center",
       "operated_by": "techcenter/river-valley-technical-center",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -428,6 +443,7 @@
       "successor_basis": null,
       "supervisory_union": null,
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://www.svcdc.org/",
@@ -451,6 +467,7 @@
       "successor_basis": null,
       "supervisory_union": "techcenter/southwest-tech",
       "operated_by": "techcenter/southwest-tech",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -479,6 +496,7 @@
       "successor_basis": null,
       "supervisory_union": "su/rutland-city",
       "operated_by": "town/rutland-city",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -507,6 +525,7 @@
       "successor_basis": null,
       "supervisory_union": "su/essex-westford",
       "operated_by": "ud/essex-westford-educational-community-unified-union-sd-51",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -535,6 +554,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-southeast",
       "operated_by": "ud/windham-southeast-96",
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",

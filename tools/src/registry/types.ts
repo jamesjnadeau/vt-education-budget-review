@@ -33,6 +33,14 @@ export interface RegistryEntity {
   readonly successor_basis: string | null;
   readonly supervisory_union: string | null;
   readonly operated_by: string | null;
+  /**
+   * True for AOE reporting buckets (a town record named UNKNOWN, and similar)
+   * rather than real organizations. Kept in the registry because other records
+   * legitimately reference them, but NO average daily membership is awarded to
+   * them: they contribute no weighted pupils, owe no budget in the coverage
+   * matrix, and cannot take part in a merger scenario.
+   */
+  readonly reporting_only: boolean;
   readonly member_towns: readonly string[];
   readonly grades: readonly string[];
   readonly website: string | null;

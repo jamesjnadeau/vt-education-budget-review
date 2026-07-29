@@ -23,6 +23,7 @@
       "successor_basis": null,
       "supervisory_union": "state/woodside-juvenile-rehabilitation-center",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "6",

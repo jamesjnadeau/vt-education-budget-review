@@ -23,6 +23,7 @@
       "successor_basis": null,
       "supervisory_union": "su/addison-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bridport",
         "town/cornwall",
@@ -54,6 +55,7 @@
       "successor_basis": null,
       "supervisory_union": "su/addison-northwest",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/addison",
         "town/ferrisburgh",
@@ -83,6 +85,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-northeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/athens",
         "town/grafton"
@@ -109,6 +112,7 @@
       "successor_basis": null,
       "supervisory_union": "su/barre",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/barre-city",
         "town/barre-town"
@@ -135,6 +139,7 @@
       "successor_basis": null,
       "supervisory_union": "su/rutland-northeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/chittenden",
         "town/mendon"
@@ -161,6 +166,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-northeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/rockingham"
       ],
@@ -186,6 +192,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orange-east",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/groton",
         "town/ryegate",
@@ -213,6 +220,7 @@
       "successor_basis": null,
       "supervisory_union": "su/caledonia-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/barnet",
         "town/walden",
@@ -240,6 +248,7 @@
       "successor_basis": null,
       "supervisory_union": "su/grand-isle",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/grand-isle",
         "town/isle-lamotte",
@@ -267,6 +276,7 @@
       "successor_basis": null,
       "supervisory_union": "su/champlain-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/charlotte",
         "town/hinesburg",
@@ -296,6 +306,7 @@
       "successor_basis": null,
       "supervisory_union": "su/school-administrative-unit-70",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/norwich"
       ],
@@ -321,6 +332,7 @@
       "successor_basis": null,
       "supervisory_union": "su/central-vermont",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/orange",
         "town/washington"
@@ -347,6 +359,7 @@
       "successor_basis": null,
       "supervisory_union": "su/lamoille-south",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/elmore",
         "town/morristown"
@@ -373,6 +386,7 @@
       "successor_basis": null,
       "supervisory_union": "su/franklin-northeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/enosburgh",
         "town/richford"
@@ -399,6 +413,7 @@
       "successor_basis": null,
       "supervisory_union": "su/essex-westford",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/essex-junction",
         "town/essex-town",
@@ -426,6 +441,7 @@
       "successor_basis": null,
       "supervisory_union": "su/white-river-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/chelsea",
         "town/tunbridge"
@@ -452,6 +468,7 @@
       "successor_basis": null,
       "supervisory_union": "su/white-river-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/granville",
         "town/hancock"
@@ -478,6 +495,7 @@
       "successor_basis": null,
       "supervisory_union": "su/two-rivers",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/andover",
         "town/baltimore",
@@ -506,6 +524,7 @@
       "successor_basis": null,
       "supervisory_union": "su/harwood-unified-union",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/duxbury",
         "town/fayston",
@@ -536,6 +555,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orleans-southwest",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://www.hazen.ossu.org/",
@@ -559,6 +579,7 @@
       "successor_basis": null,
       "supervisory_union": "su/kingdom-east",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/burke",
         "town/concord",
@@ -591,6 +612,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orleans-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/albany",
         "town/barton-id",
@@ -621,6 +643,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orleans-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/westmore"
       ],
@@ -646,6 +669,7 @@
       "successor_basis": null,
       "supervisory_union": "su/lamoille-north",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://lnsu.cloudaccess.net/",
@@ -669,6 +693,7 @@
       "successor_basis": null,
       "supervisory_union": "su/lamoille-north",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/belvidere",
         "town/cambridge",
@@ -699,6 +724,7 @@
       "successor_basis": null,
       "supervisory_union": "su/two-rivers",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/ludlow",
         "town/mt-holly"
@@ -725,6 +751,7 @@
       "successor_basis": null,
       "supervisory_union": "su/maple-run",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/st-albans-city",
         "town/st-albans-town"
@@ -751,6 +778,7 @@
       "successor_basis": null,
       "supervisory_union": "su/bennington-rutland",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/pawlet",
         "town/rupert"
@@ -777,6 +805,7 @@
       "successor_basis": null,
       "supervisory_union": "su/mill-river-unified-union",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/clarendon",
         "town/shrewsbury",
@@ -805,6 +834,7 @@
       "successor_basis": null,
       "supervisory_union": "su/missisquoi-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/franklin",
         "town/highgate",
@@ -832,6 +862,7 @@
       "successor_basis": null,
       "supervisory_union": "su/montpelier-roxbury",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/montpelier",
         "town/roxbury"
@@ -858,6 +889,7 @@
       "successor_basis": null,
       "supervisory_union": "su/southwest-vermont",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/north-bennington"
       ],
@@ -883,6 +915,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windsor-southeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/west-windsor",
         "town/windsor"
@@ -909,6 +942,7 @@
       "successor_basis": null,
       "supervisory_union": "su/mount-mansfield",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bolton",
         "town/huntington",
@@ -938,6 +972,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orleans-southwest",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/greensboro",
         "town/hardwick",
@@ -965,6 +1000,7 @@
       "successor_basis": null,
       "supervisory_union": "su/mountain-views",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/barnard",
         "town/bridgewater",
@@ -996,6 +1032,7 @@
       "successor_basis": null,
       "supervisory_union": "su/mt-abraham",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bristol",
         "town/monkton",
@@ -1024,6 +1061,7 @@
       "successor_basis": null,
       "supervisory_union": "su/north-country",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/brighton",
         "town/charleston",
@@ -1059,6 +1097,7 @@
       "successor_basis": null,
       "supervisory_union": "su/north-country",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://ncujhs.ncsuvt.org/",
@@ -1082,6 +1121,7 @@
       "successor_basis": null,
       "supervisory_union": "su/essex-north",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bloomfield",
         "town/brunswick",
@@ -1116,6 +1156,7 @@
       "successor_basis": null,
       "supervisory_union": "su/franklin-northeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bakersfield",
         "town/berkshire",
@@ -1144,6 +1185,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orange-southwest",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/braintree",
         "town/brookfield",
@@ -1171,6 +1213,7 @@
       "successor_basis": null,
       "supervisory_union": "su/rutland-northeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/brandon",
         "town/goshen",
@@ -1201,6 +1244,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orange-east",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bradford-id",
         "town/newbury"
@@ -1227,6 +1271,7 @@
       "successor_basis": null,
       "supervisory_union": "su/central-vermont",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/northfield",
         "town/williamstown"
@@ -1253,6 +1298,7 @@
       "successor_basis": null,
       "supervisory_union": "su/greater-rutland-county",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/poultney",
         "town/proctor",
@@ -1280,6 +1326,7 @@
       "successor_basis": null,
       "supervisory_union": "su/rivendell-interstate",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/fairlee",
         "town/vershire",
@@ -1307,6 +1354,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/dover",
         "town/wardsboro"
@@ -1333,6 +1381,7 @@
       "successor_basis": null,
       "supervisory_union": "su/white-river-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/rochester",
         "town/stockbridge"
@@ -1359,6 +1408,7 @@
       "successor_basis": null,
       "supervisory_union": "su/slate-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/benson",
         "town/castleton",
@@ -1389,6 +1439,7 @@
       "successor_basis": null,
       "supervisory_union": null,
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/halifax"
       ],
@@ -1414,6 +1465,7 @@
       "successor_basis": null,
       "supervisory_union": "su/southwest-vermont",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bennington-id",
         "town/pownal",
@@ -1442,6 +1494,7 @@
       "successor_basis": null,
       "supervisory_union": "su/bennington-rutland",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/danby",
         "town/dorset",
@@ -1475,6 +1528,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-southwest",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/whitingham",
         "town/wilmington"
@@ -1501,6 +1555,7 @@
       "successor_basis": null,
       "supervisory_union": "su/caledonia-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/marshfield",
         "town/plainfield"
@@ -1527,6 +1582,7 @@
       "successor_basis": null,
       "supervisory_union": "su/orange-east",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/corinth",
         "town/topsham"
@@ -1553,6 +1609,7 @@
       "successor_basis": null,
       "supervisory_union": "su/washington-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/berlin",
         "town/calais",
@@ -1582,6 +1639,7 @@
       "successor_basis": null,
       "supervisory_union": "su/greater-rutland-county",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/middletown-springs",
         "town/wells"
@@ -1608,6 +1666,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": "http://www.windhamcentral.org/",
@@ -1631,6 +1690,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-central",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/brookline",
         "town/jamaica",
@@ -1660,6 +1720,7 @@
       "successor_basis": null,
       "supervisory_union": "su/white-river-valley",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/bethel",
         "town/royalton"
@@ -1686,6 +1747,7 @@
       "successor_basis": null,
       "supervisory_union": "su/windham-southeast",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [
         "town/brattleboro",
         "town/dummerston",
@@ -1714,6 +1776,7 @@
       "successor_basis": null,
       "supervisory_union": null,
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": null,
@@ -1737,6 +1800,7 @@
       "successor_basis": null,
       "supervisory_union": null,
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": null,

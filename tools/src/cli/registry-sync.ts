@@ -107,7 +107,7 @@ async function main(): Promise<number> {
     }
   }
 
-  const { entities, warnings } = normalizeSnapshot(snapshot, { existing, today: date });
+  const { entities, warnings, notTracked } = normalizeSnapshot(snapshot, { existing, today: date });
 
   const after = new Map<string, RegistryEntity>(entities.map((e) => [e.slug, e]));
   const changes = diffRegistry(existing, after);
@@ -116,6 +116,11 @@ async function main(): Promise<number> {
   const counts = new Map<string, number>();
   for (const e of entities) counts.set(e.type, (counts.get(e.type) ?? 0) + 1);
   for (const [type, count] of [...counts].sort()) console.log(`  ${type}: ${count}`);
+
+  if (notTracked.length > 0) {
+    console.log(`\n${notTracked.length} entity type(s) deliberately not tracked:`);
+    for (const n of notTracked) console.log(`  - ${n}`);
+  }
 
   if (warnings.length > 0) {
     console.log(`\n${warnings.length} warning(s):`);
@@ -126,7 +131,10 @@ async function main(): Promise<number> {
     `## Registry sync ${date}\n\n` +
     `${entities.length} entities, ${changes.length} change(s).\n` +
     formatChanges(changes) +
-    (warnings.length > 0 ? `\n### Warnings\n\n${warnings.map((w) => `- ${w}`).join('\n')}\n` : '');
+    (warnings.length > 0 ? `\n### Warnings\n\n${warnings.map((w) => `- ${w}`).join('\n')}\n` : '') +
+    (notTracked.length > 0
+      ? `\n### Deliberately not tracked\n\nThese are considered omissions, not problems.\n\n${notTracked.map((n) => `- ${n}`).join('\n')}\n`
+      : '');
 
   console.log(`\n${formatChanges(changes)}`);
 

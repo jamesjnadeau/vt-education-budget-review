@@ -21,7 +21,8 @@
  */
 
 import { orgId, type AoeRawRecord, type Snapshot } from './aoe-client.ts';
-import { assignSlug, entityTypeFromOrgType } from './slugs.ts';
+import { detectPlaceholder, isReportingBucket } from './placeholder.ts';
+import { assignSlug, entityTypeFromOrgType, untrackedReason } from './slugs.ts';
 import type { EntityType, ManualOverride, RegistryEntity } from './types.ts';
 
 export interface NormalizeOptions {
@@ -77,11 +78,15 @@ function closeDateOf(raw: AoeRawRecord): string | null {
 
 export interface NormalizeResult {
   readonly entities: readonly RegistryEntity[];
+  /** Things that need a human's attention. */
   readonly warnings: readonly string[];
+  /** Entities deliberately not tracked, with the reason. Not problems. */
+  readonly notTracked: readonly string[];
 }
 
 export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions): NormalizeResult {
   const warnings: string[] = [];
+  const notTracked: string[] = [];
 
   const existingByOrgId = new Map<string, string>();
   const existingBySlug = new Map<string, RegistryEntity>(options.existing);
@@ -112,20 +117,33 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
         warnings.push(`${String(endpoint)}: record "${raw.Name ?? 'unnamed'}" has no OrgID/OrgId; skipped.`);
         continue;
       }
-      if (isPlaceholderId(id)) {
+      const placeholder = detectPlaceholder({ id, name: raw.Name ?? null });
+      if (placeholder.isPlaceholder) {
         warnings.push(
-          `${String(endpoint)}: "${raw.Name ?? id}" has org ID "${id}", which looks like a ` +
-            `placeholder or test record rather than a real organization; skipped. This is an ` +
-            `upstream data-quality issue worth reporting to AOE.`,
+          `${String(endpoint)}: skipped a placeholder record — ${placeholder.reason}. ` +
+            `Publishing it on a public registry page would invite readers to doubt ` +
+            `everything else on the site. If this is a real organization, adjust ` +
+            `detectPlaceholder in registry/placeholder.ts.`,
         );
         continue;
       }
+
       const type = entityTypeFromOrgType(raw.OrgType);
       if (!type) {
-        warnings.push(
-          `${String(endpoint)}: "${raw.Name ?? id}" has unrecognized OrgType "${raw.OrgType ?? 'none'}"; skipped. ` +
-            `Add it to ORG_TYPE_TO_ENTITY in slugs.ts if it should be tracked.`,
-        );
+        const reason = untrackedReason(raw.OrgType);
+        if (reason) {
+          // A considered omission, not an anomaly. Still reported, so the
+          // decision stays visible, but phrased as the decision it is.
+          notTracked.push(
+            `${String(endpoint)}: "${raw.Name ?? id}" is typed "${raw.OrgType}" and is not tracked. ${reason}`,
+          );
+        } else {
+          warnings.push(
+            `${String(endpoint)}: "${raw.Name ?? id}" has unrecognized OrgType "${raw.OrgType ?? 'none'}"; skipped. ` +
+              `This is an entity type AOE has not published before. Add it to ORG_TYPE_TO_ENTITY ` +
+              `in slugs.ts if it should be tracked, or to UNTRACKED_ORG_TYPES if it should not.`,
+          );
+        }
         continue;
       }
       const prior = merged.get(id);
@@ -143,6 +161,9 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
   for (const raw of snapshot.endpoints['closedOrganizations'] ?? []) {
     const id = orgId(raw);
     if (!id) continue;
+    // A closed scratch record is still a scratch record. This endpoint is a
+    // separate entry point into the registry and needs the same filter.
+    if (detectPlaceholder({ id, name: raw.Name ?? null }).isPlaceholder) continue;
     const type = entityTypeFromOrgType(raw.OrgType);
     if (!type) continue;
     const prior = merged.get(id);
@@ -180,6 +201,7 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
       successor_basis: prior?.successor_basis ?? null,
       supervisory_union: null,
       operated_by: null,
+      reporting_only: isReportingBucket(name),
       member_towns: [],
       grades: raw.Grades ?? [],
       website: raw.Website ?? null,
@@ -218,7 +240,10 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
 
     bySlug.set(slug, { ...entity, supervisory_union: suSlug, operated_by: opSlug });
 
-    if (type === 'town' && opSlug) {
+    // A reporting bucket is deliberately excluded from member_towns: no ADM is
+    // awarded to it, so listing it as a town a district serves would inflate
+    // every downstream count that walks that list.
+    if (type === 'town' && opSlug && !entity.reporting_only) {
       const list = memberTowns.get(opSlug) ?? [];
       list.push(slug);
       memberTowns.set(opSlug, list);
@@ -238,19 +263,8 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
   return {
     entities: entities.sort((a, b) => a.slug.localeCompare(b.slug)),
     warnings,
+    notTracked: [...new Set(notTracked)].sort(),
   };
-}
-
-/**
- * Placeholder and test records that appear in the production API.
- *
- * `Test` and `AOOS` are real entries in the live organizations endpoint. They
- * are skipped rather than published, because "Test" appearing as an entity on
- * a public registry page is the sort of detail a hostile school board member
- * would reasonably use to question everything else on the site.
- */
-function isPlaceholderId(id: string): boolean {
-  return /^test/i.test(id) || /^(sample|example|dummy|xxx)/i.test(id);
 }
 
 function stripNulls(raw: AoeRawRecord): AoeRawRecord {

@@ -156,14 +156,96 @@ describe('normalizing a snapshot', () => {
     expect(closed?.effective_to_basis).toBe('aoe_published');
   });
 
-  it('warns rather than silently dropping an unrecognized org type', () => {
-    const odd = snapshotOf({
-      organizations: [{ ServerId: 1, Name: 'BRATTLEBORO TOWN SCHOOL DISTRICT', OrgID: 'X001', OrgType: 'Head Start (HDS)' }],
+  it('records a deliberately untracked org type as a decision, not a problem', () => {
+    // A school district that is also a Head Start grantee carries a separate
+    // HDS org ID. That typing is correct, and the district, its town and its
+    // schools are tracked under their own records -- so skipping this is a
+    // considered omission and must not be reported as an anomaly.
+    const headStart = snapshotOf({
+      organizations: [
+        { ServerId: 1, Name: 'BRATTLEBORO TOWN SCHOOL DISTRICT', OrgID: 'HDS007', OrgType: 'Head Start (HDS)' },
+      ],
     });
-    const { entities, warnings } = normalizeSnapshot(odd, { existing: new Map(), today: '2026-07-29' });
+    const { entities, warnings, notTracked } = normalizeSnapshot(headStart, {
+      existing: new Map(),
+      today: '2026-07-29',
+    });
 
     expect(entities).toHaveLength(0);
-    expect(warnings.join(' ')).toMatch(/unrecognized OrgType "Head Start \(HDS\)"/);
+    expect(warnings).toHaveLength(0);
+    expect(notTracked.join(' ')).toMatch(/Head Start grantees are early-childhood programs/);
+  });
+
+  it('warns loudly about an org type it has never seen', () => {
+    const novel = snapshotOf({
+      organizations: [{ ServerId: 1, Name: 'Something New', OrgID: 'ZQ001', OrgType: 'Regional Consortium (RC)' }],
+    });
+    const { entities, warnings, notTracked } = normalizeSnapshot(novel, {
+      existing: new Map(),
+      today: '2026-07-29',
+    });
+
+    expect(entities).toHaveLength(0);
+    expect(notTracked).toHaveLength(0);
+    expect(warnings.join(' ')).toMatch(/has not published before/);
+  });
+
+  it('drops placeholder records and says which and why', () => {
+    // "Test" is a real entry in the live production API. Publishing it on a
+    // public registry page invites a reader to doubt everything else here.
+    const withTest = snapshotOf({
+      ...SNAPSHOT.endpoints,
+      independentSchools: [
+        { ServerId: 9, Name: 'Test', OrgID: 'Test', OrgType: 'Distance Learning (IS)' },
+      ],
+    });
+    const { entities, warnings } = normalizeSnapshot(withTest, {
+      existing: new Map(),
+      today: '2026-07-29',
+    });
+
+    expect(entities.some((e) => /test/i.test(e.name))).toBe(false);
+    expect(warnings.join(' ')).toMatch(/skipped a placeholder record/);
+    // The real records in the same snapshot are untouched.
+    expect(entities.some((e) => e.slug === 'town/addison')).toBe(true);
+  });
+
+  it('keeps a reporting bucket but flags it and awards it no membership', () => {
+    // AOE records residency for pupils whose town is not established against a
+    // town named UNKNOWN. It stays, because other records reference it, but it
+    // must never be counted as a town a district serves.
+    const withBucket = snapshotOf({
+      ...SNAPSHOT.endpoints,
+      towns: [
+        ...(SNAPSHOT.endpoints['towns'] ?? []),
+        { ServerId: 1999, Name: 'UNKNOWN', OrgId: 'T300', OrgType: 'Towns/City (T)', ParentOrg: 'U054', OperatedBy: 'SU002' },
+      ],
+    });
+    const { entities } = normalizeSnapshot(withBucket, { existing: new Map(), today: '2026-07-29' });
+
+    const bucket = entities.find((e) => e.slug === 'town/unknown');
+    expect(bucket).toBeDefined();
+    expect(bucket?.reporting_only).toBe(true);
+
+    const district = entities.find((e) => e.slug === 'ud/addison-northwest-54');
+    expect(district?.member_towns).toEqual(['town/addison', 'town/vergennes']);
+    expect(district?.member_towns).not.toContain('town/unknown');
+  });
+
+  it('marks real towns as ordinary organizations', () => {
+    const { entities } = normalizeSnapshot(SNAPSHOT, { existing: new Map(), today: '2026-07-29' });
+    expect(entities.find((e) => e.slug === 'town/addison')?.reporting_only).toBe(false);
+  });
+
+  it('drops a placeholder arriving through the closed-organizations endpoint too', () => {
+    const closedTest = snapshotOf({
+      ...SNAPSHOT.endpoints,
+      closedOrganizations: [
+        { ServerId: 9, Name: 'Test', OrgID: 'Test', OrgType: 'Public School (PS)', CloseDate: '2020-06-30T07:00:00Z' },
+      ],
+    });
+    const { entities } = normalizeSnapshot(closedTest, { existing: new Map(), today: '2026-07-29' });
+    expect(entities.some((e) => /test/i.test(e.name))).toBe(false);
   });
 
   it('preserves values a human set by hand', () => {
@@ -187,6 +269,7 @@ describe('normalizing a snapshot', () => {
           successor_basis: null,
           supervisory_union: null,
           operated_by: null,
+          reporting_only: false,
           member_towns: [],
           grades: [],
           website: null,

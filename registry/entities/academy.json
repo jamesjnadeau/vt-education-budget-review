@@ -23,6 +23,7 @@
       "successor_basis": null,
       "supervisory_union": "academy/burr-and-burton-academy",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -51,6 +52,7 @@
       "successor_basis": null,
       "supervisory_union": "academy/lyndon-institute",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -79,6 +81,7 @@
       "successor_basis": null,
       "supervisory_union": "academy/st-johnsbury-academy",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "9",
@@ -107,6 +110,7 @@
       "successor_basis": null,
       "supervisory_union": "academy/thetford-academy",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [
         "7",

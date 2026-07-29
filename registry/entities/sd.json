@@ -23,6 +23,7 @@
       "successor_basis": null,
       "supervisory_union": "su/north-country",
       "operated_by": null,
+      "reporting_only": false,
       "member_towns": [],
       "grades": [],
       "website": null,

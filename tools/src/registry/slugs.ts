@@ -113,9 +113,9 @@ export function assignSlug(
  * able to tell them apart. Vocational schools and joint contract districts are
  * likewise part of the public finance picture.
  *
- * Head Start, alternative programs and the State of Vermont record itself are
- * deliberately not mapped. They warn and skip, which is visible in the sync
- * output -- an unmapped type should be a decision someone made, not a silence.
+ * Types we deliberately do not track are listed in UNTRACKED_ORG_TYPES below,
+ * with the reason. They are skipped quietly-but-visibly; a type that appears
+ * in neither list is a genuine surprise and gets a loud warning.
  */
 const ORG_TYPE_TO_ENTITY: ReadonlyArray<readonly [RegExp, EntityType]> = [
   [/^Supervisory Union/i, 'su'],
@@ -132,6 +132,44 @@ const ORG_TYPE_TO_ENTITY: ReadonlyArray<readonly [RegExp, EntityType]> = [
   // "Distance Learning (IS)", "Approved Ind. Kindergarten (IS)".
   [/\(IS\)\s*$/i, 'independent'],
 ];
+
+/**
+ * Org types that exist in the API and that we deliberately do not track, with
+ * the reason for each.
+ *
+ * Kept explicit and separate from "unrecognized" so the sync can tell a
+ * considered omission from something genuinely new. An org type appearing in
+ * neither list means AOE has started publishing a kind of entity we have never
+ * seen, which is worth a loud warning; these are not.
+ */
+export const UNTRACKED_ORG_TYPES: ReadonlyArray<readonly [RegExp, string]> = [
+  [
+    /^Head Start/i,
+    'Head Start grantees are early-childhood programs rather than school-finance ' +
+      'entities. This typing is correct, not an upstream error: where a school district ' +
+      'is itself a grantee it carries a separate HDS org ID, and the district, its town ' +
+      'and its schools are already tracked under their own records — so nothing is lost.',
+  ],
+  [
+    /^State of Vermont/i,
+    'The state\'s own directory record is not a district and has no budget of the kind ' +
+      'this warehouse holds.',
+  ],
+  [
+    /^Alternative Program/i,
+    'Alternative programs are operated within districts that are already tracked, and do ' +
+      'not publish budgets of their own.',
+  ],
+];
+
+/** Why an org type is deliberately not tracked, or null if it is not on the list. */
+export function untrackedReason(orgType: string | undefined): string | null {
+  if (!orgType) return null;
+  for (const [pattern, reason] of UNTRACKED_ORG_TYPES) {
+    if (pattern.test(orgType)) return reason;
+  }
+  return null;
+}
 
 /** Maps the API's OrgType strings onto our entity types. */
 export function entityTypeFromOrgType(orgType: string | undefined): EntityType | null {

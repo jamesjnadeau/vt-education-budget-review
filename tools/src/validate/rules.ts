@@ -18,6 +18,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { PATHS, rel } from '../paths.ts';
+import { detectPlaceholder } from '../registry/placeholder.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 
 export type Severity = 'error' | 'warning';
@@ -289,6 +290,50 @@ export function checkRegistryRefs(
   };
 
   walk(value);
+  return findings;
+}
+
+// --------------------------------------------------------------------------
+// Placeholder records
+// --------------------------------------------------------------------------
+
+/**
+ * Catches placeholder records that reached the registry.
+ *
+ * The sync already filters these, so in normal operation this finds nothing.
+ * It exists because the sync is not the only way a record can arrive: a
+ * hand-edit, a bad merge, or a manual override can all put one in, and a
+ * registry entry named "Test" published on a public page is precisely the
+ * detail that invites a reader to doubt everything else on the site. Two
+ * independent checks on different code paths is the right amount for something
+ * that costs nothing to run.
+ */
+export function checkPlaceholderEntities(
+  data: unknown,
+  file: string,
+): Finding[] {
+  const records = (data as { records?: unknown }).records;
+  if (!Array.isArray(records)) return [];
+
+  const findings: Finding[] = [];
+  for (const record of records as Array<{ slug?: string; name?: string; aoe_org_id?: string }>) {
+    const verdict = detectPlaceholder({
+      id: record.aoe_org_id ?? null,
+      name: record.name ?? null,
+    });
+    if (verdict.isPlaceholder) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'placeholder-entity',
+        message:
+          `"${record.slug ?? record.name ?? 'unknown'}" looks like a placeholder or test ` +
+          `record — ${verdict.reason}. The registry sync filters these, so this one arrived ` +
+          `another way. Remove it, or if it is a real organization adjust detectPlaceholder ` +
+          `in tools/src/registry/placeholder.ts.`,
+      });
+    }
+  }
   return findings;
 }
 
