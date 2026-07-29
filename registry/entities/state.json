@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "entity_type": "state",
+  "synced_from": {
+    "api": "https://datacollection.education.vermont.gov",
+    "endpoint": "/api/lists/closed_organizations",
+    "last_synced": "2026-07-29",
+    "snapshot": "registry/raw/2026-07-29"
+  },
+  "records": [
+    {
+      "slug": "state/woodside-juvenile-rehabilitation-center",
+      "name": "Woodside Juvenile Rehabilitation Center",
+      "type": "state",
+      "aoe_org_id": "SC001",
+      "aoe_server_id": 3,
+      "edfi_id": null,
+      "effective_from": "2026-07-29",
+      "effective_from_basis": "first_observed",
+      "effective_to": "2020-10-02",
+      "effective_to_basis": "aoe_published",
+      "successor": null,
+      "successor_basis": null,
+      "supervisory_union": "state/woodside-juvenile-rehabilitation-center",
+      "operated_by": null,
+      "member_towns": [],
+      "grades": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "website": null,
+      "latitude": null,
+      "longitude": null,
+      "manual_overrides": [],
+      "notes": null
+    }
+  ]
+}

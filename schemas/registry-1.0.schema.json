@@ -9,7 +9,7 @@
   "properties": {
     "schema_version": { "const": "1.0" },
     "entity_type": {
-      "enum": ["su", "sd", "ud", "school", "town", "academy", "techcenter", "state"]
+      "enum": ["su", "sd", "ud", "school", "town", "academy", "techcenter", "independent", "state"]
     },
     "synced_from": {
       "type": "object",
@@ -43,7 +43,7 @@
         },
         "name": { "type": "string", "minLength": 1 },
         "type": {
-          "enum": ["su", "sd", "ud", "school", "town", "academy", "techcenter", "state"]
+          "enum": ["su", "sd", "ud", "school", "town", "academy", "techcenter", "independent", "state"]
         },
         "aoe_org_id": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/aoe_org_id" },
         "aoe_server_id": {

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "entity_type": "sd",
+  "synced_from": {
+    "api": "https://datacollection.education.vermont.gov",
+    "endpoint": "/api/lists/organizations",
+    "last_synced": "2026-07-29",
+    "snapshot": "registry/raw/2026-07-29"
+  },
+  "records": [
+    {
+      "slug": "sd/jay-westfield-joint-elementary",
+      "name": "Jay/Westfield Joint Elementary School District",
+      "type": "sd",
+      "aoe_org_id": "J105",
+      "aoe_server_id": 1631,
+      "edfi_id": null,
+      "effective_from": "2026-07-29",
+      "effective_from_basis": "first_observed",
+      "effective_to": null,
+      "effective_to_basis": "unknown",
+      "successor": null,
+      "successor_basis": null,
+      "supervisory_union": "su/north-country",
+      "operated_by": null,
+      "member_towns": [],
+      "grades": [],
+      "website": null,
+      "latitude": null,
+      "longitude": null,
+      "manual_overrides": [],
+      "notes": null
+    }
+  ]
+}

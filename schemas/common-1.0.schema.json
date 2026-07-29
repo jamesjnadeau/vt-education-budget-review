@@ -15,7 +15,7 @@
     "entity_ref": {
       "description": "Stable internal registry slug. Deliberately independent of AOE organization IDs, which will churn as Act 170 mergers close in 2029 -- these URLs and this historical data must not.",
       "type": "string",
-      "pattern": "^(su|sd|ud|school|town|academy|techcenter|state)/[a-z0-9]+(-[a-z0-9]+)*$",
+      "pattern": "^(su|sd|ud|school|town|academy|techcenter|independent|state)/[a-z0-9]+(-[a-z0-9]+)*$",
       "examples": ["su/addison-central", "town/calais", "ud/addison-central-uusd-55"]
     },
     "aoe_org_id": {
