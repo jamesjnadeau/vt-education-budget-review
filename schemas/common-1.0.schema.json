@@ -19,9 +19,9 @@
       "examples": ["su/addison-central", "town/calais", "ud/addison-central-uusd-55"]
     },
     "aoe_org_id": {
-      "description": "AOE organization ID as published by the Public Data API. Note the API spells this key `OrgID` on the organizations/supervisoryUnions/closed_organizations endpoints and `OrgId` on towns/publicSchools/unionDistricts; the sync normalizes both to this field.",
+      "description": "AOE organization ID as published by the Public Data API. Note the API spells this key `OrgID` on the organizations/supervisoryUnions/closed_organizations endpoints and `OrgId` on towns/publicSchools/unionDistricts; the sync normalizes both to this field. The pattern is deliberately permissive: this is a field we do not control, and observed values include letter-suffixed districts (U022A), several prefixes beyond the obvious ones (IS, VC, J, HE), and bare numerics. Constraining it to the tidy shape would reject real records. Values that merely look WRONG rather than unexpected -- placeholder and test records -- are caught by the sync, which warns and skips them.",
       "type": "string",
-      "pattern": "^(SU|U|T|PS|PA|TE|PI|SC)[0-9]{3}$"
+      "pattern": "^[A-Za-z0-9]{2,12}$"
     },
     "citation": {
       "description": "A pointer to the authority for a value. Every statutory parameter carries one. Citations are data to be verified against current statute text, not facts to be trusted from memory -- this area of Vermont law has been amended every session since 2022.",

@@ -12,6 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    // ajv and ajv-formats are CommonJS-only; without this their default
+    // exports are not callable from an ES module.
+    "esModuleInterop": true,
     // Source imports carry explicit .ts extensions so the engine runs directly
     // under Node's native type stripping and under vitest without a resolver
     // plugin. tsc rewrites them to .js on emit.

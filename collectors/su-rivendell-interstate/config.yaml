@@ -1,0 +1,32 @@
+# Collector configuration for Rivendell Interstate Supervisory District.
+#
+# Generated as a stub from the registry. The URL below is the SU's website as
+# AOE publishes it, which is a starting point, not the budget page. To make this
+# config useful:
+#
+#   - point 'url' at the page that actually lists budget documents
+#   - set 'kind' to budget_page / annual_report_page / board_docs / town_page
+#   - describe what to look for in 'document_pattern', in prose, for a human
+#   - record the fiscal years you know exist
+#   - put this SU's quirks in 'notes' -- that field is where knowledge stops
+#     living only in one person's head
+#   - set 'priority' from the warm list; coverage is sequenced by relationship
+#     value, never alphabetically
+
+schema_version: "1.0"
+entity: su/rivendell-interstate
+priority: null
+sources:
+  - url: http://www.rivendellschool.org/
+    kind: other
+    document_pattern: null
+    link_selector: null
+    last_checked: null
+    last_status: null
+acquisition:
+  method: manual
+  detection: page_hash
+  fiscal_years_available: []
+  notes: null
+known_not_published: []
+contacts: []

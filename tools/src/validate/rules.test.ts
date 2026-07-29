@@ -1,0 +1,206 @@
+import { describe, expect, it } from 'vitest';
+
+import {
+  checkNullAccounting,
+  checkRecomputation,
+  checkRegistryRefs,
+  collectNullPaths,
+  type BudgetRecord,
+} from './rules.ts';
+import type { RegistryEntity } from '../registry/types.ts';
+
+function record(over: Partial<BudgetRecord> = {}): BudgetRecord {
+  return {
+    schema_version: '1.0',
+    entity: 'ud/test-55',
+    fiscal_year: 2027,
+    status: 'proposed',
+    source: 'intake/test/fy2027/budget.pdf',
+    revenues: { education_fund: 1000, local: 100, federal: 50, other: 0 },
+    expenditures: {
+      instruction: 600,
+      special_education: 200,
+      administration_district: 100,
+      administration_school: 80,
+      operations_maintenance: 90,
+      transportation: 50,
+      debt_service: 20,
+      other: 10,
+    },
+    personnel: {
+      total_staff_costs: 800,
+      salaries: 600,
+      benefits_health: 150,
+      benefits_other: 50,
+      fte: { teachers: 20, support_staff: 10, administrators: 3, total: 33 },
+      as_stated_note: null,
+    },
+    enrollment: { adm: 250 },
+    per_pupil: { as_stated: 4600 },
+    tax: { towns: [{ town: 'town/test', homestead_rate_stated: 1.5, cla: 0.9 }] },
+    not_published: [],
+    lines_flagged: [],
+    ...over,
+  } as BudgetRecord;
+}
+
+describe('collectNullPaths', () => {
+  it('finds nulls at any depth, including inside arrays', () => {
+    const paths = collectNullPaths({
+      a: null,
+      b: { c: null, d: 1 },
+      e: [{ f: null }, { f: 2 }],
+    });
+    expect(paths).toEqual(['a', 'b.c', 'e.0.f']);
+  });
+});
+
+describe('null accounting', () => {
+  // This rule is what makes a null mean "the district did not publish it"
+  // rather than "nobody looked". Without it the two are indistinguishable.
+
+  it('passes a record with no nulls', () => {
+    expect(checkNullAccounting(record(), 'f.yaml')).toHaveLength(0);
+  });
+
+  it('rejects an unexplained null in the personnel block', () => {
+    const r = record({
+      personnel: {
+        total_staff_costs: 800,
+        salaries: 600,
+        benefits_health: null,
+        benefits_other: 50,
+        fte: { teachers: 20, support_staff: 10, administrators: 3, total: 33 },
+        as_stated_note: null,
+      },
+    });
+    const findings = checkNullAccounting(r, 'f.yaml');
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.severity).toBe('error');
+    expect(findings[0]?.message).toMatch(/personnel\.benefits_health is null/);
+    expect(findings[0]?.message).toMatch(/cannot be distinguished from a field nobody checked/);
+  });
+
+  it('accepts the same null once it is confirmed absent from the source', () => {
+    const r = record({
+      personnel: {
+        total_staff_costs: 800,
+        salaries: 600,
+        benefits_health: null,
+        benefits_other: 50,
+        fte: { teachers: 20, support_staff: 10, administrators: 3, total: 33 },
+        as_stated_note: 'this document does not break out health insurance',
+      },
+      not_published: [
+        { path: 'personnel.benefits_health', confirmed_by: 'jn', confirmed_date: '2026-07-29' },
+      ],
+    });
+    expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
+  });
+
+  it('accepts a null explained as a flagged line instead', () => {
+    const r = record({
+      enrollment: { adm: null },
+      lines_flagged: [{ path: 'enrollment.adm', issue: 'document gives two conflicting ADM figures' }],
+    });
+    expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
+  });
+
+  it('lets one entry cover a whole town table rather than demanding one per town', () => {
+    const r = record({
+      tax: {
+        towns: [
+          { town: 'town/a', homestead_rate_stated: null, cla: null },
+          { town: 'town/b', homestead_rate_stated: null, cla: null },
+        ],
+      },
+      not_published: [
+        { path: 'tax.towns.homestead_rate_stated', confirmed_by: 'jn', confirmed_date: '2026-07-29' },
+        { path: 'tax.towns.cla', confirmed_by: 'jn', confirmed_date: '2026-07-29' },
+      ],
+    });
+    expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
+  });
+
+  it('does not demand an explanation for optional descriptive fields', () => {
+    // A missing note is not a missing figure.
+    const r = record({ membership_note: null, adopted_date: null });
+    expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
+  });
+});
+
+describe('registry references', () => {
+  const registry = new Map<string, RegistryEntity>([
+    ['town/test', { slug: 'town/test' } as RegistryEntity],
+    ['ud/test-55', { slug: 'ud/test-55' } as RegistryEntity],
+  ]);
+
+  it('accepts slugs that resolve', () => {
+    expect(checkRegistryRefs(record(), 'f.yaml', registry)).toHaveLength(0);
+  });
+
+  it('rejects a slug that does not', () => {
+    const r = record({ tax: { towns: [{ town: 'town/nowhere', homestead_rate_stated: 1, cla: 1 }] } });
+    const findings = checkRegistryRefs(r, 'f.yaml', registry);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.message).toMatch(/"town\/nowhere" is not a known registry entity/);
+  });
+
+  it('reports each unknown slug once, not once per occurrence', () => {
+    const r = record({
+      entity: 'ud/gone',
+      tax: {
+        towns: [
+          { town: 'ud/gone', homestead_rate_stated: 1, cla: 1 },
+          { town: 'ud/gone', homestead_rate_stated: 1, cla: 1 },
+        ],
+      },
+    });
+    expect(checkRegistryRefs(r, 'f.yaml', registry)).toHaveLength(1);
+  });
+});
+
+describe('recomputation', () => {
+  it('warns, rather than failing, when stated and computed totals disagree', () => {
+    // The plan is explicit that this discrepancy is analytically interesting
+    // and must not be silently reconciled, so it must not block a merge.
+    const r = record({
+      expenditures: { ...(record().expenditures as object), total_stated: 2000 } as never,
+    });
+    const findings = checkRecomputation(r, 'f.yaml');
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.severity).toBe('warning');
+    expect(findings[0]?.message).toMatch(/Both figures are kept/);
+  });
+
+  it('tolerates rounding', () => {
+    const r = record({
+      expenditures: { ...(record().expenditures as object), total_stated: 1150 } as never,
+    });
+    expect(checkRecomputation(r, 'f.yaml')).toHaveLength(0);
+  });
+
+  it('errors when staff costs exceed total expenditure', () => {
+    // The two blocks slice the same dollars by object and by function. Staff
+    // costs are always a subset; exceeding the total means one was misread.
+    const r = record({
+      personnel: { ...(record().personnel as object), total_staff_costs: 99_999 } as never,
+    });
+    const findings = checkRecomputation(r, 'f.yaml');
+    const fatal = findings.filter((f) => f.severity === 'error');
+    expect(fatal).toHaveLength(1);
+    expect(fatal[0]?.message).toMatch(/never additive/);
+  });
+
+  it('warns when the object-class parts do not sum to total staff costs', () => {
+    const r = record({
+      personnel: { ...(record().personnel as object), benefits_other: 500 } as never,
+    });
+    const findings = checkRecomputation(r, 'f.yaml');
+    expect(findings.some((f) => f.severity === 'warning' && /total_staff_costs/.test(f.message))).toBe(true);
+  });
+
+  it('says nothing when the document states no total to compare against', () => {
+    expect(checkRecomputation(record(), 'f.yaml')).toHaveLength(0);
+  });
+});

@@ -1,0 +1,51 @@
+schema_version: "1.0"
+status: draft
+
+# ---------------------------------------------------------------------------
+# The Act 170 statutory district groupings.
+#
+# `groupings` below is EMPTY, and that is a meaningful state rather than an
+# unfinished one. Empty means the act text has not been transcribed yet. It does
+# not mean the act contains no groupings -- it does, and they are the default
+# scenarios the modeling tool is built around.
+#
+# They are not here because no API publishes them and the act text could not be
+# reached from the environment this file was drafted in (legislature.vermont.gov
+# fails TLS chain verification to automated clients). Transcribing twenty
+# groupings of district names from memory would be a fabrication in the exact
+# place where the tool is most load-bearing: a resident opening
+# /groupings/7/ is asking which districts the Legislature put them with, and a
+# wrong answer there is worse than no answer.
+#
+# HOW TO FILL THIS IN
+#
+#   1. Open the act text (see act.text_url) and find the section listing the
+#      groupings -- reported to be around page 43.
+#   2. For each grouping, record its number, a slug, its name, and the district
+#      names EXACTLY as the act writes them in `member_names_as_written`.
+#   3. Map each written name to a registry slug. Act names and AOE names do not
+#      always agree, which is why both are kept -- the mapping itself has to be
+#      auditable.
+#   4. Anything that will not map goes in `unmapped_members` rather than being
+#      dropped. A silently dropped district is a wrong scenario.
+#   5. Set `verified: true` with your name and the date, per grouping.
+#   6. When all twenty are verified, set the file's `status` to `verified`.
+#
+# `npm run validate` checks every slug here against the registry, so a typo in a
+# district name fails CI rather than producing an empty scenario on the site.
+# ---------------------------------------------------------------------------
+
+act:
+  name: "Act 170 of 2026"
+  section_reference: "district groupings, reported to be at approximately page 43"
+  text_url: "https://legislature.vermont.gov/statutes/"
+  citation:
+    statute: "2026 Acts and Resolves No. 170"
+    session_law: "2026 Acts and Resolves No. 170"
+    source_url: "https://legislature.vermont.gov/statutes/"
+    quote: null
+    verified: false
+    verified_date: null
+    verified_by: null
+
+groupings: []

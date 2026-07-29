@@ -112,6 +112,14 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
         warnings.push(`${String(endpoint)}: record "${raw.Name ?? 'unnamed'}" has no OrgID/OrgId; skipped.`);
         continue;
       }
+      if (isPlaceholderId(id)) {
+        warnings.push(
+          `${String(endpoint)}: "${raw.Name ?? id}" has org ID "${id}", which looks like a ` +
+            `placeholder or test record rather than a real organization; skipped. This is an ` +
+            `upstream data-quality issue worth reporting to AOE.`,
+        );
+        continue;
+      }
       const type = entityTypeFromOrgType(raw.OrgType);
       if (!type) {
         warnings.push(
@@ -231,6 +239,18 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
     entities: entities.sort((a, b) => a.slug.localeCompare(b.slug)),
     warnings,
   };
+}
+
+/**
+ * Placeholder and test records that appear in the production API.
+ *
+ * `Test` and `AOOS` are real entries in the live organizations endpoint. They
+ * are skipped rather than published, because "Test" appearing as an entity on
+ * a public registry page is the sort of detail a hostile school board member
+ * would reasonably use to question everything else on the site.
+ */
+function isPlaceholderId(id: string): boolean {
+  return /^test/i.test(id) || /^(sample|example|dummy|xxx)/i.test(id);
 }
 
 function stripNulls(raw: AoeRawRecord): AoeRawRecord {
