@@ -1,0 +1,227 @@
+CITATION: 32 V.S.A. § 5401
+SOURCE:   https://legislature.vermont.gov/statutes/section/32/135/05401
+RETRIEVED:2026-07-29T22:30:01.436Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly. This file is the
+provenance record for every parameter citing this section. Do not edit it.
+----------------------------------------------------------------------------
+
+§ 5401. Definitions
+As used in this chapter:
+(1) “Coefficient of dispersion” is the average absolute deviation expressed as a percentage
+of the median ratio, and for a municipality in any school year shall be determined
+by the Director of Property Valuation and Review as follows:
+(A) calculate the ratio of the listed value to the fair market value of each property
+used in determining the equalized education property value of the municipality as
+required by section 5406 of this title;
+(B) determine the median of the ratios calculated in subdivision (A) of this subdivision
+(1);
+(C) determine the absolute deviation of each ratio from the median ratio calculated in
+subdivision (B) of this subdivision (1); and
+(D) calculate the average absolute deviation.
+(2) “Commissioner” means the Commissioner of Taxes.
+(3) “Common level of appraisal” means the ratio of the aggregate value of local education
+property tax grand list to the aggregate value of the equalized education property
+tax grand list.
+(4) “Director” means the Director of Property Valuation and Review.
+(5) “Education property tax grand list” means the list of property determined pursuant
+to section 5404 of this title. When the listed value of real property for school tax purposes is credited by a
+board of civil authority or a court, that board or court shall make a corresponding
+credit to the listed value for purposes of taxation under this chapter.
+(6) “Equalized education property tax grand list” means one percent of the aggregate fair
+market value of all nonhomestead and homestead property that is required to be listed
+at fair market value as certified during that year by the Director of Property Valuation
+and Review under section 5406 of this title, plus one percent of the aggregate value of property required to be listed at a value
+established under a stabilization agreement described under section 5404a of this title, plus one percent of the aggregate use value established under chapter 124 of this
+title of all nonhomestead property that is enrolled in the use value appraisal program.
+(7) “Homestead”:
+(A) “Homestead” means the principal dwelling and parcel of land surrounding the dwelling,
+owned and occupied by a resident individual as the individual’s domicile or owned
+and fully leased on April 1, provided the property is not leased for more than 182
+days out of the calendar year or, for purposes of the renter credit under subsection 6066(b) of this title, is rented and occupied by a resident individual as the individual’s domicile.
+(B) The parcel of land surrounding the dwelling shall be determined without regard to
+any road that intersects the land. If the parcel of land surrounding the dwelling
+is owned by a cooperative housing corporation incorporated under 11 V.S.A. chapter 14 or owned by a nonprofit land conservation corporation or community land trust with
+exempt status under 26 U.S.C § 501(c)(3), the homestead includes a pro rata part of the land upon which the dwelling is built,
+as determined by the cooperative corporation, nonprofit corporation, or land trust.
+(C) A homestead may consist of a part of a multidwelling or multipurpose building, including
+cooperative property occupied as a permanent residence by a member of a cooperative
+housing corporation incorporated under 11 V.S.A. chapter 14. A mobile home may constitute a principal dwelling for purposes of this chapter.
+(D) A dwelling owned by a trust may qualify as a homestead if it meets the requirements
+of subsection 6062(e) of this title.
+(E)(i) A homestead also includes a dwelling on the homestead parcel owned by a farmer as
+defined under section 3752 of this title and occupied as the permanent residence by a parent, sibling, child, grandchild of
+the farmer or by a shareholder, partner, or member of the farmer-owner, provided that
+the shareholder, partner, or member owns more than 50 percent of the farmer-owner,
+including attribution of stock ownership of a parent, sibling, child, or grandchild.
+(ii) A homestead further includes the principal dwelling of a widow or widower, provided
+the dwelling is owned by the estate of the deceased spouse and it is reasonably likely
+that the dwelling will pass to the widow or widower by law or valid will when the
+estate is settled.
+(F) A homestead also includes any other improvement or structure on the homestead parcel
+that is not used for business purposes. A homestead does not include that portion
+of a principal dwelling used for business purposes if the portion used for business
+purposes includes more than 25 percent of the floor space of the building.
+(G) For purposes of homestead declaration and application of the homestead property tax
+rate, “homestead” also means a residence that was the homestead of the decedent at
+the date of death and, from the date of death through the next April 1, is held by
+the estate of the decedent and not rented.
+(H) A homestead does not include any portion of a dwelling that is rented, and a dwelling
+is not a homestead for any portion of the year in which it is rented.
+[Subdivision (8) repealed July 1, 2028 if contingency met.]
+(8) “Education spending” means “education spending” as defined in 16 V.S.A. § 4001(6).
+(9) “Municipality” means a city, town, unorganized town, village, grant, or gore; or,
+in the case of property located within the territorial limits of an incorporated school
+district, “municipality” means an incorporated school district.
+(10) “Nonhomestead property” means all property except:
+(A) Property that is exempt from the municipal property tax by law and not by vote of
+the municipality.
+[Subdivision (10)(B) effective until July 1, 2026; see also subdivision (10)(B) effective
+July 1, 2026 set out below.]
+(B) Property that is subject to the tax on railroads imposed by chapter 211, subchapter
+2 of this title or the tax on telephone companies imposed by chapter 211, subchapter
+6 of this title.
+[Subdivision (10)(B) effective July 1, 2026; see also subdivision (10)(B) effective
+until July 1, 2026 set out above.]
+(B) Property that is subject to the tax on railroads imposed by chapter 211, subchapter
+2 of this title.
+(C) Homesteads declared in accordance with section 5410 of this title.
+(D) Personal property, machinery, inventory and equipment, ski lifts, and snow-making
+equipment for a ski area; provided, however, this subdivision shall not exclude from
+the definition of “nonhomestead property” the following real or personal property:
+[Subdivision (10)(D)(i) effective until July 1, 2026; see also subdivision (10)(D)(i)
+effective July 1, 2026 set out below.]
+(i) utility cables and lines, poles, and fixtures (except those taxed under chapter 211,
+subchapter 6 of this title), provided that utility cables, lines, poles, and fixtures
+located on homestead property and owned by the person claiming the homestead shall
+be taxed as homestead property; and
+[Subdivision (10)(D)(i) effective July 1, 2026; see also subdivision (10)(D)(i) effective
+until July 1, 2026 set out above.]
+(i) utility cables and lines, poles, and fixtures, provided that utility cables, lines,
+poles, and fixtures located on homestead property and owned by the person claiming
+the homestead shall be taxed as homestead property; and
+(ii) gas distribution lines (except aboveground meters, regulators and gauges, and leased
+water heaters are excluded personal property).
+(E) The excess valuation of property subject to tax increment financing in a tax increment
+financing district established under 24 V.S.A. chapter 53, subchapter 5 to the extent that the taxes generated on such excess valuation of
+property are committed under 24 V.S.A. § 1894 to finance tax increment financing district debt, provided that any increment in
+excess of the amounts committed shall be distributed in accordance with 24 V.S.A. § 1900.
+(F) Property owned by a municipality that is located within that municipality and that
+is used for municipal purposes, including the provision of utility services.
+(G) Machinery and equipment used directly in the processing of whey, whether or not such
+machinery or equipment is attached or affixed to real property.
+(H), (I) [Repealed.]
+(J) Buildings and fixtures of:
+(i) wind-powered electric generating facilities taxed under section 5402c of this title; and
+(ii) renewable energy plants generating electricity from solar power and energy storage
+facilities that are taxed under section 8701 of this title.
+(K) Any parcel of land, but not buildings, that provides public access to public waters,
+as defined in 10 V.S.A. § 1422(6), and that is also:
+(i) owned by the Town of Hardwick, and located in Greensboro, Vermont; or
+(ii) owned by the Town of Thetford, and located in Fairlee and West Fairlee, Vermont.
+(11) “Education property value” means the aggregate fair market value of all nonhomestead
+and homestead real property that is required to be listed at fair market value as
+certified during that year by the Director of Property Valuation and Review under
+section 5406 of this title, plus the aggregate value of property required to be listed at a value established
+under a stabilization agreement described under section 5404a of this title, plus the aggregate use value established under chapter 124 of this title of all
+nonhomestead real property that is enrolled in the use value appraisal program.
+[Subdivision (12) repealed July 1, 2028 if contingency met.]
+(12) “Excess spending” means:
+(A) The per pupil spending amount of the district’s education spending, as defined in
+16 V.S.A. § 4001(6), plus any amount required to be added from a capital construction reserve fund under
+24 V.S.A. § 2804(b).
+(B) In excess of 118 percent of the statewide average district per pupil education spending
+increased by inflation, as determined by the Secretary of Education on or before November
+15 of each year based on the passed budgets to date. As used in this subdivision,
+“increased by inflation” means increasing the statewide average district per pupil
+education spending for fiscal year 2025 by the most recent New England Economic Project
+cumulative price index, as of November 15, for state and local government purchases
+of goods and services, from fiscal year 2025 through the fiscal year for which the
+amount is being determined.
+[Subdivision (13) repealed July 1, 2028 if contingency met.]
+(13)(A) “Education property tax spending adjustment” means the greater of one or a fraction
+in which:
+(i) the numerator is the district’s per pupil education spending plus excess spending
+for the school year, and
+(ii) the denominator is the property dollar equivalent yield for the school year, as defined
+in subdivision (15) of this section.
+(B) “Education income tax spending adjustment” means the greater of one or a fraction
+in which the numerator is the district’s per pupil education spending plus excess
+spending for the school year, and the denominator is the income dollar equivalent
+yield for the school year, as defined in subdivision (16) of this section.
+(14) “Domicile” means the principal dwelling of a person who has established permanent
+residence in the State. Intention to establish permanent residence is a factual determination
+to be made in the first instance by the Commissioner. No one factor is conclusive
+of whether a dwelling is a permanent residence; the Commissioner may consider any
+relevant factors, including the following: formal and informal statements of the declarant;
+the location of residences owned or leased by the declarant; where the declarant spends
+time; the declarant’s place of employment and business connections; the location of
+items of significant value (either monetary or sentimental) to declarant; where the
+declarant’s family lives; place of voter registration; place of issuance of automobile
+registration and driver’s license; previous permanent residency of the declarant;
+and address listed on federal and state income tax returns filed by the declarant.
+[Subdivision (15) repealed July 1, 2028 if contingency met.]
+(15) “Property dollar equivalent yield” means the amount of per pupil education spending
+that would result in a district having a homestead tax rate of $1.00 per $100.00 of
+equalized education property value.
+[Subdivision (16) repealed July 1, 2028 if contingency met.]
+(16) “Income dollar equivalent yield” means the amount of per pupil education spending
+that would result in a district having an income percentage in subdivision 6066(a)(2) of this title of 2.0 percent.
+(17) “Statewide adjustment” means the ratio of the aggregate education property tax grand
+list of all municipalities to the aggregate value of the equalized education property
+tax grand list of all municipalities.
+[Subdivisions (18)-(23) effective July 1, 2028 if contingency met.]
+(18) “Adjusted equalized education property tax grand list” means the equalized education
+property tax grand list after removing the value of homestead property exempted from
+the statewide education property tax and the supplemental district spending tax pursuant
+to section 6066 of this title.
+(19) “Per pupil supplemental district spending” means the per pupil amount of supplemental
+district spending resulting from dividing a school district’s supplemental district
+spending by its long-term membership as defined in 16 V.S.A. § 4001(7).
+(20) “Recapture” means the amount of revenue raised through imposition of the supplemental
+district spending tax pursuant to subsection 5402(f) of this chapter that is in excess
+of the school district’s supplemental district spending.
+(21) “School district with the lowest taxing capacity” means the school district other
+than an interstate school district anticipated to have the lowest aggregate adjusted
+equalized education property tax grand list of its municipal members per long-term
+membership as defined in 16 V.S.A. § 4001(7) in the following fiscal year.
+(22) “Supplemental district spending” means the spending that the voters of a school district
+approve in excess of the school district’s educational opportunity payment, as defined
+in 16 V.S.A. § 4001(17), for the fiscal year, provided that the voters of a school district other than an
+interstate school district shall not approve spending in excess of five percent of
+the product of the base amount, as defined in 16 V.S.A. § 4001(16), and the school district’s long-term membership, as defined in 16 V.S.A. § 4001(7).
+(23) “Supplemental district spending yield” means the amount of property tax revenue per
+long-term membership as defined in 16 V.S.A. § 4001(7) that would be raised in the school district with the lowest taxing capacity using
+a supplemental district spending tax rate of $1.00 per $100.00 of equalized education
+property value multiplied by the statewide adjustment. (Added 1997, No. 60, § 45, eff. Jan. 1, 1998; amended 1997, No. 71 (Adj. Sess.), §§ 7, 7a, eff. Jan. 1, 1998; 1997, No. 71 (Adj. Sess.), § 58, eff. June 26, 1997; 1997, No. 156 (Adj. Sess.), § 34, eff. April 29, 1998; 1999, No. 49, §§ 7, 18, eff. June 2, 1999; 2001, No. 53, § 1, eff. June 12, 2001; 2001, No. 144 (Adj. Sess.), § 3, eff. June 21, 2002; 2003, No. 66, § 289b; 2003, No. 68, § 3; 2003, No. 68, § 28, eff. June 18, 2003; 2003, No. 76 (Adj. Sess.), §§ 13, 14, eff. Feb. 17, 2004; 2005, No. 38, §§ 16, 24; 2005, No. 94 (Adj. Sess.), § 8, eff. March 8, 2006; 2005, No. 182 (Adj. Sess.), § 10; 2007, No. 66, §§ 11, 25, eff. July 1, 2007; 2007, No. 82, § 21, eff. July 1, 2007; 2007, No. 92 (Adj. Sess.), § 24; 2009, No. 44, § 19, eff. May 21, 2009; 2011, No. 45, § 13c, eff. May 24, 2011; 2011, No. 127 (Adj. Sess.), § 3, eff. Jan. 1, 2013; 2011, No. 143 (Adj. Sess.), § 37, eff. May 15, 2012; 2013, No. 60, §§ 1, 2; 2013, No. 73, § 38, eff. June 5, 2013; 2013, No. 80, § 11; 2013, No. 92 (Adj. Sess.), § 283, eff. Feb. 14, 2014; 2013, No. 174 (Adj. Sess.), §§ 57, 58, eff. Jan. 1, 2015; 2013, No. 174 (Adj. Sess.), §§ 59, 60; 2015, No. 46, § 27; 2015, No. 57, § 59, eff. June 11, 2015; 2015, No. 132 (Adj. Sess.), § 3a, eff. July 1, 2017; 2015, No. 157 (Adj. Sess.), § H.5, eff. Jan. 1, 2017; 2019, No. 46, § 1, eff. Jan. 1, 2020; 2019, No. 51, § 22, eff. June 10, 2019; 2021, No. 20, § 266; 2021, No. 54, § 20; 2021, No. 105 (Adj. Sess.), § 528, eff. July 1, 2022; 2021, No. 127 (Adj. Sess.), § 28, eff. July 1, 2024; 2023, No. 145 (Adj. Sess.), § 9, eff. July 1, 2026; 2023, No. 183 (Adj. Sess.), § 13a, eff. July 1, 2025; 2023, No. 183 (Adj. Sess.), § 18, eff. July 1, 2024; 2025, No. 73, § 69, eff. July 1, 2025; 2025, No. 73, § 46, contingently eff. July 1, 2028.)
+Statutes
+Vermont Statutes Online
+Statutes Search
+Vermont Statutes at Lexis/Nexis
+Constitution
+Constitution of the State of Vermont
+Acts
+Acts & Resolves
+Acts Affecting VSA Sections
+Rules
+State Agency Rules at Lexis/Nexis
+Court Rules at Lexis/Nexis
+Legislative Committee on Administrative Rules (LCAR)
+Contact
+Vermont State House
+115 State Street
+Montpelier, VT 05633-5301
+(802) 828-2228
+sgtatarms@leg.state.vt.us
+Capitol Police Department
+802-828-2273
+Member & Staff Links
+Legislative Email Sign-on
+Legislative Human Resources
+Legislative Time Reporting
+Legislative Expense Reporting
+Test My MFA
+How to Use This Website
+Disclaimer
+State Government

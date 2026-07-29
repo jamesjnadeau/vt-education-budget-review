@@ -3,185 +3,386 @@ fiscal_year: 2027
 status: draft
 
 # ---------------------------------------------------------------------------
-# READ THIS BEFORE USING ANY NUMBER FROM THIS FILE.
+# Values below were read from the current statute text published by the Vermont
+# General Assembly, retrieved 2026-07-29 and snapshotted verbatim in
 #
-# Every parameter below has value: null and citation.verified: false.
-# That is deliberate and it is the correct state for this file today.
+#     model/statute/2026-07-29/
 #
-# The statute references are LEADS TO CHECK, not established facts. They record
-# where the relevant law is believed to live so that verification has somewhere
-# to start. They were not confirmed against current statute text, because the
-# authoritative sources could not be reached from the environment this file was
-# drafted in:
+# Every `quote` is copied from those files. When a section is re-fetched, an
+# amendment shows up as a diff against the snapshot rather than as a silently
+# wrong number.
 #
-#   legislature.vermont.gov   TLS certificate chain could not be verified
-#   education.vermont.gov     HTTP 403 to automated clients
+# TWO THINGS ARE STILL OUTSTANDING, and the file stays `status: draft` until
+# both are closed:
 #
-# Filling these in from memory or from a secondary mirror and marking them
-# verified is precisely the failure this project exists to be the opposite of.
-# 16 V.S.A. ch. 133 has been amended in most recent sessions -- Act 127 of 2022,
-# Act 73 of 2025 -- and a remembered weight is very likely to be a repealed one.
+#   1. HUMAN COUNTERSIGNATURE. The retrieval and transcription were automated.
+#      A person should read model/statute/2026-07-29/ against this file and set
+#      status: verified. The values are from the primary source, not from
+#      memory or a mirror -- but nobody has yet put their name to them.
 #
-# Nothing here can leak into a published figure while it stays this way. The
-# engine refuses to compute from an unverified parameter: it returns null and
-# marks the computation node `unverified`, and the site renders that state
-# explicitly. The tests in model/src/engine.test.ts assert this.
+#   2. THE ACT 73 CONTINGENCY, which is unresolved and materially affects
+#      FY2027. 16 V.S.A. § 4010(d)(1) has two versions: the one in force "until
+#      contingency met", and one "effective July 1, 2026 if contingency met" in
+#      which the prekindergarten weight is REPEALED. July 1, 2026 falls inside
+#      FY2027. Whether the contingency has been met is defined in 2025 Acts and
+#      Resolves No. 73 itself and is not determinable from the codified section.
+#      So `weights.grade.prekindergarten` is left unverified, and the engine
+#      will refuse to compute weighted membership until someone establishes
+#      which version governs FY2027. That refusal is the correct output: the
+#      answer genuinely is not known yet.
 #
-# To verify: follow docs/parameter-verification.md, which lists each parameter,
-# the source to read, and what to record.
+# See docs/parameter-verification.md and AGENT.md.
 # ---------------------------------------------------------------------------
 
 note: >-
-  DRAFT. No parameter in this file has been verified against current statute
-  text. Every value is null and the engine will decline to produce figures from
-  it. See docs/parameter-verification.md for the verification procedure. This
-  file must reach status: verified before any computed figure is published.
+  Values read from current statute text snapshotted in model/statute/2026-07-29/.
+  Awaiting human countersignature, and blocked on the Act 73 contingency which
+  determines whether the prekindergarten weight applies in FY2027. Until that is
+  resolved the engine will decline to produce weighted membership figures.
 
 parameters:
-  # --- Membership -----------------------------------------------------------
+  # --- Long-term membership -------------------------------------------------
 
-  membership.averaging_years:
-    value: null
+  membership.long_term_membership_years:
+    value: 2
     unit: years
-    description: number of years of average daily membership averaged into long-term membership
-    applies_to: all districts
+    description: number of school years averaged into long-term membership
+    applies_to: all school districts
     citation:
-      statute: "16 V.S.A. § 4010"
+      statute: "16 V.S.A. § 4001(7)"
       session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04001"
+      quote: >-
+        "Long-term membership" of a school district in any school year means the:
+        (A) average of the district's average daily membership, excluding full-time
+        equivalent enrollment of State-placed students, over two school years, the
+        latter of which is the current school year, plus (B) full-time equivalent
+        enrollment of State-placed students for the most recent of the two years.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4001.txt; awaiting human countersignature"
+
+  # --- Grade level weights --------------------------------------------------
+  # 16 V.S.A. § 4010(d)(1). These are ADDITIVE increments, not multipliers:
+  # § 4010(d)(6) provides that weighted long-term membership equals long-term
+  # membership PLUS the cumulation of the weights. Kindergarten through grade
+  # five carries no weight at all -- it is the implicit baseline.
+
+  weights.grade.prekindergarten:
+    value: null
+    unit: multiplier
+    description: additional grade level weight for prekindergarten pupils
+    applies_to: prekindergarten pupils, IF the pre-contingency version of § 4010(d)(1) governs FY2027
+    citation:
+      statute: "16 V.S.A. § 4010(d)(1)(A)"
+      session_law: "2025 Acts and Resolves No. 73, § 35 (contingently effective)"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
+      quote: >-
+        Version effective until contingency met: "(A) prekindergarten—negative 0.54".
+        Version effective July 1, 2026 if contingency met: "(A) [Repealed.]".
+        Left null because July 1, 2026 falls inside FY2027 and the contingency
+        status is not determinable from the codified section. The value is either
+        -0.54 or the weight does not exist; guessing between them would change
+        every district's weighted membership.
       verified: false
       verified_date: null
       verified_by: null
 
-  weights.grade.prek:
-    value: null
+  weights.grade.kindergarten_through_5:
+    value: 0
     unit: multiplier
-    description: grade-level weight applied to prekindergarten average daily membership
-    applies_to: prekindergarten pupils
+    description: additional grade level weight for pupils in kindergarten through grade five
+    applies_to: pupils in kindergarten through grade five
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(1)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: >-
+        § 4010(d)(1) lists additional grade level weights only for prekindergarten,
+        grades six through eight, and grades nine through 12. Kindergarten through
+        grade five is listed as a counting category under § 4010(b)(1)(B) but is
+        assigned no additional weight, so it carries zero and forms the baseline
+        against which the other grade weights are increments.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  weights.grade.elementary:
-    value: null
+  weights.grade.6_through_8:
+    value: 0.36
     unit: multiplier
-    description: grade-level weight applied to elementary average daily membership
-    applies_to: elementary pupils
+    description: additional grade level weight for pupils in grades six through eight
+    applies_to: pupils in grades six through eight
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(1)(B)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: "(B) grades six through eight—0.36"
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  weights.grade.secondary:
-    value: null
+  weights.grade.9_through_12:
+    value: 0.39
     unit: multiplier
-    description: grade-level weight applied to secondary average daily membership
-    applies_to: secondary pupils
+    description: additional grade level weight for pupils in grades nine through 12
+    applies_to: pupils in grades nine through 12
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(1)(C)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: "(C) grades nine through 12—0.39."
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  weights.economically_deprived:
-    value: null
+  # --- Category weights -----------------------------------------------------
+
+  weights.poverty_185_fpl:
+    value: 1.03
     unit: multiplier
-    description: additional weight for pupils at or below 185 percent of the federal poverty level
-    applies_to: pupils identified as economically deprived
+    description: additional weight for pupils whose family is at or below 185 percent of the Federal Poverty Level
+    applies_to: pupils at or below 185 percent of FPL
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(2)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: >-
+        The Secretary shall next apply a weight for pupils whose family is at or
+        below 185 percent of FPL. Each pupil included in long-term membership whose
+        family is at or below 185 percent of FPL shall receive an additional
+        weighting amount of 1.03.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
   weights.english_learner:
-    value: null
+    value: 2.49
     unit: multiplier
     description: additional weight for English learner pupils
-    applies_to: English learner pupils, possibly banded by proficiency level
+    applies_to: EL pupils as described under 16 V.S.A. § 4013
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(3)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: >-
+        The Secretary shall next apply a weight for EL pupils. Each EL pupil
+        included in long-term membership shall receive an additional weighting
+        amount of 2.49.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  weights.english_learner_newcomer_slife:
-    value: null
+  # --- Sparsity (low population density) ------------------------------------
+  # Applies to EVERY pupil in a qualifying district, not to a subset.
+
+  weights.sparsity.density_under_36:
+    value: 0.15
     unit: multiplier
-    description: additional weight for English learner pupils who are Newcomers or SLIFE
-    applies_to: Newcomer and SLIFE pupils
+    description: additional weight for each pupil in a district with fewer than 36 persons per square mile
+    applies_to: all pupils in districts below 36 persons per square mile
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(4)(A)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: "(A) 0.15, where the number of persons per square mile is fewer than 36 persons;"
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  weights.sparsity:
-    value: null
+  weights.sparsity.density_36_to_55:
+    value: 0.12
     unit: multiplier
-    description: additional weight for districts meeting the sparsity criterion
-    applies_to: districts meeting the statutory sparsity test
+    description: additional weight for each pupil in a district with 36 or more but fewer than 55 persons per square mile
+    applies_to: all pupils in districts from 36 to under 55 persons per square mile
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(4)(B)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: "(B) 0.12, where the number of persons per square mile is 36 or more but fewer than 55 persons; or"
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  weights.small_school:
-    value: null
+  weights.sparsity.density_55_to_100:
+    value: 0.07
     unit: multiplier
-    description: additional weight for districts meeting the small school size criterion
-    applies_to: districts meeting the statutory school size test
+    description: additional weight for each pupil in a district with 55 or more but fewer than 100 persons per square mile
+    applies_to: all pupils in districts from 55 to under 100 persons per square mile
     citation:
-      statute: "16 V.S.A. § 4010"
-      session_law: null
+      statute: "16 V.S.A. § 4010(d)(4)(C)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
       source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: "(C) 0.07, where the number of persons per square mile is 55 or more but fewer than 100."
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
 
-  # --- Yield and rates (current system) -------------------------------------
-  # These are set annually by the yield act, not fixed in statute, so they will
-  # be null for any fiscal year the Legislature has not yet acted on. That is a
-  # real null, not an unfinished one, and it must not be filled by carrying the
-  # prior year forward.
+  # --- Small schools --------------------------------------------------------
+  # Gated on district density: the small school weight applies only where the
+  # district has 55 or fewer persons per square mile.
+
+  weights.small_school.density_ceiling:
+    value: 55
+    unit: count
+    description: maximum persons per square mile for a district to receive any small school weight
+    applies_to: districts at or below 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(5)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        If the number of persons per square mile residing within the land area of
+        the geographic boundaries of a school district as of July 1 of the year of
+        determination is 55 or fewer, then, for each pupil listed under subdivision
+        (b)(3)(C) of this section (pupils who attend small schools):
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.small_school.enrollment_under_100:
+    value: 0.21
+    unit: multiplier
+    description: additional weight per pupil at a school with fewer than 100 pupils in average two-year enrollment
+    applies_to: pupils at schools under 100 average two-year enrollment, in districts at or below 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(5)(A)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        (A) where the school has fewer than 100 pupils in average two-year
+        enrollment, the school district shall receive an additional weighting amount
+        of 0.21 for each pupil included in the small school's average two-year
+        enrollment; or
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.small_school.enrollment_100_to_250:
+    value: 0.07
+    unit: multiplier
+    description: additional weight per pupil at a school with 100 or more but fewer than 250 pupils in average two-year enrollment
+    applies_to: pupils at schools from 100 to under 250 average two-year enrollment, in districts at or below 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(5)(B)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        (B) where the small school has 100 or more but fewer than 250 pupils, the
+        school district shall receive an additional weighting amount of 0.07 for
+        each pupil included in the small school's average two-year enrollment.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  # --- Property tax mechanics -----------------------------------------------
+
+  tax.homestead_base_rate:
+    value: 1.00
+    unit: rate_per_100
+    description: base homestead education property tax rate, before the spending adjustment
+    applies_to: all homestead property
+    citation:
+      statute: "32 V.S.A. § 5402(a)(2)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05402"
+      quote: >-
+        The tax rate for homestead property shall be $1.00 multiplied by the
+        education property tax spending adjustment for the municipality per $100.00
+        of equalized education property value as most recently determined under
+        section 5405 of this title.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5402.txt; awaiting human countersignature"
+
+  tax.nonhomestead_base_rate:
+    value: 1.59
+    unit: rate_per_100
+    description: nonhomestead education property tax rate, before division by the statewide adjustment
+    applies_to: all nonhomestead property
+    citation:
+      statute: "32 V.S.A. § 5402(a)(1)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05402"
+      quote: >-
+        The tax rate for nonhomestead property shall be $1.59 per $100.00 divided by
+        the statewide adjustment.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5402.txt; awaiting human countersignature"
+
+  tax.spending_adjustment_floor:
+    value: 1
+    unit: ratio
+    description: floor on the education property tax spending adjustment
+    applies_to: every municipality
+    citation:
+      statute: "32 V.S.A. § 5401(13)(A)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Education property tax spending adjustment" means the greater of one or a
+        fraction in which the numerator is the district's per pupil education
+        spending plus excess spending for the school year, and the denominator is
+        the property dollar equivalent yield for the school year.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
+
+  tax.excess_spending_threshold_ratio:
+    value: 1.18
+    unit: ratio
+    description: multiple of statewide average per pupil education spending above which excess spending applies
+    applies_to: districts exceeding the threshold
+    citation:
+      statute: "32 V.S.A. § 5401(12)(B)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        In excess of 118 percent of the statewide average district per pupil
+        education spending increased by inflation, as determined by the Secretary of
+        Education on or before November 15 of each year based on the passed budgets
+        to date.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
+
+  tax.income_percentage_target:
+    value: 0.02
+    unit: ratio
+    description: income percentage that the income dollar equivalent yield is set to produce
+    applies_to: homesteads claiming an income adjustment
+    citation:
+      statute: "32 V.S.A. § 5401(16)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Income dollar equivalent yield" means the amount of per pupil education
+        spending that would result in a district having an income percentage in
+        subdivision 6066(a)(2) of this title of 2.0 percent.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
+
+  # --- Annually set amounts -------------------------------------------------
+  # The DEFINITIONS are statutory; the VALUES are set each year by the yield
+  # act. They are genuinely null for a year the Legislature has not acted on,
+  # and must never be filled by carrying the prior year forward.
 
   yield.property_dollar_equivalent:
     value: null
     unit: usd_per_pupil
-    description: property dollar equivalent yield -- spending per weighted pupil that produces a $1.00 homestead rate
+    description: property dollar equivalent yield -- per pupil education spending producing a $1.00 homestead rate
     applies_to: all homestead property
     citation:
-      statute: "32 V.S.A. § 5401(13)"
+      statute: "32 V.S.A. § 5401(15)"
       session_law: null
-      source_url: "https://legislature.vermont.gov/statutes/chapter/32/135"
-      quote: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Property dollar equivalent yield" means the amount of per pupil education
+        spending that would result in a district having a homestead tax rate of
+        $1.00 per $100.00 of equalized education property value. The definition is
+        statutory; the annual amount is set by the yield act and is not yet
+        established for FY2027.
       verified: false
       verified_date: null
       verified_by: null
@@ -189,50 +390,58 @@ parameters:
   yield.income_dollar_equivalent:
     value: null
     unit: usd_per_pupil
-    description: income dollar equivalent yield -- spending per weighted pupil that produces a 1.0 percent income rate
+    description: income dollar equivalent yield -- per pupil education spending producing a 2.0 percent income percentage
     applies_to: homesteads claiming an income adjustment
     citation:
-      statute: "32 V.S.A. § 5401(13)"
+      statute: "32 V.S.A. § 5401(16)"
       session_law: null
-      source_url: "https://legislature.vermont.gov/statutes/chapter/32/135"
-      quote: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        Definition at § 5401(16). The annual amount is set by the yield act and is
+        not yet established for FY2027.
       verified: false
       verified_date: null
       verified_by: null
 
-  tax.excess_spending_threshold:
+  tax.statewide_adjustment:
     value: null
-    unit: usd_per_pupil
-    description: per-pupil spending above which the excess spending provision applies a second rate
-    applies_to: districts exceeding the threshold
+    unit: ratio
+    description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
+    applies_to: every municipality
     citation:
-      statute: "32 V.S.A. § 5401(12)"
+      statute: "32 V.S.A. § 5401(17)"
       session_law: null
-      source_url: "https://legislature.vermont.gov/statutes/chapter/32/135"
-      quote: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Statewide adjustment" means the ratio of the aggregate education property
+        tax grand list of all municipalities to the aggregate value of the equalized
+        education property tax grand list of all municipalities. Determined annually
+        by the Department of Taxes; not yet published for FY2027.
       verified: false
       verified_date: null
       verified_by: null
 
-  # --- Foundation formula (contingent) --------------------------------------
-  # Act 73 of 2025 sets a course toward a base-amount formula with a statewide
-  # rate, contingently effective for the 2028-29 reorganization. The Legislature
-  # has not set these values. They are marked contingent and carry no range:
-  # a range with no defensible basis would be a guess in the costume of an
-  # estimate. When the JFO consultant recommendations land, they become a range
-  # with a real basis and this file gains a successor.
+  # --- Foundation formula (contingent on Act 73) ----------------------------
 
   foundation.base_amount:
     value: null
     unit: usd_per_pupil
-    description: base amount per weighted pupil under the foundation formula
-    applies_to: all districts, once effective
+    description: base education amount per pupil
+    applies_to: all school districts
     contingent: true
     citation:
-      statute: "16 V.S.A. § 4011 (as affected by Act 73 of 2025)"
-      session_law: "2025 Acts and Resolves No. 73"
-      source_url: "https://legislature.vermont.gov/bill/status/2026/H.454"
-      quote: null
+      statute: "16 V.S.A. § 4011(b)"
+      session_law: "2025 Acts and Resolves No. 73 (contingently effective July 1, 2028)"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04011"
+      quote: >-
+        Version in force: "For each fiscal year, the base education amount shall be
+        $6,800.00, increased by the most recent New England Economic Project
+        Cumulative Price Index, as of November 15, for state and local government
+        purchases of goods and services from fiscal year 2005 through the fiscal
+        year for which the amount is being determined, plus an additional one-tenth
+        of one percent." The $6,800.00 statutory base is fixed, but the FY2027
+        amount depends on a published price index that has not been applied here,
+        so no point value is asserted.
       verified: false
       verified_date: null
       verified_by: null
@@ -240,14 +449,20 @@ parameters:
   foundation.statewide_homestead_rate:
     value: null
     unit: rate_per_100
-    description: statewide homestead tax rate under the foundation formula
+    description: statewide homestead tax rate under the post-contingency system
     applies_to: all homestead property, once effective
     contingent: true
     citation:
-      statute: "32 V.S.A. ch. 135 (as affected by Act 73 of 2025)"
+      statute: "32 V.S.A. § 5402(a) (effective July 1, 2028 if contingency met)"
       session_law: "2025 Acts and Resolves No. 73"
-      source_url: "https://legislature.vermont.gov/bill/status/2026/H.454"
-      quote: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05402"
+      quote: >-
+        A statewide education tax is imposed on all nonhomestead and homestead
+        property at a rate sufficient to cover expenditures from the Education Fund
+        other than supplemental district spending, after accounting for forecasted
+        non-property tax revenues and any funds unreserved in the Education Fund.
+        The rate is to be adopted for each fiscal year by act of the General
+        Assembly and has not been set.
       verified: false
       verified_date: null
       verified_by: null

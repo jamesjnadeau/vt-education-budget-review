@@ -1,26 +1,33 @@
 /**
- * Homestead property tax rate, per member town.
+ * Homestead property tax rate, per 32 V.S.A. chapter 135.
  *
- * Two systems live here side by side, deliberately:
+ * Corrected against the statute text snapshotted in
+ * model/statute/2026-07-29/32-vsa-5401.txt and 32-vsa-5402.txt. The chain is:
  *
- *   `currentSystem`     -- the yield-based mechanism, where per-pupil spending
- *                          divided by the annually-set property yield gives an
- *                          equalized rate, which the town's CLA then converts
- *                          into the rate actually billed.
+ *   § 5401(13)(A)  spending adjustment = GREATER OF ONE or
+ *                    (per pupil education spending + excess spending) / property yield
+ *   § 5402(a)(2)   homestead rate = $1.00 x spending adjustment,
+ *                    per $100 of EQUALIZED education property value
+ *   § 5402(b)(1)   billed rate = that rate, divided by
+ *                    (the municipality's CLA / the statewide adjustment)
  *
- *   `foundationStub`    -- the parameterized structure of a foundation formula,
- *                          in foundation.ts, labelled contingent throughout
- *                          because the Legislature has not set its parameters.
+ * Three details here are easy to miss and each changes the answer:
  *
- * The same structural caveat as membership.ts applies: the SHAPE of the yield
- * calculation is a reading of 32 V.S.A. ch. 135 and the annual yield act, and
- * must be confirmed against current text alongside the values. Act 73 of 2025
- * moves Vermont toward a statewide rate, so the mechanism modelled here may
- * itself be superseded for later fiscal years -- which is exactly why the
- * system in force is selected per fiscal year rather than hardcoded.
+ * 1. THE ADJUSTMENT HAS A FLOOR OF ONE. A district spending below the yield does
+ *    not get a rate below $1.00; it gets $1.00. Modelling this as a plain
+ *    division would under-state the rate for every such district.
+ *
+ * 2. EXCESS SPENDING IS ADDED TO THE NUMERATOR, not applied as a separate
+ *    surcharge afterwards. § 5401(12) defines it as per pupil spending above
+ *    118 percent of the statewide average, and § 5401(13)(A) folds it straight
+ *    into the fraction.
+ *
+ * 3. THE BILLED RATE DIVIDES BY CLA OVER THE STATEWIDE ADJUSTMENT, not by the
+ *    CLA alone. Dividing by CLA by itself is the common shorthand and it is
+ *    wrong by exactly the statewide adjustment factor.
  */
 
-import { input, parameterNode, product, quotient, relabel } from './node.ts';
+import { greaterOf, input, parameterNode, product, quotient, sum } from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
 export interface TownTaxInput {
@@ -32,39 +39,106 @@ export interface TownTaxInput {
 
 export interface TownRateResult {
   readonly town: string;
+  readonly spendingAdjustment: CalcNode;
   readonly equalizedRate: CalcNode;
   readonly billedRate: CalcNode;
 }
 
 /**
- * Equalized homestead rate under the yield system.
+ * § 5401(12): per pupil education spending above 118 percent of the statewide
+ * average, increased by inflation.
  *
- * Spending per weighted pupil divided by the property dollar equivalent yield
- * gives the rate per $100 of equalized value. The yield is set annually by the
- * Legislature, so in a year where it has not yet been set this returns null
- * rather than carrying forward the prior year's figure.
+ * The statewide average is determined by the Secretary of Education each
+ * November from passed budgets, so it is an input rather than a parameter --
+ * it is a published figure for a given year, not a rule.
  */
-export function equalizedHomesteadRate(
+export function excessSpending(
   ctx: EngineContext,
-  perWeightedPupilSpending: CalcNode,
+  perPupilSpending: CalcNode,
+  statewideAveragePerPupil: number | null,
 ): CalcNode {
-  const yieldNode = parameterNode(ctx, 'yield.property_dollar_equivalent', 'usd_per_pupil');
-  return quotient(
+  const threshold = parameterNode(ctx, 'tax.excess_spending_threshold_ratio', 'ratio');
+  const average = input(
     ctx,
-    'Equalized homestead tax rate',
-    perWeightedPupilSpending,
-    yieldNode,
-    'rate_per_100',
+    'Statewide average district per pupil education spending, increased by inflation',
+    statewideAveragePerPupil,
+    'usd_per_pupil',
+    { source: 'Secretary of Education, determined on or before November 15' },
   );
+
+  const thresholdAmount = product(
+    ctx,
+    'Excess spending threshold',
+    average,
+    threshold,
+    'usd_per_pupil',
+  );
+
+  if (perPupilSpending.value === null || thresholdAmount.value === null) {
+    // Preserve the blockers rather than asserting a zero we cannot justify.
+    return {
+      ...thresholdAmount,
+      id: ctx.nextId(),
+      label: 'Excess spending',
+      value: null,
+    };
+  }
+
+  const over = Math.max(0, perPupilSpending.value - thresholdAmount.value);
+  return input(ctx, 'Excess spending', over, 'usd_per_pupil', {
+    source: 'computed from the statutory threshold',
+    notes:
+      over === 0
+        ? ['This district is at or below the excess spending threshold, so nothing is added.']
+        : [
+            'Spending above the threshold is added to the numerator of the spending ' +
+              'adjustment, which is what makes crossing the threshold a cliff edge.',
+          ],
+  });
 }
 
 /**
- * Converts an equalized rate into the rate a town actually bills.
+ * § 5401(13)(A): the education property tax spending adjustment.
+ */
+export function spendingAdjustment(
+  ctx: EngineContext,
+  perPupilSpending: CalcNode,
+  excess: CalcNode,
+): CalcNode {
+  const numerator = sum(
+    ctx,
+    'Per pupil education spending plus excess spending',
+    [perPupilSpending, excess],
+    'usd_per_pupil',
+  );
+  const propertyYield = parameterNode(ctx, 'yield.property_dollar_equivalent', 'usd_per_pupil');
+  const ratio = quotient(
+    ctx,
+    'Spending relative to the property dollar equivalent yield',
+    numerator,
+    propertyYield,
+    'ratio',
+  );
+  const floor = parameterNode(ctx, 'tax.spending_adjustment_floor', 'ratio');
+
+  return greaterOf(ctx, 'Education property tax spending adjustment', ratio, floor, 'ratio');
+}
+
+/**
+ * § 5402(a)(2): the homestead rate per $100 of equalized education property value.
+ */
+export function equalizedHomesteadRate(ctx: EngineContext, adjustment: CalcNode): CalcNode {
+  const base = parameterNode(ctx, 'tax.homestead_base_rate', 'rate_per_100');
+  return product(ctx, 'Equalized homestead education tax rate', base, adjustment, 'rate_per_100');
+}
+
+/**
+ * § 5402(b)(1): converts the equalized rate into the rate a town actually bills.
  *
- * Dividing by the CLA is the step most residents have never had explained to
- * them, and it is frequently the largest single driver of why their bill moved
- * when their district's spending did not. The walkthrough gives it its own
- * node for that reason.
+ * The divisor is the municipality's CLA divided by the statewide adjustment --
+ * not the CLA on its own. This is the step most residents have never had
+ * explained to them, and it is frequently the largest single reason a bill moved
+ * when district spending did not, so it gets its own nodes in the walkthrough.
  */
 export function billedHomesteadRate(
   ctx: EngineContext,
@@ -79,69 +153,74 @@ export function billedHomesteadRate(
         'which raises its billed rate even when district spending is unchanged.',
     ],
   });
-  return quotient(ctx, `${town.town} homestead tax rate as billed`, equalizedRate, cla, 'rate_per_100');
+  const statewide = parameterNode(ctx, 'tax.statewide_adjustment', 'ratio');
+  const divisor = quotient(
+    ctx,
+    `${town.town} common level of appraisal over the statewide adjustment`,
+    cla,
+    statewide,
+    'ratio',
+  );
+  return quotient(
+    ctx,
+    `${town.town} homestead education tax rate as billed`,
+    equalizedRate,
+    divisor,
+    'rate_per_100',
+  );
 }
 
 export function townRate(
   ctx: EngineContext,
-  perWeightedPupilSpending: CalcNode,
+  perPupilSpending: CalcNode,
   town: TownTaxInput,
+  statewideAveragePerPupil: number | null,
 ): TownRateResult {
-  const equalizedRate = equalizedHomesteadRate(ctx, perWeightedPupilSpending);
+  const excess = excessSpending(ctx, perPupilSpending, statewideAveragePerPupil);
+  const adjustment = spendingAdjustment(ctx, perPupilSpending, excess);
+  const equalizedRate = equalizedHomesteadRate(ctx, adjustment);
   return {
     town: town.town,
+    spendingAdjustment: adjustment,
     equalizedRate,
     billedRate: billedHomesteadRate(ctx, equalizedRate, town),
   };
 }
 
 /**
- * Excess spending penalty.
+ * § 5402(a)(1): the nonhomestead rate, $1.59 divided by the statewide adjustment.
  *
- * Where per-pupil spending exceeds the statutory threshold, the amount above it
- * is taxed a second time. Modelled explicitly rather than folded into the rate
- * because a district crossing the threshold is one of the few genuinely
- * cliff-edged effects in the system, and a merger scenario can push a district
- * across it.
+ * Included because a merger changes a town's homestead rate without changing
+ * this one, and showing only the homestead side invites the assumption that the
+ * whole bill moves together.
  */
-export function excessSpendingAdjustment(
-  ctx: EngineContext,
-  perWeightedPupilSpending: CalcNode,
-): CalcNode {
-  const threshold = parameterNode(ctx, 'tax.excess_spending_threshold', 'usd_per_pupil');
-  if (threshold.value === null || perWeightedPupilSpending.value === null) {
-    return relabel(ctx, 'Excess spending adjustment', threshold, 'usd_per_pupil');
-  }
-  const excess = Math.max(0, perWeightedPupilSpending.value - threshold.value);
-  return input(ctx, 'Spending above the excess spending threshold', excess, 'usd_per_pupil', {
-    source: 'computed from the threshold parameter',
-    notes:
-      excess === 0
-        ? ['This district is below the excess spending threshold, so no second rate applies.']
-        : ['Spending above the threshold is taxed a second time under the excess spending provision.'],
-  });
+export function nonhomesteadRate(ctx: EngineContext): CalcNode {
+  const base = parameterNode(ctx, 'tax.nonhomestead_base_rate', 'rate_per_100');
+  const statewide = parameterNode(ctx, 'tax.statewide_adjustment', 'ratio');
+  return quotient(ctx, 'Nonhomestead education tax rate', base, statewide, 'rate_per_100');
 }
 
 /**
  * Income-based rate for households claiming an income adjustment.
  *
- * Included because for a large share of Vermont homesteads the income-based
- * calculation, not the property rate, determines the bill -- and a tool that
- * shows only the property rate would mislead exactly the households most
- * anxious about the answer.
+ * For a large share of Vermont homesteads the income calculation, not the
+ * property rate, determines the bill. A tool showing only the property rate
+ * would mislead exactly the households most anxious about the answer.
  */
-export function incomeBasedRate(ctx: EngineContext, perWeightedPupilSpending: CalcNode): CalcNode {
+export function incomeBasedRate(ctx: EngineContext, perPupilSpending: CalcNode): CalcNode {
   const incomeYield = parameterNode(ctx, 'yield.income_dollar_equivalent', 'usd_per_pupil');
-  return quotient(
+  const target = parameterNode(ctx, 'tax.income_percentage_target', 'ratio');
+  const ratio = quotient(
     ctx,
-    'Income-based homestead tax rate',
-    perWeightedPupilSpending,
+    'Spending relative to the income dollar equivalent yield',
+    perPupilSpending,
     incomeYield,
     'ratio',
   );
+  return product(ctx, 'Income-based homestead tax rate', ratio, target, 'ratio');
 }
 
-/** Applied to a rate to express it as a dollar amount on a given parcel value. */
+/** Expresses a billed rate as a dollar amount on a given parcel value. */
 export function billOnParcel(
   ctx: EngineContext,
   billedRate: CalcNode,

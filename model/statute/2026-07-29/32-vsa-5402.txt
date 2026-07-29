@@ -1,0 +1,211 @@
+CITATION: 32 V.S.A. § 5402
+SOURCE:   https://legislature.vermont.gov/statutes/section/32/135/05402
+RETRIEVED:2026-07-29T22:30:01.551Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly. This file is the
+provenance record for every parameter citing this section. Do not edit it.
+----------------------------------------------------------------------------
+
+§ 5402. Education property tax liability
+[Subsection (a) effective until contingency met; see also subsection (a) effective
+July 1, 2028 if contingency met, set out below.]
+(a) A statewide education tax is imposed on all nonhomestead and homestead property at
+the following rates:
+(1) The tax rate for nonhomestead property shall be $1.59 per $100.00 divided by the statewide
+adjustment.
+(2) The tax rate for homestead property shall be $1.00 multiplied by the education property
+tax spending adjustment for the municipality per $100.00 of equalized education property
+value as most recently determined under section 5405 of this title. The homestead property tax rate for each municipality that is a member of a union
+or unified union school district shall be calculated as required under subsection
+(e) of this section.
+[Subsection (a) effective July 1, 2028 if contingency met; see also subsection (a)
+effective until contingency met, set out above.]
+(a) A statewide education tax is imposed on all nonhomestead and homestead property at
+a rate sufficient to cover expenditures from the Education Fund other than supplemental
+district spending, after accounting for forecasted non-property tax revenues and any
+funds unreserved in the Education Fund following the process under 16 V.S.A. § 4032(c). It is the intention of the General Assembly that the statewide education tax rate
+under this section shall be adopted for each fiscal year by act of the General Assembly.
+If the General Assembly fails to adopt a statewide education tax rate for a fiscal
+year, the statewide education tax rate for the fiscal year shall equal the product
+of 110 percent and the statewide education tax rate for the preceding fiscal year.
+The statewide education tax rate shall be adjusted for homestead property and each
+general class of nonhomestead property provided under section 4152a of this title as follows:
+If the tax classification
+of the property subject
+to taxation is:
+then the statewide education
+tax rate is multiplied
+by a factor of:
+Homestead
+1.0
+Nonhomestead Nonresidential
+1.0
+Nonhomestead Residential
+1.0
+[Subsection (b) effective until contingency met; see also subsection (b) effective
+July 1, 2028 if contingency met, set out below.]
+(b) The statewide education tax shall be calculated as follows:
+(1) The Commissioner of Taxes shall determine for each municipality the education tax
+rates under subsection (a) of this section divided by the number resulting from dividing
+the municipality’s most recent common level of appraisal by the statewide adjustment.
+The legislative body in each municipality shall then bill each property taxpayer at
+the homestead or nonhomestead rate determined by the Commissioner under this subdivision,
+multiplied by the education property tax grand list value of the property, properly
+classified as homestead or nonhomestead property and without regard to any other tax
+classification of the property. Statewide education property tax bills shall show
+the tax due and the calculation of the rate determined under subsection (a) of this
+section, divided by the number resulting from dividing the municipality’s most recent
+common level of appraisal by the statewide adjustment, multiplied by the current grand
+list value of the property to be taxed. Statewide education property tax bills shall
+also include language provided by the Commissioner pursuant to subsection 5405(g) of this title.
+(2) Taxes assessed under this section shall be assessed and collected in the same manner
+as taxes assessed under chapter 133 of this title with no tax classification other
+than as homestead or nonhomestead property; provided, however, that the tax levied
+under this chapter shall be billed to each taxpayer by the municipality in a manner
+that clearly indicates the tax is separate from any other tax assessed and collected
+under chapter 133, including an itemization of the separate taxes due. The bill may
+be on a single sheet of paper with the statewide education tax and other taxes presented
+separately and side by side.
+(3) If a district has not voted a budget by June 30, an interim homestead education tax
+shall be imposed at the base rate determined under subdivision (a)(2) of this section,
+divided by the number resulting from dividing the municipality’s most recent common
+level of appraisal by the statewide adjustment, but without regard to any spending
+adjustment under subdivision 5401(13) of this title. Within 30 days after a budget is adopted and the deadline for reconsideration has
+passed, the Commissioner shall determine the municipality’s homestead tax rate as
+required under subdivision (1) of this subsection.
+[Subsection (b) effective July 1, 2028 if contingency met; see also subsection (b)
+effective until contingency met, set out above.]
+(b) The statewide education tax shall be calculated as follows:
+(1) The Commissioner of Taxes shall determine for each municipality the education tax
+rates under subsection (a) of this section divided by the number resulting from dividing
+the municipality’s most recent common level of appraisal by the statewide adjustment.
+The legislative body in each municipality shall then bill each property taxpayer at
+the applicable rate determined by the Commissioner under this subdivision, multiplied
+by the education property tax grand list value of the property, properly classified
+as homestead or nonhomestead property and without regard to any other tax classification
+of the property not authorized under this chapter. Statewide education property tax
+bills shall show the tax due and the calculation of the rate determined under subsection
+(a) of this section, divided by the number resulting from dividing the municipality’s
+most recent common level of appraisal by the statewide adjustment, multiplied by the
+current grand list value of the property to be taxed. Statewide education property
+tax bills shall also include language provided by the Commissioner pursuant to subsection 5405(g) of this title.
+(2) Taxes assessed under this section shall be assessed and collected in the same manner
+as taxes assessed under chapter 133 of this title with no tax classification other
+than those required by this section; provided, however, that the tax levied under
+this chapter shall be billed to each taxpayer by the municipality in a manner that
+clearly indicates the tax is separate from any other tax assessed and collected under
+chapter 133, including an itemization of the separate taxes due. The bill may be on
+a single sheet of paper with the statewide education tax and other taxes presented
+separately and side by side.
+(3) [Repealed.]
+[Subsection (c) effective until contingency met; see also subsection (c) effective
+July 1, 2028 if contingency met, set out below.]
+(c)(1) The treasurer of each municipality shall by December 1 of the year in which the tax
+is levied and on June 1 of the following year pay to the State Treasurer for deposit
+in the Education Fund one-half of the municipality’s statewide nonhomestead tax and
+one-half of the municipality’s homestead education tax, as determined under subdivision
+(b)(1) of this section.
+(2) The Secretary of Education shall determine each municipality’s net nonhomestead education
+tax payment and its net homestead education tax payment to the State based on grand
+list information received by the Secretary not later than the March 15 prior to the
+June 1 net payment. Payment shall be accompanied by a return prescribed by the Secretary
+of Education. Each municipality may retain 0.225 of one percent of the total education
+tax collected, only upon timely remittance of net payment to the State Treasurer or
+to the applicable school district or districts.
+[Subsection (c) effective July 1, 2028 if contingency met; see also subsection (c)
+effective until contingency met, set out above.]
+(c)(1) The treasurer of each municipality shall by December 1 of the year in which the tax
+is levied and on June 1 of the following year pay to the State Treasurer for deposit
+in the Education Fund one-half of the municipality’s statewide education tax, as determined
+under subdivision (b)(1) of this section.
+(2) The Secretary of Education shall determine each municipality’s net education tax payment
+to the State based on grand list information received by the Secretary not later than
+the March 15 prior to the June 1 net payment. Payment shall be accompanied by a return
+prescribed by the Secretary of Education. Each municipality may retain 0.225 of one
+percent of the total education tax collected, only upon timely remittance of net payment
+to the State Treasurer or to the applicable school district or districts.
+(d) [Repealed.]
+[Subsection (e) repealed July 1, 2028 if contingency met.]
+(e) The Commissioner of Taxes shall determine a homestead education tax rate for each
+municipality that is a member of a union or unified union school district as follows:
+(1) For a municipality that is a member of a unified union school district, use the base
+rate determined under subdivision (a)(2) of this section and a spending adjustment
+under subdivision 5401(13) of this title based upon the per pupil education spending of the unified union.
+(2) For a municipality that is a member of a union school district:
+(A) Determine the municipal district homestead tax rate using the base rate determined
+under subdivision (a)(2) of this section and a spending adjustment under subdivision 5401(13) of this title based on the per pupil education spending in the municipality who attends a school
+other than the union school.
+(B) Determine the union district homestead tax rate using the base rate determined under
+subdivision (a)(2) of this section and a spending adjustment under subdivision 5401(13) of this title based on the per pupil education spending of the union school district.
+(C) Determine a combined homestead tax rate by calculating the weighted average of the
+rates determined under subdivisions (A) and (B) of this subdivision (2), with weighting
+based upon the ratio of union school long-term membership, as defined in 16 V.S.A. § 4001(7), from the member municipality to total long-term membership of the member municipality;
+and the ratio of long-term membership attending a school other than the union school
+to total long-term membership of the member municipality. Total long-term membership
+of the member municipality is based on the number of pupils who are legal residents
+of the municipality and attending school at public expense. If necessary, the Commissioner
+may adopt a rule to clarify and facilitate implementation of this subsection (e).
+[Subsection (f) effective July 1, 2028 if contingency met.]
+(f)(1) A supplemental district spending tax is imposed on all homestead and nonhomestead
+property in each member municipality of a school district that approves spending pursuant
+to a budget presented to the voters of a school district under 16 V.S.A. § 563. The Commissioner of Taxes shall determine the supplemental district spending tax
+rate for each school district by dividing the school district’s per pupil supplemental
+district spending as certified by the Secretary of Education by the supplemental district
+spending yield. The legislative body in each member municipality shall then bill each
+property taxpayer at the rate determined by the Commissioner under this subsection,
+divided by the number resulting from dividing the municipality’s most recent common
+level of appraisal by the statewide adjustment and multiplied by the current grand
+list value of the property to be taxed. The bill shall show the tax due and the calculation
+of the rate.
+(2) The supplemental district spending tax assessed under this subsection shall be assessed
+and collected in the same manner as taxes assessed under chapter 133 of this title
+with no tax classification other than as homestead or nonhomestead property; provided,
+however, that the tax levied under this chapter shall be billed to each taxpayer by
+the municipality in a manner that clearly indicates the tax is separate from any other
+tax assessed and collected under chapter 133 of this title and the statewide education
+property tax under this section, including an itemization of the separate taxes due.
+The bill may be on a single sheet of paper with the supplemental district spending
+tax, the statewide education tax, and other taxes presented separately and side by
+side.
+(3) The treasurer of each municipality shall on or before December 1 of the year in which
+the tax is levied and on or before June 1 of the following year pay to the State Treasurer
+for deposit in the Education Fund one-half of the municipality’s supplemental district
+spending tax as determined under subdivision (1) of this subsection.
+(4) The Secretary of Education shall determine each municipality’s net supplemental district
+spending tax payment to the State based on grand list information received by the
+Secretary not later than the March 15 prior to the June 1 net payment. Payment shall
+be accompanied by a return prescribed by the Secretary of Education. Each municipality
+may retain 0.225 of one percent of the total supplemental district spending tax collected,
+only upon timely remittance of net payment to the State Treasurer or to the applicable
+school district. (Added 1997, No. 60, § 45, eff. Jan. 1, 1998; amended 1997, No. 71 (Adj. Sess.), § 8, eff. Jan. 1, 1998; 1997, No. 71 (Adj. Sess.), § 53; 1997, No. 71 (Adj. Sess.), § 73, eff. January 1, 1999; 1999, No. 1, § 60e, eff. March 31, 1999; 1999, No. 49, § 30, eff. June 2, 1999; 2001, No. 63, § 276, eff. June 16, 2001; 2001, No. 144 (Adj. Sess.), § 21, eff. June 21, 2002; 2003, No. 68, § 76, eff. June 18, 2003; 2003, No. 68, § 4, eff. for fiscal years 2005 and after; 2003, No. 76 (Adj. Sess.), § 6; 2003, No. 80 (Adj. Sess.), §§ 49a, 49c, eff. March 8, 2004; 2003, No. 130 (Adj. Sess.), § 13; 2005, No. 182 (Adj. Sess.), §§ 11, 12; 2007, No. 33, § 11, eff. May 18, 2007; 2007, No. 65, § 289; 2007, No. 82, § 12; 2007, No. 190 (Adj. Sess.), §§ 10, 11; 2009, No. 1 (Sp. Sess.), § H.23, eff. June 2, 2009; 2013, No. 92 (Adj. Sess.), § 284, eff. Feb. 14, 2014; 2013, No. 174 (Adj. Sess.), § 61, eff. June 4, 2014; 2015, No. 46, § 28; 2018, No. 11 (Sp. Sess.), § H.14, eff. July 1, 2019; 2019, No. 51, § 25; 2021, No. 20, § 267; 2021, No. 127 (Adj. Sess.), § 29, eff. July 1, 2024; 2021, No. 163 (Adj. Sess.), § 1, eff. June 1, 2022; 2023, No. 183 (Adj. Sess.), § 14, eff. July 1, 2025; 2025, No. 73, § 68, eff. July 1, 2025; 2025, No. 73, § 47, contingently eff. July 1, 2028.)
+Statutes
+Vermont Statutes Online
+Statutes Search
+Vermont Statutes at Lexis/Nexis
+Constitution
+Constitution of the State of Vermont
+Acts
+Acts & Resolves
+Acts Affecting VSA Sections
+Rules
+State Agency Rules at Lexis/Nexis
+Court Rules at Lexis/Nexis
+Legislative Committee on Administrative Rules (LCAR)
+Contact
+Vermont State House
+115 State Street
+Montpelier, VT 05633-5301
+(802) 828-2228
+sgtatarms@leg.state.vt.us
+Capitol Police Department
+802-828-2273
+Member & Staff Links
+Legislative Email Sign-on
+Legislative Human Resources
+Legislative Time Reporting
+Legislative Expense Reporting
+Test My MFA
+How to Use This Website
+Disclaimer
+State Government

@@ -22,7 +22,7 @@ import {
   computeWeightedMembership,
   createContext,
   input,
-  perWeightedPupil,
+  perPupilEducationSpending,
   townRate,
   type MembershipInput,
 } from './index.ts';
@@ -38,11 +38,15 @@ interface Golden {
   source: { publisher: string; document: string; url?: string; retrieved: string };
   inputs: {
     adm_years: MembershipInput['adm_years'];
-    economically_deprived: number | null;
-    english_learners: MembershipInput['english_learners'];
-    sparsity_eligible: boolean;
-    small_school_eligible: boolean;
+    state_placed_fte: number | null;
+    poverty_185_fpl: number | null;
+    english_learners: number | null;
+    /** § 4010(b)(2): drives both the sparsity band and small-school eligibility. */
+    persons_per_square_mile: number | null;
+    small_schools: MembershipInput['small_schools'];
     education_spending: number;
+    /** Needed to compute excess spending under 32 V.S.A. § 5401(12). */
+    statewide_average_per_pupil: number | null;
     towns: Array<{ town: string; cla: number }>;
   };
   expected: {
@@ -132,16 +136,17 @@ describe.runIf(files.length > 0)('engine reproduces published state figures', ()
         const membership = computeWeightedMembership(ctx, {
           entity: golden.entity,
           adm_years: golden.inputs.adm_years,
-          economically_deprived: golden.inputs.economically_deprived,
+          state_placed_fte: golden.inputs.state_placed_fte,
+          poverty_185_fpl: golden.inputs.poverty_185_fpl,
           english_learners: golden.inputs.english_learners,
-          sparsity_eligible: golden.inputs.sparsity_eligible,
-          small_school_eligible: golden.inputs.small_school_eligible,
+          persons_per_square_mile: golden.inputs.persons_per_square_mile,
+          small_schools: golden.inputs.small_schools ?? [],
           source: `${golden.source.publisher}, ${golden.source.document}`,
         });
         const spending = input(ctx, 'Education spending', golden.inputs.education_spending, 'usd', {
           source: golden.source.document,
         });
-        const perPupil = perWeightedPupil(ctx, spending, membership.total);
+        const perPupil = perPupilEducationSpending(ctx, spending, membership.total);
         return { ctx, membership, perPupil };
       };
 
@@ -170,11 +175,16 @@ describe.runIf(files.length > 0)('engine reproduces published state figures', ()
           const townInput = golden.inputs.towns.find((t) => t.town === expectedTown.town);
           expect(townInput, `fixture has no CLA for ${expectedTown.town}`).toBeTruthy();
 
-          const result = townRate(ctx, perPupil, {
-            town: expectedTown.town,
-            cla: townInput?.cla ?? null,
-            cla_source: golden.source.document,
-          });
+          const result = townRate(
+            ctx,
+            perPupil,
+            {
+              town: expectedTown.town,
+              cla: townInput?.cla ?? null,
+              cla_source: golden.source.document,
+            },
+            golden.inputs.statewide_average_per_pupil,
+          );
 
           expect(result.billedRate.value).not.toBeNull();
           expect(result.billedRate.value as number).toBeCloseTo(

@@ -1,253 +1,349 @@
 /**
- * Weighted long-term membership (LTWADM).
+ * Weighted long-term membership, per 16 V.S.A. § 4010.
  *
- * This is the calculation the walkthrough expands step by step: raw ADM by
- * grade band, the multi-year averaging rule, each statutory weight applied in
- * turn, and the total.
+ * The structure here was corrected against the statute text snapshotted in
+ * model/statute/2026-07-29/16-vsa-4010.txt. Three things about it are easy to
+ * get wrong, and getting any of them wrong produces confident nonsense:
  *
- * STRUCTURAL CAVEAT, and it is not a small one: the shape of this calculation
- * -- which weights exist, whether they multiply or add, what they apply to --
- * is itself a reading of statute, not just the numbers plugged into it. The
- * structure here follows the categories the plan names (grade level,
- * economically deprived, English learner, sparsity, with special education
- * funded separately alongside). Both the structure AND the values must be
- * confirmed against current text of 16 V.S.A. ch. 133 before anything computed
- * here is published. See docs/parameter-verification.md.
+ * 1. THE WEIGHTS ARE ADDITIVE, NOT MULTIPLICATIVE. § 4010(d)(6): "A school
+ *    district's weighted long-term membership shall equal long-term membership
+ *    plus the cumulation of the weights assigned by the Secretary under this
+ *    subsection." A weight of 0.36 for grades 6-8 adds 0.36 per pupil on top of
+ *    the pupil already being counted once. Treating it as a multiplier -- ADM
+ *    times 0.36 -- would shrink the count rather than enlarge it.
  *
- * Until that confirmation happens every parameter carries verified: false, and
- * node.ts refuses to produce a number from an unverified parameter. The engine
- * will return a complete, correctly-shaped tree full of nulls -- which is the
- * honest output for this state, and a much better failure mode than a
- * plausible wrong number.
+ * 2. KINDERGARTEN THROUGH GRADE FIVE HAS NO WEIGHT. § 4010(d)(1) assigns grade
+ *    weights only to prekindergarten, grades 6-8 and grades 9-12. K-5 is a
+ *    counting category under § 4010(b)(1)(B) but carries zero, and is the
+ *    baseline the other grade weights are increments against.
+ *
+ * 3. LONG-TERM MEMBERSHIP IS NOT A PLAIN AVERAGE. § 4001(7) defines it as the
+ *    two-year average of average daily membership EXCLUDING State-placed
+ *    students, plus the State-placed FTE for the most recent of the two years.
+ *    State-placed students are added at their current-year count, not averaged.
+ *
+ * The prekindergarten weight is presently unverifiable: § 4010(d)(1) has a
+ * version effective July 1, 2026 if the Act 73 contingency is met, in which
+ * prekindergarten is repealed. That date falls inside FY2027. The parameter is
+ * therefore left unverified, and this module will decline to produce a total
+ * until someone establishes which version governs. That refusal is correct --
+ * the answer genuinely is not known.
  */
 
-import { applyWeight, input, mean, parameterNode, quotient, relabel, sum } from './node.ts';
+import { applyWeight, input, mean, parameterNode, quotient, sum } from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
+/** Average daily membership by grade band, EXCLUDING State-placed students. */
 export interface AdmYear {
   readonly fiscal_year: number;
-  readonly prek: number | null;
-  readonly elementary: number | null;
-  readonly secondary: number | null;
+  readonly prekindergarten: number | null;
+  readonly kindergarten_through_5: number | null;
+  readonly grades_6_through_8: number | null;
+  readonly grades_9_through_12: number | null;
 }
 
-export interface EnglishLearnerCount {
-  /** Proficiency level as the statute bands them, or 'newcomer_slife'. */
-  readonly category: string;
-  readonly count: number | null;
+export interface SmallSchool {
+  readonly name: string;
+  /** § 4010(b)(3)(B): average enrollment of the two most recently completed school years. */
+  readonly average_two_year_enrollment: number | null;
 }
 
 export interface MembershipInput {
   readonly entity: string;
-  /** Ordered oldest to newest. The averaging rule takes the most recent N. */
+  /** Ordered oldest to newest; the two most recent are averaged. */
   readonly adm_years: readonly AdmYear[];
-  readonly economically_deprived: number | null;
-  readonly english_learners: readonly EnglishLearnerCount[];
-  readonly sparsity_eligible: boolean;
-  readonly small_school_eligible: boolean;
-  /** Where these counts came from, shown in the walkthrough. */
+  /** § 4001(7)(B): State-placed FTE for the most recent year, added not averaged. */
+  readonly state_placed_fte: number | null;
+  readonly poverty_185_fpl: number | null;
+  readonly english_learners: number | null;
+  /** § 4010(b)(2): persons per square mile within the district's boundaries. */
+  readonly persons_per_square_mile: number | null;
+  readonly small_schools: readonly SmallSchool[];
   readonly source: string;
 }
 
 export interface MembershipResult {
-  readonly averagedByBand: Readonly<Record<'prek' | 'elementary' | 'secondary', CalcNode>>;
-  readonly baseWeighted: CalcNode;
-  readonly additions: readonly CalcNode[];
+  readonly longTermMembership: CalcNode;
+  /** Each statutory weight, expressed as the pupils it adds. */
+  readonly increments: readonly CalcNode[];
   readonly total: CalcNode;
 }
 
-type Band = 'prek' | 'elementary' | 'secondary';
+type Band = 'prekindergarten' | 'kindergarten_through_5' | 'grades_6_through_8' | 'grades_9_through_12';
 
-const BAND_LABELS: Readonly<Record<Band, string>> = {
-  prek: 'prekindergarten average daily membership',
-  elementary: 'elementary average daily membership',
-  secondary: 'secondary average daily membership',
-};
-
-const BAND_WEIGHT_KEYS: Readonly<Record<Band, string>> = {
-  prek: 'weights.grade.prek',
-  elementary: 'weights.grade.elementary',
-  secondary: 'weights.grade.secondary',
-};
+const BANDS: ReadonlyArray<{ readonly key: Band; readonly label: string; readonly weight: string }> = [
+  { key: 'prekindergarten', label: 'prekindergarten', weight: 'weights.grade.prekindergarten' },
+  {
+    key: 'kindergarten_through_5',
+    label: 'kindergarten through grade five',
+    weight: 'weights.grade.kindergarten_through_5',
+  },
+  { key: 'grades_6_through_8', label: 'grades six through eight', weight: 'weights.grade.6_through_8' },
+  { key: 'grades_9_through_12', label: 'grades nine through 12', weight: 'weights.grade.9_through_12' },
+];
 
 /**
- * Averages a grade band's ADM across the statutory number of years.
+ * Two-year average of a grade band's average daily membership.
  *
- * The averaging window is itself a parameter, so a change to the rule is a
- * YAML edit rather than a code change.
+ * The window is a parameter rather than a literal 2, so a change to § 4001(7)
+ * is a YAML edit. An unverified window blocks the average, because averaging
+ * over the wrong number of years is simply the wrong number.
  */
-function averageBand(ctx: EngineContext, data: MembershipInput, band: Band): CalcNode {
-  const yearsParam = ctx.parameters.parameters.get('membership.averaging_years');
-  const declaredYears = typeof yearsParam?.value === 'number' ? yearsParam.value : null;
+function bandLongTermMembership(ctx: EngineContext, data: MembershipInput, band: Band, label: string): CalcNode {
+  const windowParam = ctx.parameters.parameters.get('membership.long_term_membership_years');
+  const declared = typeof windowParam?.value === 'number' ? windowParam.value : null;
+  const rule = parameterNode(ctx, 'membership.long_term_membership_years', 'years');
 
-  // Surface the rule itself as a node so the walkthrough can cite it, even
-  // when its value is not yet known.
-  const ruleNode = parameterNode(ctx, 'membership.averaging_years', 'years');
-
-  const window = declaredYears ?? data.adm_years.length;
-  const selected = data.adm_years.slice(-Math.max(1, window));
-
-  const yearNodes = selected.map((y) =>
-    input(ctx, `FY${y.fiscal_year} ${BAND_LABELS[band]}`, y[band], 'pupils', {
+  const selected = data.adm_years.slice(-Math.max(1, declared ?? data.adm_years.length));
+  const years = selected.map((y) =>
+    input(ctx, `FY${y.fiscal_year} average daily membership, ${label}`, y[band], 'pupils', {
       source: data.source,
     }),
   );
 
-  if (yearNodes.length === 0) {
-    return input(ctx, `Averaged ${BAND_LABELS[band]}`, null, 'pupils', {
-      notes: ['No years of membership data were supplied for this district.'],
+  if (years.length === 0) {
+    return input(ctx, `Long-term membership, ${label}`, null, 'pupils', {
+      notes: ['No years of average daily membership were supplied for this district.'],
     });
   }
 
-  const averaged = mean(ctx, `Averaged ${BAND_LABELS[band]}`, yearNodes, 'pupils');
+  const averaged = mean(ctx, `Long-term membership, ${label}`, years, 'pupils');
 
-  // If the averaging rule is unverified the average must not stand as a
-  // trustworthy figure, even though the arithmetic itself is trivial: an
-  // average over the wrong window is simply the wrong number.
-  return sum(ctx, `Averaged ${BAND_LABELS[band]} under the statutory rule`, [averaged, zeroOf(ctx, ruleNode)], 'pupils');
+  // Fold the rule's own verification status in without changing the arithmetic.
+  return sum(
+    ctx,
+    `Long-term membership under the statutory averaging rule, ${label}`,
+    [averaged, ruleAsZero(ctx, rule)],
+    'pupils',
+  );
 }
 
-/**
- * Folds a parameter node's status into a calculation without altering its
- * arithmetic, by contributing a zero that carries the parameter's blockers.
- */
-function zeroOf(ctx: EngineContext, node: CalcNode): CalcNode {
+/** Carries a parameter's blockers into a calculation while contributing nothing. */
+function ruleAsZero(ctx: EngineContext, node: CalcNode): CalcNode {
   return {
     ...node,
     id: ctx.nextId(),
-    label: `${node.label} (applied as a rule, contributing no quantity)`,
+    label: `${node.label} (applied as a rule, contributing no pupils)`,
     value: node.value === null ? null : 0,
     unit: 'pupils',
     inputs: [],
   };
 }
 
+/** § 4010(d)(4): the density band a district falls in, or null if none applies. */
+export function sparsityBand(personsPerSquareMile: number | null): string | null {
+  if (personsPerSquareMile === null) return null;
+  if (personsPerSquareMile < 36) return 'weights.sparsity.density_under_36';
+  if (personsPerSquareMile < 55) return 'weights.sparsity.density_36_to_55';
+  if (personsPerSquareMile < 100) return 'weights.sparsity.density_55_to_100';
+  return null;
+}
+
+/** § 4010(d)(5): the small-school tier a school falls in, or null if none applies. */
+export function smallSchoolTier(averageTwoYearEnrollment: number | null): string | null {
+  if (averageTwoYearEnrollment === null) return null;
+  if (averageTwoYearEnrollment < 100) return 'weights.small_school.enrollment_under_100';
+  if (averageTwoYearEnrollment < 250) return 'weights.small_school.enrollment_100_to_250';
+  return null;
+}
+
 export function computeWeightedMembership(ctx: EngineContext, data: MembershipInput): MembershipResult {
-  const bands: Band[] = ['prek', 'elementary', 'secondary'];
+  // --- Long-term membership, § 4001(7) -------------------------------------
+  const bandMemberships = new Map<Band, CalcNode>();
+  for (const band of BANDS) {
+    bandMemberships.set(band.key, bandLongTermMembership(ctx, data, band.key, band.label));
+  }
 
-  const averagedByBand = {} as Record<Band, CalcNode>;
-  const weightedBands: CalcNode[] = [];
+  const statePlaced = input(
+    ctx,
+    'State-placed students, full-time equivalent, most recent year',
+    data.state_placed_fte,
+    'pupils',
+    {
+      source: data.source,
+      notes: [
+        'State-placed students are excluded from the two-year average and added at ' +
+          'their most recent year’s count, per 16 V.S.A. § 4001(7)(B).',
+      ],
+    },
+  );
 
-  for (const band of bands) {
-    const averaged = averageBand(ctx, data, band);
-    averagedByBand[band] = averaged;
-    weightedBands.push(
-      applyWeight(ctx, `Weighted ${BAND_LABELS[band]}`, averaged, BAND_WEIGHT_KEYS[band], 'pupils'),
+  const longTermMembership = sum(
+    ctx,
+    'Long-term membership',
+    [...bandMemberships.values(), statePlaced],
+    'pupils',
+  );
+
+  // --- Weights, § 4010(d). Every one is an ADDITIONAL amount. --------------
+  const increments: CalcNode[] = [];
+
+  for (const band of BANDS) {
+    const membership = bandMemberships.get(band.key);
+    if (!membership) continue;
+    increments.push(
+      applyWeight(
+        ctx,
+        `Additional weighting for ${band.label}`,
+        membership,
+        band.weight,
+        'pupils',
+      ),
     );
   }
 
-  const baseWeighted = sum(ctx, 'Weighted membership before category weights', weightedBands, 'pupils');
-
-  const additions: CalcNode[] = [];
-
-  additions.push(
+  increments.push(
     applyWeight(
       ctx,
-      'Additional weighting for economically deprived pupils',
-      input(ctx, 'Pupils at or below 185% of the federal poverty level', data.economically_deprived, 'pupils', {
-        source: data.source,
-      }),
-      'weights.economically_deprived',
+      'Additional weighting for pupils at or below 185 percent of the federal poverty level',
+      input(
+        ctx,
+        'Pupils whose family is at or below 185 percent of FPL',
+        data.poverty_185_fpl,
+        'pupils',
+        { source: data.source },
+      ),
+      'weights.poverty_185_fpl',
       'pupils',
     ),
   );
 
-  for (const el of data.english_learners) {
-    const key =
-      el.category === 'newcomer_slife'
-        ? 'weights.english_learner_newcomer_slife'
-        : 'weights.english_learner';
-    additions.push(
-      applyWeight(
+  increments.push(
+    applyWeight(
+      ctx,
+      'Additional weighting for English learner pupils',
+      input(ctx, 'English learner pupils', data.english_learners, 'pupils', { source: data.source }),
+      'weights.english_learner',
+      'pupils',
+    ),
+  );
+
+  // Sparsity applies to every pupil in a qualifying district, not a subset.
+  const density = input(
+    ctx,
+    'Persons per square mile in the district',
+    data.persons_per_square_mile,
+    'count',
+    { source: data.source },
+  );
+  const band = sparsityBand(data.persons_per_square_mile);
+  if (band) {
+    increments.push(
+      applyWeight(ctx, 'Additional weighting for low population density', longTermMembership, band, 'pupils'),
+    );
+  } else {
+    increments.push(
+      input(
         ctx,
-        `Additional weighting for English learners (${el.category})`,
-        input(ctx, `English learner pupils (${el.category})`, el.count, 'pupils', { source: data.source }),
-        key,
+        'Additional weighting for low population density',
+        data.persons_per_square_mile === null ? null : 0,
         'pupils',
+        {
+          source: 'computed from district population density',
+          notes:
+            data.persons_per_square_mile === null
+              ? ['District population density was not supplied, so the sparsity weight cannot be determined.']
+              : ['This district is at or above 100 persons per square mile, so no sparsity weight applies.'],
+        },
       ),
     );
   }
 
-  if (data.sparsity_eligible) {
-    additions.push(
-      applyWeight(
-        ctx,
-        'Additional weighting for sparsity',
-        relabel(ctx, 'Weighted membership subject to the sparsity weight', baseWeighted, 'pupils'),
-        'weights.sparsity',
-        'pupils',
-      ),
+  // Small schools, gated on the district's density, § 4010(d)(5).
+  const ceiling = parameterNode(ctx, 'weights.small_school.density_ceiling', 'count');
+  const eligibleForSmallSchool =
+    ceiling.value !== null && data.persons_per_square_mile !== null
+      ? data.persons_per_square_mile <= ceiling.value
+      : null;
+
+  if (eligibleForSmallSchool === true) {
+    for (const school of data.small_schools) {
+      const tier = smallSchoolTier(school.average_two_year_enrollment);
+      if (!tier) continue;
+      increments.push(
+        applyWeight(
+          ctx,
+          `Additional weighting for the small school ${school.name}`,
+          input(
+            ctx,
+            `${school.name} average two-year enrollment`,
+            school.average_two_year_enrollment,
+            'pupils',
+            { source: data.source },
+          ),
+          tier,
+          'pupils',
+        ),
+      );
+    }
+  } else if (eligibleForSmallSchool === null) {
+    increments.push(
+      input(ctx, 'Additional weighting for small schools', null, 'pupils', {
+        notes: [
+          'District population density was not supplied, so small school eligibility ' +
+            'cannot be determined. The weight applies only where the district has 55 or ' +
+            'fewer persons per square mile.',
+        ],
+      }),
     );
   }
 
-  if (data.small_school_eligible) {
-    additions.push(
-      applyWeight(
-        ctx,
-        'Additional weighting for small school size',
-        relabel(ctx, 'Weighted membership subject to the small school weight', baseWeighted, 'pupils'),
-        'weights.small_school',
-        'pupils',
-      ),
-    );
-  }
+  // --- § 4010(d)(6) --------------------------------------------------------
+  const total = sum(ctx, 'Weighted long-term membership', [longTermMembership, ...increments], 'pupils');
 
-  const total = sum(ctx, 'Weighted long-term membership', [baseWeighted, ...additions], 'pupils');
-
-  return { averagedByBand, baseWeighted, additions, total };
+  return { longTermMembership, increments, total };
 }
 
 /**
- * Weighted membership for a hypothetical combined entity.
+ * Weighted membership for a hypothetical combined district.
  *
- * Merging districts is not the same as adding their weighted memberships:
- * sparsity and small-school eligibility are properties of the combined
- * entity, not of its parts, and a merged district may qualify for neither
- * where its components did. The caller supplies the combined eligibility
- * explicitly rather than having it inferred, and the assumption is surfaced in
- * the scenario's assumptions register.
+ * Merging is not addition. Sparsity and small-school eligibility are properties
+ * of the combined entity: density is recomputed across the merged land area,
+ * and a merged district above 55 persons per square mile loses the small-school
+ * weight its components may each have qualified for. The caller supplies the
+ * combined density explicitly rather than having it guessed, and the assumption
+ * is surfaced in the scenario's assumptions register.
  */
 export function combineMembership(
   ctx: EngineContext,
   parts: readonly MembershipInput[],
-  combined: { readonly sparsity_eligible: boolean; readonly small_school_eligible: boolean; readonly entity: string },
+  combined: {
+    readonly entity: string;
+    readonly persons_per_square_mile: number | null;
+    /** Schools survive a merger unless a closure scenario removes them. */
+    readonly small_schools: readonly SmallSchool[];
+  },
 ): MembershipResult {
-  const years = new Map<number, { prek: number | null; elementary: number | null; secondary: number | null }>();
-
+  const years = new Map<number, AdmYear>();
   for (const part of parts) {
     for (const y of part.adm_years) {
-      const acc = years.get(y.fiscal_year) ?? { prek: 0, elementary: 0, secondary: 0 };
+      const acc = years.get(y.fiscal_year) ?? {
+        fiscal_year: y.fiscal_year,
+        prekindergarten: 0,
+        kindergarten_through_5: 0,
+        grades_6_through_8: 0,
+        grades_9_through_12: 0,
+      };
       years.set(y.fiscal_year, {
-        prek: addNullable(acc.prek, y.prek),
-        elementary: addNullable(acc.elementary, y.elementary),
-        secondary: addNullable(acc.secondary, y.secondary),
+        fiscal_year: y.fiscal_year,
+        prekindergarten: addNullable(acc.prekindergarten, y.prekindergarten),
+        kindergarten_through_5: addNullable(acc.kindergarten_through_5, y.kindergarten_through_5),
+        grades_6_through_8: addNullable(acc.grades_6_through_8, y.grades_6_through_8),
+        grades_9_through_12: addNullable(acc.grades_9_through_12, y.grades_9_through_12),
       });
     }
   }
 
-  const elByCategory = new Map<string, number | null>();
-  for (const part of parts) {
-    for (const el of part.english_learners) {
-      elByCategory.set(el.category, addNullable(elByCategory.get(el.category) ?? 0, el.count));
-    }
-  }
-
-  const merged: MembershipInput = {
+  return computeWeightedMembership(ctx, {
     entity: combined.entity,
-    adm_years: [...years.entries()]
-      .sort((a, b) => a[0] - b[0])
-      .map(([fiscal_year, v]) => ({ fiscal_year, ...v })),
-    economically_deprived: parts.reduce<number | null>(
-      (acc, p) => addNullable(acc, p.economically_deprived),
-      0,
-    ),
-    english_learners: [...elByCategory.entries()].map(([category, count]) => ({ category, count })),
-    sparsity_eligible: combined.sparsity_eligible,
-    small_school_eligible: combined.small_school_eligible,
+    adm_years: [...years.values()].sort((a, b) => a.fiscal_year - b.fiscal_year),
+    state_placed_fte: parts.reduce<number | null>((acc, p) => addNullable(acc, p.state_placed_fte), 0),
+    poverty_185_fpl: parts.reduce<number | null>((acc, p) => addNullable(acc, p.poverty_185_fpl), 0),
+    english_learners: parts.reduce<number | null>((acc, p) => addNullable(acc, p.english_learners), 0),
+    persons_per_square_mile: combined.persons_per_square_mile,
+    small_schools: combined.small_schools,
     source: `combined from ${parts.map((p) => p.entity).join(', ')}`,
-  };
-
-  return computeWeightedMembership(ctx, merged);
+  });
 }
 
 /** Null is contagious: one district's missing count makes the combined count unknown. */
@@ -256,17 +352,20 @@ function addNullable(a: number | null, b: number | null): number | null {
   return a + b;
 }
 
-/** Education spending per weighted pupil -- the figure the tax rate keys off. */
-export function perWeightedPupil(
+/** § 4010(f): per pupil education spending = education spending / weighted long-term membership. */
+export function perPupilEducationSpending(
   ctx: EngineContext,
   educationSpending: CalcNode,
   weightedMembership: CalcNode,
 ): CalcNode {
   return quotient(
     ctx,
-    'Education spending per weighted pupil',
+    'Per pupil education spending',
     educationSpending,
     weightedMembership,
     'usd_per_pupil',
   );
 }
+
+/** Retained for callers using the previous name. */
+export const perWeightedPupil = perPupilEducationSpending;

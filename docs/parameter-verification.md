@@ -21,21 +21,42 @@ Not a summary of the statute. Not a table on an agency page. Not a previous vers
 this file. Not a language model's recollection, including the one that drafted the
 file. The statute text, current as of the date you record.
 
-## Why the file is currently all nulls
+## Current state of the FY2027 file
 
-The FY2027 file was drafted in an environment that could not reach either
-authoritative source:
+17 of 23 parameters carry values read from the statute text snapshotted verbatim in
+`model/statute/2026-07-29/`, with the operative sentence in each `citation.quote`.
 
-| Source | Result |
+The remaining six are unverified, each for a reason that is a fact about the world
+rather than unfinished work:
+
+| Parameter | Why it has no value |
 |---|---|
-| `legislature.vermont.gov` | TLS certificate chain could not be verified |
-| `education.vermont.gov` | HTTP 403 to automated clients |
+| `weights.grade.prekindergarten` | 16 V.S.A. § 4010(d)(1) has a version effective July 1, 2026 **if the Act 73 contingency is met**, in which prekindergarten is repealed. That date falls inside FY2027 and the contingency status is not determinable from the codified section. |
+| `yield.property_dollar_equivalent` | Set annually by the yield act. Not yet set for FY2027. |
+| `yield.income_dollar_equivalent` | Same. |
+| `tax.statewide_adjustment` | Published annually by the Department of Taxes. Not yet published for FY2027. |
+| `foundation.base_amount` | Contingent on Act 73. The $6,800.00 statutory base is fixed but the FY2027 amount depends on a price index not applied here. |
+| `foundation.statewide_homestead_rate` | Contingent, and to be adopted each year by act of the General Assembly. |
 
-Rather than fill values in from memory or from a mirror and mark them unverified-but-present,
-every value was left `null`. That choice matters more than it looks: a null value and an
-unverified citation fail the same way in the engine, but a *plausible* value with an
-unverified citation is one careless edit away from being published. There is nothing to
-carelessly promote here.
+**The file is still `status: draft`, and the reason matters.** The retrieval and
+transcription were automated. Nobody has yet read `model/statute/2026-07-29/` against
+`model/parameters/fy2027.yaml` and put their name to it. Do that, then set
+`status: verified` — the parser will refuse it while any entry is still unverified, so
+it is safe to just try.
+
+Note also that `status: verified` is gated a second time: `model/src/goldens.test.ts`
+fails if a parameter file claims verification while `model/goldens/` is empty.
+Checking citations by eye and reproducing the state's published figures are different
+claims, and the second is the one the site's credibility rests on.
+
+### The blocking question
+
+**Has the contingency in 2025 Acts and Resolves No. 73 been met?**
+
+Until that is answered, the engine will decline to produce weighted membership for any
+district, because the prekindergarten weight is either −0.54 or does not exist and the
+difference changes every district's total. That refusal is the correct output. The
+answer is in Act 73 itself, not in the codified section — read the act text.
 
 ## What protects you in the meantime
 

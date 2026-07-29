@@ -1,0 +1,124 @@
+CITATION: 16 V.S.A. § 4011
+SOURCE:   https://legislature.vermont.gov/statutes/section/16/133/04011
+RETRIEVED:2026-07-29T22:30:01.311Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly. This file is the
+provenance record for every parameter citing this section. Do not edit it.
+----------------------------------------------------------------------------
+
+§ 4011. Education payments
+[Subsection (a) effective until contingency met; see also subsection (a) effective
+July 1, 2028 if contingency met, set out below.]
+(a) Annually, the General Assembly shall appropriate funds to pay for statewide education
+spending and a portion of a base education amount for each adult education and secondary
+credential program student.
+[Subsection (a) effective July 1, 2028 if contingency met; see also subsection (a)
+effective until contingency met, set out above.]
+(a) Annually, the General Assembly shall appropriate funds to pay for each school district’s
+educational opportunity payment and supplemental district spending, as defined in
+32 V.S.A. § 5401, the small schools and sparsity support grants under section 4019 of this chapter,
+and a portion of a categorical base amount for each adult education and secondary
+credential program student.
+[Subsection (b) effective until contingency met; see also subsection (b) effective
+July 1, 2028 if contingency met, set out below.]
+(b) For each fiscal year, the base education amount shall be $6,800.00, increased by the
+most recent New England Economic Project Cumulative Price Index, as of November 15,
+for state and local government purchases of goods and services from fiscal year 2005
+through the fiscal year for which the amount is being determined, plus an additional
+one-tenth of one percent.
+[Subsection (b) effective July 1, 2028 if contingency met; see also subsection (b)
+effective until contingency met, set out above.]
+(b) For each fiscal year, the categorical base amount shall be $6,800.00, which shall
+be adjusted for inflation annually on or before November 15 by the Secretary of Education.
+As used in this subsection, “adjusted for inflation” means adjusting the categorical
+base dollar amount by the National Income and Product Accounts (NIPA) implicit price
+deflator for state and local government consumption expenditures and gross investment
+published by the U.S. Department of Commerce, Bureau of Economic Analysis, from fiscal
+year 2005 through the fiscal year for which the amount is being determined, and rounding
+upward to the nearest whole dollar amount.
+[Subsection (c) effective until contingency met; see also subsection (c) effective
+July 1, 2028 if contingency met, set out below.]
+(c) Annually, each school district shall receive an education spending payment for support
+of education costs. An unorganized town or gore shall receive an amount equal to its
+per pupil education spending for that year for each student. No district shall receive
+more than its education spending amount.
+[Subsection (c) effective July 1, 2028 if contingency met; see also subsection (c)
+effective until contingency met, set out above.]
+(c) Annually, each school district shall receive for support of education costs its educational
+opportunity payment determined pursuant to subsection 4010(f) of this chapter and
+a dollar amount equal to its supplemental district spending, if applicable to that
+school district, as defined in 32 V.S.A. § 5401.
+(d) [Repealed.]
+(e) [Repealed.]
+[Subsection (f) effective until contingency met; see also subsection (f) effective
+July 1, 2028 if contingency met, set out below.]
+(f) Annually, the Secretary shall pay to a local adult education and literacy provider,
+as defined in section 942 of this title, that provides an adult education and secondary credential program an amount equal
+to 26 percent of the base education amount for each student who completes the diagnostic
+portions of the adult education and secondary credential program, based on an average
+of the previous two completed fiscal years. Forty percent of the payment required
+under this subsection shall be from State funds appropriated from the Education Fund
+and 60 percent of the payment required under this subsection shall be from State funds
+appropriated from the General Fund.
+[Subsection (f) effective July 1, 2028 if contingency met; see also subsection (f)
+effective until contingency met, set out above.]
+(f) Annually, the Secretary shall pay to a local adult education and literacy provider,
+as defined in section 942 of this title, that provides an adult education and secondary credential program an amount equal
+to 26 percent of the categorical base amount for each student who completes the diagnostic
+portions of the adult education and secondary credential program, based on an average
+of the previous two completed fiscal years. Forty percent of the payment required
+under this subsection shall be from State funds appropriated from the Education Fund
+and 60 percent of the payment required under this subsection shall be from State funds
+appropriated from the General Fund.
+(g) The Secretary shall pay to a school district a percentage of the base education amount
+for each resident student for whom the district is paying a technical tuition to a
+regional career technical center but who is not enrolled in the district and therefore
+not counted in the average daily membership of the district. The percentage of the
+base education amount to be paid shall be the percentage of the student’s full-time
+equivalent attendance at the career technical center multiplied by 87 percent.
+(h) The Secretary shall make all payments required by subchapter 5 of chapter 23 of this
+title.
+[Subsection (i) effective until contingency met; see also subsection (i) effective
+July 1, 2028 if contingency met, set out below.]
+(i) Annually, on or before October 1, the Secretary shall send to school boards for inclusion
+in town reports and publish on the Agency website the following information:
+(1) the statewide average district per pupil education spending for the current fiscal
+year; and
+(2) a statewide comparison of student-teacher ratios among schools that are similar in
+number of students and number of grades.
+[Subsection (i) effective July 1, 2028 if contingency met; see also subsection (i)
+effective until contingency met, set out above.]
+(i) Annually, on or before October 1, the Secretary shall send to school boards for inclusion
+in town reports and publish on the Agency website a statewide comparison of student-teacher
+ratios among schools that are similar in number of students and number of grades. (Added 1997, No. 60, § 18, eff. July 1, 1998; amended 1997, No. 71 (Adj. Sess.), §§ 90, 117a, eff. March 11, 1998; 1999, No. 49, § 197; 1999, No. 108 (Adj. Sess.), § 3, eff. May 10, 2000; 2001, No. 8, § 16; 2001, No. 63, § 170b; 2003, No. 36, §§ 21, 22; 2003, No. 66, § 187b; 2003, No. 68, § 16, eff. June 18, 2003; 2003, No. 76 (Adj. Sess.), § 25, eff. Feb. 17, 2004; 2003, No. 122 (Adj. Sess.), § 174; 2003, No. 130 (Adj. Sess.), § 15; 2005, No. 54, § 16; 2005, No. 176 (Adj. Sess.), § 1; 2007, No. 66, § 9; 2009, No. 4, § 81, eff. April 24, 2009; 2009, No. 44, § 17, eff. May 21, 2009; 2013, No. 77, § 8; 2017, No. 49, § 29, eff. May 23, 2017; 2021, No. 127 (Adj. Sess.), § 25, eff. July 1, 2024; 2023, No. 113 (Adj. Sess.), § E.504.4, eff. July 1, 2024; 2025, No. 27, § E.504.2, eff. July 1, 2025; 2025, No. 73, § 36, contingently eff. July 1, 2028.)
+Statutes
+Vermont Statutes Online
+Statutes Search
+Vermont Statutes at Lexis/Nexis
+Constitution
+Constitution of the State of Vermont
+Acts
+Acts & Resolves
+Acts Affecting VSA Sections
+Rules
+State Agency Rules at Lexis/Nexis
+Court Rules at Lexis/Nexis
+Legislative Committee on Administrative Rules (LCAR)
+Contact
+Vermont State House
+115 State Street
+Montpelier, VT 05633-5301
+(802) 828-2228
+sgtatarms@leg.state.vt.us
+Capitol Police Department
+802-828-2273
+Member & Staff Links
+Legislative Email Sign-on
+Legislative Human Resources
+Legislative Time Reporting
+Legislative Expense Reporting
+Test My MFA
+How to Use This Website
+Disclaimer
+State Government

@@ -1,0 +1,247 @@
+CITATION: 16 V.S.A. § 4010
+SOURCE:   https://legislature.vermont.gov/statutes/section/16/133/04010
+RETRIEVED:2026-07-29T22:30:01.180Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly. This file is the
+provenance record for every parameter citing this section. Do not edit it.
+----------------------------------------------------------------------------
+
+§ 4010. Determination of weighted long-term membership and per pupil education spending [Effective until contingency met; see also 16 V.S.A. § 4010 effective July 1, 2028 if contingency met, set out below]
+(a) Definitions. As used in this section:
+(1) “EL pupils” means pupils described under section 4013 of this title.
+(2) “FPL” means the Federal Poverty Level.
+(3) “Weighting categories” means the categories listed under subsection (b) of this section.
+(b) Determination of average daily membership and weighting categories. On or before the first day of December during each school year, the Secretary shall
+determine the average daily membership, as defined in subdivision 4001(1) of this title, of each school district for the current school year and shall perform the following
+tasks.
+(1) Using average daily membership, list for each school district the number of:
+(A) pupils in prekindergarten;
+(B) pupils in kindergarten through grade five;
+(C) pupils in grades six through eight;
+(D) pupils in grades nine through 12;
+(E) pupils whose families are at or below 185 percent of FPL, using the highest number
+of pupils in the district:
+(i) that meet this definition under the universal income declaration form; or
+(ii) who are directly certified for free and reduced-priced meals; and
+(F) EL pupils.
+(2)(A) Identify all school districts that have low population density, measured by the number
+of persons per square mile residing within the land area of the geographic boundaries
+of the district as of July 1 of the year of determination, equaling:
+(i) fewer than 36 persons per square mile;
+(ii) 36 or more persons per square mile but fewer than 55 persons per square mile; or
+(iii) 55 or more persons per square mile but fewer than 100 persons per square mile.
+(B) Population density data shall be based on the best available U.S. Census data as provided
+to the Agency of Education by the Vermont Center for Geographic Information.
+(C) Using average daily membership, list for each school district that has low population
+density the number of pupils in each of subdivisions (A)(i)–(iii) of this subdivision
+(2).
+(3)(A) Identify all school districts that have one or more small schools, which are schools
+that have an average two-year enrollment of:
+(i) fewer than 100 pupils; or
+(ii) 100 or more pupils but fewer than 250 pupils.
+(B) As used in subdivision (A) of this subdivision (3), “average two- year enrollment”
+means the average enrollment of the two most recently completed school years, and
+“enrollment” means the number of pupils who are enrolled in a school operated by the
+district on October 1. A pupil shall be counted as one whether the pupil is enrolled
+as a full-time or part-time student.
+(C) Using average two-year enrollment, list for each school district that has a small
+school the number of pupils in each of subdivisions (A)(i)–(ii) of this subdivision
+(3).
+(c) Reporting on weighting categories to the Agency of Education. Each school district shall annually report to the Agency of Education by a date established
+by the Agency the information needed in order for the Agency to compute the weighting
+categories under subsection (b) of this section for that district. In order to fulfill
+this obligation, a school district that pays public tuition on behalf of a resident
+student (sending district) to a public school in another school district, an approved
+independent school, or an out-of-state school (each a receiving school) may request
+the receiving school to collect this information on the sending district’s resident
+student, and if requested, the receiving school shall provide this information to
+the sending district in a timely manner.
+(d) Determination of weighted long-term membership. For each weighting category except the small schools weighting category under subdivision
+(b)(3) of this section, the Secretary shall compute the weighting count by using the
+long-term membership, as defined in subdivision 4001(7) of this title, in that category.
+[Subdivision (d)(1) effective until contingency met; see also subdivision (d)(1) effective
+July 1, 2026 if contingency met, set out below.]
+(1) The Secretary shall first apply grade level weights. Each pupil included in long-term
+membership shall count as one, multiplied by the following amounts:
+(A) prekindergarten—negative 0.54;
+(B) grades six through eight—0.36; and
+(C) grades nine through 12—0.39.
+[Subdivision (d)(1) effective July 1, 2026 if contingency met; see also subdivision
+(d)(1) effective until contingency met, set out above.]
+(1) The Secretary shall first apply grade level weights. Each pupil included in long-term
+membership shall count as one, multiplied by the following amounts:
+(A) [Repealed.]
+(B) grades six through eight—0.36; and
+(C) grades nine through 12—0.39.
+(2) The Secretary shall next apply a weight for pupils whose family is at or below 185
+percent of FPL. Each pupil included in long-term membership whose family is at or
+below 185 percent of FPL shall receive an additional weighting amount of 1.03.
+(3) The Secretary shall next apply a weight for EL pupils. Each EL pupil included in long-term
+membership shall receive an additional weighting amount of 2.49.
+(4) The Secretary shall then apply a weight for pupils living in low population density
+school districts. Each pupil included in long-term membership residing in a low population
+density school district, measured by the number of persons per square mile residing
+within the land area of the geographic boundaries of the district as of July 1 of
+the year of determination, shall receive an additional weighting amount of:
+(A) 0.15, where the number of persons per square mile is fewer than 36 persons;
+(B) 0.12, where the number of persons per square mile is 36 or more but fewer than 55
+persons; or
+(C) 0.07, where the number of persons per square mile is 55 or more but fewer than 100.
+(5) The Secretary shall lastly apply a weight for pupils who attend a small school. If
+the number of persons per square mile residing within the land area of the geographic
+boundaries of a school district as of July 1 of the year of determination is 55 or
+fewer, then, for each pupil listed under subdivision (b)(3)(C) of this section (pupils
+who attend small schools):
+(A) where the school has fewer than 100 pupils in average two-year enrollment, the school
+district shall receive an additional weighting amount of 0.21 for each pupil included
+in the small school’s average two-year enrollment; or
+(B) where the small school has 100 or more but fewer than 250 pupils, the school district
+shall receive an additional weighting amount of 0.07 for each pupil included in the
+small school’s average two-year enrollment.
+(6) A school district’s weighted long-term membership shall equal long-term membership
+plus the cumulation of the weights assigned by the Secretary under this subsection.
+[Subsection (e) not in effect July 1, 2025-June 30, 2029.]
+(e) Hold harmless. A district’s weighted long-term membership shall in no case be less than 96 and one-half
+percent of its actual weighted long-term membership the previous year prior to making
+any adjustment under this subsection.
+(f) Determination of per pupil education spending. As soon as reasonably possible after a school district budget is approved by voters,
+the Secretary shall determine the per pupil education spending for the next fiscal
+year for the school district. Per pupil education spending shall equal a school district’s
+education spending divided by its weighted long-term membership.
+(g) Guidelines. The Secretary shall develop guidelines to enable clear and consistent identification
+of pupils to be counted under this section.
+(h) Updates to weights. On or before January 1, 2027 and on or before January 1 of every fifth year thereafter,
+the Agency of Education and the Joint Fiscal Office shall calculate, based on their
+consensus view, updates to the weights to account for cost changes underlying those
+weights and shall issue a written report on their work to the House and Senate Committees
+on Education, the House Committee on Ways and Means, and the Senate Committee on Finance.
+The General Assembly shall update the weights under this section and transportation
+reimbursement under section 4016 of this title not less than every five years and the implementation date for the updated weights
+and transportation reimbursement shall be delayed by a year in order to provide school
+districts with time to prepare their budgets. Updates to the weights may include recalibration,
+recalculation, adding or eliminating weights, or any combination of these actions. (Added 1997, No. 60, § 18, eff. July 1, 1998; amended 1999, No. 49, § 2, eff. June 2, 1999; 2003, No. 68, § 39, eff. June 18, 2003; 2003, No. 130 (Adj. Sess.), § 11; 2007, No. 62, § 7; 2007, No. 66, § 19; No. 82, §§ 7, 8; 2013, No. 92 (Adj. Sess.), § 236, eff. Feb. 14, 2014; 2013, No. 142 (Adj. Sess.), § 32; 2013, No. 174 (Adj. Sess.), § 53; 2015, No. 46, § 22, eff. July 1, 2016; 2015, No. 46, § 24, eff. July 1, 2020; 2021, No. 73, § 19, eff. June 8, 2021; 2021, No. 127 (Adj. Sess.), § 4, eff. July 1, 2024; 2021, No. 185 (Adj. Sess.), § E.500.8, eff. July 1, 2024; 2023, No. 76, § 3.)
+§ 4010. Determination of weighted long-term membership and educational opportunity payment [Effective July 1, 2028 if contingency met; see also 16 V.S.A. § 4010 effective until contingency met, set out above]
+(a) Definitions. As used in this section:
+(1) “EL pupils” means pupils described under section 4013 of this title.
+(2) “FPL” means the Federal Poverty Level.
+(3) “Weighting categories” means the categories listed under subsection (b) of this section.
+(4) “Child with a disability” means any child in Vermont eligible under State rules to
+receive special education who is enrolled in any of kindergarten through grade 12.
+(5) “Disability” means any of:
+(A) a specific learning disability or a speech or language impairment, each of which is
+identified as “Category A”;
+(B) an emotional disturbance, intellectual disability, developmental delay, or other health
+impairment, each of which is identified as “Category B”; or
+(C) autism spectrum disorder, deaf-blindness, hearing impairment, orthopedic impairment,
+traumatic brain injury, or visual impairment, each of which is identified as “Category
+C.”
+(6) “English language proficiency level” means each of the English language proficiency
+levels published as a standardized measure of academic language proficiency in WIDA
+ACCESS for ELLs 2.0 and available to members of the WIDA consortium of state departments
+of education.
+(7) “Newcomer or SLIFE” means a pupil identified as a New American or as a student with
+limited or interrupted formal education.
+(b) Determination of average daily membership and weighting categories. On or before the first day of December during each school year, the Secretary shall
+determine the average daily membership, as defined in subdivision 4001(1) of this title, of each school district for the current school year and shall, using average daily
+membership, list for each school district the number of
+(1) pupils in prekindergarten;
+(2) pupils in kindergarten through grade five;
+(3) pupils in grades six through eight;
+(4) pupils in grades nine through 12;
+(5) pupils whose families are at or below 185 percent of FPL, using the highest number
+of pupils in the district:
+(A) that meet this definition under the universal income declaration form; or
+(B) who are directly certified for free and reduced-priced meals;
+(6) EL pupils who have been most recently assessed at an English language proficiency
+level of:
+(A) Level 1;
+(B) Level 2 or 3;
+(C) Level 4; or
+(D) Level 5 or 6;
+(7) EL pupils who are identified as Newcomer or SLIFE; and
+(8) children with a disability whose disability is identified as:
+(A) Category A;
+(B) Category B; or
+(C) Category C, provided that a child with multiple disabilities shall be counted solely
+under this subdivision (C).
+(c) Reporting on weighting categories to the Agency of Education. Each school district shall annually report to the Agency of Education by a date established
+by the Agency the information needed in order for the Agency to compute the weighting
+categories under subsection (b) of this section for that district. In order to fulfill
+this obligation, a school district that pays public tuition on behalf of a resident
+student (sending district) to a public school in another school district, an approved
+independent school, or an out-of-state school (each a receiving school) may request
+the receiving school to collect this information on the sending district’s resident
+student, and if requested, the receiving school shall provide this information to
+the sending district in a timely manner.
+(d) Determination of weighted long-term membership. For each weighting category, the Secretary shall compute the weighting count by using
+the long-term membership, as defined in subdivision 4001(7) of this title, in that category.
+(1) Prekindergarten weight. Each pupil included in long-term membership who is enrolled in prekindergarten shall
+receive an additional weighting amount of negative 0.54.
+(2) Economic disadvantage weight. Each pupil included in long-term membership whose family is at or below 185 percent
+of FPL shall receive an additional weighting amount of 1.02.
+(3) EL proficiency weights. Each EL pupil included in long-term membership shall receive an additional weighting
+amount, based on the EL pupil’s English language proficiency level, of:
+(A) 2.11, if assessed as Level 1;
+(B) 1.41, if assessed as Level 2 or 3;
+(C) 1.20, if assessed as Level 4; or
+(D) 0.12, if assessed as Level 5 or 6.
+(4) EL Newcomer/SLIFE weight. Each EL pupil included in long-term membership who is a Newcomer or SLIFE shall receive
+an additional weighting amount of 0.42.
+(5) Special education weights. Each child with a disability included in long-term membership shall receive an additional
+weighting amount, based on the categorization of the child’s disability, of:
+(A) 0.79, if the disability is identified as Category A;
+(B) 1.89, if the disability is identified as Category B; or
+(C) 2.49, if the disability is identified as Category C.
+(6) A school district’s weighted long-term membership shall equal long-term membership
+plus the cumulation of the weights assigned by the Secretary under this subsection
+(e) Hold harmless. A district’s weighted long-term membership shall in no case be less than 96 and one-half
+percent of its actual weighted long-term membership the previous year prior to making
+any adjustment under this subsection
+(f) Determination of educational opportunity payment. The Secretary shall determine each school district’s educational opportunity payment
+by multiplying the school district’s weighted long-term membership determined under
+subsection (d) of this section by the base amount.
+(g) Guidelines. The Secretary shall develop guidelines to enable clear and consistent identification
+of pupils to be counted under this section.
+(h) Updates to weights, base amount, and transportation reimbursement. On or before January 1, 2026 and on or before January 1 of every fifth year thereafter,
+the Agency of Education and the Joint Fiscal Office shall calculate, based on their
+consensus view and with the advice and consultation of a professional judgment panel
+convened by the Agency, updates to the weights and the base amount, including any
+inflationary measure, to account for cost changes underlying those weights and shall
+issue a written report on their work to the House and Senate Committees on Education,
+the House Committee on Ways and Means, and the Senate Committee on Finance. The General
+Assembly shall update the weights under this section, the base amount, and transportation
+reimbursement under section 4016 of this title not less than every five years and the implementation date for the updated weights
+and transportation reimbursement shall be delayed by a year in order to provide school
+districts with time to prepare their budgets. Updates to the weights may include recalibration,
+recalculation, adding or eliminating weights, or any combination of these actions. (Added 1997, No. 60, § 18, eff. July 1, 1998; amended 1999, No. 49, § 2, eff. June 2, 1999; 2003, No. 68, § 39, eff. June 18, 2003; 2003, No. 130 (Adj. Sess.), § 11; 2007, No. 62, § 7; 2007, No. 66, § 19; No. 82, §§ 7, 8; 2013, No. 92 (Adj. Sess.), § 236, eff. Feb. 14, 2014; 2013, No. 142 (Adj. Sess.), § 32; 2013, No. 174 (Adj. Sess.), § 53; 2015, No. 46, § 22, eff. July 1, 2016; 2015, No. 46, § 24, eff. July 1, 2020; 2021, No. 73, § 19, eff. June 8, 2021; 2021, No. 127 (Adj. Sess.), § 4, eff. July 1, 2024; 2021, No. 185 (Adj. Sess.), § E.500.8, eff. July 1, 2024; 2023, No. 76, § 3; 2025, No. 73, § 35, contingently eff. July 1, 2028.)
+Statutes
+Vermont Statutes Online
+Statutes Search
+Vermont Statutes at Lexis/Nexis
+Constitution
+Constitution of the State of Vermont
+Acts
+Acts & Resolves
+Acts Affecting VSA Sections
+Rules
+State Agency Rules at Lexis/Nexis
+Court Rules at Lexis/Nexis
+Legislative Committee on Administrative Rules (LCAR)
+Contact
+Vermont State House
+115 State Street
+Montpelier, VT 05633-5301
+(802) 828-2228
+sgtatarms@leg.state.vt.us
+Capitol Police Department
+802-828-2273
+Member & Staff Links
+Legislative Email Sign-on
+Legislative Human Resources
+Legislative Time Reporting
+Legislative Expense Reporting
+Test My MFA
+How to Use This Website
+Disclaimer
+State Government

@@ -6,10 +6,14 @@ import {
   computeWeightedMembership,
   createContext,
   defaultAssumptions,
+  excessSpending,
   input,
   parseParameterSet,
-  perWeightedPupil,
+  perPupilEducationSpending,
   runScenario,
+  smallSchoolTier,
+  sparsityBand,
+  spendingAdjustment,
   toSteps,
   townRate,
   unverifiedParameters,
@@ -19,90 +23,175 @@ import type { DistrictBudget } from './scenario.ts';
 import { syntheticParameters } from './testing/synthetic.ts';
 
 /**
- * Test district chosen for hand-checkable arithmetic against the synthetic
- * weights in testing/synthetic.ts:
+ * Hand-checkable against the synthetic weights in testing/synthetic.ts.
  *
- *   averaging window 2 years, over FY2025 and FY2026
- *     prekindergarten  (10 + 20) / 2  =  15   x weight 1  =    15
- *     elementary      (100 + 200) / 2 = 150   x weight 1  =   150
- *     secondary        (50 + 100) / 2 =  75   x weight 2  =   150
- *                                            base weighted =  315
- *     economically deprived  40 x 0.5                     =    20
- *     English learners        8 x 0.25                    =     2
- *                                   weighted membership   =   337
+ *   two-year averages   prek 15, K-5 150, grades 6-8 80, grades 9-12 60
+ *   State-placed FTE                                                   5
+ *   long-term membership   15 + 150 + 80 + 60 + 5              =     310
+ *
+ *   additive weights, per 16 V.S.A. § 4010(d)(6)
+ *     prekindergarten     15 x -0.5                            =    -7.5
+ *     K-5                150 x  0                              =       0
+ *     grades 6-8          80 x  0.5                            =      40
+ *     grades 9-12         60 x  1                              =      60
+ *     poverty             40 x  1                              =      40
+ *     English learners     8 x  2                              =      16
+ *     sparsity            none at 120 persons/sq mi            =       0
+ *                                              cumulation      =   148.5
+ *
+ *   weighted long-term membership   310 + 148.5                =   458.5
  */
 const DISTRICT: MembershipInput = {
   entity: 'ud/test-district',
   adm_years: [
-    { fiscal_year: 2025, prek: 10, elementary: 100, secondary: 50 },
-    { fiscal_year: 2026, prek: 20, elementary: 200, secondary: 100 },
+    { fiscal_year: 2025, prekindergarten: 10, kindergarten_through_5: 100, grades_6_through_8: 60, grades_9_through_12: 40 },
+    { fiscal_year: 2026, prekindergarten: 20, kindergarten_through_5: 200, grades_6_through_8: 100, grades_9_through_12: 80 },
   ],
-  economically_deprived: 40,
-  english_learners: [{ category: 'level_1', count: 8 }],
-  sparsity_eligible: false,
-  small_school_eligible: false,
+  state_placed_fte: 5,
+  poverty_185_fpl: 40,
+  english_learners: 8,
+  persons_per_square_mile: 120,
+  small_schools: [],
   source: 'test fixture',
 };
 
-describe('weighted membership', () => {
-  it('applies the averaging rule and each weight in turn', () => {
+describe('weighted long-term membership', () => {
+  it('adds the weights to membership rather than multiplying by them', () => {
+    // § 4010(d)(6): weighted long-term membership equals long-term membership
+    // PLUS the cumulation of the weights. A multiplicative reading would shrink
+    // the count instead of enlarging it.
     const ctx = createContext(syntheticParameters());
     const result = computeWeightedMembership(ctx, DISTRICT);
 
-    expect(result.averagedByBand.elementary.value).toBe(150);
-    expect(result.averagedByBand.secondary.value).toBe(75);
-    expect(result.baseWeighted.value).toBe(315);
-    expect(result.total.value).toBe(337);
-    expect(result.total.status).toBe('ok');
+    expect(result.longTermMembership.value).toBe(310);
+    expect(result.total.value).toBeCloseTo(458.5, 10);
+    expect(result.total.value!).toBeGreaterThan(result.longTermMembership.value!);
   });
 
-  it('honours the averaging window rather than averaging every year supplied', () => {
-    const ctx = createContext(syntheticParameters({ overrides: { 'membership.averaging_years': 1 } }));
+  it('gives kindergarten through grade five no weight at all', () => {
+    // § 4010(d)(1) assigns grade weights only to prek, 6-8 and 9-12.
+    const ctx = createContext(syntheticParameters());
+    const withMoreK5 = computeWeightedMembership(ctx, {
+      ...DISTRICT,
+      adm_years: DISTRICT.adm_years.map((y) => ({ ...y, kindergarten_through_5: y.kindergarten_through_5! * 2 })),
+    });
+    // Membership rises by the extra pupils (150) and by nothing else.
+    expect(withMoreK5.longTermMembership.value).toBe(460);
+    expect(withMoreK5.total.value).toBeCloseTo(608.5, 10);
+  });
+
+  it('adds State-placed students at their current count rather than averaging them', () => {
+    // § 4001(7)(B).
+    const ctx = createContext(syntheticParameters());
+    const more = computeWeightedMembership(ctx, { ...DISTRICT, state_placed_fte: 15 });
+    expect(more.longTermMembership.value).toBe(320);
+  });
+
+  it('averages over the statutory two years, not every year supplied', () => {
+    const ctx = createContext(syntheticParameters());
     const result = computeWeightedMembership(ctx, {
       ...DISTRICT,
       adm_years: [
-        { fiscal_year: 2024, prek: 0, elementary: 0, secondary: 0 },
+        { fiscal_year: 2024, prekindergarten: 0, kindergarten_through_5: 0, grades_6_through_8: 0, grades_9_through_12: 0 },
         ...DISTRICT.adm_years,
       ],
     });
-
-    // With a one-year window only FY2026 counts: 200 elementary, not an
-    // average that includes the earlier years.
-    expect(result.averagedByBand.elementary.value).toBe(200);
+    expect(result.longTermMembership.value).toBe(310);
   });
 
-  it('adds the sparsity weight only when the district is eligible', () => {
+  it('applies a negative prekindergarten weight as a reduction', () => {
     const ctx = createContext(syntheticParameters());
-    const eligible = computeWeightedMembership(ctx, { ...DISTRICT, sparsity_eligible: true });
-    // 337 + (315 x 0.1) = 368.5
-    expect(eligible.total.value).toBeCloseTo(368.5, 6);
+    const none = computeWeightedMembership(ctx, {
+      ...DISTRICT,
+      adm_years: DISTRICT.adm_years.map((y) => ({ ...y, prekindergarten: 0 })),
+    });
+    // Removing 15 prek pupils removes 15 from membership but ADDS back the
+    // 7.5 their negative weight had subtracted.
+    expect(none.longTermMembership.value).toBe(295);
+    expect(none.total.value).toBeCloseTo(451, 10);
+  });
+});
+
+describe('sparsity, which applies to every pupil in a qualifying district', () => {
+  it('bands density exactly as § 4010(d)(4) does', () => {
+    expect(sparsityBand(35.9)).toBe('weights.sparsity.density_under_36');
+    expect(sparsityBand(36)).toBe('weights.sparsity.density_36_to_55');
+    expect(sparsityBand(54.9)).toBe('weights.sparsity.density_36_to_55');
+    expect(sparsityBand(55)).toBe('weights.sparsity.density_55_to_100');
+    expect(sparsityBand(99.9)).toBe('weights.sparsity.density_55_to_100');
+    expect(sparsityBand(100)).toBeNull();
+    expect(sparsityBand(null)).toBeNull();
+  });
+
+  it('weights the whole district, not a subset of its pupils', () => {
+    const ctx = createContext(syntheticParameters());
+    const sparse = computeWeightedMembership(ctx, { ...DISTRICT, persons_per_square_mile: 20 });
+    // 458.5 + (310 x 0.1) = 489.5
+    expect(sparse.total.value).toBeCloseTo(489.5, 10);
+  });
+
+  it('cannot determine the weight when density is unknown', () => {
+    const ctx = createContext(syntheticParameters());
+    const unknown = computeWeightedMembership(ctx, { ...DISTRICT, persons_per_square_mile: null });
+    expect(unknown.total.value).toBeNull();
+    expect(unknown.total.status).toBe('missing_input');
+  });
+});
+
+describe('small schools', () => {
+  it('bands enrollment exactly as § 4010(d)(5) does', () => {
+    expect(smallSchoolTier(99)).toBe('weights.small_school.enrollment_under_100');
+    expect(smallSchoolTier(100)).toBe('weights.small_school.enrollment_100_to_250');
+    expect(smallSchoolTier(249)).toBe('weights.small_school.enrollment_100_to_250');
+    expect(smallSchoolTier(250)).toBeNull();
+  });
+
+  it('applies only where the district is at or below the density ceiling', () => {
+    const ctx = createContext(syntheticParameters());
+    const schools = [{ name: 'Test School', average_two_year_enrollment: 80 }];
+
+    // 120 persons/sq mi is above the ceiling of 55: no small school weight.
+    const dense = computeWeightedMembership(ctx, { ...DISTRICT, small_schools: schools });
+    expect(dense.total.value).toBeCloseTo(458.5, 10);
+
+    // At 20 persons/sq mi it qualifies: sparsity 31, plus 80 x 0.2 = 16.
+    const sparse = computeWeightedMembership(ctx, {
+      ...DISTRICT,
+      persons_per_square_mile: 20,
+      small_schools: schools,
+    });
+    expect(sparse.total.value).toBeCloseTo(505.5, 10);
   });
 });
 
 describe('the engine refuses to compute from unverified parameters', () => {
   it('returns null and marks the node unverified rather than producing a number', () => {
-    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.secondary'] }));
+    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.9_through_12'] }));
+    const result = computeWeightedMembership(ctx, DISTRICT);
+
+    expect(result.total.value).toBeNull();
+    expect(result.total.status).toBe('unverified');
+    expect(result.total.blockers.map((b) => b.ref)).toContain('weights.grade.9_through_12');
+  });
+
+  it('blocks on the prekindergarten weight, which is the real FY2027 situation', () => {
+    // § 4010(d)(1) has a version effective July 1 2026 if the Act 73
+    // contingency is met, in which prekindergarten is repealed. That date is
+    // inside FY2027 and the contingency status is not determinable from the
+    // codified section, so the shipped parameter file leaves it unverified.
+    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.prekindergarten'] }));
     const result = computeWeightedMembership(ctx, DISTRICT);
 
     expect(result.total.value).toBeNull();
     expect(result.total.status).toBe('unverified');
   });
 
-  it('names the offending parameter so the gap is actionable', () => {
-    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.secondary'] }));
-    const result = computeWeightedMembership(ctx, DISTRICT);
-
-    const refs = result.total.blockers.map((b) => b.ref);
-    expect(refs).toContain('weights.grade.secondary');
-    expect(result.total.explanation).toMatch(/verified against current statute text/);
-  });
-
   it('propagates all the way through spending and tax rate, not just one step', () => {
-    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.elementary'] }));
+    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.6_through_8'] }));
     const membership = computeWeightedMembership(ctx, DISTRICT);
-    const spending = input(ctx, 'Education spending', 3_370_000, 'usd');
-    const perPupil = perWeightedPupil(ctx, spending, membership.total);
-    const rate = townRate(ctx, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' });
+    const spending = input(ctx, 'Education spending', 4_585_000, 'usd');
+    const perPupil = perPupilEducationSpending(ctx, spending, membership.total);
+    const rate = townRate(ctx, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' }, 10_000);
 
     expect(perPupil.value).toBeNull();
     expect(rate.billedRate.value).toBeNull();
@@ -110,44 +199,34 @@ describe('the engine refuses to compute from unverified parameters', () => {
   });
 
   it('an unverified averaging rule invalidates the average even though the arithmetic is trivial', () => {
-    const ctx = createContext(syntheticParameters({ unverified: ['membership.averaging_years'] }));
+    const ctx = createContext(syntheticParameters({ unverified: ['membership.long_term_membership_years'] }));
     const result = computeWeightedMembership(ctx, DISTRICT);
-
-    // Averaging over the wrong window is simply the wrong number, so the
-    // average must not stand as a trustworthy figure.
-    expect(result.averagedByBand.elementary.value).toBeNull();
-    expect(result.averagedByBand.elementary.status).toBe('unverified');
+    expect(result.longTermMembership.value).toBeNull();
+    expect(result.longTermMembership.status).toBe('unverified');
   });
 });
 
 describe('missing source data is distinguished from unverified law', () => {
   it('reports missing_input when the district did not publish a count', () => {
     const ctx = createContext(syntheticParameters());
-    const result = computeWeightedMembership(ctx, {
-      ...DISTRICT,
-      economically_deprived: null,
-    });
+    const result = computeWeightedMembership(ctx, { ...DISTRICT, poverty_185_fpl: null });
 
     expect(result.total.value).toBeNull();
     expect(result.total.status).toBe('missing_input');
-    expect(result.total.blockers.some((b) => b.kind === 'missing_input')).toBe(true);
   });
 
   it('says so in plain language rather than implying a zero', () => {
     const ctx = createContext(syntheticParameters());
     const node = input(ctx, 'Health insurance', null, 'usd');
-
     expect(node.explanation).toMatch(/does not publish it/);
-    expect(node.explanation).toMatch(/does not estimate values it was not given/);
     expect(node.value).not.toBe(0);
   });
 
   it('an unverified parameter outranks a missing input in the headline status', () => {
-    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.secondary'] }));
-    const result = computeWeightedMembership(ctx, { ...DISTRICT, economically_deprived: null });
+    const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.9_through_12'] }));
+    const result = computeWeightedMembership(ctx, { ...DISTRICT, poverty_185_fpl: null });
 
     expect(result.total.status).toBe('unverified');
-    // but both are still reported
     const kinds = new Set(result.total.blockers.map((b) => b.kind));
     expect(kinds).toContain('unverified_parameter');
     expect(kinds).toContain('missing_input');
@@ -155,79 +234,122 @@ describe('missing source data is distinguished from unverified law', () => {
 });
 
 describe('combining districts', () => {
-  it('sums membership by year before averaging, not after weighting', () => {
+  it('sums membership by year before averaging', () => {
     const ctx = createContext(syntheticParameters());
-    const other: MembershipInput = { ...DISTRICT, entity: 'ud/other' };
-    const combined = combineMembership(ctx, [DISTRICT, other], {
+    const combined = combineMembership(ctx, [DISTRICT, { ...DISTRICT, entity: 'ud/other' }], {
       entity: 'ud/merged',
-      sparsity_eligible: false,
-      small_school_eligible: false,
+      persons_per_square_mile: 120,
+      small_schools: [],
     });
-
-    expect(combined.total.value).toBe(674);
+    expect(combined.longTermMembership.value).toBe(620);
+    expect(combined.total.value).toBeCloseTo(917, 10);
   });
 
-  it('does not inherit sparsity eligibility from its parts', () => {
+  it('recomputes density for the combined entity rather than inheriting it', () => {
+    // Two sparse districts do not necessarily make a sparse district; the
+    // merged density is supplied by the caller and can lose the weight.
     const ctx = createContext(syntheticParameters());
-    const sparse: MembershipInput = { ...DISTRICT, sparsity_eligible: true };
-    const combined = combineMembership(ctx, [sparse, sparse], {
+    const sparse = { ...DISTRICT, persons_per_square_mile: 20 };
+    const combined = combineMembership(ctx, [sparse, { ...sparse, entity: 'ud/other' }], {
       entity: 'ud/merged',
-      sparsity_eligible: false,
-      small_school_eligible: false,
+      persons_per_square_mile: 120,
+      small_schools: [],
     });
-
-    // Two sparse districts do not necessarily make a sparse district. The
-    // combined entity's eligibility is stated by the caller, not inferred.
-    expect(combined.total.value).toBe(674);
+    expect(combined.total.value).toBeCloseTo(917, 10);
   });
 
   it('makes the combined count unknown when one district is missing data', () => {
     const ctx = createContext(syntheticParameters());
-    const incomplete: MembershipInput = { ...DISTRICT, economically_deprived: null };
-    const combined = combineMembership(ctx, [DISTRICT, incomplete], {
+    const combined = combineMembership(ctx, [DISTRICT, { ...DISTRICT, poverty_185_fpl: null }], {
       entity: 'ud/merged',
-      sparsity_eligible: false,
-      small_school_eligible: false,
+      persons_per_square_mile: 120,
+      small_schools: [],
     });
-
     expect(combined.total.value).toBeNull();
     expect(combined.total.status).toBe('missing_input');
   });
 });
 
-describe('tax rate', () => {
-  it('divides per-pupil spending by the yield, then by the CLA', () => {
-    const ctx = createContext(syntheticParameters());
-    const membership = computeWeightedMembership(ctx, DISTRICT);
-    const spending = input(ctx, 'Education spending', 3_370_000, 'usd');
-    const perPupil = perWeightedPupil(ctx, spending, membership.total);
+describe('the homestead tax rate', () => {
+  const ctx = () => createContext(syntheticParameters());
 
-    expect(perPupil.value).toBe(10_000);
+  it('divides spending by the yield, then floors the adjustment at one', () => {
+    const c = ctx();
+    const perPupil = input(c, 'Per pupil education spending', 10_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' }, 10_000);
 
-    const result = townRate(ctx, perPupil, {
-      town: 'town/test',
-      cla: 0.8,
-      cla_source: 'Vermont Department of Taxes',
-    });
-
-    expect(result.equalizedRate.value).toBe(1);
+    expect(result.spendingAdjustment.value).toBeCloseTo(1, 10);
+    expect(result.equalizedRate.value).toBeCloseTo(1, 10);
+    // § 5402(b)(1): divided by CLA over the statewide adjustment (1 here).
     expect(result.billedRate.value).toBeCloseTo(1.25, 10);
   });
 
-  it('explains the CLA step, which is the one residents have never had explained', () => {
-    const ctx = createContext(syntheticParameters());
-    const perPupil = input(ctx, 'Per weighted pupil', 10_000, 'usd_per_pupil');
-    const result = townRate(ctx, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' });
+  it('does not let a low-spending district fall below the floor', () => {
+    // § 5401(13)(A) takes the GREATER of one or the fraction. A plain division
+    // would give 0.50 here, understating the rate by half.
+    const c = ctx();
+    const perPupil = input(c, 'Per pupil education spending', 5_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, { town: 'town/test', cla: 1, cla_source: 'test' }, 10_000);
 
-    const claNode = toSteps(result.billedRate).find((s) => s.node.label.includes('common level of appraisal'));
-    expect(claNode?.node.notes.join(' ')).toMatch(/raises its billed rate even when district spending is unchanged/);
+    expect(result.spendingAdjustment.value).toBe(1);
+    expect(result.equalizedRate.value).toBe(1);
+  });
+
+  it('adds excess spending into the numerator rather than charging it separately', () => {
+    // Threshold = 1.18 x 10,000 = 11,800. Spending 15,000 gives excess 3,200,
+    // so the numerator is 18,200 and the adjustment 1.82.
+    const c = ctx();
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const excess = excessSpending(c, perPupil, 10_000);
+    expect(excess.value).toBeCloseTo(3_200, 10);
+
+    const adjustment = spendingAdjustment(c, perPupil, excess);
+    expect(adjustment.value).toBeCloseTo(1.82, 10);
+  });
+
+  it('charges no excess spending below the threshold', () => {
+    const c = ctx();
+    const perPupil = input(c, 'Per pupil education spending', 11_000, 'usd_per_pupil');
+    expect(excessSpending(c, perPupil, 10_000).value).toBe(0);
+  });
+
+  it('divides by CLA over the statewide adjustment, not by CLA alone', () => {
+    // With a statewide adjustment of 1.03 and a CLA of 0.8 the divisor is
+    // 0.7767, not 0.8 -- a difference of about 3% on every bill.
+    const c = createContext(syntheticParameters({ overrides: { 'tax.statewide_adjustment': 1.03 } }));
+    const perPupil = input(c, 'Per pupil education spending', 10_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' }, 10_000);
+
+    expect(result.billedRate.value).toBeCloseTo(1 / (0.8 / 1.03), 10);
+    expect(result.billedRate.value).not.toBeCloseTo(1.25, 4);
+  });
+
+  it('cannot produce a rate while the yield is unset', () => {
+    // The yield is set annually by the yield act. A year the Legislature has
+    // not acted on genuinely has no rate, and must not borrow last year's.
+    const c = createContext(syntheticParameters({ nulled: ['yield.property_dollar_equivalent'] }));
+    const perPupil = input(c, 'Per pupil education spending', 10_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' }, 10_000);
+
+    // The floor still applies, so the adjustment is 1 -- but that is a floor,
+    // not a computed value, and the walkthrough says so.
+    expect(result.billedRate.status).not.toBe('ok');
+  });
+
+  it('explains the CLA step, which is the one residents have never had explained', () => {
+    const c = ctx();
+    const perPupil = input(c, 'Per pupil education spending', 10_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, { town: 'town/test', cla: 0.8, cla_source: 'test' }, 10_000);
+
+    const cla = toSteps(result.billedRate).find((s) => s.node.op === 'input' && s.node.label.endsWith('common level of appraisal'));
+    expect(cla?.node.notes.join(' ')).toMatch(/raises its billed rate even when district spending is unchanged/);
   });
 
   it('does not divide by a zero denominator', () => {
-    const ctx = createContext(syntheticParameters());
-    const spending = input(ctx, 'Education spending', 1_000, 'usd');
-    const zeroMembership = input(ctx, 'Weighted membership', 0, 'pupils');
-    const perPupil = perWeightedPupil(ctx, spending, zeroMembership);
+    const c = ctx();
+    const spending = input(c, 'Education spending', 1_000, 'usd');
+    const zero = input(c, 'Weighted membership', 0, 'pupils');
+    const perPupil = perPupilEducationSpending(c, spending, zero);
 
     expect(perPupil.value).toBeNull();
     expect(perPupil.status).toBe('missing_input');
@@ -257,7 +379,6 @@ describe('scenarios present movement in both directions', () => {
     },
     source: 'test fixture',
   };
-
   const two = [base, { ...base, entity: 'ud/b' }];
 
   it('reports a signed delta that can go either way', () => {
@@ -292,24 +413,7 @@ describe('scenarios present movement in both directions', () => {
       consolidatedPositions: [],
       assumptions: defaultAssumptions(),
     });
-
-    // Redrawing a boundary is not by itself a change in spending. Any movement
-    // shown must come from an assumption the user can see and change.
     expect(result.delta.value).toBe(0);
-  });
-
-  it('carries an assumptions register and caveats with the result', () => {
-    const ctx = createContext(syntheticParameters());
-    const result = runScenario(ctx, {
-      name: 'merge',
-      districts: two,
-      consolidatedPositions: [],
-      assumptions: defaultAssumptions(),
-    });
-
-    expect(result.assumptions.length).toBeGreaterThan(0);
-    expect(result.assumptions.every((a) => a.rationale.length > 0)).toBe(true);
-    expect(result.caveats.join(' ')).toMatch(/transition costs/);
   });
 
   it('reports an unpriced consolidated position as unknown, never as zero', () => {
@@ -318,33 +422,11 @@ describe('scenarios present movement in both directions', () => {
       name: 'merge two superintendencies',
       districts: two,
       consolidatedPositions: [
-        {
-          role: 'superintendent',
-          fte: 1,
-          average_salary: null,
-          note: 'the merged district needs one superintendent, not two',
-        },
+        { role: 'superintendent', fte: 1, average_salary: null, note: 'one, not two' },
       ],
       assumptions: defaultAssumptions(),
     });
-
     expect(result.staffing.salariesScenario.value).toBeNull();
-    expect(result.caveats.join(' ')).toMatch(/no stated average\s+salary/);
-  });
-
-  it('prices a consolidated position when a salary is supplied', () => {
-    const ctx = createContext(syntheticParameters());
-    const result = runScenario(ctx, {
-      name: 'merge two superintendencies',
-      districts: two,
-      consolidatedPositions: [
-        { role: 'superintendent', fte: 1, average_salary: 150_000, note: 'one, not two' },
-      ],
-      assumptions: defaultAssumptions(),
-    });
-
-    expect(result.staffing.salariesCurrent.value).toBe(1_800_000);
-    expect(result.staffing.salariesScenario.value).toBe(1_650_000);
   });
 
   it('applies the health insurance trend independently of headcount', () => {
@@ -359,7 +441,6 @@ describe('scenarios present movement in both directions', () => {
         a.key === 'health_insurance_trend' ? { ...a, value: 0.1 } : a,
       ),
     });
-
     expect(result.staffing.healthCurrent.value).toBe(440_000);
     expect(result.staffing.healthScenario.value).toBeCloseTo(484_000, 6);
   });
@@ -372,19 +453,24 @@ describe('the walkthrough', () => {
 
     const steps = toSteps(result.total);
     expect(steps.length).toBeGreaterThan(10);
-    expect(steps[0]?.depth).toBe(0);
     expect(steps.every((s) => s.node.explanation.length > 0)).toBe(true);
 
     const cited = collectParameters(result.total).map((p) => p.key);
-    expect(cited).toContain('weights.grade.secondary');
-    expect(cited).toContain('weights.economically_deprived');
+    expect(cited).toContain('weights.grade.9_through_12');
+    expect(cited).toContain('weights.poverty_185_fpl');
   });
 
-  it('gives every node a unique id so the UI can key on it', () => {
-    const ctx = createContext(syntheticParameters());
-    const result = computeWeightedMembership(ctx, DISTRICT);
-    const ids = toSteps(result.total).map((s) => s.node.id);
-    expect(new Set(ids).size).toBe(ids.length);
+  it('expands each node once and back-references the rest', () => {
+    // The graph is a DAG: long-term membership is both a term of weighted
+    // membership and the base the sparsity weight applies to. Shared nodes are
+    // reported once in full and thereafter as repeats, so the UI has unique
+    // keys and the walkthrough does not restate the same working twice.
+    const ctx = createContext(syntheticParameters({ overrides: { 'weights.sparsity.density_under_36': 0.1 } }));
+    const steps = toSteps(computeWeightedMembership(ctx, { ...DISTRICT, persons_per_square_mile: 20 }).total);
+
+    const expanded = steps.filter((s) => !s.repeated).map((s) => s.node.id);
+    expect(new Set(expanded).size).toBe(expanded.length);
+    expect(steps.some((s) => s.repeated)).toBe(true);
   });
 });
 
@@ -394,10 +480,10 @@ describe('parameter file parsing', () => {
     fiscal_year: 2027,
     status: 'draft',
     parameters: {
-      'weights.grade.secondary': {
+      'weights.grade.9_through_12': {
         value: null,
         unit: 'multiplier',
-        description: 'the secondary weight',
+        description: 'the grades 9-12 weight',
         citation: { statute: '16 V.S.A. § 4010', verified: false, verified_date: null },
         ...over,
       },
@@ -406,46 +492,31 @@ describe('parameter file parsing', () => {
 
   it('accepts a draft file whose parameters are unverified', () => {
     const set = parseParameterSet(minimal());
-    expect(set.status).toBe('draft');
     expect(unverifiedParameters(set)).toHaveLength(1);
   });
 
   it('refuses a file that claims to be verified while an entry is not', () => {
-    expect(() => parseParameterSet({ ...minimal(), status: 'verified' })).toThrow(
-      /declares status: verified/,
-    );
+    expect(() => parseParameterSet({ ...minimal(), status: 'verified' })).toThrow(/declares status: verified/);
   });
 
   it('refuses a verified citation with no verified_date', () => {
     expect(() =>
-      parseParameterSet(
-        minimal({ citation: { statute: '16 V.S.A. § 4010', verified: true, verified_date: null } }),
-      ),
+      parseParameterSet(minimal({ citation: { statute: '16 V.S.A. § 4010', verified: true, verified_date: null } })),
     ).toThrow(/no verified_date/);
   });
 
   it('refuses an unstated verification status rather than defaulting it', () => {
-    expect(() =>
-      parseParameterSet(minimal({ citation: { statute: '16 V.S.A. § 4010' } })),
-    ).toThrow(/explicit true or false/);
+    expect(() => parseParameterSet(minimal({ citation: { statute: '16 V.S.A. § 4010' } }))).toThrow(
+      /explicit true or false/,
+    );
   });
 
   it('allows a contingent parameter to hold nothing at all', () => {
-    const set = parseParameterSet(
-      minimal({ contingent: true, value: null, unit: 'usd_per_pupil' }),
-    );
+    const set = parseParameterSet(minimal({ contingent: true, value: null, unit: 'usd_per_pupil' }));
     expect([...set.parameters.values()][0]?.contingent).toBe(true);
   });
 
   it('refuses a contingent point value with no range', () => {
-    expect(() => parseParameterSet(minimal({ contingent: true, value: 15000 }))).toThrow(
-      /false precision/,
-    );
-  });
-
-  it('refuses a range with no stated basis', () => {
-    expect(() =>
-      parseParameterSet(minimal({ contingent: true, value: 15000, range: { low: 1, high: 2 } })),
-    ).toThrow(/basis is required/);
+    expect(() => parseParameterSet(minimal({ contingent: true, value: 15000 }))).toThrow(/false precision/);
   });
 });

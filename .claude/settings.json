@@ -23,7 +23,6 @@
       "Bash(git ls-files:*)",
       "Bash(git rev-parse:*)",
       "Bash(git stash:*)",
-
       "Bash(npm install:*)",
       "Bash(npm ci:*)",
       "Bash(npm run:*)",
@@ -36,12 +35,10 @@
       "Bash(node:*)",
       "Bash(tsc:*)",
       "Bash(vitest:*)",
-
       "Bash(python3:*)",
       "Bash(python3 -m venv:*)",
       "Bash(.venv/bin/python:*)",
       "Bash(.venv/bin/pip install:*)",
-
       "Bash(ls:*)",
       "Bash(tree:*)",
       "Bash(find:*)",
@@ -67,12 +64,14 @@
       "Bash(which:*)",
       "Bash(env:*)",
       "Bash(date:*)",
-
       "Read",
       "Glob",
       "Grep",
       "Edit(/home/jamesn/Code/vt-budget-pipeline/**)",
-      "Write(/home/jamesn/Code/vt-budget-pipeline/**)"
+      "Write(/home/jamesn/Code/vt-budget-pipeline/**)",
+      "WebFetch(domain:legislature.vermont.gov)",
+      "WebFetch(domain:law.justia.com)",
+      "Bash(node extract.mjs https://legislature.vermont.gov/statutes/section/16/133/04001 https://legislature.vermont.gov/statutes/section/32/135/05401 https://legislature.vermont.gov/statutes/section/32/135/05402)"
     ],
     "deny": [
       "Bash(git push:*)",

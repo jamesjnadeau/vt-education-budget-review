@@ -1,0 +1,159 @@
+CITATION: 16 V.S.A. § 4001
+SOURCE:   https://legislature.vermont.gov/statutes/section/16/133/04001
+RETRIEVED:2026-07-29T22:30:01.055Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly. This file is the
+provenance record for every parameter citing this section. Do not edit it.
+----------------------------------------------------------------------------
+
+§ 4001. Definitions
+As used in this chapter:
+[Subdivision (1) effective until contingency met; see also subdivision (1) effective
+July 1, 2028 if contingency met, set out below.]
+(1) “Average daily membership” of a school district or, if needed in order to calculate
+the appropriate homestead tax rate, of the municipality as defined in 32 V.S.A. § 5401(9), in any year means:
+(A) The full-time equivalent enrollment of students, as defined by the State Board by
+rule, who are legal residents of the district or municipality attending a school owned
+and operated by the district, attending a public school outside the district under
+section 822a of this title, or for whom the district pays tuition to one or more approved independent schools
+or public schools outside the district during the annual census period. The census
+period consists of the 11th day through the 30th day of the school year in which school
+is actually in session.
+(B) The full-time equivalent enrollment in the year before the last census period, of
+any State-placed students as defined in subdivision 11(a)(28) of this title. A school district that provides for the education of its students by paying tuition
+to an approved independent school or public school outside the district shall not
+count a State-placed student for whom it is paying tuition for purposes of determining
+average daily membership. A school district that is receiving the full amount, as
+defined by the State Board by rule, of the student’s education costs under subsection 2950(a) of this title shall not count the student for purposes of determining average daily membership.
+A State-placed student who is counted in average daily membership shall be counted
+as a student for the purposes of determining weighted student count.
+(C) The full-time equivalent enrollment for each prekindergarten child as follows: If
+a child is enrolled in 10 or more hours of prekindergarten education per week or receives
+10 or more hours of essential early education services per week, the child shall be
+counted as one full-time equivalent pupil. If a child is enrolled in six or more but
+fewer than 10 hours of prekindergarten education per week or if a child receives fewer
+than 10 hours of essential early education services per week, the child shall be counted
+as a percentage of one full-time equivalent pupil, calculated as one multiplied by
+the number of hours per week divided by ten. A child enrolled in prekindergarten education
+for fewer than six hours per week shall not be included in the district’s average
+daily membership. There is no limit on the total number of children who may be enrolled
+in prekindergarten education or who receive essential early education services.
+[Subdivision (1) effective July 1, 2028 if contingency met; see also subdivision (1)
+effective until contingency met, set out above.]
+(1) “Average daily membership” of a school district in any year means:
+(A) The full-time equivalent enrollment of students, as defined by the State Board by
+rule, who are legal residents of the district or municipality attending a school owned
+and operated by the district, attending a public school outside the district under
+section 822a of this title, or for whom the district pays tuition to one or more approved independent schools
+or public schools outside the district during the annual census period. The census
+period consists of the 11th day through the 30th day of the school year in which school
+is actually in session.
+(B) The full-time equivalent enrollment in the year before the last census period, of
+any State-placed students as defined in subdivision 11(a)(28) of this title. A school district that provides for the education of its students by paying tuition
+to an approved independent school or public school outside the district shall not
+count a State-placed student for whom it is paying tuition for purposes of determining
+average daily membership. A school district that is receiving the full amount, as
+defined by the State Board by rule, of the student’s education costs under subsection 2950(a) of this title shall not count the student for purposes of determining average daily membership.
+A State-placed student who is counted in average daily membership shall be counted
+as a student for the purposes of determining weighted student count.
+(C) The full-time equivalent enrollment for each prekindergarten child as follows: If
+a child is enrolled in 10 or more hours of prekindergarten education per week or receives
+10 or more hours of essential early education services per week, the child shall be
+counted as one full-time equivalent pupil. If a child is enrolled in six or more but
+fewer than 10 hours of prekindergarten education per week or if a child receives fewer
+than 10 hours of essential early education services per week, the child shall be counted
+as a percentage of one full-time equivalent pupil, calculated as one multiplied by
+the number of hours per week divided by ten. A child enrolled in prekindergarten education
+for fewer than six hours per week shall not be included in the district’s average
+daily membership. There is no limit on the total number of children who may be enrolled
+in prekindergarten education or who receive essential early education services.
+(2) “Equalized grand list” has the same meaning that equalized education property tax
+grand list has in 32 V.S.A. chapter 135.
+(3)-(5) [Repealed.]
+[Subdivision (6) repealed July 1, 2028 if contingency met.]
+(6) “Education spending” means the amount of the school district budget, any assessment
+for a joint contract school, career technical center payments made on behalf of the
+district under subsection 1561(b) of this title, and any amount added to pay a deficit pursuant to 24 V.S.A. § 1523(b) that is paid for by the school district, but excluding any portion of the school
+budget paid for from any other sources such as endowments, parental fundraising, federal
+funds, nongovernmental grants, or other State funds such as special education funds
+paid under chapter 101 of this title.
+(A) [Repealed.]
+(B) For all bonds approved by voters prior to July 1, 2024, voter-approved bond payments
+toward principal and interest shall not be included in “education spending” for purposes
+of calculating excess spending pursuant to 32 V.S.A. § 5401(12).
+(7) “Long-term membership” of a school district in any school year means the:
+(A) average of the district’s average daily membership, excluding full-time equivalent
+enrollment of State-placed students, over two school years, the latter of which is
+the current school year, plus
+(B) full-time equivalent enrollment of State-placed students for the most recent of the
+two years.
+(8) [Repealed.]
+(9) “Public school” means an elementary school or secondary school for which the governing
+board is publicly elected. A public school may maintain evening or summer school for
+its students and it shall be considered a public school.
+(10) “School district” means a town school district, city school district, incorporated
+school district, the member school districts of an interstate school district, a union
+school district, a unified union district, or an unorganized town or gore.
+(11) “School year” means a year beginning on July 1 and ending on the following June 30.
+(12) “Weighted long-term membership” of a school district in any school year means the
+long-term membership adjusted pursuant to section 4010 of this title.
+[Subdivision (13) effective until contingency met; see also subdivision (13) effective
+July 1, 2028 if contingency met, set out below.]
+(13) “Base education amount” means a number used to calculate categorical grants awarded
+under this title that is equal to $6,800.00 per equalized pupil, adjusted as required
+under section 4011 of this title.
+[Subdivision (13) effective July 1, 2028 if contingency met; see also subdivision (13)
+effective until contingency met, set out above.]
+(13) “Categorical base amount” means a number used to calculate categorical grants awarded
+under this title that is equal to $6,800.00 per equalized pupil, adjusted as required
+under section 4011 of this title.
+[Subdivision (14) repealed July 1, 2028 if contingency met.]
+(14) “Per pupil education spending” of a school district in any school year means the per
+pupil education spending of that school district as determined under subsection 4010(f) of this title.
+(15) “Prekindergarten child” means a three- or four-year-old child who is enrolled in a
+prekindergarten program offered by or through a school district pursuant to rules
+adopted under section 829 of this title or who is receiving essential early education services offered pursuant to section 2956 of this title. Prekindergarten child also means a five-year-old child who otherwise meets the terms
+of this definition if that child is not yet eligible for or enrolled in kindergarten.
+[Subdivision (16) effective July 1, 2028 if contingency met.]
+(16) “Base amount” means a per pupil cost-factor amount of $15,033.00, which shall be adjusted
+for inflation annually on or before November 15 by the Secretary of Education. As
+used in this subdivision, “adjusted for inflation” means adjusting the base dollar
+amount by the National Income and Product Accounts (NIPA) implicit price deflator
+for state and local government consumption expenditures and gross investment published
+by the U.S. Department of Commerce, Bureau of Economic Analysis, from fiscal year
+2025 through the fiscal year for which the amount is being determined, and rounding
+upward to the nearest whole dollar amount.
+[Subdivision (17) effective July 1, 2028 if contingency met.]
+(17) “Educational opportunity payment” means the base amount multiplied by the school district’s
+weighted long-term membership as determined under section 4010 of this title. (Added 1997, No. 60, § 18, eff. July 1, 1998; amended 1997, No. 71 (Adj. Sess.), § 117, eff. March 11, 1998; 1999, No. 152 (Adj. Sess.), § 166b; 2001, No. 8, § 15; 2003, No. 68, § 15, eff. June 18, 2003; 2003, No. 68, § 25; 2003, No. 130 (Adj. Sess.), § 10; 2005, No. 182 (Adj. Sess.), § 8; 2007, No. 62, §§ 4, 6; 2007, No. 66, § 16; 2007, No. 66, § 17, eff. July 1, 2009; 2007, No. 132 (Adj. Sess.), §§ 4, 5; 2009, No. 44, §§ 16, 20, 30, eff. May 21, 2009; 2009, No. 156 (Adj. Sess.), § E.500.1, eff. June 3, 2010; 2011, No. 38, § 1, eff. May 19, 2011; 2011, No. 45, § 13d, eff. May 24, 2011; 2011, No. 58, § 17, eff. May 31, 2011; 2011, No. 129 (Adj. Sess.), § 35; 2011, No. 156 (Adj. Sess.), § 23; 2013, No. 179 (Adj. Sess.), § E.514.5; 2015, No. 46, §§ 26, 34; 2015, No. 132 (Adj. Sess.), § 3, eff. July 1, 2017; 2017, No. 173 (Adj. Sess.), § 15, eff. July 1, 2019; 2019, No. 66, § 2, eff. June 17, 2019; 2021, No. 73, § 18; 2021, No. 127 (Adj. Sess.), § 24, eff. July 1, 2024; 2023, No. 183 (Adj. Sess.), § 20, eff. July 1, 2024; 2025, No. 73, § 34, contingently eff. July 1, 2028.)
+Statutes
+Vermont Statutes Online
+Statutes Search
+Vermont Statutes at Lexis/Nexis
+Constitution
+Constitution of the State of Vermont
+Acts
+Acts & Resolves
+Acts Affecting VSA Sections
+Rules
+State Agency Rules at Lexis/Nexis
+Court Rules at Lexis/Nexis
+Legislative Committee on Administrative Rules (LCAR)
+Contact
+Vermont State House
+115 State Street
+Montpelier, VT 05633-5301
+(802) 828-2228
+sgtatarms@leg.state.vt.us
+Capitol Police Department
+802-828-2273
+Member & Staff Links
+Legislative Email Sign-on
+Legislative Human Resources
+Legislative Time Reporting
+Legislative Expense Reporting
+Test My MFA
+How to Use This Website
+Disclaimer
+State Government

@@ -26,7 +26,8 @@
     "build:data": "tsx tools/src/cli/build-data.ts",
     "build:site": "npm run build --workspace site",
     "build": "npm run validate && npm run build:data && npm run build:site",
-    "dev": "npm run build:data && npm run dev --workspace site"
+    "dev": "npm run build:data && npm run dev --workspace site",
+    "statute:sync": "tsx tools/src/cli/statute-sync.ts"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",

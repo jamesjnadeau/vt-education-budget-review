@@ -456,9 +456,28 @@ function listOf(nodes: readonly CalcNode[], unit: Unit): string {
 // Tree traversal
 // --------------------------------------------------------------------------
 
-export function walk(node: CalcNode, visit: (n: CalcNode, depth: number) => void, depth = 0): void {
-  visit(node, depth);
-  for (const child of node.inputs) walk(child, visit, depth + 1);
+/**
+ * Walks the computation graph.
+ *
+ * It is a DAG, not a tree: the same quantity legitimately feeds more than one
+ * place. Long-term membership, for instance, is both a term of weighted
+ * membership and the base the sparsity weight is applied to. That sharing is
+ * real and should not be papered over by cloning nodes, so instead a node is
+ * expanded once and later encounters are reported with `repeated: true` and
+ * not descended into. Without the guard a wide DAG is traversed exponentially
+ * and the flattened output repeats whole subtrees.
+ */
+export function walk(
+  node: CalcNode,
+  visit: (n: CalcNode, depth: number, repeated: boolean) => void,
+  depth = 0,
+  seen: Set<string> = new Set(),
+): void {
+  const repeated = seen.has(node.id);
+  visit(node, depth, repeated);
+  if (repeated) return;
+  seen.add(node.id);
+  for (const child of node.inputs) walk(child, visit, depth + 1, seen);
 }
 
 /** Every parameter used anywhere beneath a node, deduplicated -- the citation list for a result. */
@@ -474,9 +493,21 @@ export function collectBlockers(node: CalcNode): Blocker[] {
   return dedupeBlockers(node.blockers);
 }
 
-/** Flattens the tree to the ordered step list the walkthrough renders. */
-export function toSteps(node: CalcNode): Array<{ depth: number; node: CalcNode }> {
-  const steps: Array<{ depth: number; node: CalcNode }> = [];
-  walk(node, (n, depth) => steps.push({ depth, node: n }));
+export interface Step {
+  readonly depth: number;
+  readonly node: CalcNode;
+  /**
+   * True when this node was already expanded earlier in the walkthrough. The UI
+   * should render it as a back-reference ("as computed above") rather than
+   * repeating the working, which is both shorter and more honest about the fact
+   * that it is the same quantity and not a second, coincidentally equal one.
+   */
+  readonly repeated: boolean;
+}
+
+/** Flattens the graph to the ordered step list the walkthrough renders. */
+export function toSteps(node: CalcNode): Step[] {
+  const steps: Step[] = [];
+  walk(node, (n, depth, repeated) => steps.push({ depth, node: n, repeated }));
   return steps;
 }
