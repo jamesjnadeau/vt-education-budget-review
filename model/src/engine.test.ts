@@ -99,6 +99,54 @@ describe('weighted long-term membership', () => {
     expect(result.longTermMembership.value).toBe(310);
   });
 
+  it('makes a prekindergarten pupil 0.46 of a K-5 pupil, not negative 0.54', () => {
+    // The statute's phrasing at § 4010(d)(1)(A) -- "prekindergarten—negative
+    // 0.54" -- invites reading a prek pupil as counting -0.54. It does not.
+    // The pupil is already counted once in long-term membership and the weight
+    // is an increment on top, so the effective count is 1 - 0.54 = 0.46. The
+    // wrong reading flips the sign of every prekindergarten pupil in the state.
+    //
+    // Real statutory values from § 4010(d)(1)-(3), applied here to the
+    // synthetic set so the structural claim is pinned to the actual numbers.
+    const ctx = createContext(
+      syntheticParameters({
+        overrides: {
+          'weights.grade.prekindergarten': -0.54,
+          'weights.grade.kindergarten_through_5': 0,
+          'weights.grade.6_through_8': 0.36,
+          'weights.grade.9_through_12': 0.39,
+        },
+      }),
+    );
+
+    const onePupilIn = (band: keyof Omit<(typeof DISTRICT)['adm_years'][number], 'fiscal_year'>) => {
+      const years = [2025, 2026].map((fiscal_year) => ({
+        fiscal_year,
+        prekindergarten: 0,
+        kindergarten_through_5: 0,
+        grades_6_through_8: 0,
+        grades_9_through_12: 0,
+        [band]: 1,
+      })) as unknown as (typeof DISTRICT)['adm_years'];
+
+      return computeWeightedMembership(ctx, {
+        entity: 'ud/one-pupil',
+        adm_years: years,
+        state_placed_fte: 0,
+        poverty_185_fpl: 0,
+        english_learners: 0,
+        persons_per_square_mile: 200,
+        small_schools: [],
+        source: 'test fixture',
+      }).total.value;
+    };
+
+    expect(onePupilIn('prekindergarten')).toBeCloseTo(0.46, 10);
+    expect(onePupilIn('kindergarten_through_5')).toBeCloseTo(1, 10);
+    expect(onePupilIn('grades_6_through_8')).toBeCloseTo(1.36, 10);
+    expect(onePupilIn('grades_9_through_12')).toBeCloseTo(1.39, 10);
+  });
+
   it('applies a negative prekindergarten weight as a reduction', () => {
     const ctx = createContext(syntheticParameters());
     const none = computeWeightedMembership(ctx, {

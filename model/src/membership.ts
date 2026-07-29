@@ -12,6 +12,19 @@
  *    the pupil already being counted once. Treating it as a multiplier -- ADM
  *    times 0.36 -- would shrink the count rather than enlarge it.
  *
+ *    The effective count per pupil is therefore 1 + the weight:
+ *
+ *        prekindergarten   1 - 0.54  =  0.46
+ *        K-5               1 + 0     =  1.00
+ *        grades 6-8        1 + 0.36  =  1.36
+ *        grades 9-12       1 + 0.39  =  1.39
+ *
+ *    The prekindergarten line is the one that catches people. The statute says
+ *    "prekindergarten—negative 0.54", which reads as though a prek pupil counts
+ *    as -0.54. It does not: the pupil is already counted once, so the effective
+ *    figure is 0.46 -- a prek pupil is 0.46 of a K-5 pupil. Reading it the other
+ *    way flips the sign on every prekindergarten pupil in the state.
+ *
  * 2. KINDERGARTEN THROUGH GRADE FIVE HAS NO WEIGHT. § 4010(d)(1) assigns grade
  *    weights only to prekindergarten, grades 6-8 and grades 9-12. K-5 is a
  *    counting category under § 4010(b)(1)(B) but carries zero, and is the

@@ -67,6 +67,17 @@ parameters:
   # § 4010(d)(6) provides that weighted long-term membership equals long-term
   # membership PLUS the cumulation of the weights. Kindergarten through grade
   # five carries no weight at all -- it is the implicit baseline.
+  #
+  # So the effective count per pupil is 1 + the weight below:
+  #
+  #     prekindergarten   1 - 0.54  =  0.46
+  #     K-5               1 + 0     =  1.00
+  #     grades 6-8        1 + 0.36  =  1.36
+  #     grades 9-12       1 + 0.39  =  1.39
+  #
+  # The prekindergarten entry is the trap. "negative 0.54" reads as though a
+  # prek pupil counts as -0.54; it does not. The pupil is already counted once,
+  # so a prek pupil is 0.46 of a K-5 pupil.
 
   weights.grade.prekindergarten:
     value: null
@@ -81,9 +92,11 @@ parameters:
         Version effective until contingency met: "(A) prekindergarten—negative 0.54".
         Version effective July 1, 2026 if contingency met: "(A) [Repealed.]".
         Left null because July 1, 2026 falls inside FY2027 and the contingency
-        status is not determinable from the codified section. The value is either
-        -0.54 or the weight does not exist; guessing between them would change
-        every district's weighted membership.
+        status is not determinable from the codified section. Being an additive
+        increment, -0.54 makes a prekindergarten pupil count as 0.46; repeal makes
+        the same pupil count as 1.00. The choice therefore more than doubles the
+        membership contribution of every prekindergarten pupil, which is why it is
+        not guessed at.
       verified: false
       verified_date: null
       verified_by: null
