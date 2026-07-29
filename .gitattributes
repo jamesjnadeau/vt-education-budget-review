@@ -1,0 +1,29 @@
+# Raw budget artifacts are large, binary, and never edited. They live in LFS.
+# See docs/provenance.md -- if LFS quota becomes the binding constraint these
+# migrate to release assets and only their SHA-256 hashes stay in git.
+intake/**/*.pdf   filter=lfs diff=lfs merge=lfs -text
+intake/**/*.PDF   filter=lfs diff=lfs merge=lfs -text
+intake/**/*.xlsx  filter=lfs diff=lfs merge=lfs -text
+intake/**/*.xls   filter=lfs diff=lfs merge=lfs -text
+intake/**/*.doc   filter=lfs diff=lfs merge=lfs -text
+intake/**/*.docx  filter=lfs diff=lfs merge=lfs -text
+intake/**/*.zip   filter=lfs diff=lfs merge=lfs -text
+
+# provenance.yaml and any .txt/.csv/.html extractions stay as normal git
+# objects so they remain diffable and greppable without an LFS fetch.
+
+# Normalize line endings for everything textual.
+*.ts      text eol=lf
+*.tsx     text eol=lf
+*.js      text eol=lf
+*.mjs     text eol=lf
+*.json    text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.md      text eol=lf
+*.astro   text eol=lf
+*.css     text eol=lf
+*.py      text eol=lf
+
+# Registry snapshots are generated; collapse them in PR diffs by default.
+registry/raw/** linguist-generated=true
