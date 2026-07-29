@@ -23,7 +23,14 @@ const formatsModule = require('ajv-formats') as {
 } & ((instance: Ajv2020) => void);
 const addFormats = formatsModule.default ?? formatsModule;
 
-export type SchemaName = 'budget' | 'registry' | 'provenance' | 'collector' | 'parameters' | 'grouping';
+export type SchemaName =
+  | 'budget'
+  | 'registry'
+  | 'provenance'
+  | 'collector'
+  | 'parameters'
+  | 'grouping'
+  | 'mapping';
 
 const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   budget: 'urn:vt-budget:schema:budget:1.0',
@@ -32,6 +39,7 @@ const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   collector: 'urn:vt-budget:schema:collector:1.0',
   parameters: 'urn:vt-budget:schema:parameters:1.0',
   grouping: 'urn:vt-budget:schema:grouping:1.0',
+  mapping: 'urn:vt-budget:schema:mapping:1.0',
 };
 
 export interface SchemaError {

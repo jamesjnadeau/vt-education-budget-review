@@ -1,0 +1,51 @@
+name: Validate
+
+# The gatekeeper. Nothing reaches main -- and therefore nothing reaches the
+# site -- without passing this, which is what stands in for the trust function
+# an admin login would otherwise serve.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Intake artifacts live in LFS. Fetching them is what makes hash
+          # verification meaningful -- without it the validator can only see
+          # pointer files and says so rather than passing silently.
+          lfs: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit and golden tests
+        run: npm test
+
+      - name: Validate data
+        run: npm run validate
+
+      - name: Parameter status
+        run: npm run params -- --stale 400
+
+      - name: Build
+        run: npm run build:data && npm run build:site

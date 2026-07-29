@@ -1,0 +1,65 @@
+name: Registry sync
+
+# Nightly diff of the AOE directory against our registry. Opens a pull request
+# when anything changed and NEVER auto-merges: every structural change in
+# Vermont education gets a human reading and a commit message explaining it.
+#
+# As a side effect the resulting history becomes a public changelog of district
+# reorganization, which nobody else is currently publishing.
+
+on:
+  schedule:
+    - cron: '17 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sync registry
+        id: sync
+        run: npm run registry:sync -- --summary "$RUNNER_TEMP/summary.md"
+
+      - name: Validate the result
+        # A sync that produces an invalid registry should fail loudly here
+        # rather than arriving as a plausible-looking pull request.
+        run: npm run validate -- --no-hashes
+
+      - name: Detect changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain registry/)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No directory changes today."
+          fi
+
+      - name: Open pull request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: registry-sync/${{ github.run_id }}
+          title: 'Registry sync: AOE directory changed'
+          body-path: ${{ runner.temp }}/summary.md
+          commit-message: |
+            Registry sync from the AOE Public Data API
+
+            Automated. Review the diff before merging -- a structural change in
+            Vermont education should be understood, not just merged.
+          labels: registry-sync
+          # Never auto-merge. The human reading is the point of the workflow.
+          draft: false

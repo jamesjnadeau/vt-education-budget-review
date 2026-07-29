@@ -54,7 +54,15 @@ function schemaFindings(schema: SchemaName, data: unknown, file: string): Findin
 function main(): number {
   const verifyHashes = !process.argv.includes('--no-hashes');
   const findings: Finding[] = [];
-  const counts = { registry: 0, warehouse: 0, provenance: 0, collectors: 0, parameters: 0, groupings: 0 };
+  const counts = {
+    registry: 0,
+    warehouse: 0,
+    provenance: 0,
+    collectors: 0,
+    mappings: 0,
+    parameters: 0,
+    groupings: 0,
+  };
 
   const registry = readRegistry();
   if (registry.size === 0) {
@@ -119,6 +127,14 @@ function main(): number {
     findings.push(...checkRegistryRefs(data, file, registry));
   }
 
+  // --- extraction mappings ------------------------------------------------
+  for (const file of walkFiles(PATHS.collectors, (n) => /^fy\d{4}\.yaml$/.test(n))) {
+    counts.mappings++;
+    const data = readData(file);
+    findings.push(...schemaFindings('mapping', data, file));
+    findings.push(...checkRegistryRefs(data, file, registry));
+  }
+
   // --- intake provenance --------------------------------------------------
   for (const file of walkFiles(PATHS.intake, (n) => n === 'provenance.yaml')) {
     counts.provenance++;
@@ -163,7 +179,7 @@ function main(): number {
   console.log(
     `Checked ${counts.registry} registry file(s), ${counts.groupings} grouping file(s), ` +
       `${counts.parameters} parameter file(s), ${counts.collectors} collector config(s), ` +
-      `${counts.provenance} provenance file(s), ${counts.warehouse} warehouse record(s).`,
+      `${counts.mappings} mapping(s), ${counts.provenance} provenance file(s), ${counts.warehouse} warehouse record(s).`,
   );
   if (!verifyHashes) console.log('Hash verification skipped (--no-hashes).');
 

@@ -1,0 +1,28 @@
+# Data and documentation licence
+
+The normalized data in `warehouse/`, the entity registry in `registry/`, the parameter files in
+`model/parameters/`, and the documentation in `docs/` are licensed under
+Creative Commons Attribution 4.0 International (CC BY 4.0).
+
+    https://creativecommons.org/licenses/by/4.0/
+
+You may share and adapt this material for any purpose, including commercially, provided you give
+appropriate credit and indicate if changes were made.
+
+## What this does not cover
+
+Raw artifacts in `intake/` are documents published by Vermont supervisory unions, school
+districts and state agencies. They are stored here exactly as released, unedited, as the
+provenance record for the normalized data. They are not this project's work and this licence
+does not apply to them; their copyright status is whatever it was when the issuing body
+published them. Most are public records of Vermont public bodies.
+
+## Attribution and accuracy
+
+If you reuse the normalized data, please link back to the source repository so that readers can
+reach the provenance records and the correction history.
+
+Please also carry across the verification status of anything you reuse. A figure derived from an
+unverified statutory parameter is marked as such throughout this project precisely so that it
+cannot be mistaken for a settled one, and reproducing it without that marking would defeat the
+point.

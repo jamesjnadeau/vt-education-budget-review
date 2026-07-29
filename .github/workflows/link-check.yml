@@ -1,0 +1,75 @@
+name: Source liveness
+
+# Weekly check that every collector source URL still resolves. A district
+# reorganizing its website is news worth acting on, not a broken pipeline, so
+# dead links open an issue rather than failing a build.
+
+on:
+  schedule:
+    - cron: '41 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check source URLs
+        id: check
+        run: |
+          npm run collect -- --check-urls 2>&1 | tee "$RUNNER_TEMP/liveness.log"
+          {
+            echo 'report<<LIVENESS_EOF'
+            grep -E '^  DEAD|^Checked' "$RUNNER_TEMP/liveness.log" || echo 'No output.'
+            echo 'LIVENESS_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open an issue for dead links
+        if: contains(steps.check.outputs.report, 'DEAD')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const report = process.env.REPORT;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Dead collector source URLs — ${new Date().toISOString().slice(0, 10)}`,
+              labels: ['collectors', 'dead-link'],
+              body: [
+                'The weekly liveness check could not reach one or more collector source URLs.',
+                '',
+                'A district reorganizing its website is the usual cause, and it usually means',
+                'the budget documents moved too. Finding where they moved to is the actual task;',
+                'updating the URL is the easy part.',
+                '',
+                '```',
+                report,
+                '```',
+              ].join('\n'),
+            });
+        env:
+          REPORT: ${{ steps.check.outputs.report }}
+
+      - name: Commit updated last_checked timestamps
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: liveness/${{ github.run_id }}
+          title: 'Collector source liveness check'
+          commit-message: 'Record weekly source URL liveness results'
+          labels: collectors
+          body: |
+            Automated weekly liveness check. Updates `last_checked` and `last_status`
+            on each collector source.
