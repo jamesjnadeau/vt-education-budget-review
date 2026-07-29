@@ -1,0 +1,253 @@
+schema_version: "1.0"
+fiscal_year: 2027
+status: draft
+
+# ---------------------------------------------------------------------------
+# READ THIS BEFORE USING ANY NUMBER FROM THIS FILE.
+#
+# Every parameter below has value: null and citation.verified: false.
+# That is deliberate and it is the correct state for this file today.
+#
+# The statute references are LEADS TO CHECK, not established facts. They record
+# where the relevant law is believed to live so that verification has somewhere
+# to start. They were not confirmed against current statute text, because the
+# authoritative sources could not be reached from the environment this file was
+# drafted in:
+#
+#   legislature.vermont.gov   TLS certificate chain could not be verified
+#   education.vermont.gov     HTTP 403 to automated clients
+#
+# Filling these in from memory or from a secondary mirror and marking them
+# verified is precisely the failure this project exists to be the opposite of.
+# 16 V.S.A. ch. 133 has been amended in most recent sessions -- Act 127 of 2022,
+# Act 73 of 2025 -- and a remembered weight is very likely to be a repealed one.
+#
+# Nothing here can leak into a published figure while it stays this way. The
+# engine refuses to compute from an unverified parameter: it returns null and
+# marks the computation node `unverified`, and the site renders that state
+# explicitly. The tests in model/src/engine.test.ts assert this.
+#
+# To verify: follow docs/parameter-verification.md, which lists each parameter,
+# the source to read, and what to record.
+# ---------------------------------------------------------------------------
+
+note: >-
+  DRAFT. No parameter in this file has been verified against current statute
+  text. Every value is null and the engine will decline to produce figures from
+  it. See docs/parameter-verification.md for the verification procedure. This
+  file must reach status: verified before any computed figure is published.
+
+parameters:
+  # --- Membership -----------------------------------------------------------
+
+  membership.averaging_years:
+    value: null
+    unit: years
+    description: number of years of average daily membership averaged into long-term membership
+    applies_to: all districts
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.grade.prek:
+    value: null
+    unit: multiplier
+    description: grade-level weight applied to prekindergarten average daily membership
+    applies_to: prekindergarten pupils
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.grade.elementary:
+    value: null
+    unit: multiplier
+    description: grade-level weight applied to elementary average daily membership
+    applies_to: elementary pupils
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.grade.secondary:
+    value: null
+    unit: multiplier
+    description: grade-level weight applied to secondary average daily membership
+    applies_to: secondary pupils
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.economically_deprived:
+    value: null
+    unit: multiplier
+    description: additional weight for pupils at or below 185 percent of the federal poverty level
+    applies_to: pupils identified as economically deprived
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.english_learner:
+    value: null
+    unit: multiplier
+    description: additional weight for English learner pupils
+    applies_to: English learner pupils, possibly banded by proficiency level
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.english_learner_newcomer_slife:
+    value: null
+    unit: multiplier
+    description: additional weight for English learner pupils who are Newcomers or SLIFE
+    applies_to: Newcomer and SLIFE pupils
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.sparsity:
+    value: null
+    unit: multiplier
+    description: additional weight for districts meeting the sparsity criterion
+    applies_to: districts meeting the statutory sparsity test
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  weights.small_school:
+    value: null
+    unit: multiplier
+    description: additional weight for districts meeting the small school size criterion
+    applies_to: districts meeting the statutory school size test
+    citation:
+      statute: "16 V.S.A. § 4010"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  # --- Yield and rates (current system) -------------------------------------
+  # These are set annually by the yield act, not fixed in statute, so they will
+  # be null for any fiscal year the Legislature has not yet acted on. That is a
+  # real null, not an unfinished one, and it must not be filled by carrying the
+  # prior year forward.
+
+  yield.property_dollar_equivalent:
+    value: null
+    unit: usd_per_pupil
+    description: property dollar equivalent yield -- spending per weighted pupil that produces a $1.00 homestead rate
+    applies_to: all homestead property
+    citation:
+      statute: "32 V.S.A. § 5401(13)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/chapter/32/135"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  yield.income_dollar_equivalent:
+    value: null
+    unit: usd_per_pupil
+    description: income dollar equivalent yield -- spending per weighted pupil that produces a 1.0 percent income rate
+    applies_to: homesteads claiming an income adjustment
+    citation:
+      statute: "32 V.S.A. § 5401(13)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/chapter/32/135"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  tax.excess_spending_threshold:
+    value: null
+    unit: usd_per_pupil
+    description: per-pupil spending above which the excess spending provision applies a second rate
+    applies_to: districts exceeding the threshold
+    citation:
+      statute: "32 V.S.A. § 5401(12)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/chapter/32/135"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  # --- Foundation formula (contingent) --------------------------------------
+  # Act 73 of 2025 sets a course toward a base-amount formula with a statewide
+  # rate, contingently effective for the 2028-29 reorganization. The Legislature
+  # has not set these values. They are marked contingent and carry no range:
+  # a range with no defensible basis would be a guess in the costume of an
+  # estimate. When the JFO consultant recommendations land, they become a range
+  # with a real basis and this file gains a successor.
+
+  foundation.base_amount:
+    value: null
+    unit: usd_per_pupil
+    description: base amount per weighted pupil under the foundation formula
+    applies_to: all districts, once effective
+    contingent: true
+    citation:
+      statute: "16 V.S.A. § 4011 (as affected by Act 73 of 2025)"
+      session_law: "2025 Acts and Resolves No. 73"
+      source_url: "https://legislature.vermont.gov/bill/status/2026/H.454"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  foundation.statewide_homestead_rate:
+    value: null
+    unit: rate_per_100
+    description: statewide homestead tax rate under the foundation formula
+    applies_to: all homestead property, once effective
+    contingent: true
+    citation:
+      statute: "32 V.S.A. ch. 135 (as affected by Act 73 of 2025)"
+      session_law: "2025 Acts and Resolves No. 73"
+      source_url: "https://legislature.vermont.gov/bill/status/2026/H.454"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null

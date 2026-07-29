@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:registry:1.0",
+  "title": "Entity registry",
+  "description": "The canonical record of who exists: supervisory unions, member districts, schools and towns, with relationships and effective dates. Bitemporal-lite: when Act 170 mergers take effect the old entities do not disappear, they close, and their history stays queryable. One file per entity type, records sorted by slug, so a nightly sync produces readable per-record diffs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "entity_type", "synced_from", "records"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "entity_type": {
+      "enum": ["su", "sd", "ud", "school", "town", "academy", "techcenter", "state"]
+    },
+    "synced_from": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["api", "endpoint", "last_synced"],
+      "properties": {
+        "api": { "type": "string", "format": "uri" },
+        "endpoint": { "type": "string" },
+        "last_synced": { "type": "string", "format": "date" },
+        "snapshot": {
+          "type": ["string", "null"],
+          "description": "Path to the raw API response this sync was built from, under registry/raw/YYYY-MM-DD/.",
+          "default": null
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entity" }
+    }
+  },
+  "$defs": {
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "name", "type", "effective_from", "effective_to"],
+      "properties": {
+        "slug": {
+          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref",
+          "description": "Our stable internal ID. Assigned once and never changed, even when AOE renames or renumbers the entity."
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "type": {
+          "enum": ["su", "sd", "ud", "school", "town", "academy", "techcenter", "state"]
+        },
+        "aoe_org_id": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/aoe_org_id" },
+        "aoe_server_id": {
+          "type": ["integer", "null"],
+          "description": "The API's internal ServerId. Recorded for cross-referencing but never used as a key -- it is an implementation detail of their system.",
+          "default": null
+        },
+        "edfi_id": { "type": ["number", "null"], "default": null },
+
+        "effective_from": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "When this entity began. The AOE API publishes no opening date, so for entities first seen through the sync this is the date of the snapshot that first observed them, and `effective_from_basis` says so. Do not read it as an authoritative founding date."
+        },
+        "effective_from_basis": {
+          "enum": ["statute", "aoe_published", "first_observed", "manual", "unknown"],
+          "default": "unknown"
+        },
+        "effective_to": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "When this entity closed, from the CloseDate field on the AOE closed_organizations endpoint. Null means currently active."
+        },
+        "effective_to_basis": {
+          "enum": ["statute", "aoe_published", "first_observed", "manual", "unknown"],
+          "default": "unknown"
+        },
+        "successor": {
+          "type": ["string", "null"],
+          "description": "Slug of the entity that took over this one's territory or students. The AOE API publishes NO successor field -- every value here is hand-entered from statute or AOE guidance and must carry a note. This is the lineage the 2028-29 consolidation work depends on.",
+          "default": null
+        },
+        "successor_basis": { "type": ["string", "null"], "default": null },
+
+        "supervisory_union": {
+          "type": ["string", "null"],
+          "description": "Slug of the SU this entity belongs to.",
+          "default": null
+        },
+        "operated_by": {
+          "type": ["string", "null"],
+          "description": "Slug of the district that operates this entity. NOTE: the AOE API's ParentOrg/OperatedBy fields carry inverted meanings between towns and schools -- for a town, ParentOrg is its union district and OperatedBy is its SU; for a school, ParentOrg is its SU and OperatedBy is its district. The sync untangles this; do not read the raw fields directly.",
+          "default": null
+        },
+        "member_towns": {
+          "type": "array",
+          "description": "Slugs of towns whose students this district serves. Populated for districts, empty for other types.",
+          "items": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+          "default": []
+        },
+        "grades": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "website": { "type": ["string", "null"], "default": null },
+        "latitude": { "type": ["number", "null"], "default": null },
+        "longitude": { "type": ["number", "null"], "default": null },
+
+        "manual_overrides": {
+          "type": "array",
+          "description": "Fields set by hand rather than by the sync, with the reason. The sync must not clobber these. The registry has to tolerate gaps in the API -- the API is a convenience layer, not a dependency.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["field", "reason", "set_by", "set_date"],
+            "properties": {
+              "field": { "type": "string" },
+              "reason": { "type": "string", "minLength": 1 },
+              "set_by": { "type": "string" },
+              "set_date": { "type": "string", "format": "date" }
+            }
+          },
+          "default": []
+        },
+        "notes": { "type": ["string", "null"], "default": null }
+      }
+    }
+  }
+}

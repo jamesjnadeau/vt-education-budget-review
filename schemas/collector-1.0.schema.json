@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:collector:1.0",
+  "title": "Per-SU collector configuration",
+  "description": "collectors/<su-slug>/config.yaml. Fifty-odd SU/SDs publish budgets as they please and no scraper generalizes across them; the plan assumes this layer stays messy. The automation that matters is DETECTION -- knowing a new budget exists -- more than retrieval. Manual acquisition for 52 entities is a few hours a year.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "entity", "sources", "acquisition"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "entity": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+    "priority": {
+      "type": ["integer", "null"],
+      "description": "Coverage order. The business plan's ranked warm list drives this -- backfill is sequenced by relationship value, never alphabetically.",
+      "default": null
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Where this SU publishes budget material. Checked weekly for liveness; dead links open an issue.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url", "kind"],
+        "properties": {
+          "url": { "type": "string", "format": "uri" },
+          "kind": {
+            "enum": ["budget_page", "annual_report_page", "board_docs", "town_page", "document_direct", "other"]
+          },
+          "document_pattern": {
+            "type": ["string", "null"],
+            "description": "Prose description of what to look for, e.g. 'annual report PDF, budget section beginning around p. 30'. Read by a human, not a parser.",
+            "default": null
+          },
+          "link_selector": {
+            "type": ["string", "null"],
+            "description": "CSS selector for candidate document links, when the page is stable enough to scrape.",
+            "default": null
+          },
+          "last_checked": { "type": ["string", "null"], "format": "date", "default": null },
+          "last_status": { "type": ["integer", "null"], "default": null }
+        }
+      }
+    },
+    "acquisition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "enum": ["http-fetch", "scrape", "manual"],
+          "description": "Expect roughly a third to be automatable. Do not fight the rest."
+        },
+        "detection": {
+          "enum": ["page_hash", "link_scan", "none"],
+          "default": "page_hash",
+          "description": "How a new budget is noticed. page_hash watches the source page for any change; link_scan looks for new document links matching the pattern."
+        },
+        "fiscal_years_available": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 2015, "maximum": 2100 },
+          "default": []
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "SU-specific extraction quirks. This field is where solo-operator knowledge stops living only in one head.",
+          "default": null
+        }
+      }
+    },
+    "known_not_published": {
+      "type": "array",
+      "description": "Fiscal years confirmed to have no published budget document, so the coverage dashboard can show grey (confirmed absent) rather than red (missing). A gap we have checked is different from a gap we have not.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fiscal_year", "checked_date", "checked_by"],
+        "properties": {
+          "fiscal_year": { "type": "integer" },
+          "checked_date": { "type": "string", "format": "date" },
+          "checked_by": { "type": "string" },
+          "note": { "type": ["string", "null"], "default": null }
+        }
+      },
+      "default": []
+    },
+    "contacts": {
+      "type": "array",
+      "description": "Who to ask. Names only -- no emails or phone numbers in a public repo; those live outside it.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role"],
+        "properties": {
+          "role": { "enum": ["business_manager", "superintendent", "board_chair", "town_clerk", "other"] },
+          "name": { "type": ["string", "null"], "default": null },
+          "note": { "type": ["string", "null"], "default": null }
+        }
+      },
+      "default": []
+    }
+  }
+}

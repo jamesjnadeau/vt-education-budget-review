@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:common:1.0",
+  "title": "Shared definitions",
+  "$defs": {
+    "money": {
+      "description": "A dollar figure, or null meaning the source did not publish it. Nulls must be accounted for in not_published or lines_flagged -- see the budget schema. Stored in whole dollars unless the source states cents.",
+      "type": ["number", "null"]
+    },
+    "fte": {
+      "description": "Full-time-equivalent headcount, or null meaning the source did not publish it.",
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "entity_ref": {
+      "description": "Stable internal registry slug. Deliberately independent of AOE organization IDs, which will churn as Act 170 mergers close in 2029 -- these URLs and this historical data must not.",
+      "type": "string",
+      "pattern": "^(su|sd|ud|school|town|academy|techcenter|state)/[a-z0-9]+(-[a-z0-9]+)*$",
+      "examples": ["su/addison-central", "town/calais", "ud/addison-central-uusd-55"]
+    },
+    "aoe_org_id": {
+      "description": "AOE organization ID as published by the Public Data API. Note the API spells this key `OrgID` on the organizations/supervisoryUnions/closed_organizations endpoints and `OrgId` on towns/publicSchools/unionDistricts; the sync normalizes both to this field.",
+      "type": "string",
+      "pattern": "^(SU|U|T|PS|PA|TE|PI|SC)[0-9]{3}$"
+    },
+    "citation": {
+      "description": "A pointer to the authority for a value. Every statutory parameter carries one. Citations are data to be verified against current statute text, not facts to be trusted from memory -- this area of Vermont law has been amended every session since 2022.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statute", "verified_date", "verified"],
+      "properties": {
+        "statute": {
+          "type": "string",
+          "minLength": 1,
+          "examples": ["16 V.S.A. § 4010(b)", "32 V.S.A. § 5402(a)"]
+        },
+        "session_law": {
+          "type": ["string", "null"],
+          "description": "The act that set or last amended this value, where applicable.",
+          "examples": ["2022 Acts and Resolves No. 127, § 4"],
+          "default": null
+        },
+        "source_url": { "type": ["string", "null"], "format": "uri", "default": null },
+        "quote": {
+          "type": ["string", "null"],
+          "description": "The operative sentence from the statute, quoted verbatim. Makes a citation checkable without leaving the page.",
+          "default": null
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "True only when a human has read the current statute text and confirmed this value. The engine refuses to produce a number from an unverified parameter -- it returns null and marks the computation node unverified, so an unverified parameter can never silently become a published figure."
+        },
+        "verified_date": { "type": ["string", "null"], "format": "date" },
+        "verified_by": { "type": ["string", "null"], "default": null }
+      }
+    },
+    "provenance_ref": {
+      "type": "string",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/provenance\\.yaml$"
+    }
+  }
+}

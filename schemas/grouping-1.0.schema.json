@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:grouping:1.0",
+  "title": "Act 170 statutory district groupings",
+  "description": "The groupings named in Act 170 as first-class registry objects: each is a named set of district slugs. These become the default scenarios in the modeling tool. Every grouping's membership is hand-entered from the act text and carries a citation, because no API publishes them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "act", "status", "groupings"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "act": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "citation"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "citation": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/citation" },
+        "text_url": { "type": ["string", "null"], "format": "uri", "default": null },
+        "section_reference": {
+          "type": ["string", "null"],
+          "description": "Where in the act the groupings are set out.",
+          "default": null
+        }
+      }
+    },
+    "status": {
+      "enum": ["draft", "verified", "superseded"],
+      "description": "`verified` means every grouping's membership has been read off the act text by a human. Until then the tool must not present these as authoritative."
+    },
+    "groupings": {
+      "type": "array",
+      "description": "Empty is a valid and honest state. It means the act text has not been transcribed yet -- which is very different from the act containing no groupings.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["number", "slug", "name", "members", "verified"],
+        "properties": {
+          "number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The grouping's number as given in the act. Drives the /groupings/<n>/ URL."
+          },
+          "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "members": {
+            "type": "array",
+            "description": "Slugs of the districts the act places in this grouping.",
+            "items": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" }
+          },
+          "member_names_as_written": {
+            "type": "array",
+            "description": "District names exactly as the act writes them, before mapping to registry slugs. Kept so the mapping itself is auditable -- act names and AOE names do not always agree.",
+            "items": { "type": "string" },
+            "default": []
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "True only when a human has read this grouping's membership off the act text."
+          },
+          "verified_date": { "type": ["string", "null"], "format": "date", "default": null },
+          "verified_by": { "type": ["string", "null"], "default": null },
+          "unmapped_members": {
+            "type": "array",
+            "description": "Names in the act that could not be matched to a registry entity. Surfaced rather than dropped -- a silently dropped district is a wrong scenario.",
+            "items": { "type": "string" },
+            "default": []
+          },
+          "note": { "type": ["string", "null"], "default": null }
+        }
+      }
+    }
+  }
+}

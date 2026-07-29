@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:parameters:1.0",
+  "title": "Statutory parameter set for one fiscal year",
+  "description": "Weights and parameters are DATA, NOT CODE. When the Legislature changes something -- which is near-certain every session -- you edit this file and every calculation, citation and explanation updates. Each entry carries its value, citation, source URL and verified date. A parameter whose citation is not `verified: true` yields null from the engine and marks its computation node unverified; unverified parameters can never silently become published figures.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "fiscal_year", "status", "parameters"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "fiscal_year": { "type": "integer", "minimum": 2015, "maximum": 2100 },
+    "status": {
+      "enum": ["draft", "verified", "superseded"],
+      "description": "`verified` requires every parameter in the file to carry a verified citation. CI enforces this: a file cannot claim verified status while any entry is unverified."
+    },
+    "supersedes": { "type": ["string", "null"], "default": null },
+    "note": { "type": ["string", "null"], "default": null },
+    "parameters": {
+      "type": "object",
+      "description": "Keyed by dotted parameter name, e.g. `weights.grade.secondary` or `yield.property_dollar_equivalent`.",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9][a-z0-9_]*)*$" },
+      "additionalProperties": { "$ref": "#/$defs/parameter" }
+    }
+  },
+  "$defs": {
+    "parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "description", "citation"],
+      "properties": {
+        "value": {
+          "type": ["number", "string", "boolean", "array", "null"],
+          "description": "Null means not yet verified against current statute text, or not yet set by the Legislature. Null is the honest default and the engine handles it by refusing to produce a number, not by substituting one."
+        },
+        "unit": {
+          "enum": ["multiplier", "usd", "usd_per_pupil", "rate_per_100", "ratio", "count", "years", "boolean", "enum", "unset"]
+        },
+        "description": { "type": "string", "minLength": 1 },
+        "citation": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/citation" },
+        "applies_to": {
+          "type": ["string", "null"],
+          "description": "Which pupils, districts or towns this parameter applies to, where it is conditional.",
+          "default": null
+        },
+        "range": {
+          "type": ["object", "null"],
+          "description": "For contingent parameters -- principally the foundation-formula stub, where the Legislature has not acted -- the plausible range instead of a false point estimate. Showing sensitivity honestly beats false precision.",
+          "additionalProperties": false,
+          "required": ["low", "high", "basis"],
+          "properties": {
+            "low": { "type": "number" },
+            "high": { "type": "number" },
+            "central": { "type": ["number", "null"], "default": null },
+            "basis": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Where the range comes from -- a specific bill draft, a JFO scenario, a published consultant recommendation. Never a guess presented as an estimate."
+            }
+          },
+          "default": null
+        },
+        "contingent": {
+          "type": "boolean",
+          "description": "True for parameters of a system the Legislature has not enacted. Everything downstream of a contingent parameter is labelled contingent in the UI.",
+          "default": false
+        },
+        "superseded_by": { "type": ["string", "null"], "default": null }
+      }
+    }
+  }
+}
