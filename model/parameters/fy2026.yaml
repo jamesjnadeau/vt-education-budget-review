@@ -1,0 +1,437 @@
+schema_version: "1.0"
+fiscal_year: 2026
+status: draft
+
+# ---------------------------------------------------------------------------
+# FY2026. Weights read from the statute text snapshotted verbatim in
+# model/statute/2026-07-29/, the same source as the FY2027 file.
+#
+# The weights ARE the same as FY2027. 16 V.S.A. § 4010 records its weighting
+# amendment as "2021, No. 127 (Adj. Sess.), § 4, eff. July 1, 2024", so the
+# current weights govern FY2025 onward, and no amendment between then and now
+# has touched them.
+#
+# TWO THINGS DIFFER FROM FY2027, and neither is a copying decision:
+#
+#   1. THE PREKINDERGARTEN WEIGHT IS DETERMINATE HERE. § 4010(d)(1) has a
+#      version that repeals it "effective July 1, 2026 if contingency met".
+#      July 1, 2026 is the first day of FY2027, so it cannot reach FY2026.
+#      This file can therefore state the prekindergarten weight with confidence
+#      where the FY2027 file cannot.
+#
+#   2. HOLD HARMLESS DOES NOT APPLY. § 4010(e) is marked "not in effect
+#      July 1, 2025-June 30, 2029", and FY2026 runs July 1, 2025 to June 30,
+#      2026 -- squarely inside that window. Recorded explicitly below rather
+#      than left unstated, because "the provision exists but is switched off"
+#      and "we did not consider it" are different things.
+#
+# Still outstanding, as in FY2027: the annually set amounts. Unlike FY2027
+# these ARE knowable -- FY2026 is a past year and the yield act has been passed
+# -- so they are a lookup someone should do, not a wait. See the note on each.
+# ---------------------------------------------------------------------------
+
+note: >-
+  FY2026 weights read from statute text snapshotted in model/statute/2026-07-29/.
+  Identical to FY2027 except that the prekindergarten weight is determinate here
+  (the contingent repeal cannot reach FY2026) and hold harmless is switched off.
+  The annually set yields and statewide adjustment are historical for this year
+  and should be filled in from the FY2026 yield act and Department of Taxes
+  publications. Awaiting human countersignature.
+
+parameters:
+  # --- Long-term membership -------------------------------------------------
+
+  membership.long_term_membership_years:
+    value: 2
+    unit: years
+    description: number of school years averaged into long-term membership
+    applies_to: all school districts
+    citation:
+      statute: "16 V.S.A. § 4001(7)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04001"
+      quote: >-
+        "Long-term membership" of a school district in any school year means the:
+        (A) average of the district's average daily membership, excluding full-time
+        equivalent enrollment of State-placed students, over two school years, the
+        latter of which is the current school year, plus (B) full-time equivalent
+        enrollment of State-placed students for the most recent of the two years.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4001.txt; awaiting human countersignature"
+
+  membership.hold_harmless_applies:
+    value: false
+    unit: boolean
+    description: whether the hold harmless floor under § 4010(e) applies in this fiscal year
+    applies_to: all school districts
+    citation:
+      statute: "16 V.S.A. § 4010(e)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        "[Subsection (e) not in effect July 1, 2025-June 30, 2029.]" FY2026 runs
+        from July 1, 2025 to June 30, 2026, which falls inside that window, so the
+        hold harmless floor does not apply.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  # --- Grade level weights --------------------------------------------------
+  # ADDITIVE increments, per § 4010(d)(6). Effective count per pupil is 1 + the
+  # weight below:
+  #
+  #     prekindergarten   1 - 0.54  =  0.46
+  #     K-5               1 + 0     =  1.00
+  #     grades 6-8        1 + 0.36  =  1.36
+  #     grades 9-12       1 + 0.39  =  1.39
+  #
+  # "negative 0.54" does not mean a prek pupil counts as -0.54. The pupil is
+  # already counted once, so a prek pupil is 0.46 of a K-5 pupil.
+
+  weights.grade.prekindergarten:
+    value: -0.54
+    unit: multiplier
+    description: additional grade level weight for prekindergarten pupils
+    applies_to: prekindergarten pupils
+    citation:
+      statute: "16 V.S.A. § 4010(d)(1)(A)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        (A) prekindergarten—negative 0.54. The contingent repeal of this
+        subdivision is "effective July 1, 2026 if contingency met", which is the
+        first day of FY2027 and so cannot reach FY2026.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.grade.kindergarten_through_5:
+    value: 0
+    unit: multiplier
+    description: additional grade level weight for pupils in kindergarten through grade five
+    applies_to: pupils in kindergarten through grade five
+    citation:
+      statute: "16 V.S.A. § 4010(d)(1)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        § 4010(d)(1) lists additional grade level weights only for prekindergarten,
+        grades six through eight, and grades nine through 12. Kindergarten through
+        grade five is listed as a counting category under § 4010(b)(1)(B) but is
+        assigned no additional weight, so it carries zero and forms the baseline
+        against which the other grade weights are increments.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.grade.6_through_8:
+    value: 0.36
+    unit: multiplier
+    description: additional grade level weight for pupils in grades six through eight
+    applies_to: pupils in grades six through eight
+    citation:
+      statute: "16 V.S.A. § 4010(d)(1)(B)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: "(B) grades six through eight—0.36"
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.grade.9_through_12:
+    value: 0.39
+    unit: multiplier
+    description: additional grade level weight for pupils in grades nine through 12
+    applies_to: pupils in grades nine through 12
+    citation:
+      statute: "16 V.S.A. § 4010(d)(1)(C)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: "(C) grades nine through 12—0.39."
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  # --- Category weights -----------------------------------------------------
+
+  weights.poverty_185_fpl:
+    value: 1.03
+    unit: multiplier
+    description: additional weight for pupils whose family is at or below 185 percent of the Federal Poverty Level
+    applies_to: pupils at or below 185 percent of FPL
+    citation:
+      statute: "16 V.S.A. § 4010(d)(2)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        The Secretary shall next apply a weight for pupils whose family is at or
+        below 185 percent of FPL. Each pupil included in long-term membership whose
+        family is at or below 185 percent of FPL shall receive an additional
+        weighting amount of 1.03.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.english_learner:
+    value: 2.49
+    unit: multiplier
+    description: additional weight for English learner pupils
+    applies_to: EL pupils as described under 16 V.S.A. § 4013
+    citation:
+      statute: "16 V.S.A. § 4010(d)(3)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        The Secretary shall next apply a weight for EL pupils. Each EL pupil
+        included in long-term membership shall receive an additional weighting
+        amount of 2.49.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  # --- Sparsity (low population density) ------------------------------------
+
+  weights.sparsity.density_under_36:
+    value: 0.15
+    unit: multiplier
+    description: additional weight for each pupil in a district with fewer than 36 persons per square mile
+    applies_to: all pupils in districts below 36 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(4)(A)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: "(A) 0.15, where the number of persons per square mile is fewer than 36 persons;"
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.sparsity.density_36_to_55:
+    value: 0.12
+    unit: multiplier
+    description: additional weight for each pupil in a district with 36 or more but fewer than 55 persons per square mile
+    applies_to: all pupils in districts from 36 to under 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(4)(B)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: "(B) 0.12, where the number of persons per square mile is 36 or more but fewer than 55 persons; or"
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.sparsity.density_55_to_100:
+    value: 0.07
+    unit: multiplier
+    description: additional weight for each pupil in a district with 55 or more but fewer than 100 persons per square mile
+    applies_to: all pupils in districts from 55 to under 100 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(4)(C)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: "(C) 0.07, where the number of persons per square mile is 55 or more but fewer than 100."
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  # --- Small schools --------------------------------------------------------
+
+  weights.small_school.density_ceiling:
+    value: 55
+    unit: count
+    description: maximum persons per square mile for a district to receive any small school weight
+    applies_to: districts at or below 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(5)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        If the number of persons per square mile residing within the land area of
+        the geographic boundaries of a school district as of July 1 of the year of
+        determination is 55 or fewer, then, for each pupil listed under subdivision
+        (b)(3)(C) of this section (pupils who attend small schools):
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.small_school.enrollment_under_100:
+    value: 0.21
+    unit: multiplier
+    description: additional weight per pupil at a school with fewer than 100 pupils in average two-year enrollment
+    applies_to: pupils at schools under 100 average two-year enrollment, in districts at or below 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(5)(A)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        (A) where the school has fewer than 100 pupils in average two-year
+        enrollment, the school district shall receive an additional weighting amount
+        of 0.21 for each pupil included in the small school's average two-year
+        enrollment; or
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  weights.small_school.enrollment_100_to_250:
+    value: 0.07
+    unit: multiplier
+    description: additional weight per pupil at a school with 100 or more but fewer than 250 pupils in average two-year enrollment
+    applies_to: pupils at schools from 100 to under 250 average two-year enrollment, in districts at or below 55 persons per square mile
+    citation:
+      statute: "16 V.S.A. § 4010(d)(5)(B)"
+      session_law: "2021 Acts and Resolves No. 127 (Adj. Sess.), § 4, eff. July 1, 2024"
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        (B) where the small school has 100 or more but fewer than 250 pupils, the
+        school district shall receive an additional weighting amount of 0.07 for
+        each pupil included in the small school's average two-year enrollment.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
+  # --- Property tax mechanics -----------------------------------------------
+
+  tax.homestead_base_rate:
+    value: 1.00
+    unit: rate_per_100
+    description: base homestead education property tax rate, before the spending adjustment
+    applies_to: all homestead property
+    citation:
+      statute: "32 V.S.A. § 5402(a)(2)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05402"
+      quote: >-
+        The tax rate for homestead property shall be $1.00 multiplied by the
+        education property tax spending adjustment for the municipality per $100.00
+        of equalized education property value as most recently determined under
+        section 5405 of this title.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5402.txt; awaiting human countersignature"
+
+  tax.nonhomestead_base_rate:
+    value: null
+    unit: rate_per_100
+    description: nonhomestead education property tax rate, before division by the statewide adjustment
+    applies_to: all nonhomestead property
+    citation:
+      statute: "32 V.S.A. § 5402(a)(1)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05402"
+      quote: >-
+        The CURRENT text reads "$1.59 per $100.00 divided by the statewide
+        adjustment". That figure is set by the annual yield act and the snapshot
+        taken on 2026-07-29 reflects the rate in force at that date, not
+        necessarily the rate that governed FY2026. Left null rather than assumed:
+        read it off the FY2026 yield act.
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  tax.spending_adjustment_floor:
+    value: 1
+    unit: ratio
+    description: floor on the education property tax spending adjustment
+    applies_to: every municipality
+    citation:
+      statute: "32 V.S.A. § 5401(13)(A)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Education property tax spending adjustment" means the greater of one or a
+        fraction in which the numerator is the district's per pupil education
+        spending plus excess spending for the school year, and the denominator is
+        the property dollar equivalent yield for the school year.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
+
+  tax.excess_spending_threshold_ratio:
+    value: 1.18
+    unit: ratio
+    description: multiple of statewide average per pupil education spending above which excess spending applies
+    applies_to: districts exceeding the threshold
+    citation:
+      statute: "32 V.S.A. § 5401(12)(B)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        In excess of 118 percent of the statewide average district per pupil
+        education spending increased by inflation, as determined by the Secretary of
+        Education on or before November 15 of each year based on the passed budgets
+        to date.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
+
+  tax.income_percentage_target:
+    value: 0.02
+    unit: ratio
+    description: income percentage that the income dollar equivalent yield is set to produce
+    applies_to: homesteads claiming an income adjustment
+    citation:
+      statute: "32 V.S.A. § 5401(16)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Income dollar equivalent yield" means the amount of per pupil education
+        spending that would result in a district having an income percentage in
+        subdivision 6066(a)(2) of this title of 2.0 percent.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
+
+  # --- Annually set amounts -------------------------------------------------
+  # FY2026 is a past year, so unlike FY2027 these figures EXIST. They are a
+  # lookup someone owes, not a wait. Do not copy them from another year.
+
+  yield.property_dollar_equivalent:
+    value: null
+    unit: usd_per_pupil
+    description: property dollar equivalent yield -- per pupil education spending producing a $1.00 homestead rate
+    applies_to: all homestead property
+    citation:
+      statute: "32 V.S.A. § 5401(15)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        Definition at § 5401(15). The FY2026 amount was set by the FY2026 yield act
+        and has not been transcribed here. It is a published historical figure --
+        look it up rather than carrying another year's forward.
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  yield.income_dollar_equivalent:
+    value: null
+    unit: usd_per_pupil
+    description: income dollar equivalent yield -- per pupil education spending producing a 2.0 percent income percentage
+    applies_to: homesteads claiming an income adjustment
+    citation:
+      statute: "32 V.S.A. § 5401(16)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        Definition at § 5401(16). The FY2026 amount was set by the FY2026 yield act
+        and has not been transcribed here.
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  tax.statewide_adjustment:
+    value: null
+    unit: ratio
+    description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
+    applies_to: every municipality
+    citation:
+      statute: "32 V.S.A. § 5401(17)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      quote: >-
+        "Statewide adjustment" means the ratio of the aggregate education property
+        tax grand list of all municipalities to the aggregate value of the equalized
+        education property tax grand list of all municipalities. Published annually
+        by the Department of Taxes; the FY2026 figure has not been transcribed here.
+      verified: false
+      verified_date: null
+      verified_by: null

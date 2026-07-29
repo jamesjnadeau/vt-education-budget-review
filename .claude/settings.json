@@ -71,7 +71,8 @@
       "Write(/home/jamesn/Code/vt-budget-pipeline/**)",
       "WebFetch(domain:legislature.vermont.gov)",
       "WebFetch(domain:law.justia.com)",
-      "Bash(node extract.mjs https://legislature.vermont.gov/statutes/section/16/133/04001 https://legislature.vermont.gov/statutes/section/32/135/05401 https://legislature.vermont.gov/statutes/section/32/135/05402)"
+      "Bash(node extract.mjs https://legislature.vermont.gov/statutes/section/16/133/04001 https://legislature.vermont.gov/statutes/section/32/135/05401 https://legislature.vermont.gov/statutes/section/32/135/05402)",
+      "WebFetch(domain:datacollection.education.vermont.gov)"
     ],
     "deny": [
       "Bash(git push:*)",
