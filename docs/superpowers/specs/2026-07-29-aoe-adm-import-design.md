@@ -13,7 +13,8 @@ already anticipates:
    long-term membership under 16 V.S.A. § 4001(7) and weighted long-term
    membership under § 4010. Today nothing supplies them — only test fixtures and
    a hand-entry form on the site. This would be the engine's first real data
-   source.
+   source — though only ADM-25 is eligible, and a weighted-membership *total*
+   stays blocked for reasons set out in decision 5 and the gap register.
 2. **Cross-check series.** `PLAN.md` requires AOE-published ADM be kept as a
    separate, labeled series — the state's voice, never merged into the
    district-stated `enrollment.adm` field that budget documents fill. Where the
@@ -182,12 +183,54 @@ prekindergarten weight is unverifiable under the Act 73 contingency.
 
 ### 5. Grade bands are recorded per year and never coerced
 
-Act 127 changed grade weighting effective FY2025. ADM-25 publishes K-5 / 6-8 /
-9-12; earlier files may publish different bands. Each year's record therefore
-carries `bands_as_published` verbatim, and the mapping to § 4010 bands is
-explicit per year. Where a year's bands do not correspond to § 4010's, that year
+Act 127 of 2022 amended § 4010 **effective July 1, 2024** — the first day of
+FY2025 — per the amendment history in
+`model/statute/2026-07-29/16-vsa-4010.txt`: `2021, No. 127 (Adj. Sess.), § 4,
+eff. July 1, 2024`. Section 4001 carries the same date (`No. 127, § 24`). Before
+that, the grade bands differed and there were fewer weighting categories
+altogether.
+
+So ADM-25 is the first file under the current regime, and **ADM-16 through ADM-24
+are all pre-Act-127**.
+
+Note what this implies about which year governs a file's structure. The ADM-25
+file counts pupils in SY2023-24 — before Act 127 took effect — yet publishes the
+new K-5 / 6-8 / 9-12 bands, because it is used for FY2025 determinations. **Bands
+follow the determination year, not the count year**, and therefore track
+`adm_label`.
+
+Each year's record carries `bands_as_published` verbatim, and the mapping to
+§ 4010 bands is explicit per year. Where a year's bands do not correspond to
+§ 4010's, that year
 is importable as a labeled series but **must not** feed the engine, and the
 record says so. Bands are never silently remapped to make a year usable.
+
+The consequence is large and worth stating plainly rather than discovering during
+implementation:
+
+**Only ADM-25 is a candidate for engine input.** The repo holds parameter sets for
+FY2025, FY2026 and FY2027 only, all post-Act-127. Computing weighted membership
+for ADM-24 or earlier would require parameter sets encoding the repealed
+pre-Act-127 categories, which `docs/parameter-verification.md` and `AGENT.md`
+treat as a hazard rather than a gap to fill casually. The nine older years are a
+historical and trend series; they are not engine input.
+
+**And the two-year average straddles the boundary.** Section 4001(7) defines
+long-term membership as the average of the two most recently completed years. A
+FY2025 determination therefore needs SY2022-23 *and* SY2023-24 — the ADM-24 and
+ADM-25 files. If ADM-24 publishes pre-Act-127 bands, the average cannot be formed
+band-to-band, and even FY2025 weighted membership is not computable from this page
+alone.
+
+Two things could resolve that, and which one holds is a question for the files
+rather than for reasoning: AOE's *reporting* bands and the statute's *weighting*
+bands are distinct, so ADM-24 may already report K-5 / 6-8 / 9-12 even though
+FY2024 was weighted on the old categories; or AOE may restate prior-year ADM in
+current bands somewhere not on this page. Until ADM-24 is opened, the honest
+position is that this import delivers the cross-check series and one year of
+engine-eligible ADM, and that a weighted-membership total remains blocked — by
+this, and independently by the gap register and the unverifiable prekindergarten
+weight.
 
 ### 6. Towns are four different things, and `operated_by: null` is ambiguous
 
@@ -417,8 +460,12 @@ data).
    statute before implementing `aggregate.ts`. The conservation invariant
    protects against getting it wrong silently, but the rule itself must be
    established, not inferred.
-3. **Older files' grade bands.** Resolvable only by opening ADM-16 through
-   ADM-24. The design tolerates either outcome via `bands_as_published`.
+3. **Whether ADM-24 reports current bands.** The decisive question, because it
+   determines whether *any* year can produce a § 4001(7) two-year average. AOE's
+   reporting bands and the statute's weighting bands are distinct, so this is not
+   answerable from the Act 127 effective date alone — open the file. Applies to
+   ADM-16 through ADM-24 generally; the design tolerates either outcome via
+   `bands_as_published`.
 4. **`read-excel-file` verification** across all ten years, including any `.xls`.
 
 ## Out of scope
