@@ -1,0 +1,167 @@
+---
+import Base from '../../layouts/Base.astro';
+import parameters from '../../generated/parameters.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const liveParameters = JSON.stringify(parameters);
+---
+
+<Base
+  title="Modeling tool — Vermont School Budgets"
+  description="Model what merging or closing schools would do to education spending and homestead tax rates, with every step of the arithmetic shown and cited."
+>
+  <h1>Modeling tool</h1>
+  <p class="lede">
+    Every step of the weighted-membership and tax-rate arithmetic, shown and cited. Change the
+    figures and watch each step change with them.
+  </p>
+
+  <div class="notice blocking">
+    <strong>This tool cannot produce Vermont figures yet, and it will not pretend otherwise</strong>
+    <p>
+      No statutory parameter has been verified against current statute text, so on the live
+      parameter set every step below reports what blocked it instead of showing a number. That is
+      the engine working correctly: it refuses to compute from an unverified weight rather than
+      returning a plausible one.
+    </p>
+    <p>
+      Switch to the illustrative example to see what a completed walkthrough looks like. Its
+      weights are deliberately arbitrary round numbers, and every step will say so.
+    </p>
+  </div>
+
+  <form id="scenario-form">
+    <div class="controls">
+      <div class="field">
+        <label for="parameter-mode">Parameter set</label>
+        <select id="parameter-mode">
+          <option value="live">Live — FY2027 (nothing verified yet)</option>
+          <option value="example">Illustrative example (not Vermont law)</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="example-warning" class="notice" hidden>
+      <strong>These are not Vermont's pupil weights</strong>
+      <p>
+        The weights in this mode are arbitrary round numbers — a secondary weight of exactly 2, an
+        economic deprivation weight of exactly 0.5 — chosen so the arithmetic is checkable by
+        hand. They exist to demonstrate the shape of the calculation, not its result. Every
+        parameter below carries the citation "SYNTHETIC TEST FIXTURE — not a statutory value and
+        not Vermont law", so a figure copied out of this mode announces what it is.
+      </p>
+    </div>
+
+    <h2>Membership</h2>
+    <p>
+      Average daily membership by grade band, for two years. The statutory averaging rule decides
+      how many years actually count.
+    </p>
+    <div class="controls">
+      <div class="field">
+        <label for="prek-1">FY2025 prekindergarten</label>
+        <input id="prek-1" type="number" min="0" step="0.01" value="10" />
+      </div>
+      <div class="field">
+        <label for="elem-1">FY2025 elementary</label>
+        <input id="elem-1" type="number" min="0" step="0.01" value="100" />
+      </div>
+      <div class="field">
+        <label for="sec-1">FY2025 secondary</label>
+        <input id="sec-1" type="number" min="0" step="0.01" value="50" />
+      </div>
+    </div>
+    <div class="controls">
+      <div class="field">
+        <label for="prek-2">FY2026 prekindergarten</label>
+        <input id="prek-2" type="number" min="0" step="0.01" value="20" />
+      </div>
+      <div class="field">
+        <label for="elem-2">FY2026 elementary</label>
+        <input id="elem-2" type="number" min="0" step="0.01" value="200" />
+      </div>
+      <div class="field">
+        <label for="sec-2">FY2026 secondary</label>
+        <input id="sec-2" type="number" min="0" step="0.01" value="100" />
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="field">
+        <label for="econ">Pupils at or below 185% FPL</label>
+        <input id="econ" type="number" min="0" step="0.01" value="40" />
+      </div>
+      <div class="field">
+        <label for="el">English learner pupils</label>
+        <input id="el" type="number" min="0" step="0.01" value="8" />
+      </div>
+      <div class="field">
+        <label for="sparsity"
+          ><input id="sparsity" type="checkbox" /> Meets the sparsity test</label
+        >
+      </div>
+      <div class="field">
+        <label for="small-school"
+          ><input id="small-school" type="checkbox" /> Meets the school size test</label
+        >
+      </div>
+    </div>
+
+    <h2>Spending and the town</h2>
+    <div class="controls">
+      <div class="field">
+        <label for="spending">Education spending ($)</label>
+        <input id="spending" type="number" min="0" step="1000" value="3370000" />
+      </div>
+      <div class="field">
+        <label for="cla">Common level of appraisal</label>
+        <input id="cla" type="number" min="0.1" max="2" step="0.0001" value="0.8" />
+      </div>
+    </div>
+  </form>
+
+  <h2>Result</h2>
+  <div id="summary"></div>
+  <div id="blockers"></div>
+
+  <h2>Show your work</h2>
+  <p>
+    Every step of the calculation, in order, with what it did and why. This is the engine's own
+    computation tree rendered directly — not a description of the arithmetic written separately
+    from it, which could drift.
+  </p>
+  <div id="walkthrough"></div>
+
+  <h2>Authorities used</h2>
+  <div id="citations"></div>
+
+  <h2>Assumptions register</h2>
+  <p>
+    Scenario assumptions and why each one defaults where it does. Every one is adjustable. Note
+    in particular that consolidation defaults assume <em>no</em> reduction: any reduction shown is
+    one you chose and can see, rather than one this tool assumed on your behalf.
+  </p>
+  <div id="assumptions"></div>
+
+  <h2>What this tool will not do</h2>
+  <p>
+    It does not rank scenarios, score them, or describe any result as a saving. Changes are
+    signed numbers presented in both directions. Transportation costs can be set to rise as well
+    as fall, because consolidation frequently lengthens bus routes — a tool that only allowed that
+    figure to fall would be modelling a conclusion rather than a system.
+  </p>
+  <p>
+    Transition costs, construction aid, legacy debt incentives and transportation routing are out
+    of scope and are not modelled. Where a position is assumed to be consolidated without a stated
+    salary, the effect is reported as unknown rather than as zero.
+  </p>
+</Base>
+
+<script define:vars={{ liveParameters }}>
+  window.__VT_PARAMETERS__ = JSON.parse(liveParameters);
+</script>
+
+<script>
+  import { initModelTool } from '../../scripts/model-tool';
+  initModelTool(window.__VT_PARAMETERS__ ?? []);
+</script>

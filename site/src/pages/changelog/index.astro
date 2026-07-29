@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import registry from '../../generated/registry.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const generated = new Date(registry.generated as string).toISOString().slice(0, 10);
+---
+
+<Base title="Changelog — Vermont School Budgets">
+  <h1>Changelog</h1>
+  <p class="lede">
+    Every change to this site's data, formulas and citations is a commit. This page renders
+    them, so the history of what changed and when is public rather than something you have to
+    take on trust.
+  </p>
+
+  <div class="notice">
+    <strong>Not yet populated</strong>
+    <p>
+      This page is generated from the repository's commit history — registry syncs, parameter
+      file releases and data corrections. It fills in as those happen. The site was built on
+      {generated}; there is no history to render yet beyond its construction.
+    </p>
+  </div>
+
+  <h2>What will appear here</h2>
+
+  <h3>Registry syncs</h3>
+  <p>
+    The nightly sync compares the Agency of Education's directory against our registry and opens
+    a pull request whenever it differs — never merging automatically, so every structural change
+    in Vermont education gets a human reading and a commit message explaining it. As a
+    side-effect, that record becomes a public changelog of district reorganization, which is
+    something nobody else is currently publishing.
+  </p>
+
+  <h3>Parameter releases</h3>
+  <p>
+    Each time a statutory value is verified against current law, or the Legislature changes one,
+    a new parameter file is released and appears here with its citations. The consultant
+    recommendations on special education, sparsity, secondary and career-technical weights will
+    arrive as a new file rather than an edit to an existing one, so the before and after both stay
+    inspectable.
+  </p>
+
+  <h3>Corrections</h3>
+  <p>
+    When a figure here turns out to be wrong, the correction is a commit like any other and it
+    appears on this page. That is deliberate. A site that quietly edits its mistakes is asking
+    for more trust than one that leaves the record of them visible, and it deserves less.
+  </p>
+
+  <p>
+    See also the <a href={`${base}/methodology/`}>methodology</a>, which states the current
+    verification status of every parameter.
+  </p>
+</Base>

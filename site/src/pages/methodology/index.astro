@@ -1,0 +1,243 @@
+---
+import Base from '../../layouts/Base.astro';
+import parameters from '../../generated/parameters.json';
+import registry from '../../generated/registry.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface Citation {
+  statute: string;
+  session_law: string | null;
+  source_url: string | null;
+  quote: string | null;
+  verified: boolean;
+  verified_date: string | null;
+  verified_by: string | null;
+}
+interface Parameter {
+  key: string;
+  value: number | string | boolean | null;
+  unit: string;
+  description: string;
+  citation: Citation;
+  applies_to: string | null;
+  contingent: boolean;
+  range: { low: number; high: number; basis: string } | null;
+}
+interface ParameterSet {
+  file: string;
+  fiscal_year: number;
+  status: string;
+  note: string | null;
+  unverified_count: number;
+  parameters: Parameter[];
+}
+
+const sets = parameters as ParameterSet[];
+const counts = registry.counts as Record<string, number>;
+---
+
+<Base title="Methodology — Vermont School Budgets">
+  <h1>Methodology</h1>
+  <p class="lede">
+    What this site holds, how it computes, and what it refuses to do. Published with the same
+    prominence as any result, because a result whose method is buried is not independently
+    verifiable.
+  </p>
+
+  <h2>The registry</h2>
+  <p>
+    Everything keys off a canonical record of who exists, synced nightly from the Agency of
+    Education's public data API and archived in full on every sync. It currently holds
+    {counts['su']} supervisory unions, {counts['ud']} unified districts, {counts['school']}
+    schools, {counts['town']} towns, {counts['independent']} independent schools,
+    {counts['techcenter']} technical and vocational centres and {counts['academy']} academies.
+  </p>
+  <p>
+    Entities have stable internal identifiers of our own, mapped to AOE's. AOE identifiers and
+    names will churn as the 2029 reorganization proceeds; a URL cited in a committee packet has
+    to keep resolving afterwards. Entities are never deleted — they close, with a date — so
+    before-and-after comparisons across a reorganization remain possible.
+  </p>
+  <p>
+    Two limits are worth stating plainly. The API publishes no opening dates, so an entity's
+    "first recorded" date is the date our sync first observed it and is labelled as such, not as
+    a founding date. And it publishes no successor relationships at all, so any statement that
+    one district succeeded another is hand-entered from statute and carries a note saying so.
+  </p>
+
+  <h2>The budget schema</h2>
+  <p>
+    One record per district per fiscal year, deliberately coarse: about a dozen rollup categories
+    aligned to the state's chart of accounts, not four hundred line items. Depth can be added
+    later; it cannot easily be removed once a hundred documents have been extracted at the wrong
+    grain.
+  </p>
+  <p>
+    Each record carries two different cuts of <em>the same dollars</em>. Expenditures slice
+    spending by function — instruction, special education, district administration, school
+    administration, operations, transportation, debt service. Personnel slices it by object —
+    salaries, health insurance, other benefits, and full-time-equivalent headcount. The two
+    describe one total and are never additive; validation rejects any record where staff costs
+    exceed total expenditure, because that can only mean one of them was misread.
+  </p>
+  <p>
+    Health insurance is broken out on its own because it is the cost driver most board arguments
+    are actually about, and because it is the line that keeps growing when headcount does not.
+  </p>
+  <p>
+    Where a district prints a figure that disagrees with our recomputation — per-pupil spending
+    especially — both are kept and the disagreement is recorded. It is not reconciled away. The
+    discrepancy is frequently the interesting part.
+  </p>
+
+  <h3>What a blank means</h3>
+  <p>
+    Every blank money field in the warehouse must be accounted for: either listed as not
+    published by the source document, with the name of the person who confirmed that and the date
+    they did, or flagged as a line that did not fit cleanly. Validation fails otherwise. This is
+    what makes a blank mean "the district did not publish this" rather than "nobody looked" —
+    without the rule, those two are the same value and the data cannot be trusted.
+  </p>
+
+  <h2>The engine</h2>
+  <p>
+    The formula engine is a small dependency-free library used both by the build (to precompute
+    baselines) and by your browser (to run scenarios). Its output is not a number but a tree:
+    every node carries its inputs, the operation applied, the result, an explanation in plain
+    language, and the citation of every statutory parameter used. The walkthrough you see in the
+    modeling tool is that tree rendered directly — the narration and the arithmetic are produced
+    in the same call and cannot drift apart.
+  </p>
+  <p>
+    Two properties are structural rather than matters of discipline. An unverified statutory
+    parameter cannot produce a number: the node returns nothing, is marked unverified, and that
+    status propagates to everything above it, so an unchecked weight cannot become a published
+    figure four steps downstream. And "we have not verified this against statute" is a different
+    status from "the district did not publish this" — the engine keeps them distinct all the way
+    to the screen.
+  </p>
+
+  <h2>Parameters and citations</h2>
+  <p>
+    Weights, yields and thresholds are data, not code. When the Legislature changes something,
+    which it has in most recent sessions, the change is an edit to a file like the one below and
+    every calculation, citation and explanation updates with it.
+  </p>
+
+  {
+    sets.map((set) => (
+      <>
+        <h3>
+          FY{set.fiscal_year} <span class="tag">{set.status}</span>
+        </h3>
+        {set.unverified_count > 0 && (
+          <div class="notice blocking">
+            <strong>
+              {set.unverified_count} of {set.parameters.length} parameters are unverified
+            </strong>
+            <p>
+              No value below has been confirmed against current statute text, so the engine will
+              not compute with any of them. The authoritative sources — the Legislature's statutes
+              site and the Agency of Education — were not reachable from the environment this file
+              was drafted in, and filling the values in from memory or from a secondary mirror
+              would be precisely the failure this site exists to be the opposite of. Vermont's
+              education funding statutes were amended by Act 127 of 2022 and Act 73 of 2025, so a
+              remembered weight is quite likely to be a repealed one.
+            </p>
+          </div>
+        )}
+        <div class="scroll-x">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Parameter</th>
+                <th scope="col">Value</th>
+                <th scope="col">Citation</th>
+                <th scope="col">Verified</th>
+              </tr>
+            </thead>
+            <tbody>
+              {set.parameters.map((p) => (
+                <tr>
+                  <td>
+                    <code>{p.key}</code>
+                    <br />
+                    <span style="color:var(--text-muted);font-size:.88rem">{p.description}</span>
+                  </td>
+                  <td class="numeric">
+                    {p.value === null ? <span class="tag missing-input">not set</span> : String(p.value)}
+                    {p.contingent && <br />}
+                    {p.contingent && <span class="tag contingent">contingent</span>}
+                  </td>
+                  <td>
+                    {p.citation.source_url ? (
+                      <a href={p.citation.source_url} rel="noopener">{p.citation.statute}</a>
+                    ) : (
+                      p.citation.statute
+                    )}
+                    {p.citation.session_law && (
+                      <>
+                        <br />
+                        <span style="color:var(--text-muted);font-size:.88rem">
+                          {p.citation.session_law}
+                        </span>
+                      </>
+                    )}
+                  </td>
+                  <td>
+                    {p.citation.verified ? (
+                      <span class="tag ok">{p.citation.verified_date}</span>
+                    ) : (
+                      <span class="tag unverified">not verified</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    ))
+  }
+
+  <h2>The foundation formula</h2>
+  <p>
+    Act 73 of 2025 sets Vermont on a course toward a base-amount formula with a statewide rate,
+    contingently effective for the 2028–29 reorganization. The Legislature has not set its
+    parameters. Those parameters are therefore marked contingent and hold no value at all — not a
+    placeholder, not an estimate. When there is a defensible basis for a range, such as published
+    consultant recommendations, they will carry a range with that basis attached rather than a
+    point estimate, and everything computed from them will be labelled contingent throughout.
+  </p>
+  <p>
+    One structural point matters more than any number here: under a statewide rate, a district's
+    own budget no longer determines its own rate. That is a different causal structure from the
+    current yield system, not merely different arithmetic, and the tool says so where it applies.
+  </p>
+
+  <h2>Golden tests</h2>
+  <p>
+    Before any computed figure is published, the engine must reproduce the state's own published
+    weighted membership and announced tax rates for a sample of districts, to within rounding.
+    Those fixtures live in the repository and run in continuous integration. Reproducing the
+    state's published figures, with the tests public, is the strongest available evidence that
+    this site's arithmetic is right — and none of it is claimed until those tests exist and pass.
+  </p>
+
+  <h2>What the tool will not do</h2>
+  <p>
+    It does not score, rank or recommend scenarios, and there is no "savings" framing anywhere in
+    it — not in the interface and not in the code, where the field is called a signed delta
+    precisely so that nobody can quietly assume which direction was hoped for. Changes are shown
+    in both directions with the assumptions that drive them visible and adjustable, and the
+    assumptions register is published beside every result.
+  </p>
+
+  <h2>Corrections</h2>
+  <p>
+    Errors get fixed in public. Every change to data, formulas or citations is a commit, and the
+    <a href={`${base}/changelog/`}>changelog</a> renders them. When this site is wrong, the record
+    of it being wrong and then corrected stays visible.
+  </p>
+</Base>

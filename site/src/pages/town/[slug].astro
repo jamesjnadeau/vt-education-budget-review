@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import registry from '../../generated/registry.json';
+import { slugTail, titleCase } from '../../lib/display';
+
+interface Entity {
+  slug: string;
+  name: string;
+  type: string;
+  aoe_org_id?: string;
+  supervisory_union: string | null;
+  operated_by: string | null;
+  effective_to: string | null;
+}
+
+export function getStaticPaths() {
+  const entities = registry.entities as Entity[];
+  return entities
+    .filter((e) => e.type === 'town')
+    .map((town) => ({ params: { slug: town.slug.split('/')[1] }, props: { town } }));
+}
+
+const { town } = Astro.props as { town: Entity };
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entities = registry.entities as Entity[];
+
+const su = entities.find((e) => e.slug === town.supervisory_union) ?? null;
+const district = entities.find((e) => e.slug === town.operated_by) ?? null;
+const siblings = entities.filter(
+  (e) => e.type === 'town' && e.operated_by === town.operated_by && e.slug !== town.slug,
+);
+---
+
+<Base title={`${titleCase(town.name)} — Vermont School Budgets`}>
+  <h1>{titleCase(town.name)}</h1>
+
+  <dl class="facts">
+    <dt>Registry ID</dt>
+    <dd><code>{town.slug}</code></dd>
+    <dt>AOE organization ID</dt>
+    <dd><code>{town.aoe_org_id ?? '—'}</code></dd>
+    <dt>Supervisory union</dt>
+    <dd>
+      {su ? <a href={`${base}/su/${slugTail(su.slug)}/`}>{titleCase(su.name)}</a> : '—'}
+    </dd>
+    <dt>School district</dt>
+    <dd>{district ? titleCase(district.name) : '—'}</dd>
+  </dl>
+
+  <h2>Homestead tax rate</h2>
+  <div class="notice blocking">
+    <strong>Not computed</strong>
+    <p>
+      A town's billed homestead rate is its district's education spending per weighted pupil,
+      divided by the property yield the Legislature sets each year, then divided by the town's
+      common level of appraisal. None of those three inputs is available yet: no budget document
+      has been collected for this district, and neither the yield nor the pupil weights have been
+      verified against current statute.
+    </p>
+    <p>
+      That last step — dividing by the CLA — is usually the least-explained part of a Vermont tax
+      bill, and it is frequently the largest reason a bill moved when district spending did not.
+      The <a href={`${base}/model/`}>modeling tool</a> shows it as its own step with its own
+      explanation.
+    </p>
+  </div>
+
+  {
+    siblings.length > 0 && (
+      <>
+        <h2>Other towns in the same district ({siblings.length})</h2>
+        <p>
+          These towns share a district budget with {titleCase(town.name)}, so a change to that
+          budget moves all of their rates together — though not by the same amount, because each
+          town has its own common level of appraisal.
+        </p>
+        <ul class="grid">
+          {siblings.map((t) => (
+            <li class="card">
+              <a href={`${base}/town/${slugTail(t.slug)}/`}>{titleCase(t.name)}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</Base>

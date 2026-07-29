@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import groupings from '../../generated/groupings.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface Grouping {
+  number: number;
+  slug: string;
+  name: string;
+  members: string[];
+  verified: boolean;
+}
+
+const doc = groupings as {
+  status: string;
+  act: { name: string; citation: { statute: string; verified: boolean }; text_url: string | null };
+  groupings: Grouping[];
+};
+---
+
+<Base title="Act 170 groupings — Vermont School Budgets">
+  <h1>Act 170 statutory groupings</h1>
+  <p class="lede">
+    The district groupings named in {doc.act?.name ?? 'Act 170'}. These are the default scenarios
+    in the modeling tool: for most residents, the question is not "what if we merged with
+    anyone" but "what happens under the grouping the Legislature has already put us in".
+  </p>
+
+  {
+    doc.groupings.length === 0 ? (
+      <div class="notice blocking">
+        <strong>Not yet transcribed</strong>
+        <p>
+          This list is empty because the act text has not been transcribed, not because the act
+          contains no groupings. It contains them, and they are load-bearing for everything this
+          tool does.
+        </p>
+        <p>
+          No public API publishes them, and the Legislature's site could not be reached from the
+          environment this site was built in. Writing out twenty groupings of district names from
+          memory would put a fabrication in the single place where a reader is most dependent on
+          being told the truth: someone opening this page is asking which districts the
+          Legislature grouped them with, and a confident wrong answer there is considerably worse
+          than no answer.
+        </p>
+        <p>
+          Transcribing them is a bounded, mechanical task against the act text. When it is done,
+          each grouping records the district names exactly as the act writes them alongside the
+          registry identifiers they map to, so the mapping itself can be checked — act names and
+          agency names do not always agree, and any name that cannot be matched is listed rather
+          than dropped.
+        </p>
+      </div>
+    ) : (
+      <ul class="grid">
+        {doc.groupings.map((g) => (
+          <li class="card">
+            <h3 style="margin-top:0">
+              <a href={`${base}/groupings/${g.number}/`}>
+                {g.number}. {g.name}
+              </a>
+            </h3>
+            <p style="margin:.3rem 0 0;font-size:.9rem;color:var(--text-muted)">
+              {g.members.length} district(s)
+              {!g.verified && <span class="tag unverified" style="margin-left:.5rem">unverified</span>}
+            </p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <h2>Source</h2>
+  <dl class="facts">
+    <dt>Citation</dt>
+    <dd>{doc.act?.citation?.statute ?? '—'}</dd>
+    <dt>Verified</dt>
+    <dd>
+      {doc.act?.citation?.verified ? 'yes' : <span class="tag unverified">not verified</span>}
+    </dd>
+  </dl>
+</Base>

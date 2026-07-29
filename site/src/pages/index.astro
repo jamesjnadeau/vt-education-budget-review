@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import registry from '../generated/registry.json';
+import coverage from '../generated/coverage.json';
+import parameters from '../generated/parameters.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const counts = registry.counts as Record<string, number>;
+const unverified = parameters.reduce((n: number, p: { unverified_count: number }) => n + p.unverified_count, 0);
+const totalParams = parameters.reduce(
+  (n: number, p: { parameters: unknown[] }) => n + p.parameters.length,
+  0,
+);
+const normalized = coverage.totals.normalized;
+const expected = coverage.cells.length;
+---
+
+<Base
+  title="Vermont School Budgets — published, normalized, and modelable"
+  description="Every Vermont supervisory union's released budgets in a normalized, documented form, plus a tool to model what merging or closing schools would do to your town's spending and homestead tax rate."
+>
+  <h1>Vermont school budgets, in the open</h1>
+
+  <p class="lede">
+    Every Vermont supervisory union's released budgets, published in one normalized form with
+    every number traceable to its source — and a tool that lets you model what merging or
+    closing schools would do to your town's education spending and homestead tax rate, with
+    every step of the arithmetic shown and cited to statute.
+  </p>
+
+  <div class="notice blocking">
+    <strong>What this site can and cannot tell you today</strong>
+    <p>
+      The entity registry is complete: {counts['su']} supervisory unions, {counts['ud']} unified
+      districts, {counts['school']} schools and {counts['town']} towns, synced from the Agency of
+      Education's public data API with every raw response archived.
+    </p>
+    <p>
+      <strong style="display:inline">No budget documents have been collected yet</strong> —
+      {normalized} of {expected} expected district-years. The
+      <a href={`${base}/admin/coverage/`}>coverage dashboard</a> shows exactly which are missing,
+      and it is public precisely so the gaps are visible.
+    </p>
+    <p>
+      <strong style="display:inline">No statutory parameter has been verified yet</strong> —
+      {unverified} of {totalParams}. Until a pupil weight or yield has been read off current
+      statute text by a person, the engine refuses to compute with it and returns nothing rather
+      than a plausible guess. You will see that refusal, explained, wherever a figure would
+      otherwise appear.
+    </p>
+  </div>
+
+  <h2>Why it is built this way</h2>
+
+  <h3>Provenance is the product</h3>
+  <p>
+    Every number on this site has to be traceable to a public source. The repository is the
+    warehouse: raw budget documents are stored exactly as released, never edited, each with a
+    record of where it came from, when, who fetched it, and its SHA-256 hash. When someone asks
+    where a number came from and when it changed, the answer is a link to a commit.
+  </p>
+
+  <h3>The arithmetic is inspectable</h3>
+  <p>
+    The modeling engine runs in your browser and its source is open. Its output is not a number
+    but a tree: every step carries its inputs, the operation applied, the result, an explanation
+    in plain language, and the citation of every statutory parameter used. Independent
+    verification is only worth something if the verification can itself be checked.
+  </p>
+
+  <h3>Absence is reported, not filled in</h3>
+  <p>
+    A blank in this site's data means one of two specific things, and it will always say which.
+    Either the district did not publish that figure — recorded with who confirmed it and when —
+    or a statutory value has not yet been checked against current law. Neither is ever quietly
+    replaced with an estimate, and the two are never shown as the same thing.
+  </p>
+
+  <h2>Where to start</h2>
+  <ul class="grid">
+    <li class="card">
+      <h3 style="margin-top:0"><a href={`${base}/model/`}>The modeling tool</a></h3>
+      <p>Compose a merger or closure scenario and see the arithmetic step by step.</p>
+    </li>
+    <li class="card">
+      <h3 style="margin-top:0"><a href={`${base}/su/`}>Supervisory unions</a></h3>
+      <p>{counts['su']} profiles: member districts, schools, towns, and budget documents held.</p>
+    </li>
+    <li class="card">
+      <h3 style="margin-top:0"><a href={`${base}/methodology/`}>Methodology</a></h3>
+      <p>The schema, the engine, every parameter with its citation and verification status.</p>
+    </li>
+    <li class="card">
+      <h3 style="margin-top:0"><a href={`${base}/admin/coverage/`}>Coverage</a></h3>
+      <p>Which budgets are held, which are missing, and how to send one in.</p>
+    </li>
+  </ul>
+
+  <h2>Neutrality</h2>
+  <p>
+    This site is independent. It is not produced by, for, or in opposition to the Agency of
+    Education, any supervisory union, or any advocacy organization. It computes and explains; it
+    does not score, rank, or recommend, and it does not frame any result as a saving. A scenario
+    that costs more is presented exactly as prominently as one that costs less, because which of
+    those a reader is hoping for is not this site's business.
+  </p>
+</Base>

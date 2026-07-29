@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+import coverage from '../../generated/coverage.json';
+import { slugTail, titleCase } from '../../lib/display';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface Cell {
+  entity: string;
+  entityName: string;
+  fiscalYear: number;
+  state: 'normalized' | 'intake_only' | 'not_published' | 'missing';
+  warehouseFile: string | null;
+  intakeFiles: string[];
+  lastKnownSource: string | null;
+  uploadUrl: string | null;
+  flagUrl: string | null;
+  notPublishedNote: string | null;
+}
+
+const cells = coverage.cells as Cell[];
+const years = coverage.fiscalYears as number[];
+const entities = coverage.entities as Array<{ slug: string; name: string; priority: number | null }>;
+
+const cellFor = (slug: string, year: number) =>
+  cells.find((c) => c.entity === slug && c.fiscalYear === year);
+
+const LABEL: Record<Cell['state'], string> = {
+  normalized: 'normalized',
+  intake_only: 'in intake, not extracted',
+  not_published: 'confirmed not published',
+  missing: 'missing',
+};
+---
+
+<Base title="Coverage — Vermont School Budgets">
+  <h1>Coverage</h1>
+  <p class="lede">
+    Which budget documents this site holds, and which it does not. Published rather than kept
+    internal, because a site that shows what it is missing is more trustworthy than one that only
+    shows what it has.
+  </p>
+
+  <div class="notice">
+    <strong>Grey and red are different facts</strong>
+    <p>
+      <em>Confirmed not published</em> means someone checked and the district published no budget
+      document that year, with a record of who checked and when. <em>Missing</em> means we have
+      not got it — which may be because it exists and has not been collected, or because nobody
+      has looked. Collapsing the two would make the headline coverage figure meaningless.
+    </p>
+  </div>
+
+  <ul class="legend">
+    <li><span class="swatch" style="background:var(--state-normalized)"></span> Normalized ({coverage.totals.normalized})</li>
+    <li><span class="swatch" style="background:var(--state-intake)"></span> In intake, not extracted ({coverage.totals.intake_only})</li>
+    <li><span class="swatch" style="background:var(--state-absent)"></span> Confirmed not published ({coverage.totals.not_published})</li>
+    <li><span class="swatch" style="background:var(--state-missing)"></span> Missing ({coverage.totals.missing})</li>
+  </ul>
+
+  <p>
+    {coverage.totals.normalized} of {cells.length} expected supervisory-union fiscal years are
+    normalized. Generated {coverage.generated}.
+  </p>
+
+  <div class="scroll-x">
+    <table class="coverage">
+      <caption class="visually-hidden">Budget coverage by supervisory union and fiscal year</caption>
+      <thead>
+        <tr>
+          <th scope="col">Supervisory union</th>
+          {years.map((y) => <th scope="col">FY{String(y).slice(2)}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          entities.map((entity) => (
+            <tr>
+              <th scope="row">
+                <a href={`${base}/su/${slugTail(entity.slug)}/`}>{titleCase(entity.name)}</a>
+              </th>
+              {years.map((year) => {
+                const cell = cellFor(entity.slug, year);
+                if (!cell) return <td />;
+                const title = `${titleCase(entity.name)} FY${year}: ${LABEL[cell.state]}`;
+                const href = cell.warehouseFile
+                  ? null
+                  : (cell.uploadUrl ?? cell.flagUrl ?? null);
+                return (
+                  <td>
+                    {href ? (
+                      <a class={`cell ${cell.state}`} href={href} title={title}>
+                        {cell.state === 'missing' ? 'upload' : LABEL[cell.state]}
+                      </a>
+                    ) : (
+                      <span class={`cell ${cell.state}`} title={title}>
+                        {cell.state === 'normalized' ? 'held' : LABEL[cell.state]}
+                      </span>
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2>How to send a budget in</h2>
+  <p>
+    There is no login, because there is no server. Uploads go through git, which sounds worse
+    than it is: every red cell above links to GitHub's web upload page, already pointed at the
+    right folder. It is an ordinary file picker, and committing through it produces a normal
+    commit with your name on it.
+  </p>
+  <p>
+    A pull request template asks for the provenance fields — where the document came from, when
+    you retrieved it, and how. Validation runs automatically and will tell you what is missing.
+    If you would rather just flag a gap than send a file, the missing cells also link to a
+    pre-filled issue.
+  </p>
+
+  {
+    coverage.totals.missing === cells.length && (
+      <div class="notice blocking">
+        <strong>Everything is missing, and that is accurate</strong>
+        <p>
+          No budget documents have been collected yet. The pipeline that would normalize,
+          validate and publish them is built and tested; what it lacks is documents. The
+          collector configuration for each supervisory union records where to start looking.
+        </p>
+      </div>
+    )
+  }
+</Base>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>

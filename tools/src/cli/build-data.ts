@@ -1,0 +1,164 @@
+#!/usr/bin/env node
+/**
+ * Emits the static JSON the site is built from and the modeling tool fetches.
+ *
+ *   npm run build:data
+ *
+ * Two destinations, for two different consumers:
+ *
+ *   site/src/generated/   imported at build time by Astro pages
+ *   site/public/data/     fetched at run time by the modeling island
+ *
+ * Both are gitignored. The git history should only ever show source data
+ * changing; everything here is reproducible from /registry, /warehouse and
+ * /model. At Vermont's scale the whole dataset is a few megabytes, so the
+ * per-SU split exists to keep the island's first fetch small, not because
+ * there is a performance problem to solve.
+ */
+
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { parse as parseYaml } from 'yaml';
+
+import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { buildCoverage } from '../coverage.ts';
+import { walkFiles } from '../fs-walk.ts';
+import { PATHS, rel } from '../paths.ts';
+import { readRegistry } from '../registry/store.ts';
+import type { RegistryEntity } from '../registry/types.ts';
+
+interface BudgetRecord {
+  entity: string;
+  fiscal_year: number;
+  status: string;
+  [key: string]: unknown;
+}
+
+function writeJson(path: string, data: unknown): void {
+  mkdirSync(join(path, '..'), { recursive: true });
+  writeFileSync(path, JSON.stringify(data), 'utf8');
+}
+
+function readBudgets(): BudgetRecord[] {
+  return walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json')).map((file) => {
+    const text = readFileSync(file, 'utf8');
+    const record = (file.endsWith('.json') ? JSON.parse(text) : parseYaml(text)) as BudgetRecord;
+    return { ...record, _file: rel(file) };
+  });
+}
+
+function main(): number {
+  rmSync(PATHS.siteGenerated, { recursive: true, force: true });
+  rmSync(PATHS.siteData, { recursive: true, force: true });
+  mkdirSync(PATHS.siteGenerated, { recursive: true });
+  mkdirSync(PATHS.siteData, { recursive: true });
+
+  const registry = readRegistry();
+  const budgets = readBudgets();
+  const today = new Date();
+
+  // --- registry, grouped for the site's page generators --------------------
+  const byType = new Map<string, RegistryEntity[]>();
+  for (const entity of registry.values()) {
+    const list = byType.get(entity.type) ?? [];
+    list.push(entity);
+    byType.set(entity.type, list);
+  }
+  for (const list of byType.values()) list.sort((a, b) => a.name.localeCompare(b.name));
+
+  writeJson(join(PATHS.siteGenerated, 'registry.json'), {
+    generated: today.toISOString(),
+    counts: Object.fromEntries([...byType].map(([k, v]) => [k, v.length])),
+    entities: [...registry.values()].sort((a, b) => a.slug.localeCompare(b.slug)),
+  });
+
+  // --- parameters ----------------------------------------------------------
+  const parameterFiles = walkFiles(PATHS.parameters, (n) => n.endsWith('.yaml'));
+  const parameterSets = parameterFiles.map((file) => {
+    const set = parseParameterSet(parseYaml(readFileSync(file, 'utf8')));
+    return {
+      file: rel(file),
+      fiscal_year: set.fiscal_year,
+      status: set.status,
+      note: set.note,
+      unverified_count: unverifiedParameters(set).length,
+      parameters: [...set.parameters.values()],
+    };
+  });
+  writeJson(join(PATHS.siteGenerated, 'parameters.json'), parameterSets);
+
+  // --- groupings -----------------------------------------------------------
+  let groupings: unknown = { status: 'draft', groupings: [] };
+  try {
+    groupings = parseYaml(readFileSync(PATHS.groupings, 'utf8'));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+  }
+  writeJson(join(PATHS.siteGenerated, 'groupings.json'), groupings);
+
+  // --- coverage ------------------------------------------------------------
+  const coverage = buildCoverage(registry, { today });
+  writeJson(join(PATHS.siteGenerated, 'coverage.json'), coverage);
+
+  // --- per-SU data, and the compact index the modeling island loads first ---
+  const sus = (byType.get('su') ?? []).filter((e) => !e.effective_to);
+  const districts = byType.get('ud') ?? [];
+  const towns = byType.get('town') ?? [];
+  const schools = byType.get('school') ?? [];
+
+  const budgetsByEntity = new Map<string, BudgetRecord[]>();
+  for (const budget of budgets) {
+    const list = budgetsByEntity.get(budget.entity) ?? [];
+    list.push(budget);
+    budgetsByEntity.set(budget.entity, list);
+  }
+
+  for (const su of sus) {
+    const suDistricts = districts.filter((d) => d.supervisory_union === su.slug);
+    const suSchools = schools.filter((s) => s.supervisory_union === su.slug);
+    const suTowns = towns.filter((t) => t.supervisory_union === su.slug);
+
+    writeJson(join(PATHS.siteData, 'su', `${su.slug.split('/')[1]}.json`), {
+      entity: su,
+      districts: suDistricts,
+      schools: suSchools,
+      towns: suTowns,
+      budgets: [
+        ...(budgetsByEntity.get(su.slug) ?? []),
+        ...suDistricts.flatMap((d) => budgetsByEntity.get(d.slug) ?? []),
+      ].sort((a, b) => b.fiscal_year - a.fiscal_year),
+    });
+  }
+
+  writeJson(join(PATHS.siteData, 'index.json'), {
+    generated: today.toISOString(),
+    supervisory_unions: sus.map((s) => ({
+      slug: s.slug,
+      name: s.name,
+      districts: districts.filter((d) => d.supervisory_union === s.slug).length,
+      towns: towns.filter((t) => t.supervisory_union === s.slug).length,
+    })),
+    towns: towns.map((t) => ({
+      slug: t.slug,
+      name: t.name,
+      supervisory_union: t.supervisory_union,
+      operated_by: t.operated_by,
+    })),
+    budget_count: budgets.length,
+    // Stated up front so a consumer of this file cannot mistake an empty
+    // warehouse for a warehouse of zeros.
+    warehouse_is_empty: budgets.length === 0,
+  });
+
+  console.log(`Wrote site data:`);
+  console.log(`  ${registry.size} registry entities`);
+  console.log(`  ${sus.length} active supervisory union files`);
+  console.log(`  ${budgets.length} budget record(s)`);
+  console.log(`  coverage: ${JSON.stringify(coverage.totals)}`);
+  console.log(`  ${parameterSets.length} parameter set(s), ${parameterSets.reduce((n, p) => n + p.unverified_count, 0)} unverified parameter(s)`);
+
+  return 0;
+}
+
+process.exit(main());

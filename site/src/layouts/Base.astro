@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const nav = [
+  ['/model/', 'Modeling tool'],
+  ['/su/', 'Supervisory unions'],
+  ['/groupings/', 'Act 170 groupings'],
+  ['/methodology/', 'Methodology'],
+  ['/admin/coverage/', 'Coverage'],
+  ['/changelog/', 'Changelog'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="inner">
+        <a class="site-title" href={`${base}/`}>Vermont School Budgets</a>
+        <nav aria-label="Primary">
+          {nav.map(([href, label]) => <a href={`${base}${href}`}>{label}</a>)}
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="inner">
+        <p>
+          <strong>This site computes and explains. It does not score, rank, or recommend.</strong>
+          Scenarios are shown as changes in both directions with the assumptions that drive
+          them visible and adjustable. Nothing here is a recommendation about what any
+          district should do.
+        </p>
+        <p>
+          Every figure is traceable to a public source. Where a number is absent, the site
+          says whether that is because the district did not publish it or because a statutory
+          parameter has not yet been verified against current law — those are different
+          things and are never shown as the same thing.
+        </p>
+        <p>
+          Data and methodology are open. Corrections are made in public and appear in the
+          <a href={`${base}/changelog/`}>changelog</a>.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
