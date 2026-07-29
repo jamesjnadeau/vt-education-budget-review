@@ -232,6 +232,25 @@ describe('normalizing a snapshot', () => {
     expect(district?.member_towns).not.toContain('town/unknown');
   });
 
+  it('does not let an entity be its own parent', () => {
+    // Independent academies, tech centers and some state-run schools list
+    // themselves in ParentOrg, exactly as supervisory unions do. Taken
+    // literally that reads "this academy's supervisory union is itself",
+    // which puts it inside its own hierarchy and would let a scenario merge an
+    // entity with itself.
+    const selfParented = snapshotOf({
+      organizations: [
+        { ServerId: 58, Name: 'BURR AND BURTON ACADEMY', OrgID: 'PA002', OrgType: 'Private Academy (PA)', ParentOrg: 'PA002' },
+      ],
+    });
+    const { entities } = normalizeSnapshot(selfParented, { existing: new Map(), today: '2026-07-29' });
+    const academy = entities.find((e) => e.slug === 'academy/burr-and-burton-academy');
+
+    expect(academy).toBeDefined();
+    expect(academy?.supervisory_union).toBeNull();
+    expect(academy?.operated_by).toBeNull();
+  });
+
   it('marks real towns as ordinary organizations', () => {
     const { entities } = normalizeSnapshot(SNAPSHOT, { existing: new Map(), today: '2026-07-29' });
     expect(entities.find((e) => e.slug === 'town/addison')?.reporting_only).toBe(false);

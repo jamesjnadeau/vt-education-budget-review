@@ -11,12 +11,19 @@ interface Entity {
   supervisory_union: string | null;
   operated_by: string | null;
   effective_to: string | null;
+  reporting_only?: boolean;
 }
 
 export function getStaticPaths() {
   const entities = registry.entities as Entity[];
   return entities
     .filter((e) => e.type === 'town')
+    // Reporting buckets get no page. AOE records residency for pupils whose
+    // town is not established against a town named UNKNOWN; publishing that as
+    // a Vermont town page would invent a place. It stays in the registry, and
+    // in the data files, because other records reference it -- but it is not a
+    // town anyone lives in and no membership is awarded to it.
+    .filter((e) => !e.reporting_only)
     .map((town) => ({ params: { slug: town.slug.split('/')[1] }, props: { town } }));
 }
 

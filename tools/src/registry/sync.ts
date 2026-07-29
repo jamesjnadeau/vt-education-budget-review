@@ -224,8 +224,16 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
     if (!entity) continue;
 
     const rel = relationshipsFor(type, raw);
-    const suSlug = rel.supervisory_union ? (slugByOrgId.get(rel.supervisory_union) ?? null) : null;
-    const opSlug = rel.operated_by ? (slugByOrgId.get(rel.operated_by) ?? null) : null;
+    const rawSuSlug = rel.supervisory_union ? (slugByOrgId.get(rel.supervisory_union) ?? null) : null;
+    const rawOpSlug = rel.operated_by ? (slugByOrgId.get(rel.operated_by) ?? null) : null;
+
+    // Independent academies, tech centers and some state-run schools list
+    // themselves in ParentOrg, the same way supervisory unions do. Recorded
+    // literally that becomes "this academy's supervisory union is itself",
+    // which would put it in its own hierarchy and let a scenario merge an
+    // entity with itself. A self-reference means "no parent", so drop it.
+    const suSlug = rawSuSlug === slug ? null : rawSuSlug;
+    const opSlug = rawOpSlug === slug ? null : rawOpSlug;
 
     if (rel.supervisory_union && !suSlug) {
       warnings.push(

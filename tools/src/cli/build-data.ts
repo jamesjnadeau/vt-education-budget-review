@@ -104,7 +104,12 @@ function main(): number {
   // --- per-SU data, and the compact index the modeling island loads first ---
   const sus = (byType.get('su') ?? []).filter((e) => !e.effective_to);
   const districts = byType.get('ud') ?? [];
-  const towns = byType.get('town') ?? [];
+  // Reporting buckets are excluded from every derived count and listing. A
+  // town record named UNKNOWN is how AOE records residency for pupils whose
+  // town is not established: no membership is awarded to it, so counting it as
+  // a town an SU serves would overstate every SU it touches. It stays in
+  // registry.json, because other records reference it -- it just is not a place.
+  const towns = (byType.get('town') ?? []).filter((t) => !t.reporting_only);
   const schools = byType.get('school') ?? [];
 
   const budgetsByEntity = new Map<string, BudgetRecord[]>();
