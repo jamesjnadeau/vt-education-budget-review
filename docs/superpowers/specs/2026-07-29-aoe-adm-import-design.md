@@ -320,11 +320,35 @@ The rollup must satisfy, per year and per band:
 sum(district-level ADM) + sum(enumerated exclusions) == town-level total
 ```
 
-Every exclusion is named individually with a justification. Buels Gore's four
-pupils are the live case: a town with real ADM and no operating district. They
-must appear as a justified exclusion, never vanish. This invariant is what would
-have caught the `operated_by` rollup bug immediately, and it is the primary
+Every exclusion is named individually with a justification. This invariant is what
+would have caught the `operated_by` rollup bug immediately, and it is the primary
 regression guard for the whole import.
+
+**Correction, established during implementation.** An earlier draft of this
+section claimed Buels Gore's four pupils were the live case proving the invariant
+earns its keep — a town with real ADM and no operating district, appearing as a
+justified exclusion. That is not what happens. Buels Gore carries
+`supervisory_union: su/mount-mansfield` with `operated_by: null`, so the
+`own_district` rule in decision 6 classifies it as its own district, and it is
+published as a one-town district with values `[3, 1]`.
+
+Two consequences follow, and neither is arithmetic:
+
+- **Real ADM-24 produces zero exclusions.** All 254 rows classify as
+  `union_district_member` (208) or `own_district` (46). The exclusion path is
+  exercised only by unit fixtures, never by production data. The 900-range
+  buckets, `T000` and `T999` never appear as rows in the report at all, which is
+  why nothing reaches the excluded side.
+- **An unorganized gore is being labelled a school district.** No pupils are lost
+  and conservation holds, but "Buels Gore is a school district" is a claim this
+  site would be publishing, and it is probably false — a gore tuitions its pupils
+  out rather than operating a district.
+
+This is open question 2 coming due rather than a defect in the rollup: the
+`own_district` rule was always an inference, and this is the first evidence about
+where it is wrong. It is recorded here rather than quietly fixed because deciding
+what a gore *is* belongs to whoever owns the published claims, not to the
+importer.
 
 ### 8. Values round to two decimals at ingest
 
@@ -561,8 +585,15 @@ the import has no correct consumer until this is fixed. Scope: add
 - **Join.** All rows resolve; an injected unknown code fails the run.
 - **Year invariant.** `count_year_start == adm_label + 1998` across all ten
   years; contradictory title/link/filename fails.
-- **Classification.** 900-range are buckets; `T999` is not; Buels Gore is an
-  excluded-with-ADM case; `T000` stays `reporting_only`.
+- **Classification.** 900-range are buckets; `T999` is not; `T000` stays
+  `reporting_only`; Buels Gore classifies `own_district` under the current rule —
+  see the correction under the conservation invariant, and pin whatever behaviour
+  the open question is finally resolved to.
+- **A falsifiable conservation guard.** The invariant's district-side total must
+  be derived from the published rollup, so that a merge that overwrites instead of
+  accumulating, or a town reaching neither side of the ledger, makes it throw.
+  Deriving both sides independently from the same input makes it agree by
+  construction and guard nothing. Test the negative path, not only the positive.
 - **Link text normalization.** ADM-16's trailing zero-width space and ADM-16/17
   NBSP parse correctly.
 - **Registry.** The 900-range records gain `reporting_only: true` and leave
