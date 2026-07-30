@@ -201,7 +201,7 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
       successor_basis: prior?.successor_basis ?? null,
       supervisory_union: null,
       operated_by: null,
-      reporting_only: isReportingBucket(name),
+      reporting_only: isReportingBucket({ id, name }),
       member_towns: [],
       grades: raw.Grades ?? [],
       website: raw.Website ?? null,

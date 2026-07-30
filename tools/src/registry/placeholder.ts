@@ -79,6 +79,23 @@ const REPORTING_BUCKET_NAMES = new Set([
 /** Org ID prefixes that mark a scratch record regardless of its name. */
 const PLACEHOLDER_ID_PREFIX = /^(test|sample|example|dummy|placeholder|xxx|zzz)/i;
 
+/**
+ * Bare-numeric org IDs in the 900 range: AOE's out-of-state and out-of-country
+ * residency buckets.
+ *
+ * Structural rather than name-based, because the names are compounds -- "Other
+ * State -Massachusetts", "Other Out of Country" -- that no whole-name match
+ * catches. Real Vermont towns are T-prefixed (T001-T263), and these six are the
+ * only bare-numeric org IDs anywhere in the registry, checked across all nine
+ * entity files.
+ *
+ * Deliberately anchored and exactly three digits. T999 ORFORD NH must not match:
+ * it is a real New Hampshire town and a real member of the Rivendell Interstate
+ * district, which earns no Vermont ADM because it has no Vermont operating
+ * district, not because it is a bucket.
+ */
+const RESIDENCY_BUCKET_ID = /^9\d\d$/;
+
 /** Repeated-character IDs and names, e.g. "XXX", "zzzz". */
 const REPEATED_CHARS = /^(x{3,}|z{3,}|0{3,}|9{3,})$/i;
 
@@ -147,6 +164,8 @@ export function detectPlaceholder(record: {
 
 /**
  * Whether a record is an AOE reporting bucket rather than a real organization.
+ * Matched two ways: structurally by a bare-numeric 900-range org ID, or by
+ * whole-name match against the known bucket names.
  *
  * A bucket stays in the registry and keeps its references, but no average daily
  * membership is awarded to it. Everything downstream must honour that: it
@@ -154,7 +173,11 @@ export function detectPlaceholder(record: {
  * budget in the coverage matrix, and a merger scenario cannot move students
  * into or out of it.
  */
-export function isReportingBucket(name: string | null): boolean {
-  if (!name) return false;
-  return REPORTING_BUCKET_NAMES.has(normalizeName(name));
+export function isReportingBucket(record: {
+  readonly id: string | null;
+  readonly name: string | null;
+}): boolean {
+  if (record.id !== null && RESIDENCY_BUCKET_ID.test(record.id.trim())) return true;
+  if (!record.name) return false;
+  return REPORTING_BUCKET_NAMES.has(normalizeName(record.name));
 }

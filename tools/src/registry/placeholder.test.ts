@@ -63,13 +63,13 @@ describe('reporting buckets are kept, not filtered', () => {
 
   it('identifies them as buckets so no membership is awarded to them', () => {
     for (const name of ['UNKNOWN', 'unassigned', 'none', 'N/A', 'out of state', 'Other']) {
-      expect(isReportingBucket(name), name).toBe(true);
+      expect(isReportingBucket({ id: 'T300', name }), name).toBe(true);
     }
   });
 
   it('does not mistake a real organization for a bucket', () => {
     for (const name of ['BRATTLEBORO', 'Academy School', 'Northeast Kingdom Choice School District']) {
-      expect(isReportingBucket(name), name).toBe(false);
+      expect(isReportingBucket({ id: 'T300', name }), name).toBe(false);
     }
   });
 });
@@ -119,5 +119,53 @@ describe('placeholder detection does not eat real organizations', () => {
     expect(detectPlaceholder({ id: 'T027', name: 'BRATTLEBORO' }).isPlaceholder).toBe(false);
     expect(detectPlaceholder({ id: 'TE001', name: 'River Valley Technical Center' }).isPlaceholder).toBe(false);
     expect(detectPlaceholder({ id: 'SU001', name: 'Mt. Abraham Unified School District' }).isPlaceholder).toBe(false);
+  });
+});
+
+describe('residency reporting buckets are identified structurally', () => {
+  // AOE records out-of-state and out-of-country residency as bare-numeric town
+  // codes in the 900 range. They are not places and are awarded no ADM. Name
+  // matching misses them because their names are compounds.
+  const RESIDENCY_BUCKETS: ReadonlyArray<readonly [string, string]> = [
+    ['901', 'Other State -Massachusetts'],
+    ['902', 'Other State -New Hampshire'],
+    ['903', 'Other State -New York'],
+    ['904', 'Other Country -Quebec, Canada'],
+    ['905', 'Other Out of State'],
+    ['906', 'Other Out of Country'],
+  ];
+
+  it('flags every bare-numeric 900-range record', () => {
+    for (const [id, name] of RESIDENCY_BUCKETS) {
+      expect(isReportingBucket({ id, name }), `${id} ${name}`).toBe(true);
+    }
+  });
+
+  it('does not flag Orford NH, which is a real interstate member town', () => {
+    // T999 is a real New Hampshire town and a member of the Rivendell
+    // Interstate district. It earns no Vermont ADM because it has no Vermont
+    // operating district -- not because it is a bucket. Flagging it would
+    // corrupt the interstate district's structure.
+    expect(isReportingBucket({ id: 'T999', name: 'ORFORD NH' })).toBe(false);
+  });
+
+  it('does not flag T-prefixed towns whose digits fall in the 900 range', () => {
+    expect(isReportingBucket({ id: 'T900', name: 'SOMEWHERE' })).toBe(false);
+    expect(isReportingBucket({ id: 'T901', name: 'SOMEWHERE ELSE' })).toBe(false);
+  });
+
+  it('does not flag other bare-numeric codes outside the 900 range', () => {
+    expect(isReportingBucket({ id: '101', name: 'A Real Place' })).toBe(false);
+    expect(isReportingBucket({ id: '9001', name: 'Four Digits' })).toBe(false);
+  });
+
+  it('still flags name-based buckets, with or without an id', () => {
+    expect(isReportingBucket({ id: 'T000', name: 'UNKNOWN' })).toBe(true);
+    expect(isReportingBucket({ id: null, name: 'Unassigned' })).toBe(true);
+  });
+
+  it('still does not flag real towns', () => {
+    expect(isReportingBucket({ id: 'T027', name: 'BRATTLEBORO' })).toBe(false);
+    expect(isReportingBucket({ id: 'T037', name: 'BURLINGTON' })).toBe(false);
   });
 });
