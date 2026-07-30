@@ -1,0 +1,519 @@
+# Small / sparse school support grants — parameter set
+#
+# Follows docs/parameter-verification.md. Every STATUTORY value here is `null` with
+# `verified: false`. No value was carried in from an AOE summary page, a JFO briefing, or
+# a language model's recollection — including the one that drafted this file. The
+# readings I found in secondary sources are recorded in
+# docs/small-sparse-verification-worksheet.md instead, deliberately outside this file,
+# so there is nothing here to carelessly promote.
+#
+# ---------------------------------------------------------------------------
+# A distinction this parameter set needs and the existing files do not
+# ---------------------------------------------------------------------------
+# There are two kinds of parameter in this layer and they cannot share a verification
+# rule:
+#
+#   `statutory:`  Values fixed in Act 73 Sec. 37 as amended. Verified only by reading
+#                 the operative sentence in current law. All null until then.
+#
+#   `framework:`  Thresholds PROPOSED by the State Board's special committee on
+#                 2025-12-17. These are not law and may never be. They carry values,
+#                 because the committee report is itself the primary source for what the
+#                 committee proposed — quoting it is not the same act as quoting a
+#                 statute. Every entry is `is_law: false`, and the engine must label any
+#                 figure derived from them as measured against a proposed standard.
+#
+# Conflating these would be the specific error the verification doc warns about, in
+# reverse: treating a proposal as law rather than treating a summary as statute.
+
+parameter_set: small-sparse
+fiscal_year: 2030
+status: unverified
+schema_version: 1.0
+drafted: 2026-07-30
+drafted_by: claude
+
+contingency:
+  contingent: true
+  note: >
+    The support grants take effect with the foundation formula, which Act 170 of 2026
+    made contingent on further legislative action. Renderers must carry the contingency
+    label wherever these figures appear, separately from verification status. Contingent
+    and unverified are different conditions and a figure can be both.
+
+fiscal_year_reference:
+  resolved: false
+  question: >
+    Act 73 attached the grants to foundation formula implementation, originally the
+    2028-29 school year. Act 170 moved implementation to 2029-30. Whether Act 170
+    amended the fiscal year references in Sec. 37 or the schedule shifts by operation of
+    the contingency is unread.
+  handling: >
+    One file only, this one, pending the reading. Do NOT create a parallel fy2029 file
+    with the same values — that is carrying a value forward, which the verification
+    checklist prohibits for the yield and prohibits here for the same reason. The
+    correct fiscal year is a finding, not a guess to hedge.
+
+# ---------------------------------------------------------------------------
+# Statutory parameters — all null
+# ---------------------------------------------------------------------------
+# Citation of record is the Act as enacted, not the codified section, because these
+# provisions are contingently effective and Vermont Statutes Online may not yet reflect
+# them. See parameter-verification.md, sources in order of authority, item 2.
+
+statutory:
+  grants.small_school.per_pupil:
+    value: null
+    unit: usd_per_pupil
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37 — check whether Act 170 of 2026 repealed and re-enacted"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  grants.small_school.pupil_count_basis:
+    value: null
+    enum: [two_year_average, single_year]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  grants.small_school.inflation_index:
+    value: null
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      Read whether the index reaches the SPARSE grant as well. Secondary sources
+      describe indexing for one and are silent on the other, which may be an artifact of
+      the summary or may be the statute. Also read against the base amount's index — if
+      they differ, that is itself a finding.
+
+  grants.sparse_school.per_pupil:
+    value: null
+    unit: usd_per_pupil
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  grants.sparse_school.pupil_count_basis:
+    value: null
+    enum: [two_year_average, single_year]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  grants.sparse_school.inflation_index:
+    value: null
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  grants.stacking_rule:
+    value: null
+    enum: [additive, greater_of, mutually_exclusive]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      STRUCTURAL, not just numeric. A school under the enrollment threshold in a town
+      under the density threshold appears to meet both screens. Whether the grants add,
+      or the school takes the greater, changes the figure for exactly the schools most
+      exposed in the 2028 votes. The engine emits separate lines and no total until this
+      is read. Record the finding in the header comment of model/src/small-sparse.ts.
+
+  screens.small_enrollment.threshold:
+    value: null
+    unit: students
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  screens.small_enrollment.comparator:
+    value: null
+    enum: [lt, lte]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      Read whether the QUALIFYING test and the PAYMENT basis use the same enrollment
+      figure. Secondary sources describe the test as a single year in one place and a
+      two-year average in another, while describing payment on a two-year average in
+      both. If they diverge, borderline schools qualify under one frame and not the
+      other, and the divergence is publishable in its own right.
+
+  screens.sparse_density.threshold:
+    value: null
+    unit: persons_per_square_mile_of_land
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  screens.sparse_density.comparator:
+    value: null
+    enum: [lt, lte]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  screens.sparse_density.geography:
+    value: null
+    enum: [municipality_of_school_location, district_member_towns, other]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      STRUCTURAL. Whether the density test looks at the town the school building sits in
+      or at the district's member towns changes which schools are candidates, and a
+      district-level reading would be wrong for every school in a district with one
+      dense town. Read the phrase carefully.
+
+  screens.sparse_density.area_measure:
+    value: null
+    enum: [land_area, total_area]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      The secondary sources say "of land". If that is the statutory wording, use Census
+      TIGER ALAND. Using total area understates density and wrongly pulls lakeside and
+      pond-heavy towns into eligibility, so this is a real correctness question and not a
+      pedantic one. Verify the exact phrase, then assert it in a golden fixture.
+
+  screens.sparse_density.population_series:
+    value: null
+    enum: [decennial, acs_5yr, state_estimate, unspecified_in_statute]
+    citation:
+      statute: null
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      If the statute does not name a series, `unspecified_in_statute` is the correct
+      verified value and the choice becomes a user-visible scenario input with no
+      default, not an implementation detail. Compute both and publish the towns that
+      move between them.
+
+  determination.authority:
+    value: null
+    enum: [AOE, SBE, other]
+    citation:
+      statute: null
+      session_law: "Act 170 of 2026 — section numbers unread; see worksheet"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  determination.rules_due_date:
+    value: null
+    citation:
+      statute: null
+      session_law: "Act 170 of 2026"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >
+      Drives the rulemaking comment deadline in the business plan §10. Worth reading
+      early even though it computes nothing, because a missed window is unrecoverable.
+
+# ---------------------------------------------------------------------------
+# Framework parameters — proposed, not law
+# ---------------------------------------------------------------------------
+# Values present. Source is the committee's own report, which is the primary source for
+# what the committee proposed. Every entry is is_law: false and the engine must never
+# present a result measured against these as a legal determination.
+
+framework:
+  source:
+    document_title: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to Vermont State Board of Education"
+    date: 2025-12-17
+    landing_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+    artifact_url: "https://education.vermont.gov/sites/aoe/files/documents/SBE%20Small%20Sparse%20presentation.pdf"
+    retrieved: 2026-07-30
+    retrieved_by: claude
+    intake_ref: "intake/sbe/2025-12-17-small-sparse-framework/"
+    sha256: null
+    note: >
+      Fetch the artifact and record it in intake with a hash before relying on it.
+      education.vermont.gov returns 403 to automated clients, so this is a manual save.
+      The reading below came from a copy supplied in conversation, which is not the same
+      as a hashed intake artifact.
+    legislative_charge: "Act 73 of 2025, Sec. 8"
+    committee: ["Tammy Kolbe (chair)", "Cynthia Stuart", "Brian Campion"]
+    adoption_status: proposed_not_adopted
+    heading_verbatim: "Possible criteria"
+
+  logic:
+    value: disjunctive
+    is_law: false
+    quote: "A school qualifies if"
+    note: >
+      Each criterion slide is framed this way, so the criteria read as independent
+      sufficient paths. The framework proposes no scoring, weighting or ranking. The
+      engine must not add one — a composite score would be an editorial judgment
+      presented as a computation, which README rule 3 forbids.
+
+  organizing_principle:
+    is_law: false
+    quote: >
+      By necessity should be a function of unavoidable or demographic circumstances,
+      since the criteria for small and sparse are already defined in statute.
+    operative_test_quote: >
+      a school cannot reasonably increase enrollment or consolidate without creating
+      undue hardship for students, specifically in terms of travel time, safety, or lack
+      of feasible alternatives
+    eligible_side_quote: "Schools that are small/sparse because of geography or isolation"
+    ineligible_side_quote: "Schools that are small/sparse due to local organizational decisions, preferences, or policy choices"
+
+  criteria.travel_time_or_distance:
+    is_law: false
+    computability: partly_computable
+    travel_time_one_way_minutes:
+      elementary:
+        value: 45
+        quote: "45 minutes for elementary students"
+      grades_7_12:
+        value: 60
+        quote: "60 minutes for grades 7–12"
+    road_miles_to_nearest_same_grade_span:
+      range:
+        low: 10
+        high: 15
+      basis: terrain
+      basis_defined: false
+      quote: "Road miles to the nearest school of the same grade span exceed 10–15 miles, depending on terrain."
+      note: >
+        A range with an undefined basis. Per the verification checklist's treatment of
+        JFO ranges, this is a `range` block and not a point value; the engine reports
+        against both ends and returns indeterminate in between rather than picking 12.5.
+    grade_span_straddling:
+      resolved: false
+      note: >
+        The thresholds split at grade 7 and the framework says nothing about a K-8 or
+        K-12 school, of which Vermont has many. The engine applies the stricter
+        elementary threshold and flags. This is a rulemaking comment.
+
+  criteria.safe_transportation:
+    is_law: false
+    computability: requires_certification
+    certifying_authority: ["supervisory_union", "AOE"]
+    quote: >
+      Terrain, winter road conditions, unpaved routes, or mountain gaps create unsafe or
+      unreliable transportation, as certified by the supervisory union or AOE.
+    examples_quoted:
+      - "Bus routes requiring travel over roads closed in winter"
+      - "Mountain passes that cause 60+ minute detours"
+      - "Only one road in/out of town (\"single ingress\") prone to closures"
+    note: >
+      Terminal status. Single ingress is arguably detectable from a road network, but
+      detecting a candidate is not certifying a condition, and publishing the former as
+      the latter would substitute our judgment for the SU's.
+
+  criteria.feasible_consolidation:
+    is_law: false
+    computability: requires_local_model
+    limbs_quoted:
+      - "Nearby schools – both within and outside the existing district boundary - lack capacity to absorb students and still meet the State's Educational Quality Standards, including class size minimums"
+      - "Costs of renovation or addition at receiving schools exceed projected savings from closure"
+      - "Tuitioning out raises per-pupil costs or creates inequities in program access, especially students with disabilities who require special education services and other students whose learning needs cannot be met by nearby non-public schools"
+    capital_cost_basis:
+      value: null
+      resolved: false
+      options: [gross_project_cost, net_of_construction_aid]
+      note: See open_questions.capital_cost_basis.
+
+  criteria.population_trajectory:
+    is_law: false
+    computability: requires_projection
+    quote: >
+      The census block or town catchment area is projected to remain below an enrollment
+      that would support a viable larger school, even with consolidation.
+    rationale_quote: >
+      Provides flexibility in places where schools may temporarily fall below 100
+      students.
+    note: >
+      CONSEQUENCE FOR THE UI. This criterion decouples eligibility from current
+      headcount. A school above the enrollment threshold today is not thereby excluded.
+      The enrollment screen is a candidate filter, not a gate, and the site must not
+      present it as one. "Viable larger school" is undefined.
+
+  criteria.closure_cost_increase:
+    is_law: false
+    computability: requires_local_model
+    quote: >
+      A school qualifies if closure or consolidation would create substantial,
+      measurable increases the district's average per student expenditure
+    limbs_quoted:
+      - "Tuitioning Costs: Reassigning students to non-public tuition schools would lead to significantly higher per-pupil expenditures than continuing to operate the school."
+      - "Transportation Costs: Consolidation would require additional buses, longer routes, more driver hours, or substantial new operational transportation expenses, resulting in a sustained increase in district transportation costs."
+      - "Capital Costs at Receiving Schools: Accommodating reassigned students would necessitate major renovations, additions, safety upgrades, or new classrooms, and these capital expenses would exceed any projected savings from closure."
+      - "New Facility Requirements: Closure would require new school construction or major facility expansions elsewhere in the school's existing district or nearby district where students would be reassigned, imposing a material tax burden on the community."
+    capital_cost_basis:
+      value: null
+      resolved: false
+      options: [gross_project_cost, net_of_construction_aid]
+    naming_note: >
+      The framework says "projected savings from closure". README rule 3 says there is no
+      `savings` field in the codebase and there will not be one. Both hold: the word
+      appears here only inside a quoted limb. The engine field is a signed
+      `closure_cost_delta`, presented in both directions, and the quoted text is rendered
+      as a quotation.
+
+  determination_process:
+    is_law: false
+    determining_authority_recommended: AOE
+    frequency_recommended: annual
+    timing_quote: >
+      schools be designated as small/sparse by necessity annually, on a timeline that
+      aligns with district budgeting and annual town meeting decisions
+    rules_vehicle_recommended: "Education Quality Standards"
+    current_state: >
+      No rules exist and no determinations have been published. determination_status is
+      "undetermined" for every school in Vermont as of this file's drafted date.
+
+# ---------------------------------------------------------------------------
+# Scenario inputs with no defaults
+# ---------------------------------------------------------------------------
+# Consistent with the existing convention that consolidation assumptions default to no
+# reduction: where a choice drives the answer, the user makes it and sees it.
+
+scenario_inputs:
+  capital_cost_basis:
+    options: [gross_project_cost, net_of_construction_aid]
+    default: null
+    required: true
+  enrollment_basis:
+    options: [two_year_average, single_year]
+    default: null
+    required: true
+  population_series:
+    options: [decennial, acs_5yr]
+    default: null
+    required: true
+  eligibility_assumption:
+    options: [none, agency_determination, explicit_user_assumption]
+    default: none
+    note: >
+      This one DOES default, to the conservative value. `none` suppresses every dollar
+      figure. A user may assert an assumption; the tool may not assert one for them.
+
+# ---------------------------------------------------------------------------
+# Open questions
+# ---------------------------------------------------------------------------
+
+open_questions:
+  capital_cost_basis:
+    severity: high
+    question: >
+      Do "costs of renovation or addition at receiving schools" mean gross project cost
+      or the district's net share after Act 170 school construction aid?
+    why_it_matters: >
+      Merging raises construction aid materially. On a NET basis, merging shrinks the
+      district's cost of expanding a receiving school, makes the closure look cheaper,
+      and weakens the case that the district's own small schools exist by necessity. On a
+      GROSS basis the merger decision does not touch the test. Same school, same numbers,
+      opposite answer.
+    action: >
+      Rulemaking comment. Public, technical, on the record, and requiring no position on
+      whether any district should merge. Business plan §10.
+
+  grant_stacking:
+    severity: high
+    action: "Read Sec. 37 as currently in force. No combined total until then."
+
+  enrollment_test_basis:
+    severity: medium
+    action: "Read statute. Publish the schools whose status differs between the two readings."
+
+  population_series:
+    severity: medium
+    action: "Read statute; if unspecified, it becomes a scenario input, not a default."
+
+  inflation_index:
+    severity: medium
+    action: "Read statute; check whether it reaches the sparse grant."
+
+  grade_span_straddling:
+    severity: medium
+    action: "Elementary threshold plus flag. Rulemaking comment."
+
+  fiscal_year_references:
+    severity: medium
+    action: "Read enacted Act 170 and the current Sec. 37."
+
+  act_170_section_numbers:
+    severity: low
+    action: >
+      Every Act 170 section number in the worksheet came from a fiscal note written
+      against the House version of H.955. Confirm against the enacted act before citing
+      any of them in a deliverable.

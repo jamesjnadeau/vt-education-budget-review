@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://<domain>/schemas/school.schema.json",
+  "title": "School registry record",
+  "description": "A single operating school. New in schema set v1.1. The existing registry keys on supervisory union, school district, and town; small/sparse determinations are made per SCHOOL, so the school becomes a first-class registry entity with its own location and grade span. Bitemporal-lite per the registry design rules: records close, they do not disappear.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "operating_district",
+    "supervisory_union",
+    "municipality",
+    "grade_span",
+    "status",
+    "effective_from"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^school/[a-z0-9-]+$",
+      "description": "Internal stable slug. Never derived from an AOE ID, which will churn as Act 170 mergers close.",
+      "examples": ["school/calais-elementary"]
+    },
+    "aoe_school_id": {
+      "type": ["string", "null"],
+      "description": "AOE organization identifier. Nullable so the registry can hold a school the API has not yet published or has retired."
+    },
+    "name": { "type": "string" },
+    "operating_district": {
+      "type": "string",
+      "pattern": "^district/[a-z0-9-]+$",
+      "description": "The district that operates the school. Under a merger scenario this is the field that changes; the school id does not."
+    },
+    "supervisory_union": {
+      "type": "string",
+      "pattern": "^su/[a-z0-9-]+$"
+    },
+    "municipality": {
+      "type": "string",
+      "pattern": "^town/[a-z0-9-]+$",
+      "description": "The town, city, or village the school BUILDING sits in. Load-bearing: the sparse screen tests the density of the municipality where the school is located, not the density of the district's member towns. A school in a dense town inside an otherwise sparse district does not pass the sparse screen."
+    },
+    "grade_span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["low", "high"],
+      "description": "Normalized integer grade span. PK = -1, K = 0, grades 1-12 as themselves. Integer form is required for the 'nearest school of the same grade span' comparison in the distance screen.",
+      "properties": {
+        "low": { "type": "integer", "minimum": -1, "maximum": 12 },
+        "high": { "type": "integer", "minimum": -1, "maximum": 12 },
+        "as_stated": {
+          "type": ["string", "null"],
+          "description": "The span as AOE publishes it, e.g. 'PK-6'. Preserved alongside the normalized form per the stated-vs-computed principle."
+        }
+      }
+    },
+    "grade_span_class": {
+      "type": "string",
+      "enum": ["elementary", "middle", "secondary", "elementary_middle", "middle_secondary", "combined", "other"],
+      "description": "Derived from grade_span. Selects the travel-time threshold: the SBE framework proposes 45 minutes one-way for elementary students and 60 minutes for grades 7-12. Schools spanning the boundary (K-8, K-12) are ambiguous under the framework as drafted -- see open_questions.grade_span_straddling in the parameter file."
+    },
+    "location": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["latitude", "longitude", "provenance_ref"],
+      "description": "Building location. Required for the distance and travel-time screens. Null is legal; screens then return not_evaluated rather than a guess.",
+      "properties": {
+        "latitude": { "type": "number", "minimum": 42.7, "maximum": 45.1 },
+        "longitude": { "type": "number", "minimum": -73.5, "maximum": -71.4 },
+        "provenance_ref": {
+          "type": "string",
+          "description": "Path to the provenance record. Geocoded coordinates are DERIVED data, not sourced data -- see provenance.kind in provenance.schema.json v1.1."
+        },
+        "geocode_precision": {
+          "type": "string",
+          "enum": ["rooftop", "parcel", "street", "municipality_centroid"],
+          "description": "municipality_centroid is not acceptable for a distance screen; the screen must return indeterminate at that precision."
+        }
+      }
+    },
+    "school_type": {
+      "type": "string",
+      "enum": ["public", "approved_independent", "career_technical_center", "other"],
+      "description": "Only public schools are eligible for the Act 73 small and sparse support grants. Independent schools are carried in the registry because they are receiving schools in consolidation scenarios and appear in the tuitioning limb of the feasibility criteria."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["operating", "closed", "proposed", "tuitioning_only"],
+      "description": "tuitioning_only covers districts that operate no school and pay tuition -- they have no small/sparse record but are receiving-side participants in scenarios."
+    },
+    "effective_from": { "type": "string", "format": "date" },
+    "effective_to": { "type": ["string", "null"], "format": "date" },
+    "notes": { "type": ["string", "null"] }
+  }
+}
