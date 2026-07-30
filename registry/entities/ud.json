@@ -4,8 +4,8 @@
   "synced_from": {
     "api": "https://datacollection.education.vermont.gov",
     "endpoint": "/api/lists/unionDistricts",
-    "last_synced": "2026-07-29",
-    "snapshot": "registry/raw/2026-07-29"
+    "last_synced": "2026-07-30",
+    "snapshot": "registry/raw/2026-07-30"
   },
   "records": [
     {
