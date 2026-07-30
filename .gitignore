@@ -6,6 +6,11 @@ site/.astro/
 coverage/
 *.tsbuildinfo
 
+# Isolated workspaces. Checkouts of this repo, never content of it -- an
+# unignored worktree directory commits an entire second copy of the tree.
+.claude/worktrees/
+.superpowers/
+
 .env
 .env.*
 !.env.example
