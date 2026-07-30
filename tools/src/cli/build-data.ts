@@ -22,6 +22,7 @@ import { join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { buildCoverage } from '../coverage.ts';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
@@ -41,7 +42,13 @@ function writeJson(path: string, data: unknown): void {
 }
 
 function readBudgets(): BudgetRecord[] {
-  return walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json')).map((file) => {
+  return walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json'))
+    // The warehouse holds the AOE ADM series too, which is the state's voice
+    // about pupils rather than a district's budget. Reading one as a budget
+    // record would put an object with no revenues or expenditures into every
+    // per-SU page's budget list.
+    .filter((file) => !rel(file).startsWith('warehouse/aoe-adm/'))
+    .map((file) => {
     const text = readFileSync(file, 'utf8');
     const record = (file.endsWith('.json') ? JSON.parse(text) : parseYaml(text)) as BudgetRecord;
     return { ...record, _file: rel(file) };
@@ -100,6 +107,20 @@ function main(): number {
   // --- coverage ------------------------------------------------------------
   const coverage = buildCoverage(registry, { today });
   writeJson(join(PATHS.siteGenerated, 'coverage.json'), coverage);
+
+  // --- AOE average daily membership ---------------------------------------
+  // The district rollup is computed here, not stored: it is derived from the
+  // warehouse and the registry, and nothing derived is committed.
+  const admDir = join(PATHS.warehouse, 'aoe-adm');
+  const admRecords = walkFiles(admDir, (n) => /^adm\d{2}\.yaml$/.test(n)).map(
+    (file) => parseYaml(readFileSync(file, 'utf8')) as unknown,
+  );
+  if (admRecords.length > 0) {
+    writeJson(
+      join(PATHS.siteGenerated, 'adm.json'),
+      buildAdmPublication(admRecords, registry, today.toISOString()),
+    );
+  }
 
   // --- per-SU data, and the compact index the modeling island loads first ---
   const sus = (byType.get('su') ?? []).filter((e) => !e.effective_to);
