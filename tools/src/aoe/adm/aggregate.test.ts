@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { REPO_ROOT } from '../../paths.ts';
 import { readRegistry } from '../../registry/store.ts';
 import type { RegistryEntity } from '../../registry/types.ts';
-import { aggregate } from './aggregate.ts';
+import { aggregate, assertConservation } from './aggregate.ts';
 import type { TownClass } from './classify.ts';
 import { joinRows, type JoinedRow } from './join.ts';
 import { parseReport } from './parse.ts';
@@ -112,6 +112,85 @@ describe('rolling towns up to districts', () => {
       2,
     );
     expect(rollup.districts[0]?.values).toEqual([15, null]);
+  });
+});
+
+describe('the conservation guard can actually fail', () => {
+  // The first implementation of this guard derived both sides independently from
+  // the same input -- districts from the rows that earn ADM, exclusions from the
+  // rows that do not -- which made them a partition of the input and so equal by
+  // construction. It could not throw for any input whatsoever. These tests pin
+  // the negative path directly, because with the wiring correct no input to
+  // aggregate() can make the check fire: that is what "the guard holds" means.
+
+  it('throws when the district side is short a town, naming band and difference', () => {
+    // 14 pupils were counted at town level; only 10 reached a district and none
+    // was excluded. The missing 4 are exactly the Burlington-class bug.
+    expect(() => assertConservation([14, 5], [10, 5], [0, 0])).toThrow(/band 0/);
+    expect(() => assertConservation([14, 5], [10, 5], [0, 0])).toThrow(/-4\.00/);
+  });
+
+  it('throws when a band other than the first is the one that fails', () => {
+    expect(() => assertConservation([10, 5], [10, 2], [0, 0])).toThrow(/band 1/);
+  });
+
+  it('throws when the two sides double-count rather than lose', () => {
+    expect(() => assertConservation([10, 5], [10, 5], [3, 0])).toThrow(/band 0/);
+  });
+
+  it('does not throw when districts plus exclusions reconcile', () => {
+    expect(() => assertConservation([14, 5], [10, 5], [4, 0])).not.toThrow();
+  });
+
+  it('tolerates a sub-half-cent rounding difference but not a larger one', () => {
+    expect(() => assertConservation([10, 0], [9.996, 0], [0, 0])).not.toThrow();
+    expect(() => assertConservation([10, 0], [9.98, 0], [0, 0])).toThrow(/band 0/);
+  });
+
+  it('refuses to relax: the message tells a reader to find the towns', () => {
+    expect(() => assertConservation([14, 5], [10, 5], [0, 0])).toThrow(
+      /Do not relax this check/i,
+    );
+  });
+});
+
+describe('the guard is wired to the totals that get published', () => {
+  it('ties district_band_totals to the districts the rollup actually returns', () => {
+    // The spec's falsifiability requirement: the district side of the ledger must
+    // come from the same accumulator that produced districts[].values, so that a
+    // merge overwriting instead of accumulating moves both together and the check
+    // still catches it. With no nulls in play the two must agree exactly.
+    const rollup = aggregate(
+      [
+        joined('T001', 'town/a', 'union_district_member', [10.5, 5.25], 'ud/x'),
+        joined('T002', 'town/b', 'union_district_member', [1.5, 2.75], 'ud/x'),
+        joined('T037', 'town/c', 'own_district', [100, 50]),
+      ],
+      2,
+    );
+    for (let band = 0; band < 2; band++) {
+      const fromPublished = Number(
+        rollup.districts.reduce((acc, d) => acc + (d.values[band] ?? 0), 0).toFixed(2),
+      );
+      expect(fromPublished).toBe(rollup.district_band_totals[band]);
+    }
+  });
+
+  it('keeps a district’s known pupils in the ledger when one town’s band is unknown', () => {
+    // The regression the pre-null-contagion implementation caused: town b's 5
+    // real pupils must stay on the district side of the invariant even though
+    // the district publishes null for that band, or the guard accuses the rollup
+    // of losing pupils it never lost.
+    const rollup = aggregate(
+      [
+        joined('T001', 'town/a', 'union_district_member', [10, null], 'ud/x'),
+        joined('T002', 'town/b', 'union_district_member', [5, 5], 'ud/x'),
+      ],
+      2,
+    );
+    expect(rollup.districts[0]?.values).toEqual([15, null]);
+    expect(rollup.district_band_totals).toEqual([15, 5]);
+    expect(rollup.town_band_totals).toEqual([15, 5]);
   });
 });
 

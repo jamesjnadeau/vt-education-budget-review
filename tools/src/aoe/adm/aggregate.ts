@@ -49,21 +49,75 @@ const JUSTIFICATION: Readonly<Record<TownClass, string>> = {
     'is a real out-of-state member town of an interstate district. Its pupils are ' +
     'that state’s, so it earns no Vermont ADM, but it is not a reporting bucket.',
   residency_bucket:
-    'is an AOE residency reporting bucket rather than a place, and is awarded no ADM.',
+    'is an AOE residency reporting bucket (e.g. unknown or out-of-state residency) rather ' +
+    'than a place. Any pupils recorded against it are real, unresolved-residency pupils, ' +
+    'deliberately excluded from every district total rather than dropped.',
 };
-
-/** Null is contagious: one town's unknown count makes the district's unknown. */
-function addNullable(a: number | null, b: number | null): number | null {
-  if (a === null || b === null) return null;
-  return Number((a + b).toFixed(2));
-}
 
 function sumBand(values: ReadonlyArray<ReadonlyArray<number | null>>, band: number): number {
   return Number(values.reduce((acc, v) => acc + (v[band] ?? 0), 0).toFixed(2));
 }
 
+/**
+ * A district's accumulator carries ONE source of truth per band: `rawSum`
+ * (never null, each contributing row's `?? 0`) and `sawNull` (did any
+ * contributing row leave this band unknown). `DistrictTotal.values` and the
+ * invariant's `district_band_totals` are both DERIVED from this single state,
+ * not computed by separate, independently-corruptible statements -- so a bug
+ * in how a row is folded into a district (an overwrite instead of an
+ * accumulation, or a row that never reaches this accumulator at all) shows up
+ * in both the published total and the conservation check, instead of only the
+ * one a reviewer happened to be looking at. See the aggregate() docstring
+ * below for why a version that computed them separately shipped a guard that
+ * could not fail.
+ */
+interface DistrictAcc {
+  towns: string[];
+  rawSum: number[];
+  sawNull: boolean[];
+}
+
+/**
+ * The conservation invariant: every pupil counted at town level lands either in
+ * a district total or in a named exclusion, per band.
+ *
+ * Exported and taken as three plain arrays so the negative path is testable.
+ * That matters more here than it looks: the first implementation derived the
+ * district side and the exclusion side independently from the same input, which
+ * made them a partition of it and therefore equal by construction, so the check
+ * could not throw for any input at all. Once the wiring is right no input to
+ * `aggregate` can make it fire -- which is exactly why the throw has to be
+ * exercised directly rather than through the caller.
+ *
+ * The tolerance is half a cent, below the two decimals the source publishes, so
+ * accumulated rounding cannot trip it but a single lost pupil always does.
+ */
+export function assertConservation(
+  town_band_totals: ReadonlyArray<number>,
+  district_band_totals: ReadonlyArray<number>,
+  excluded_band_totals: ReadonlyArray<number>,
+): void {
+  for (let b = 0; b < town_band_totals.length; b++) {
+    const recombined = Number(
+      ((district_band_totals[b] ?? 0) + (excluded_band_totals[b] ?? 0)).toFixed(2),
+    );
+    const expected = town_band_totals[b] ?? 0;
+    if (Math.abs(recombined - expected) > 0.005) {
+      throw new Error(
+        `Conservation failed for band ${b}: districts ${district_band_totals[b]} + ` +
+          `exclusions ${excluded_band_totals[b]} = ${recombined}, but the town-level ` +
+          `total is ${expected} (difference ${(recombined - expected).toFixed(2)}).\n\n` +
+          `Every pupil must land in a district total or in a named exclusion. A ` +
+          `mismatch means the rollup is losing towns -- which is exactly how an ` +
+          `operated_by-keyed rollup would quietly drop Burlington, Rutland City and ` +
+          `56 others. Do not relax this check; find the missing towns.`,
+      );
+    }
+  }
+}
+
 export function aggregate(joined: ReadonlyArray<JoinedRow>, bandCount: number): Rollup {
-  const byDistrict = new Map<string, { towns: string[]; values: (number | null)[] }>();
+  const byDistrict = new Map<string, DistrictAcc>();
   const exclusions: Exclusion[] = [];
 
   for (const j of joined) {
@@ -90,64 +144,52 @@ export function aggregate(joined: ReadonlyArray<JoinedRow>, bandCount: number): 
 
     const acc = byDistrict.get(key) ?? {
       towns: [],
-      values: Array.from({ length: bandCount }, () => 0 as number | null),
+      rawSum: Array.from({ length: bandCount }, () => 0),
+      sawNull: Array.from({ length: bandCount }, () => false),
     };
     acc.towns.push(j.slug);
     for (let b = 0; b < bandCount; b++) {
-      acc.values[b] = addNullable(acc.values[b] ?? null, j.row.values[b] ?? null);
+      const v = j.row.values[b] ?? null;
+      if (v === null) acc.sawNull[b] = true;
+      acc.rawSum[b] = Number(((acc.rawSum[b] ?? 0) + (v ?? 0)).toFixed(2));
     }
     byDistrict.set(key, acc);
   }
 
   const districts: DistrictTotal[] = [...byDistrict.entries()]
-    .map(([district, { towns, values }]) => ({
+    .map(([district, { towns, rawSum, sawNull }]) => ({
       district,
       member_towns: [...towns].sort(),
-      values,
+      // Null contagion applied here, at publish time: one town's unknown
+      // count makes the whole district's count unknown for that band, so a
+      // real neighboring town's number is never published as if it were the
+      // district's true total.
+      values: rawSum.map((v, b) => (sawNull[b] ? null : v)),
     }))
     .sort((a, b) => a.district.localeCompare(b.district));
 
-  // The invariant totals are computed from the underlying per-town rows, not
-  // from `districts[].values`. `districts[].values` deliberately keeps null
-  // contagion -- one town's unknown count makes the whole district's count
-  // unknown, so a real neighboring town's number must not be published inside
-  // it. But re-summing THAT nulled-out total with `?? 0` would erase a real
-  // pupil count from the invariant check itself (a district with [10, null]
-  // and [5, 5] merges to district value null for band 1, which would sum to 0
-  // and falsely accuse the rollup of losing 5 pupils it never lost). Summing
-  // each row's own value with `?? 0` sidesteps that: a row missing a band
-  // simply contributes nothing to that band's total, on both sides of the
-  // invariant, which is the arithmetic identity the check actually relies on.
-  const rowsInDistricts = joined
-    .filter((j) => earnsVermontAdm(j.town_class))
-    .map((j) => j.row.values);
   const town_band_totals = Array.from({ length: bandCount }, (_, b) =>
     sumBand(joined.map((j) => j.row.values), b),
   );
+  // Derived from the SAME `byDistrict` accumulators that produced `districts`
+  // above (via `rawSum`, before null-contagion is applied) -- not
+  // re-filtered or re-derived from `joined` independently. A merge bug that
+  // corrupts what actually lands in `byDistrict` corrupts this too, because
+  // both read `rawSum`. `rawSum` never goes null (each row's own `?? 0`), so
+  // this does not false-positive on a district that is legitimately missing
+  // one town's data for a band, the way summing published `values` with
+  // `?? 0` would (that would collapse an entire district's real, known
+  // pupils to zero the instant one member town's number was unknown).
   const district_band_totals = Array.from({ length: bandCount }, (_, b) =>
-    sumBand(rowsInDistricts, b),
+    Number(
+      [...byDistrict.values()].reduce((acc, d) => acc + (d.rawSum[b] ?? 0), 0).toFixed(2),
+    ),
   );
   const excluded_band_totals = Array.from({ length: bandCount }, (_, b) =>
     sumBand(exclusions.map((e) => e.values), b),
   );
 
-  for (let b = 0; b < bandCount; b++) {
-    const recombined = Number(
-      ((district_band_totals[b] ?? 0) + (excluded_band_totals[b] ?? 0)).toFixed(2),
-    );
-    const expected = town_band_totals[b] ?? 0;
-    if (Math.abs(recombined - expected) > 0.005) {
-      throw new Error(
-        `Conservation failed for band ${b}: districts ${district_band_totals[b]} + ` +
-          `exclusions ${excluded_band_totals[b]} = ${recombined}, but the town-level ` +
-          `total is ${expected} (difference ${(recombined - expected).toFixed(2)}).\n\n` +
-          `Every pupil must land in a district total or in a named exclusion. A ` +
-          `mismatch means the rollup is losing towns -- which is exactly how an ` +
-          `operated_by-keyed rollup would quietly drop Burlington, Rutland City and ` +
-          `56 others. Do not relax this check; find the missing towns.`,
-      );
-    }
-  }
+  assertConservation(town_band_totals, district_band_totals, excluded_band_totals);
 
   return {
     districts,
