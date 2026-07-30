@@ -268,8 +268,10 @@ function numberField(id: string): number | null {
   return Number.isFinite(value) ? value : null;
 }
 
-function checked(id: string): boolean {
-  return (document.getElementById(id) as HTMLInputElement | null)?.checked ?? false;
+function textField(id: string): string | null {
+  const element = document.getElementById(id) as HTMLInputElement | null;
+  if (!element) return null;
+  return element.value.trim();
 }
 
 export function initModelTool(liveParameters: RawParameterSet[]): void {
@@ -308,26 +310,37 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
 
     const ctx = createContext(parameters);
 
+    const smallSchoolName = textField('small-school-name');
+    const smallSchoolEnrollment = numberField('small-school-enrollment');
+
     const membership = computeWeightedMembership(ctx, {
       entity: 'ud/illustrative',
       adm_years: [
         {
           fiscal_year: 2025,
-          prek: numberField('prek-1'),
-          elementary: numberField('elem-1'),
-          secondary: numberField('sec-1'),
+          prekindergarten: numberField('prek-1'),
+          kindergarten_through_5: numberField('k5-1'),
+          grades_6_through_8: numberField('g68-1'),
+          grades_9_through_12: numberField('g912-1'),
         },
         {
           fiscal_year: 2026,
-          prek: numberField('prek-2'),
-          elementary: numberField('elem-2'),
-          secondary: numberField('sec-2'),
+          prekindergarten: numberField('prek-2'),
+          kindergarten_through_5: numberField('k5-2'),
+          grades_6_through_8: numberField('g68-2'),
+          grades_9_through_12: numberField('g912-2'),
         },
       ],
-      economically_deprived: numberField('econ'),
-      english_learners: [{ category: 'level_1', count: numberField('el') }],
-      sparsity_eligible: checked('sparsity'),
-      small_school_eligible: checked('small-school'),
+      state_placed_fte: numberField('state-placed'),
+      poverty_185_fpl: numberField('econ'),
+      english_learners: numberField('el'),
+      persons_per_square_mile: numberField('density'),
+      // A school with no name is no school. An unnamed row would otherwise
+      // become a weight applied to an anonymous entity in the walkthrough.
+      small_schools:
+        smallSchoolName !== null && smallSchoolName !== ''
+          ? [{ name: smallSchoolName, average_two_year_enrollment: smallSchoolEnrollment }]
+          : [],
       source: 'figures entered by you in this form',
     });
 
@@ -335,11 +348,21 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
       source: 'figures entered by you in this form',
     });
     const perPupil = perWeightedPupil(ctx, spending, membership.total);
-    const rate = townRate(ctx, perPupil, {
-      town: 'your town',
-      cla: numberField('cla'),
-      cla_source: 'figure entered by you in this form',
-    });
+    const rate = townRate(
+      ctx,
+      perPupil,
+      {
+        town: 'your town',
+        cla: numberField('cla'),
+        cla_source: 'figure entered by you in this form',
+      },
+      // No illustrative default exists for this field (see the form): it is the
+      // Secretary of Education's statewide average determination, not a figure
+      // the user is supposing about their own district. Left blank it is null,
+      // which surfaces as a missing_input blocker in excessSpending rather than
+      // a fabricated statewide number.
+      numberField('statewide-avg'),
+    );
 
     renderWalkthrough(rate.billedRate, walkthrough);
     renderBlockers(rate.billedRate, blockers);

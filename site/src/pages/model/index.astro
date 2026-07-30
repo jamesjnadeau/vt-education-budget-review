@@ -63,12 +63,16 @@ const liveParameters = JSON.stringify(parameters);
         <input id="prek-1" type="number" min="0" step="0.01" value="10" />
       </div>
       <div class="field">
-        <label for="elem-1">FY2025 elementary</label>
-        <input id="elem-1" type="number" min="0" step="0.01" value="100" />
+        <label for="k5-1">FY2025 kindergarten through grade 5</label>
+        <input id="k5-1" type="number" min="0" step="0.01" value="100" />
       </div>
       <div class="field">
-        <label for="sec-1">FY2025 secondary</label>
-        <input id="sec-1" type="number" min="0" step="0.01" value="50" />
+        <label for="g68-1">FY2025 grades 6 through 8</label>
+        <input id="g68-1" type="number" min="0" step="0.01" value="50" />
+      </div>
+      <div class="field">
+        <label for="g912-1">FY2025 grades 9 through 12</label>
+        <input id="g912-1" type="number" min="0" step="0.01" value="50" />
       </div>
     </div>
     <div class="controls">
@@ -77,16 +81,24 @@ const liveParameters = JSON.stringify(parameters);
         <input id="prek-2" type="number" min="0" step="0.01" value="20" />
       </div>
       <div class="field">
-        <label for="elem-2">FY2026 elementary</label>
-        <input id="elem-2" type="number" min="0" step="0.01" value="200" />
+        <label for="k5-2">FY2026 kindergarten through grade 5</label>
+        <input id="k5-2" type="number" min="0" step="0.01" value="200" />
       </div>
       <div class="field">
-        <label for="sec-2">FY2026 secondary</label>
-        <input id="sec-2" type="number" min="0" step="0.01" value="100" />
+        <label for="g68-2">FY2026 grades 6 through 8</label>
+        <input id="g68-2" type="number" min="0" step="0.01" value="100" />
+      </div>
+      <div class="field">
+        <label for="g912-2">FY2026 grades 9 through 12</label>
+        <input id="g912-2" type="number" min="0" step="0.01" value="100" />
       </div>
     </div>
 
     <div class="controls">
+      <div class="field">
+        <label for="state-placed">State-placed students (FTE, most recent year)</label>
+        <input id="state-placed" type="number" min="0" step="0.01" value="0" />
+      </div>
       <div class="field">
         <label for="econ">Pupils at or below 185% FPL</label>
         <input id="econ" type="number" min="0" step="0.01" value="40" />
@@ -95,15 +107,25 @@ const liveParameters = JSON.stringify(parameters);
         <label for="el">English learner pupils</label>
         <input id="el" type="number" min="0" step="0.01" value="8" />
       </div>
+    </div>
+
+    <!-- Sparsity and small-school eligibility are derived from density, not
+         asserted. 16 V.S.A. 4010(d)(4) sets the density bands and (d)(5)
+         gates the small-school weight on 55 or fewer persons per square
+         mile, so a checkbox would let the user claim a weight the statute
+         would not grant. -->
+    <div class="controls">
       <div class="field">
-        <label for="sparsity"
-          ><input id="sparsity" type="checkbox" /> Meets the sparsity test</label
-        >
+        <label for="density">Persons per square mile in the district</label>
+        <input id="density" type="number" min="0" step="0.1" value="30" />
       </div>
       <div class="field">
-        <label for="small-school"
-          ><input id="small-school" type="checkbox" /> Meets the school size test</label
-        >
+        <label for="small-school-name">Small school name (optional)</label>
+        <input id="small-school-name" type="text" value="" />
+      </div>
+      <div class="field">
+        <label for="small-school-enrollment">That school's average two-year enrollment</label>
+        <input id="small-school-enrollment" type="number" min="0" step="0.01" value="" />
       </div>
     </div>
 
@@ -116,6 +138,21 @@ const liveParameters = JSON.stringify(parameters);
       <div class="field">
         <label for="cla">Common level of appraisal</label>
         <input id="cla" type="number" min="0.1" max="2" step="0.0001" value="0.8" />
+      </div>
+      <div class="field">
+        <!-- Every other field on this form is a figure the user is supposing
+             about their own district, so an illustrative default is honest.
+             This one is a state-determined statutory input: the statewide
+             average district per pupil education spending, increased by
+             inflation, that the Secretary of Education determines on or
+             before November 15 (32 V.S.A. § 5401(12)). Inventing a number
+             here would render a fabricated Vermont figure in the UI, so it
+             is left empty. Empty is null, which makes excessSpending
+             produce a missing_input node whose blocker tells the user
+             exactly which official figure is needed -- a null is
+             explicable, an invented number is not. -->
+        <label for="statewide-avg">Statewide average per pupil education spending (Secretary's determination)</label>
+        <input id="statewide-avg" type="number" min="0" step="1" value="" />
       </div>
     </div>
   </form>
