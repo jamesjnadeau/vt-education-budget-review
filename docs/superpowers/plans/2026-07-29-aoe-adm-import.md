@@ -1451,7 +1451,7 @@ Expected: FAIL — module not found.
  * The six-way taxonomy an AOE town row can fall into, and which classes earn
  * Vermont ADM.
  *
- * This exists because `operated_by: null` is ambiguous. 58 of 268 registry towns
+ * This exists because `operated_by: null` is ambiguous. 60 of 268 registry towns
  * have it, and they include Burlington, Rutland City, South Burlington,
  * Winooski, Springfield, St Johnsbury, Colchester, Milton, Hartford and Stowe --
  * towns that ARE districts, not towns without one. Grouping by operated_by alone
@@ -1634,7 +1634,7 @@ MIDDLEBURY -- so a name-based join would drop real towns holding real pupils. An
 unmatched code is a hard failure listing every offender, because a skipped row is
 indistinguishable from a town with no pupils.
 
-Classification exists because operated_by: null is ambiguous across 58 of 268
+Classification exists because operated_by: null is ambiguous across 60 of 268
 towns, including Burlington, Rutland City and Winooski, which are their own
 districts rather than towns lacking one. The five classes separate that case from
 the unpopulated places, from Orford NH -- a real interstate member town whose
@@ -1793,7 +1793,7 @@ Expected: FAIL — module not found.
  * Rolls town-level ADM up to districts, and refuses to lose a pupil doing it.
  *
  * AOE publishes by resident district (town); § 4010 weights a school district's
- * membership. The obvious rule -- group by `operated_by` -- silently drops the 58
+ * membership. The obvious rule -- group by `operated_by` -- silently drops the 60
  * towns whose `operated_by` is null, among them Burlington, Rutland City and
  * Winooski, which are districts rather than district members.
  *
@@ -1982,7 +1982,7 @@ git commit -m "Roll ADM up to districts under a conservation invariant
 
 AOE publishes by resident district; 16 V.S.A. 4010 weights a school district's
 membership, so towns must be rolled up. Grouping by operated_by alone would drop
-the 58 towns whose operated_by is null -- Burlington, Rutland City, South
+the 60 towns whose operated_by is null -- Burlington, Rutland City, South
 Burlington, Winooski and the rest -- without raising anything, producing a
 statewide figure that looks plausible and is badly wrong.
 

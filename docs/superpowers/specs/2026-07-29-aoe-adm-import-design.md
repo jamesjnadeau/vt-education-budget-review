@@ -287,7 +287,7 @@ is stable across the band change, so `join.ts` does not need per-year handling.
 
 AOE publishes by resident district (town); § 4010 weights a *school district's*
 membership. The obvious rollup — group towns by `operated_by` — is wrong and
-fails silently. **58 of 268 registry towns have `operated_by: null`**, including
+fails silently. **60 of 268 registry towns have `operated_by: null`**, including
 Burlington, Rutland City, South Burlington, Winooski, Springfield, St Johnsbury,
 Colchester, Milton, Hartford and Stowe.
 
