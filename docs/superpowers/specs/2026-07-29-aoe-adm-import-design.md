@@ -357,16 +357,17 @@ Vermont siblings Fairlee, Vershire and West Fairlee all carry
 (human, browser)   education.vermont.gov ADM page          403 to scripts
         |  manual download, 10 files
         v
-intake/aoe/adm/<file>.xlsx            raw, LFS (.gitattributes already routes it)
-intake/aoe/adm/page-2026-07-29.html   saved page snapshot, normal git object
-intake/aoe/adm/source.yaml            page URL, selector, inventory of 10 years
-intake/aoe/adm/provenance.yaml        sha256 / source_url / retrieved_by+date
+intake/aoe-adm/fy<YEAR>/<file>.xlsx   raw, LFS (.gitattributes already routes it)
+intake/aoe-adm/fy<YEAR>/provenance.yaml
+                                      sha256 / source_url / retrieved_by+date
                                       retrieval_method: manual-download
                                       document_type: aoe_report
+intake/aoe-adm/page-2026-07-29.html   saved page snapshot, normal git object
+intake/aoe-adm/source.yaml            page URL, selector, inventory of 10 years
         |  npm run adm:import
         v
-warehouse/aoe/adm/adm<NN>.yaml        town x band, verbatim. Committed, diffable.
-warehouse/aoe/adm/gaps.yaml           what § 4010 still needs
+warehouse/aoe-adm/adm<NN>.yaml        town x band, verbatim. Committed, diffable.
+warehouse/aoe-adm/gaps.yaml           what § 4010 still needs
         |  derived at build time, NOT committed
         v
 build/ + site/src/generated/adm.json  district rollup -> MembershipInput.adm_years
@@ -426,9 +427,59 @@ in the design environment, so the first implementation step verifies
 files if any turn out not to be `.xlsx`. If it mis-parses any year, the choice is
 revisited before anything is built on it.
 
+## Validation integration
+
+`npm run validate` makes three assumptions that a statewide AOE source violates.
+All three were confirmed by running the validator against real files rather than
+read off the code, and each needs an explicit decision in change 3.
+
+**1. Intake paths are per-SU and per-fiscal-year.** `budget-1.0.schema.json`
+constrains `source` to `^intake/[a-z0-9-]+/fy[0-9]{4}/[^\s]+$`. The design
+originally proposed `intake/aoe/adm/<file>`, which does not match. Resolved by
+adopting the existing convention instead of relaxing the rule: **`intake/aoe-adm/
+fy<YEAR>/`**, where `aoe-adm` plays the same role `su-burlington` does under
+`collectors/`. This is already in place for ADM-24 and verified to match the
+pattern, and `.gitattributes` routes it to LFS.
+
+**2. Provenance `entity` must resolve to a registry entity.** Confirmed:
+
+```
+ERROR intake/aoe/adm/provenance.yaml [registry-reference]
+      "state/agency-of-education" is not a known registry entity.
+```
+
+The hash and byte checks passed — only the entity reference failed. AOE's API
+publishes no organization record for the Agency itself, and the only `state/`
+entity is Woodside, closed 2020. Two ways out, and the recommendation is the
+first:
+
+- Extend `common-1.0`'s `entity_ref` with a `source/` prefix (`source/aoe-adm`)
+  and exempt it in `checkRegistryRefs`. Keeps the registry purely synced from
+  upstream, which is the property that makes `registry:sync` safe to re-run.
+- Hand-author a registry entity for AOE. Rejected: the registry is generated, and
+  a hand-made record would be at the mercy of the next sync.
+
+Until that lands, retrieval facts for ADM-24 live in
+`intake/aoe-adm/fy2024/NOTES.md` — Markdown, so the validator ignores it — rather
+than in a `provenance.yaml` that would fail the build. The note says why.
+
+**3. Every warehouse YAML is validated as a budget record.** The walk is
+unconditional, so an ADM series file produces a cascade of spurious errors:
+
+```
+ERROR warehouse/aoe/adm/adm24.yaml [schema:budget]
+      / must have required property 'status'
+      / must have required property 'revenues'
+      ... 10 more
+```
+
+Change 3 must make the warehouse walk discriminate before writing anything there
+— dispatching on a path prefix or on the record's own `schema_version`/kind — or
+the first ADM file committed breaks `npm run validate` for everyone.
+
 ## The gap register
 
-`warehouse/aoe/adm/gaps.yaml` states, per § 4010 input, whether this source
+`warehouse/aoe-adm/gaps.yaml` states, per § 4010 input, whether this source
 supplies it:
 
 | § 4010 input | Supplied by this source? |
@@ -460,7 +511,9 @@ than part of it.
    most likely to surface further drift, and better to see that in isolation than
    tangled with new code.
 3. **The ADM import.** Schemas, `tools/src/aoe/adm/*`, the CLI, intake and
-   provenance, warehouse output, the gap register, and the build-time rollup.
+   provenance, warehouse output, the gap register, and the build-time rollup —
+   including the three validator changes in "Validation integration", which must
+   land before or with the first warehouse file rather than after it.
 
 ## Prerequisite repair: site is not typechecked
 
