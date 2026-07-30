@@ -8,7 +8,7 @@
 
 Most people open their tax bill, look at the number, and have no idea how it got there.
 
-That is not your fault. Vermont's system has six moving parts, and they were all built at different times, by different people, to fix different problems.
+**That is not your fault**. Vermont's system has six moving parts, and they were all built at different times, by different people, to fix **different problems**.
 
 This walks through all six. In order.
 
@@ -22,17 +22,17 @@ Every dollar for Vermont schools goes into one state pot. The pot is called the 
 
 Money comes into that pot from a few places.
 
-**Property taxes.** This is the big one, by far. A tax on land and buildings.
+- **Property taxes.** This is the big one, by far. A tax on land and buildings.
 
-**Sales tax.** Some of what you pay at the register goes to schools. In 2024 lawmakers added cloud software to the list, the kind of program a business rents by the month. That change brought in about $14.7 million the first year.
+- **Sales tax.** Some of what you pay at the register goes to schools. In 2024 lawmakers added cloud software to the list, the kind of program a business rents by the month. That change brought in about $14.7 million the first year.
 
-**Vacation rentals.** Also new in 2024. There is a 3 percent surcharge on short term rentals, and all of it goes to schools. About $11.8 million the first year.
+- **Vacation rentals.** Also new in 2024. There is a 3 percent surcharge on short term rentals, and all of it goes to schools. About $11.8 million the first year.
 
-**Hotel and restaurant tax.** When you pay the rooms tax on a hotel stay, 25 cents of every dollar goes to schools. The rest goes to the state's general budget and to clean water.
+- **Hotel and restaurant tax.** When you pay the rooms tax on a hotel stay, 25 cents of every dollar goes to schools. The rest goes to the state's general budget and to clean water.
 
-**Lottery money and some other taxes,** including part of the tax on cars.
+- **Lottery money and some other taxes,** including part of the tax on cars.
 
-**Federal money** goes straight to districts for special programs. It is a small slice. It is also the least steady. When federal covid money ran out, districts felt it hard.
+- **Federal money** goes straight to districts for special programs. It is a small slice. It is also the least steady. When federal covid money ran out, districts felt it hard.
 
 Here is the thing to hold onto. Because all the money is pooled, your school tax does not stay in your town. And your district is not paid by your town. It is paid by the state, out of the pot.
 
@@ -50,7 +50,7 @@ The state sets the non-homestead rate. One number, the whole state. In 2025 it w
 
 The homestead rate is different. It changes town by town, and your district's spending drives it. That is Part 3.
 
-Why does this matter? Because in a lot of Vermont towns, second homes and businesses carry a big share of the school bill. If your town has a lot of camps or a ski area, your neighbors who live here year round are not paying most of the freight.
+**Why does this matter?** Because in a lot of Vermont towns, second homes and businesses carry a big share of the school bill. If your town has a lot of camps or a ski area, your neighbors who live here year round are not paying most of the freight.
 
 ---
 
@@ -74,7 +74,7 @@ If your district spends **$20,000 per student**, your rate is about **two dollar
 
 Spend more, pay more. That is the rule.
 
-Notice who is in charge here. The Legislature sets the yield. Your district sets the spending. Your rate is what falls out of the two.
+Notice **who is in charge here**. The Legislature sets the yield. Your district sets the spending. Your rate is what falls out of the two.
 
 This is exactly why the March budget vote matters. You are not voting on your tax rate directly. You are voting on the spending that sets your tax rate.
 
@@ -84,17 +84,17 @@ There is a second yield too, an **income yield**, for people who pay based on in
 
 ## Part 4: The penalty for spending too much
 
-There is a line above the yield. Go over it and you get taxed twice on the amount over.
+There is a line above the yield. Go over it and you get **taxed twice on the amount over**.
 
 The state calls this the **excess spending threshold**. Most people call it the penalty.
 
 For 2026 the line was set at **118 percent** of the state average per student. So if the average district spent $18,000 per student, the line sat around $21,240. Every dollar a district spent above that got taxed a second time.
 
-That line is now dropping on purpose. This year's law walks it down to 115.5 percent, then 114.5 percent, and lower after that.
+That **line is now dropping on purpose**. This year's law walks it down to 115.5 percent, then 114.5 percent, and lower after that.
 
 Read that again, because it is the most important sentence in this piece.
 
-The line is coming down, but district costs are not. Health insurance, staff pay, and building repairs all keep climbing. A district that is comfortably under the line today can be over it in two or three years without adding a single thing.
+The line is coming down, but **district costs are not**. Health insurance, staff pay, and building repairs all keep climbing. A district that is comfortably under the line today can be over it in two or three years **without adding a single thing**.
 
 That squeeze is coming whether or not your town ever merges with anybody.
 
@@ -102,7 +102,7 @@ That squeeze is coming whether or not your town ever merges with anybody.
 
 ## Part 5: The CLA, the thing that makes people furious
 
-Towns do not check the value of every house every year. Some towns are years out of date.
+Towns do not check the value of every house every year. Some towns are **years out of date**.
 
 That would be unfair, because a town whose values are old would look poorer than it is, and it would pay less than its share.
 
@@ -116,7 +116,7 @@ Your school budget did not change. Your house did not change. Your rate went up 
 
 This is the single most confusing line on a Vermont tax bill, and it is not going away.
 
-One useful thing to know. If your town is due for a reappraisal, ask when. A reappraisal resets the CLA, and that changes your rate whether or not the school did anything.
+One useful thing to know. **If your town is due for a reappraisal, ask when**. A reappraisal resets the CLA, and that changes your rate whether or not the school did anything.
 
 ---
 
@@ -150,7 +150,7 @@ Adjust for your town's CLA.
 
 Then, if you qualify, subtract your property tax credit.
 
-Six steps. Only one of them, the first, is decided in your town.
+Six steps. **Only one of them, the first, is decided in your town**.
 
 ---
 
