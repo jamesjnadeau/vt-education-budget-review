@@ -43,6 +43,28 @@ legitimate repair. That repair does not apply here:
 The chain is complete and verification succeeds. The refusal is a CloudFront WAF
 response (`403 ERROR / Request blocked`) after a successful handshake. There is no
 missing intermediate to supply, and `AGENT.md` rules out defeating the block.
+
+**Direct file URLs are blocked too.** Tested separately, because it is a
+reasonable guess that a WAF might guard pages and not static assets:
+
+```
+GET /sites/aoe/files/documents/edu-average-daily-membership-by-resident-district-fy24.xlsx
+  -> HTTP 403, content-type: text/html, 919 bytes
+     magic 3c21444f ("<!DO"), not 504b0304 (ZIP/xlsx)
+```
+
+Byte-identical to the page refusal. Recorded so the experiment is not repeated.
+
+The direct-file pattern is still worth keeping for era-A years, because it gives
+the human an unambiguous target and gives provenance a precise `source_url`:
+
+```
+https://education.vermont.gov/sites/aoe/files/documents/
+    edu-average-daily-membership-by-resident-district-fy<NN>.xlsx
+```
+
+which matches the FY25 filename as released. Eras B and C predate that scheme, so
+their direct URLs must be read off the page rather than constructed.
 There is also no Wayback snapshot of the page, and the AOE Public Data API does
 not carry ADM — its OpenAPI spec declares 15 endpoints, all organizational and
 contact data, with no membership, enrollment or pupil schema.
@@ -142,28 +164,41 @@ unmatched code is a hard failure naming the code — never a skipped row.
 
 ### 3. Year labels are recorded, not computed
 
-One row of numbers carries several year labels, and conflating them misdates the
-whole series. The artifact itself states two, and both are stored verbatim:
+One row of numbers carries more than one year label, and conflating them misdates
+the whole series. Three fields are stored, the first two verbatim from the
+artifact:
 
 - `count_year` — the school year pupils were counted, from the title row
   (`2023-2024` for ADM-25).
 - `adm_label` — the `(ADM-NN)` label (`25`).
+- `fiscal_year` — **2025** for that file. This is the project's single name for
+  the year, matching how finance records refer to it and how
+  `model/parameters/fy<YEAR>.yaml` is already keyed. There is deliberately no
+  second "data terms" label: one name, used everywhere.
 
-The relationship between them is an invariant, verified against all ten years
-with no exceptions:
+Two invariants, verified against all ten years with no exceptions:
 
 ```
-count_year_start == adm_label + 1998
+fiscal_year      == adm_label + 2000
+count_year_start == fiscal_year - 2      ( == adm_label + 1998 )
 ```
 
-The importer asserts it and hard-fails when the title row, the link text and the
-filename disagree — which catches a mislabeled or misfiled download.
+The importer asserts both and hard-fails when the title row, the link text and
+the filename disagree — which catches a mislabeled or misfiled download.
 
-Additional finance and AOE data-terms labels are recorded as named fields
-alongside these, never derived from them. Their exact values are the one item
-pending confirmation (see Open questions). No consumer receives a bare
-"fiscal year"; `AdmYear.fiscal_year` is populated from an explicitly named label,
-and which one is documented at the single point of use.
+Note that `fiscal_year` and `count_year` are **two years apart**, and this is
+correct: a FY2025 determination is made on pupils counted in SY2023-24. Any code
+or page presenting an ADM figure must say which of the two it means, because a
+figure labelled only "2025" is ambiguous between them.
+
+`AdmYear.fiscal_year` carries `fiscal_year`, so a year aligns with the parameter
+set that governs it. One thing this does **not** settle: whether a FY2025
+determination consumes the ADM-24 and ADM-25 files as its two averaged years, or
+whether the ADM-25 file is already the figure FY2025 uses. `membership.ts`
+averages the last N entries by array order and uses `fiscal_year` only as a
+label, so nothing breaks either way — but which files constitute the § 4001(7)
+window must be established from the files before `adm_years` is populated. It
+belongs with open question 1.
 
 ### 4. Prekindergarten is `null`, and the `null` is documented
 
@@ -215,22 +250,38 @@ pre-Act-127 categories, which `docs/parameter-verification.md` and `AGENT.md`
 treat as a hazard rather than a gap to fill casually. The nine older years are a
 historical and trend series; they are not engine input.
 
-**And the two-year average straddles the boundary.** Section 4001(7) defines
-long-term membership as the average of the two most recently completed years. A
-FY2025 determination therefore needs SY2022-23 *and* SY2023-24 — the ADM-24 and
-ADM-25 files. If ADM-24 publishes pre-Act-127 bands, the average cannot be formed
-band-to-band, and even FY2025 weighted membership is not computable from this page
-alone.
+**And the two-year average straddles the boundary. This has been checked, and it
+does not work.** Section 4001(7) defines long-term membership as the average of
+the two most recently completed years, so a FY2025 determination needs SY2022-23
+*and* SY2023-24 — the ADM-24 and ADM-25 files. Both were opened:
 
-Two things could resolve that, and which one holds is a question for the files
-rather than for reasoning: AOE's *reporting* bands and the statute's *weighting*
-bands are distinct, so ADM-24 may already report K-5 / 6-8 / 9-12 even though
-FY2024 was weighted on the old categories; or AOE may restate prior-year ADM in
-current bands somewhere not on this page. Until ADM-24 is opened, the honest
-position is that this import delivers the cross-check series and one year of
-engine-eligible ADM, and that a weighted-membership total remains blocked — by
-this, and independently by the gap register and the unverifiable prekindergarten
-weight.
+| | ADM-24 | ADM-25 |
+|---|---|---|
+| Title row count year | 2022-2023 | 2023-2024 |
+| Bands | **2** — `Elem ( K - 6)`, `SEC ( 7 - 12)` | **3** — `Elem ( K - 5)`, `Middle ( 6 - 8)`, `SEC ( 9 - 12)` |
+| Data rows | 254 | 254 |
+| Unmatched against registry | 0 | 0 |
+| Statewide total | 83,987.27 | 83,368.11 |
+
+The bands are not merely different, they are **irrecoverably** different:
+
+- Grade 6 falls inside ADM-24's `Elem ( K - 6)` but inside ADM-25's `Middle ( 6 - 8)`.
+- Grades 7 and 8 fall inside ADM-24's `SEC ( 7 - 12)` but inside ADM-25's `Middle ( 6 - 8)`.
+
+No arithmetic recovers that split, because neither file publishes grade-level
+detail. Any attempt to apportion grade 6 out of a K-6 total would be an invention,
+and § 4010's weights differ across exactly the boundary being invented.
+
+**Therefore no § 4001(7) two-year average is formable from this page, for any
+year.** A weighted-membership total is blocked from this source — definitively by
+the band boundary, and independently by the gap register and the unverifiable
+prekindergarten weight. The import's honest deliverable is a ten-year cross-check
+and trend series plus one year of single-year ADM in current bands, and the spec
+says so rather than implying a total is one step away.
+
+One piece of good news from the comparison: the town code sets are **identical**
+across the two years, and both join to the registry with zero unmatched. The join
+is stable across the band change, so `join.ts` does not need per-year handling.
 
 ### 6. Towns are four different things, and `operated_by: null` is ambiguous
 
@@ -395,7 +446,23 @@ it is null rather than rendering blank. Importing ADM alone does **not** unblock
 weighted-membership total, and this file is what makes that an explicit,
 documented fact instead of a mystery.
 
-## Included repair: site is not typechecked
+## Change sequencing
+
+Three separate changes, landing in this order. Each stands alone and is
+independently reviewable; the two repairs are prerequisites of the import rather
+than part of it.
+
+1. **Registry: 900-range records are reporting buckets.** `placeholder.ts`,
+   its tests, and the resulting registry output. Reviewable on its own merits
+   without reference to ADM.
+2. **Typecheck `site/`, and fix the drift it exposes.** `site/tsconfig.json`, the
+   root reference, and `model-tool.ts`. Ordered second because it is the change
+   most likely to surface further drift, and better to see that in isolation than
+   tangled with new code.
+3. **The ADM import.** Schemas, `tools/src/aoe/adm/*`, the CLI, intake and
+   provenance, warehouse output, the gap register, and the build-time rollup.
+
+## Prerequisite repair: site is not typechecked
 
 `tsconfig.json` references `./model` and `./tools` only, and there is no
 `site/tsconfig.json`, so `site/` is excluded from `npm run typecheck`. As a
@@ -422,8 +489,20 @@ the import has no correct consumer until this is fixed. Scope: add
   bytes provenance hashes. The series is small — ADM-25 is 28 KB — so this costs
   an LFS fetch and nothing else. Tests skip with a clear message, rather than
   fail, when the artifacts are not present locally.
-- **Golden totals.** ADM-25 town-level K-5 41,392.21 / 6-8 17,421.31 / 9-12
-  24,554.59 / total 83,368.11. Any parser change that moves a total fails.
+- **Golden totals.** Town-level, per year, pinned as parsed:
+
+  | Year | Bands | Totals | Grand total |
+  |---|---|---|---|
+  | ADM-25 | K-5 / 6-8 / 9-12 | 41,392.21 / 17,421.31 / 24,554.59 | 83,368.11 |
+  | ADM-24 | K-6 / 7-12 | 47,301.13 / 36,686.14 | 83,987.27 |
+
+  Any parser change that moves a total fails. The two grand totals are *not*
+  expected to match — they are different school years — but a year-over-year swing
+  beyond a few percent should be treated as a parse failure rather than a
+  demographic finding until checked. The observed change is -619.16, or -0.74%.
+- **Band-regime coverage.** One golden per distinct `bands_as_published` value, so
+  adding a year with a new header shape forces an explicit test rather than
+  quietly reusing another year's expectations.
 - **Conservation.** District rollup plus enumerated exclusions equals the
   town-level total, per year and per band.
 - **Join.** All rows resolve; an injected unknown code fails the run.
@@ -450,23 +529,22 @@ data).
 
 ## Open questions
 
-1. **The finance and data-terms year labels.** The `count_year` and `adm_label`
-   are verified from the artifact. The additional finance label (FY25) and AOE
-   data-terms label need their exact values confirmed before the record shape is
-   final. An off-by-one here would misdate all ten years and corrupt every
-   two-year average, so it is confirmed rather than inferred.
-2. **The town-to-district rule.** Verify *"a town with no separate operating
+1. **The town-to-district rule.** Verify *"a town with no separate operating
    district is its own district"* against AOE's `organizations` data and the
    statute before implementing `aggregate.ts`. The conservation invariant
    protects against getting it wrong silently, but the rule itself must be
    established, not inferred.
-3. **Whether ADM-24 reports current bands.** The decisive question, because it
-   determines whether *any* year can produce a § 4001(7) two-year average. AOE's
-   reporting bands and the statute's weighting bands are distinct, so this is not
-   answerable from the Act 127 effective date alone — open the file. Applies to
-   ADM-16 through ADM-24 generally; the design tolerates either outcome via
-   `bands_as_published`.
-4. **`read-excel-file` verification** across all ten years, including any `.xls`.
+2. **`read-excel-file` verification** across all ten years, including any `.xls`.
+3. **How many distinct band regimes the ten years contain.** ADM-24 and ADM-25
+   differ; ADM-16 through ADM-23 are unopened. Each distinct regime is a header
+   shape `parse.ts` must recognize and a `bands_as_published` value, so this sets
+   the parser's real surface area. It does not block the design — the parser
+   hard-fails on an unrecognized shape rather than guessing — but it sizes the
+   work.
+
+**Resolved during design:** whether ADM-24 reports current bands. It does not —
+it publishes two bands (`K-6`, `7-12`) against ADM-25's three, irrecoverably. See
+decision 5.
 
 ## Out of scope
 
