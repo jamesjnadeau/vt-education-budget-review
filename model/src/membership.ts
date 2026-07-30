@@ -35,6 +35,14 @@
  *    students, plus the State-placed FTE for the most recent of the two years.
  *    State-placed students are added at their current-year count, not averaged.
  *
+ * A fourth thing is date-scoped rather than permanent, and so lives in the
+ * parameter files rather than in this code: § 4010(e) hold harmless floors a
+ * district's weighted membership at 96.5 percent of its previous year. The
+ * subsection is marked "not in effect July 1, 2025-June 30, 2029", so it binds
+ * in FY2025 and is switched off for FY2026 through FY2029. Encoding that as
+ * data means a back-year is computed correctly without anyone remembering to
+ * special-case it.
+ *
  * The prekindergarten weight is presently unverifiable: § 4010(d)(1) has a
  * version effective July 1, 2026 if the Act 73 contingency is met, in which
  * prekindergarten is repealed. That date falls inside FY2027. The parameter is
@@ -43,7 +51,7 @@
  * the answer genuinely is not known.
  */
 
-import { applyWeight, input, mean, parameterNode, quotient, sum } from './node.ts';
+import { applyWeight, greaterOf, input, mean, parameterNode, quotient, sum } from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
 /** Average daily membership by grade band, EXCLUDING State-placed students. */
@@ -72,6 +80,14 @@ export interface MembershipInput {
   /** § 4010(b)(2): persons per square mile within the district's boundaries. */
   readonly persons_per_square_mile: number | null;
   readonly small_schools: readonly SmallSchool[];
+  /**
+   * The district's actual weighted long-term membership in the previous year,
+   * needed only where § 4010(e) hold harmless is in force. Supply null when it
+   * is not known: in a year the floor applies, an unknown prior year makes the
+   * result unknown rather than unfloored, because a floor that silently does
+   * not bind is indistinguishable from one that does not exist.
+   */
+  readonly prior_year_weighted_membership?: number | null;
   readonly source: string;
 }
 
@@ -79,6 +95,10 @@ export interface MembershipResult {
   readonly longTermMembership: CalcNode;
   /** Each statutory weight, expressed as the pupils it adds. */
   readonly increments: readonly CalcNode[];
+  /** Before the § 4010(e) floor. Equal to `total` in years the floor is off. */
+  readonly beforeHoldHarmless: CalcNode;
+  /** The § 4010(e) floor, or null in years it does not apply. */
+  readonly holdHarmlessFloor: CalcNode | null;
   readonly total: CalcNode;
 }
 
@@ -131,13 +151,21 @@ function bandLongTermMembership(ctx: EngineContext, data: MembershipInput, band:
   );
 }
 
-/** Carries a parameter's blockers into a calculation while contributing nothing. */
+/**
+ * Carries a parameter's blockers into a calculation while contributing nothing.
+ *
+ * Keyed off the node's BLOCKERS rather than its value: a rule can be perfectly
+ * well established and still have no numeric value, as a boolean switch like
+ * `hold_harmless_applies` does. Testing the value instead would read `false` as
+ * "unknown" and null out the whole calculation.
+ */
 function ruleAsZero(ctx: EngineContext, node: CalcNode): CalcNode {
+  const blocked = node.blockers.some((b) => b.kind !== 'contingent_parameter');
   return {
     ...node,
     id: ctx.nextId(),
     label: `${node.label} (applied as a rule, contributing no pupils)`,
-    value: node.value === null ? null : 0,
+    value: blocked ? null : 0,
     unit: 'pupils',
     inputs: [],
   };
@@ -302,9 +330,78 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
   }
 
   // --- § 4010(d)(6) --------------------------------------------------------
-  const total = sum(ctx, 'Weighted long-term membership', [longTermMembership, ...increments], 'pupils');
+  const beforeHoldHarmless = sum(
+    ctx,
+    'Weighted long-term membership before the hold harmless floor',
+    [longTermMembership, ...increments],
+    'pupils',
+  );
 
-  return { longTermMembership, increments, total };
+  // --- § 4010(e) hold harmless ---------------------------------------------
+  const { floor, total } = applyHoldHarmless(ctx, beforeHoldHarmless, data);
+
+  return { longTermMembership, increments, beforeHoldHarmless, holdHarmlessFloor: floor, total };
+}
+
+/**
+ * § 4010(e): weighted long-term membership may not fall below 96.5 percent of
+ * the district's actual weighted long-term membership the previous year.
+ *
+ * Whether the floor is in force is itself a parameter, because it is date
+ * scoped rather than permanent -- the subsection is marked "not in effect
+ * July 1, 2025-June 30, 2029", so it binds in FY2025 and is switched off for
+ * FY2026 through FY2029. Encoding that as data means the engine does the right
+ * thing for a back-year without anyone remembering to special-case it.
+ *
+ * A district that is growing is unaffected: the floor only ever raises a
+ * result, never lowers one. Where it binds, it is shown as its own step so the
+ * walkthrough can say plainly that the figure is a statutory minimum rather
+ * than the district's computed membership.
+ */
+function applyHoldHarmless(
+  ctx: EngineContext,
+  computed: CalcNode,
+  data: MembershipInput,
+): { floor: CalcNode | null; total: CalcNode } {
+  const applies = parameterNode(ctx, 'membership.hold_harmless_applies', 'none');
+  const appliesValue = ctx.parameters.parameters.get('membership.hold_harmless_applies')?.value;
+
+  if (appliesValue !== true) {
+    // Not in force. Relabel so the caller always has a node named for the
+    // final figure, and carry the parameter's own verification status.
+    return {
+      floor: null,
+      total: sum(ctx, 'Weighted long-term membership', [computed, ruleAsZero(ctx, applies)], 'pupils'),
+    };
+  }
+
+  const prior = input(
+    ctx,
+    'Weighted long-term membership in the previous year',
+    data.prior_year_weighted_membership ?? null,
+    'pupils',
+    {
+      source: data.source,
+      notes: [
+        'The hold harmless floor is in force this year, so the previous year’s ' +
+          'figure is required. Without it the floor cannot be tested, and a floor ' +
+          'that silently fails to bind is indistinguishable from one that does not exist.',
+      ],
+    },
+  );
+
+  const floor = applyWeight(
+    ctx,
+    'Hold harmless floor',
+    prior,
+    'membership.hold_harmless_floor',
+    'pupils',
+  );
+
+  return {
+    floor,
+    total: greaterOf(ctx, 'Weighted long-term membership', computed, floor, 'pupils'),
+  };
 }
 
 /**

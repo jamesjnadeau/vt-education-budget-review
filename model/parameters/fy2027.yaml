@@ -62,6 +62,23 @@ parameters:
       verified_date: "2026-07-29"
       verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4001.txt; awaiting human countersignature"
 
+  membership.hold_harmless_applies:
+    value: false
+    unit: boolean
+    description: whether the hold harmless floor under § 4010(e) applies in this fiscal year
+    applies_to: all school districts
+    citation:
+      statute: "16 V.S.A. § 4010(e)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/statutes/section/16/133/04010"
+      quote: >-
+        "[Subsection (e) not in effect July 1, 2025-June 30, 2029.]" FY2027 runs
+        from July 1, 2026 to June 30, 2027, which falls inside that window, so the
+        hold harmless floor does not apply.
+      verified: true
+      verified_date: "2026-07-29"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/16-vsa-4010.txt; awaiting human countersignature"
+
   # --- Grade level weights --------------------------------------------------
   # 16 V.S.A. § 4010(d)(1). These are ADDITIVE increments, not multipliers:
   # § 4010(d)(6) provides that weighted long-term membership equals long-term

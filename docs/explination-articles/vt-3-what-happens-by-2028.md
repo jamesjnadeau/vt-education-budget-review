@@ -10,7 +10,7 @@ In June of 2026, Vermont passed a law called Act 170.
 
 You may have heard it forces school districts to merge. It does not.
 
-You may have heard it changes how your taxes are figured. It does not, yet.
+You may have heard it changes how your taxes are figured. It does not, **yet.**
 
 What it does is start a clock. At the end of that clock, in March of 2028, your town votes.
 
@@ -38,17 +38,17 @@ That is it. No town is forced into anything. But no town gets to skip the conver
 
 ## The clock
 
-**September 2026.** Every district names a board member to a study committee.
+- **September 2026.** Every district names a board member to a study committee.
 
-**October 2026.** The committees start meeting. The state hired eight people to guide them, seven for the regions and one to lead.
+- **October 2026.** The committees start meeting. The state hired eight people to guide them, seven for the regions and one to lead.
 
-**September 2027.** Every committee turns in its report. The report says whether a bigger district is a good idea or a bad one. And it shows the math behind that answer.
+- **September 2027.** Every committee turns in its report. The report says whether a bigger district is a good idea or a bad one. And it shows the math behind that answer.
 
-**February 2028.** School boards review the reports and comment on them.
+- **February 2028.** School boards review the reports and comment on them.
 
-**March 2028.** Town Meeting Day. Voters decide.
+- **March 2028.** Town Meeting Day. Voters decide.
 
-**Fall 2029.** Any merger that passed takes effect.
+- **Fall 2029.** Any merger that passed takes effect.
 
 Notice how much of this happens before you get a vote. The report is written a year and a half before the ballot. If you want to shape the numbers, the time is 2027, not 2028.
 
@@ -74,21 +74,21 @@ If your town has an old, tired school building, that number is probably the sing
 
 Now here is the fair criticism, and you should hear it from someone who is not selling you a position.
 
-The money rewards merging. It does not require saving. A group of districts can combine on paper and collect the building money. Then keep running the same number of buses, offices, and buildings underneath. Governance changes. Costs do not.
+**The money rewards merging. It does not require saving.** A group of districts can combine on paper and collect the building money. Then keep running the same number of buses, offices, and buildings underneath. Governance changes. Costs do not.
 
-Whether that happens in your region depends entirely on what your committee actually proposes. Which is why reading the report matters more than reading the headlines.
+Whether that happens in your region depends entirely on what your committee actually proposes. Which is why **reading the report matters** more than reading the headlines.
 
 ---
 
 ## The new regional offices
 
-Set apart from all the merger talk, Act 170 created seven **CESAs** on July 1, 2026. The letters stand for Cooperative Educational Service Areas. Nobody says the long version.
+Set apart from all the merger talk, Act 170 created seven **CESAs** on July 1, 2026. The letters stand for **Cooperative Educational Service Areas**. Nobody says the long version.
 
 Every district has to belong to one. Each CESA has to offer three things. Special education services, business and back office work, and help for districts thinking about combining.
 
 The idea is to capture savings from sharing without needing a merger at all.
 
-This is worth knowing because it changes the argument. Someone will say "we have to merge to share a special education director." That may not be true anymore. The CESA is supposed to do that job.
+This is worth knowing because it changes the argument. Someone will say "we have to merge to share a special education director." That may not be true anymore. **The CESA is supposed to do that job.**
 
 ---
 
@@ -98,9 +98,13 @@ In 2025 Vermont voted to replace its whole funding system with a **foundation fo
 
 Act 170 pushed the start date back to the 2029 to 2030 school year. And it added a condition. The Legislature has to receive the required reports and then act again before it happens.
 
-So the formula is not settled. Consultants were due to report to lawmakers in December of 2026 on the hardest pieces. How much extra for special education. How much extra for tiny remote schools. How much extra for high school. How to handle career and technical education.
+So the formula is not settled. Consultants were due to report to lawmakers in December of 2026 on the hardest pieces. 
+- How much extra for special education?
+- How much extra for tiny remote schools? 
+- How much extra for high school?
+- How to handle career and technical education?
 
-Those numbers are not small details. They decide which towns win and which towns lose.
+**Those numbers are not small details.** They decide which towns win and which towns lose.
 
 **What this means for your bill right now:** nothing. Your tax rate for the next three years still runs on the old system described in Piece 2.
 
@@ -124,7 +128,7 @@ If your board seems stressed about money in a year when nothing obvious changed,
 
 If the foundation formula takes effect, Act 170 puts a limit on schools that take publicly paid tuition students. They will not be able to charge more than what the sending district pays.
 
-This matters mostly to towns without their own school that pay tuition elsewhere. If that is your town, ask about it.
+This matters mostly to towns **without their own school** that pay tuition elsewhere. If that is your town, ask about it.
 
 ---
 
@@ -132,19 +136,19 @@ This matters mostly to towns without their own school that pay tuition elsewhere
 
 Take these to a committee meeting. Every one of them has a number for an answer, and any of them being met with a shrug tells you something.
 
-**What is our building worth, what does it need, and what would we do differently at 75 percent state aid versus 30 percent?**
+- **What is our building worth, what does it need, and what would we do differently at 75 percent state aid versus 30 percent?**
 
-**What is our student count doing over the next ten years?** Not this year. Ten years.
+- **What is our student count doing over the next ten years?** Not this year. Ten years.
 
-**What exactly gets combined in this proposal?** Offices only, or buses, buildings, and staff too? Ask for the list.
+- **What exactly gets combined in this proposal?** Offices only, or buses, buildings, and staff too? Ask for the list.
 
-**What happens to my town's tax rate under this plan, and under staying put?** Both numbers. A committee that will only show you one is not showing you the whole picture.
+- **What happens to my town's tax rate under this plan, and under staying put?** Both numbers. A committee that will only show you one is not showing you the whole picture.
 
-**Which schools stay open, and who decides that later?** A merger agreement can protect a building for a set number of years, or not. Find out which.
+- **Which schools stay open, and who decides that later?** A merger agreement can protect a building for a set number of years, or not. Find out which.
 
-**What are we already getting from our CESA, and what would merging add on top of that?**
+- **What are we already getting from our CESA, and what would merging add on top of that?**
 
-**Who wrote the numbers in this report, and can I see the assumptions?**
+- **Who wrote the numbers in this report, and can I see the assumptions?**
 
 ---
 

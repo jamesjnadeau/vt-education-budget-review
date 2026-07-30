@@ -212,6 +212,80 @@ describe('small schools', () => {
   });
 });
 
+describe('hold harmless, § 4010(e)', () => {
+  // The subsection is marked "not in effect July 1, 2025-June 30, 2029", so it
+  // binds in FY2025 and is switched off for FY2026 through FY2029. Whether it
+  // applies is therefore data, not a constant.
+  const on = (over: Record<string, number | boolean> = {}) =>
+    createContext(syntheticParameters({ overrides: { 'membership.hold_harmless_applies': true, ...over } }));
+
+  it('does nothing in a year the floor is switched off', () => {
+    const ctx = createContext(syntheticParameters());
+    const result = computeWeightedMembership(ctx, {
+      ...DISTRICT,
+      prior_year_weighted_membership: 10_000,
+    });
+
+    expect(result.holdHarmlessFloor).toBeNull();
+    // A colossal prior year cannot drag the figure up when the floor is off.
+    expect(result.total.value).toBeCloseTo(458.5, 10);
+  });
+
+  it('raises a shrinking district to 96.5 percent of its prior year', () => {
+    // Prior year 1,000 gives a floor of 965, well above the computed 458.5.
+    const result = computeWeightedMembership(on(), {
+      ...DISTRICT,
+      prior_year_weighted_membership: 1_000,
+    });
+
+    expect(result.beforeHoldHarmless.value).toBeCloseTo(458.5, 10);
+    expect(result.holdHarmlessFloor?.value).toBeCloseTo(965, 10);
+    expect(result.total.value).toBeCloseTo(965, 10);
+  });
+
+  it('leaves a growing district untouched', () => {
+    // The floor only ever raises a result; it never trims one.
+    const result = computeWeightedMembership(on(), {
+      ...DISTRICT,
+      prior_year_weighted_membership: 100,
+    });
+
+    expect(result.holdHarmlessFloor?.value).toBeCloseTo(96.5, 10);
+    expect(result.total.value).toBeCloseTo(458.5, 10);
+  });
+
+  it('does not bind on a fall of less than 3.5 percent', () => {
+    // Prior 460 -> floor 443.9, below the computed 458.5.
+    const result = computeWeightedMembership(on(), {
+      ...DISTRICT,
+      prior_year_weighted_membership: 460,
+    });
+    expect(result.total.value).toBeCloseTo(458.5, 10);
+  });
+
+  it('refuses to answer when the floor applies and the prior year is unknown', () => {
+    // An unapplied floor and an absent one are indistinguishable in the output,
+    // so the engine declines rather than quietly reporting the unfloored figure.
+    const result = computeWeightedMembership(on(), {
+      ...DISTRICT,
+      prior_year_weighted_membership: null,
+    });
+
+    expect(result.total.value).toBeNull();
+    expect(result.total.status).toBe('missing_input');
+  });
+
+  it('says in the walkthrough that the figure is a statutory minimum', () => {
+    const result = computeWeightedMembership(on(), {
+      ...DISTRICT,
+      prior_year_weighted_membership: 1_000,
+    });
+    const step = toSteps(result.total).find((s) => s.node.label === 'Hold harmless floor');
+    expect(step).toBeDefined();
+    expect(result.total.explanation).toMatch(/greater of/i);
+  });
+});
+
 describe('the engine refuses to compute from unverified parameters', () => {
   it('returns null and marks the node unverified rather than producing a number', () => {
     const ctx = createContext(syntheticParameters({ unverified: ['weights.grade.9_through_12'] }));

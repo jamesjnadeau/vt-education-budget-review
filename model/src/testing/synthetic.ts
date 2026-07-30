@@ -31,7 +31,7 @@ const SYNTHETIC_CITATION: Citation = {
 
 function p(
   key: string,
-  value: number | null,
+  value: Parameter['value'],
   unit: string,
   description: string,
   extra: Partial<Parameter> = {},
@@ -56,12 +56,17 @@ export interface SyntheticOptions {
   /** Keys to force unverified, for testing that the engine refuses to compute. */
   readonly unverified?: readonly string[];
   readonly nulled?: readonly string[];
-  readonly overrides?: Readonly<Record<string, number>>;
+  readonly overrides?: Readonly<Record<string, number | boolean>>;
 }
 
 export function syntheticParameters(options: SyntheticOptions = {}): ParameterSet {
   const entries: Array<[string, Parameter]> = [
     p('membership.long_term_membership_years', 2, 'years', 'the averaging window'),
+
+    // § 4010(e) is date-scoped, so its applicability is data. Off by default,
+    // matching FY2026 onward; the hold harmless tests switch it on.
+    p('membership.hold_harmless_applies', false, 'boolean', 'the hold harmless floor'),
+    p('membership.hold_harmless_floor', 0.965, 'ratio', 'the hold harmless floor share'),
 
     // Additive grade increments. K-5 is zero, as in statute.
     p('weights.grade.prekindergarten', -0.5, 'multiplier', 'the prekindergarten weight'),

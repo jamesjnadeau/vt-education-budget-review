@@ -286,6 +286,18 @@ export function parameterNode(ctx: EngineContext, key: string, unit: Unit): Calc
   const cite = p.citation.session_law
     ? `${p.citation.statute}, as amended by ${p.citation.session_law}`
     : p.citation.statute;
+
+  // Not every parameter is a number. Booleans switch a provision on or off and
+  // should read as such rather than as an em dash.
+  const rendered =
+    typeof p.value === 'boolean'
+      ? p.value
+        ? 'in force'
+        : 'not in force'
+      : numeric !== null
+        ? formatValue(numeric, unit)
+        : String(p.value ?? '—');
+
   return {
     id: ctx.nextId(),
     op: 'parameter',
@@ -296,7 +308,7 @@ export function parameterNode(ctx: EngineContext, key: string, unit: Unit): Calc
     parameters: [p],
     explanation: blocksValue(blockers)
       ? explainBlocked(p.description, blockers)
-      : `${p.description} is ${formatValue(numeric, unit)}, set by ${cite}.`,
+      : `${p.description} is ${rendered}, set by ${cite}.`,
     status: statusFromBlockers(blockers),
     blockers,
     notes: [],

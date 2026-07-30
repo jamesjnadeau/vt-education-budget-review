@@ -18,12 +18,13 @@ status: draft
 #   day before that window opens, so the floor is in force for this year and
 #   switched off for FY2026 through FY2029.
 #
-#   *** THE ENGINE DOES NOT YET IMPLEMENT HOLD HARMLESS. *** It needs the prior
-#   year's weighted long-term membership, which computeWeightedMembership does
-#   not currently accept. Until it does, FY2025 figures for any district whose
-#   weighted membership fell by more than 3.5 percent year over year will be
-#   too LOW. The parameters below record the rule so the gap is visible and
-#   costed rather than forgotten; see model/src/membership.ts.
+#   The engine implements this. computeWeightedMembership takes the prior year's
+#   weighted long-term membership and returns the floored figure, with the floor
+#   shown as its own step so the walkthrough can say plainly when a district's
+#   published membership is a statutory minimum rather than its computed one.
+#   In a year the floor is in force, an unknown prior year makes the result
+#   unknown rather than unfloored -- an unapplied floor and an absent one look
+#   identical in the output, so the engine declines instead of guessing.
 #
 # The prekindergarten weight is determinate here, as in FY2026: the contingent
 # repeal is effective July 1, 2026, which is two fiscal years after FY2025.
@@ -35,8 +36,8 @@ status: draft
 note: >-
   FY2025 weights read from statute text snapshotted in model/statute/2026-07-29/.
   Identical to FY2026 except that the § 4010(e) hold harmless floor is IN FORCE
-  for this year, and the engine does not yet implement it -- so weighted
-  membership for a district that shrank sharply will be understated. The
+  for this year. The engine applies it: a district that shrank by more than 3.5
+  percent is raised to 96.5 percent of its prior year figure. The
   annually set yields and statewide adjustment are historical and should be
   filled in from the FY2025 yield act. Awaiting human countersignature.
 
@@ -85,9 +86,9 @@ parameters:
     unit: ratio
     description: >-
       floor on weighted long-term membership as a share of the previous year's,
-      under § 4010(e). NOT YET APPLIED BY THE ENGINE -- computeWeightedMembership
-      does not take a prior-year figure, so FY2025 results for a district that
-      shrank by more than 3.5 percent will be understated. See model/src/membership.ts.
+      under § 4010(e). Applied by the engine in any year where
+      membership.hold_harmless_applies is true; it can only raise a figure, never
+      lower one. See model/src/membership.ts.
     applies_to: all school districts, in fiscal years where hold harmless applies
     citation:
       statute: "16 V.S.A. § 4010(e)"
