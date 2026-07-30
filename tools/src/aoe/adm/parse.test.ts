@@ -57,6 +57,38 @@ describe('recognizing band regimes', () => {
       ),
     ).toThrow(/Elem \( K - 4\)/);
   });
+
+  it('hard-fails on an interior blank header instead of silently misaligning values', () => {
+    // A blank cell BETWEEN two real band headers would, if merely filtered out,
+    // still match the two-band regime by count -- but the values read for the
+    // second header would then come from the blank column, not the real one.
+    // That is exactly the silent-guess failure this module exists to prevent.
+    expect(() =>
+      parseRows(
+        sheet(ADM24_TITLE, ['Elem ( K - 6)', '', 'SEC ( 7 - 12)'], [
+          ['T001', 'Addison', 88.56, 0, 57.97],
+        ]),
+        'edu-average-daily-membership-by-resident-district-fy24.xlsx',
+      ),
+    ).toThrow(/blank cell/);
+  });
+
+  it('still tolerates a genuine trailing blank header cell', () => {
+    // Unlike an interior blank, a trailing blank carries no band to misattribute
+    // to -- it is dropped, matching what readSheetRows already does for a real
+    // workbook's trailing empty columns.
+    const parsed = parseRows(
+      sheet(ADM24_TITLE, ['Elem ( K - 6)', 'SEC ( 7 - 12)', ''], [
+        ['T001', 'Addison', 88.56, 57.97],
+      ]),
+      'edu-average-daily-membership-by-resident-district-fy24.xlsx',
+    );
+    expect(parsed.bands_as_published.map((b) => b.header)).toEqual([
+      'Elem ( K - 6)',
+      'SEC ( 7 - 12)',
+    ]);
+    expect(parsed.rows[0]?.values).toEqual([88.56, 57.97]);
+  });
 });
 
 describe('reading rows', () => {

@@ -116,7 +116,33 @@ export function parseRows(rows: Cell[][], filename: string): ParsedReport {
 
   const headerRow = rows[1];
   if (!headerRow) throw new Error(`${filename}: no header row.`);
-  const headers = headerRow.slice(2).map((c) => String(c ?? '')).filter((h) => h.trim() !== '');
+
+  // Trim only a genuine TRAILING run of blank cells -- readSheetRows already
+  // does this for a real workbook, but parseRows must not depend on that,
+  // since it also runs directly against hand-built row arrays. An INTERIOR
+  // blank is refused below rather than compacted away: compacting would
+  // re-pack the header array while values are still read from the original
+  // row by position, silently attributing one band's numbers to another.
+  const rawHeaders = headerRow.slice(2).map((c) => String(c ?? ''));
+  let lastNonBlank = -1;
+  for (let i = 0; i < rawHeaders.length; i++) {
+    if (rawHeaders[i]?.trim() !== '') lastNonBlank = i;
+  }
+  const headers = rawHeaders.slice(0, lastNonBlank + 1);
+
+  const interiorBlankIndex = headers.findIndex((h) => h.trim() === '');
+  if (interiorBlankIndex !== -1) {
+    throw new Error(
+      `${filename}: header row has a blank cell between two band headers ` +
+        `(data column ${interiorBlankIndex}, counting from 0 at the first band ` +
+        `column) among headers ${JSON.stringify(headers)}. A band's values must ` +
+        `always be read from the column its header actually occupied, so a blank ` +
+        `header here cannot be skipped over -- doing so would silently attribute ` +
+        `the next column's numbers to the wrong band. Open the file, find out what ` +
+        `this column is, and give it a real header before parsing it.`,
+    );
+  }
+
   const regime = matchRegime(headers);
 
   const bands_as_published: BandColumn[] = headers.map((header, i) => ({
