@@ -1,0 +1,18 @@
+{
+  // site/ was outside typecheck until now, which let model-tool.ts drift onto a
+  // MembershipInput shape the model had already changed. Only .ts is covered --
+  // .astro needs @astrojs/check, which is a separate decision.
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist/types",
+    "rootDir": "src",
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/generated/**"],
+  "references": [{ "path": "../model" }]
+}
