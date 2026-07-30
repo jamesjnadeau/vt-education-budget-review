@@ -1,0 +1,40 @@
+schema_version: "1.0"
+source: source/aoe-adm
+page_url: https://education.vermont.gov/accountability-data/school-reports/average-daily-membership
+# Positional and therefore fragile: AOE adding one accordion section above this
+# moves the match silently. Recorded because it is the scoping fact, but the
+# link text is the matcher.
+link_selector: "#block-agency-template-content > article:nth-child(1) > div:nth-child(2) > div:nth-child(1) > details:nth-child(9) > div:nth-child(2)"
+link_text_pattern: "YYYY-YYYY (ADM-NN) Resident District Report"
+acquisition:
+  method: manual
+  detection: link_scan
+  notes: >-
+    education.vermont.gov returns HTTP 403 to every non-browser client. Verified
+    for both the document page and the direct file URL, byte-identically, and
+    verified that this is a CloudFront WAF refusal after a successful TLS
+    handshake rather than the incomplete certificate chain AGENT.md documents for
+    legislature.vermont.gov -- that host's AIA repair does not apply here. There
+    is no Wayback snapshot, and the AOE Public Data API carries no membership
+    data. Download by hand from a browser; do not attempt to defeat the block.
+reports:
+  - { adm_label: 25, fiscal_year: 2025, count_year: "2023-2024", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/sites/aoe/files/documents/edu-average-daily-membership-by-resident-district-fy25.xlsx" }
+  - { adm_label: 24, fiscal_year: 2024, count_year: "2022-2023", grain: Resident District Report, held: true,
+      url: "https://education.vermont.gov/sites/aoe/files/documents/edu-average-daily-membership-by-resident-district-fy24.xlsx" }
+  - { adm_label: 23, fiscal_year: 2023, count_year: "2021-2022", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/average-daily-membership-by-resident-district-fy23" }
+  - { adm_label: 22, fiscal_year: 2022, count_year: "2020-2021", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/average-daily-membership-by-resident-district-fy22" }
+  - { adm_label: 21, fiscal_year: 2021, count_year: "2019-2020", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/average-daily-membership-by-resident-district-fy21" }
+  - { adm_label: 20, fiscal_year: 2020, count_year: "2018-2019", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/average-daily-membership-by-resident-district-fy20" }
+  - { adm_label: 19, fiscal_year: 2019, count_year: "2017-2018", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/2017-2018-adm-19-resident-district-report" }
+  - { adm_label: 18, fiscal_year: 2018, count_year: "2016-2017", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/2016-2017-adm-18-resident-district-report" }
+  - { adm_label: 17, fiscal_year: 2017, count_year: "2015-2016", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/data-average-daily-membership-resident-district-adm17" }
+  - { adm_label: 16, fiscal_year: 2016, count_year: "2014-2015", grain: Resident District Report, held: false,
+      url: "https://education.vermont.gov/documents/data-average-daily-membership-resident-district-adm16" }

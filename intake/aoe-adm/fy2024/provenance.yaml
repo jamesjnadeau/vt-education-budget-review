@@ -1,0 +1,20 @@
+schema_version: "1.0"
+entity: source/aoe-adm
+fiscal_year: 2024
+artifacts:
+  - file: edu-average-daily-membership-by-resident-district-fy24.xlsx
+    source_url: https://education.vermont.gov/sites/aoe/files/documents/edu-average-daily-membership-by-resident-district-fy24.xlsx
+    retrieved_date: "2026-07-29"
+    retrieval_method: manual-download
+    sha256: 50f4355c2b6f9d137fbec82d41b32dd7c9326e872550a998546e0e989a94e424
+    bytes: 26499
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: James Nadeau
+    document_type: aoe_report
+    note: >-
+      Average Daily Membership (ADM) Report for 2022-2023 (ADM-24) by Resident
+      District. Downloaded in a browser because education.vermont.gov returns
+      HTTP 403 to every non-browser client, for page and direct file URLs alike.
+      Publishes two grade bands, Elem (K-6) and SEC (7-12), which are
+      pre-Act-127 and not reducible to the K-5 / 6-8 / 9-12 bands 16 V.S.A.
+      § 4010 weights.

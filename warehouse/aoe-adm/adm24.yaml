@@ -1,0 +1,1812 @@
+# AOE average daily membership, Average Daily Membership (ADM) Report for 2022-2023 (ADM-24) by Resident District
+#
+# Transcribed from intake/aoe-adm/fy2024/edu-average-daily-membership-by-resident-district-fy24.xlsx by npm run adm:import. Do not hand-edit:
+# re-run the import instead, so the record always matches the hashed artifact.
+#
+# bands_as_published is verbatim and is never normalized. Act 127 changed the
+# statutory grade bands effective July 1 2024, and a report's bands follow its
+# determination year, so years either side of that boundary are not comparable
+# band to band.
+schema_version: "1.0"
+source: intake/aoe-adm/fy2024/edu-average-daily-membership-by-resident-district-fy24.xlsx
+count_year: 2022-2023
+adm_label: 24
+fiscal_year: 2024
+source_title: Average Daily Membership (ADM) Report for 2022-2023 (ADM-24) by Resident District
+bands_as_published:
+  - header: Elem ( K - 6)
+    statutory_band: null
+  - header: SEC ( 7 - 12)
+    statutory_band: null
+maps_to_statutory_bands: false
+towns:
+  - entity: town/addison
+    aoe_org_id: T001
+    name_as_published: Addison
+    town_class: union_district_member
+    values:
+      - 88.56
+      - 57.97
+  - entity: town/albany
+    aoe_org_id: T002
+    name_as_published: Albany
+    town_class: union_district_member
+    values:
+      - 72.87
+      - 61.75
+  - entity: town/alburgh
+    aoe_org_id: T003
+    name_as_published: Alburg
+    town_class: own_district
+    values:
+      - 146.51
+      - 142.25
+  - entity: town/andover
+    aoe_org_id: T004
+    name_as_published: Andover
+    town_class: union_district_member
+    values:
+      - 23.58
+      - 22
+  - entity: town/arlington
+    aoe_org_id: T005
+    name_as_published: Arlington
+    town_class: own_district
+    values:
+      - 215.36
+      - 143.21
+  - entity: town/athens
+    aoe_org_id: T006
+    name_as_published: Athens
+    town_class: union_district_member
+    values:
+      - 27.09
+      - 30.05
+  - entity: town/bakersfield
+    aoe_org_id: T007
+    name_as_published: Bakersfield
+    town_class: union_district_member
+    values:
+      - 112.99
+      - 84.27
+  - entity: town/baltimore
+    aoe_org_id: T008
+    name_as_published: Baltimore
+    town_class: union_district_member
+    values:
+      - 10.65
+      - 11.63
+  - entity: town/barnard
+    aoe_org_id: T009
+    name_as_published: Barnard
+    town_class: union_district_member
+    values:
+      - 78.11
+      - 62.78
+  - entity: town/barnet
+    aoe_org_id: T010
+    name_as_published: Barnet
+    town_class: union_district_member
+    values:
+      - 101.25
+      - 133.45
+  - entity: town/barre-city
+    aoe_org_id: T011
+    name_as_published: Barre City
+    town_class: union_district_member
+    values:
+      - 645.66
+      - 423.97
+  - entity: town/barre-town
+    aoe_org_id: T012
+    name_as_published: Barre Town
+    town_class: union_district_member
+    values:
+      - 638.07
+      - 469.82
+  - entity: town/barton-id
+    aoe_org_id: T013
+    name_as_published: Barton ID
+    town_class: union_district_member
+    values:
+      - 138.63
+      - 123.22
+  - entity: town/belvidere
+    aoe_org_id: T014
+    name_as_published: Belvidere
+    town_class: union_district_member
+    values:
+      - 22.33
+      - 21
+  - entity: town/bennington-id
+    aoe_org_id: T015
+    name_as_published: Bennington ID
+    town_class: union_district_member
+    values:
+      - 946.88
+      - 860.99
+  - entity: town/benson
+    aoe_org_id: T017
+    name_as_published: Benson
+    town_class: union_district_member
+    values:
+      - 75.38
+      - 43.73
+  - entity: town/berkshire
+    aoe_org_id: T018
+    name_as_published: Berkshire
+    town_class: union_district_member
+    values:
+      - 150.86
+      - 117.26
+  - entity: town/berlin
+    aoe_org_id: T019
+    name_as_published: Berlin
+    town_class: union_district_member
+    values:
+      - 199.89
+      - 156.26
+  - entity: town/bethel
+    aoe_org_id: T020
+    name_as_published: Bethel
+    town_class: union_district_member
+    values:
+      - 147.85
+      - 120.05
+  - entity: town/bloomfield
+    aoe_org_id: T021
+    name_as_published: Bloomfield
+    town_class: union_district_member
+    values:
+      - 8
+      - 7
+  - entity: town/bolton
+    aoe_org_id: T022
+    name_as_published: Bolton
+    town_class: union_district_member
+    values:
+      - 91.3
+      - 44.03
+  - entity: town/bradford-id
+    aoe_org_id: T023
+    name_as_published: Bradford ID
+    town_class: union_district_member
+    values:
+      - 222.12
+      - 195.25
+  - entity: town/braintree
+    aoe_org_id: T024
+    name_as_published: Braintree
+    town_class: union_district_member
+    values:
+      - 87.96
+      - 55.5
+  - entity: town/brandon
+    aoe_org_id: T026
+    name_as_published: Brandon
+    town_class: union_district_member
+    values:
+      - 396.41
+      - 290.17
+  - entity: town/brattleboro
+    aoe_org_id: T027
+    name_as_published: Brattleboro
+    town_class: union_district_member
+    values:
+      - 845.82
+      - 597.07
+  - entity: town/bridgewater
+    aoe_org_id: T028
+    name_as_published: Bridgewater
+    town_class: union_district_member
+    values:
+      - 51.54
+      - 37.51
+  - entity: town/bridport
+    aoe_org_id: T029
+    name_as_published: Bridport
+    town_class: union_district_member
+    values:
+      - 68.53
+      - 52.88
+  - entity: town/brighton
+    aoe_org_id: T030
+    name_as_published: Brighton
+    town_class: union_district_member
+    values:
+      - 105.75
+      - 48.01
+  - entity: town/bristol
+    aoe_org_id: T031
+    name_as_published: Bristol
+    town_class: union_district_member
+    values:
+      - 318.46
+      - 233.52
+  - entity: town/brookfield
+    aoe_org_id: T032
+    name_as_published: Brookfield
+    town_class: union_district_member
+    values:
+      - 81.05
+      - 48.01
+  - entity: town/brookline
+    aoe_org_id: T033
+    name_as_published: Brookline
+    town_class: union_district_member
+    values:
+      - 36
+      - 30.22
+  - entity: town/brownington
+    aoe_org_id: T034
+    name_as_published: Brownington
+    town_class: union_district_member
+    values:
+      - 80.01
+      - 77.3
+  - entity: town/brunswick
+    aoe_org_id: T035
+    name_as_published: Brunswick
+    town_class: union_district_member
+    values:
+      - 6
+      - 5
+  - entity: town/burke
+    aoe_org_id: T036
+    name_as_published: Burke
+    town_class: union_district_member
+    values:
+      - 143.34
+      - 140.75
+  - entity: town/burlington
+    aoe_org_id: T037
+    name_as_published: Burlington
+    town_class: own_district
+    values:
+      - 1999.2
+      - 1454.86
+  - entity: town/cabot
+    aoe_org_id: T038
+    name_as_published: Cabot
+    town_class: own_district
+    values:
+      - 105.05
+      - 67.51
+  - entity: town/calais
+    aoe_org_id: T039
+    name_as_published: Calais
+    town_class: union_district_member
+    values:
+      - 101.76
+      - 126.09
+  - entity: town/cambridge
+    aoe_org_id: T040
+    name_as_published: Cambridge
+    town_class: union_district_member
+    values:
+      - 328.08
+      - 226.21
+  - entity: town/canaan
+    aoe_org_id: T041
+    name_as_published: Canaan
+    town_class: own_district
+    values:
+      - 72.58
+      - 71.73
+  - entity: town/castleton
+    aoe_org_id: T042
+    name_as_published: Castleton
+    town_class: union_district_member
+    values:
+      - 200.91
+      - 190.76
+  - entity: town/cavendish
+    aoe_org_id: T043
+    name_as_published: Cavendish
+    town_class: union_district_member
+    values:
+      - 87.78
+      - 83.35
+  - entity: town/charleston
+    aoe_org_id: T044
+    name_as_published: Charleston
+    town_class: union_district_member
+    values:
+      - 99.24
+      - 54.23
+  - entity: town/charlotte
+    aoe_org_id: T045
+    name_as_published: Charlotte
+    town_class: union_district_member
+    values:
+      - 337.83
+      - 272.49
+  - entity: town/chelsea
+    aoe_org_id: T046
+    name_as_published: Chelsea
+    town_class: union_district_member
+    values:
+      - 101.66
+      - 81.45
+  - entity: town/chester
+    aoe_org_id: T047
+    name_as_published: Chester
+    town_class: union_district_member
+    values:
+      - 240.82
+      - 164.23
+  - entity: town/chittenden
+    aoe_org_id: T048
+    name_as_published: Chittenden
+    town_class: union_district_member
+    values:
+      - 81.5
+      - 80.25
+  - entity: town/clarendon
+    aoe_org_id: T049
+    name_as_published: Clarendon
+    town_class: union_district_member
+    values:
+      - 140.31
+      - 109.5
+  - entity: town/colchester
+    aoe_org_id: T050
+    name_as_published: Colchester
+    town_class: own_district
+    values:
+      - 1331.5
+      - 983.93
+  - entity: town/concord
+    aoe_org_id: T051
+    name_as_published: Concord
+    town_class: union_district_member
+    values:
+      - 97.91
+      - 77.63
+  - entity: town/corinth
+    aoe_org_id: T052
+    name_as_published: Corinth
+    town_class: union_district_member
+    values:
+      - 100.69
+      - 78.49
+  - entity: town/cornwall
+    aoe_org_id: T053
+    name_as_published: Cornwall
+    town_class: union_district_member
+    values:
+      - 116.25
+      - 87
+  - entity: town/coventry
+    aoe_org_id: T054
+    name_as_published: Coventry
+    town_class: own_district
+    values:
+      - 92.51
+      - 74.04
+  - entity: town/craftsbury
+    aoe_org_id: T055
+    name_as_published: Craftsbury
+    town_class: own_district
+    values:
+      - 108.9
+      - 53.58
+  - entity: town/danby
+    aoe_org_id: T056
+    name_as_published: Danby
+    town_class: union_district_member
+    values:
+      - 78.12
+      - 79.86
+  - entity: town/danville
+    aoe_org_id: T057
+    name_as_published: Danville
+    town_class: own_district
+    values:
+      - 176.53
+      - 140.09
+  - entity: town/derby
+    aoe_org_id: T058
+    name_as_published: Derby
+    town_class: union_district_member
+    values:
+      - 381.26
+      - 288.63
+  - entity: town/dorset
+    aoe_org_id: T059
+    name_as_published: Dorset
+    town_class: union_district_member
+    values:
+      - 109.43
+      - 146
+  - entity: town/dover
+    aoe_org_id: T060
+    name_as_published: Dover
+    town_class: union_district_member
+    values:
+      - 82.03
+      - 82.25
+  - entity: town/dummerston
+    aoe_org_id: T061
+    name_as_published: Dummerston
+    town_class: union_district_member
+    values:
+      - 129.09
+      - 99.76
+  - entity: town/duxbury
+    aoe_org_id: T063
+    name_as_published: Duxbury
+    town_class: union_district_member
+    values:
+      - 112
+      - 81.44
+  - entity: town/east-haven
+    aoe_org_id: T064
+    name_as_published: East Haven
+    town_class: union_district_member
+    values:
+      - 20
+      - 22.25
+  - entity: town/east-montpelier
+    aoe_org_id: T065
+    name_as_published: East Montpelier
+    town_class: union_district_member
+    values:
+      - 233.92
+      - 179.26
+  - entity: town/eden
+    aoe_org_id: T066
+    name_as_published: Eden
+    town_class: union_district_member
+    values:
+      - 131.08
+      - 88.33
+  - entity: town/elmore
+    aoe_org_id: T067
+    name_as_published: Elmore
+    town_class: union_district_member
+    values:
+      - 51.25
+      - 44.24
+  - entity: town/enosburgh
+    aoe_org_id: T068
+    name_as_published: Enosburg Falls ID
+    town_class: union_district_member
+    values:
+      - 293.77
+      - 200.46
+  - entity: town/essex-junction
+    aoe_org_id: T069
+    name_as_published: Essex Junction ID
+    town_class: union_district_member
+    values:
+      - 0
+      - 0
+  - entity: town/essex-town
+    aoe_org_id: T070
+    name_as_published: Essex Town
+    town_class: union_district_member
+    values:
+      - 1844.85
+      - 1566.96
+  - entity: town/fairfax
+    aoe_org_id: T071
+    name_as_published: Fairfax
+    town_class: own_district
+    values:
+      - 574.65
+      - 345.37
+  - entity: town/fairfield
+    aoe_org_id: T072
+    name_as_published: Fairfield
+    town_class: own_district
+    values:
+      - 200.13
+      - 138.12
+  - entity: town/fair-haven
+    aoe_org_id: T073
+    name_as_published: Fair Haven
+    town_class: union_district_member
+    values:
+      - 251.5
+      - 202.53
+  - entity: town/fairlee
+    aoe_org_id: T074
+    name_as_published: Fairlee
+    town_class: union_district_member
+    values:
+      - 68.5
+      - 63.24
+  - entity: town/fayston
+    aoe_org_id: T075
+    name_as_published: Fayston
+    town_class: union_district_member
+    values:
+      - 90.13
+      - 54.29
+  - entity: town/ferrisburgh
+    aoe_org_id: T076
+    name_as_published: Ferrisburgh
+    town_class: union_district_member
+    values:
+      - 170.06
+      - 134.61
+  - entity: town/fletcher
+    aoe_org_id: T077
+    name_as_published: Fletcher
+    town_class: own_district
+    values:
+      - 121.28
+      - 92.66
+  - entity: town/franklin
+    aoe_org_id: T078
+    name_as_published: Franklin
+    town_class: union_district_member
+    values:
+      - 144.03
+      - 92.97
+  - entity: town/georgia
+    aoe_org_id: T079
+    name_as_published: Georgia
+    town_class: own_district
+    values:
+      - 511.18
+      - 385.7
+  - entity: town/glover
+    aoe_org_id: T080
+    name_as_published: Glover
+    town_class: union_district_member
+    values:
+      - 67.95
+      - 72.32
+  - entity: town/goshen
+    aoe_org_id: T081
+    name_as_published: Goshen
+    town_class: union_district_member
+    values:
+      - 10.5
+      - 4
+  - entity: town/grafton
+    aoe_org_id: T082
+    name_as_published: Grafton
+    town_class: union_district_member
+    values:
+      - 23.36
+      - 33.93
+  - entity: town/granby
+    aoe_org_id: T083
+    name_as_published: Granby
+    town_class: union_district_member
+    values:
+      - 0.5
+      - 6
+  - entity: town/grand-isle
+    aoe_org_id: T084
+    name_as_published: Grand Isle
+    town_class: union_district_member
+    values:
+      - 135.05
+      - 120.22
+  - entity: town/granville
+    aoe_org_id: T085
+    name_as_published: Granville
+    town_class: union_district_member
+    values:
+      - 23.48
+      - 16.5
+  - entity: town/greensboro
+    aoe_org_id: T086
+    name_as_published: Greensboro
+    town_class: union_district_member
+    values:
+      - 40.75
+      - 45.54
+  - entity: town/groton
+    aoe_org_id: T087
+    name_as_published: Groton
+    town_class: union_district_member
+    values:
+      - 85.83
+      - 64.15
+  - entity: town/guildhall
+    aoe_org_id: T088
+    name_as_published: Guildhall
+    town_class: union_district_member
+    values:
+      - 16.5
+      - 15.25
+  - entity: town/guilford
+    aoe_org_id: T089
+    name_as_published: Guilford
+    town_class: union_district_member
+    values:
+      - 148.95
+      - 99.8
+  - entity: town/halifax
+    aoe_org_id: T090
+    name_as_published: Halifax
+    town_class: union_district_member
+    values:
+      - 53.06
+      - 46.3
+  - entity: town/hancock
+    aoe_org_id: T091
+    name_as_published: Hancock
+    town_class: union_district_member
+    values:
+      - 33.51
+      - 21
+  - entity: town/hardwick
+    aoe_org_id: T092
+    name_as_published: Hardwick
+    town_class: union_district_member
+    values:
+      - 226.24
+      - 200.41
+  - entity: town/hartford
+    aoe_org_id: T093
+    name_as_published: Hartford
+    town_class: own_district
+    values:
+      - 754.74
+      - 561.06
+  - entity: town/hartland
+    aoe_org_id: T094
+    name_as_published: Hartland
+    town_class: own_district
+    values:
+      - 219.32
+      - 195.05
+  - entity: town/highgate
+    aoe_org_id: T095
+    name_as_published: Highgate
+    town_class: union_district_member
+    values:
+      - 269.82
+      - 238.16
+  - entity: town/hinesburg
+    aoe_org_id: T096
+    name_as_published: Hinesburg
+    town_class: union_district_member
+    values:
+      - 447.04
+      - 382.66
+  - entity: town/holland
+    aoe_org_id: T097
+    name_as_published: Holland
+    town_class: union_district_member
+    values:
+      - 60.43
+      - 29.5
+  - entity: town/hubbardton
+    aoe_org_id: T098
+    name_as_published: Hubbardton
+    town_class: union_district_member
+    values:
+      - 42.68
+      - 25
+  - entity: town/huntington
+    aoe_org_id: T099
+    name_as_published: Huntington
+    town_class: union_district_member
+    values:
+      - 165.23
+      - 125.04
+  - entity: town/hyde-park
+    aoe_org_id: T100
+    name_as_published: Hyde Park
+    town_class: union_district_member
+    values:
+      - 188.31
+      - 189.69
+  - entity: town/ira
+    aoe_org_id: T101
+    name_as_published: Ira
+    town_class: own_district
+    values:
+      - 18.5
+      - 24.5
+  - entity: town/irasburg
+    aoe_org_id: T102
+    name_as_published: Irasburg
+    town_class: union_district_member
+    values:
+      - 106.14
+      - 91.51
+  - entity: town/isle-lamotte
+    aoe_org_id: T103
+    name_as_published: Isle La Motte
+    town_class: union_district_member
+    values:
+      - 24.5
+      - 22.25
+  - entity: town/jamaica
+    aoe_org_id: T104
+    name_as_published: Jamaica
+    town_class: union_district_member
+    values:
+      - 44.78
+      - 45.45
+  - entity: town/jay
+    aoe_org_id: T105
+    name_as_published: Jay
+    town_class: union_district_member
+    values:
+      - 39
+      - 30.79
+  - entity: town/jericho
+    aoe_org_id: T106
+    name_as_published: Jericho
+    town_class: union_district_member
+    values:
+      - 534.52
+      - 404.98
+  - entity: town/johnson
+    aoe_org_id: T107
+    name_as_published: Johnson
+    town_class: union_district_member
+    values:
+      - 234.35
+      - 200.92
+  - entity: town/kirby
+    aoe_org_id: T108
+    name_as_published: Kirby
+    town_class: union_district_member
+    values:
+      - 76.5
+      - 55.78
+  - entity: town/landgrove
+    aoe_org_id: T109
+    name_as_published: Landgrove
+    town_class: union_district_member
+    values:
+      - 12
+      - 6.76
+  - entity: town/leicester
+    aoe_org_id: T110
+    name_as_published: Leicester
+    town_class: union_district_member
+    values:
+      - 55.6
+      - 39.5
+  - entity: town/lemington
+    aoe_org_id: T111
+    name_as_published: Lemington
+    town_class: union_district_member
+    values:
+      - 2
+      - 8.5
+  - entity: town/lincoln
+    aoe_org_id: T112
+    name_as_published: Lincoln
+    town_class: own_district
+    values:
+      - 92.9
+      - 94.59
+  - entity: town/londonderry
+    aoe_org_id: T113
+    name_as_published: Londonderry
+    town_class: union_district_member
+    values:
+      - 157.6
+      - 137.75
+  - entity: town/lowell
+    aoe_org_id: T114
+    name_as_published: Lowell
+    town_class: union_district_member
+    values:
+      - 75.48
+      - 55.51
+  - entity: town/ludlow
+    aoe_org_id: T115
+    name_as_published: Ludlow
+    town_class: union_district_member
+    values:
+      - 82.11
+      - 89.31
+  - entity: town/lunenburg
+    aoe_org_id: T116
+    name_as_published: Lunenburg
+    town_class: union_district_member
+    values:
+      - 68.18
+      - 71.06
+  - entity: town/lyndon
+    aoe_org_id: T117
+    name_as_published: Lyndon
+    town_class: union_district_member
+    values:
+      - 425.91
+      - 329.69
+  - entity: town/maidstone
+    aoe_org_id: T118
+    name_as_published: Maidstone
+    town_class: union_district_member
+    values:
+      - 9.24
+      - 6.85
+  - entity: town/manchester
+    aoe_org_id: T119
+    name_as_published: Manchester
+    town_class: union_district_member
+    values:
+      - 289.73
+      - 310.41
+  - entity: town/marlboro
+    aoe_org_id: T120
+    name_as_published: Marlboro
+    town_class: own_district
+    values:
+      - 79.25
+      - 57.52
+  - entity: town/marshfield
+    aoe_org_id: T121
+    name_as_published: Marshfield
+    town_class: union_district_member
+    values:
+      - 102.39
+      - 71.48
+  - entity: town/mendon
+    aoe_org_id: T122
+    name_as_published: Mendon
+    town_class: union_district_member
+    values:
+      - 61.44
+      - 59.86
+  - entity: town/middlebury
+    aoe_org_id: T123
+    name_as_published: "Middlebury ID #4"
+    town_class: union_district_member
+    values:
+      - 491.92
+      - 387.54
+  - entity: town/middlesex
+    aoe_org_id: T124
+    name_as_published: Middlesex
+    town_class: union_district_member
+    values:
+      - 132.78
+      - 134.89
+  - entity: town/middletown-springs
+    aoe_org_id: T125
+    name_as_published: Middletown Springs
+    town_class: union_district_member
+    values:
+      - 61.2
+      - 53.6
+  - entity: town/milton
+    aoe_org_id: T126
+    name_as_published: Milton ID
+    town_class: own_district
+    values:
+      - 840.46
+      - 657.67
+  - entity: town/monkton
+    aoe_org_id: T127
+    name_as_published: Monkton
+    town_class: union_district_member
+    values:
+      - 150.5
+      - 116.86
+  - entity: town/montgomery
+    aoe_org_id: T128
+    name_as_published: Montgomery
+    town_class: union_district_member
+    values:
+      - 113.72
+      - 80.72
+  - entity: town/montpelier
+    aoe_org_id: T129
+    name_as_published: Montpelier
+    town_class: union_district_member
+    values:
+      - 585.2
+      - 528.74
+  - entity: town/moretown
+    aoe_org_id: T130
+    name_as_published: Moretown
+    town_class: union_district_member
+    values:
+      - 171.03
+      - 81.11
+  - entity: town/morgan
+    aoe_org_id: T131
+    name_as_published: Morgan
+    town_class: union_district_member
+    values:
+      - 44.4
+      - 17.44
+  - entity: town/morristown
+    aoe_org_id: T132
+    name_as_published: Morristown
+    town_class: union_district_member
+    values:
+      - 381.87
+      - 311.48
+  - entity: town/mt-holly
+    aoe_org_id: T133
+    name_as_published: Mt. Holly
+    town_class: union_district_member
+    values:
+      - 113.49
+      - 42.91
+  - entity: town/mt-tabor
+    aoe_org_id: T134
+    name_as_published: Mt. Tabor
+    town_class: union_district_member
+    values:
+      - 9
+      - 12.53
+  - entity: town/newark
+    aoe_org_id: T135
+    name_as_published: Newark
+    town_class: union_district_member
+    values:
+      - 31.83
+      - 32
+  - entity: town/newbury
+    aoe_org_id: T136
+    name_as_published: Newbury
+    town_class: union_district_member
+    values:
+      - 112.96
+      - 117.28
+  - entity: town/newfane
+    aoe_org_id: T137
+    name_as_published: Newfane
+    town_class: union_district_member
+    values:
+      - 88.66
+      - 63.42
+  - entity: town/new-haven
+    aoe_org_id: T138
+    name_as_published: New Haven
+    town_class: union_district_member
+    values:
+      - 97.88
+      - 86.25
+  - entity: town/newport-city
+    aoe_org_id: T139
+    name_as_published: Newport City
+    town_class: union_district_member
+    values:
+      - 318.8
+      - 257.96
+  - entity: town/newport-town
+    aoe_org_id: T140
+    name_as_published: Newport Town
+    town_class: union_district_member
+    values:
+      - 129.58
+      - 92.89
+  - entity: town/north-bennington
+    aoe_org_id: T141
+    name_as_published: North Bennington ID
+    town_class: union_district_member
+    values:
+      - 180.1
+      - 100.32
+  - entity: town/northfield
+    aoe_org_id: T142
+    name_as_published: Northfield
+    town_class: union_district_member
+    values:
+      - 318.58
+      - 225.27
+  - entity: town/north-hero
+    aoe_org_id: T143
+    name_as_published: North Hero
+    town_class: union_district_member
+    values:
+      - 43.89
+      - 39.72
+  - entity: town/norton
+    aoe_org_id: T144
+    name_as_published: Norton
+    town_class: union_district_member
+    values:
+      - 5
+      - 4.5
+  - entity: town/norwich
+    aoe_org_id: T145
+    name_as_published: Norwich
+    town_class: union_district_member
+    values:
+      - 347.01
+      - 271.5
+  - entity: town/orange
+    aoe_org_id: T146
+    name_as_published: Orange
+    town_class: union_district_member
+    values:
+      - 75.73
+      - 80.54
+  - entity: town/orleans-id
+    aoe_org_id: T147
+    name_as_published: Orleans ID
+    town_class: union_district_member
+    values:
+      - 89.99
+      - 69.6
+  - entity: town/orwell
+    aoe_org_id: T148
+    name_as_published: Orwell
+    town_class: union_district_member
+    values:
+      - 141.36
+      - 75.99
+  - entity: town/panton
+    aoe_org_id: T149
+    name_as_published: Panton
+    town_class: union_district_member
+    values:
+      - 42.15
+      - 38.87
+  - entity: town/pawlet
+    aoe_org_id: T150
+    name_as_published: Pawlet
+    town_class: union_district_member
+    values:
+      - 98.35
+      - 109.35
+  - entity: town/peacham
+    aoe_org_id: T151
+    name_as_published: Peacham
+    town_class: own_district
+    values:
+      - 58
+      - 40
+  - entity: town/peru
+    aoe_org_id: T152
+    name_as_published: Peru
+    town_class: union_district_member
+    values:
+      - 25.37
+      - 40.5
+  - entity: town/pittsfield
+    aoe_org_id: T153
+    name_as_published: Pittsfield
+    town_class: own_district
+    values:
+      - 24.45
+      - 24.95
+  - entity: town/pittsford
+    aoe_org_id: T154
+    name_as_published: Pittsford
+    town_class: union_district_member
+    values:
+      - 192.33
+      - 155.27
+  - entity: town/plainfield
+    aoe_org_id: T155
+    name_as_published: Plainfield
+    town_class: union_district_member
+    values:
+      - 72.95
+      - 69.03
+  - entity: town/plymouth
+    aoe_org_id: T156
+    name_as_published: Plymouth
+    town_class: union_district_member
+    values:
+      - 41.5
+      - 19.5
+  - entity: town/pomfret
+    aoe_org_id: T157
+    name_as_published: Pomfret
+    town_class: union_district_member
+    values:
+      - 60.08
+      - 46.49
+  - entity: town/poultney
+    aoe_org_id: T158
+    name_as_published: Poultney
+    town_class: union_district_member
+    values:
+      - 264.45
+      - 187.95
+  - entity: town/pownal
+    aoe_org_id: T159
+    name_as_published: Pownal
+    town_class: union_district_member
+    values:
+      - 257.34
+      - 192.49
+  - entity: town/proctor
+    aoe_org_id: T160
+    name_as_published: Proctor
+    town_class: union_district_member
+    values:
+      - 153.04
+      - 112.91
+  - entity: town/putney
+    aoe_org_id: T161
+    name_as_published: Putney
+    town_class: union_district_member
+    values:
+      - 151.8
+      - 95.93
+  - entity: town/randolph
+    aoe_org_id: T162
+    name_as_published: Randolph
+    town_class: union_district_member
+    values:
+      - 317.26
+      - 255.3
+  - entity: town/reading
+    aoe_org_id: T163
+    name_as_published: Reading
+    town_class: union_district_member
+    values:
+      - 61.5
+      - 29.05
+  - entity: town/readsboro
+    aoe_org_id: T164
+    name_as_published: Readsboro
+    town_class: own_district
+    values:
+      - 42.39
+      - 25.75
+  - entity: town/richford
+    aoe_org_id: T165
+    name_as_published: Richford
+    town_class: union_district_member
+    values:
+      - 214.26
+      - 183.93
+  - entity: town/richmond
+    aoe_org_id: T166
+    name_as_published: Richmond
+    town_class: union_district_member
+    values:
+      - 425.51
+      - 291.02
+  - entity: town/ripton
+    aoe_org_id: T167
+    name_as_published: Ripton
+    town_class: union_district_member
+    values:
+      - 51.86
+      - 26
+  - entity: town/rochester
+    aoe_org_id: T168
+    name_as_published: Rochester
+    town_class: union_district_member
+    values:
+      - 68.2
+      - 41.23
+  - entity: town/rockingham
+    aoe_org_id: T169
+    name_as_published: Rockingham
+    town_class: union_district_member
+    values:
+      - 372.95
+      - 276.76
+  - entity: town/roxbury
+    aoe_org_id: T170
+    name_as_published: Roxbury
+    town_class: union_district_member
+    values:
+      - 59.57
+      - 31.5
+  - entity: town/royalton
+    aoe_org_id: T171
+    name_as_published: Royalton
+    town_class: union_district_member
+    values:
+      - 178.32
+      - 120.43
+  - entity: town/rupert
+    aoe_org_id: T172
+    name_as_published: Rupert
+    town_class: union_district_member
+    values:
+      - 40.5
+      - 45.5
+  - entity: town/rutland-city
+    aoe_org_id: T173
+    name_as_published: Rutland City
+    town_class: own_district
+    values:
+      - 963.54
+      - 834.57
+  - entity: town/rutland-town
+    aoe_org_id: T174
+    name_as_published: Rutland Town
+    town_class: own_district
+    values:
+      - 290.13
+      - 247.91
+  - entity: town/ryegate
+    aoe_org_id: T175
+    name_as_published: Ryegate
+    town_class: union_district_member
+    values:
+      - 91.11
+      - 75.44
+  - entity: town/st-albans-city
+    aoe_org_id: T176
+    name_as_published: St. Albans City
+    town_class: union_district_member
+    values:
+      - 603.18
+      - 441.19
+  - entity: town/st-albans-town
+    aoe_org_id: T177
+    name_as_published: St. Albans Town
+    town_class: union_district_member
+    values:
+      - 574.7
+      - 447.21
+  - entity: town/st-george
+    aoe_org_id: T178
+    name_as_published: St. George
+    town_class: union_district_member
+    values:
+      - 63.85
+      - 53.81
+  - entity: town/st-johnsbury
+    aoe_org_id: T179
+    name_as_published: St. Johnsbury
+    town_class: own_district
+    values:
+      - 553.19
+      - 515.95
+  - entity: town/salisbury
+    aoe_org_id: T180
+    name_as_published: Salisbury
+    town_class: union_district_member
+    values:
+      - 85.35
+      - 82.01
+  - entity: town/sandgate
+    aoe_org_id: T181
+    name_as_published: Sandgate
+    town_class: own_district
+    values:
+      - 36.68
+      - 27.9
+  - entity: town/searsburg
+    aoe_org_id: T182
+    name_as_published: Searsburg
+    town_class: own_district
+    values:
+      - 11
+      - 7.5
+  - entity: town/shaftsbury
+    aoe_org_id: T183
+    name_as_published: Shaftsbury
+    town_class: union_district_member
+    values:
+      - 214.22
+      - 186.55
+  - entity: town/sharon
+    aoe_org_id: T184
+    name_as_published: Sharon
+    town_class: own_district
+    values:
+      - 156.49
+      - 127.18
+  - entity: town/sheffield
+    aoe_org_id: T185
+    name_as_published: Sheffield
+    town_class: union_district_member
+    values:
+      - 43.7
+      - 25.6
+  - entity: town/shelburne
+    aoe_org_id: T186
+    name_as_published: Shelburne
+    town_class: union_district_member
+    values:
+      - 677.16
+      - 507.07
+  - entity: town/sheldon
+    aoe_org_id: T187
+    name_as_published: Sheldon
+    town_class: union_district_member
+    values:
+      - 269
+      - 159.94
+  - entity: town/killington
+    aoe_org_id: T188
+    name_as_published: Killington
+    town_class: union_district_member
+    values:
+      - 74.75
+      - 46.25
+  - entity: town/shoreham
+    aoe_org_id: T189
+    name_as_published: Shoreham
+    town_class: union_district_member
+    values:
+      - 108.38
+      - 64.92
+  - entity: town/shrewsbury
+    aoe_org_id: T190
+    name_as_published: Shrewsbury
+    town_class: union_district_member
+    values:
+      - 73.63
+      - 45.43
+  - entity: town/somerset
+    aoe_org_id: T261
+    name_as_published: Somerset
+    town_class: own_district
+    values:
+      - 1
+      - 1
+  - entity: town/south-burlington
+    aoe_org_id: T191
+    name_as_published: South Burlington
+    town_class: own_district
+    values:
+      - 1508.09
+      - 1062.54
+  - entity: town/south-hero
+    aoe_org_id: T192
+    name_as_published: South Hero
+    town_class: own_district
+    values:
+      - 109.15
+      - 81.86
+  - entity: town/springfield
+    aoe_org_id: T193
+    name_as_published: Springfield
+    town_class: own_district
+    values:
+      - 734.57
+      - 502.59
+  - entity: town/stamford
+    aoe_org_id: T194
+    name_as_published: Stamford
+    town_class: own_district
+    values:
+      - 57.91
+      - 50.5
+  - entity: town/stannard
+    aoe_org_id: T195
+    name_as_published: Stannard
+    town_class: union_district_member
+    values:
+      - 14.25
+      - 12.03
+  - entity: town/starksboro
+    aoe_org_id: T196
+    name_as_published: Starksboro
+    town_class: union_district_member
+    values:
+      - 129.43
+      - 121.85
+  - entity: town/stockbridge
+    aoe_org_id: T197
+    name_as_published: Stockbridge
+    town_class: union_district_member
+    values:
+      - 40.16
+      - 37.2
+  - entity: town/stowe
+    aoe_org_id: T198
+    name_as_published: Stowe
+    town_class: own_district
+    values:
+      - 437.46
+      - 332.74
+  - entity: town/strafford
+    aoe_org_id: T199
+    name_as_published: Strafford
+    town_class: own_district
+    values:
+      - 105.63
+      - 72.9
+  - entity: town/stratton
+    aoe_org_id: T200
+    name_as_published: Stratton
+    town_class: own_district
+    values:
+      - 22.5
+      - 33.5
+  - entity: town/sudbury
+    aoe_org_id: T201
+    name_as_published: Sudbury
+    town_class: union_district_member
+    values:
+      - 23.75
+      - 12.5
+  - entity: town/sunderland
+    aoe_org_id: T202
+    name_as_published: Sunderland
+    town_class: union_district_member
+    values:
+      - 67
+      - 75.03
+  - entity: town/sutton
+    aoe_org_id: T203
+    name_as_published: Sutton
+    town_class: union_district_member
+    values:
+      - 90.7
+      - 79
+  - entity: town/swanton
+    aoe_org_id: T204
+    name_as_published: Swanton
+    town_class: union_district_member
+    values:
+      - 653.54
+      - 401.13
+  - entity: town/thetford
+    aoe_org_id: T205
+    name_as_published: Thetford
+    town_class: own_district
+    values:
+      - 203.23
+      - 188.97
+  - entity: town/tinmouth
+    aoe_org_id: T206
+    name_as_published: Tinmouth
+    town_class: union_district_member
+    values:
+      - 64.35
+      - 18.5
+  - entity: town/topsham
+    aoe_org_id: T207
+    name_as_published: Topsham
+    town_class: union_district_member
+    values:
+      - 92.34
+      - 79.85
+  - entity: town/townshend
+    aoe_org_id: T208
+    name_as_published: Townshend
+    town_class: union_district_member
+    values:
+      - 80.27
+      - 69.92
+  - entity: town/troy
+    aoe_org_id: T209
+    name_as_published: Troy
+    town_class: union_district_member
+    values:
+      - 157.63
+      - 111.76
+  - entity: town/tunbridge
+    aoe_org_id: T210
+    name_as_published: Tunbridge
+    town_class: union_district_member
+    values:
+      - 104.87
+      - 77.34
+  - entity: town/underhill-town
+    aoe_org_id: T212
+    name_as_published: Underhill Town
+    town_class: union_district_member
+    values:
+      - 302.95
+      - 226.06
+  - entity: town/vergennes
+    aoe_org_id: T213
+    name_as_published: Vergennes ID
+    town_class: union_district_member
+    values:
+      - 195.35
+      - 149.05
+  - entity: town/vernon
+    aoe_org_id: T214
+    name_as_published: Vernon
+    town_class: own_district
+    values:
+      - 183.04
+      - 140.84
+  - entity: town/vershire
+    aoe_org_id: T215
+    name_as_published: Vershire
+    town_class: union_district_member
+    values:
+      - 57.18
+      - 32.3
+  - entity: town/victory
+    aoe_org_id: T216
+    name_as_published: Victory
+    town_class: union_district_member
+    values:
+      - 4
+      - 5.25
+  - entity: town/waitsfield
+    aoe_org_id: T217
+    name_as_published: Waitsfield
+    town_class: union_district_member
+    values:
+      - 162.3
+      - 90.6
+  - entity: town/walden
+    aoe_org_id: T218
+    name_as_published: Walden
+    town_class: union_district_member
+    values:
+      - 59.52
+      - 52.73
+  - entity: town/wallingford
+    aoe_org_id: T219
+    name_as_published: Wallingford
+    town_class: union_district_member
+    values:
+      - 141.75
+      - 115.96
+  - entity: town/waltham
+    aoe_org_id: T220
+    name_as_published: Waltham
+    town_class: union_district_member
+    values:
+      - 26
+      - 23.5
+  - entity: town/wardsboro
+    aoe_org_id: T221
+    name_as_published: Wardsboro
+    town_class: union_district_member
+    values:
+      - 49.18
+      - 51.5
+  - entity: town/warren
+    aoe_org_id: T222
+    name_as_published: Warren
+    town_class: union_district_member
+    values:
+      - 128.56
+      - 93.37
+  - entity: town/washington
+    aoe_org_id: T223
+    name_as_published: Washington
+    town_class: union_district_member
+    values:
+      - 87.61
+      - 50.3
+  - entity: town/waterbury
+    aoe_org_id: T224
+    name_as_published: Waterbury
+    town_class: union_district_member
+    values:
+      - 417.39
+      - 310.44
+  - entity: town/waterford
+    aoe_org_id: T225
+    name_as_published: Waterford
+    town_class: union_district_member
+    values:
+      - 112.75
+      - 111.75
+  - entity: town/waterville
+    aoe_org_id: T226
+    name_as_published: Waterville
+    town_class: union_district_member
+    values:
+      - 52.91
+      - 38.33
+  - entity: town/weathersfield
+    aoe_org_id: T227
+    name_as_published: Weathersfield
+    town_class: own_district
+    values:
+      - 201.38
+      - 156.81
+  - entity: town/wells
+    aoe_org_id: T228
+    name_as_published: Wells
+    town_class: union_district_member
+    values:
+      - 89.73
+      - 64.3
+  - entity: town/wells-river
+    aoe_org_id: T229
+    name_as_published: Wells River
+    town_class: union_district_member
+    values:
+      - 40.35
+      - 24.03
+  - entity: town/west-fairlee
+    aoe_org_id: T230
+    name_as_published: West Fairlee
+    town_class: union_district_member
+    values:
+      - 36.68
+      - 33.28
+  - entity: town/westfield
+    aoe_org_id: T231
+    name_as_published: Westfield
+    town_class: union_district_member
+    values:
+      - 41.75
+      - 20.67
+  - entity: town/westford
+    aoe_org_id: T232
+    name_as_published: Westford
+    town_class: union_district_member
+    values:
+      - 172.45
+      - 112.93
+  - entity: town/west-haven
+    aoe_org_id: T233
+    name_as_published: West Haven
+    town_class: union_district_member
+    values:
+      - 13.5
+      - 13
+  - entity: town/westminster
+    aoe_org_id: T234
+    name_as_published: Westminster
+    town_class: own_district
+    values:
+      - 175.88
+      - 153.1
+  - entity: town/westmore
+    aoe_org_id: T235
+    name_as_published: Westmore
+    town_class: union_district_member
+    values:
+      - 25
+      - 7
+  - entity: town/weston
+    aoe_org_id: T236
+    name_as_published: Weston
+    town_class: union_district_member
+    values:
+      - 43
+      - 34.5
+  - entity: town/west-rutland
+    aoe_org_id: T237
+    name_as_published: West Rutland
+    town_class: union_district_member
+    values:
+      - 178.38
+      - 123.91
+  - entity: town/west-windsor
+    aoe_org_id: T238
+    name_as_published: West Windsor
+    town_class: union_district_member
+    values:
+      - 62
+      - 52.25
+  - entity: town/weybridge
+    aoe_org_id: T239
+    name_as_published: Weybridge
+    town_class: union_district_member
+    values:
+      - 56
+      - 38
+  - entity: town/wheelock
+    aoe_org_id: T240
+    name_as_published: Wheelock
+    town_class: union_district_member
+    values:
+      - 66
+      - 51
+  - entity: town/whiting
+    aoe_org_id: T241
+    name_as_published: Whiting
+    town_class: union_district_member
+    values:
+      - 40.5
+      - 33.28
+  - entity: town/whitingham
+    aoe_org_id: T242
+    name_as_published: Whitingham
+    town_class: union_district_member
+    values:
+      - 85.95
+      - 66
+  - entity: town/williamstown
+    aoe_org_id: T243
+    name_as_published: Williamstown
+    town_class: union_district_member
+    values:
+      - 279.8
+      - 213.21
+  - entity: town/williston
+    aoe_org_id: T244
+    name_as_published: Williston
+    town_class: union_district_member
+    values:
+      - 804.43
+      - 616.16
+  - entity: town/wilmington
+    aoe_org_id: T245
+    name_as_published: Wilmington
+    town_class: union_district_member
+    values:
+      - 114.95
+      - 81.01
+  - entity: town/windham
+    aoe_org_id: T246
+    name_as_published: Windham
+    town_class: union_district_member
+    values:
+      - 22
+      - 10.5
+  - entity: town/windsor
+    aoe_org_id: T247
+    name_as_published: Windsor
+    town_class: union_district_member
+    values:
+      - 259.29
+      - 214.47
+  - entity: town/winhall
+    aoe_org_id: T248
+    name_as_published: Winhall
+    town_class: own_district
+    values:
+      - 114.81
+      - 114.26
+  - entity: town/winooski
+    aoe_org_id: T249
+    name_as_published: Winooski ID
+    town_class: own_district
+    values:
+      - 473.54
+      - 312.71
+  - entity: town/wolcott
+    aoe_org_id: T250
+    name_as_published: Wolcott
+    town_class: own_district
+    values:
+      - 126.55
+      - 125.2
+  - entity: town/woodbury
+    aoe_org_id: T251
+    name_as_published: Woodbury
+    town_class: union_district_member
+    values:
+      - 58
+      - 36.15
+  - entity: town/woodford
+    aoe_org_id: T252
+    name_as_published: Woodford
+    town_class: union_district_member
+    values:
+      - 19
+      - 17.53
+  - entity: town/woodstock
+    aoe_org_id: T253
+    name_as_published: Woodstock
+    town_class: union_district_member
+    values:
+      - 195.83
+      - 152.73
+  - entity: town/worcester
+    aoe_org_id: T254
+    name_as_published: Worcester
+    town_class: union_district_member
+    values:
+      - 72.48
+      - 69.81
+  - entity: town/buels-gore
+    aoe_org_id: T255
+    name_as_published: Buels Gore
+    town_class: own_district
+    values:
+      - 3
+      - 1
+  - entity: town/averill
+    aoe_org_id: T256
+    name_as_published: Averill
+    town_class: own_district
+    values:
+      - 0
+      - 0
+  - entity: town/ferdinand
+    aoe_org_id: T258
+    name_as_published: Ferdinand
+    town_class: own_district
+    values:
+      - 0
+      - 3
+band_totals:
+  - 47301.13
+  - 36686.14
+grand_total: 83987.27
+not_published:
+  - path: adm.prekindergarten
+    confirmed_by: James Nadeau
+    confirmed_date: 2026-07-30
+    note: The AOE resident-district report publishes no prekindergarten column. This is a
+      confirmed absence in the source, not an unfilled field.
+extracted_by: James Nadeau
+extracted_date: 2026-07-30

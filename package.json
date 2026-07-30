@@ -21,6 +21,7 @@
     "validate": "tsx tools/src/cli/validate.ts",
     "coverage": "tsx tools/src/cli/coverage.ts",
     "extract": "tsx tools/src/cli/extract.ts",
+    "adm:import": "tsx tools/src/cli/adm-import.ts",
     "collect": "tsx tools/src/cli/collect.ts",
     "params": "tsx tools/src/cli/params.ts",
     "build:data": "tsx tools/src/cli/build-data.ts",
