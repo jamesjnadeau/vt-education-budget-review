@@ -151,23 +151,43 @@ function main(): number {
     }
   }
 
+  // --- AOE source manifests -----------------------------------------------
+  for (const file of walkFiles(PATHS.intake, (n) => n === 'source.yaml')) {
+    const data = readData(file);
+    findings.push(...schemaFindings('aoe-source', data, file));
+    findings.push(...checkRegistryRefs(data, file, registry));
+  }
+
   // --- warehouse ----------------------------------------------------------
   for (const file of walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json'))) {
     counts.warehouse++;
-    const data = readData(file) as BudgetRecord;
-    const schemaProblems = schemaFindings('budget', data, file);
+    const data = readData(file);
+
+    // The warehouse holds more than budget records now. Dispatching on the path
+    // rather than validating everything as a budget keeps an ADM series from
+    // being reported as a budget missing every field a budget has.
+    const relative = rel(file);
+    if (relative.startsWith('warehouse/aoe-adm/')) {
+      if (relative.endsWith('/gaps.yaml')) continue;
+      findings.push(...schemaFindings('adm', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
+    const record = data as BudgetRecord;
+    const schemaProblems = schemaFindings('budget', record, file);
     findings.push(...schemaProblems);
 
     // Cross-file rules assume a well-formed record; running them on a
     // malformed one produces noise that buries the real error.
     if (schemaProblems.length > 0) continue;
 
-    findings.push(...checkRegistryRefs(data, file, registry));
-    findings.push(...checkNullAccounting(data, file));
-    findings.push(...checkProvenance(data, file, { verifyHashes }));
-    findings.push(...checkRecomputation(data, file));
+    findings.push(...checkRegistryRefs(record, file, registry));
+    findings.push(...checkNullAccounting(record, file));
+    findings.push(...checkProvenance(record, file, { verifyHashes }));
+    findings.push(...checkRecomputation(record, file));
 
-    const expected = `fy${data.fiscal_year}`;
+    const expected = `fy${record.fiscal_year}`;
     if (!basename(file).startsWith(expected)) {
       findings.push({
         severity: 'warning',

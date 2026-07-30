@@ -204,3 +204,36 @@ describe('recomputation', () => {
     expect(checkRecomputation(record(), 'f.yaml')).toHaveLength(0);
   });
 });
+
+describe('source references are not registry references', () => {
+  // A statewide AOE dataset has no organization record in AOE's own API -- the
+  // only state/ entity is Woodside, closed in 2020 -- so provenance for it
+  // cannot name a registry entity. A source/ prefix says "this is a publisher,
+  // not an organization in the registry" without weakening the rule that every
+  // real entity slug must resolve.
+  //
+  // Both cases already held before SOURCE_REF was added, because ENTITY_REF
+  // never matched a source/ slug in the first place. They are pinned anyway:
+  // ENTITY_REF and the entity_ref pattern in common-1.0.schema.json are mirrored
+  // lists, and the schema's now includes source. Widening ENTITY_REF to match
+  // would silently start demanding that publishers resolve to registry entities,
+  // which is the one thing a source/ slug exists to avoid.
+  it('accepts a source/ slug with no registry entity', () => {
+    const findings = checkRegistryRefs(
+      { entity: 'source/aoe-adm' },
+      'intake/aoe-adm/fy2024/provenance.yaml',
+      new Map(),
+    );
+    expect(findings).toEqual([]);
+  });
+
+  it('still rejects an unknown entity slug', () => {
+    const findings = checkRegistryRefs(
+      { entity: 'town/nowhere' },
+      'intake/aoe-adm/fy2024/provenance.yaml',
+      new Map(),
+    );
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.rule).toBe('registry-reference');
+  });
+});

@@ -258,6 +258,24 @@ export function checkProvenanceDoc(
 
 const ENTITY_REF = /^(su|sd|ud|school|town|academy|techcenter|independent|state)\/[a-z0-9]+(-[a-z0-9]+)*$/;
 
+/**
+ * A publisher of data, rather than an organization in the registry.
+ *
+ * AOE publishes statewide datasets but has no organization record for itself --
+ * the only `state/` entity is Woodside, closed 2020 -- so provenance for an AOE
+ * artifact has nothing valid to name. A `source/` slug fills that gap without
+ * hand-authoring a registry record, which matters because the registry is
+ * generated and `registry:sync` would be free to discard one.
+ *
+ * The early return below is deliberately belt-and-braces: `ENTITY_REF` does not
+ * list `source`, so a source slug already falls through unmatched. It is written
+ * out because `ENTITY_REF` mirrors the `entity_ref` pattern in
+ * `common-1.0.schema.json`, that one *does* now list `source`, and the two
+ * drifting into agreement would silently start requiring publishers to resolve
+ * to registry entities -- the single thing a `source/` slug exists to avoid.
+ */
+const SOURCE_REF = /^source\/[a-z0-9]+(-[a-z0-9]+)*$/;
+
 /** Every slug mentioned anywhere must resolve to a registry entity. */
 export function checkRegistryRefs(
   value: unknown,
@@ -269,6 +287,7 @@ export function checkRegistryRefs(
 
   const walk = (v: unknown): void => {
     if (typeof v === 'string') {
+      if (SOURCE_REF.test(v)) return;
       if (ENTITY_REF.test(v) && !seen.has(v)) {
         seen.add(v);
         if (!registry.has(v)) {

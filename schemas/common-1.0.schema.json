@@ -13,10 +13,10 @@
       "minimum": 0
     },
     "entity_ref": {
-      "description": "Stable internal registry slug. Deliberately independent of AOE organization IDs, which will churn as Act 170 mergers close in 2029 -- these URLs and this historical data must not.",
+      "description": "Stable internal registry slug. Deliberately independent of AOE organization IDs, which will churn as Act 170 mergers close in 2029 -- these URLs and this historical data must not. A \"source/\" slug names a publisher of data rather than an organization in the registry, for datasets whose publisher has no organization record of its own.",
       "type": "string",
-      "pattern": "^(su|sd|ud|school|town|academy|techcenter|independent|state)/[a-z0-9]+(-[a-z0-9]+)*$",
-      "examples": ["su/addison-central", "town/calais", "ud/addison-central-uusd-55"]
+      "pattern": "^(su|sd|ud|school|town|academy|techcenter|independent|state|source)/[a-z0-9]+(-[a-z0-9]+)*$",
+      "examples": ["su/addison-central", "town/calais", "ud/addison-central-uusd-55", "source/aoe-adm"]
     },
     "aoe_org_id": {
       "description": "AOE organization ID as published by the Public Data API. Note the API spells this key `OrgID` on the organizations/supervisoryUnions/closed_organizations endpoints and `OrgId` on towns/publicSchools/unionDistricts; the sync normalizes both to this field. The pattern is deliberately permissive: this is a field we do not control, and observed values include letter-suffixed districts (U022A), several prefixes beyond the obvious ones (IS, VC, J, HE), and bare numerics. Constraining it to the tidy shape would reject real records. Values that merely look WRONG rather than unexpected -- placeholder and test records -- are caught by the sync, which warns and skips them.",
