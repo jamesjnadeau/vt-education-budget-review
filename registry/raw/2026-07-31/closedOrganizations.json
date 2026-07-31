@@ -1,0 +1,714 @@
+[
+  {
+    "ServerId": 3,
+    "Name": "Woodside Juvenile Rehabilitation Center",
+    "OrgID": "SC001",
+    "OrgType": "State Run School (SC)",
+    "CloseDate": "2020-10-02T07:00:00Z",
+    "ParentOrg": "SC001",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 49,
+    "Name": "Battenkill Valley Supervisory Union",
+    "OrgID": "SU060",
+    "OrgType": "Supervisory Union (SU)",
+    "CloseDate": "2021-06-30T07:00:00Z",
+    "OperatedBy": "SU060",
+    "Grades": null
+  },
+  {
+    "ServerId": 68,
+    "Name": "Addison Central School",
+    "OrgID": "PS002",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2020-06-30T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 93,
+    "Name": "Black River High School",
+    "OrgID": "PS035",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2020-06-30T07:00:00Z",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 183,
+    "Name": "Isle La Motte Elementary School",
+    "OrgID": "PS148",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2020-06-30T07:00:00Z",
+    "ParentOrg": "SU024",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 237,
+    "Name": "North Hero School",
+    "OrgID": "PS209",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2025-07-01T07:00:00Z",
+    "ParentOrg": "SU024",
+    "OperatedBy": "U066",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ]
+  },
+  {
+    "ServerId": 261,
+    "Name": "Ripton Elementary School",
+    "OrgID": "PS244",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2025-07-01T07:00:00Z",
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ]
+  },
+  {
+    "ServerId": 266,
+    "Name": "Roxbury Village School",
+    "OrgID": "PS250",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2024-06-30T07:00:00Z",
+    "ParentOrg": "SU069",
+    "OperatedBy": "U071",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "EE"
+    ]
+  },
+  {
+    "ServerId": 296,
+    "Name": "Stowe Middle/High School",
+    "OrgID": "PS287",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2020-06-30T07:00:00Z",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 341,
+    "Name": "Windham Elementary School",
+    "OrgID": "PS347",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2023-12-22T08:00:00Z",
+    "ParentOrg": "SU046",
+    "OperatedBy": "T246",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ]
+  },
+  {
+    "ServerId": 387,
+    "Name": "Castleton Village School",
+    "OrgID": "PS414",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2022-06-30T07:00:00Z",
+    "ParentOrg": "SU004",
+    "OperatedBy": "U062",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1112,
+    "Name": "NEW HORIZONS",
+    "OrgID": "IS169",
+    "OrgType": "Approved Program (IS)",
+    "CloseDate": "2023-06-30T07:00:00Z",
+    "Grades": [
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1122,
+    "Name": "BELLWETHER SCHOOL",
+    "OrgID": "IS115",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2025-06-27T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1142,
+    "Name": "MT SNOW ACADEMY ALPINE TRAINING CTR",
+    "OrgID": "IS193",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2023-09-01T07:00:00Z",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1165,
+    "Name": "MOUNTAIN RIVER SCHOOL INC",
+    "OrgID": "IS263",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2023-06-16T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1184,
+    "Name": "RUTLAND COUNTY PC CTR TP PROG",
+    "OrgID": "IS243",
+    "OrgType": "Approved Program (IS)",
+    "CloseDate": "2025-07-29T07:00:00Z",
+    "Grades": [
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1191,
+    "Name": "EARLY LEARNING CENTER",
+    "OrgID": "IS285",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2021-06-30T07:00:00Z",
+    "Grades": [
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1227,
+    "Name": "CENTERPOINT",
+    "OrgID": "IS139",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2023-09-01T07:00:00Z",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1279,
+    "Name": "VERMONT SCHOOL FOR GIRLS",
+    "OrgID": "IS005",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2023-06-30T07:00:00Z",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1281,
+    "Name": "MEADOWS EDUCATIONAL CENTER",
+    "OrgID": "IS048",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2020-12-01T08:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1282,
+    "Name": "VT ACAD OF SCIENCE/TECH",
+    "OrgID": "IS087",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2026-06-30T07:00:00Z",
+    "Grades": [
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1294,
+    "Name": "MOSAIC LEARNING CENTER",
+    "OrgID": "IS210",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2023-06-16T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1297,
+    "Name": "MANSFIELD COOPERATIVE SCHOOL",
+    "OrgID": "IS267",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2024-07-01T07:00:00Z",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1359,
+    "Name": "STONE PATH ACADEMY",
+    "OrgID": "IS269",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2022-06-30T07:00:00Z",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1380,
+    "Name": "NEK COMM ACTION SOUTH TP PROG",
+    "OrgID": "IS242",
+    "OrgType": "Approved Program (IS)",
+    "CloseDate": "2021-09-23T07:00:00Z",
+    "Grades": [
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1383,
+    "Name": "ECOCOMMUNITY SCHOOL",
+    "OrgID": "IS274",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2020-06-30T07:00:00Z",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1434,
+    "Name": "ROOTS AND WINGS ACADEMY",
+    "OrgID": "IS250",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2020-07-01T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1436,
+    "Name": "LEARN",
+    "OrgID": "IS200",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2021-06-30T07:00:00Z",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1438,
+    "Name": "FORREST WARD MEMORIAL SCH",
+    "OrgID": "IS228",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2021-06-30T07:00:00Z",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1465,
+    "Name": "THE COMPASS SCHOOL",
+    "OrgID": "IS157",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2025-06-17T07:00:00Z",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1490,
+    "Name": "INSPIRE FOR AUTISM INC",
+    "OrgID": "IS233",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2025-08-01T07:00:00Z",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1491,
+    "Name": "THE LIHIGH SCHOOL",
+    "OrgID": "IS238",
+    "OrgType": "Independent School (IS)",
+    "CloseDate": "2024-06-14T07:00:00Z",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1498,
+    "Name": "IMMERSION MONTESSORI SCHOOL",
+    "OrgID": "IS287",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2023-07-25T07:00:00Z",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1499,
+    "Name": "MARY ELIZABETH PRESCHOOL",
+    "OrgID": "IS288",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2022-06-30T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "ServerId": 1514,
+    "Name": "Southern Valley Unified School District",
+    "OrgID": "U074",
+    "OrgType": "Unified District (U)",
+    "CloseDate": "2021-06-30T07:00:00Z",
+    "Grades": null
+  },
+  {
+    "ServerId": 1615,
+    "Name": "UNDERHILL ID",
+    "OrgID": "T211",
+    "OrgType": "Towns/City (T)",
+    "CloseDate": "2015-07-01T07:00:00Z",
+    "Grades": null
+  },
+  {
+    "ServerId": 1622,
+    "Name": "Castleton Hubbardton USD #42 (School)",
+    "OrgID": "PS061",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2018-06-30T07:00:00Z",
+    "Grades": [
+      "EE",
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1623,
+    "Name": "Holland Elementary School",
+    "OrgID": "PS144",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2019-06-30T07:00:00Z",
+    "Grades": [
+      "PK",
+      "K",
+      "EE",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1624,
+    "Name": "Underhill ID School",
+    "OrgID": "PS307",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2019-06-30T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "ServerId": 1625,
+    "Name": "Whiting Sudbury Learning Academy",
+    "OrgID": "PS412",
+    "OrgType": "Public School (PS)",
+    "CloseDate": "2018-06-30T07:00:00Z",
+    "Grades": [
+      "K",
+      "PK",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1626,
+    "Name": "SMUGGLERS NOTCH ACADEMY",
+    "OrgID": "IS289",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2022-06-30T07:00:00Z",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  {
+    "ServerId": 1629,
+    "Name": "MYSA SCHOOL",
+    "OrgID": "IS292",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2024-06-15T07:00:00Z",
+    "Grades": [
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1633,
+    "Name": "PROVIDENCE ADVENTURE ACADEMY",
+    "OrgID": "IS294",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2023-06-30T07:00:00Z",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1641,
+    "Name": "Northeast Kingdom Learning Services",
+    "OrgID": "NP001",
+    "OrgType": "Alternative Program (NP)",
+    "CloseDate": "2023-08-03T07:00:00Z",
+    "Grades": null
+  },
+  {
+    "ServerId": 1643,
+    "Name": "Windsor Central Modified Unified Union School District #76A",
+    "OrgID": "U076A",
+    "OrgType": "Unified District (U)",
+    "CloseDate": "2020-07-01T07:00:00Z",
+    "Grades": null
+  },
+  {
+    "ServerId": 1644,
+    "Name": "Windsor Central Modified Unified Union School District #76B",
+    "OrgID": "U076B",
+    "OrgType": "Unified District (U)",
+    "CloseDate": "2020-07-01T07:00:00Z",
+    "Grades": null
+  },
+  {
+    "ServerId": 1651,
+    "Name": "MOUNTAIN VILLAGE SCHOOL",
+    "OrgID": "IS299",
+    "OrgType": "Recognized School (IS)",
+    "CloseDate": "2024-07-01T07:00:00Z",
+    "ParentOrg": "PS299",
+    "OperatedBy": "PS299",
+    "Grades": [
+      "K"
+    ]
+  }
+]

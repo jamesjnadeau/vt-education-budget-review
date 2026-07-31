@@ -4,8 +4,8 @@
   "synced_from": {
     "api": "https://datacollection.education.vermont.gov",
     "endpoint": "/api/lists/independentSchools",
-    "last_synced": "2026-07-29",
-    "snapshot": "registry/raw/2026-07-29"
+    "last_synced": "2026-07-31",
+    "snapshot": "registry/raw/2026-07-31"
   },
   "records": [
     {
