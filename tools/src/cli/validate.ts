@@ -15,8 +15,8 @@
  * discrepancy the plan says to preserve and never silently reconcile.
  */
 
-import { readFileSync } from 'node:fs';
-import { basename, dirname } from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { basename, dirname, join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
@@ -25,6 +25,8 @@ import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
 import {
+  checkDerivedProvenance,
+  checkLandAreaOnly,
   checkNullAccounting,
   checkPlaceholderEntities,
   checkProvenance,
@@ -63,6 +65,7 @@ function main(): number {
     mappings: 0,
     parameters: 0,
     groupings: 0,
+    derived: 0,
   };
 
   const registry = readRegistry();
@@ -151,6 +154,35 @@ function main(): number {
     }
   }
 
+  // --- committed derived products -----------------------------------------
+  // These have no source URL, so their provenance answers a different question:
+  // what was run, on what inputs, at what version. A derived product with no
+  // provenance beside it is a number nobody can re-derive.
+  for (const file of walkFiles(PATHS.derived, (n) => n.endsWith('.yaml'))) {
+    counts.derived++;
+    const data = readData(file);
+    if (basename(file) === 'provenance.yaml') {
+      findings.push(...schemaFindings('provenance', data, file));
+      findings.push(...checkDerivedProvenance(data, file));
+      continue;
+    }
+    findings.push(...schemaFindings('derived-municipality', data, file));
+    findings.push(...checkRegistryRefs(data, file, registry));
+
+    const provenancePath = join(dirname(file), 'provenance.yaml');
+    if (!existsSync(provenancePath)) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'derived-provenance-exists',
+        message:
+          'no provenance.yaml beside this derived product. A committed derived file without ' +
+          'the algorithm, version, pinned inputs and run that produced it cannot be reproduced, ' +
+          'and an unreproducible derived figure is worse than no figure.',
+      });
+    }
+  }
+
   // --- AOE source manifests -----------------------------------------------
   for (const file of walkFiles(PATHS.intake, (n) => n === 'source.yaml')) {
     const data = readData(file);
@@ -170,6 +202,23 @@ function main(): number {
     if (relative.startsWith('warehouse/aoe-adm/')) {
       if (relative.endsWith('/gaps.yaml')) continue;
       findings.push(...schemaFindings('adm', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
+    if (relative.startsWith('warehouse/census/')) {
+      findings.push(...schemaFindings('census-town', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      findings.push(...checkLandAreaOnly(data, file));
+      continue;
+    }
+
+    if (relative.startsWith('warehouse/small-sparse/')) {
+      // gaps.yaml describes what the layer needs and does not have. It is not a
+      // record of a school, so validating it as one would report every field a
+      // school record has as missing from a file that never claimed to be one.
+      if (relative.endsWith('/gaps.yaml')) continue;
+      findings.push(...schemaFindings('small-sparse', data, file));
       findings.push(...checkRegistryRefs(data, file, registry));
       continue;
     }
@@ -202,7 +251,8 @@ function main(): number {
   console.log(
     `Checked ${counts.registry} registry file(s), ${counts.groupings} grouping file(s), ` +
       `${counts.parameters} parameter file(s), ${counts.collectors} collector config(s), ` +
-      `${counts.mappings} mapping(s), ${counts.provenance} provenance file(s), ${counts.warehouse} warehouse record(s).`,
+      `${counts.mappings} mapping(s), ${counts.provenance} provenance file(s), ` +
+      `${counts.derived} derived file(s), ${counts.warehouse} warehouse record(s).`,
   );
   if (!verifyHashes) console.log('Hash verification skipped (--no-hashes).');
 

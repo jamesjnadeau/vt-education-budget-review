@@ -1,0 +1,2213 @@
+schema_version: "1.0"
+algorithm: geocode/school-municipality
+algorithm_version: 1.0.0
+basis: census_geocoder_point_in_polygon
+note: "The municipality a school BUILDING stands in, resolved from AOE-published
+  coordinates against Census county subdivisions. NOT derived from MailingCity:
+  a postal city is not a municipality, and Vermont post office names routinely
+  cover parts of several towns. The coordinates are AOE’s and carry no statement
+  of precision, which is why the registry records geocode_precision as unknown
+  and the distance criterion declines at that precision. Town assignment is far
+  more forgiving of an imprecise coordinate than a ten-mile distance threshold
+  is, but a school near a town line is the case to check by hand."
+schools:
+  - school: academy/burr-and-burton-academy
+    latitude: 43.16414566
+    longitude: -73.07736959
+    geoid: "5000342850"
+    census_name: Manchester town
+    municipality: town/manchester
+    note: null
+  - school: academy/lyndon-institute
+    latitude: 44.5384112
+    longitude: -72.0154517
+    geoid: "5000541725"
+    census_name: Lyndon town
+    municipality: town/lyndon
+    note: null
+  - school: academy/st-johnsbury-academy
+    latitude: 44.41656569
+    longitude: -72.01933116
+    geoid: "5000562200"
+    census_name: St. Johnsbury town
+    municipality: town/st-johnsbury
+    note: null
+  - school: academy/thetford-academy
+    latitude: 43.81456547
+    longitude: -72.23165622
+    geoid: "5001772400"
+    census_name: Thetford town
+    municipality: town/thetford
+    note: null
+  - school: school/academy-school
+    latitude: 42.85125974
+    longitude: -72.59805244
+    geoid: "5002507900"
+    census_name: Brattleboro town
+    municipality: town/brattleboro
+    note: null
+  - school: school/albany-community-school
+    latitude: 44.73818251
+    longitude: -72.37670466
+    geoid: "5001900475"
+    census_name: Albany town
+    municipality: town/albany
+    note: null
+  - school: school/albert-bridge-school-west-windsor
+    latitude: 43.46950149
+    longitude: -72.47096252
+    geoid: "5002783050"
+    census_name: West Windsor town
+    municipality: town/west-windsor
+    note: null
+  - school: school/albert-d-lawton-school
+    latitude: 44.48671245
+    longitude: -73.09819147
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/alburgh-community-education-center
+    latitude: 44.97894287
+    longitude: -73.2980957
+    geoid: "5001300860"
+    census_name: Alburgh town
+    municipality: town/alburgh
+    note: null
+  - school: school/arlington-memorial
+    latitude: 43.06560898
+    longitude: -73.15130615
+    geoid: "5000301450"
+    census_name: Arlington town
+    municipality: town/arlington
+    note: null
+  - school: school/bakersfield-school
+    latitude: 44.78434753
+    longitude: -72.80279541
+    geoid: "5001102500"
+    census_name: Bakersfield town
+    municipality: town/bakersfield
+    note: null
+  - school: school/barnard-academy
+    latitude: 43.72630408
+    longitude: -72.62049167
+    geoid: "5002702725"
+    census_name: Barnard town
+    municipality: town/barnard
+    note: null
+  - school: school/barnet-elementary-school
+    latitude: 44.30736139
+    longitude: -72.0807785
+    geoid: "5000502875"
+    census_name: Barnet town
+    municipality: town/barnet
+    note: null
+  - school: school/barre-city-elementary-middle-school
+    latitude: 44.18480333
+    longitude: -72.50445841
+    geoid: "5002303175"
+    census_name: Barre city
+    municipality: town/barre-city
+    note: null
+  - school: school/barre-town-elementary-middle-school
+    latitude: 44.16815012
+    longitude: -72.48560305
+    geoid: "5002303250"
+    census_name: Barre town
+    municipality: town/barre-town
+    note: null
+  - school: school/barstow-memorial-school
+    latitude: 43.70094718
+    longitude: -72.95213951
+    geoid: "5002114350"
+    census_name: Chittenden town
+    municipality: town/chittenden
+    note: null
+  - school: school/barton-graded-school
+    latitude: 44.74882244
+    longitude: -72.17973713
+    geoid: "5001903550"
+    census_name: Barton town
+    municipality: null
+    note: The coordinates fall in "Barton town" (GEOID 5001903550), which the census
+      import could not join to a registry town. Resolve that join first; this
+      record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/beeman-elementary-school
+    latitude: 44.12541916
+    longitude: -73.15320985
+    geoid: "5000148700"
+    census_name: New Haven town
+    municipality: town/new-haven
+    note: null
+  - school: school/bellows-falls-middle-school
+    latitude: 43.13335728
+    longitude: -72.44629248
+    geoid: "5002560250"
+    census_name: Rockingham town
+    municipality: town/rockingham
+    note: null
+  - school: school/bellows-falls-union-high-school
+    latitude: 43.11868286
+    longitude: -72.44294739
+    geoid: "5002581400"
+    census_name: Westminster town
+    municipality: town/westminster
+    note: null
+  - school: school/bellows-free-academy-elementary-fairfax
+    latitude: 44.8091659
+    longitude: -73.0824896
+    geoid: "5001161675"
+    census_name: St. Albans city
+    municipality: town/st-albans-city
+    note: null
+  - school: school/bellows-free-academy-high-school-fairfax
+    latitude: 44.66354812
+    longitude: -73.01334789
+    geoid: "5001124925"
+    census_name: Fairfax town
+    municipality: town/fairfax
+    note: null
+  - school: school/bellows-free-academy-st-albans
+    latitude: 44.8081444
+    longitude: -73.08332972
+    geoid: "5001161675"
+    census_name: St. Albans city
+    municipality: town/st-albans-city
+    note: null
+  - school: school/bennington-elementary-school
+    latitude: 42.88073047
+    longitude: -73.19351396
+    geoid: "5000304825"
+    census_name: Bennington town
+    municipality: null
+    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/benson-village-school
+    latitude: 43.70702581
+    longitude: -73.30216408
+    geoid: "5002105200"
+    census_name: Benson town
+    municipality: town/benson
+    note: null
+  - school: school/berkshire-elementary-school
+    latitude: 44.97245407
+    longitude: -72.76634216
+    geoid: "5001105425"
+    census_name: Berkshire town
+    municipality: town/berkshire
+    note: null
+  - school: school/berlin-elementary-school
+    latitude: 44.21448573
+    longitude: -72.57165386
+    geoid: "5002305650"
+    census_name: Berlin town
+    municipality: town/berlin
+    note: null
+  - school: school/bethel-elementary-school
+    latitude: 43.83323192
+    longitude: -72.64349962
+    geoid: "5002705800"
+    census_name: Bethel town
+    municipality: town/bethel
+    note: null
+  - school: school/bingham-memorial-school
+    latitude: 43.96390152
+    longitude: -73.20639801
+    geoid: "5000116000"
+    census_name: Cornwall town
+    municipality: town/cornwall
+    note: null
+  - school: school/blue-mountain-union-school
+    latitude: 44.15542285
+    longitude: -72.0832345
+    geoid: "5001748175"
+    census_name: Newbury town
+    municipality: town/newbury
+    note: null
+  - school: school/bradford-elementary-school
+    latitude: 44.0027771
+    longitude: -72.12219238
+    geoid: "5001707375"
+    census_name: Bradford town
+    municipality: null
+    note: The coordinates fall in "Bradford town" (GEOID 5001707375), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/braintree-school
+    latitude: 43.95573761
+    longitude: -72.72237787
+    geoid: "5001707600"
+    census_name: Braintree town
+    municipality: town/braintree
+    note: null
+  - school: school/brattleboro-area-middle-school
+    latitude: 42.83559277395158
+    longitude: -72.56171063765215
+    geoid: "5002507900"
+    census_name: Brattleboro town
+    municipality: town/brattleboro
+    note: null
+  - school: school/brattleboro-union-high-school
+    latitude: 42.83673855
+    longitude: -72.56126709
+    geoid: "5002507900"
+    census_name: Brattleboro town
+    municipality: town/brattleboro
+    note: null
+  - school: school/brewster-pierce-school
+    latitude: 44.29578277
+    longitude: -72.96361472
+    geoid: "5000734600"
+    census_name: Huntington town
+    municipality: town/huntington
+    note: null
+  - school: school/bridport-central-school
+    latitude: 43.98100966
+    longitude: -73.31579743
+    geoid: "5000108575"
+    census_name: Bridport town
+    municipality: town/bridport
+    note: null
+  - school: school/brighton-elementary-school
+    latitude: 44.82149697
+    longitude: -71.89398785
+    geoid: "5000908725"
+    census_name: Brighton town
+    municipality: town/brighton
+    note: null
+  - school: school/bristol-elementary-school
+    latitude: 44.13819015
+    longitude: -73.07709527
+    geoid: "5000109025"
+    census_name: Bristol town
+    municipality: town/bristol
+    note: null
+  - school: school/brookfield-school
+    latitude: 44.01639526
+    longitude: -72.60668329
+    geoid: "5001709325"
+    census_name: Brookfield town
+    municipality: town/brookfield
+    note: null
+  - school: school/brookside-primary-school
+    latitude: 44.33912306
+    longitude: -72.75312005
+    geoid: "5002376975"
+    census_name: Waterbury town
+    municipality: town/waterbury
+    note: null
+  - school: school/brownington-central-school
+    latitude: 44.81982105
+    longitude: -72.13770493
+    geoid: "5001909850"
+    census_name: Brownington town
+    municipality: town/brownington
+    note: null
+  - school: school/browns-river-middle-school
+    latitude: 44.51922688
+    longitude: -72.94438583
+    geoid: "5000736700"
+    census_name: Jericho town
+    municipality: town/jericho
+    note: null
+  - school: school/burke-town-school
+    latitude: 44.6245521
+    longitude: -71.95991666
+    geoid: "5000510450"
+    census_name: Burke town
+    municipality: town/burke
+    note: null
+  - school: school/burlington-high-school
+    latitude: 44.49632262
+    longitude: -73.2352609
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/c-p-smith-school
+    latitude: 44.51310192
+    longitude: -73.2430351
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/cabot-school
+    latitude: 44.40345383
+    longitude: -72.30952454
+    geoid: "5002311125"
+    census_name: Cabot town
+    municipality: town/cabot
+    note: null
+  - school: school/calais-elementary-school
+    latitude: 44.31965188
+    longitude: -72.45183022
+    geoid: "5002311350"
+    census_name: Calais town
+    municipality: town/calais
+    note: null
+  - school: school/cambridge-elementary-school
+    latitude: 44.64452412
+    longitude: -72.82674204
+    geoid: "5001511500"
+    census_name: Cambridge town
+    municipality: town/cambridge
+    note: null
+  - school: school/camels-hump-middle-school
+    latitude: 44.41354069
+    longitude: -72.99423653
+    geoid: "5000759275"
+    census_name: Richmond town
+    municipality: town/richmond
+    note: null
+  - school: school/canaan-schools
+    latitude: 44.99538238
+    longitude: -71.5377002
+    geoid: "5000911800"
+    census_name: Canaan town
+    municipality: town/canaan
+    note: null
+  - school: school/castleton-elementary-school
+    latitude: 43.61985725698272
+    longitude: -73.21182668288036
+    geoid: "5002111950"
+    census_name: Castleton town
+    municipality: town/castleton
+    note: null
+  - school: school/cavendish-town-elementary-school
+    latitude: 43.38394928
+    longitude: -72.6371994
+    geoid: "5002712250"
+    census_name: Cavendish town
+    municipality: town/cavendish
+    note: null
+  - school: school/central-elementary-school
+    latitude: 43.13227203
+    longitude: -72.45059165
+    geoid: "5002560250"
+    census_name: Rockingham town
+    municipality: town/rockingham
+    note: null
+  - school: school/chamberlin-school
+    latitude: 44.47129654
+    longitude: -73.16537089
+    geoid: "5000766175"
+    census_name: South Burlington city
+    municipality: town/south-burlington
+    note: null
+  - school: school/champlain-school
+    latitude: 44.45706494
+    longitude: -73.21322112
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/champlain-valley-union-high-school
+    latitude: 44.34469516
+    longitude: -73.1099409
+    geoid: "5000733475"
+    census_name: Hinesburg town
+    municipality: town/hinesburg
+    note: null
+  - school: school/charleston-elementary-school
+    latitude: 44.84304635
+    longitude: -72.01956079
+    geoid: "5001913150"
+    census_name: Charleston town
+    municipality: town/charleston
+    note: null
+  - school: school/charlotte-central-school
+    latitude: 44.31518793
+    longitude: -73.22626046
+    geoid: "5000713300"
+    census_name: Charlotte town
+    municipality: town/charlotte
+    note: null
+  - school: school/chester-andover-elementary-school
+    latitude: 43.26470962
+    longitude: -72.59548566
+    geoid: "5002713675"
+    census_name: Chester town
+    municipality: town/chester
+    note: null
+  - school: school/clarendon-elementary-school
+    latitude: 43.56332558
+    longitude: -72.96786504
+    geoid: "5002114500"
+    census_name: Clarendon town
+    municipality: town/clarendon
+    note: null
+  - school: school/colchester-high-school
+    latitude: 44.53947928
+    longitude: -73.21345943
+    geoid: "5000714875"
+    census_name: Colchester town
+    municipality: town/colchester
+    note: null
+  - school: school/colchester-middle-school
+    latitude: 44.54028221
+    longitude: -73.20973208
+    geoid: "5000714875"
+    census_name: Colchester town
+    municipality: town/colchester
+    note: null
+  - school: school/concord-graded-middle-school
+    latitude: 44.42662722
+    longitude: -71.89055429
+    geoid: "5000915250"
+    census_name: Concord town
+    municipality: town/concord
+    note: null
+  - school: school/coventry-village-school
+    latitude: 44.86253526
+    longitude: -72.26488017
+    geoid: "5001916150"
+    census_name: Coventry town
+    municipality: town/coventry
+    note: null
+  - school: school/craftsbury-schools
+    latitude: 44.65419356
+    longitude: -72.38198438
+    geoid: "5001916300"
+    census_name: Craftsbury town
+    municipality: town/craftsbury
+    note: null
+  - school: school/crossett-brook-middle-school
+    latitude: 44.32131342
+    longitude: -72.75257224
+    geoid: "5002318550"
+    census_name: Duxbury town
+    municipality: town/duxbury
+    note: null
+  - school: school/currier-memorial-union-school
+    latitude: 43.35004271
+    longitude: -72.99513347
+    geoid: "5002116825"
+    census_name: Danby town
+    municipality: town/danby
+    note: null
+  - school: school/danville-school
+    latitude: 44.41082764
+    longitude: -72.14350128
+    geoid: "5000517125"
+    census_name: Danville town
+    municipality: town/danville
+    note: null
+  - school: school/derby-elementary-school
+    latitude: 45.00150282
+    longitude: -72.11834471
+    geoid: "5001917350"
+    census_name: Derby town
+    municipality: town/derby
+    note: null
+  - school: school/dorset-elementary-school
+    latitude: 43.22192764
+    longitude: -73.06585693
+    geoid: "5000317725"
+    census_name: Dorset town
+    municipality: town/dorset
+    note: null
+  - school: school/dothan-brook-school
+    latitude: 43.68760719
+    longitude: -72.32177401
+    geoid: "5002732275"
+    census_name: Hartford town
+    municipality: town/hartford
+    note: null
+  - school: school/doty-memorial-school
+    latitude: 44.3733486
+    longitude: -72.54794862
+    geoid: "5002386125"
+    census_name: Worcester town
+    municipality: town/worcester
+    note: null
+  - school: school/dover-elementary-school
+    latitude: 42.93886302
+    longitude: -72.80991018
+    geoid: "5002517875"
+    census_name: Dover town
+    municipality: town/dover
+    note: null
+  - school: school/dummerston-schools
+    latitude: 42.93366824
+    longitude: -72.53791936
+    geoid: "5002518325"
+    census_name: Dummerston town
+    municipality: town/dummerston
+    note: null
+  - school: school/east-montpelier-elementary-school
+    latitude: 44.28687085
+    longitude: -72.49529056
+    geoid: "5002321925"
+    census_name: East Montpelier town
+    municipality: town/east-montpelier
+    note: null
+  - school: school/eden-central-school
+    latitude: 44.70407526
+    longitude: -72.56358386
+    geoid: "5001523500"
+    census_name: Eden town
+    municipality: town/eden
+    note: null
+  - school: school/edmunds-elementary-school
+    latitude: 44.47548008
+    longitude: -73.20734355
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/edmunds-middle-school
+    latitude: 44.47544947
+    longitude: -73.20819893
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/elm-hill-school
+    latitude: 43.30588625
+    longitude: -72.48445443
+    geoid: "5002769550"
+    census_name: Springfield town
+    municipality: town/springfield
+    note: null
+  - school: school/elmore-school
+    latitude: 44.54067996
+    longitude: -72.52296433
+    geoid: "5001523725"
+    census_name: Elmore town
+    municipality: town/elmore
+    note: null
+  - school: school/enosburg-falls-elementary-school
+    latitude: 44.90433888
+    longitude: -72.80136481
+    geoid: "5001124050"
+    census_name: Enosburgh town
+    municipality: town/enosburgh
+    note: null
+  - school: school/enosburg-falls-middle-high-school
+    latitude: 44.90518355
+    longitude: -72.80384312
+    geoid: "5001124050"
+    census_name: Enosburgh town
+    municipality: town/enosburgh
+    note: null
+  - school: school/essex-elementary-school
+    latitude: 44.51306852
+    longitude: -73.0558208
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/essex-high-school
+    latitude: 44.49748478
+    longitude: -73.10859083
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/essex-middle-school
+    latitude: 44.49901773
+    longitude: -73.05850431
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/fair-haven-grade-school
+    latitude: 43.59487634
+    longitude: -73.26455055
+    geoid: "5002125375"
+    census_name: Fair Haven town
+    municipality: town/fair-haven
+    note: null
+  - school: school/fair-haven-union-middle-and-high-school
+    latitude: 43.60351563
+    longitude: -73.27021789
+    geoid: "5002125375"
+    census_name: Fair Haven town
+    municipality: town/fair-haven
+    note: null
+  - school: school/fairfield-center-school
+    latitude: 44.80051041
+    longitude: -72.94792175
+    geoid: "5001125225"
+    census_name: Fairfield town
+    municipality: town/fairfield
+    note: null
+  - school: school/fayston-elementary-school
+    latitude: 44.17918431
+    longitude: -72.88425695
+    geoid: "5002325825"
+    census_name: Fayston town
+    municipality: town/fayston
+    note: null
+  - school: school/ferrisburgh-central-school
+    latitude: 44.20677091
+    longitude: -73.24791986
+    geoid: "5000126300"
+    census_name: Ferrisburgh town
+    municipality: town/ferrisburgh
+    note: null
+  - school: school/first-branch-elementary-school-tunbridge
+    latitude: 43.91696549
+    longitude: -72.47480774
+    geoid: "5001773675"
+    census_name: Tunbridge town
+    municipality: town/tunbridge
+    note: null
+  - school: school/first-branch-middle-school-chelsea
+    latitude: 43.98724174
+    longitude: -72.4465037
+    geoid: "5001713525"
+    census_name: Chelsea town
+    municipality: town/chelsea
+    note: null
+  - school: school/fisher-school
+    latitude: 43.06616937
+    longitude: -73.15365909
+    geoid: "5000301450"
+    census_name: Arlington town
+    municipality: town/arlington
+    note: null
+  - school: school/fletcher-elementary-school
+    latitude: 44.67040662
+    longitude: -72.92386516
+    geoid: "5001126500"
+    census_name: Fletcher town
+    municipality: town/fletcher
+    note: null
+  - school: school/flood-brook-school
+    latitude: 43.23696705
+    longitude: -72.84815855
+    geoid: "5002540225"
+    census_name: Londonderry town
+    municipality: town/londonderry
+    note: null
+  - school: school/folsom-education-community-center
+    latitude: 44.63631058
+    longitude: -73.30220795
+    geoid: "5001367000"
+    census_name: South Hero town
+    municipality: town/south-hero
+    note: null
+  - school: school/founders-memorial-school
+    latitude: 44.50039953
+    longitude: -73.05535944
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/franklin-central-school
+    latitude: 44.98424067
+    longitude: -72.92018338
+    geoid: "5001127100"
+    census_name: Franklin town
+    municipality: town/franklin
+    note: null
+  - school: school/frederick-h-tuttle-middle-school
+    latitude: 44.45670637
+    longitude: -73.17727344
+    geoid: "5000766175"
+    census_name: South Burlington city
+    municipality: town/south-burlington
+    note: null
+  - school: school/georgia-elementary-middle-school
+    latitude: 44.73529636
+    longitude: -73.11418834
+    geoid: "5001127700"
+    census_name: Georgia town
+    municipality: town/georgia
+    note: null
+  - school: school/glover-community-school
+    latitude: 44.70588111
+    longitude: -72.18969375
+    geoid: "5001928075"
+    census_name: Glover town
+    municipality: town/glover
+    note: null
+  - school: school/grafton-elementary-school
+    latitude: 43.17017365
+    longitude: -72.60900879
+    geoid: "5002528900"
+    census_name: Grafton town
+    municipality: town/grafton
+    note: null
+  - school: school/grand-isle-school
+    latitude: 44.7254983
+    longitude: -73.29140443
+    geoid: "5001329275"
+    census_name: Grand Isle town
+    municipality: town/grand-isle
+    note: null
+  - school: school/green-mountain-union-high-school
+    latitude: 43.25361252
+    longitude: -72.58145904
+    geoid: "5002713675"
+    census_name: Chester town
+    municipality: town/chester
+    note: null
+  - school: school/green-street-school
+    latitude: 42.85174
+    longitude: -72.565
+    geoid: "5002507900"
+    census_name: Brattleboro town
+    municipality: town/brattleboro
+    note: null
+  - school: school/guilford-central-school
+    latitude: 42.80070816
+    longitude: -72.62235285
+    geoid: "5002530925"
+    census_name: Guilford town
+    municipality: town/guilford
+    note: null
+  - school: school/halifax-west-school
+    latitude: 42.78439253
+    longitude: -72.76854454
+    geoid: "5002531150"
+    census_name: Halifax town
+    municipality: town/halifax
+    note: null
+  - school: school/hardwick-elementary-school
+    latitude: 44.50334171
+    longitude: -72.3681882
+    geoid: "5000531825"
+    census_name: Hardwick town
+    municipality: town/hardwick
+    note: null
+  - school: school/hartford-high-school
+    latitude: 43.65765397
+    longitude: -72.31886178
+    geoid: "5002732275"
+    census_name: Hartford town
+    municipality: town/hartford
+    note: null
+  - school: school/hartford-memorial-middle-school
+    latitude: 43.65635681
+    longitude: -72.31993866
+    geoid: "5002732275"
+    census_name: Hartford town
+    municipality: town/hartford
+    note: null
+  - school: school/hartland-elementary-school
+    latitude: 43.5381279
+    longitude: -72.39408875
+    geoid: "5002732425"
+    census_name: Hartland town
+    municipality: town/hartland
+    note: null
+  - school: school/harwood-union-middle-high-school
+    latitude: 44.25403172
+    longitude: -72.78643663
+    geoid: "5002318550"
+    census_name: Duxbury town
+    municipality: town/duxbury
+    note: null
+  - school: school/hazen-union-high-school
+    latitude: 44.50892114
+    longitude: -72.36469997
+    geoid: "5000531825"
+    census_name: Hardwick town
+    municipality: town/hardwick
+    note: null
+  - school: school/hiawatha-elementary-school
+    latitude: 44.48897574
+    longitude: -73.12791048
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/highgate-elementary-school
+    latitude: 44.94133174
+    longitude: -73.04409389
+    geoid: "5001133025"
+    census_name: Highgate town
+    municipality: town/highgate
+    note: null
+  - school: school/hinesburg-community-school
+    latitude: 44.32620961
+    longitude: -73.1080558
+    geoid: "5000733475"
+    census_name: Hinesburg town
+    municipality: town/hinesburg
+    note: null
+  - school: school/hyde-park-elementary-school
+    latitude: 44.59207232
+    longitude: -72.61359165
+    geoid: "5001535050"
+    census_name: Hyde Park town
+    municipality: town/hyde-park
+    note: null
+  - school: school/integrated-arts-academy-at-h-o-wheeler
+    latitude: 44.48799308
+    longitude: -73.21390296
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/irasburg-village-school
+    latitude: 44.80364628
+    longitude: -72.27281264
+    geoid: "5001935575"
+    census_name: Irasburg town
+    municipality: town/irasburg
+    note: null
+  - school: school/j-f-kennedy-elementary-school
+    latitude: 44.5002786
+    longitude: -73.18070944
+    geoid: "5000785150"
+    census_name: Winooski city
+    municipality: town/winooski
+    note: null
+  - school: school/j-j-flynn-school
+    latitude: 44.51702307
+    longitude: -73.26000212
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/jamaica-village-school
+    latitude: 43.10406588
+    longitude: -72.77502243
+    geoid: "5002536175"
+    census_name: Jamaica town
+    municipality: town/jamaica
+    note: null
+  - school: school/jay-westfield-joint-elementary-school
+    latitude: 44.95266342
+    longitude: -72.43502808
+    geoid: "5001936325"
+    census_name: Jay town
+    municipality: town/jay
+    note: null
+  - school: school/jericho-elementary-school
+    latitude: 44.50562666
+    longitude: -72.99047679
+    geoid: "5000736700"
+    census_name: Jericho town
+    municipality: town/jericho
+    note: null
+  - school: school/johnson-elementary-school
+    latitude: 44.63714055
+    longitude: -72.67491041
+    geoid: "5001537075"
+    census_name: Johnson town
+    municipality: town/johnson
+    note: null
+  - school: school/killington-elementary-school
+    latitude: 43.64456558
+    longitude: -72.79402924
+    geoid: "5002137685"
+    census_name: Killington town
+    municipality: town/killington
+    note: null
+  - school: school/lake-region-union-high-school
+    latitude: 44.78260258
+    longitude: -72.2206491
+    geoid: "5001903550"
+    census_name: Barton town
+    municipality: null
+    note: The coordinates fall in "Barton town" (GEOID 5001903550), which the census
+      import could not join to a registry town. Resolve that join first; this
+      record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/lakeview-early-education-center
+    latitude: 44.58081885
+    longitude: -72.29399645
+    geoid: "5001930175"
+    census_name: Greensboro town
+    municipality: town/greensboro
+    note: null
+  - school: school/lamoille-union-high-school
+    latitude: 44.60116447
+    longitude: -72.6306363
+    geoid: "5001535050"
+    census_name: Hyde Park town
+    municipality: town/hyde-park
+    note: null
+  - school: school/lamoille-union-middle-school
+    latitude: 44.601207357103355
+    longitude: -72.6305799597088
+    geoid: "5001535050"
+    census_name: Hyde Park town
+    municipality: town/hyde-park
+    note: null
+  - school: school/leland-gray-union-middle-high-school
+    latitude: 43.04659116
+    longitude: -72.66708328
+    geoid: "5002573300"
+    census_name: Townshend town
+    municipality: town/townshend
+    note: null
+  - school: school/lincoln-community-school
+    latitude: 44.09766647
+    longitude: -72.98616802
+    geoid: "5000140075"
+    census_name: Lincoln town
+    municipality: town/lincoln
+    note: null
+  - school: school/lothrop-school
+    latitude: 43.70564249
+    longitude: -73.01898765
+    geoid: "5002155600"
+    census_name: Pittsford town
+    municipality: town/pittsford
+    note: null
+  - school: school/lowell-graded-school
+    latitude: 44.80538867
+    longitude: -72.44881556
+    geoid: "5001940525"
+    census_name: Lowell town
+    municipality: town/lowell
+    note: null
+  - school: school/ludlow-elementary-school
+    latitude: 43.39705962
+    longitude: -72.68855214
+    geoid: "5002741275"
+    census_name: Ludlow town
+    municipality: town/ludlow
+    note: null
+  - school: school/lunenburg-school
+    latitude: 44.4147729
+    longitude: -71.71448313
+    geoid: "5000941425"
+    census_name: Lunenburg town
+    municipality: town/lunenburg
+    note: null
+  - school: school/lyman-c-hunt-middle-school
+    latitude: 44.51337031
+    longitude: -73.24918817
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/lyndon-town-school
+    latitude: 44.54653664
+    longitude: -71.98538502
+    geoid: "5000541725"
+    census_name: Lyndon town
+    municipality: town/lyndon
+    note: null
+  - school: school/main-street-middle-school
+    latitude: 44.26297202
+    longitude: -72.56966316
+    geoid: "5002346000"
+    census_name: Montpelier city
+    municipality: town/montpelier
+    note: null
+  - school: school/malletts-bay-school
+    latitude: 44.53861237
+    longitude: -73.20784759
+    geoid: "5000714875"
+    census_name: Colchester town
+    municipality: town/colchester
+    note: null
+  - school: school/manchester-elementary-middle-school
+    latitude: 43.17874272
+    longitude: -73.05366878
+    geoid: "5000342850"
+    census_name: Manchester town
+    municipality: town/manchester
+    note: null
+  - school: school/marion-w-cross-school
+    latitude: 43.71332471
+    longitude: -72.30649485
+    geoid: "5002752900"
+    census_name: Norwich town
+    municipality: town/norwich
+    note: null
+  - school: school/marlboro-elementary-school
+    latitude: 42.86869812
+    longitude: -72.71968842
+    geoid: "5002543375"
+    census_name: Marlboro town
+    municipality: town/marlboro
+    note: null
+  - school: school/mettawee-community-school
+    latitude: 43.38572867
+    longitude: -73.22368941
+    geoid: "5002154250"
+    census_name: Pawlet town
+    municipality: town/pawlet
+    note: null
+  - school: school/middlebury-id-school-4
+    latitude: 44.01089952
+    longitude: -73.16181297
+    geoid: "5000144350"
+    census_name: Middlebury town
+    municipality: town/middlebury
+    note: null
+  - school: school/middlebury-union-high-school
+    latitude: 44.00669412
+    longitude: -73.16313653
+    geoid: "5000144350"
+    census_name: Middlebury town
+    municipality: town/middlebury
+    note: null
+  - school: school/middlebury-union-middle-school
+    latitude: 43.99835341
+    longitude: -73.152619
+    geoid: "5000144350"
+    census_name: Middlebury town
+    municipality: town/middlebury
+    note: null
+  - school: school/middletown-springs-elementary-school
+    latitude: 43.48398654
+    longitude: -73.12041849
+    geoid: "5002144800"
+    census_name: Middletown Springs town
+    municipality: town/middletown-springs
+    note: null
+  - school: school/mill-river-union-high-school
+    latitude: 43.54702782
+    longitude: -72.97152002
+    geoid: "5002114500"
+    census_name: Clarendon town
+    municipality: town/clarendon
+    note: null
+  - school: school/miller-s-run-school
+    latitude: 44.60270843
+    longitude: -72.11921494
+    geoid: "5000564075"
+    census_name: Sheffield town
+    municipality: town/sheffield
+    note: null
+  - school: school/milton-elementary-school
+    latitude: 44.63252648
+    longitude: -73.10986773
+    geoid: "5000745250"
+    census_name: Milton town
+    municipality: town/milton
+    note: null
+  - school: school/milton-middle-school
+    latitude: 44.63252648
+    longitude: -73.10986773
+    geoid: "5000745250"
+    census_name: Milton town
+    municipality: town/milton
+    note: null
+  - school: school/milton-senior-high-school
+    latitude: 44.62910158
+    longitude: -73.11892499
+    geoid: "5000745250"
+    census_name: Milton town
+    municipality: town/milton
+    note: null
+  - school: school/missisquoi-valley-union-high-school
+    latitude: 44.92786282
+    longitude: -73.10182379
+    geoid: "5001133025"
+    census_name: Highgate town
+    municipality: town/highgate
+    note: null
+  - school: school/molly-stark-school
+    latitude: 42.89823914
+    longitude: -73.20246124
+    geoid: "5000304825"
+    census_name: Bennington town
+    municipality: null
+    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/monkton-central-school
+    latitude: 44.24424149
+    longitude: -73.13871678
+    geoid: "5000145550"
+    census_name: Monkton town
+    municipality: town/monkton
+    note: null
+  - school: school/montgomery-elementary-school
+    latitude: 44.88643403
+    longitude: -72.61623998
+    geoid: "5001145850"
+    census_name: Montgomery town
+    municipality: town/montgomery
+    note: null
+  - school: school/montpelier-high-school
+    latitude: 44.26056192
+    longitude: -72.58698022
+    geoid: "5002346000"
+    census_name: Montpelier city
+    municipality: town/montpelier
+    note: null
+  - school: school/monument-elementary-school
+    latitude: 42.88490728
+    longitude: -73.21075017
+    geoid: "5000304825"
+    census_name: Bennington town
+    municipality: null
+    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/moretown-elementary-school
+    latitude: 44.24754137
+    longitude: -72.76261474
+    geoid: "5002346225"
+    census_name: Moretown town
+    municipality: town/moretown
+    note: null
+  - school: school/morristown-elementary-school
+    latitude: 44.56386017
+    longitude: -72.58531901
+    geoid: "5001546675"
+    census_name: Morristown town
+    municipality: town/morristown
+    note: null
+  - school: school/mt-abraham-union-high-school
+    latitude: 44.1356078
+    longitude: -73.09396414
+    geoid: "5000109025"
+    census_name: Bristol town
+    municipality: town/bristol
+    note: null
+  - school: school/mt-anthony-senior-union-high-school
+    latitude: 42.88572453
+    longitude: -73.19141249
+    geoid: "5000304825"
+    census_name: Bennington town
+    municipality: null
+    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/mt-anthony-union-middle-school
+    latitude: 42.90544236
+    longitude: -73.18774748
+    geoid: "5000304825"
+    census_name: Bennington town
+    municipality: null
+    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/mt-holly-school
+    latitude: 43.44584953
+    longitude: -72.82305519
+    geoid: "5002147200"
+    census_name: Mount Holly town
+    municipality: town/mt-holly
+    note: null
+  - school: school/mt-mansfield-union-high-school
+    latitude: 44.48618448
+    longitude: -72.96204798
+    geoid: "5000736700"
+    census_name: Jericho town
+    municipality: town/jericho
+    note: null
+  - school: school/neshobe-school
+    latitude: 43.82639283
+    longitude: -73.05509375
+    geoid: "5002107750"
+    census_name: Brandon town
+    municipality: town/brandon
+    note: null
+  - school: school/newark-street-school
+    latitude: 44.69018895
+    longitude: -71.95072515
+    geoid: "5000547725"
+    census_name: Newark town
+    municipality: town/newark
+    note: null
+  - school: school/newbrook-elementary-school
+    latitude: 42.95993423
+    longitude: -72.65005493
+    geoid: "5002548400"
+    census_name: Newfane town
+    municipality: town/newfane
+    note: null
+  - school: school/newbury-elementary-school
+    latitude: 44.0790802
+    longitude: -72.06006721
+    geoid: "5001748175"
+    census_name: Newbury town
+    municipality: town/newbury
+    note: null
+  - school: school/newport-city-elementary-school
+    latitude: 44.94494763
+    longitude: -72.19173288
+    geoid: "5001948850"
+    census_name: Newport city
+    municipality: town/newport-city
+    note: null
+  - school: school/newport-town-school
+    latitude: 44.95164501
+    longitude: -72.30639415
+    geoid: "5001948925"
+    census_name: Newport town
+    municipality: town/newport-town
+    note: null
+  - school: school/north-country-union-high-school
+    latitude: 44.94647579
+    longitude: -72.2032804
+    geoid: "5001948850"
+    census_name: Newport city
+    municipality: town/newport-city
+    note: null
+  - school: school/north-country-union-junior-high-school
+    latitude: 44.94925929
+    longitude: -72.13136721
+    geoid: "5001917350"
+    census_name: Derby town
+    municipality: town/derby
+    note: null
+  - school: school/northeast-primary-school
+    latitude: 43.61796129
+    longitude: -72.96191269
+    geoid: "5002161225"
+    census_name: Rutland city
+    municipality: town/rutland-city
+    note: null
+  - school: school/northfield-elementary-school
+    latitude: 44.15454961
+    longitude: -72.66207238
+    geoid: "5002350275"
+    census_name: Northfield town
+    municipality: town/northfield
+    note: null
+  - school: school/northfield-middle-high-school
+    latitude: 44.15371457
+    longitude: -72.66108797
+    geoid: "5002350275"
+    census_name: Northfield town
+    municipality: town/northfield
+    note: null
+  - school: school/northwest-primary-school
+    latitude: 43.61276245
+    longitude: -72.99141693
+    geoid: "5002161225"
+    census_name: Rutland city
+    municipality: town/rutland-city
+    note: null
+  - school: school/oak-grove-school
+    latitude: 42.84008
+    longitude: -72.55802
+    geoid: "5002507900"
+    census_name: Brattleboro town
+    municipality: town/brattleboro
+    note: null
+  - school: school/orange-center-school
+    latitude: 44.1490322
+    longitude: -72.40360054
+    geoid: "5001753425"
+    census_name: Orange town
+    municipality: town/orange
+    note: null
+  - school: school/orchard-school
+    latitude: 44.43976113
+    longitude: -73.20768205
+    geoid: "5000766175"
+    census_name: South Burlington city
+    municipality: town/south-burlington
+    note: null
+  - school: school/orleans-elementary-school
+    latitude: 44.81006209
+    longitude: -72.19683422
+    geoid: "5001903550"
+    census_name: Barton town
+    municipality: null
+    note: The coordinates fall in "Barton town" (GEOID 5001903550), which the census
+      import could not join to a registry town. Resolve that join first; this
+      record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/orwell-village-school
+    latitude: 43.8045275
+    longitude: -73.29908239
+    geoid: "5000153725"
+    census_name: Orwell town
+    municipality: town/orwell
+    note: null
+  - school: school/ottauquechee-school
+    latitude: 43.64947158
+    longitude: -72.41678695
+    geoid: "5002732275"
+    census_name: Hartford town
+    municipality: town/hartford
+    note: null
+  - school: school/otter-valley-union-middle-high-school
+    latitude: 43.76709133
+    longitude: -73.05154357
+    geoid: "5002107750"
+    census_name: Brandon town
+    municipality: town/brandon
+    note: null
+  - school: school/oxbow-union-high-school
+    latitude: 44.00791064
+    longitude: -72.11379667
+    geoid: "5001707375"
+    census_name: Bradford town
+    municipality: null
+    note: The coordinates fall in "Bradford town" (GEOID 5001707375), which the
+      census import could not join to a registry town. Resolve that join first;
+      this record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/peacham-elementary-school
+    latitude: 44.3260184
+    longitude: -72.16651956
+    geoid: "5000554400"
+    census_name: Peacham town
+    municipality: town/peacham
+    note: null
+  - school: school/peoples-academy
+    latitude: 44.56240529
+    longitude: -72.59031458
+    geoid: "5001546675"
+    census_name: Morristown town
+    municipality: town/morristown
+    note: null
+  - school: school/peoples-academy-middle-level
+    latitude: 44.56277769
+    longitude: -72.59019411
+    geoid: "5001546675"
+    census_name: Morristown town
+    municipality: town/morristown
+    note: null
+  - school: school/porters-point-school
+    latitude: 44.54105718
+    longitude: -73.25555587
+    geoid: "5000714875"
+    census_name: Colchester town
+    municipality: town/colchester
+    note: null
+  - school: school/poultney-elementary-school
+    latitude: 43.52457588
+    longitude: -73.23767405
+    geoid: "5002156875"
+    census_name: Poultney town
+    municipality: town/poultney
+    note: null
+  - school: school/poultney-high-school
+    latitude: 43.51656124
+    longitude: -73.22996031
+    geoid: "5002156875"
+    census_name: Poultney town
+    municipality: town/poultney
+    note: null
+  - school: school/pownal-elementary-school
+    latitude: 42.80057676
+    longitude: -73.21793866
+    geoid: "5000357025"
+    census_name: Pownal town
+    municipality: town/pownal
+    note: null
+  - school: school/proctor-elementary-school
+    latitude: 43.6618934
+    longitude: -73.0386204
+    geoid: "5002157250"
+    census_name: Proctor town
+    municipality: town/proctor
+    note: null
+  - school: school/proctor-junior-senior-high-school
+    latitude: 43.65500339
+    longitude: -73.02921588
+    geoid: "5002157250"
+    census_name: Proctor town
+    municipality: town/proctor
+    note: null
+  - school: school/prosper-valley-school
+    latitude: 43.65356889203177
+    longitude: -72.52852028857573
+    geoid: "5002756350"
+    census_name: Pomfret town
+    municipality: town/pomfret
+    note: null
+  - school: school/putney-central-school
+    latitude: 42.98622134
+    longitude: -72.52823462
+    geoid: "5002557700"
+    census_name: Putney town
+    municipality: town/putney
+    note: null
+  - school: school/randolph-elementary-school
+    latitude: 43.93388378
+    longitude: -72.66045617
+    geoid: "5001758075"
+    census_name: Randolph town
+    municipality: town/randolph
+    note: null
+  - school: school/randolph-union-high-school
+    latitude: 43.93071984
+    longitude: -72.66002769
+    geoid: "5001758075"
+    census_name: Randolph town
+    municipality: town/randolph
+    note: null
+  - school: school/reading-elementary-school
+    latitude: 43.45312505
+    longitude: -72.53650886
+    geoid: "5002758375"
+    census_name: Reading town
+    municipality: town/reading
+    note: null
+  - school: school/readsboro-elementary-school
+    latitude: 42.77189568
+    longitude: -72.9404752
+    geoid: "5000358600"
+    census_name: Readsboro town
+    municipality: town/readsboro
+    note: null
+  - school: school/richford-elementary-school
+    latitude: 44.98357582
+    longitude: -72.67855535
+    geoid: "5001159125"
+    census_name: Richford town
+    municipality: town/richford
+    note: null
+  - school: school/richford-junior-senior-high-school
+    latitude: 44.99502461
+    longitude: -72.67008593
+    geoid: "5001159125"
+    census_name: Richford town
+    municipality: town/richford
+    note: null
+  - school: school/richmond-elementary-school
+    latitude: 44.41243988
+    longitude: -72.99367281
+    geoid: "5000759275"
+    census_name: Richmond town
+    municipality: town/richmond
+    note: null
+  - school: school/rick-marcotte-central-school
+    latitude: 44.46729807
+    longitude: -73.17689054
+    geoid: "5000766175"
+    census_name: South Burlington city
+    municipality: town/south-burlington
+    note: null
+  - school: school/rivendell-academy
+    latitude: 43.90015794
+    longitude: -72.13744837
+    geoid: "3300958500"
+    census_name: Orford town
+    municipality: null
+    note: The coordinates fall in "Orford town" (GEOID 3300958500), which the census
+      import could not join to a registry town. Resolve that join first; this
+      record is not the place to make a second, possibly different decision
+      about it.
+  - school: school/riverside-middle-school
+    latitude: 43.30411148
+    longitude: -72.49685669
+    geoid: "5002769550"
+    census_name: Springfield town
+    municipality: town/springfield
+    note: null
+  - school: school/robinson-school
+    latitude: 44.22362365
+    longitude: -73.05748258
+    geoid: "5000170075"
+    census_name: Starksboro town
+    municipality: town/starksboro
+    note: null
+  - school: school/rochester-elementary-school
+    latitude: 43.87193558
+    longitude: -72.80950554
+    geoid: "5002760100"
+    census_name: Rochester town
+    municipality: town/rochester
+    note: null
+  - school: school/rumney-memorial-school
+    latitude: 44.35096488
+    longitude: -72.60272672
+    geoid: "5002344500"
+    census_name: Middlesex town
+    municipality: town/middlesex
+    note: null
+  - school: school/rutland-intermediate-school
+    latitude: 43.61318693
+    longitude: -72.98007142
+    geoid: "5002161225"
+    census_name: Rutland city
+    municipality: town/rutland-city
+    note: null
+  - school: school/rutland-middle-school
+    latitude: 43.61297605
+    longitude: -72.98099195
+    geoid: "5002161225"
+    census_name: Rutland city
+    municipality: town/rutland-city
+    note: null
+  - school: school/rutland-senior-high-school
+    latitude: 43.61762657
+    longitude: -72.95461565
+    geoid: "5002161225"
+    census_name: Rutland city
+    municipality: town/rutland-city
+    note: null
+  - school: school/rutland-town-elementary-school
+    latitude: 43.63856421
+    longitude: -72.96331578
+    geoid: "5002161300"
+    census_name: Rutland town
+    municipality: town/rutland-town
+    note: null
+  - school: school/salisbury-community-school
+    latitude: 43.91971207
+    longitude: -73.11791992
+    geoid: "5000162575"
+    census_name: Salisbury town
+    municipality: town/salisbury
+    note: null
+  - school: school/samuel-morey-elementary-school
+    latitude: 43.90798994
+    longitude: -72.14602288
+    geoid: "5001725675"
+    census_name: Fairlee town
+    municipality: town/fairlee
+    note: null
+  - school: school/saxton-river-elementary-school
+    latitude: 43.14039612
+    longitude: -72.50949097
+    geoid: "5002560250"
+    census_name: Rockingham town
+    municipality: town/rockingham
+    note: null
+  - school: school/shaftsbury-elementary-school
+    latitude: 42.94480615
+    longitude: -73.20822423
+    geoid: "5000363550"
+    census_name: Shaftsbury town
+    municipality: town/shaftsbury
+    note: null
+  - school: school/sharon-elementary-school
+    latitude: 43.78492652
+    longitude: -72.45618245
+    geoid: "5002763775"
+    census_name: Sharon town
+    municipality: town/sharon
+    note: null
+  - school: school/shelburne-community-school
+    latitude: 44.38042673
+    longitude: -73.23478552
+    geoid: "5000764300"
+    census_name: Shelburne town
+    municipality: town/shelburne
+    note: null
+  - school: school/sheldon-elementary-school
+    latitude: 44.90066942
+    longitude: -72.96947452
+    geoid: "5001164600"
+    census_name: Sheldon town
+    municipality: town/sheldon
+    note: null
+  - school: school/shoreham-elementary-school
+    latitude: 43.89185059
+    longitude: -73.3163309
+    geoid: "5000165050"
+    census_name: Shoreham town
+    municipality: town/shoreham
+    note: null
+  - school: school/shrewsbury-mountain-school
+    latitude: 43.52550989
+    longitude: -72.83046913
+    geoid: "5002165275"
+    census_name: Shrewsbury town
+    municipality: town/shrewsbury
+    note: null
+  - school: school/smilie-memorial-elementary-school
+    latitude: 44.37393169
+    longitude: -72.87686154
+    geoid: "5000706550"
+    census_name: Bolton town
+    municipality: town/bolton
+    note: null
+  - school: school/south-burlington-high-school
+    latitude: 44.45492358
+    longitude: -73.17789102
+    geoid: "5000766175"
+    census_name: South Burlington city
+    municipality: town/south-burlington
+    note: null
+  - school: school/south-royalton-elementary-school
+    latitude: 43.81931609
+    longitude: -72.51740326
+    geoid: "5002760850"
+    census_name: Royalton town
+    municipality: town/royalton
+    note: null
+  - school: school/spaulding-high-school
+    latitude: 44.18926735
+    longitude: -72.49363648
+    geoid: "5002303175"
+    census_name: Barre city
+    municipality: town/barre-city
+    note: null
+  - school: school/springfield-high-school
+    latitude: 43.2816051
+    longitude: -72.47825934
+    geoid: "5002769550"
+    census_name: Springfield town
+    municipality: town/springfield
+    note: null
+  - school: school/st-albans-city-elementary-school
+    latitude: 44.82035871
+    longitude: -73.09149383
+    geoid: "5001161675"
+    census_name: St. Albans city
+    municipality: town/st-albans-city
+    note: null
+  - school: school/st-albans-town-educational-center
+    latitude: 44.80152232
+    longitude: -73.08597531
+    geoid: "5001161675"
+    census_name: St. Albans city
+    municipality: town/st-albans-city
+    note: null
+  - school: school/st-johnsbury-school
+    latitude: 44.41650764
+    longitude: -72.02485079
+    geoid: "5000562200"
+    census_name: St. Johnsbury town
+    municipality: town/st-johnsbury
+    note: null
+  - school: school/stamford-elementary-school
+    latitude: 42.75482527
+    longitude: -73.06741108
+    geoid: "5000369775"
+    census_name: Stamford town
+    municipality: town/stamford
+    note: null
+  - school: school/stockbridge-central-school
+    latitude: 43.76408563
+    longitude: -72.71792992
+    geoid: "5002770375"
+    census_name: Stockbridge town
+    municipality: town/stockbridge
+    note: null
+  - school: school/stowe-elementary-school
+    latitude: 44.4629195
+    longitude: -72.68446118
+    geoid: "5001570525"
+    census_name: Stowe town
+    municipality: town/stowe
+    note: null
+  - school: school/stowe-high-school
+    latitude: 44.46534569108491
+    longitude: -72.72727854751938
+    geoid: "5001570525"
+    census_name: Stowe town
+    municipality: town/stowe
+    note: null
+  - school: school/stowe-middle-school
+    latitude: 44.46533803419053
+    longitude: -72.7273214628617
+    geoid: "5001570525"
+    census_name: Stowe town
+    municipality: town/stowe
+    note: null
+  - school: school/summit-street-school
+    latitude: 44.49340779
+    longitude: -73.11366011
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/sunderland-elementary-school
+    latitude: 43.08461562
+    longitude: -73.1275985
+    geoid: "5000371425"
+    census_name: Sunderland town
+    municipality: town/sunderland
+    note: null
+  - school: school/sustainability-academy-at-lawrence-barnes
+    latitude: 44.4842885
+    longitude: -73.21676095
+    geoid: "5000710675"
+    census_name: Burlington city
+    municipality: town/burlington
+    note: null
+  - school: school/sutton-village-school
+    latitude: 44.63359432
+    longitude: -72.02792425
+    geoid: "5000571575"
+    census_name: Sutton town
+    municipality: town/sutton
+    note: null
+  - school: school/swanton-school
+    latitude: 44.91455885
+    longitude: -73.11393633
+    geoid: "5001171725"
+    census_name: Swanton town
+    municipality: town/swanton
+    note: null
+  - school: school/the-newton-school
+    latitude: 43.8350013
+    longitude: -72.36565478
+    geoid: "5001770675"
+    census_name: Strafford town
+    municipality: town/strafford
+    note: null
+  - school: school/thetford-elementary-school
+    latitude: 43.81952272
+    longitude: -72.23156881
+    geoid: "5001772400"
+    census_name: Thetford town
+    municipality: town/thetford
+    note: null
+  - school: school/thomas-fleming-school
+    latitude: 44.49477959
+    longitude: -73.1135043
+    geoid: "5000724175"
+    census_name: Essex town
+    municipality: town/essex-town
+    note: null
+  - school: school/tinmouth-elementary-school
+    latitude: 43.44960359
+    longitude: -73.051064
+    geoid: "5002172925"
+    census_name: Tinmouth town
+    municipality: town/tinmouth
+    note: null
+  - school: school/townshend-village-school
+    latitude: 43.04665964
+    longitude: -72.66958993
+    geoid: "5002573300"
+    census_name: Townshend town
+    municipality: town/townshend
+    note: null
+  - school: school/troy-school
+    latitude: 44.99585854
+    longitude: -72.40544821
+    geoid: "5001973525"
+    census_name: Troy town
+    municipality: town/troy
+    note: null
+  - school: school/twin-valley-elementary-school
+    latitude: 42.88934369
+    longitude: -72.86215474
+    geoid: "5002584700"
+    census_name: Wilmington town
+    municipality: town/wilmington
+    note: null
+  - school: school/twin-valley-middle-high-school
+    latitude: 42.78797705265541
+    longitude: -72.84012831559048
+    geoid: "5002583950"
+    census_name: Whitingham town
+    municipality: town/whitingham
+    note: null
+  - school: school/twinfield-union-school
+    latitude: 44.29795714
+    longitude: -72.39502663
+    geoid: "5002343600"
+    census_name: Marshfield town
+    municipality: town/marshfield
+    note: null
+  - school: school/u-32-middle-high-school
+    latitude: 44.24468138
+    longitude: -72.52693353
+    geoid: "5002321925"
+    census_name: East Montpelier town
+    municipality: town/east-montpelier
+    note: null
+  - school: school/underhill-central-school
+    latitude: 44.5104379
+    longitude: -72.89355729
+    geoid: "5000773975"
+    census_name: Underhill town
+    municipality: town/underhill-town
+    note: null
+  - school: school/union-elementary-school
+    latitude: 44.25975321
+    longitude: -72.57106624
+    geoid: "5002346000"
+    census_name: Montpelier city
+    municipality: town/montpelier
+    note: null
+  - school: school/union-memorial-school
+    latitude: 44.54895565
+    longitude: -73.16018168
+    geoid: "5000714875"
+    census_name: Colchester town
+    municipality: town/colchester
+    note: null
+  - school: school/union-street-school
+    latitude: 43.2952575
+    longitude: -72.48789072
+    geoid: "5002769550"
+    census_name: Springfield town
+    municipality: town/springfield
+    note: null
+  - school: school/vergennes-union-elementary-school
+    latitude: 44.1668396
+    longitude: -73.24799347
+    geoid: "5000174650"
+    census_name: Vergennes city
+    municipality: town/vergennes
+    note: null
+  - school: school/vergennes-union-high-school
+    latitude: 44.17018735
+    longitude: -73.24314499
+    geoid: "5000174650"
+    census_name: Vergennes city
+    municipality: town/vergennes
+    note: null
+  - school: school/vernon-elementary-school
+    latitude: 42.77626312
+    longitude: -72.51856495
+    geoid: "5002574800"
+    census_name: Vernon town
+    municipality: town/vernon
+    note: null
+  - school: school/waits-river-valley-union-school
+    latitude: 44.07963668
+    longitude: -72.26127101
+    geoid: "5001773075"
+    census_name: Topsham town
+    municipality: town/topsham
+    note: null
+  - school: school/waitsfield-elementary-school
+    latitude: 44.19447167
+    longitude: -72.81921698
+    geoid: "5002375325"
+    census_name: Waitsfield town
+    municipality: town/waitsfield
+    note: null
+  - school: school/walden-school
+    latitude: 44.4529095
+    longitude: -72.21923871
+    geoid: "5000575700"
+    census_name: Walden town
+    municipality: town/walden
+    note: null
+  - school: school/wallingford-village-school
+    latitude: 43.47054732
+    longitude: -72.97507197
+    geoid: "5002175925"
+    census_name: Wallingford town
+    municipality: town/wallingford
+    note: null
+  - school: school/wardsboro-central-school
+    latitude: 43.04819107
+    longitude: -72.78730011
+    geoid: "5002576225"
+    census_name: Wardsboro town
+    municipality: town/wardsboro
+    note: null
+  - school: school/warren-elementary-school
+    latitude: 44.11642764
+    longitude: -72.85272994
+    geoid: "5002376525"
+    census_name: Warren town
+    municipality: town/warren
+    note: null
+  - school: school/washington-village-school
+    latitude: 44.10786978
+    longitude: -72.43155883
+    geoid: "5001776750"
+    census_name: Washington town
+    municipality: town/washington
+    note: null
+  - school: school/waterford-elementary-school
+    latitude: 44.40257263
+    longitude: -71.92754364
+    geoid: "5000577125"
+    census_name: Waterford town
+    municipality: town/waterford
+    note: null
+  - school: school/waterville-elementary-school
+    latitude: 44.72685455
+    longitude: -72.74841009
+    geoid: "5001577425"
+    census_name: Waterville town
+    municipality: town/waterville
+    note: null
+  - school: school/weathersfield-school
+    latitude: 43.41137877
+    longitude: -72.40999529
+    geoid: "5002777500"
+    census_name: Weathersfield town
+    municipality: town/weathersfield
+    note: null
+  - school: school/wells-village-school
+    latitude: 43.4179744
+    longitude: -73.20662859
+    geoid: "5002177950"
+    census_name: Wells town
+    municipality: town/wells
+    note: null
+  - school: school/west-rutland-school
+    latitude: 43.59555653
+    longitude: -73.05144208
+    geoid: "5002182300"
+    census_name: West Rutland town
+    municipality: town/west-rutland
+    note: null
+  - school: school/westford-elementary-school
+    latitude: 44.60295239
+    longitude: -73.01895433
+    geoid: "5000780350"
+    census_name: Westford town
+    municipality: town/westford
+    note: null
+  - school: school/westminster-schools
+    latitude: 43.0705133559139
+    longitude: -72.46344859828896
+    geoid: "5002581400"
+    census_name: Westminster town
+    municipality: town/westminster
+    note: null
+  - school: school/westshire-elementary-school
+    latitude: 43.90753212
+    longitude: -72.26152318
+    geoid: "5001779975"
+    census_name: West Fairlee town
+    municipality: town/west-fairlee
+    note: null
+  - school: school/weybridge-elementary-school
+    latitude: 44.04178144
+    longitude: -73.21234925
+    geoid: "5000183275"
+    census_name: Weybridge town
+    municipality: town/weybridge
+    note: null
+  - school: school/white-river-school
+    latitude: 43.65323860549671
+    longitude: -72.31763734069972
+    geoid: "5002732275"
+    census_name: Hartford town
+    municipality: town/hartford
+    note: null
+  - school: school/white-river-valley-high-school
+    latitude: 43.818686901917445
+    longitude: -72.51795797219631
+    geoid: "5002760850"
+    census_name: Royalton town
+    municipality: town/royalton
+    note: null
+  - school: school/white-river-valley-middle-school
+    latitude: 43.83332485100451
+    longitude: -72.64332844069378
+    geoid: "5002705800"
+    census_name: Bethel town
+    municipality: town/bethel
+    note: null
+  - school: school/williamstown-elementary-school
+    latitude: 44.12360382
+    longitude: -72.5458916
+    geoid: "5001784175"
+    census_name: Williamstown town
+    municipality: town/williamstown
+    note: null
+  - school: school/williamstown-middle-high-school
+    latitude: 44.12633739
+    longitude: -72.54669038
+    geoid: "5001784175"
+    census_name: Williamstown town
+    municipality: town/williamstown
+    note: null
+  - school: school/williston-schools
+    latitude: 44.43996982
+    longitude: -73.07350836
+    geoid: "5000784475"
+    census_name: Williston town
+    municipality: town/williston
+    note: null
+  - school: school/windsor-school
+    latitude: 43.479916471771
+    longitude: -72.39471782937675
+    geoid: "5002784925"
+    census_name: Windsor town
+    municipality: town/windsor
+    note: null
+  - school: school/winooski-high-school
+    latitude: 44.50079941
+    longitude: -73.18027764
+    geoid: "5000785150"
+    census_name: Winooski city
+    municipality: town/winooski
+    note: null
+  - school: school/winooski-middle-school
+    latitude: 44.500940108153905
+    longitude: -73.18084680731523
+    geoid: "5000785150"
+    census_name: Winooski city
+    municipality: town/winooski
+    note: null
+  - school: school/wolcott-elementary-school
+    latitude: 44.53822594
+    longitude: -72.45290844
+    geoid: "5001585375"
+    census_name: Wolcott town
+    municipality: town/wolcott
+    note: null
+  - school: school/woodbury-elementary-school
+    latitude: 44.44003486
+    longitude: -72.41622359
+    geoid: "5002385525"
+    census_name: Woodbury town
+    municipality: town/woodbury
+    note: null
+  - school: school/woodford-hollow-school
+    latitude: 42.8940772
+    longitude: -73.13699784
+    geoid: "5000385675"
+    census_name: Woodford town
+    municipality: town/woodford
+    note: null
+  - school: school/woodstock-elementary-school
+    latitude: 43.62202421
+    longitude: -72.51971092
+    geoid: "5002785975"
+    census_name: Woodstock town
+    municipality: town/woodstock
+    note: null
+  - school: school/woodstock-union-middle-high-school
+    latitude: 43.6126946
+    longitude: -72.54562642
+    geoid: "5002785975"
+    census_name: Woodstock town
+    municipality: town/woodstock
+    note: null
+schools_without_coordinates:
+  - independent/addison-cty-pc-ctr-tp-program
+  - independent/all-saints-catholic-academy
+  - independent/approved-out-of-state-school
+  - independent/ark-preschool-kindergarten
+  - independent/baird-center
+  - independent/barn-school-the
+  - independent/bellcate-school
+  - independent/bridge-school-inc
+  - independent/brightality
+  - independent/brook-st-family-lit-ctr-tpe-prog
+  - independent/brookhaven-learning-center
+  - independent/brownington-parochial-school
+  - independent/burke-mountain-academy
+  - independent/caledonia-christian-school
+  - independent/champlain-valley-chr-school
+  - independent/choice-academy
+  - independent/christ-covenant-school
+  - independent/christ-the-king-burlington
+  - independent/christ-the-king-school-rutland
+  - independent/community-high-school-of-vt
+  - independent/community-schoolhouse
+  - independent/connected-circles
+  - independent/cornerstone-school
+  - independent/davis-community-school
+  - independent/discovery-roots
+  - independent/east-burke-school
+  - independent/east-meadow-school
+  - independent/east-valley-academy-challenger
+  - independent/elevation-christian-academy
+  - independent/expeditionary-school-at-black-river
+  - independent/fay-honey-knopp-memorial-sch
+  - independent/foundations
+  - independent/good-shepherd-catholic-school
+  - independent/grace-christian-school-benn
+  - independent/green-mountain-community-school
+  - independent/green-mountain-montessori-school
+  - independent/green-mt-mennonite-school
+  - independent/green-mt-valley-school
+  - independent/greenwood-school
+  - independent/hiland-hall-school
+  - independent/hilltop-montessori-school
+  - independent/immersion-montessori-school
+  - independent/jean-garvin-school
+  - independent/killington-mountain-school
+  - independent/kindle-farm
+  - independent/kurn-hattin-homes
+  - independent/lake-champlain-waldorf
+  - independent/lamoille-valley-farm-and-forest
+  - independent/laraway-school
+  - independent/liberty-high-school-diploma-program
+  - independent/long-trail-school
+  - independent/manchester-village-school
+  - independent/maple-street-school
+  - independent/maplehill-community-school
+  - independent/mary-johnson-childrens-center
+  - independent/mater-christi-school
+  - independent/mid-vermont-christian-sch
+  - independent/montessori-school-of-central-vt
+  - independent/mountain-school-at-winhall-the
+  - independent/mt-mansfield-academy
+  - independent/mt-school-of-milton-academy
+  - independent/mt-st-joseph-academy
+  - independent/neighborhood-schoolhouse
+  - independent/new-england-school-for-girls
+  - independent/new-hope-christian-school
+  - independent/new-school-of-montpelier
+  - independent/north-branch-school-the
+  - independent/oak-meadow-school
+  - independent/okemo-mountain-school
+  - independent/open-fields-school
+  - independent/orchard-valley-waldorf-school
+  - independent/pacem-school
+  - independent/pond-brook-project
+  - independent/potters-house
+  - independent/priority-placements-inc
+  - independent/putney-school
+  - independent/red-cedar-school
+  - independent/red-fox-community-school
+  - independent/rice-memorial-high-school
+  - independent/riverside-school-the
+  - independent/rock-point-school
+  - independent/rutland-area-christian-school
+  - independent/sacred-heart-st-francis-de-sales
+  - independent/saxon-hill-school-inc
+  - independent/sharon-academy-the
+  - independent/sheldon-academy-aka-vac
+  - independent/soar-learning-center
+  - independent/southshire-community-school
+  - independent/springbrook-farm-school
+  - independent/st-francis-xavier-school
+  - independent/st-michaels-catholic-school
+  - independent/st-monica-st-michaels-school
+  - independent/st-pauls-elementary-school
+  - independent/stoney-ridge-parochial-school
+  - independent/stratton-mountain-school
+  - independent/sugarwood-school
+  - independent/sunrise-family-resource-ctr-tp-prog
+  - independent/tamim-academy-of-vt
+  - independent/thaddeus-stevens-school
+  - independent/the-arlington-school
+  - independent/the-family-place-tp-prog
+  - independent/the-grammar-school
+  - independent/the-mill-school
+  - independent/the-schoolhouse-learning-center-inc
+  - independent/the-village-school-of-north-bennington
+  - independent/trinity-baptist-school
+  - independent/true-north-evolution
+  - independent/turning-points-school
+  - independent/twelve-tribes-community-church-sch
+  - independent/twelve-tribes-community-church-sch-is020
+  - independent/twelve-tribes-community-church-sch-is103
+  - independent/two-roads-academy
+  - independent/united-christian-academy
+  - independent/upper-valley-waldorf-school
+  - independent/vermont-academy
+  - independent/vermont-commons-school
+  - independent/vermont-day-school
+  - independent/vermont-farm-and-forest-school
+  - independent/websterville-christian-academy
+  - independent/wolcott-mennonite
+  - school/bellows-free-academy-middle-school
+  - school/bernice-a-ray-school
+  - school/equinox-valley-middle-school
+  - school/frances-c-richmond-school
+  - school/green-ridge-elementary-school
+  - school/hanover-high-school
+  - school/orford-schools
+  - school/otter-creek-academy-at-leicester-sudbury-and-whiting
+  - school/taconic-elementary-school
+  - school/vergennes-union-middle-school
+  - techcenter/burlington-technical-center
+  - techcenter/canaan-high-school-cte-program
+  - techcenter/central-vermont-career-center
+  - techcenter/central-vermont-career-center-vc002
+  - techcenter/cold-hollow-career-center
+  - techcenter/green-mountain-technology-and-career-center
+  - techcenter/hartford-area-career-technology-center
+  - techcenter/north-country-career-center
+  - techcenter/northwest-technical-center
+  - techcenter/patricia-a-hannaford-career-center
+  - techcenter/patricia-hannaford-career-center
+  - techcenter/randolph-technical-career-center
+  - techcenter/river-bend-career-technical-center
+  - techcenter/river-valley-technical-center
+  - techcenter/river-valley-technical-center-vc016
+  - techcenter/southwest-tech
+  - techcenter/southwest-tech-vc009
+  - techcenter/stafford-technical-center
+  - techcenter/the-center-for-technology-essex
+  - techcenter/windham-regional-career-center

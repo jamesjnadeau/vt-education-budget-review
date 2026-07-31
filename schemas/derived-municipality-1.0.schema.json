@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:derived-municipality:1.0",
+  "title": "School to municipality, resolved by point in polygon",
+  "description": "Which town each school building stands in, resolved from AOE-published coordinates against Census county subdivisions. Committed derived output: it has no source URL, so it carries a `kind: derived` provenance record naming the algorithm, its version, the pinned inputs and the run. Deliberately NOT derived from the AOE MailingCity, which is a postal designation -- Vermont post office names routinely cover parts of several towns, and the sparse screen tests the town the building stands in.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "algorithm", "algorithm_version", "basis", "note", "schools"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "algorithm": { "const": "geocode/school-municipality" },
+    "algorithm_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "basis": { "const": "census_geocoder_point_in_polygon" },
+    "note": { "type": "string", "minLength": 1 },
+    "schools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["school", "latitude", "longitude", "geoid", "census_name", "municipality", "note"],
+        "properties": {
+          "school": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+          "latitude": { "type": "number", "minimum": 42.7, "maximum": 45.1 },
+          "longitude": { "type": "number", "minimum": -73.5, "maximum": -71.4 },
+          "geoid": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9]{10}$",
+            "description": "The county subdivision the coordinates fall in. Null when the geocoder returned none. Note it is not constrained to Vermont: schools near the border legitimately resolve to a New Hampshire subdivision, and forcing state 50 here would silently relocate them."
+          },
+          "census_name": { "type": ["string", "null"] },
+          "municipality": {
+            "type": ["string", "null"],
+            "pattern": "^town/[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Null when the GEOID has no registry town. That is a join to resolve once, in the census import, rather than twice in two places that could disagree."
+          },
+          "note": {
+            "type": ["string", "null"],
+            "description": "Required to be present, and null only where the resolution succeeded cleanly. An unexplained null municipality would be indistinguishable from one nobody looked at."
+          }
+        }
+      }
+    },
+    "schools_without_coordinates": {
+      "type": "array",
+      "items": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+      "description": "Schools AOE publishes no location for. Listed rather than omitted: a school missing from this file entirely could not be told apart from one nobody ran.",
+      "default": []
+    }
+  }
+}

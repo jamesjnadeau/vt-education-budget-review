@@ -18,28 +18,41 @@ The pipeline is built, tested and running end to end. What it lacks is inputs.
 | Collector configs | **54**, one per active supervisory union |
 | Budget documents collected | **0** |
 | Warehouse records | **0** |
-| Statutory parameters verified | **0 of 14** |
+| Statutory parameters verified | **56 of 98**, none of them countersigned by a person |
 | Act 170 groupings transcribed | **0** |
-| Golden test fixtures | **0** |
-| Site pages built | **330** |
-| Tests | **70 passing** |
+| Golden fixtures reproducing a state figure | **0** |
+| Small/sparse boundary fixtures | **8**, hand-computed against hypothesis thresholds |
+| Schools located in a municipality | **277 of 438** |
+| Vermont towns with Census land area | **252 of 256** county subdivisions |
+| Site pages built | **325** |
+| Tests | **282 passing** |
 
-Two of those zeros are load-bearing and deliberate.
+Three of those gaps are load-bearing and deliberate.
 
-**No statutory parameter is verified.** The authoritative sources could not be reached from the
-environment this was built in: `legislature.vermont.gov` fails TLS chain verification and
-`education.vermont.gov` returns 403 to automated clients. Rather than fill in weights from
-memory or a secondary mirror, every value is `null` with `verified: false`. Vermont's education
-funding statutes were amended by Act 127 of 2022 and Act 73 of 2025, so a recalled weight is
+**No statutory parameter is verified by a person.** The values that carry citations were read
+from statute text snapshotted verbatim in `model/statute/`, but the retrieval and transcription
+were automated and nobody has yet put their name to them — which is why every parameter file is
+still `status: draft`. Everything the snapshot does not cover is `null` with `verified: false`,
+including the whole small and sparse layer: `legislature.vermont.gov` serves an incomplete TLS
+chain to automated clients and `education.vermont.gov` returns 403 to them. Rather than fill
+values in from memory or a secondary mirror, they stay null. Vermont's education funding statutes
+were amended by Act 127 of 2022, Act 73 of 2025 and Act 170 of 2026, so a recalled weight is
 quite likely to be a repealed one. See [docs/parameter-verification.md](docs/parameter-verification.md).
 
 **No Act 170 groupings are transcribed**, for the same reason. Inventing twenty groupings of
 district names would put a fabrication in the single place a reader most depends on being told
 the truth.
 
-Neither gap can leak into a published figure. The engine refuses to compute from an unverified
-parameter — it returns `null`, marks the node `unverified`, and that status propagates upward.
-The site renders that refusal explicitly rather than hiding it.
+**No school can be screened as small or sparse.** Every threshold in Act 73 Sec. 37 is null and
+unverified, so the two statutory screens return nothing for all 438 schools — independently of
+how complete the geography behind them is. Separately, and not our doing, the Agency of Education
+has published no *by necessity* determinations, because the rules governing them are not yet
+written. See [/small-sparse/](site/src/pages/small-sparse/index.astro) and
+[docs/small-sparse-verification-worksheet.md](docs/small-sparse-verification-worksheet.md).
+
+None of these gaps can leak into a published figure. The engine refuses to compute from an
+unverified parameter — it returns `null`, marks the node `unverified`, and that status propagates
+upward. The site renders that refusal explicitly rather than hiding it.
 
 ## Getting started
 
@@ -59,6 +72,9 @@ Requires Node 22+. Git LFS is used for intake artifacts.
 registry/      entity registry synced from the AOE API, plus dated raw snapshots
 intake/        raw budget artifacts, exactly as released, never edited  (Git LFS)
 warehouse/     normalized records conforming to the budget schema
+derived/       committed products this pipeline COMPUTED rather than retrieved, each with a
+               `kind: derived` provenance record naming the algorithm, its version, the
+               pinned inputs and the run
 schemas/       versioned JSON Schemas
 model/         the formula engine, plus parameter files and golden fixtures
 collectors/    per-SU acquisition configs and extraction mappings
@@ -76,6 +92,8 @@ docs/          procedures
 | `npm run validate` | Schema, provenance, hash, reference and recomputation checks |
 | `npm run params` | Parameter verification status |
 | `npm run params -- --stale 400` | Citations due for re-reading |
+| `npm run census:import` | Fetch Census land area (and population, with a key) into intake and the warehouse |
+| `npm run school:municipality` | Resolve each school's coordinates to the town it stands in |
 | `npm run collect -- --init` | Scaffold collector configs from the registry |
 | `npm run collect -- --check-urls` | Source URL liveness |
 | `npm run extract -- --entity X --fy Y --init` | Scaffold an extraction mapping |
@@ -86,18 +104,29 @@ docs/          procedures
 
 ### 1. A blank always means one specific thing, and the site says which
 
-There are exactly two reasons a figure is absent, and they are never shown as the same thing:
+There are exactly four reasons a figure is absent, they belong to different parties, and they
+are never shown as the same thing:
 
-- **The district did not publish it.** Recorded in the warehouse record's `not_published` list
-  with who confirmed it and on what date. Validation rejects any unexplained null in a money
-  field, so this cannot be skipped.
-- **A statutory value has not been verified against current law.** Tracked in the parameter
-  file's citation block. The engine will not compute with it.
+- **The district did not publish it** — `missing_input`. Recorded in the warehouse record's
+  `not_published` list with who confirmed it and on what date. Validation rejects any
+  unexplained null in a money field, so this cannot be skipped.
+- **A statutory value has not been verified against current law** — `unverified`. Tracked in
+  the parameter file's citation block. The engine will not compute with it.
+- **The State has not made a decision that does not yet exist** — `undetermined`. The Agency of
+  Education has published no small or sparse by necessity determinations, because the rules
+  that would govern them are unwritten. Showing that as a missing document would imply the
+  Agency failed to publish something, which is false and unfair to them.
+- **The question cannot be answered from public data at all** — `not_computable`. Whether a
+  mountain gap makes a bus route unsafe is a certification the supervisory union makes; whether
+  a receiving school could absorb the students needs unpublished local capacity figures. These
+  are terminal by design and are correct final answers, not to-do items — a coverage dashboard
+  that painted them red would be lying about what completion looks like.
 
-The first is a fact about a document. The second is outstanding work on our side. The
-extraction tooling makes "we did not look" literally unrepresentable: a mapping file must
-declare where the document states salaries, health insurance and FTEs, or record that it does
-not, and the extractor refuses to run until it does.
+The first is a fact about a document. The second is outstanding work on our side. The third is
+somebody's future decision, and the fourth is nobody's, ever. The extraction tooling makes "we
+did not look" literally unrepresentable: a mapping file must declare where the document states
+salaries, health insurance and FTEs, or record that it does not, and the extractor refuses to
+run until it does.
 
 ### 2. Provenance is mechanical, not aspirational
 

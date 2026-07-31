@@ -64,6 +64,9 @@ export function formatValue(value: number | null, unit: Unit): string {
       return usdCents.format(value);
     case 'pupils':
     case 'fte':
+    case 'persons_per_square_mile':
+    case 'miles':
+    case 'minutes':
       return decimal1.format(value);
     case 'ratio':
     case 'multiplier':
@@ -84,6 +87,12 @@ export function unitNoun(unit: Unit): string {
       return 'FTE';
     case 'usd_per_pupil':
       return 'per pupil';
+    case 'persons_per_square_mile':
+      return 'persons per square mile of land';
+    case 'miles':
+      return 'road miles';
+    case 'minutes':
+      return 'minutes';
     case 'rate_per_100':
       return 'per $100 of equalized value';
     default:
@@ -95,7 +104,20 @@ export function unitNoun(unit: Unit): string {
 // Status propagation
 // --------------------------------------------------------------------------
 
+/**
+ * A node has one status but may have several blockers, so the order below is a
+ * claim about which one a reader most needs to hear.
+ *
+ * Terminal first. If any input is `not_computable` the result will never exist,
+ * however much verifying or publishing happens elsewhere -- reporting such a
+ * node as `unverified` would promise that reading a statute fixes it. Next
+ * `undetermined`, which is somebody's future decision rather than anybody's
+ * unfinished work. Only then our own outstanding verification, then the source
+ * document's silence, then the contingency label.
+ */
 function statusFromBlockers(blockers: readonly Blocker[]): NodeStatus {
+  if (blockers.some((b) => b.kind === 'not_computable')) return 'not_computable';
+  if (blockers.some((b) => b.kind === 'undetermined_determination')) return 'undetermined';
   if (blockers.some((b) => b.kind === 'unverified_parameter')) return 'unverified';
   if (blockers.some((b) => b.kind === 'missing_input')) return 'missing_input';
   if (blockers.some((b) => b.kind === 'contingent_parameter')) return 'contingent';
@@ -156,7 +178,7 @@ function gather(inputs: readonly CalcNode[], params: readonly Parameter[]): Bloc
 // Generic constructor
 // --------------------------------------------------------------------------
 
-interface MakeArgs {
+export interface MakeArgs {
   readonly op: Op;
   readonly label: string;
   readonly unit: Unit;
@@ -209,6 +231,20 @@ function make(ctx: EngineContext, args: MakeArgs): CalcNode {
     notes,
     range: null,
   };
+}
+
+/**
+ * The generic constructor, for operations the curated set above does not cover.
+ *
+ * Exported deliberately, and it is the only sanctioned way to add one. The two
+ * invariants at the top of this file -- status propagates upward, and the
+ * explanation is produced in the same call as the arithmetic -- live inside
+ * `make`. A module that hand-rolls a CalcNode object literal instead gets
+ * neither, and the failure is silent: the node looks identical and simply
+ * forgets to refuse. Reach for this rather than for a literal.
+ */
+export function derive(ctx: EngineContext, args: MakeArgs): CalcNode {
+  return make(ctx, args);
 }
 
 function explainBlocked(label: string, blockers: readonly Blocker[]): string {
@@ -265,6 +301,71 @@ export function input(
   };
 }
 
+/**
+ * A quantity withheld because the State has not made a decision that does not
+ * yet exist.
+ *
+ * Distinct from `input(ctx, label, null, ...)`, which says a document is silent.
+ * Nobody has failed to publish an AOE small/sparse necessity determination:
+ * there are none to publish, because the rules governing them are unwritten.
+ * The two must render differently or the site accuses AOE of an omission.
+ */
+export function undetermined(
+  ctx: EngineContext,
+  label: string,
+  unit: Unit,
+  detail: string,
+  options: InputOptions = {},
+): CalcNode {
+  return {
+    id: ctx.nextId(),
+    op: 'input',
+    label,
+    value: null,
+    unit,
+    inputs: [],
+    parameters: [],
+    explanation: `${label} is undetermined. ${detail}`,
+    status: 'undetermined',
+    blockers: [{ kind: 'undetermined_determination', ref: label, detail }],
+    notes: options.notes ?? [],
+    range: null,
+  };
+}
+
+/**
+ * A quantity that cannot be answered from public data at all.
+ *
+ * Terminal, and a correct final answer rather than a gap. Whether a mountain
+ * pass makes a bus route unsafe is a certification the supervisory union makes;
+ * whether a receiving school could absorb the students needs building capacity
+ * figures that are local and unpublished. Presenting either as outstanding work
+ * would imply that enough effort here produces a number, and it does not.
+ */
+export function notComputable(
+  ctx: EngineContext,
+  label: string,
+  unit: Unit,
+  reason: 'requires_certification' | 'requires_local_model' | 'requires_projection',
+  detail: string,
+  options: InputOptions = {},
+): CalcNode {
+  return {
+    id: ctx.nextId(),
+    op: 'input',
+    label,
+    value: null,
+    unit,
+    inputs: [],
+    parameters: [],
+    explanation: detail,
+    status: 'not_computable',
+    blockers: [{ kind: 'not_computable', ref: `${label} (${reason})`, detail }],
+    notes: options.notes ?? [],
+    range: null,
+  };
+}
+
 export class MissingParameterError extends Error {
   constructor(key: string, fiscalYear: number) {
     super(`Parameter "${key}" is not defined in the FY${fiscalYear} parameter set.`);
@@ -308,10 +409,17 @@ export function parameterNode(ctx: EngineContext, key: string, unit: Unit): Calc
     parameters: [p],
     explanation: blocksValue(blockers)
       ? explainBlocked(p.description, blockers)
-      : `${p.description} is ${rendered}, set by ${cite}.`,
+      : p.is_law
+        ? `${p.description} is ${rendered}, set by ${cite}.`
+        : // A proposal must never read as a rule. The clause is generated here,
+          // beside the number, rather than left to a renderer to remember.
+          `${p.description} is ${rendered} under ${cite}. That is a PROPOSED standard, ` +
+          `not law: it has not been enacted and may never be.`,
     status: statusFromBlockers(blockers),
     blockers,
-    notes: [],
+    notes: p.is_law
+      ? []
+      : ['Measured against a proposed standard, not a legal requirement.'],
     range: p.range ? { low: p.range.low, high: p.range.high } : null,
   };
 }

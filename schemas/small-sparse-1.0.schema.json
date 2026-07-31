@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:small-sparse:1.0",
+  "title": "Small / sparse school screen and necessity determination",
+  "description": "One record per school per fiscal year. Separates three things that must never be collapsed: (1) the two objective STATUTORY screens, which are arithmetic on public data; (2) the five NECESSITY criteria the State Board's committee proposed on 2025-12-17, of which one is partly computable and four are not; (3) any GRANT amount, which may only be stated when an explicit eligibility basis is recorded. A record asserting a grant with no assumption basis is invalid and CI rejects it. Note that as of this schema's writing every threshold in the parameter file is null and unverified, so a conforming record for any real Vermont school screens to null -- that is the correct output, not a bug.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "school",
+    "fiscal_year",
+    "parameter_set_ref",
+    "statutory_screens",
+    "necessity",
+    "grant"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "school": {
+      "type": "string",
+      "pattern": "^school/[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Registry slug. Determinations are made per SCHOOL, not per district: a district may operate one school that is small by necessity and another that is not."
+    },
+    "fiscal_year": {
+      "type": "integer",
+      "minimum": 2023,
+      "maximum": 2100,
+      "description": "Support grants take effect with the foundation formula. Act 73 set that at the 2028-29 school year; Act 170 of 2026 moved implementation to 2029-30. Whether the statutory fiscal-year references were amended or the schedule shifts by operation of the contingency is an open verification item -- see the parameter file. Records for years before the grants exist are still worth holding, because they carry the screens, which is what a merger committee needs in 2027."
+    },
+    "parameter_set_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path to the parameter file the record was computed against, e.g. model/parameters/fy2030-small-sparse.yaml. Not optional: when the Legislature or the Board moves a number, a record that does not say which file it used cannot be reproduced or aged out."
+    },
+    "computed": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When this record was produced. Derived output, so it carries a run time rather than a retrieval date.",
+      "default": null
+    },
+
+    "statutory_screens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enrollment", "density", "small_screen_met", "sparse_screen_met"],
+      "description": "The two numeric tests in Act 73 Sec. 37. Meeting them makes a school a CANDIDATE. It does not make the school eligible: eligibility additionally requires a necessity determination, and the population-trajectory criterion exists precisely so a school temporarily above the enrollment threshold is not thereby disqualified. Nothing derived from this block may be labelled 'eligible'.",
+      "properties": {
+        "enrollment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["basis", "value", "threshold", "comparator", "meets", "status"],
+          "properties": {
+            "basis": {
+              "enum": ["two_year_average", "single_year", "unknown"],
+              "description": "OPEN QUESTION. AOE's public summary describes the qualifying test as enrolling fewer than 100 students; the JFO briefing describes an average over two years below 100. The grant is paid on a two-year average. If the test and the payment basis differ, borderline schools flip between them. Record which basis was used and never silently pick one."
+            },
+            "years_used": {
+              "type": "array",
+              "items": { "type": "integer" },
+              "description": "The school years averaged, so the figure is reproducible.",
+              "default": []
+            },
+            "values_used": {
+              "type": "array",
+              "items": { "type": ["number", "null"] },
+              "description": "The enrollment for each year in years_used, positionally. A null is a year AOE published no figure for, and is never a zero.",
+              "default": []
+            },
+            "value": { "type": ["number", "null"] },
+            "threshold": { "type": ["number", "null"] },
+            "comparator": { "enum": ["lt", "lte", null] },
+            "meets": {
+              "type": ["boolean", "null"],
+              "description": "Null when the screen did not resolve. Never coerce a missing enrollment to false: a school we have no figure for is not a school that failed."
+            },
+            "status": { "$ref": "#/$defs/blankKind" },
+            "provenance_ref": { "type": ["string", "null"], "default": null }
+          }
+        },
+        "density": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "municipality",
+            "population",
+            "population_series",
+            "land_area_sq_mi",
+            "value",
+            "threshold",
+            "comparator",
+            "meets",
+            "status"
+          ],
+          "properties": {
+            "municipality": {
+              "type": ["string", "null"],
+              "pattern": "^town/[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "The town the school BUILDING stands in, not the district's member towns. Null when it has not been established, in which case the screen does not resolve."
+            },
+            "municipality_basis": {
+              "enum": ["census_geocoder_point_in_polygon", "aoe_mailing_city", "manual", "unknown"],
+              "description": "A postal city is not a municipality. `aoe_mailing_city` is recorded but does not resolve the screen.",
+              "default": "unknown"
+            },
+            "population": { "type": ["number", "null"] },
+            "population_series": {
+              "enum": ["decennial_2020", "acs_5yr", "state_estimate", "unknown"],
+              "description": "OPEN QUESTION. The statute is reported to say persons per square mile of land but to name no population series. Decennial and ACS disagree by enough to move Vermont towns across a 55-per-square-mile line, so the series is a user-visible choice and the towns that move between them are a finding worth publishing."
+            },
+            "land_area_sq_mi": {
+              "type": ["number", "null"],
+              "description": "LAND area only, per the reported statutory phrase 'per square mile of land'. Census TIGER ALAND, never total area. This is material in Vermont: towns fronting Lake Champlain or holding large ponds have total areas well above their land areas, so total area understates density and pulls towns INTO sparse eligibility that should not qualify."
+            },
+            "value": { "type": ["number", "null"] },
+            "threshold": { "type": ["number", "null"] },
+            "comparator": { "enum": ["lt", "lte", null] },
+            "meets": { "type": ["boolean", "null"] },
+            "status": { "$ref": "#/$defs/blankKind" },
+            "provenance_ref": { "type": ["string", "null"], "default": null }
+          }
+        },
+        "small_screen_met": { "type": ["boolean", "null"] },
+        "sparse_screen_met": { "type": ["boolean", "null"] }
+      }
+    },
+
+    "necessity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["determination_status", "criteria"],
+      "description": "The committee recommended, and Act 170 appears to adopt, that AOE make this determination annually ahead of district budget development, under rules folded into the Education Quality Standards. Until those rules exist and AOE publishes determinations, determination_status is `undetermined` for every school in Vermont and the site must say so in as many words.",
+      "properties": {
+        "determination_status": {
+          "enum": [
+            "undetermined",
+            "agency_determined_eligible",
+            "agency_determined_ineligible",
+            "not_applicable"
+          ],
+          "description": "`undetermined` is not a gap anyone failed to fill -- there is no decision yet to record. `not_applicable` covers non-public schools, which are not grant eligible."
+        },
+        "determination_source": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["authority", "document_title", "date", "url", "retrieved"],
+          "description": "Required the moment determination_status stops being `undetermined`. A determination asserted without the document that made it is our opinion of AOE's opinion.",
+          "properties": {
+            "authority": { "enum": ["AOE", "SBE", "other"] },
+            "document_title": { "type": "string", "minLength": 1 },
+            "date": { "type": "string", "format": "date" },
+            "url": { "type": ["string", "null"] },
+            "retrieved": { "type": "string", "format": "date" }
+          },
+          "default": null
+        },
+        "criteria": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "travel_time_or_distance",
+            "safe_transportation",
+            "feasible_consolidation",
+            "population_trajectory",
+            "closure_cost_increase"
+          ],
+          "description": "The five criteria are drafted as independent qualifying paths -- each reads 'A school qualifies if'. They are disjunctive: any one satisfied is sufficient. Do NOT sum, weight, score or rank them. The framework proposes no scoring, and inventing one would be advocacy dressed as arithmetic. The committee also presented all five under the heading 'Possible criteria', so this is a menu delivered to the Board and not a settled standard.",
+          "patternProperties": {
+            "^(travel_time_or_distance|safe_transportation|feasible_consolidation|population_trajectory|closure_cost_increase)$": {
+              "$ref": "#/$defs/criterion"
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "determination_status": { "not": { "const": "undetermined" } } },
+            "required": ["determination_status"]
+          },
+          "then": {
+            "required": ["determination_source"],
+            "properties": { "determination_source": { "type": "object" } }
+          }
+        }
+      ]
+    },
+
+    "grant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assumption_basis", "small_grant", "sparse_grant", "total"],
+      "description": "THE GATE. small_grant.amount and sparse_grant.amount must be null unless assumption_basis is `agency_determination` or `explicit_user_assumption`. This is the neutrality rule expressed in the schema rather than in a code comment: the site never tells a town that its school qualifies.",
+      "properties": {
+        "assumption_basis": {
+          "enum": ["none", "agency_determination", "explicit_user_assumption"]
+        },
+        "assumption_note": {
+          "type": ["string", "null"],
+          "description": "Required when assumption_basis is `explicit_user_assumption`. Rendered verbatim beside any figure derived from it and carried into the shareable scenario URL, so an assumed number cannot be screenshotted free of its assumption.",
+          "default": null
+        },
+        "small_grant": { "$ref": "#/$defs/grantLine" },
+        "sparse_grant": { "$ref": "#/$defs/grantLine" },
+        "total": {
+          "type": "null",
+          "description": "Always null, and typed so rather than merely left empty. Whether the two grants add, or a school takes the greater, is unread against current statute -- the spread is roughly 60% on the line item for exactly the schools most exposed in the March 2028 votes. The engine emits separate lines and no total until someone reads Sec. 37. When that reading lands, widen this type in the same commit as the parameter."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "assumption_basis": { "const": "none" } },
+            "required": ["assumption_basis"]
+          },
+          "then": {
+            "properties": {
+              "small_grant": { "properties": { "amount": { "const": null } } },
+              "sparse_grant": { "properties": { "amount": { "const": null } } }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "assumption_basis": { "const": "explicit_user_assumption" } },
+            "required": ["assumption_basis"]
+          },
+          "then": {
+            "required": ["assumption_note"],
+            "properties": { "assumption_note": { "type": "string", "minLength": 1 } }
+          }
+        }
+      ]
+    },
+
+    "lines_flagged": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    }
+  },
+
+  "$defs": {
+    "blankKind": {
+      "enum": ["ok", "unverified", "missing_input", "undetermined", "not_computable"],
+      "description": "Why this figure is or is not present, in the same four-kind vocabulary the engine uses. `unverified` is our outstanding work; `missing_input` is the source's silence; `undetermined` is a decision the State has not made; `not_computable` is terminal. Collapsing any two of them misattributes a gap to whoever is easiest to blame."
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "computability", "explanation"],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_evaluated",
+            "screen_met",
+            "screen_not_met",
+            "indeterminate",
+            "requires_certification",
+            "requires_local_model",
+            "requires_projection"
+          ],
+          "description": "`screen_met` and `screen_not_met` are legal only where computability is `partly_computable`. For the other criteria the honest terminal state is requires_certification / requires_local_model / requires_projection. Those are not failures; they are statements that the question is not answerable from public data, and a coverage view that renders them as outstanding work is misdescribing what finished looks like."
+        },
+        "computability": {
+          "enum": [
+            "partly_computable",
+            "requires_certification",
+            "requires_local_model",
+            "requires_projection"
+          ],
+          "description": "travel_time_or_distance is partly computable -- road distance yes, travel time approximable. safe_transportation requires certification by the SU or AOE. feasible_consolidation and closure_cost_increase require a local model. population_trajectory requires a projection."
+        },
+        "evidence": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "description": "Free-form per criterion. For travel_time_or_distance: nearest_same_span_school, road_miles, estimated_one_way_minutes, threshold_applied, routing_run_ref.",
+          "default": null
+        },
+        "capital_cost_basis": {
+          "enum": ["gross_project_cost", "net_of_construction_aid", null],
+          "description": "Applies to feasible_consolidation and closure_cost_increase only. The framework asks whether renovation or addition costs at receiving schools exceed the projected savings from closure, but does not say whether those costs are gross or net of Act 170 school construction aid -- up to 75% for merged districts against 30% otherwise. The two bases give OPPOSITE answers for the same school with the same numbers, so there is no default: a scenario states which basis it used and the UI shows it.",
+          "default": null
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Plain-language sentence rendered in the walkthrough. Written to be read aloud at a contentious meeting."
+        },
+        "citations": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Parameter file keys, resolved at build time to statute text and to the framework document.",
+          "default": []
+        }
+      }
+    },
+    "grantLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "suppressed_reason"],
+      "properties": {
+        "amount": { "type": ["number", "null"] },
+        "per_pupil_rate": { "type": ["number", "null"], "default": null },
+        "pupil_count": { "type": ["number", "null"], "default": null },
+        "pupil_count_basis": { "enum": ["two_year_average", "single_year", null], "default": null },
+        "inflation_index_applied": { "type": ["string", "null"], "default": null },
+        "suppressed_reason": {
+          "type": ["string", "null"],
+          "description": "Populated instead of amount, and rendered in the UI where the number would have gone. The two suppression reasons must stay distinct wherever they appear: one is a decision the State has not made, the other is a statute we have not read. Showing them as one blank tells the reader nothing about who has to act."
+        },
+        "suppressed_kind": { "$ref": "#/$defs/blankKind", "default": "ok" }
+      }
+    }
+  }
+}

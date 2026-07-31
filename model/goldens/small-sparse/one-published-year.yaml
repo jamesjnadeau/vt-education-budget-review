@@ -1,0 +1,35 @@
+name: a school with one published enrollment year and one missing
+why: |
+  A missing year is missing, not zero, and not an invitation to average over
+  whatever happens to be present. Both shortcuts produce a smaller number and
+  therefore a school that looks small: 80 and a zero average to 40, and 80 alone
+  averages to 80. Either would pass a screen this school has not been shown to
+  pass.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 80, 2029: null }
+  municipality:
+    population: 1000
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: null
+  small_screen_met: null
+  density_value: 25
+  sparse_screen_met: true
+  grant_amount: null

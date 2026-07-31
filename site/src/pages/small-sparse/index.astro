@@ -1,0 +1,235 @@
+---
+import Base from '../../layouts/Base.astro';
+import smallSparse from '../../generated/small-sparse.json';
+import registry from '../../generated/registry.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface SchoolRow {
+  school: string;
+  name: string;
+  supervisory_union: string | null;
+  grade_span_class: string | null;
+  grades_as_stated: string | null;
+  municipality: string | null;
+  municipality_basis: string;
+  land_area_sq_mi: number | null;
+  population: number | null;
+  density: number | null;
+  enrollment: number | null;
+  small_screen_met: boolean | null;
+  sparse_screen_met: boolean | null;
+  enrollment_status: string;
+  density_status: string;
+  determination_status: string;
+}
+
+const data = smallSparse as unknown as {
+  generated: string;
+  parameter_set_ref: string;
+  fiscal_year: number;
+  nothing_is_computable: boolean;
+  why: string[];
+  counts: Record<string, number>;
+  population_series_held: string[];
+  schools: SchoolRow[];
+};
+
+const names = new Map(
+  (registry.entities as Array<{ slug: string; name: string }>).map((e) => [e.slug, e.name]),
+);
+
+// Public schools only in the table. Independents and tech centres are in the
+// registry because they are receiving schools in consolidation scenarios, but
+// they are not candidates for these grants and listing them here would imply
+// they were.
+const rows = data.schools
+  .filter((r) => r.municipality !== null)
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
+---
+
+<Base
+  title="Small and sparse schools — Vermont School Budgets"
+  description="The two statutory screens for the Act 73 small and sparse school support grants, and why no school in Vermont can yet be screened against them."
+>
+  <h1>Small and sparse schools</h1>
+  <p class="lede">
+    Act 73 of 2025 creates support grants for schools that are small or sparse
+    <em>by necessity</em>. This page holds the geography those grants turn on. It holds no
+    verdicts, and it will not until somebody reads the enacted acts — the reason is below,
+    stated before the table rather than after it.
+  </p>
+
+  <div class="notice blocking">
+    <strong>Nothing on this page says whether a school qualifies.</strong>
+    <p>
+      Three separate things stand between this table and an answer, and they belong to three
+      different parties:
+    </p>
+    <ul>
+      {data.why.map((reason) => <li>{reason}</li>)}
+    </ul>
+    <p>
+      The middle one is ours. The first is ours too. The third is the State's, and it is not a
+      criticism: the Agency of Education cannot publish determinations under rules that do not
+      exist yet.
+    </p>
+  </div>
+
+  <h2>What the statute asks</h2>
+  <p>
+    Two screens, both arithmetic. A school is <strong>small</strong> if its enrollment is below
+    a threshold. A school is <strong>sparse</strong> if the municipality it stands in has fewer
+    than some number of people per square mile <em>of land</em>. Both thresholds are in
+    <a href={`${base}/methodology/small-sparse/`}>the parameter file</a>, and both are null.
+  </p>
+  <p>
+    Meeting both screens does not make a school eligible. Eligibility additionally requires a
+    determination of <em>necessity</em> — that the school is small or sparse because of
+    geography or isolation rather than because of a local decision. Nobody has made that
+    determination for any school in Vermont, and the criteria for making it are a proposal to
+    the State Board rather than a rule.
+  </p>
+  <p>
+    One of the proposed criteria matters for how this page should be read: a school is not
+    disqualified by being <em>above</em> the enrollment threshold today, because the framework
+    contemplates places whose enrollment dips temporarily. The enrollment screen is a candidate
+    filter, not a gate.
+  </p>
+
+  <h2>What is here, and what is not</h2>
+  <table class="scroll-x">
+    <caption>Coverage of the inputs the two screens need</caption>
+    <tbody>
+      <tr>
+        <th scope="row">Schools in the registry</th>
+        <td>{data.counts['schools']}</td>
+        <td>Every open school, academy and technical centre.</td>
+      </tr>
+      <tr>
+        <th scope="row">Located in a municipality</th>
+        <td>{data.counts['with_municipality']}</td>
+        <td>
+          Resolved from AOE-published coordinates against Census county subdivisions, not from
+          the mailing address. A Vermont post office name routinely covers parts of several
+          towns.
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">With land area</th>
+        <td>{data.counts['with_land_area']}</td>
+        <td>Census Gazetteer ALAND. Land only — total area would understate density.</td>
+      </tr>
+      <tr>
+        <th scope="row">With municipal population</th>
+        <td>{data.counts['with_population']}</td>
+        <td>
+          {data.population_series_held.length === 0
+            ? 'None retrieved: the Census data API requires a key for county-subdivision queries and this build had none.'
+            : `Series held: ${data.population_series_held.join(', ')}.`}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">With school-level enrollment</th>
+        <td>{data.counts['with_enrollment']}</td>
+        <td>
+          AOE publishes average daily membership by <em>resident district</em>, which is a town
+          rather than a school. No per-school series is available through the public API, and a
+          town's membership standing in for a school's roll would be a fabrication that looked
+          like data.
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Screens resolved</th>
+        <td>{data.counts['screens_resolved']}</td>
+        <td>
+          Zero, and it stays zero while the thresholds are unverified — independently of every
+          row above.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  {withoutTown > 0 && (
+    <p class="note">
+      {withoutTown} schools are not in the table because their municipality is not established:
+      AOE publishes no coordinates for them, or their coordinates fall in a place the registry
+      tracks only through an incorporated school district. Both cases are listed in
+      <code>derived/school-municipality/</code> rather than quietly dropped.
+    </p>
+  )}
+
+  <h2>The candidate geography</h2>
+  <p class="note">
+    Population and enrollment columns are blank for the reasons above. The density column is
+    what it will be computed from, once there is a population series and a verified threshold to
+    compare it against.
+  </p>
+
+  <table class="scroll-x">
+    <caption>
+      {rows.length} schools with an established municipality. FY{data.fiscal_year} frame,
+      computed against <code>{data.parameter_set_ref}</code>.
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">School</th>
+        <th scope="col">Town</th>
+        <th scope="col">Grades</th>
+        <th scope="col">Land area (sq mi)</th>
+        <th scope="col">Population</th>
+        <th scope="col">Density</th>
+        <th scope="col">Small screen</th>
+        <th scope="col">Sparse screen</th>
+        <th scope="col">Necessity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <th scope="row">{row.name}</th>
+          <td>{row.municipality ? names.get(row.municipality) ?? row.municipality : '—'}</td>
+          <td>{row.grades_as_stated ?? '—'}</td>
+          <td>{row.land_area_sq_mi?.toFixed(1) ?? '—'}</td>
+          <td>{row.population ?? '—'}</td>
+          <td>{row.density?.toFixed(1) ?? '—'}</td>
+          <td><span class="tag unverified">{row.enrollment_status.replace(/_/g, ' ')}</span></td>
+          <td><span class="tag unverified">{row.density_status.replace(/_/g, ' ')}</span></td>
+          <td><span class="tag undetermined">{row.determination_status}</span></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Reading the blanks</h2>
+  <p>
+    Four kinds, and the site never renders two of them the same way. See
+    <a href={`${base}/methodology/#blanks`}>the methodology page</a> for the full legend.
+  </p>
+  <ul>
+    <li>
+      <span class="tag unverified">unverified</span> — a statutory value has not been checked
+      against current law. <strong>Ours.</strong>
+    </li>
+    <li>
+      <span class="tag missing-input">missing input</span> — the source document does not
+      publish it. <strong>A fact about the document.</strong>
+    </li>
+    <li>
+      <span class="tag undetermined">undetermined</span> — the State has not made a decision
+      that does not yet exist. <strong>Nobody's, yet.</strong>
+    </li>
+    <li>
+      <span class="tag not-computable">not computable</span> — the question cannot be answered
+      from public data at all. <strong>Nobody's, ever.</strong> Four of the five necessity
+      criteria are permanently in this category, and that is a correct answer rather than an
+      outstanding task.
+    </li>
+  </ul>
+
+  <p class="note">
+    Generated {new Date(data.generated).toISOString().slice(0, 10)}.
+  </p>
+</Base>

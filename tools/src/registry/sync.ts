@@ -20,6 +20,8 @@
  * marked `aoe_published`. Successors are hand-entered.
  */
 
+import { gradeSpanClassOf, normalizeGradeSpan } from '@vt-budget/model';
+
 import { orgId, type AoeRawRecord, type Snapshot } from './aoe-client.ts';
 import { detectPlaceholder, isReportingBucket } from './placeholder.ts';
 import { assignSlug, entityTypeFromOrgType, untrackedReason } from './slugs.ts';
@@ -61,6 +63,52 @@ export function relationshipsFor(type: EntityType, raw: AoeRawRecord): Relations
       // An SU's OperatedBy points at itself; recording that would be noise.
       return { supervisory_union: null, operated_by: null };
   }
+}
+
+const SCHOOL_TYPES: Partial<Record<EntityType, RegistryEntity['school_type']>> = {
+  school: 'public',
+  academy: 'approved_independent',
+  independent: 'approved_independent',
+  techcenter: 'career_technical_center',
+};
+
+/**
+ * The fields the small/sparse layer needs on a school, and nothing else.
+ *
+ * Two of them are deliberately NOT derived here even though the data looks
+ * available:
+ *
+ *   `municipality` -- the API publishes a mailing address, and a postal city is
+ *   not a municipality. Vermont post office names routinely cover parts of
+ *   several towns, so wiring MailingCity into the field the sparse screen reads
+ *   would put a plausible wrong town behind a statutory test. The mailing city
+ *   is recorded under its own name; the municipality arrives from the point-in-
+ *   polygon geocode in `derived/school-municipality/`, or from a human.
+ *
+ *   `geocode_precision` -- AOE states none, so the sync says `unknown` rather
+ *   than assuming rooftop. The distance criterion declines at that precision.
+ */
+function schoolFields(
+  type: EntityType,
+  raw: AoeRawRecord,
+  prior: RegistryEntity | undefined,
+): Partial<RegistryEntity> {
+  const schoolType = SCHOOL_TYPES[type];
+  if (!schoolType) return {};
+
+  const span = normalizeGradeSpan(raw.Grades ?? []);
+
+  return {
+    grade_span: span,
+    grade_span_class: gradeSpanClassOf(span),
+    mailing_city: raw.MailingCity ?? null,
+    // Preserved across syncs: whatever established these did not come from the
+    // API, so the API must not be able to erase them.
+    municipality: prior?.municipality ?? null,
+    municipality_basis: prior?.municipality_basis ?? 'unknown',
+    geocode_precision: prior?.geocode_precision ?? 'unknown',
+    school_type: schoolType,
+  };
 }
 
 function parseCoordinate(value: string | null | undefined): number | null {
@@ -207,6 +255,7 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
       website: raw.Website ?? null,
       latitude: parseCoordinate(raw.Latitude),
       longitude: parseCoordinate(raw.Longitude),
+      ...schoolFields(type, raw, prior),
       manual_overrides: prior?.manual_overrides ?? [],
       notes: prior?.notes ?? null,
     };

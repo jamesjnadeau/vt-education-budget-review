@@ -13,6 +13,8 @@ export const PATHS = {
   groupings: join(REPO_ROOT, 'registry', 'groupings.yaml'),
   intake: join(REPO_ROOT, 'intake'),
   warehouse: join(REPO_ROOT, 'warehouse'),
+  /** Committed derived products: computed here, never retrieved. */
+  derived: join(REPO_ROOT, 'derived'),
   schemas: join(REPO_ROOT, 'schemas'),
   collectors: join(REPO_ROOT, 'collectors'),
   parameters: join(REPO_ROOT, 'model', 'parameters'),

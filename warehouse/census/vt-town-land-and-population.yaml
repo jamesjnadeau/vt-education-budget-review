@@ -1,0 +1,2374 @@
+# Census land area and population, by Vermont municipality.
+#
+# Transcribed from intake/census/fy2023/2023_gaz_cousubs_50.txt by npm run census:import. Do not hand-edit:
+# re-run the import instead, so the record always matches the hashed artifact.
+#
+# LAND area, never total area. The file carries water area too, and nothing divides
+# by it -- see model/goldens/small-sparse/land-versus-total-area.yaml for the fixture
+# that fails if anyone swaps the measure.
+schema_version: "1.0"
+source: intake/census/fy2023/2023_gaz_cousubs_50.txt
+area_measure: aland
+area_vintage: 2023 Census Gazetteer, county subdivisions
+population_series_held: []
+population_sources: []
+towns:
+  - entity: town/addison
+    geoid: "5000100325"
+    name_as_published: Addison town
+    land_area_sq_mi: 41.587
+    water_area_sq_mi: 7.401
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bridport
+    geoid: "5000108575"
+    name_as_published: Bridport town
+    land_area_sq_mi: 43.691
+    water_area_sq_mi: 2.582
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bristol
+    geoid: "5000109025"
+    name_as_published: Bristol town
+    land_area_sq_mi: 40.548
+    water_area_sq_mi: 0.661
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/cornwall
+    geoid: "5000116000"
+    name_as_published: Cornwall town
+    land_area_sq_mi: 28.568
+    water_area_sq_mi: 0.17
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/ferrisburgh
+    geoid: "5000126300"
+    name_as_published: Ferrisburgh town
+    land_area_sq_mi: 47.483
+    water_area_sq_mi: 13.722
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/goshen
+    geoid: "5000128600"
+    name_as_published: Goshen town
+    land_area_sq_mi: 20.581
+    water_area_sq_mi: 0.162
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/granville
+    geoid: "5000129575"
+    name_as_published: Granville town
+    land_area_sq_mi: 50.885
+    water_area_sq_mi: 0.098
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hancock
+    geoid: "5000131525"
+    name_as_published: Hancock town
+    land_area_sq_mi: 38.478
+    water_area_sq_mi: 0.107
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/leicester
+    geoid: "5000139325"
+    name_as_published: Leicester town
+    land_area_sq_mi: 20.837
+    water_area_sq_mi: 0.932
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/lincoln
+    geoid: "5000140075"
+    name_as_published: Lincoln town
+    land_area_sq_mi: 45.611
+    water_area_sq_mi: 0.19
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/middlebury
+    geoid: "5000144350"
+    name_as_published: Middlebury town
+    land_area_sq_mi: 39.231
+    water_area_sq_mi: 0.394
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/monkton
+    geoid: "5000145550"
+    name_as_published: Monkton town
+    land_area_sq_mi: 35.893
+    water_area_sq_mi: 0.376
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/new-haven
+    geoid: "5000148700"
+    name_as_published: New Haven town
+    land_area_sq_mi: 41.155
+    water_area_sq_mi: 0.35
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/orwell
+    geoid: "5000153725"
+    name_as_published: Orwell town
+    land_area_sq_mi: 47.22
+    water_area_sq_mi: 2.501
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/panton
+    geoid: "5000153950"
+    name_as_published: Panton town
+    land_area_sq_mi: 15.48
+    water_area_sq_mi: 6.553
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/ripton
+    geoid: "5000159650"
+    name_as_published: Ripton town
+    land_area_sq_mi: 49.286
+    water_area_sq_mi: 0.163
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/salisbury
+    geoid: "5000162575"
+    name_as_published: Salisbury town
+    land_area_sq_mi: 28.941
+    water_area_sq_mi: 1.158
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/shoreham
+    geoid: "5000165050"
+    name_as_published: Shoreham town
+    land_area_sq_mi: 43.224
+    water_area_sq_mi: 2.952
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/starksboro
+    geoid: "5000170075"
+    name_as_published: Starksboro town
+    land_area_sq_mi: 45.361
+    water_area_sq_mi: 0.191
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/vergennes
+    geoid: "5000174650"
+    name_as_published: Vergennes city
+    land_area_sq_mi: 2.456
+    water_area_sq_mi: 0.077
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/waltham
+    geoid: "5000176075"
+    name_as_published: Waltham town
+    land_area_sq_mi: 9.116
+    water_area_sq_mi: 0.118
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/weybridge
+    geoid: "5000183275"
+    name_as_published: Weybridge town
+    land_area_sq_mi: 17.097
+    water_area_sq_mi: 0.47
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/whiting
+    geoid: "5000183800"
+    name_as_published: Whiting town
+    land_area_sq_mi: 13.601
+    water_area_sq_mi: 0.105
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/arlington
+    geoid: "5000301450"
+    name_as_published: Arlington town
+    land_area_sq_mi: 42.026
+    water_area_sq_mi: 0.19
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: null
+    geoid: "5000304825"
+    name_as_published: Bennington town
+    land_area_sq_mi: 41.949
+    water_area_sq_mi: 0.252
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/dorset
+    geoid: "5000317725"
+    name_as_published: Dorset town
+    land_area_sq_mi: 47.372
+    water_area_sq_mi: 0.129
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/glastenbury
+    geoid: "5000327962"
+    name_as_published: Glastenbury town
+    land_area_sq_mi: 44.412
+    water_area_sq_mi: 0.005
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/landgrove
+    geoid: "5000339025"
+    name_as_published: Landgrove town
+    land_area_sq_mi: 8.855
+    water_area_sq_mi: 0.04
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/manchester
+    geoid: "5000342850"
+    name_as_published: Manchester town
+    land_area_sq_mi: 41.954
+    water_area_sq_mi: 0.124
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/peru
+    geoid: "5000355000"
+    name_as_published: Peru town
+    land_area_sq_mi: 37.371
+    water_area_sq_mi: 0.116
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/pownal
+    geoid: "5000357025"
+    name_as_published: Pownal town
+    land_area_sq_mi: 46.775
+    water_area_sq_mi: 0.259
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/readsboro
+    geoid: "5000358600"
+    name_as_published: Readsboro town
+    land_area_sq_mi: 36.13
+    water_area_sq_mi: 0.148
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/rupert
+    geoid: "5000361000"
+    name_as_published: Rupert town
+    land_area_sq_mi: 44.746
+    water_area_sq_mi: 0.038
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sandgate
+    geoid: "5000362875"
+    name_as_published: Sandgate town
+    land_area_sq_mi: 42.246
+    water_area_sq_mi: 0.066
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/searsburg
+    geoid: "5000363175"
+    name_as_published: Searsburg town
+    land_area_sq_mi: 21.284
+    water_area_sq_mi: 0.126
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/shaftsbury
+    geoid: "5000363550"
+    name_as_published: Shaftsbury town
+    land_area_sq_mi: 42.991
+    water_area_sq_mi: 0.092
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/stamford
+    geoid: "5000369775"
+    name_as_published: Stamford town
+    land_area_sq_mi: 39.481
+    water_area_sq_mi: 0.116
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sunderland
+    geoid: "5000371425"
+    name_as_published: Sunderland town
+    land_area_sq_mi: 45.235
+    water_area_sq_mi: 0.317
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/winhall
+    geoid: "5000385075"
+    name_as_published: Winhall town
+    land_area_sq_mi: 44.052
+    water_area_sq_mi: 0.475
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/woodford
+    geoid: "5000385675"
+    name_as_published: Woodford town
+    land_area_sq_mi: 47.357
+    water_area_sq_mi: 0.169
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/barnet
+    geoid: "5000502875"
+    name_as_published: Barnet town
+    land_area_sq_mi: 42.326
+    water_area_sq_mi: 1.312
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/burke
+    geoid: "5000510450"
+    name_as_published: Burke town
+    land_area_sq_mi: 33.563
+    water_area_sq_mi: 0.137
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/danville
+    geoid: "5000517125"
+    name_as_published: Danville town
+    land_area_sq_mi: 60.616
+    water_area_sq_mi: 0.411
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/groton
+    geoid: "5000530550"
+    name_as_published: Groton town
+    land_area_sq_mi: 53.828
+    water_area_sq_mi: 1.206
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hardwick
+    geoid: "5000531825"
+    name_as_published: Hardwick town
+    land_area_sq_mi: 38.266
+    water_area_sq_mi: 0.395
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/kirby
+    geoid: "5000537900"
+    name_as_published: Kirby town
+    land_area_sq_mi: 24.696
+    water_area_sq_mi: 0.049
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/lyndon
+    geoid: "5000541725"
+    name_as_published: Lyndon town
+    land_area_sq_mi: 39.341
+    water_area_sq_mi: 0.355
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/newark
+    geoid: "5000547725"
+    name_as_published: Newark town
+    land_area_sq_mi: 36.774
+    water_area_sq_mi: 0.466
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/peacham
+    geoid: "5000554400"
+    name_as_published: Peacham town
+    land_area_sq_mi: 46.682
+    water_area_sq_mi: 1.033
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/ryegate
+    geoid: "5000561525"
+    name_as_published: Ryegate town
+    land_area_sq_mi: 36.565
+    water_area_sq_mi: 0.293
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/st-johnsbury
+    geoid: "5000562200"
+    name_as_published: St. Johnsbury town
+    land_area_sq_mi: 36.45
+    water_area_sq_mi: 0.353
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sheffield
+    geoid: "5000564075"
+    name_as_published: Sheffield town
+    land_area_sq_mi: 32.757
+    water_area_sq_mi: 0.257
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/stannard
+    geoid: "5000569925"
+    name_as_published: Stannard town
+    land_area_sq_mi: 12.642
+    water_area_sq_mi: 0.087
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sutton
+    geoid: "5000571575"
+    name_as_published: Sutton town
+    land_area_sq_mi: 38.298
+    water_area_sq_mi: 0.195
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/walden
+    geoid: "5000575700"
+    name_as_published: Walden town
+    land_area_sq_mi: 38.621
+    water_area_sq_mi: 0.355
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/waterford
+    geoid: "5000577125"
+    name_as_published: Waterford town
+    land_area_sq_mi: 38.284
+    water_area_sq_mi: 1.405
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/wheelock
+    geoid: "5000583500"
+    name_as_published: Wheelock town
+    land_area_sq_mi: 39.504
+    water_area_sq_mi: 0.321
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bolton
+    geoid: "5000706550"
+    name_as_published: Bolton town
+    land_area_sq_mi: 41.765
+    water_area_sq_mi: 0.276
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/buels-gore
+    geoid: "5000710300"
+    name_as_published: Buels gore
+    land_area_sq_mi: 4.998
+    water_area_sq_mi: 0.004
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/burlington
+    geoid: "5000710675"
+    name_as_published: Burlington city
+    land_area_sq_mi: 10.303
+    water_area_sq_mi: 5.05
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/charlotte
+    geoid: "5000713300"
+    name_as_published: Charlotte town
+    land_area_sq_mi: 41.252
+    water_area_sq_mi: 9.111
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/colchester
+    geoid: "5000714875"
+    name_as_published: Colchester town
+    land_area_sq_mi: 36.3
+    water_area_sq_mi: 23.984
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/essex-town
+    geoid: "5000724175"
+    name_as_published: Essex town
+    land_area_sq_mi: 34.341
+    water_area_sq_mi: 0.316
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/essex-junction
+    geoid: "5000724400"
+    name_as_published: Essex Junction city
+    land_area_sq_mi: 4.569
+    water_area_sq_mi: 0.193
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hinesburg
+    geoid: "5000733475"
+    name_as_published: Hinesburg town
+    land_area_sq_mi: 39.298
+    water_area_sq_mi: 0.387
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/huntington
+    geoid: "5000734600"
+    name_as_published: Huntington town
+    land_area_sq_mi: 38.228
+    water_area_sq_mi: 0.098
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/jericho
+    geoid: "5000736700"
+    name_as_published: Jericho town
+    land_area_sq_mi: 35.455
+    water_area_sq_mi: 0.158
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/milton
+    geoid: "5000745250"
+    name_as_published: Milton town
+    land_area_sq_mi: 51.587
+    water_area_sq_mi: 9.381
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/richmond
+    geoid: "5000759275"
+    name_as_published: Richmond town
+    land_area_sq_mi: 32.376
+    water_area_sq_mi: 0.516
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/st-george
+    geoid: "5000762050"
+    name_as_published: St. George town
+    land_area_sq_mi: 3.67
+    water_area_sq_mi: 0.003
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/shelburne
+    geoid: "5000764300"
+    name_as_published: Shelburne town
+    land_area_sq_mi: 24.276
+    water_area_sq_mi: 19.019
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/south-burlington
+    geoid: "5000766175"
+    name_as_published: South Burlington city
+    land_area_sq_mi: 16.435
+    water_area_sq_mi: 14.403
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/underhill-town
+    geoid: "5000773975"
+    name_as_published: Underhill town
+    land_area_sq_mi: 51.215
+    water_area_sq_mi: 0.073
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/westford
+    geoid: "5000780350"
+    name_as_published: Westford town
+    land_area_sq_mi: 38.921
+    water_area_sq_mi: 0.209
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/williston
+    geoid: "5000784475"
+    name_as_published: Williston town
+    land_area_sq_mi: 30.48
+    water_area_sq_mi: 0.537
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/winooski
+    geoid: "5000785150"
+    name_as_published: Winooski city
+    land_area_sq_mi: 1.381
+    water_area_sq_mi: 0.091
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/averill
+    geoid: "5000902125"
+    name_as_published: Averill town
+    land_area_sq_mi: 36.012
+    water_area_sq_mi: 2.053
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/averys-gore
+    geoid: "5000902162"
+    name_as_published: Avery's gore
+    land_area_sq_mi: 18.227
+    water_area_sq_mi: 0.033
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bloomfield
+    geoid: "5000906325"
+    name_as_published: Bloomfield town
+    land_area_sq_mi: 40.168
+    water_area_sq_mi: 0.237
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brighton
+    geoid: "5000908725"
+    name_as_published: Brighton town
+    land_area_sq_mi: 52.868
+    water_area_sq_mi: 1.478
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brunswick
+    geoid: "5000910075"
+    name_as_published: Brunswick town
+    land_area_sq_mi: 24.79
+    water_area_sq_mi: 0.529
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/canaan
+    geoid: "5000911800"
+    name_as_published: Canaan town
+    land_area_sq_mi: 33.022
+    water_area_sq_mi: 0.387
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/concord
+    geoid: "5000915250"
+    name_as_published: Concord town
+    land_area_sq_mi: 51.285
+    water_area_sq_mi: 2.185
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/east-haven
+    geoid: "5000921250"
+    name_as_published: East Haven town
+    land_area_sq_mi: 37.253
+    water_area_sq_mi: 0.045
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/ferdinand
+    geoid: "5000925975"
+    name_as_published: Ferdinand town
+    land_area_sq_mi: 52.86
+    water_area_sq_mi: 0.227
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/granby
+    geoid: "5000929125"
+    name_as_published: Granby town
+    land_area_sq_mi: 38.719
+    water_area_sq_mi: 0.093
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/guildhall
+    geoid: "5000930775"
+    name_as_published: Guildhall town
+    land_area_sq_mi: 32.97
+    water_area_sq_mi: 0.029
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/lemington
+    geoid: "5000939700"
+    name_as_published: Lemington town
+    land_area_sq_mi: 35.43
+    water_area_sq_mi: 0.144
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/lewis
+    geoid: "5000939775"
+    name_as_published: Lewis town
+    land_area_sq_mi: 38.886
+    water_area_sq_mi: 0.128
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/lunenburg
+    geoid: "5000941425"
+    name_as_published: Lunenburg town
+    land_area_sq_mi: 45.173
+    water_area_sq_mi: 0.627
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/maidstone
+    geoid: "5000942475"
+    name_as_published: Maidstone town
+    land_area_sq_mi: 30.695
+    water_area_sq_mi: 1.517
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/norton
+    geoid: "5000952750"
+    name_as_published: Norton town
+    land_area_sq_mi: 38.389
+    water_area_sq_mi: 0.404
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/victory
+    geoid: "5000975175"
+    name_as_published: Victory town
+    land_area_sq_mi: 42.954
+    water_area_sq_mi: 0.127
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/warners-grant
+    geoid: "5000976337"
+    name_as_published: Warner's grant
+    land_area_sq_mi: 3.199
+    water_area_sq_mi: 0
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: null
+    geoid: "5000976562"
+    name_as_published: Warren's gore
+    land_area_sq_mi: 9.472
+    water_area_sq_mi: 0.834
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bakersfield
+    geoid: "5001102500"
+    name_as_published: Bakersfield town
+    land_area_sq_mi: 42.082
+    water_area_sq_mi: 0.099
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/berkshire
+    geoid: "5001105425"
+    name_as_published: Berkshire town
+    land_area_sq_mi: 41.69
+    water_area_sq_mi: 0.22
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/enosburgh
+    geoid: "5001124050"
+    name_as_published: Enosburgh town
+    land_area_sq_mi: 47.598
+    water_area_sq_mi: 0.489
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/fairfax
+    geoid: "5001124925"
+    name_as_published: Fairfax town
+    land_area_sq_mi: 39.739
+    water_area_sq_mi: 0.579
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/fairfield
+    geoid: "5001125225"
+    name_as_published: Fairfield town
+    land_area_sq_mi: 67.311
+    water_area_sq_mi: 1.079
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/fletcher
+    geoid: "5001126500"
+    name_as_published: Fletcher town
+    land_area_sq_mi: 38.347
+    water_area_sq_mi: 0.258
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/franklin
+    geoid: "5001127100"
+    name_as_published: Franklin town
+    land_area_sq_mi: 38.585
+    water_area_sq_mi: 2.279
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/georgia
+    geoid: "5001127700"
+    name_as_published: Georgia town
+    land_area_sq_mi: 39.348
+    water_area_sq_mi: 5.91
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/highgate
+    geoid: "5001133025"
+    name_as_published: Highgate town
+    land_area_sq_mi: 51.026
+    water_area_sq_mi: 9.033
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/montgomery
+    geoid: "5001145850"
+    name_as_published: Montgomery town
+    land_area_sq_mi: 56.349
+    water_area_sq_mi: 0.078
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/richford
+    geoid: "5001159125"
+    name_as_published: Richford town
+    land_area_sq_mi: 42.933
+    water_area_sq_mi: 0.273
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/st-albans-city
+    geoid: "5001161675"
+    name_as_published: St. Albans city
+    land_area_sq_mi: 1.955
+    water_area_sq_mi: 0.002
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/st-albans-town
+    geoid: "5001161750"
+    name_as_published: St. Albans town
+    land_area_sq_mi: 37.133
+    water_area_sq_mi: 23.698
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sheldon
+    geoid: "5001164600"
+    name_as_published: Sheldon town
+    land_area_sq_mi: 38.641
+    water_area_sq_mi: 0.699
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/swanton
+    geoid: "5001171725"
+    name_as_published: Swanton town
+    land_area_sq_mi: 48.224
+    water_area_sq_mi: 13.471
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/alburgh
+    geoid: "5001300860"
+    name_as_published: Alburgh town
+    land_area_sq_mi: 29.102
+    water_area_sq_mi: 18.364
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/grand-isle
+    geoid: "5001329275"
+    name_as_published: Grand Isle town
+    land_area_sq_mi: 16.413
+    water_area_sq_mi: 18.595
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/isle-lamotte
+    geoid: "5001335875"
+    name_as_published: Isle La Motte town
+    land_area_sq_mi: 7.885
+    water_area_sq_mi: 10.526
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/north-hero
+    geoid: "5001350650"
+    name_as_published: North Hero town
+    land_area_sq_mi: 13.454
+    water_area_sq_mi: 32.548
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/south-hero
+    geoid: "5001367000"
+    name_as_published: South Hero town
+    land_area_sq_mi: 14.915
+    water_area_sq_mi: 31.534
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/belvidere
+    geoid: "5001504375"
+    name_as_published: Belvidere town
+    land_area_sq_mi: 35.601
+    water_area_sq_mi: 0.054
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/cambridge
+    geoid: "5001511500"
+    name_as_published: Cambridge town
+    land_area_sq_mi: 62.942
+    water_area_sq_mi: 0.518
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/eden
+    geoid: "5001523500"
+    name_as_published: Eden town
+    land_area_sq_mi: 62.923
+    water_area_sq_mi: 0.986
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/elmore
+    geoid: "5001523725"
+    name_as_published: Elmore town
+    land_area_sq_mi: 38.929
+    water_area_sq_mi: 0.547
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hyde-park
+    geoid: "5001535050"
+    name_as_published: Hyde Park town
+    land_area_sq_mi: 37.671
+    water_area_sq_mi: 1.351
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/johnson
+    geoid: "5001537075"
+    name_as_published: Johnson town
+    land_area_sq_mi: 45.32
+    water_area_sq_mi: 0.377
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/morristown
+    geoid: "5001546675"
+    name_as_published: Morristown town
+    land_area_sq_mi: 50.78
+    water_area_sq_mi: 0.519
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/stowe
+    geoid: "5001570525"
+    name_as_published: Stowe town
+    land_area_sq_mi: 72.456
+    water_area_sq_mi: 0.167
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/waterville
+    geoid: "5001577425"
+    name_as_published: Waterville town
+    land_area_sq_mi: 15.685
+    water_area_sq_mi: 0.046
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/wolcott
+    geoid: "5001585375"
+    name_as_published: Wolcott town
+    land_area_sq_mi: 38.948
+    water_area_sq_mi: 0.357
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: null
+    geoid: "5001707375"
+    name_as_published: Bradford town
+    land_area_sq_mi: 29.66
+    water_area_sq_mi: 0.224
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/braintree
+    geoid: "5001707600"
+    name_as_published: Braintree town
+    land_area_sq_mi: 38.445
+    water_area_sq_mi: 0.106
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brookfield
+    geoid: "5001709325"
+    name_as_published: Brookfield town
+    land_area_sq_mi: 40.879
+    water_area_sq_mi: 0.356
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/chelsea
+    geoid: "5001713525"
+    name_as_published: Chelsea town
+    land_area_sq_mi: 40.051
+    water_area_sq_mi: 0.048
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/corinth
+    geoid: "5001715700"
+    name_as_published: Corinth town
+    land_area_sq_mi: 48.242
+    water_area_sq_mi: 0.11
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/fairlee
+    geoid: "5001725675"
+    name_as_published: Fairlee town
+    land_area_sq_mi: 19.968
+    water_area_sq_mi: 1.084
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/newbury
+    geoid: "5001748175"
+    name_as_published: Newbury town
+    land_area_sq_mi: 64.048
+    water_area_sq_mi: 0.522
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/orange
+    geoid: "5001753425"
+    name_as_published: Orange town
+    land_area_sq_mi: 38.687
+    water_area_sq_mi: 0.28
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/randolph
+    geoid: "5001758075"
+    name_as_published: Randolph town
+    land_area_sq_mi: 47.969
+    water_area_sq_mi: 0.151
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/strafford
+    geoid: "5001770675"
+    name_as_published: Strafford town
+    land_area_sq_mi: 44.085
+    water_area_sq_mi: 0.182
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/thetford
+    geoid: "5001772400"
+    name_as_published: Thetford town
+    land_area_sq_mi: 43.552
+    water_area_sq_mi: 0.804
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/topsham
+    geoid: "5001773075"
+    name_as_published: Topsham town
+    land_area_sq_mi: 48.922
+    water_area_sq_mi: 0.093
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/tunbridge
+    geoid: "5001773675"
+    name_as_published: Tunbridge town
+    land_area_sq_mi: 44.637
+    water_area_sq_mi: 0.152
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/vershire
+    geoid: "5001774950"
+    name_as_published: Vershire town
+    land_area_sq_mi: 36.101
+    water_area_sq_mi: 0.051
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/washington
+    geoid: "5001776750"
+    name_as_published: Washington town
+    land_area_sq_mi: 38.981
+    water_area_sq_mi: 0.056
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/west-fairlee
+    geoid: "5001779975"
+    name_as_published: West Fairlee town
+    land_area_sq_mi: 22.621
+    water_area_sq_mi: 0.217
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/williamstown
+    geoid: "5001784175"
+    name_as_published: Williamstown town
+    land_area_sq_mi: 40.16
+    water_area_sq_mi: 0.2
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/albany
+    geoid: "5001900475"
+    name_as_published: Albany town
+    land_area_sq_mi: 38.545
+    water_area_sq_mi: 0.438
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: null
+    geoid: "5001903550"
+    name_as_published: Barton town
+    land_area_sq_mi: 42.735
+    water_area_sq_mi: 1.625
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brownington
+    geoid: "5001909850"
+    name_as_published: Brownington town
+    land_area_sq_mi: 28.082
+    water_area_sq_mi: 0.279
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/charleston
+    geoid: "5001913150"
+    name_as_published: Charleston town
+    land_area_sq_mi: 37.106
+    water_area_sq_mi: 1.43
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/coventry
+    geoid: "5001916150"
+    name_as_published: Coventry town
+    land_area_sq_mi: 27.022
+    water_area_sq_mi: 0.789
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/craftsbury
+    geoid: "5001916300"
+    name_as_published: Craftsbury town
+    land_area_sq_mi: 39
+    water_area_sq_mi: 0.558
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/derby
+    geoid: "5001917350"
+    name_as_published: Derby town
+    land_area_sq_mi: 48.983
+    water_area_sq_mi: 8.364
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/glover
+    geoid: "5001928075"
+    name_as_published: Glover town
+    land_area_sq_mi: 37.558
+    water_area_sq_mi: 0.974
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/greensboro
+    geoid: "5001930175"
+    name_as_published: Greensboro town
+    land_area_sq_mi: 37.802
+    water_area_sq_mi: 1.75
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/holland
+    geoid: "5001933775"
+    name_as_published: Holland town
+    land_area_sq_mi: 37.931
+    water_area_sq_mi: 0.736
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/irasburg
+    geoid: "5001935575"
+    name_as_published: Irasburg town
+    land_area_sq_mi: 40.271
+    water_area_sq_mi: 0.268
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/jay
+    geoid: "5001936325"
+    name_as_published: Jay town
+    land_area_sq_mi: 33.915
+    water_area_sq_mi: 0.048
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/lowell
+    geoid: "5001940525"
+    name_as_published: Lowell town
+    land_area_sq_mi: 56.526
+    water_area_sq_mi: 0.08
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/morgan
+    geoid: "5001946450"
+    name_as_published: Morgan town
+    land_area_sq_mi: 31.206
+    water_area_sq_mi: 2.918
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/newport-city
+    geoid: "5001948850"
+    name_as_published: Newport city
+    land_area_sq_mi: 5.858
+    water_area_sq_mi: 1.766
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/newport-town
+    geoid: "5001948925"
+    name_as_published: Newport town
+    land_area_sq_mi: 41.527
+    water_area_sq_mi: 1.995
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/troy
+    geoid: "5001973525"
+    name_as_published: Troy town
+    land_area_sq_mi: 36.128
+    water_area_sq_mi: 0.318
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/westfield
+    geoid: "5001980200"
+    name_as_published: Westfield town
+    land_area_sq_mi: 39.911
+    water_area_sq_mi: 0.106
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/westmore
+    geoid: "5001981700"
+    name_as_published: Westmore town
+    land_area_sq_mi: 34.447
+    water_area_sq_mi: 3.129
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/benson
+    geoid: "5002105200"
+    name_as_published: Benson town
+    land_area_sq_mi: 43.881
+    water_area_sq_mi: 1.533
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brandon
+    geoid: "5002107750"
+    name_as_published: Brandon town
+    land_area_sq_mi: 39.735
+    water_area_sq_mi: 0.224
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/castleton
+    geoid: "5002111950"
+    name_as_published: Castleton town
+    land_area_sq_mi: 38.942
+    water_area_sq_mi: 3.452
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/chittenden
+    geoid: "5002114350"
+    name_as_published: Chittenden town
+    land_area_sq_mi: 72.735
+    water_area_sq_mi: 1.226
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/clarendon
+    geoid: "5002114500"
+    name_as_published: Clarendon town
+    land_area_sq_mi: 31.287
+    water_area_sq_mi: 0.215
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/danby
+    geoid: "5002116825"
+    name_as_published: Danby town
+    land_area_sq_mi: 41.544
+    water_area_sq_mi: 0.127
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/fair-haven
+    geoid: "5002125375"
+    name_as_published: Fair Haven town
+    land_area_sq_mi: 17.509
+    water_area_sq_mi: 0.712
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hubbardton
+    geoid: "5002134450"
+    name_as_published: Hubbardton town
+    land_area_sq_mi: 27.222
+    water_area_sq_mi: 1.363
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/ira
+    geoid: "5002135425"
+    name_as_published: Ira town
+    land_area_sq_mi: 22.263
+    water_area_sq_mi: 0.007
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/killington
+    geoid: "5002137685"
+    name_as_published: Killington town
+    land_area_sq_mi: 47.331
+    water_area_sq_mi: 0.271
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/mendon
+    geoid: "5002144125"
+    name_as_published: Mendon town
+    land_area_sq_mi: 37.958
+    water_area_sq_mi: 0.036
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/middletown-springs
+    geoid: "5002144800"
+    name_as_published: Middletown Springs town
+    land_area_sq_mi: 22.699
+    water_area_sq_mi: 0.009
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/mt-holly
+    geoid: "5002147200"
+    name_as_published: Mount Holly town
+    land_area_sq_mi: 49.098
+    water_area_sq_mi: 0.455
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/mt-tabor
+    geoid: "5002147425"
+    name_as_published: Mount Tabor town
+    land_area_sq_mi: 44.108
+    water_area_sq_mi: 0.143
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/pawlet
+    geoid: "5002154250"
+    name_as_published: Pawlet town
+    land_area_sq_mi: 42.844
+    water_area_sq_mi: 0.208
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/pittsfield
+    geoid: "5002155450"
+    name_as_published: Pittsfield town
+    land_area_sq_mi: 20.478
+    water_area_sq_mi: 0.066
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/pittsford
+    geoid: "5002155600"
+    name_as_published: Pittsford town
+    land_area_sq_mi: 43.287
+    water_area_sq_mi: 0.254
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/poultney
+    geoid: "5002156875"
+    name_as_published: Poultney town
+    land_area_sq_mi: 42.558
+    water_area_sq_mi: 1.058
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/proctor
+    geoid: "5002157250"
+    name_as_published: Proctor town
+    land_area_sq_mi: 7.415
+    water_area_sq_mi: 0.168
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/rutland-city
+    geoid: "5002161225"
+    name_as_published: Rutland city
+    land_area_sq_mi: 7.553
+    water_area_sq_mi: 0.117
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/rutland-town
+    geoid: "5002161300"
+    name_as_published: Rutland town
+    land_area_sq_mi: 19.055
+    water_area_sq_mi: 0.176
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/shrewsbury
+    geoid: "5002165275"
+    name_as_published: Shrewsbury town
+    land_area_sq_mi: 50.062
+    water_area_sq_mi: 0.207
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sudbury
+    geoid: "5002171050"
+    name_as_published: Sudbury town
+    land_area_sq_mi: 21.394
+    water_area_sq_mi: 0.75
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/tinmouth
+    geoid: "5002172925"
+    name_as_published: Tinmouth town
+    land_area_sq_mi: 28.591
+    water_area_sq_mi: 0.166
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/wallingford
+    geoid: "5002175925"
+    name_as_published: Wallingford town
+    land_area_sq_mi: 42.507
+    water_area_sq_mi: 0.448
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/wells
+    geoid: "5002177950"
+    name_as_published: Wells town
+    land_area_sq_mi: 22.343
+    water_area_sq_mi: 0.874
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/west-haven
+    geoid: "5002180875"
+    name_as_published: West Haven town
+    land_area_sq_mi: 28.123
+    water_area_sq_mi: 0.647
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/west-rutland
+    geoid: "5002182300"
+    name_as_published: West Rutland town
+    land_area_sq_mi: 18.028
+    water_area_sq_mi: 0.054
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/barre-city
+    geoid: "5002303175"
+    name_as_published: Barre city
+    land_area_sq_mi: 3.987
+    water_area_sq_mi: 0.032
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/barre-town
+    geoid: "5002303250"
+    name_as_published: Barre town
+    land_area_sq_mi: 30.573
+    water_area_sq_mi: 0.152
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/berlin
+    geoid: "5002305650"
+    name_as_published: Berlin town
+    land_area_sq_mi: 36.041
+    water_area_sq_mi: 0.681
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/cabot
+    geoid: "5002311125"
+    name_as_published: Cabot town
+    land_area_sq_mi: 37.136
+    water_area_sq_mi: 1.279
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/calais
+    geoid: "5002311350"
+    name_as_published: Calais town
+    land_area_sq_mi: 37.93
+    water_area_sq_mi: 0.624
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/duxbury
+    geoid: "5002318550"
+    name_as_published: Duxbury town
+    land_area_sq_mi: 42.968
+    water_area_sq_mi: 0.204
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/east-montpelier
+    geoid: "5002321925"
+    name_as_published: East Montpelier town
+    land_area_sq_mi: 31.748
+    water_area_sq_mi: 0.255
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/fayston
+    geoid: "5002325825"
+    name_as_published: Fayston town
+    land_area_sq_mi: 36.506
+    water_area_sq_mi: 0.009
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/marshfield
+    geoid: "5002343600"
+    name_as_published: Marshfield town
+    land_area_sq_mi: 43.311
+    water_area_sq_mi: 0.422
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/middlesex
+    geoid: "5002344500"
+    name_as_published: Middlesex town
+    land_area_sq_mi: 39.491
+    water_area_sq_mi: 0.305
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/montpelier
+    geoid: "5002346000"
+    name_as_published: Montpelier city
+    land_area_sq_mi: 10.057
+    water_area_sq_mi: 0.195
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/moretown
+    geoid: "5002346225"
+    name_as_published: Moretown town
+    land_area_sq_mi: 39.714
+    water_area_sq_mi: 0.357
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/northfield
+    geoid: "5002350275"
+    name_as_published: Northfield town
+    land_area_sq_mi: 44.632
+    water_area_sq_mi: 0.129
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/plainfield
+    geoid: "5002355825"
+    name_as_published: Plainfield town
+    land_area_sq_mi: 21.003
+    water_area_sq_mi: 0.083
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/roxbury
+    geoid: "5002360625"
+    name_as_published: Roxbury town
+    land_area_sq_mi: 41.699
+    water_area_sq_mi: 0.048
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/waitsfield
+    geoid: "5002375325"
+    name_as_published: Waitsfield town
+    land_area_sq_mi: 25.748
+    water_area_sq_mi: 0.178
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/warren
+    geoid: "5002376525"
+    name_as_published: Warren town
+    land_area_sq_mi: 40.084
+    water_area_sq_mi: 0.05
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/waterbury
+    geoid: "5002376975"
+    name_as_published: Waterbury town
+    land_area_sq_mi: 48.153
+    water_area_sq_mi: 1.549
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/woodbury
+    geoid: "5002385525"
+    name_as_published: Woodbury town
+    land_area_sq_mi: 37.723
+    water_area_sq_mi: 1.582
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/worcester
+    geoid: "5002386125"
+    name_as_published: Worcester town
+    land_area_sq_mi: 38.556
+    water_area_sq_mi: 0.172
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/athens
+    geoid: "5002501900"
+    name_as_published: Athens town
+    land_area_sq_mi: 13.953
+    water_area_sq_mi: 0.076
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brattleboro
+    geoid: "5002507900"
+    name_as_published: Brattleboro town
+    land_area_sq_mi: 32.056
+    water_area_sq_mi: 0.585
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/brookline
+    geoid: "5002509475"
+    name_as_published: Brookline town
+    land_area_sq_mi: 12.853
+    water_area_sq_mi: 0.111
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/dover
+    geoid: "5002517875"
+    name_as_published: Dover town
+    land_area_sq_mi: 35.768
+    water_area_sq_mi: 0.087
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/dummerston
+    geoid: "5002518325"
+    name_as_published: Dummerston town
+    land_area_sq_mi: 30.696
+    water_area_sq_mi: 0.24
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/grafton
+    geoid: "5002528900"
+    name_as_published: Grafton town
+    land_area_sq_mi: 38.137
+    water_area_sq_mi: 0.1
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/guilford
+    geoid: "5002530925"
+    name_as_published: Guilford town
+    land_area_sq_mi: 39.546
+    water_area_sq_mi: 0.13
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/halifax
+    geoid: "5002531150"
+    name_as_published: Halifax town
+    land_area_sq_mi: 39.718
+    water_area_sq_mi: 0.096
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/jamaica
+    geoid: "5002536175"
+    name_as_published: Jamaica town
+    land_area_sq_mi: 48.946
+    water_area_sq_mi: 0.536
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/londonderry
+    geoid: "5002540225"
+    name_as_published: Londonderry town
+    land_area_sq_mi: 35.468
+    water_area_sq_mi: 0.503
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/marlboro
+    geoid: "5002543375"
+    name_as_published: Marlboro town
+    land_area_sq_mi: 40.349
+    water_area_sq_mi: 0.38
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/newfane
+    geoid: "5002548400"
+    name_as_published: Newfane town
+    land_area_sq_mi: 39.761
+    water_area_sq_mi: 0.269
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/putney
+    geoid: "5002557700"
+    name_as_published: Putney town
+    land_area_sq_mi: 26.658
+    water_area_sq_mi: 0.07
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/rockingham
+    geoid: "5002560250"
+    name_as_published: Rockingham town
+    land_area_sq_mi: 41.41
+    water_area_sq_mi: 0.777
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/somerset
+    geoid: "5002565762"
+    name_as_published: Somerset town
+    land_area_sq_mi: 25.331
+    water_area_sq_mi: 2.276
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/stratton
+    geoid: "5002570750"
+    name_as_published: Stratton town
+    land_area_sq_mi: 46.027
+    water_area_sq_mi: 0.736
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/townshend
+    geoid: "5002573300"
+    name_as_published: Townshend town
+    land_area_sq_mi: 42.283
+    water_area_sq_mi: 0.449
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/vernon
+    geoid: "5002574800"
+    name_as_published: Vernon town
+    land_area_sq_mi: 19.448
+    water_area_sq_mi: 0.572
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/wardsboro
+    geoid: "5002576225"
+    name_as_published: Wardsboro town
+    land_area_sq_mi: 29.222
+    water_area_sq_mi: 0.033
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/westminster
+    geoid: "5002581400"
+    name_as_published: Westminster town
+    land_area_sq_mi: 45.025
+    water_area_sq_mi: 0.259
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/whitingham
+    geoid: "5002583950"
+    name_as_published: Whitingham town
+    land_area_sq_mi: 36.759
+    water_area_sq_mi: 2.333
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/wilmington
+    geoid: "5002584700"
+    name_as_published: Wilmington town
+    land_area_sq_mi: 40.45
+    water_area_sq_mi: 2.01
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/windham
+    geoid: "5002584850"
+    name_as_published: Windham town
+    land_area_sq_mi: 26.093
+    water_area_sq_mi: 0.082
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/andover
+    geoid: "5002701300"
+    name_as_published: Andover town
+    land_area_sq_mi: 28.85
+    water_area_sq_mi: 0.058
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/baltimore
+    geoid: "5002702575"
+    name_as_published: Baltimore town
+    land_area_sq_mi: 4.755
+    water_area_sq_mi: 0.009
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/barnard
+    geoid: "5002702725"
+    name_as_published: Barnard town
+    land_area_sq_mi: 48.034
+    water_area_sq_mi: 0.237
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bethel
+    geoid: "5002705800"
+    name_as_published: Bethel town
+    land_area_sq_mi: 45.496
+    water_area_sq_mi: 0.265
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/bridgewater
+    geoid: "5002708275"
+    name_as_published: Bridgewater town
+    land_area_sq_mi: 49.483
+    water_area_sq_mi: 0.136
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/cavendish
+    geoid: "5002712250"
+    name_as_published: Cavendish town
+    land_area_sq_mi: 39.4
+    water_area_sq_mi: 0.221
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/chester
+    geoid: "5002713675"
+    name_as_published: Chester town
+    land_area_sq_mi: 55.711
+    water_area_sq_mi: 0.259
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hartford
+    geoid: "5002732275"
+    name_as_published: Hartford town
+    land_area_sq_mi: 45.111
+    water_area_sq_mi: 0.881
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/hartland
+    geoid: "5002732425"
+    name_as_published: Hartland town
+    land_area_sq_mi: 45.23
+    water_area_sq_mi: 0.314
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/ludlow
+    geoid: "5002741275"
+    name_as_published: Ludlow town
+    land_area_sq_mi: 34.75
+    water_area_sq_mi: 0.527
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/norwich
+    geoid: "5002752900"
+    name_as_published: Norwich town
+    land_area_sq_mi: 44.494
+    water_area_sq_mi: 0.257
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/plymouth
+    geoid: "5002756050"
+    name_as_published: Plymouth town
+    land_area_sq_mi: 48.174
+    water_area_sq_mi: 0.561
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/pomfret
+    geoid: "5002756350"
+    name_as_published: Pomfret town
+    land_area_sq_mi: 39.475
+    water_area_sq_mi: 0.077
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/reading
+    geoid: "5002758375"
+    name_as_published: Reading town
+    land_area_sq_mi: 41.095
+    water_area_sq_mi: 0.187
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/rochester
+    geoid: "5002760100"
+    name_as_published: Rochester town
+    land_area_sq_mi: 56.845
+    water_area_sq_mi: 0.304
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/royalton
+    geoid: "5002760850"
+    name_as_published: Royalton town
+    land_area_sq_mi: 40.374
+    water_area_sq_mi: 0.575
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/sharon
+    geoid: "5002763775"
+    name_as_published: Sharon town
+    land_area_sq_mi: 39.808
+    water_area_sq_mi: 0.501
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/springfield
+    geoid: "5002769550"
+    name_as_published: Springfield town
+    land_area_sq_mi: 49.212
+    water_area_sq_mi: 0.424
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/stockbridge
+    geoid: "5002770375"
+    name_as_published: Stockbridge town
+    land_area_sq_mi: 45.785
+    water_area_sq_mi: 0.273
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/weathersfield
+    geoid: "5002777500"
+    name_as_published: Weathersfield town
+    land_area_sq_mi: 43.509
+    water_area_sq_mi: 0.561
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/weston
+    geoid: "5002782000"
+    name_as_published: Weston town
+    land_area_sq_mi: 35.371
+    water_area_sq_mi: 0.197
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/west-windsor
+    geoid: "5002783050"
+    name_as_published: West Windsor town
+    land_area_sq_mi: 24.72
+    water_area_sq_mi: 0.091
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/windsor
+    geoid: "5002784925"
+    name_as_published: Windsor town
+    land_area_sq_mi: 19.408
+    water_area_sq_mi: 0.278
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+  - entity: town/woodstock
+    geoid: "5002785975"
+    name_as_published: Woodstock town
+    land_area_sq_mi: 44.052
+    water_area_sq_mi: 0.284
+    population:
+      decennial_2020: null
+      acs_5yr: null
+      state_estimate: null
+not_published:
+  - path: towns.population.decennial_2020
+    reason: "The Census data API requires an API key for county-subdivision queries
+      and none was supplied, so no population was retrieved. This is a fact
+      about the run, not about the Bureau: set CENSUS_API_KEY and re-import.
+      Until then the density screen reports population as missing rather than
+      dividing by an estimate."
+    confirmed_by: npm run census:import
+    confirmed_date: 2026-07-31
+  - path: towns.population.acs_5yr
+    reason: "Same: no API key was supplied, so the ACS series was not retrieved."
+    confirmed_by: npm run census:import
+    confirmed_date: 2026-07-31
+  - path: towns.population.state_estimate
+    reason: Vermont publishes its own municipal population estimates, which are not
+      fetched here. Whether the statute means a state estimate at all is unread
+      -- see the parameter file structural_note on
+      statutory.screens.sparse_density.population_series.
+    confirmed_by: npm run census:import
+    confirmed_date: 2026-07-31
+unmatched:
+  - geoid: "5000304825"
+    name_as_published: Bennington town
+    reason: No registry town matches "Bennington town". Either the Bureau and AOE
+      use different names for this place -- which is substantive at least once,
+      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
+      only through an incorporated school district, as it does for Bennington,
+      Bradford and Barton. Resolve by hand; the density screen reports no figure
+      for it until someone does.
+  - geoid: "5000976562"
+    name_as_published: Warren's gore
+    reason: No registry town matches "Warren's gore". Either the Bureau and AOE use
+      different names for this place -- which is substantive at least once,
+      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
+      only through an incorporated school district, as it does for Bennington,
+      Bradford and Barton. Resolve by hand; the density screen reports no figure
+      for it until someone does.
+  - geoid: "5001707375"
+    name_as_published: Bradford town
+    reason: No registry town matches "Bradford town". Either the Bureau and AOE use
+      different names for this place -- which is substantive at least once,
+      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
+      only through an incorporated school district, as it does for Bennington,
+      Bradford and Barton. Resolve by hand; the density screen reports no figure
+      for it until someone does.
+  - geoid: "5001903550"
+    name_as_published: Barton town
+    reason: No registry town matches "Barton town". Either the Bureau and AOE use
+      different names for this place -- which is substantive at least once,
+      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
+      only through an incorporated school district, as it does for Bennington,
+      Bradford and Barton. Resolve by hand; the density screen reports no figure
+      for it until someone does.
+extracted_by: npm run census:import
+extracted_date: 2026-07-31

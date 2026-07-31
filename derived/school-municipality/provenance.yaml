@@ -1,0 +1,33 @@
+schema_version: "1.0"
+kind: derived
+entity: source/vt-budget-pipeline
+derivation:
+  algorithm: geocode/school-municipality
+  algorithm_version: 1.0.0
+  engine: US Census Bureau Geocoder,
+    https://geocoding.geo.census.gov/geocoder/geographies/coordinates
+  inputs:
+    - ref: registry/entities/school.json
+      pinned_by: git_sha
+      pin: f04cb05384b2e12de44166652e0fb96b2a394ebc
+      note: Git blob hash of the registry file this run read, computed over the
+        working tree rather than over HEAD -- so the pin identifies the bytes
+        that were actually used, including on a run made before the registry was
+        committed.
+    - ref: warehouse/census/vt-town-land-and-population.yaml
+      pinned_by: sha256
+      pin: f5a8a8258f9c6210da0b2f7314dcf32def32134cba761dac6e89b7550ad9674b
+      note: Supplies the GEOID-to-registry-town join, so this run does not make a
+        second one.
+  parameters:
+    benchmark: Public_AR_Census2020
+    vintage: Census2020_Census2020
+    layers: County Subdivisions
+  run_id: 2026-07-31T07:38:20.030Z/1a3ef2
+  run_by: npm run school:municipality
+  output_file: vt-school-municipality.yaml
+  output_sha256: 1a3ef2f1ea528acc2b4b0c502300b5d82ac9bc9ba8e10b04a348f96837f1fd0d
+  note: "Re-runnable: same coordinates, same pinned benchmark and vintage, same
+    answer. The benchmark is pinned rather than set to Current because the
+    current vintage moves, and a derived record that cannot be reproduced is not
+    provenance."

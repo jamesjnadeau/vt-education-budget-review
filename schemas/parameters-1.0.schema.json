@@ -34,10 +34,20 @@
           "description": "Null means not yet verified against current statute text, or not yet set by the Legislature. Null is the honest default and the engine handles it by refusing to produce a number, not by substituting one."
         },
         "unit": {
-          "enum": ["multiplier", "usd", "usd_per_pupil", "rate_per_100", "ratio", "count", "years", "boolean", "enum", "unset"]
+          "enum": ["multiplier", "usd", "usd_per_pupil", "rate_per_100", "ratio", "count", "years", "students", "persons_per_square_mile", "minutes", "miles", "date", "boolean", "enum", "unset"]
         },
         "description": { "type": "string", "minLength": 1 },
         "citation": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/citation" },
+        "is_law": {
+          "type": "boolean",
+          "description": "Absent means true: the parameter states what the law says, and its citation is verified by reading the operative sentence in current statute. Set false for a parameter that records what a body PROPOSED and may never enact -- the State Board committee's small/sparse thresholds are the case this exists for. The distinction cannot be left to a reader's inference: quoting a committee report accurately is a different act from quoting a statute accurately, and conflating them is the verification rule's own error running backwards. Anything computed from a parameter with is_law: false must be labelled as measured against a proposed standard.",
+          "default": true
+        },
+        "structural_note": {
+          "type": ["string", "null"],
+          "description": "What to watch for when reading this one against the source -- specifically where the SHAPE of the calculation, and not just the number, is at stake. Per docs/parameter-verification.md the structural reading is the failure a parameter review is least likely to catch, so the warning belongs beside the parameter rather than in a document nobody opens at the moment of editing.",
+          "default": null
+        },
         "applies_to": {
           "type": ["string", "null"],
           "description": "Which pupils, districts or towns this parameter applies to, where it is conditional.",

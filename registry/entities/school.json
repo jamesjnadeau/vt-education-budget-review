@@ -39,6 +39,17 @@
       "website": "https://www.academyschoolvt.com/",
       "latitude": 42.85125974,
       "longitude": -72.59805244,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Brattleboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -71,6 +82,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -100,6 +122,17 @@
       "website": "https://albanyschoolvt.weebly.com/",
       "latitude": 44.73818251,
       "longitude": -72.37670466,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Albany",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -134,6 +167,17 @@
       "website": "https://abs.wsesu.net/",
       "latitude": 43.46950149,
       "longitude": -72.47096252,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Brownsville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -162,6 +206,17 @@
       "website": "https://www.ewsd.org/ADL",
       "latitude": 44.48671245,
       "longitude": -73.09819147,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -198,6 +253,17 @@
       "website": "https://www.alburghschool.org/",
       "latitude": 44.97894287,
       "longitude": -73.2980957,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Alburgh",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -231,6 +297,17 @@
       "website": "https://www.arlingtonmemorialhighschool.org/",
       "latitude": 43.06560898,
       "longitude": -73.15130615,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Arlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -267,6 +344,17 @@
       "website": "https://www.bakersfieldschool.net/",
       "latitude": 44.78434753,
       "longitude": -72.80279541,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Bakersfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -301,6 +389,17 @@
       "website": "https://sites.google.com/wcsu.net/ba-vt/home",
       "latitude": 43.72630408,
       "longitude": -72.62049167,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Barnard",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -337,6 +436,17 @@
       "website": "https://barnet.ccsuvt.net/",
       "latitude": 44.30736139,
       "longitude": -72.0807785,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Barnet",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -373,6 +483,17 @@
       "website": "https://www.bcemsvt.org/",
       "latitude": 44.18480333,
       "longitude": -72.50445841,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Barre",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -409,6 +530,17 @@
       "website": "https://www.btmes.org/",
       "latitude": 44.16815012,
       "longitude": -72.48560305,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Barre",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -445,6 +577,17 @@
       "website": "http://barstow.rnesu.org/",
       "latitude": 43.70094718,
       "longitude": -72.95213951,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Chittenden",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -477,6 +620,17 @@
       "website": "https://bartongraded.weebly.com/",
       "latitude": 44.74882244,
       "longitude": -72.17973713,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Barton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -511,6 +665,17 @@
       "website": "https://beeman.mausd.org/",
       "latitude": 44.12541916,
       "longitude": -73.15320985,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "New Haven",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -540,6 +705,17 @@
       "website": "https://bfms.wnesu.org/",
       "latitude": 43.13335728,
       "longitude": -72.44629248,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Bellows Falls",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -570,6 +746,17 @@
       "website": "https://bfuhs.wnesu.org/",
       "latitude": 43.11868286,
       "longitude": -72.44294739,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Bellows Falls",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -602,6 +789,17 @@
       "website": "https://www.bfafairfax.com/o/bfa",
       "latitude": 44.8091659,
       "longitude": -73.0824896,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,EE,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Fairfax",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -632,6 +830,17 @@
       "website": "https://www.bfafairfax.com/",
       "latitude": 44.66354812,
       "longitude": -73.01334789,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Fairfax",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -661,6 +870,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Fairfax",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -691,6 +911,17 @@
       "website": "https://www.maplerun.org/o/bfa",
       "latitude": 44.8081444,
       "longitude": -73.08332972,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Saint Albans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -724,6 +955,17 @@
       "website": "https://bennington.svsu.org/",
       "latitude": 42.88073047,
       "longitude": -73.19351396,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -758,6 +1000,17 @@
       "website": "https://www.slatevalleyunified.org/o/bvs/live-feed",
       "latitude": 43.70702581,
       "longitude": -73.30216408,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Benson",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -794,6 +1047,17 @@
       "website": "https://sites.google.com/a/bes.berkshirek8.net/besk8/",
       "latitude": 44.97245407,
       "longitude": -72.76634216,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Richford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -828,6 +1092,17 @@
       "website": "https://www.wcsu32.org/Domain/280#calendar2817/20230126/month",
       "latitude": 44.21448573,
       "longitude": -72.57165386,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Berlin",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -860,6 +1135,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -893,6 +1179,17 @@
       "website": "https://www.wrvsd.org/en-US#0",
       "latitude": 43.83323192,
       "longitude": -72.64349962,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bethel",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -926,6 +1223,17 @@
       "website": "https://cornwallvt.com/bingham-memorial-school/",
       "latitude": 43.96390152,
       "longitude": -73.20639801,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Cornwall",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -957,6 +1265,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -998,6 +1317,17 @@
       "website": "http://www.bmuschool.org/",
       "latitude": 44.15542285,
       "longitude": -72.0832345,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,9,10,11,12,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Wells River",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1032,6 +1362,17 @@
       "website": "http://www.beschool.org/",
       "latitude": 44.0027771,
       "longitude": -72.12219238,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bradford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1066,6 +1407,17 @@
       "website": "www.orangesouthwest.org/Braintree",
       "latitude": 43.95573761,
       "longitude": -72.72237787,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Braintree",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1093,6 +1445,17 @@
       "website": "http://bams.wsesdvt.org/",
       "latitude": 42.83559277395158,
       "longitude": -72.56171063765215,
+      "grade_span": {
+        "low": 7,
+        "high": 8,
+        "as_stated": "7,8"
+      },
+      "grade_span_class": "middle",
+      "mailing_city": "Brattleboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1123,6 +1486,17 @@
       "website": "http://buhs.wsesu.org/",
       "latitude": 42.83673855,
       "longitude": -72.56126709,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Brattleboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1154,6 +1528,17 @@
       "website": "http://www.bpms.k12.vt.us/",
       "latitude": 44.29578277,
       "longitude": -72.96361472,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Huntington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1186,6 +1571,17 @@
       "website": "https://www.acsdvt.org/bridport",
       "latitude": 43.98100966,
       "longitude": -73.31579743,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bridport",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1221,6 +1617,17 @@
       "website": "http://bes.ncsuvt.org/",
       "latitude": 44.82149697,
       "longitude": -71.89398785,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Island Pond",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1254,6 +1661,17 @@
       "website": "http://www.besvt.org/",
       "latitude": 44.13819015,
       "longitude": -73.07709527,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bristol",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1287,6 +1705,17 @@
       "website": "www.orangesouthwest.org/Brookfield",
       "latitude": 44.01639526,
       "longitude": -72.60668329,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Brookfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1319,6 +1748,17 @@
       "website": "https://www.tbps.wwsu.org/",
       "latitude": 44.33912306,
       "longitude": -72.75312005,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "PK,K,1,2,3,4,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Waterbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1348,6 +1788,17 @@
       "website": "https://brownington.weebly.com/",
       "latitude": 44.81982105,
       "longitude": -72.13770493,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Brownington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1377,6 +1828,17 @@
       "website": "http://www.brownsriver.k12.vt.us/",
       "latitude": 44.51922688,
       "longitude": -72.94438583,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Jericho",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1413,6 +1875,17 @@
       "website": "https://www.kingdomeast.org/burke-town-school",
       "latitude": 44.6245521,
       "longitude": -71.95991666,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "West Burke",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1443,6 +1916,17 @@
       "website": "http://bhs.bsdvt.org/",
       "latitude": 44.49632262,
       "longitude": -73.2352609,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1476,6 +1960,17 @@
       "website": "http://smith.bsdvt.org/",
       "latitude": 44.51310192,
       "longitude": -73.2430351,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1516,6 +2011,17 @@
       "website": "http://www.cabotschool.org/",
       "latitude": 44.40345383,
       "longitude": -72.30952454,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Cabot",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1549,6 +2055,17 @@
       "website": "http://www.calaisschool.org/",
       "latitude": 44.31965188,
       "longitude": -72.45183022,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Plainfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1583,6 +2100,17 @@
       "website": "http://www.cesvt.net/",
       "latitude": 44.64452412,
       "longitude": -72.82674204,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Jeffersonville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1612,6 +2140,17 @@
       "website": "http://www.chms.k12.vt.us/",
       "latitude": 44.41354069,
       "longitude": -72.99423653,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Richmond",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1653,6 +2192,17 @@
       "website": "http://www.canaanschools.org/",
       "latitude": 44.99538238,
       "longitude": -71.5377002,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12,PK,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Canaan",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1687,6 +2237,17 @@
       "website": "https://www.slatevalleyunified.org/o/ces",
       "latitude": 43.61985725698272,
       "longitude": -73.21182668288036,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,PK,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Castleton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1723,6 +2284,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "EE,PK,K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1751,6 +2323,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1785,6 +2368,17 @@
       "website": "http://ctes.trsu.org/",
       "latitude": 43.38394928,
       "longitude": -72.6371994,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Proctorsville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1817,6 +2411,17 @@
       "website": "https://ces.wnesu.org/",
       "latitude": 43.13227203,
       "longitude": -72.45059165,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bellows Falls",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1850,6 +2455,17 @@
       "website": "https://www.sbschools.net/Domain/10",
       "latitude": 44.47129654,
       "longitude": -73.16537089,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "South Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1883,6 +2499,17 @@
       "website": "https://champlain.bsdvt.org/",
       "latitude": 44.45706494,
       "longitude": -73.21322112,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1913,6 +2540,17 @@
       "website": "https://www.cvsdvt.org/cvuhs",
       "latitude": 44.34469516,
       "longitude": -73.1099409,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Hinesburg",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1949,6 +2587,17 @@
       "website": "http://ces.ncsuvt.org/",
       "latitude": 44.84304635,
       "longitude": -72.01956079,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "West Charleston",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -1985,6 +2634,17 @@
       "website": "https://www.cvsdvt.org/charlotte",
       "latitude": 44.31518793,
       "longitude": -73.22626046,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Charlotte",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2019,6 +2679,17 @@
       "website": "http://caes.trsu.org/",
       "latitude": 43.26470962,
       "longitude": -72.59548566,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Chester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2053,6 +2724,17 @@
       "website": "http://millriverschools.org/ces/",
       "latitude": 43.56332558,
       "longitude": -72.96786504,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "North Clarendon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2083,6 +2765,17 @@
       "website": "http://www.csdvt.org/chs/index.php",
       "latitude": 44.53947928,
       "longitude": -73.21345943,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Colchester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2111,6 +2804,17 @@
       "website": "http://www.csdvt.org/cms/",
       "latitude": 44.54028221,
       "longitude": -73.20973208,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Colchester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2147,6 +2851,17 @@
       "website": "https://www.kingdomeast.org/concord-school",
       "latitude": 44.42662722,
       "longitude": -71.89055429,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Concord",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2183,6 +2898,17 @@
       "website": "http://cvs.ncsuvt.org/home",
       "latitude": 44.86253526,
       "longitude": -72.26488017,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Coventry",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2224,6 +2950,17 @@
       "website": "http://www.craftsbury.ossu.org/",
       "latitude": 44.65419356,
       "longitude": -72.38198438,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12,PK,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Craftsbury Common",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2253,6 +2990,17 @@
       "website": "https://cbms.wwsu.org/",
       "latitude": 44.32131342,
       "longitude": -72.75257224,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Waterbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2286,6 +3034,17 @@
       "website": "https://sites.google.com/brsu.org/curriermemorialschool/home",
       "latitude": 43.35004271,
       "longitude": -72.99513347,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Danby",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2327,6 +3086,17 @@
       "website": "https://danville.ccsuvt.net/",
       "latitude": 44.41082764,
       "longitude": -72.14350128,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12,PK,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Danville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2361,6 +3131,17 @@
       "website": "http://des.ncsuvt.org/",
       "latitude": 45.00150282,
       "longitude": -72.11834471,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Derby Line",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2397,6 +3178,17 @@
       "website": "https://sites.google.com/brsu.org/thedorsetschool/home",
       "latitude": 43.22192764,
       "longitude": -73.06585693,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Dorset",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2430,6 +3222,17 @@
       "website": "https://www.dbsvt.com/",
       "latitude": 43.68760719,
       "longitude": -72.32177401,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "White River Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2464,6 +3267,17 @@
       "website": "https://www.wcsu32.org/Domain/279#calendar3672/20230130/month",
       "latitude": 44.3733486,
       "longitude": -72.54794862,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Worcester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2498,6 +3312,17 @@
       "website": "https://sites.google.com/a/doverschool.net/main/home",
       "latitude": 42.93886302,
       "longitude": -72.80991018,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "East Dover",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2534,6 +3359,17 @@
       "website": "https://dummerston.wsesu.org/",
       "latitude": 42.93366824,
       "longitude": -72.53791936,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "East Dummerston",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2568,6 +3404,17 @@
       "website": "https://www.wcsu32.org/emes",
       "latitude": 44.28687085,
       "longitude": -72.49529056,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "East Montpelier",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2602,6 +3449,17 @@
       "website": "http://www.edenschool.net/",
       "latitude": 44.70407526,
       "longitude": -72.56358386,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Eden",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2635,6 +3493,17 @@
       "website": "http://ees.bsdvt.org/",
       "latitude": 44.47548008,
       "longitude": -73.20734355,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2663,6 +3532,17 @@
       "website": "http://ems.bsdvt.org/",
       "latitude": 44.47544947,
       "longitude": -73.20819893,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2692,6 +3572,17 @@
       "website": "https://elm.ssdvt.org/",
       "latitude": 43.30588625,
       "longitude": -72.48445443,
+      "grade_span": {
+        "low": -1,
+        "high": 1,
+        "as_stated": "K,1,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Springfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2720,6 +3611,17 @@
       "website": "https://lsuu.org/schools/the-elmore-school/",
       "latitude": 44.54067996,
       "longitude": -72.52296433,
+      "grade_span": {
+        "low": 1,
+        "high": 3,
+        "as_stated": "1,2,3"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Lake Elmore",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2753,6 +3655,17 @@
       "website": "https://ees.ehornets.org/",
       "latitude": 44.90433888,
       "longitude": -72.80136481,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Enosburg Falls",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2786,6 +3699,17 @@
       "website": "https://hs.ehornets.org/",
       "latitude": 44.90518355,
       "longitude": -72.80384312,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Enosburg Falls",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2814,6 +3738,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Manchester City",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2844,6 +3779,17 @@
       "website": "https://www.ewsd.org/EES",
       "latitude": 44.51306852,
       "longitude": -73.0558208,
+      "grade_span": {
+        "low": -1,
+        "high": 2,
+        "as_stated": "PK,K,1,2,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2874,6 +3820,17 @@
       "website": "https://www.ewsd.org/ehs",
       "latitude": 44.49748478,
       "longitude": -73.10859083,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2902,6 +3859,17 @@
       "website": "https://www.ewsd.org/EMS",
       "latitude": 44.49901773,
       "longitude": -73.05850431,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2936,6 +3904,17 @@
       "website": "https://www.slatevalleyunified.org/o/fhgs",
       "latitude": 43.59487634,
       "longitude": -73.26455055,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Fair Haven",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -2968,6 +3947,17 @@
       "website": "https://www.slatevalleyunified.org/o/fhuhs",
       "latitude": 43.60351563,
       "longitude": -73.27021789,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "9,10,11,12,8,7,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Fair Haven",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3004,6 +3994,17 @@
       "website": "https://www.maplerun.org/o/fcs",
       "latitude": 44.80051041,
       "longitude": -72.94792175,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Fairfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3038,6 +4039,17 @@
       "website": "https://fayston.huusd.org/",
       "latitude": 44.17918431,
       "longitude": -72.88425695,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Fayston",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3071,6 +4083,17 @@
       "website": "https://www.ferrisburghcentral.org/",
       "latitude": 44.20677091,
       "longitude": -73.24791986,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Ferrisburgh",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3103,6 +4126,17 @@
       "website": "https://tunbridgeschool.org/",
       "latitude": 43.91696549,
       "longitude": -72.47480774,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Tunbridge",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3132,6 +4166,17 @@
       "website": "https://www.firstbranchschool.org/en-US#0",
       "latitude": 43.98724174,
       "longitude": -72.4465037,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Chelsea",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3165,6 +4210,17 @@
       "website": "https://www.fisherelementaryschool.org/",
       "latitude": 43.06616937,
       "longitude": -73.15365909,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Arlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3199,6 +4255,17 @@
       "website": "https://www.fletcherelementary.org/",
       "latitude": 44.67040662,
       "longitude": -72.92386516,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Cambridge",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3235,6 +4302,17 @@
       "website": "https://sites.google.com/brsu.org/floodbrookschool/home",
       "latitude": 43.23696705,
       "longitude": -72.84815855,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Londonderry",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3271,6 +4349,17 @@
       "website": "https://www.gofolsom.org/",
       "latitude": 44.63631058,
       "longitude": -73.30220795,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "South Hero",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3299,6 +4388,17 @@
       "website": "https://www.ewsd.org/FMS",
       "latitude": 44.50039953,
       "longitude": -73.05535944,
+      "grade_span": {
+        "low": 3,
+        "high": 5,
+        "as_stated": "3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3327,6 +4427,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3361,6 +4472,17 @@
       "website": "https://www.fnwsu.org/fcs/",
       "latitude": 44.98424067,
       "longitude": -72.92018338,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Franklin",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3389,6 +4511,17 @@
       "website": "https://www.sbschools.net/Domain/9",
       "latitude": 44.45670637,
       "longitude": -73.17727344,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "South Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3425,6 +4558,17 @@
       "website": "http://www.gemsvt.org/",
       "latitude": 44.73529636,
       "longitude": -73.11418834,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,EE,PK"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Saint Albans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3454,6 +4598,17 @@
       "website": "https://glovercommunityschool.weebly.com/",
       "latitude": 44.70588111,
       "longitude": -72.18969375,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Glover",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3488,6 +4643,17 @@
       "website": "https://ges.wnesu.org/",
       "latitude": 43.17017365,
       "longitude": -72.60900879,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Grafton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3522,6 +4688,17 @@
       "website": "https://www.grandisleschool.org/",
       "latitude": 44.7254983,
       "longitude": -73.29140443,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Grand Isle",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3554,6 +4731,17 @@
       "website": "http://gmuhs.trsu.org/",
       "latitude": 43.25361252,
       "longitude": -72.58145904,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Chester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3587,6 +4775,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "PK,K,1,2,3,4,5,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Dorset",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3621,6 +4820,17 @@
       "website": "https://www.greenstreetschoolvt.com/",
       "latitude": 42.85174,
       "longitude": -72.565,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Brattleboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3655,6 +4865,17 @@
       "website": "https://www.guilfordcentralschool.org/",
       "latitude": 42.80070816,
       "longitude": -72.62235285,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Guilford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3691,6 +4912,17 @@
       "website": "https://sites.google.com/halifaxschool.net/southern-valley",
       "latitude": 42.78439253,
       "longitude": -72.76854454,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "West Halifax",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3720,6 +4952,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3754,6 +4997,17 @@
       "website": "https://hardwick.ossu.org/",
       "latitude": 44.50334171,
       "longitude": -72.3681882,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Hardwick",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3784,6 +5038,17 @@
       "website": "http://www.hhsvt.com/",
       "latitude": 43.65765397,
       "longitude": -72.31886178,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "White River Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3812,6 +5077,17 @@
       "website": "http://www.hmmsvt.com/",
       "latitude": 43.65635681,
       "longitude": -72.31993866,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "White River Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3848,6 +5124,17 @@
       "website": "https://hes.wsesu.net/",
       "latitude": 43.5381279,
       "longitude": -72.39408875,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Hartland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3880,6 +5167,17 @@
       "website": "https://www.harwood.org/",
       "latitude": 44.25403172,
       "longitude": -72.78643663,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Moretown",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3912,6 +5210,17 @@
       "website": "http://www.hazen.ossu.org/",
       "latitude": 44.50892114,
       "longitude": -72.36469997,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Hardwick",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3942,6 +5251,17 @@
       "website": "https://www.ewsd.org/HIA",
       "latitude": 44.48897574,
       "longitude": -73.12791048,
+      "grade_span": {
+        "low": -1,
+        "high": 2,
+        "as_stated": "PK,K,1,2,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -3976,6 +5296,17 @@
       "website": "https://sites.google.com/a/mvsdschools.org/hes/",
       "latitude": 44.94133174,
       "longitude": -73.04409389,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Highgate Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4012,6 +5343,17 @@
       "website": "https://www.cvsdvt.org/hinesburg",
       "latitude": 44.32620961,
       "longitude": -73.1080558,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Hinesburg",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4046,6 +5388,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,EE,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4080,6 +5433,17 @@
       "website": "https://hpes.lnsd.org/",
       "latitude": 44.59207232,
       "longitude": -72.61359165,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Hyde Park",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4113,6 +5477,17 @@
       "website": "https://iaa.bsdvt.org/",
       "latitude": 44.48799308,
       "longitude": -73.21390296,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4145,6 +5520,17 @@
       "website": "https://irasburgschool.weebly.com/",
       "latitude": 44.80364628,
       "longitude": -72.27281264,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Irasburg",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4177,6 +5563,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4210,6 +5607,17 @@
       "website": "https://www.wsdvt.org/schools-programs/jfk-elementary/",
       "latitude": 44.5002786,
       "longitude": -73.18070944,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Winooski",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4243,6 +5651,17 @@
       "website": "https://flynn.bsdvt.org/",
       "latitude": 44.51702307,
       "longitude": -73.26000212,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4269,6 +5688,17 @@
       "website": "https://www.jamaicavillageschool.org/",
       "latitude": 43.10406588,
       "longitude": -72.77502243,
+      "grade_span": {
+        "low": -1,
+        "high": -1,
+        "as_stated": "PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Jamaica",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4303,6 +5733,17 @@
       "website": "https://jwjs.ncsuvt.org/",
       "latitude": 44.95266342,
       "longitude": -72.43502808,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Jay",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4335,6 +5776,17 @@
       "website": "https://jericho.mmuusd.org/",
       "latitude": 44.50562666,
       "longitude": -72.99047679,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Jericho",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4369,6 +5821,17 @@
       "website": "https://jes.lnsd.org/",
       "latitude": 44.63714055,
       "longitude": -72.67491041,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Johnson",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4403,6 +5866,17 @@
       "website": "https://sites.google.com/wcsu.net/killington-elementary-school/home",
       "latitude": 43.64456558,
       "longitude": -72.79402924,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Killington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4433,6 +5907,17 @@
       "website": "https://www.lruhs.org/",
       "latitude": 44.78260258,
       "longitude": -72.2206491,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Orleans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4459,6 +5944,17 @@
       "website": "http://lakeview.ossu.org/",
       "latitude": 44.58081885,
       "longitude": -72.29399645,
+      "grade_span": {
+        "low": -1,
+        "high": -1,
+        "as_stated": "PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Greensboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4489,6 +5985,17 @@
       "website": "https://luhs.lnsd.org/",
       "latitude": 44.60116447,
       "longitude": -72.6306363,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Hyde Park",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4516,6 +6023,17 @@
       "website": "https://lums.lnsd.org/",
       "latitude": 44.601207357103355,
       "longitude": -72.6305799597088,
+      "grade_span": {
+        "low": 7,
+        "high": 8,
+        "as_stated": "7,8"
+      },
+      "grade_span_class": "middle",
+      "mailing_city": "Hyde Park",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4549,6 +6067,17 @@
       "website": "https://lg.windhamcentral.org/",
       "latitude": 43.04659116,
       "longitude": -72.66708328,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Townshend",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4583,6 +6112,17 @@
       "website": "https://lcs.mausd.org/",
       "latitude": 44.09766647,
       "longitude": -72.98616802,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Lincoln",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4617,6 +6157,17 @@
       "website": "https://lothrop.rnesu.org/",
       "latitude": 43.70564249,
       "longitude": -73.01898765,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Pittsford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4653,6 +6204,17 @@
       "website": "https://lgs.ncsuvt.org/",
       "latitude": 44.80538867,
       "longitude": -72.44881556,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Lowell",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4687,6 +6249,17 @@
       "website": "https://les.trsu.org/",
       "latitude": 43.39705962,
       "longitude": -72.68855214,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Ludlow",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4720,6 +6293,17 @@
       "website": "https://www.kingdomeast.org/lunenburg-school",
       "latitude": 44.4147729,
       "longitude": -71.71448313,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "PK,K,1,2,3,4,5,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Gilman",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4748,6 +6332,17 @@
       "website": "https://hunt.bsdvt.org/",
       "latitude": 44.51337031,
       "longitude": -73.24918817,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4784,6 +6379,17 @@
       "website": "https://www.kingdomeast.org/lyndon-town-school",
       "latitude": 44.54653664,
       "longitude": -71.98538502,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Lyndonville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4813,6 +6419,17 @@
       "website": "https://www.mrpsvt.org/msms",
       "latitude": 44.26297202,
       "longitude": -72.56966316,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Montpelier",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4841,6 +6458,17 @@
       "website": "https://www.csdvt.org/mbs/",
       "latitude": 44.53861237,
       "longitude": -73.20784759,
+      "grade_span": {
+        "low": 3,
+        "high": 5,
+        "as_stated": "3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Colchester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4877,6 +6505,17 @@
       "website": "https://sites.google.com/brsu.org/manchesterelementarymiddle/home",
       "latitude": 43.17874272,
       "longitude": -73.05366878,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Manchester Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4911,6 +6550,17 @@
       "website": "https://mcs.sau70.org/",
       "latitude": 43.71332471,
       "longitude": -72.30649485,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Norwich",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4947,6 +6597,17 @@
       "website": "https://www.marlboroschool.net/",
       "latitude": 42.86869812,
       "longitude": -72.71968842,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Marlboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -4981,6 +6642,17 @@
       "website": "https://sites.google.com/brsu.org/mettaweecommunityschool/home",
       "latitude": 43.38572867,
       "longitude": -73.22368941,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "West Pawlet",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5014,6 +6686,17 @@
       "website": "https://www.acsdvt.org/maryhogan",
       "latitude": 44.01089952,
       "longitude": -73.16181297,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Middlebury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5044,6 +6727,17 @@
       "website": "https://www.acsdvt.org/muhs",
       "latitude": 44.00669412,
       "longitude": -73.16313653,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Middlebury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5072,6 +6766,17 @@
       "website": "https://www.acsdvt.org/mums",
       "latitude": 43.99835341,
       "longitude": -73.152619,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "7,8,6"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Middlebury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5106,6 +6811,17 @@
       "website": "http://middletownsprings.vt.gov/school-education/middletown-springs-elementary-s",
       "latitude": 43.48398654,
       "longitude": -73.12041849,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Middletown Springs",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5138,6 +6854,17 @@
       "website": "http://millriverschools.org/mru/",
       "latitude": 43.54702782,
       "longitude": -72.97152002,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "North Clarendon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5174,6 +6901,17 @@
       "website": "https://www.kingdomeast.org/millers-run-school",
       "latitude": 44.60270843,
       "longitude": -72.11921494,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Sheffield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5206,6 +6944,17 @@
       "website": "https://mes.mtsd-vt.org/",
       "latitude": 44.63252648,
       "longitude": -73.10986773,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Milton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5235,6 +6984,17 @@
       "website": "https://mms.mtsd-vt.org/",
       "latitude": 44.63252648,
       "longitude": -73.10986773,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "6,7,8,5"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Milton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5265,6 +7025,17 @@
       "website": "https://mhs.mtsd-vt.org/",
       "latitude": 44.62910158,
       "longitude": -73.11892499,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Milton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5297,6 +7068,17 @@
       "website": "https://www.mvuschool.org/",
       "latitude": 44.92786282,
       "longitude": -73.10182379,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Swanton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5330,6 +7112,17 @@
       "website": "https://mollystark.svsu.org/",
       "latitude": 42.89823914,
       "longitude": -73.20246124,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5364,6 +7157,17 @@
       "website": "https://mcs.mausd.org/",
       "latitude": 44.24424149,
       "longitude": -73.13871678,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Monkton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5400,6 +7204,17 @@
       "website": "https://sites.google.com/fnesu.org/mes-new-site/home",
       "latitude": 44.88643403,
       "longitude": -72.61623998,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Montgomery Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5430,6 +7245,17 @@
       "website": "https://www.mrpsvt.org/mhs",
       "latitude": 44.26056192,
       "longitude": -72.58698022,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Montpelier",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5463,6 +7289,17 @@
       "website": "https://monument.svsu.org/",
       "latitude": 42.88490728,
       "longitude": -73.21075017,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5497,6 +7334,17 @@
       "website": "https://moretownschool.org/",
       "latitude": 44.24754137,
       "longitude": -72.76261474,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Moretown",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5529,6 +7377,17 @@
       "website": "https://lsuu.org/schools/morristown-elementary-school/",
       "latitude": 44.56386017,
       "longitude": -72.58531901,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Morrisville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5561,6 +7420,17 @@
       "website": "https://mta.mausd.org/",
       "latitude": 44.1356078,
       "longitude": -73.09396414,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Bristol",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5591,6 +7461,17 @@
       "website": "https://mauhs.svsu.org/",
       "latitude": 42.88572453,
       "longitude": -73.19141249,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5619,6 +7500,17 @@
       "website": "https://maums.svsu.org/",
       "latitude": 42.90544236,
       "longitude": -73.18774748,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5653,6 +7545,17 @@
       "website": "https://mhs.trsu.org/",
       "latitude": 43.44584953,
       "longitude": -72.82305519,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Mount Holly",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5683,6 +7586,17 @@
       "website": "https://mmu.mmuusd.org/",
       "latitude": 44.48618448,
       "longitude": -72.96204798,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Jericho",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5717,6 +7631,17 @@
       "website": "https://neshobe.rnesu.org/",
       "latitude": 43.82639283,
       "longitude": -73.05509375,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Brandon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5753,6 +7678,17 @@
       "website": "https://www.kingdomeast.org/newark-school",
       "latitude": 44.69018895,
       "longitude": -71.95072515,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Newark",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5786,6 +7722,17 @@
       "website": "https://www.newbrookschool.org/",
       "latitude": 42.95993423,
       "longitude": -72.65005493,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Newfane",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5820,6 +7767,17 @@
       "website": "https://www.nesvt.org/",
       "latitude": 44.0790802,
       "longitude": -72.06006721,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Newbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5854,6 +7812,17 @@
       "website": "https://nces.ncsuvt.org/",
       "latitude": 44.94494763,
       "longitude": -72.19173288,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Newport",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5888,6 +7857,17 @@
       "website": "https://nts.ncsuvt.org/",
       "latitude": 44.95164501,
       "longitude": -72.30639415,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Newport Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5918,6 +7898,17 @@
       "website": "https://ncuhs.ncsuvt.org/",
       "latitude": 44.94647579,
       "longitude": -72.2032804,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Newport",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5945,6 +7936,17 @@
       "website": "https://ncujhs.ncsuvt.org/",
       "latitude": 44.94925929,
       "longitude": -72.13136721,
+      "grade_span": {
+        "low": 7,
+        "high": 8,
+        "as_stated": "7,8"
+      },
+      "grade_span_class": "middle",
+      "mailing_city": "Derby",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -5979,6 +7981,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6009,6 +8022,17 @@
       "website": "https://northeast.rutlandcitypublicschools.org/",
       "latitude": 43.61796129,
       "longitude": -72.96191269,
+      "grade_span": {
+        "low": -1,
+        "high": 2,
+        "as_stated": "K,1,2,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6042,6 +8066,17 @@
       "website": "https://www.cvsu.org/nes",
       "latitude": 44.15454961,
       "longitude": -72.66207238,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Northfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6075,6 +8110,17 @@
       "website": "https://www.cvsu.org/nmhs",
       "latitude": 44.15371457,
       "longitude": -72.66108797,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Northfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6105,6 +8151,17 @@
       "website": "http://northwest.rutlandcitypublicschools.org/",
       "latitude": 43.61276245,
       "longitude": -72.99141693,
+      "grade_span": {
+        "low": -1,
+        "high": 2,
+        "as_stated": "K,1,2,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6139,6 +8196,17 @@
       "website": "http://www.oakgroveschoolvt.com/",
       "latitude": 42.84008,
       "longitude": -72.55802,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Brattleboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6168,6 +8236,17 @@
       "website": "https://www.cvsu.org/evcms",
       "latitude": 44.1490322,
       "longitude": -72.40360054,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "East Barre",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6201,6 +8280,17 @@
       "website": "https://www.sbschools.net/Domain/12",
       "latitude": 44.43976113,
       "longitude": -73.20768205,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "South Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6232,6 +8322,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6264,6 +8365,17 @@
       "website": "https://orleanselementaryschool.weebly.com/",
       "latitude": 44.81006209,
       "longitude": -72.19683422,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Orleans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6298,6 +8410,17 @@
       "website": "https://www.slatevalleyunified.org/o/ovs",
       "latitude": 43.8045275,
       "longitude": -73.29908239,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Orwell",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6331,6 +8454,17 @@
       "website": "https://www.oqsvt.com/",
       "latitude": 43.64947158,
       "longitude": -72.41678695,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Quechee",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6365,6 +8499,17 @@
       "website": "https://www.rnesu.org/o/oca",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Whiting",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6397,6 +8542,17 @@
       "website": "https://ovus.rnesu.org/",
       "latitude": 43.76709133,
       "longitude": -73.05154357,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Brandon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6429,6 +8585,17 @@
       "website": "https://www.oxbowhighschool.org/",
       "latitude": 44.00791064,
       "longitude": -72.11379667,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Bradford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6463,6 +8630,17 @@
       "website": "https://peacham.ccsuvt.net/",
       "latitude": 44.3260184,
       "longitude": -72.16651956,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Peacham",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6493,6 +8671,17 @@
       "website": "https://lsuu.org/schools/peoples-academy/",
       "latitude": 44.56240529,
       "longitude": -72.59031458,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Morrisville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6522,6 +8711,17 @@
       "website": "https://lsuu.org/schools/peoples-academy-middle-level/",
       "latitude": 44.56277769,
       "longitude": -72.59019411,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Morrisville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6551,6 +8751,17 @@
       "website": "https://www.csdvt.org/pps/",
       "latitude": 44.54105718,
       "longitude": -73.25555587,
+      "grade_span": {
+        "low": -1,
+        "high": 2,
+        "as_stated": "PK,K,1,2"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Colchester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6585,6 +8796,17 @@
       "website": "https://poes.grcsu.org/",
       "latitude": 43.52457588,
       "longitude": -73.23767405,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Poultney",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6617,6 +8839,17 @@
       "website": "https://pohs.grcsu.org/",
       "latitude": 43.51656124,
       "longitude": -73.22996031,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Poultney",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6651,6 +8884,17 @@
       "website": "https://pownal.svsu.org/",
       "latitude": 42.80057676,
       "longitude": -73.21793866,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Pownal",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6685,6 +8929,17 @@
       "website": "https://pres.grcsu.org/",
       "latitude": 43.6618934,
       "longitude": -73.0386204,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Proctor",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6717,6 +8972,17 @@
       "website": "https://prhs.grcsu.org/",
       "latitude": 43.65500339,
       "longitude": -73.02921588,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Proctor",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6744,6 +9010,17 @@
       "website": "http://www.theprospervalleyschool.org/",
       "latitude": 43.65356889203177,
       "longitude": -72.52852028857573,
+      "grade_span": {
+        "low": 5,
+        "high": 6,
+        "as_stated": "5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "South Pomfret",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6780,6 +9057,17 @@
       "website": "https://www.putneycentral.org/",
       "latitude": 42.98622134,
       "longitude": -72.52823462,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Putney",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6814,6 +9102,17 @@
       "website": "http://orangesouthwest.org/Randolph",
       "latitude": 43.93388378,
       "longitude": -72.66045617,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Randolph",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6846,6 +9145,17 @@
       "website": "http://orangesouthwest.org/ruhs",
       "latitude": 43.93071984,
       "longitude": -72.66002769,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Randolph",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6878,6 +9188,17 @@
       "website": "https://sites.google.com/a/wcsu.net/reading-elementary/",
       "latitude": 43.45312505,
       "longitude": -72.53650886,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "PK,K,1,2,3,4,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Reading",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6912,6 +9233,17 @@
       "website": "https://www.readsboro.org/",
       "latitude": 42.77189568,
       "longitude": -72.9404752,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Readsboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6945,6 +9277,17 @@
       "website": "https://sites.google.com/fnesu.org/richford-elementary-school/",
       "latitude": 44.98357582,
       "longitude": -72.67855535,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Richford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -6978,6 +9321,17 @@
       "website": "https://www.rjshs.net/",
       "latitude": 44.99502461,
       "longitude": -72.67008593,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Richford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7010,6 +9364,17 @@
       "website": "https://richmond.mmuusd.org/",
       "latitude": 44.41243988,
       "longitude": -72.99367281,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Richmond",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7043,6 +9408,17 @@
       "website": "https://www.sbschools.net/Domain/11#calendar5361/20230127/month",
       "latitude": 44.46729807,
       "longitude": -73.17689054,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "South Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7076,6 +9452,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7109,6 +9496,17 @@
       "website": "https://www.rivendellschool.org/schools/rivendell-academy",
       "latitude": 43.90015794,
       "longitude": -72.13744837,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Orford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7138,6 +9536,17 @@
       "website": "https://www.theriversideschool.org/",
       "latitude": 43.30411148,
       "longitude": -72.49685669,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "6,7,5,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Springfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7172,6 +9581,17 @@
       "website": "https://res.mausd.org/",
       "latitude": 44.22362365,
       "longitude": -73.05748258,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Starksboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7206,6 +9626,17 @@
       "website": "https://rsudschools.org/",
       "latitude": 43.87193558,
       "longitude": -72.80950554,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Rochester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7238,6 +9669,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "PK,K,1,2,3,4,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7272,6 +9714,17 @@
       "website": "https://www.wcsu32.org/Domain/281#calendar2604/20230127/month",
       "latitude": 44.35096488,
       "longitude": -72.60272672,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Middlesex",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7301,6 +9754,17 @@
       "website": "http://ris.rutlandcitypublicschools.org/",
       "latitude": 43.61318693,
       "longitude": -72.98007142,
+      "grade_span": {
+        "low": 3,
+        "high": 6,
+        "as_stated": "3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7328,6 +9792,17 @@
       "website": "http://rms.rutlandcitypublicschools.org/",
       "latitude": 43.61297605,
       "longitude": -72.98099195,
+      "grade_span": {
+        "low": 7,
+        "high": 8,
+        "as_stated": "7,8"
+      },
+      "grade_span_class": "middle",
+      "mailing_city": "Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7358,6 +9833,17 @@
       "website": "http://rhs.rutlandcitypublicschools.org/",
       "latitude": 43.61762657,
       "longitude": -72.95461565,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7394,6 +9880,17 @@
       "website": "https://rts.grcsu.org/",
       "latitude": 43.63856421,
       "longitude": -72.96331578,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Rutland Town",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7427,6 +9924,17 @@
       "website": "https://www.acsdvt.org/salisbury",
       "latitude": 43.91971207,
       "longitude": -73.11791992,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Salisbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7460,6 +9968,17 @@
       "website": "http://www.rivendellschool.org/schools/samuel-morey-elementary-school",
       "latitude": 43.90798994,
       "longitude": -72.14602288,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "PK,K,1,2,3,4,5,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Fairlee",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7492,6 +10011,17 @@
       "website": "https://sres.wnesu.org/",
       "latitude": 43.14039612,
       "longitude": -72.50949097,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Saxtons River",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7526,6 +10056,17 @@
       "website": "https://shaftsbury.svsu.org/",
       "latitude": 42.94480615,
       "longitude": -73.20822423,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Shaftsbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7560,6 +10101,17 @@
       "website": "https://sharonelementary.org/",
       "latitude": 43.78492652,
       "longitude": -72.45618245,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Sharon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7596,6 +10148,17 @@
       "website": "https://www.cvsdvt.org/shelburne",
       "latitude": 44.38042673,
       "longitude": -73.23478552,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,EE,PK"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Shelburne",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7632,6 +10195,17 @@
       "website": "https://www.sheldon.fnesu.org/",
       "latitude": 44.90066942,
       "longitude": -72.96947452,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Sheldon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7665,6 +10239,17 @@
       "website": "https://www.acsdvt.org/shoreham",
       "latitude": 43.89185059,
       "longitude": -73.3163309,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Shoreham",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7699,6 +10284,17 @@
       "website": "https://millriverschools.org/sms/",
       "latitude": 43.52550989,
       "longitude": -72.83046913,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Cuttingsville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7731,6 +10327,17 @@
       "website": "https://smilie.mmuusd.org/",
       "latitude": 44.37393169,
       "longitude": -72.87686154,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bolton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7761,6 +10368,17 @@
       "website": "https://www.sbschools.net/Domain/8",
       "latitude": 44.45492358,
       "longitude": -73.17789102,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "South Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7794,6 +10412,17 @@
       "website": null,
       "latitude": 43.81931609,
       "longitude": -72.51740326,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "South Royalton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7824,6 +10453,17 @@
       "website": "https://www.spauldinghs.org/",
       "latitude": 44.18926735,
       "longitude": -72.49363648,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Barre",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7854,6 +10494,17 @@
       "website": "https://hs.ssdvt.org/",
       "latitude": 43.2816051,
       "longitude": -72.47825934,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Springfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7890,6 +10541,17 @@
       "website": "https://www.maplerun.org/o/sacs",
       "latitude": 44.82035871,
       "longitude": -73.09149383,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Saint Albans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7926,6 +10588,17 @@
       "website": "https://www.maplerun.org/o/satec",
       "latitude": 44.80152232,
       "longitude": -73.08597531,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Saint Albans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7962,6 +10635,17 @@
       "website": "https://www.stjsd.org/",
       "latitude": 44.41650764,
       "longitude": -72.02485079,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Saint Johnsbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -7998,6 +10682,17 @@
       "website": "https://sites.google.com/prod/stamfordelementary.com/ses/",
       "latitude": 42.75482527,
       "longitude": -73.06741108,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Stramford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8032,6 +10727,17 @@
       "website": "https://rsudschools.org/",
       "latitude": 43.76408563,
       "longitude": -72.71792992,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Stockbridge",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8065,6 +10771,17 @@
       "website": "https://lsuu.org/schools/stowe-elementary-school/",
       "latitude": 44.4629195,
       "longitude": -72.68446118,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Stowe",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8095,6 +10812,17 @@
       "website": "https://lsuu.org/schools/stowe-high-school/",
       "latitude": 44.46534569108491,
       "longitude": -72.72727854751938,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Stowe",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8127,6 +10855,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8155,6 +10894,17 @@
       "website": "https://lsuu.org/schools/stowe-middle-school/",
       "latitude": 44.46533803419053,
       "longitude": -72.7273214628617,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Stowe",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8181,6 +10931,17 @@
       "website": "https://www.ewsd.org/SUM",
       "latitude": 44.49340779,
       "longitude": -73.11366011,
+      "grade_span": {
+        "low": -1,
+        "high": -1,
+        "as_stated": "PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8215,6 +10976,17 @@
       "website": "https://sites.google.com/brsu.org/sunderlandelementaryschool/home",
       "latitude": 43.08461562,
       "longitude": -73.1275985,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Arlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8248,6 +11020,17 @@
       "website": "https://sa.bsdvt.org/",
       "latitude": 44.4842885,
       "longitude": -73.21676095,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8284,6 +11067,17 @@
       "website": "https://sites.google.com/a/cnsuschools.org/sutton-school/home",
       "latitude": 44.63359432,
       "longitude": -72.02792425,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Sutton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8318,6 +11112,17 @@
       "website": "https://www.swantonschool.org/",
       "latitude": 44.91455885,
       "longitude": -73.11393633,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Swanton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8351,6 +11156,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "EE,PK,K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Manchester City",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8387,6 +11203,17 @@
       "website": "https://newtonschool.org/",
       "latitude": 43.8350013,
       "longitude": -72.36565478,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "South Strafford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8421,6 +11248,17 @@
       "website": "https://www.thetfordeschool.org/",
       "latitude": 43.81952272,
       "longitude": -72.23156881,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Thetford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8449,6 +11287,17 @@
       "website": "https://www.ewsd.org/fle",
       "latitude": 44.49477959,
       "longitude": -73.1135043,
+      "grade_span": {
+        "low": 3,
+        "high": 5,
+        "as_stated": "4,5,3"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8483,6 +11332,17 @@
       "website": "http://millriverschools.org/tes/",
       "latitude": 43.44960359,
       "longitude": -73.051064,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Tinmouth",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8516,6 +11376,17 @@
       "website": "https://www.townshendschool.org/",
       "latitude": 43.04665964,
       "longitude": -72.66958993,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Townshend",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8552,6 +11423,17 @@
       "website": "https://troy.ncsuvt.org/",
       "latitude": 44.99585854,
       "longitude": -72.40544821,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "North Troy",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8585,6 +11467,17 @@
       "website": "https://www.twinvalleyschooldistrict.us/elementary/index",
       "latitude": 42.88934369,
       "longitude": -72.86215474,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Wilmington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8618,6 +11511,17 @@
       "website": "https://www.twinvalleyschooldistrict.us/middle-high-school/index",
       "latitude": 42.78797705265541,
       "longitude": -72.84012831559048,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Whitingham",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8659,6 +11563,17 @@
       "website": "https://www.twinfield.net/",
       "latitude": 44.29795714,
       "longitude": -72.39502663,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,9,10,11,12,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Plainfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8691,6 +11606,17 @@
       "website": "https://www.wcsu32.org/Domain/8",
       "latitude": 44.24468138,
       "longitude": -72.52693353,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Montpelier",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8723,6 +11649,17 @@
       "website": "https://underhill.mmuusd.org/",
       "latitude": 44.5104379,
       "longitude": -72.89355729,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "K,1,2,3,4,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Underhill Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8753,6 +11690,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 4,
+        "as_stated": "K,1,2,3,4"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8785,6 +11733,17 @@
       "website": "https://www.mrpsvt.org/ues",
       "latitude": 44.25975321,
       "longitude": -72.57106624,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "PK,K,1,2,3,4,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Montpelier",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8815,6 +11774,17 @@
       "website": "https://www.csdvt.org/ums/",
       "latitude": 44.54895565,
       "longitude": -73.16018168,
+      "grade_span": {
+        "low": -1,
+        "high": 2,
+        "as_stated": "K,1,2,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Colchester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8843,6 +11813,17 @@
       "website": "https://union.ssdvt.org/",
       "latitude": 43.2952575,
       "longitude": -72.48789072,
+      "grade_span": {
+        "low": 2,
+        "high": 4,
+        "as_stated": "3,4,2"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Springfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8876,6 +11857,17 @@
       "website": "https://www.vergennesunion.org/",
       "latitude": 44.1668396,
       "longitude": -73.24799347,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Vergennes",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8906,6 +11898,17 @@
       "website": "https://www.vuhs.org/",
       "latitude": 44.17018735,
       "longitude": -73.24314499,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Vergennes",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8934,6 +11937,17 @@
       "website": "https://www.vuhs.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "7,8,6"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Vergennes",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -8968,6 +11982,17 @@
       "website": "https://www.vernonschool.org/",
       "latitude": 42.77626312,
       "longitude": -72.51856495,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Vernon",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9004,6 +12029,17 @@
       "website": "https://www.wrvschool.org/",
       "latitude": 44.07963668,
       "longitude": -72.26127101,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,4,5,6,7,8,PK,EE,3"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "East Corinth",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9038,6 +12074,17 @@
       "website": "https://www.waitsfieldschool.org/",
       "latitude": 44.19447167,
       "longitude": -72.81921698,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Waitsfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9074,6 +12121,17 @@
       "website": "https://walden.ccsuvt.net/",
       "latitude": 44.4529095,
       "longitude": -72.21923871,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "West Danville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9108,6 +12166,17 @@
       "website": "http://millriverschools.org/wes/",
       "latitude": 43.47054732,
       "longitude": -72.97507197,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Wallingford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9142,6 +12211,17 @@
       "website": "http://www.wardsboroschool.org/",
       "latitude": 43.04819107,
       "longitude": -72.78730011,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Wardsboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9176,6 +12256,17 @@
       "website": "https://warren.huusd.org/",
       "latitude": 44.11642764,
       "longitude": -72.85272994,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Warren",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9208,6 +12299,17 @@
       "website": "https://www.cvsu.org/evces",
       "latitude": 44.10786978,
       "longitude": -72.43155883,
+      "grade_span": {
+        "low": -1,
+        "high": 4,
+        "as_stated": "PK,K,1,2,3,4,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Washington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9244,6 +12346,17 @@
       "website": "https://waterford.ccsuvt.net/",
       "latitude": 44.40257263,
       "longitude": -71.92754364,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "PK,K,1,2,3,4,5,6,7,8,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Waterford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9278,6 +12391,17 @@
       "website": "https://wes.lnsd.org/",
       "latitude": 44.72685455,
       "longitude": -72.74841009,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Waterville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9314,6 +12438,17 @@
       "website": "https://ws.wsesu.net/",
       "latitude": 43.41137877,
       "longitude": -72.40999529,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Ascutney",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9348,6 +12483,17 @@
       "website": "https://wvs.grcsu.org/",
       "latitude": 43.4179744,
       "longitude": -73.20662859,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Wells",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9389,6 +12535,17 @@
       "website": "https://wrs.grcsu.org/",
       "latitude": 43.59555653,
       "longitude": -73.05144208,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12,PK,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "West Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9422,6 +12579,17 @@
       "website": "https://www.ewsd.org/wes",
       "latitude": 44.60295239,
       "longitude": -73.01895433,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,EE,PK"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Westford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9456,6 +12624,17 @@
       "website": "https://wcs.wnesu.org/",
       "latitude": 43.0705133559139,
       "longitude": -72.46344859828896,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Westminster",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9489,6 +12668,17 @@
       "website": "https://www.rivendellschool.org/schools/westshire-elementary-school",
       "latitude": 43.90753212,
       "longitude": -72.26152318,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "West Fairlee",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9522,6 +12712,17 @@
       "website": "https://www.acsdvt.org/weybridge",
       "latitude": 44.04178144,
       "longitude": -73.21234925,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Middlebury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9555,6 +12756,17 @@
       "website": "https://www.wrsvt.com/",
       "latitude": 43.65323860549671,
       "longitude": -72.31763734069972,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "White River Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9585,6 +12797,17 @@
       "website": "https://wrvsd.org/",
       "latitude": 43.818686901917445,
       "longitude": -72.51795797219631,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "South Royalton",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9613,6 +12836,17 @@
       "website": "https://wrvsd.org/",
       "latitude": 43.83332485100451,
       "longitude": -72.64332844069378,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Bethel",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9646,6 +12880,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,PK,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9679,6 +12924,17 @@
       "website": "https://www.cvsu.org/wes",
       "latitude": 44.12360382,
       "longitude": -72.5458916,
+      "grade_span": {
+        "low": -1,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Williamstown",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9712,6 +12968,17 @@
       "website": "https://www.cvsu.org/wmhs",
       "latitude": 44.12633739,
       "longitude": -72.54669038,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Williamstown",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9748,6 +13015,17 @@
       "website": "https://www.cvsdvt.org/Domain/11",
       "latitude": 44.43996982,
       "longitude": -73.07350836,
+      "grade_span": {
+        "low": -1,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8,PK,EE"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Williston",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9782,6 +13060,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9823,6 +13112,17 @@
       "website": "https://windsor.wsesu.net/",
       "latitude": 43.479916471771,
       "longitude": -72.39471782937675,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12,PK,EE,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Windsor",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9853,6 +13153,17 @@
       "website": "https://www.wsdvt.org/wmhs/",
       "latitude": 44.50079941,
       "longitude": -73.18027764,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12,AW"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Winooski",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9881,6 +13192,17 @@
       "website": "https://www.wsdvt.org/wmhs/",
       "latitude": 44.500940108153905,
       "longitude": -73.18084680731523,
+      "grade_span": {
+        "low": 6,
+        "high": 8,
+        "as_stated": "6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "Winooski",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9915,6 +13237,17 @@
       "website": "https://wolcott.ossu.org/",
       "latitude": 44.53822594,
       "longitude": -72.45290844,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Wolcott",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9949,6 +13282,17 @@
       "website": "https://woodbury.ossu.org/",
       "latitude": 44.44003486,
       "longitude": -72.41622359,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Woodbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -9983,6 +13327,17 @@
       "website": "https://woodford.svsu.org/",
       "latitude": 42.8940772,
       "longitude": -73.13699784,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6,PK,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -10017,6 +13372,17 @@
       "website": "https://www.wesvermont.com/",
       "latitude": 43.62202421,
       "longitude": -72.51971092,
+      "grade_span": {
+        "low": -1,
+        "high": 6,
+        "as_stated": "PK,K,1,2,3,4,5,6,EE"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Woodstock",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     },
@@ -10049,6 +13415,17 @@
       "website": "https://www.wuhsms.org/index.php/en/",
       "latitude": 43.6126946,
       "longitude": -72.54562642,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,AW"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Woodstock",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "public",
       "manual_overrides": [],
       "notes": null
     }

@@ -1,0 +1,41 @@
+name: a lakeside town where land and total area diverge sharply
+why: |
+  THE REGRESSION THIS DIRECTORY EXISTS FOR. The town has 60 square miles of land
+  and 40 of water. Against land area its density is 56.7 per square mile and it
+  does NOT meet the sparse screen. Against total area it would come out at 34.0
+  and would. Swapping the measure looks like a tidy-up and quietly moves towns
+  into eligibility, so the fixture states both numbers and asserts the screen
+  uses the first.
+
+  water_area_sq_mi is carried here for exactly one purpose: to be ignored.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 70, 2029: 70 }
+  municipality:
+    population: 3400
+    land_area_sq_mi: 60
+    water_area_sq_mi: 40
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: 70
+  small_screen_met: true
+  density_value: 56.666666666666664
+  sparse_screen_met: false
+  # What the screen would have produced had it divided by total area. Asserted
+  # as a value the result must NOT equal.
+  density_if_total_area_used: 34
+  grant_amount: null

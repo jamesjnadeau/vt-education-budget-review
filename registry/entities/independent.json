@@ -35,6 +35,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "MIDDLEBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -69,6 +80,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "MORRISVILLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -110,6 +132,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": -1,
+        "high": 12,
+        "as_stated": "PK,1,2,3,4,5,6,7,8,9,10,11,12,EE,K,AW"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -136,6 +169,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "VERGENNES",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -171,6 +215,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 10,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -205,6 +260,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "WESTFORD",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -236,6 +302,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "ESSEX JCT",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -267,6 +344,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -299,6 +387,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "MIDDLEBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -331,6 +430,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "St Albans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -361,6 +471,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "BARRE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -389,6 +510,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 9,
+        "as_stated": "7,8,9"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "CHELSEA",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -424,6 +556,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 10,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "ORLEANS",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -454,6 +597,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "EAST BURKE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -489,6 +643,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 10,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "ST JOHNSBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -520,6 +685,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -554,6 +730,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "VERGENNES",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -586,6 +773,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BARRE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -624,6 +822,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MARSHFIELD",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -658,6 +867,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -692,6 +912,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -721,6 +952,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "WATERBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -759,6 +1001,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BRATTLEBORO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -790,6 +1043,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "BARRE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -824,6 +1088,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "ST JOHNSBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -855,6 +1130,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "SO BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -889,6 +1175,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "MILTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -915,6 +1212,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -945,6 +1253,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "EAST BURKE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -983,6 +1302,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MORRISVILLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1018,6 +1348,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 3,
+        "high": 12,
+        "as_stated": "3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "E RANDOLPH",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1049,6 +1390,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 6,
+        "as_stated": "1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1083,6 +1435,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 4,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12,4,5"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "LYNDONVILLLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1114,6 +1477,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "LUDLOW",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1145,6 +1519,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1178,6 +1563,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 8,
+        "as_stated": "1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1216,6 +1612,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "WINDSOR",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1250,6 +1657,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "ST JOHNSBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1288,6 +1706,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1319,6 +1748,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "POULTNEY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1345,6 +1785,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "ESSEX JCT",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1380,6 +1831,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 10,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1411,6 +1873,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "FAYSTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1443,6 +1916,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "PUTNEY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1477,6 +1961,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1511,6 +2006,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BRATTLEBORO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1543,6 +2049,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Hartford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1575,6 +2092,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "1,2,3,4,5,6,K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1607,6 +2135,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1638,6 +2177,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "WILLISTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1670,6 +2220,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "KILLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1706,6 +2267,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 2,
+        "high": 12,
+        "as_stated": "2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "NEWFANE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1740,6 +2312,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "WESTMINSTER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1778,6 +2361,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "SHELBURNE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1809,6 +2403,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "Morrisville",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1847,6 +2452,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "JOHNSON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1878,6 +2494,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1904,6 +2531,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 12,
+        "high": 12,
+        "as_stated": "12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "BRATTLEBORO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1936,6 +2574,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "DORSET",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -1973,6 +2622,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 12,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MANCHESTER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2002,6 +2662,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 5,
+        "high": 8,
+        "as_stated": "5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2036,6 +2707,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "MANCHESTER CTR",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2070,6 +2752,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 4,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,5,6,4"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "PLAINFIELD",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2099,6 +2792,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 3,
+        "as_stated": "K,1,2,3"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2125,6 +2829,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "MIDDLEBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2159,6 +2874,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2197,6 +2923,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2235,6 +2972,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "WHITE RIVER JCT",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2267,6 +3015,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "BARRE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2305,6 +3064,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2339,6 +3109,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2373,6 +3154,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BONDVILLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2399,6 +3191,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2431,6 +3234,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "STOWE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2457,6 +3271,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 11,
+        "high": 11,
+        "as_stated": "11"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "VERSHIRE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2488,6 +3313,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2517,6 +3353,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2551,6 +3398,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 4,
+        "high": 12,
+        "as_stated": "4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2578,6 +3436,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 1,
+        "as_stated": "K,1"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "BRATTLEBORO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2608,6 +3477,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2641,6 +3521,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 5,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12,5,6"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2677,6 +3568,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 10,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "IRASBURG",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2707,6 +3609,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2744,6 +3657,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 12,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MONTPELIER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2772,6 +3696,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 9,
+        "as_stated": "7,8,9"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "RIPTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2810,6 +3745,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "PUTNEY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2843,6 +3789,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 5,
+        "high": 12,
+        "as_stated": "5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "LUDLOW",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2875,6 +3832,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "THETFORD HILL",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2909,6 +3877,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "E MONTPELIER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2941,6 +3920,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MONTPELIER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2969,6 +3959,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 9,
+        "as_stated": "7,8,9"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "BRISTOL",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -2995,6 +3996,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "HARTFORD",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3033,6 +4045,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BRATTLEBORO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3071,6 +4094,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3100,6 +4134,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "PUTNEY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3134,6 +4179,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BRISTOL",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3165,6 +4221,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "MANCHESTER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3194,6 +4261,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "S BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3228,6 +4306,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "LYNDONVILLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3257,6 +4346,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3291,6 +4391,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3329,6 +4440,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3359,6 +4481,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3393,6 +4526,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3419,6 +4563,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 0,
+        "as_stated": "K"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "JERICHO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3450,6 +4605,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "SHARON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3488,6 +4654,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3518,6 +4695,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 5,
+        "high": 9,
+        "as_stated": "5,6,7,8,9"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3556,6 +4744,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "ST ALBANS BAY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3590,6 +4789,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "NO BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3618,6 +4828,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 4,
+        "high": 6,
+        "as_stated": "4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "READING",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3652,6 +4873,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "WINOOSKI",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3690,6 +4922,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BRATTLEBORO",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3724,6 +4967,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BARRE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3758,6 +5012,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "BARTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3790,6 +5055,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3825,6 +5101,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 10,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "Newport Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3856,6 +5143,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "STRATTON MTN",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3884,6 +5182,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 2,
+        "as_stated": "K,1,2"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3914,6 +5223,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3945,6 +5265,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -3979,6 +5310,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "EAST BURKE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4009,6 +5351,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 8,
+        "high": 12,
+        "as_stated": "8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "ST JOHNSBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4040,6 +5393,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4069,6 +5433,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "NORWICH",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4103,6 +5478,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "PUTNEY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4135,6 +5521,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4167,6 +5564,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "WINOOSKI",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4201,6 +5609,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "S BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4233,6 +5652,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 6,
+        "as_stated": "K,1,2,3,4,5,6"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "NO BENNINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4271,6 +5701,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "WILLISTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4300,6 +5741,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "WAITSFIELD",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4337,6 +5789,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 12,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MORGAN",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4373,6 +5836,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 11,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10,11"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "BELLOWS FALLS",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4409,6 +5883,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 11,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10,11"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "ISLAND POND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4445,6 +5930,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 11,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10,11"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "RUTLAND",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4483,6 +5979,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "5,6,7,8,9,10,11,12,K,1,2,3,4"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "COLCHESTER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4521,6 +6028,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 12,
+        "as_stated": "K,1,2,3,4,5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "NEWPORT",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4555,6 +6073,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "QUECHEE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4584,6 +6113,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "SAXTONS RIVER",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4616,6 +6156,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 6,
+        "high": 12,
+        "as_stated": "6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "SO BURLINGTON",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4650,6 +6201,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "SHELBURNE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4681,6 +6243,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 5,
+        "as_stated": "K,1,2,3,4,5"
+      },
+      "grade_span_class": "elementary",
+      "mailing_city": "ROXBURY",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4714,6 +6287,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 5,
+        "high": 12,
+        "as_stated": "5,6,7,8,9,10,11,12"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4740,6 +6324,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 12,
+        "high": 12,
+        "as_stated": "12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": null,
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4774,6 +6369,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 0,
+        "high": 8,
+        "as_stated": "K,1,2,3,4,5,6,7,8"
+      },
+      "grade_span_class": "elementary_middle",
+      "mailing_city": "WEBSTERVILLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -4809,6 +6415,17 @@
       "website": null,
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 1,
+        "high": 10,
+        "as_stated": "1,2,3,4,5,6,7,8,9,10"
+      },
+      "grade_span_class": "combined",
+      "mailing_city": "MORRISVILLE",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     }

@@ -1,0 +1,139 @@
+# What the Act 73 small and sparse screens need, and where each input stands.
+#
+# Hand-authored, unlike warehouse/aoe-adm/gaps.yaml which its importer generates.
+# There is no importer here: this layer has no single source artifact, it joins
+# four of them. The site reads this so a null in the walkthrough can say why it
+# is null, and so nobody has to reconstruct the reasoning from the code.
+#
+# `supplied: false` is not a to-do list. Three of these entries are terminal by
+# design and one is the State's timetable rather than anybody's backlog. The
+# `whose` field says which is which.
+schema_version: "1.0"
+layer: small-sparse
+parameter_set_ref: model/parameters/fy2030-small-sparse.yaml
+entries:
+  - input: screens.small_enrollment.threshold
+    source: 2025 Acts and Resolves No. 73, Sec. 37
+    supplied: false
+    whose: ours
+    note: >-
+      Null and unverified, along with every other statutory value in this layer.
+      legislature.vermont.gov serves an incomplete TLS chain to automated clients and
+      education.vermont.gov returns 403, so nothing here was read from a primary source.
+      Neither obstructs a person with a browser. This is a manual afternoon, and it gates
+      every figure downstream: with the threshold null the engine declines to screen any
+      school, independently of how complete the enrollment and geography data become.
+
+  - input: screens.sparse_density.threshold
+    source: 2025 Acts and Resolves No. 73, Sec. 37
+    supplied: false
+    whose: ours
+    note: Same. See docs/small-sparse-verification-worksheet.md for what to read.
+
+  - input: school_enrollment
+    source: AOE Public Data API
+    supplied: false
+    whose: the source's
+    note: >-
+      No per-school enrollment series is published. AOE publishes average daily membership by
+      RESIDENT DISTRICT, which is a town rather than a school, and the Public Data API carries
+      no membership data at all. A town's ADM standing in for a school's roll would be a
+      fabrication that looked like data: a town with three schools has one ADM figure and three
+      different answers to the enrollment screen. Left missing until a per-school source is
+      found and landed in intake/ with a hash.
+
+  - input: municipality_of_school_building
+    source: derived/school-municipality/
+    supplied: true
+    whose: null
+    note: >-
+      Resolved by point in polygon from AOE-published coordinates against Census county
+      subdivisions, pinned to the 2020 benchmark and vintage. 277 of 288 schools with published
+      coordinates resolved. The 11 that did not are in the derived file with the reason, and
+      they cluster: AOE tracks Bennington, Bradford and Barton through incorporated school
+      districts rather than town records, and Rivendell Academy sits in Orford, New Hampshire.
+      A further 150 schools have no published coordinates at all.
+
+  - input: municipality_land_area
+    source: intake/census/fy2023/2023_gaz_cousubs_50.txt
+    supplied: true
+    whose: null
+    note: >-
+      Census Gazetteer ALAND_SQMI, 252 of 256 Vermont county subdivisions joined to a registry
+      town. Land area only. Water area is carried beside it and nothing divides by it; see
+      model/goldens/small-sparse/land-versus-total-area.yaml for the fixture that fails if
+      anyone swaps the measure.
+
+  - input: municipality_population
+    source: api.census.gov
+    supplied: false
+    whose: ours
+    note: >-
+      The Census data API requires a key for county-subdivision queries and this project holds
+      none. Keys are free. Set CENSUS_API_KEY and re-run `npm run census:import` to land both
+      the decennial and ACS series; the towns that move between them are a publishable finding
+      in their own right, since the statute is reported to name no series at all.
+
+  - input: necessity_determination
+    source: Vermont Agency of Education
+    supplied: false
+    whose: nobody's yet
+    note: >-
+      AOE has published no small or sparse by necessity determinations, because the rules that
+      would govern them are not yet written. This is not an omission by anyone: there is nothing
+      yet to publish. It is why every school in Vermont carries determination_status
+      `undetermined`, and why no grant figure exists at any point in this layer without an
+      explicitly supplied eligibility assumption.
+
+  - input: criteria.safe_transportation
+    source: supervisory union or AOE certification
+    supplied: false
+    whose: nobody's ever
+    note: >-
+      Terminal. Whether terrain, winter road conditions, unpaved routes or mountain gaps make
+      transportation unsafe is a certification, not a computation. Single ingress is arguably
+      detectable from a road network; detecting a candidate is not certifying a condition, and
+      publishing the former as the latter would substitute our judgment for the SU's.
+
+  - input: criteria.feasible_consolidation
+    source: local capacity and project estimates
+    supplied: false
+    whose: nobody's ever
+    note: >-
+      Terminal. Needs building capacity and renovation estimates that are local and not
+      published statewide. Also unresolved in the framework itself: whether renovation cost is
+      measured gross or net of Act 170 construction aid, which gives opposite answers for the
+      same school.
+
+  - input: criteria.population_trajectory
+    source: demographic projection
+    supplied: false
+    whose: nobody's ever
+    note: >-
+      Terminal. Needs a projection and a definition of "a viable larger school", neither of
+      which the framework supplies. Worth noting for the UI: this criterion is why a school
+      above the enrollment threshold today is not thereby excluded, which is what makes the
+      enrollment screen a candidate filter rather than a gate.
+
+  - input: criteria.closure_cost_increase
+    source: a closure model built for the district
+    supplied: false
+    whose: nobody's ever
+    note: >-
+      Terminal, and blocked twice over: it needs a local closure model, and the interaction it
+      would show — grant lines dropping on closure while surviving a merger untouched — needs
+      closure scenarios, which the engine does not yet have.
+
+  - input: criteria.travel_time_or_distance
+    source: routing precompute over a pinned OSM extract
+    supplied: false
+    whose: ours
+    note: >-
+      The only partly computable criterion, and not built yet. Planned for v1.1: a pinned OSM
+      extract in intake/, the precompute in tools/ rather than model/ so the engine stays
+      filesystem- and network-free, and a `kind: derived` provenance record naming the engine,
+      the extract hash and the run. The provenance kind it needs already exists and is in use
+      by the municipality geocode. Note that AOE publishes coordinates with no statement of
+      precision, so geocode_precision is `unknown` for every school and the criterion would
+      return indeterminate even with routing in place — establishing precision is part of that
+      work, not separate from it.

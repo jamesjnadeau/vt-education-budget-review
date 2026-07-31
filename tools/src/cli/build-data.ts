@@ -16,7 +16,7 @@
  * there is a performance problem to solve.
  */
 
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
@@ -27,6 +27,11 @@ import { buildCoverage } from '../coverage.ts';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
+import {
+  buildSmallSparse,
+  SMALL_SPARSE_PARAMETER_FILE,
+  SMALL_SPARSE_PARAMETER_REF,
+} from '../small-sparse/build.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 
 interface BudgetRecord {
@@ -43,11 +48,18 @@ function writeJson(path: string, data: unknown): void {
 
 function readBudgets(): BudgetRecord[] {
   return walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json'))
-    // The warehouse holds the AOE ADM series too, which is the state's voice
-    // about pupils rather than a district's budget. Reading one as a budget
-    // record would put an object with no revenues or expenditures into every
-    // per-SU page's budget list.
-    .filter((file) => !rel(file).startsWith('warehouse/aoe-adm/'))
+    // The warehouse holds more than budgets now: the AOE ADM series, which is
+    // the state's voice about pupils, and the Census land-area record. Reading
+    // either as a budget would put an object with no revenues or expenditures
+    // into every per-SU page's budget list.
+    .filter((file) => {
+      const path = rel(file);
+      return (
+        !path.startsWith('warehouse/aoe-adm/') &&
+        !path.startsWith('warehouse/census/') &&
+        !path.startsWith('warehouse/small-sparse/')
+      );
+    })
     .map((file) => {
     const text = readFileSync(file, 'utf8');
     const record = (file.endsWith('.json') ? JSON.parse(text) : parseYaml(text)) as BudgetRecord;
@@ -122,6 +134,28 @@ function main(): number {
     );
   }
 
+  let smallSparseCounts: Record<string, number> | null = null;
+
+  // --- small / sparse candidate table --------------------------------------
+  // Computed here rather than committed: it is derived from the registry, the
+  // census record and the parameter file, and nothing derived is committed.
+  if (existsSync(SMALL_SPARSE_PARAMETER_FILE)) {
+    const smallSparseSet = parseParameterSet(
+      parseYaml(readFileSync(SMALL_SPARSE_PARAMETER_FILE, 'utf8')),
+    );
+    const smallSparse = buildSmallSparse(registry, smallSparseSet, {
+      parameterSetRef: SMALL_SPARSE_PARAMETER_REF,
+      generated: today.toISOString(),
+      // Neither has a default in the statute as read, so the build states which
+      // frame it published under and the page repeats it. A default chosen here
+      // and forgotten downstream is how an unread question becomes an answer.
+      enrollmentBasis: 'two_year_average',
+      populationSeries: 'decennial_2020',
+    });
+    writeJson(join(PATHS.siteGenerated, 'small-sparse.json'), smallSparse);
+    smallSparseCounts = smallSparse.counts;
+  }
+
   // --- per-SU data, and the compact index the modeling island loads first ---
   const sus = (byType.get('su') ?? []).filter((e) => !e.effective_to);
   const districts = byType.get('ud') ?? [];
@@ -183,6 +217,15 @@ function main(): number {
   console.log(`  ${budgets.length} budget record(s)`);
   console.log(`  coverage: ${JSON.stringify(coverage.totals)}`);
   console.log(`  ${parameterSets.length} parameter set(s), ${parameterSets.reduce((n, p) => n + p.unverified_count, 0)} unverified parameter(s)`);
+  if (smallSparseCounts) {
+    console.log(
+      `  small/sparse: ${smallSparseCounts['schools']} schools, ` +
+        `${smallSparseCounts['with_municipality']} located in a town, ` +
+        `${smallSparseCounts['with_land_area']} with land area, ` +
+        `${smallSparseCounts['with_population']} with population, ` +
+        `${smallSparseCounts['screens_resolved']} screens resolved`,
+    );
+  }
 
   return 0;
 }

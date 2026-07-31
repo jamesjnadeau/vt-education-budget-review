@@ -108,6 +108,51 @@
         "latitude": { "type": ["number", "null"], "default": null },
         "longitude": { "type": ["number", "null"], "default": null },
 
+        "grade_span": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["low", "high"],
+          "description": "Normalized integer form of `grades`, for schools. PK and EE map to -1, K to 0, grades 1-12 to themselves. The integer form exists so 'the nearest school of the same grade span' is a comparison rather than a string match; `grades` is kept verbatim beside it per the stated-versus-computed principle.",
+          "default": null,
+          "properties": {
+            "low": { "type": "integer", "minimum": -1, "maximum": 12 },
+            "high": { "type": "integer", "minimum": -1, "maximum": 12 },
+            "as_stated": { "type": ["string", "null"], "default": null }
+          }
+        },
+        "grade_span_class": {
+          "type": ["string", "null"],
+          "enum": ["elementary", "middle", "secondary", "elementary_middle", "middle_secondary", "combined", "other", null],
+          "description": "Derived from grade_span. Selects the travel-time threshold in the small/sparse framework, which proposes 45 minutes one way for elementary pupils and 60 for grades 7-12. A span crossing that boundary -- K-8 and K-12, of which Vermont has many -- is ambiguous under the framework as drafted; the engine applies the stricter threshold and flags it rather than choosing the convenient one.",
+          "default": null
+        },
+        "mailing_city": {
+          "type": ["string", "null"],
+          "description": "MailingCity as AOE publishes it. A POSTAL designation and not a municipality: Vermont post office names routinely cover parts of several towns. Recorded because it is what the source says, and never read as `municipality`.",
+          "default": null
+        },
+        "municipality": {
+          "type": ["string", "null"],
+          "description": "Slug of the town, city or gore the school BUILDING stands in. Load-bearing for the sparse screen, which tests the density of the municipality where the school is located rather than of the district's member towns -- a school in a dense town inside an otherwise sparse district does not pass it. Null until established; the screen then declines to evaluate rather than guessing.",
+          "default": null
+        },
+        "municipality_basis": {
+          "enum": ["census_geocoder_point_in_polygon", "aoe_mailing_city", "manual", "unknown"],
+          "description": "How `municipality` was established. `aoe_mailing_city` is recorded but is NOT sufficient for the density screen, because a postal city is not a municipality; the screen treats it as unestablished. `census_geocoder_point_in_polygon` resolves the published coordinates against Census county subdivisions and is sufficient.",
+          "default": "unknown"
+        },
+        "geocode_precision": {
+          "enum": ["rooftop", "parcel", "street", "municipality_centroid", "unknown"],
+          "description": "Precision of latitude/longitude. `municipality_centroid` is not good enough to screen a 10-to-15-mile distance threshold, so the distance criterion returns indeterminate at that precision instead of estimating.",
+          "default": "unknown"
+        },
+        "school_type": {
+          "type": ["string", "null"],
+          "enum": ["public", "approved_independent", "career_technical_center", "other", null],
+          "description": "Only public schools are eligible for the Act 73 small and sparse support grants. Independent schools stay in the registry because they are receiving schools in consolidation scenarios and appear in the tuitioning limb of the necessity criteria.",
+          "default": null
+        },
+
         "manual_overrides": {
           "type": "array",
           "description": "Fields set by hand rather than by the sync, with the reason. The sync must not clobber these. The registry has to tolerate gaps in the API -- the API is a convenience layer, not a dependency.",

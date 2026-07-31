@@ -252,6 +252,95 @@ export function checkProvenanceDoc(
   return findings;
 }
 
+/**
+ * A derived provenance record has to be usable, not merely present.
+ *
+ * The whole point of the `derived` kind is that someone who disputes an output
+ * can reproduce it. That is only true if every input is pinned to something
+ * immutable. An input recorded with `pinned_by: sha256` and a null `pin` looks
+ * like provenance, satisfies the schema, and answers nothing -- which is the
+ * failure worth catching, because it is the one that happens by accident when a
+ * run writes its own record.
+ */
+export function checkDerivedProvenance(data: unknown, file: string): Finding[] {
+  const doc = data as { kind?: string; derivation?: { inputs?: Array<{ ref?: string; pinned_by?: string; pin?: string | null }> } };
+  if (doc.kind !== 'derived') return [];
+
+  const findings: Finding[] = [];
+  for (const input of doc.derivation?.inputs ?? []) {
+    if (input.pinned_by === 'git_sha' && !input.pin) {
+      findings.push({
+        severity: 'warning',
+        file,
+        rule: 'derived-input-unpinned',
+        message:
+          `input "${input.ref}" says it is pinned by git sha but records none. Commit the ` +
+          `derived output in the same commit as the input it was built from, then fill the sha ` +
+          `in -- a pin nobody can use is not a pin.`,
+      });
+    }
+    if (input.pinned_by === 'sha256' && !/^[a-f0-9]{64}$/.test(input.pin ?? '')) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'derived-input-unpinned',
+        message:
+          `input "${input.ref}" claims a sha256 pin but does not carry one. The output cannot ` +
+          `be reproduced from an input nobody can identify.`,
+      });
+    }
+  }
+  return findings;
+}
+
+/**
+ * The land-versus-total-area rule, enforced on the data rather than trusted to
+ * the importer.
+ *
+ * Vermont has towns whose water area is a third of their extent. Dividing a
+ * population by total area understates density and pulls exactly those towns
+ * into sparse eligibility. The census record carries both figures on purpose --
+ * so the distinction is visible -- which also makes it possible for a later edit
+ * to quietly put the wrong one in the land field.
+ */
+export function checkLandAreaOnly(data: unknown, file: string): Finding[] {
+  const doc = data as {
+    area_measure?: string;
+    towns?: Array<{ entity?: string | null; land_area_sq_mi?: number | null; water_area_sq_mi?: number | null }>;
+  };
+
+  const findings: Finding[] = [];
+  if (doc.area_measure !== 'aland') {
+    findings.push({
+      severity: 'error',
+      file,
+      rule: 'land-area-only',
+      message:
+        `area_measure is "${doc.area_measure}", not "aland". The sparse screen divides by square ` +
+        `miles of LAND. If the statutory phrase turns out not to say "of land", change this in ` +
+        `the same commit as the reading and expect the golden fixture to fail.`,
+    });
+  }
+
+  for (const town of doc.towns ?? []) {
+    const land = town.land_area_sq_mi;
+    const water = town.water_area_sq_mi;
+    if (typeof land !== 'number' || typeof water !== 'number') continue;
+    if (land === 0 && water > 0) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'land-area-only',
+        message:
+          `${town.entity ?? 'a subdivision'} has zero land area and ${water} square miles of ` +
+          `water. Dividing by that gives an infinite density, and the more likely explanation ` +
+          `is that the two columns have been swapped.`,
+      });
+    }
+  }
+  return findings;
+}
+
 // --------------------------------------------------------------------------
 // Registry references
 // --------------------------------------------------------------------------

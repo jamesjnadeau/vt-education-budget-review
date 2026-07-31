@@ -34,6 +34,17 @@
       "website": null,
       "latitude": 43.16414566,
       "longitude": -73.07736959,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Manchester",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -63,6 +74,17 @@
       "website": null,
       "latitude": 44.5384112,
       "longitude": -72.0154517,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Lyndon Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -92,6 +114,17 @@
       "website": null,
       "latitude": 44.41656569,
       "longitude": -72.01933116,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "St Johnsbury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     },
@@ -123,6 +156,17 @@
       "website": null,
       "latitude": 43.81456547,
       "longitude": -72.23165622,
+      "grade_span": {
+        "low": 7,
+        "high": 12,
+        "as_stated": "7,8,9,10,11,12"
+      },
+      "grade_span_class": "middle_secondary",
+      "mailing_city": "Thetford Center",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "approved_independent",
       "manual_overrides": [],
       "notes": null
     }

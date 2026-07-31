@@ -1,0 +1,34 @@
+name: a school at exactly the enrollment threshold
+why: |
+  Vermont has schools at exactly 100 pupils. `lt` and `lte` decide them
+  differently, so the comparator is a parameter and not a convention. If someone
+  ever hard-codes the comparison, this fixture is what catches it -- and it
+  catches it at the only value where the two readings disagree.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 100, 2029: 100 }
+  municipality:
+    population: 1000
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: 100
+  small_screen_met: false
+  density_value: 25
+  sparse_screen_met: true
+  grant_amount: null

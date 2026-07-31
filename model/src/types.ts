@@ -13,6 +13,9 @@ export type Unit =
   | 'usd'
   | 'usd_per_pupil'
   | 'pupils'
+  | 'persons_per_square_mile'
+  | 'miles'
+  | 'minutes'
   | 'rate_per_100'
   | 'ratio'
   | 'count'
@@ -47,6 +50,19 @@ export interface Parameter {
   readonly applies_to: string | null;
   readonly range: ParameterRange | null;
   readonly contingent: boolean;
+  /**
+   * False for a parameter that records what a body proposed rather than what
+   * the law says.
+   *
+   * The small/sparse layer draws on two sources with incompatible verification
+   * rules: Act 73 as amended, and thresholds the State Board's committee
+   * proposed in December 2025 and may never enact. Quoting the committee's
+   * report accurately is a different act from quoting a statute accurately, and
+   * a renderer that cannot tell them apart will present a proposal as law.
+   */
+  readonly is_law: boolean;
+  /** Where the SHAPE of the calculation, not just the number, is at stake. */
+  readonly structural_note: string | null;
 }
 
 export interface ParameterSet {
@@ -59,16 +75,42 @@ export interface ParameterSet {
 /**
  * Why a node does or does not carry a value.
  *
- * The distinction between `unverified` and `missing_input` is the whole
- * credibility position in one field: `unverified` means we have not yet
- * confirmed a statutory value against current law, and `missing_input` means
- * the district did not publish a figure. One is our outstanding work, the
- * other is a fact about the source. They must never be collapsed.
+ * There are four kinds of blank and they must never collapse into one another,
+ * because each one belongs to a different party and implies a different remedy:
+ *
+ *   `unverified`     Our outstanding work. A statutory value has not been
+ *                    confirmed against current law. Someone reads the act.
+ *   `missing_input`  A fact about the source. The district did not publish a
+ *                    figure. Nobody here can fix it by working harder.
+ *   `undetermined`   The State has not made a decision that does not yet exist.
+ *                    AOE has published no small/sparse necessity determinations
+ *                    because the rules governing them are unwritten. Rendering
+ *                    this as `missing_input` would imply AOE failed to publish
+ *                    something, which is false and unfair to them.
+ *   `not_computable` The question cannot be answered from public data at all --
+ *                    it requires a certification, a local model, or a
+ *                    projection. Terminal by design, and a correct final answer
+ *                    rather than a to-do item. A coverage dashboard that paints
+ *                    these red is lying about what completion looks like.
+ *
+ * `contingent` is not a blank: it qualifies a value rather than withholding
+ * one.
  */
-export type NodeStatus = 'ok' | 'unverified' | 'missing_input' | 'contingent';
+export type NodeStatus =
+  | 'ok'
+  | 'unverified'
+  | 'missing_input'
+  | 'undetermined'
+  | 'not_computable'
+  | 'contingent';
 
 export interface Blocker {
-  readonly kind: 'unverified_parameter' | 'missing_input' | 'contingent_parameter';
+  readonly kind:
+    | 'unverified_parameter'
+    | 'missing_input'
+    | 'contingent_parameter'
+    | 'undetermined_determination'
+    | 'not_computable';
   readonly ref: string;
   readonly detail: string;
 }
@@ -85,7 +127,14 @@ export type Op =
   | 'max'
   | 'min'
   | 'clamp'
-  | 'passthrough';
+  | 'passthrough'
+  /**
+   * Tests a quantity against a statutory threshold. Its value is the QUANTITY,
+   * not the verdict: a screen that reports 1 or 0 loses the number a reader
+   * needs in order to see how close the school is to the line, which for a
+   * school at 99 pupils against a threshold of 100 is the whole story.
+   */
+  | 'screen';
 
 export interface CalcNode {
   readonly id: string;

@@ -47,6 +47,8 @@ function p(
       applies_to: null,
       range: null,
       contingent: false,
+      is_law: true,
+      structural_note: null,
       ...extra,
     },
   ];
@@ -56,7 +58,7 @@ export interface SyntheticOptions {
   /** Keys to force unverified, for testing that the engine refuses to compute. */
   readonly unverified?: readonly string[];
   readonly nulled?: readonly string[];
-  readonly overrides?: Readonly<Record<string, number | boolean>>;
+  readonly overrides?: Readonly<Record<string, number | boolean | string | null>>;
 }
 
 export function syntheticParameters(options: SyntheticOptions = {}): ParameterSet {
@@ -101,6 +103,46 @@ export function syntheticParameters(options: SyntheticOptions = {}): ParameterSe
     p('foundation.statewide_homestead_rate', null, 'rate_per_100', 'the statewide rate', {
       contingent: true,
     }),
+
+    // --- small / sparse -----------------------------------------------------
+    // The real file is all nulls and will stay that way until someone reads the
+    // enacted acts, so the screens cannot be exercised against it at all. These
+    // stand in for that arithmetic and are, again, NOT Vermont's figures: 100
+    // and 55 happen to be the numbers the secondary sources report, and they are
+    // here because round boundary arithmetic is easy to check by hand, not
+    // because anyone has read them in a statute.
+    p('statutory.screens.small_enrollment.threshold', 100, 'students', 'the small school enrollment threshold'),
+    p('statutory.screens.small_enrollment.comparator', 'lt', 'enum', 'the small school comparator'),
+    p('statutory.screens.sparse_density.threshold', 55, 'persons_per_square_mile', 'the sparse density threshold'),
+    p('statutory.screens.sparse_density.comparator', 'lt', 'enum', 'the sparse density comparator'),
+    p('statutory.grants.small_school.per_pupil', 1000, 'usd_per_pupil', 'the small school grant rate'),
+    p('statutory.grants.sparse_school.per_pupil', 500, 'usd_per_pupil', 'the sparse school grant rate'),
+
+    // Proposed, not law -- so the engine has something to label as such.
+    p(
+      'framework.criteria.travel_time_or_distance.travel_time_one_way_minutes.elementary',
+      45,
+      'minutes',
+      'the proposed elementary travel time threshold',
+      { is_law: false },
+    ),
+    p(
+      'framework.criteria.travel_time_or_distance.travel_time_one_way_minutes.grades_7_12',
+      60,
+      'minutes',
+      'the proposed grades 7-12 travel time threshold',
+      { is_law: false },
+    ),
+    p(
+      'framework.criteria.travel_time_or_distance.road_miles_to_nearest_same_grade_span',
+      null,
+      'miles',
+      'the proposed road distance threshold',
+      {
+        is_law: false,
+        range: { low: 10, high: 15, central: null, basis: 'terrain, undefined by the framework' },
+      },
+    ),
   ];
 
   const parameters = new Map<string, Parameter>();

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:census-town:1.0",
+  "title": "Census land area and population, by Vermont municipality",
+  "description": "The two inputs to the sparse screen, at the grain the screen needs: persons and square miles of LAND, per municipality. Land area and population come from different Census products with different vintages and different error properties, so they are recorded as separate fields with separate provenance rather than pre-divided into a density. The division happens in the engine, where it can be shown.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "area_measure",
+    "area_vintage",
+    "population_series_held",
+    "towns",
+    "not_published",
+    "extracted_by",
+    "extracted_date"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "source": {
+      "type": "string",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^\\s]+$",
+      "description": "The hashed artifact this was transcribed from."
+    },
+    "area_measure": {
+      "const": "aland",
+      "description": "Land area, never total area. Constrained to a single value rather than left as an enum, because the wrong choice here is silent: using total area understates the density of every town with a large pond or a Lake Champlain frontage and pulls it into sparse eligibility. If the statutory phrase turns out not to say 'of land', widen this in the same commit as the reading, and expect the golden fixture asserting the difference to fail."
+    },
+    "area_vintage": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which Census product the areas came from, e.g. '2023 TIGER/Line Gazetteer, county subdivisions'. Boundaries move; a figure without a vintage cannot be compared to next year's."
+    },
+    "population_series_held": {
+      "type": "array",
+      "items": { "enum": ["decennial_2020", "acs_5yr", "state_estimate"] },
+      "description": "Which series this record actually carries. An empty array is legal and honest: the Census data API requires a key, so a run without one lands land area alone. The screen then reports population as missing input rather than dividing by a number it invented."
+    },
+    "population_sources": {
+      "type": "array",
+      "description": "Per series, where it came from. Present only for series listed in population_series_held.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["series", "dataset", "variable", "retrieved"],
+        "properties": {
+          "series": { "enum": ["decennial_2020", "acs_5yr", "state_estimate"] },
+          "dataset": { "type": "string", "minLength": 1 },
+          "variable": { "type": "string", "minLength": 1 },
+          "vintage": { "type": ["string", "null"], "default": null },
+          "retrieved": { "type": "string", "format": "date" }
+        }
+      },
+      "default": []
+    },
+    "towns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entity", "geoid", "name_as_published", "land_area_sq_mi", "population"],
+        "properties": {
+          "entity": {
+            "type": ["string", "null"],
+            "$comment": "Null where a county subdivision has no registry town -- gores and grants have no schools and no district, but they are real places and dropping them silently would be a quiet edit of Vermont's geography.",
+            "pattern": "^town/[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "geoid": {
+            "type": "string",
+            "pattern": "^[0-9]{10}$",
+            "description": "Census county subdivision GEOID: 2-digit state, 3-digit county, 5-digit subdivision. The join key, because names collide and change."
+          },
+          "name_as_published": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Verbatim, including the 'town'/'city'/'gore' suffix Census appends. Never normalized in place."
+          },
+          "land_area_sq_mi": { "type": ["number", "null"], "minimum": 0 },
+          "water_area_sq_mi": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "description": "Carried so the land-versus-total distinction is visible in the data and not merely asserted in a comment. Nothing divides by it.",
+            "default": null
+          },
+          "population": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "One entry per series. Null means the series was not retrieved, and is never a zero -- there is no inhabited Vermont municipality with no residents, so a zero here would be a silent data error rather than a small town.",
+            "properties": {
+              "decennial_2020": { "type": ["number", "null"], "default": null },
+              "acs_5yr": { "type": ["number", "null"], "default": null },
+              "state_estimate": { "type": ["number", "null"], "default": null }
+            }
+          }
+        }
+      }
+    },
+    "not_published": {
+      "type": "array",
+      "description": "Fields the source does not carry, with who confirmed it and when. Same accounting rule as a warehouse budget record: an unexplained null cannot be told apart from a field nobody checked.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "reason", "confirmed_by", "confirmed_date"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "confirmed_by": { "type": "string", "minLength": 1 },
+          "confirmed_date": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "unmatched": {
+      "type": "array",
+      "description": "County subdivisions in the source with no registry town. Recorded rather than dropped: an unmatched name is either a gore we do not track or a slug bug, and only a human can tell which.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["geoid", "name_as_published", "reason"],
+        "properties": {
+          "geoid": { "type": "string", "pattern": "^[0-9]{10}$" },
+          "name_as_published": { "type": "string" },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      },
+      "default": []
+    },
+    "extracted_by": { "type": "string", "minLength": 1 },
+    "extracted_date": { "type": "string", "format": "date" }
+  }
+}

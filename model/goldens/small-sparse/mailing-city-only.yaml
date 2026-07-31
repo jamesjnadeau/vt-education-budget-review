@@ -1,0 +1,35 @@
+name: a school whose town is known only from its mailing address
+why: |
+  Vermont post office names routinely cover parts of several towns, so a mailing
+  city cannot decide which town's density governs a school. The density screen
+  must decline rather than use it. This is the fixture that fails if someone
+  wires MailingCity into `municipality` because the field was sitting right
+  there in the API response.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: aoe_mailing_city
+
+inputs:
+  enrollment_by_year: { 2028: 70, 2029: 70 }
+  municipality:
+    population: 1000
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: 70
+  small_screen_met: true
+  density_value: null
+  sparse_screen_met: null
+  grant_amount: null

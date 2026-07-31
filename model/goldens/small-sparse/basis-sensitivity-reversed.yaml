@@ -1,0 +1,40 @@
+name: the growing school the two enrollment bases disagree about
+why: |
+  A school at 60 two years ago and 130 last year averages to 95 and meets the
+  screen; read on the latest year alone it is at 130 and does not. Same school,
+  same published figures, opposite answer -- decided entirely by which sentence
+  of Act 73 governs, which nobody has read.
+
+  This is the fixture to point at when explaining why the enrollment basis is a
+  user-visible choice with no default rather than an implementation detail.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 60, 2029: 130 }
+  municipality:
+    population: 1000
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: 95
+  small_screen_met: true
+  density_value: 25
+  sparse_screen_met: true
+  grant_amount: null
+  under_single_year_basis:
+    enrollment_value: 130
+    small_screen_met: false

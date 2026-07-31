@@ -1,0 +1,33 @@
+name: a town at exactly the density threshold
+why: |
+  The density boundary, for the same reason as the enrollment one. 2,200 people
+  across 40 square miles of land is exactly 55 per square mile, so a strict
+  comparator excludes the town and an inclusive one admits it.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 60, 2029: 60 }
+  municipality:
+    population: 2200
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: 60
+  small_screen_met: true
+  density_value: 55
+  sparse_screen_met: false
+  grant_amount: null

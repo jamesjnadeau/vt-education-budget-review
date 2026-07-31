@@ -1,6 +1,6 @@
 # Small / sparse parameters — verification worksheet
 
-Companion to `model/parameters/fy2030-small-sparse.yaml`, which is all nulls. This is where the
+Companion to `model/parameters/fy2030-small-sparse.yaml`, whose statutory values are all null. This is where the
 secondary-source readings live, deliberately **outside** the parameter file.
 
 Per `docs/parameter-verification.md`, the danger is not a wrong number, it is a *plausible*
@@ -89,7 +89,8 @@ contain a reproduction of the state's figures the way the membership goldens wil
 methodology page has to say so rather than letting a reader assume this layer carries the same
 validation as the rest.
 
-What the goldens *can* contain:
+These now exist in `model/goldens/small-sparse/`, with a README that says in its first
+section that they are not the same kind of golden as the district fixtures. What they contain:
 
 - Hand-computed screen arithmetic, including a school exactly at the enrollment threshold, a town
   exactly at the density threshold, a lakeside town where land and total area diverge sharply,
@@ -113,7 +114,7 @@ legitimate golden for the *mechanism* even though the parameters differ.
 
 ## Recurring checklist addition
 
-Add to the session checklist in `parameter-verification.md`:
+Added to the session checklist in `parameter-verification.md`:
 
 - [ ] **March 2027 (or when the docket opens): small/sparse rules.** The State Board defines
       "small by necessity" and "sparse by necessity" in rule, folded into the Education Quality

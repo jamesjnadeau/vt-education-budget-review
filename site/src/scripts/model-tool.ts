@@ -89,6 +89,8 @@ function exampleParameters(): ParameterSet {
       applies_to: null,
       range: null,
       contingent: false,
+      is_law: true,
+      structural_note: null,
     });
   }
   return {
@@ -103,10 +105,15 @@ function exampleParameters(): ParameterSet {
 // Rendering
 // --------------------------------------------------------------------------
 
+// Four kinds of blank, four labels. The wording is doing real work: whose
+// problem a blank is differs in each case, and a reader who cannot tell them
+// apart will read every gap as our incompetence or as the State's.
 const STATUS_LABEL: Record<CalcNode['status'], string> = {
   ok: 'computed',
   unverified: 'blocked: parameter unverified',
   missing_input: 'blocked: figure not published',
+  undetermined: 'undetermined: the State has not decided',
+  not_computable: 'not computable from public data',
   contingent: 'contingent on legislation',
 };
 
@@ -114,6 +121,8 @@ const STATUS_CLASS: Record<CalcNode['status'], string> = {
   ok: 'ok',
   unverified: 'unverified',
   missing_input: 'missing-input',
+  undetermined: 'undetermined',
+  not_computable: 'not-computable',
   contingent: 'contingent',
 };
 
@@ -170,6 +179,8 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
 
   const unverified = root.blockers.filter((b) => b.kind === 'unverified_parameter');
   const missing = root.blockers.filter((b) => b.kind === 'missing_input');
+  const undetermined = root.blockers.filter((b) => b.kind === 'undetermined_determination');
+  const terminal = root.blockers.filter((b) => b.kind === 'not_computable');
 
   if (unverified.length > 0) {
     box.append(
@@ -194,6 +205,32 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     );
     const ul = el('ul');
     for (const b of missing) ul.append(el('li', undefined, b.detail));
+    box.append(ul);
+  }
+
+  if (undetermined.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${undetermined.length} item(s) wait on a decision the State has not made. Nobody has failed to publish these — there is nothing yet to publish.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of undetermined) ul.append(el('li', undefined, b.detail));
+    box.append(ul);
+  }
+
+  if (terminal.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${terminal.length} item(s) cannot be answered from public data at all. These are final answers rather than outstanding work, and no amount of further effort here turns them into figures.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of terminal) ul.append(el('li', undefined, b.detail));
     box.append(ul);
   }
 

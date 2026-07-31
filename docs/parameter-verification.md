@@ -115,6 +115,23 @@ answers, and it is the failure mode a parameter-file review is least likely to c
 because the parameter file looks complete. Read the section as a whole, not just the
 numbers in it, and record structural findings in the module's header comment.
 
+Since the small/sparse layer landed, a parameter may also carry a `structural_note` saying
+what to watch for when reading that specific one — put the warning where the editing happens
+rather than only in this document. Two of them decide whether that layer has the right shape
+at all: whether the density test looks at the school's own town or at the district's member
+towns, and whether the two grants stack. Neither is a number a review would flag.
+
+### Two kinds of parameter, since the small/sparse layer
+
+A parameter is law unless it says otherwise. `is_law: false` marks one that records what a
+body **proposed** and may never enact — the State Board committee's necessity thresholds are
+the case it exists for. These carry values, because the committee's own report is the primary
+source for what the committee proposed, and quoting it accurately is a different act from
+quoting a statute accurately. The engine labels anything measured against them as measured
+against a proposed standard, and `parse.ts` refuses to let one carry a V.S.A. citation:
+a recommendation dressed in a statute section reads as settled law to every renderer
+downstream. That is this document's own rule running backwards, and it is just as damaging.
+
 ## Sources, in order of authority
 
 1. **Vermont Statutes Online** — `legislature.vermont.gov/statutes/section/16/133/04010`
@@ -142,4 +159,17 @@ Add to the calendar, once per legislative session:
 - [ ] December: JFO consultant recommendations on special education, sparsity, secondary
       and CTE weights land. These become a new parameter file, not an edit to an
       existing one, and the ranges they imply become `range` blocks with a real `basis`.
+- [ ] **March 2027, or whenever the docket opens: the small/sparse rules.** The State Board
+      defines "small by necessity" and "sparse by necessity" in rule, folded into the
+      Education Quality Standards. When the rules land they become a new parameter file, not
+      an edit to `fy2030-small-sparse.yaml` — same treatment as the December JFO
+      recommendations. File the rulemaking comment *before* they land; the capital-cost-basis
+      question in `framework.open_questions.capital_cost_basis` is the strongest one available,
+      because it is public, technical, on the record, and requires no position on whether any
+      district should merge. A missed comment window is unrecoverable in a way a missed number
+      is not.
+- [ ] Confirm whether AOE has published any necessity determinations. The first publication
+      flips `determination_status` away from `undetermined` for some schools and is the moment
+      the grant gate can open for them. Until then that field is the State's position, not a
+      gap in our data.
 - [ ] Re-read the structural assumptions above, not only the values.

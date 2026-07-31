@@ -13,6 +13,9 @@
   --state-intake: #b8860b;
   --state-missing: #a33a2a;
   --state-absent: #8a8a82;
+  /* Deliberately not a red. A determination the State has not yet made is
+     nobody's failure, and the palette has to say so before the caption does. */
+  --state-undetermined: #6a4f9c;
 
   --radius: 4px;
   --measure: 68ch;
@@ -36,6 +39,7 @@
     --state-intake: #d4a442;
     --state-missing: #d9705f;
     --state-absent: #77776f;
+    --state-undetermined: #a690d6;
   }
 }
 
@@ -243,6 +247,19 @@ th {
 .tag.missing-input {
   border-color: var(--state-intake);
   color: var(--state-intake);
+}
+/* Neither of the next two is a failure state, and neither may borrow the
+   colour of one. `undetermined` is a decision the State has not made;
+   `not-computable` is a correct terminal answer. Painting either in the
+   missing-data red would tell a reader that somebody is behind on their work. */
+.tag.undetermined {
+  border-color: var(--state-undetermined);
+  color: var(--state-undetermined);
+}
+.tag.not-computable {
+  border-color: var(--border);
+  color: var(--text-muted);
+  background: var(--surface);
 }
 .tag.contingent {
   border-color: var(--link);

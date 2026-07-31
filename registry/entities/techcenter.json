@@ -34,6 +34,17 @@
       "website": "https://btc.bsdvt.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Burlington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -63,6 +74,17 @@
       "website": "http://www.canaanschools.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Canaan",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -87,6 +109,13 @@
       "website": "https://cvtcc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": null,
+      "grade_span_class": null,
+      "mailing_city": "Barre",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -116,6 +145,17 @@
       "website": "https://cvtcc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Barre",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -145,6 +185,17 @@
       "website": "https://www.chccvt.net/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Enosburg Falls",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -174,6 +225,17 @@
       "website": "https://gmtcc.lnsd.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Hyde Park",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -203,6 +265,17 @@
       "website": "https://www.hactc.com/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "White River Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -232,6 +305,17 @@
       "website": "https://nc3.ncsuvt.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Newport",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -261,6 +345,17 @@
       "website": "https://www.maplerun.org/o/nwtc",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Saint Albans",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -290,6 +385,17 @@
       "website": "https://www.hannafordcareercenter.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Middlebury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -314,6 +420,13 @@
       "website": "http://www.hannafordcareercenter.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": null,
+      "grade_span_class": null,
+      "mailing_city": "Middlebury",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -343,6 +456,17 @@
       "website": "http://orangesouthwest.org/rtcc",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Randolph",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -372,6 +496,17 @@
       "website": "https://www.rbctc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Bradford",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -396,6 +531,13 @@
       "website": "http://www.rvtc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": null,
+      "grade_span_class": null,
+      "mailing_city": "Springfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -425,6 +567,17 @@
       "website": "https://www.rvtc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Springfield",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -449,6 +602,13 @@
       "website": "http://www.svcdc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": null,
+      "grade_span_class": null,
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -478,6 +638,17 @@
       "website": "https://www.svcdc.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Bennington",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -507,6 +678,17 @@
       "website": "http://www.staffordonline.org/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Rutland",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -536,6 +718,17 @@
       "website": "https://www.ewsd.org/cte",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Essex Junction",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     },
@@ -565,6 +758,17 @@
       "website": "https://www.wrccvt.com/",
       "latitude": null,
       "longitude": null,
+      "grade_span": {
+        "low": 9,
+        "high": 12,
+        "as_stated": "9,10,11,12"
+      },
+      "grade_span_class": "secondary",
+      "mailing_city": "Brattleboro",
+      "municipality": null,
+      "municipality_basis": "unknown",
+      "geocode_precision": "unknown",
+      "school_type": "career_technical_center",
       "manual_overrides": [],
       "notes": null
     }

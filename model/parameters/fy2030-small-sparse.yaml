@@ -1,0 +1,713 @@
+schema_version: "1.0"
+fiscal_year: 2030
+status: draft
+
+# ---------------------------------------------------------------------------
+# Small / sparse school support grants.
+#
+# Every STATUTORY value here is null with verified: false. Nothing was carried in
+# from an AOE summary page, a JFO briefing, or a language model's recollection --
+# including the one that drafted this file. The readings found in secondary
+# sources live in docs/small-sparse-verification-worksheet.md instead,
+# deliberately outside this file, so there is nothing here to promote carelessly.
+#
+# A DISTINCTION THIS FILE NEEDS AND THE OTHERS DO NOT
+#
+# There are two kinds of parameter in this layer and they cannot share a
+# verification rule:
+#
+#   is_law: true (the default)   Values fixed in Act 73 Sec. 37 as amended.
+#                                Verified only by reading the operative sentence
+#                                in current law. All null until then.
+#
+#   is_law: false                Thresholds PROPOSED by the State Board's special
+#                                committee on 2025-12-17. Not law, and may never
+#                                be. They carry values because the committee's
+#                                own report is the primary source for what the
+#                                committee proposed -- quoting it is not the same
+#                                act as quoting a statute. The engine labels any
+#                                figure measured against them as measured against
+#                                a proposed standard, and parse.ts refuses to let
+#                                one carry a V.S.A. citation.
+#
+# Conflating the two would be the verification doc's error in reverse: treating a
+# proposal as law rather than a summary as statute.
+#
+# WHY THE FRAMEWORK VALUES ARE STILL UNVERIFIED
+#
+# They are quoted from the committee's presentation, which is the right source.
+# But that presentation is not yet a hashed intake artifact --
+# education.vermont.gov returns 403 to automated clients, so it needs a manual
+# save into intake/sbe/2025-12-17-small-sparse-framework/. Under README rule 2
+# that distinction is the whole point, so they stay verified: false and the
+# engine declines to compute from them. See that directory's README.
+#
+# THE CITATION OF RECORD IS THE ACT, NOT THE CODIFIED SECTION
+#
+# These provisions are contingently effective and Vermont Statutes Online may not
+# reflect them yet. See docs/parameter-verification.md, sources in order of
+# authority, item 2. Where the codified section is genuinely unknown, `statute`
+# names the act and says so rather than guessing a section number: a guessed
+# section is worse than an admitted gap, because it looks checked.
+#
+# ONE FILE, NOT TWO
+#
+# Act 73 attached the grants to foundation formula implementation, originally the
+# 2028-29 school year. Act 170 moved implementation to 2029-30. Whether Act 170
+# amended the fiscal year references in Sec. 37, or the schedule shifts by
+# operation of the contingency, is unread. Do NOT create a parallel fy2029 file
+# with the same values -- that is carrying a value forward, which the
+# verification checklist prohibits for the yield and prohibits here for the same
+# reason. The correct fiscal year is a finding, not a guess to hedge.
+#
+# NAMING
+#
+# The framework's phrase is "projected savings from closure". README rule 3 says
+# there is no `savings` field in this codebase and there will not be one. Both
+# hold: the word appears only inside quoted framework text, rendered as a
+# quotation. The engine's field is a signed closure cost delta, presented in both
+# directions.
+# ---------------------------------------------------------------------------
+
+note: >-
+  Small and sparse school support grants under Act 73 of 2025 Sec. 37, as
+  possibly amended by Act 170 of 2026, plus the State Board committee's proposed
+  necessity framework of 2025-12-17. Every statutory value is null and
+  unverified: neither legislature.vermont.gov nor education.vermont.gov was
+  reachable from an automated client, and a plausible value from a secondary
+  source is exactly what docs/parameter-verification.md exists to keep out of a
+  value field. The framework parameters carry values but are marked is_law:
+  false and are unverified pending a hashed save of the committee's presentation.
+  Nothing in this file can produce a figure, and nothing should until someone
+  reads the enacted acts.
+
+parameters:
+  # --- The grants -----------------------------------------------------------
+
+  statutory.grants.small_school.per_pupil:
+    value: null
+    unit: usd_per_pupil
+    description: small school support grant per pupil
+    applies_to: public schools determined small by necessity
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37 — check whether Act 170 of 2026 repealed and re-enacted it"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.grants.small_school.pupil_count_basis:
+    value: null
+    unit: enum
+    description: the pupil count the small school grant is paid on
+    applies_to: public schools determined small by necessity
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Legal values are two_year_average and single_year. Read against
+      statutory.screens.small_enrollment.comparator: if the QUALIFYING test and
+      the PAYMENT basis use different enrollment figures, borderline schools
+      qualify under one frame and are paid under the other, and the divergence is
+      publishable in its own right.
+
+  statutory.grants.small_school.inflation_index:
+    value: null
+    unit: enum
+    description: the index by which the small school grant is adjusted annually
+    applies_to: public schools determined small by necessity
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Read whether the index reaches the SPARSE grant as well. Secondary sources
+      describe indexing for one and are silent on the other, which may be an
+      artifact of the summary or may be the statute. Read it against the base
+      education amount's index too: if they differ, that is itself a finding.
+
+  statutory.grants.sparse_school.per_pupil:
+    value: null
+    unit: usd_per_pupil
+    description: sparse school support grant per pupil
+    applies_to: public schools determined sparse by necessity
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.grants.sparse_school.pupil_count_basis:
+    value: null
+    unit: enum
+    description: the pupil count the sparse school grant is paid on
+    applies_to: public schools determined sparse by necessity
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.grants.sparse_school.inflation_index:
+    value: null
+    unit: enum
+    description: the index by which the sparse school grant is adjusted annually
+    applies_to: public schools determined sparse by necessity
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.grants.stacking_rule:
+    value: null
+    unit: enum
+    description: whether a school meeting both screens receives both grants or the greater
+    applies_to: public schools meeting both the small and the sparse screen
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      STRUCTURAL, not merely numeric. Legal values are additive, greater_of and
+      mutually_exclusive. A school under the enrollment threshold in a town under
+      the density threshold appears to meet both screens. Under the secondary
+      readings the spread between additive and greater-of is roughly 60% on the
+      line item, concentrated in exactly the schools most exposed in the March
+      2028 votes. Until this is read the engine emits separate lines and no
+      total. Record the finding in the header of model/src/small-sparse.ts in the
+      same commit as the reading.
+
+  # --- Statutory screen 1: enrollment ---------------------------------------
+
+  statutory.screens.small_enrollment.threshold:
+    value: null
+    unit: students
+    description: the enrollment below which a school is small
+    applies_to: public schools
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.screens.small_enrollment.comparator:
+    value: null
+    unit: enum
+    description: whether the enrollment test is strictly below the threshold or at or below it
+    applies_to: public schools
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Legal values are lt and lte. A school sitting exactly on the threshold
+      qualifies under one and not the other, which is not a rounding question:
+      Vermont has schools at exactly 100. Read the comparator, then assert it in
+      a golden fixture at the boundary.
+
+  statutory.screens.small_enrollment.basis:
+    value: null
+    unit: enum
+    description: the enrollment figure the qualifying test is applied to
+    applies_to: public schools
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Legal values are two_year_average and single_year. The secondary sources
+      CONFLICT: the AOE summary describes a school that enrolls fewer than 100,
+      the JFO briefing a two-year average below 100. Until this is read the basis
+      is a scenario input with no default, and the schools whose status differs
+      between the two readings are themselves a finding.
+
+  # --- Statutory screen 2: municipal population density ---------------------
+
+  statutory.screens.sparse_density.threshold:
+    value: null
+    unit: persons_per_square_mile
+    description: the population density below which an area is sparsely populated
+    applies_to: the municipality a public school building stands in
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.screens.sparse_density.comparator:
+    value: null
+    unit: enum
+    description: whether the density test is strictly below the threshold or at or below it
+    applies_to: the municipality a public school building stands in
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.screens.sparse_density.geography:
+    value: null
+    unit: enum
+    description: whose density the sparse test measures
+    applies_to: public schools
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      STRUCTURAL, and the single reading most likely to invalidate this layer's
+      shape. Legal values are municipality_of_school_location, district_member_towns
+      and other. Whether the test looks at the town the school building sits in or
+      at the district's member towns changes which schools are candidates, and a
+      district-level reading would be wrong for every school in a district
+      containing one dense town. If it turns out to be district_member_towns, a
+      school-level model is the wrong shape and most of this layer needs
+      rebuilding -- so read this phrase before building anything on top of it.
+
+  statutory.screens.sparse_density.area_measure:
+    value: null
+    unit: enum
+    description: whether density is measured against land area or total area
+    applies_to: the municipality a public school building stands in
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Legal values are land_area and total_area. The secondary sources say "of
+      land". If that is the statutory wording, use Census TIGER ALAND. Total area
+      understates density and wrongly pulls lakeside and pond-heavy towns into
+      eligibility, so this is a real correctness question and not a pedantic one.
+      Verify the exact phrase, then assert it in a golden fixture -- there is one
+      in model/goldens/small-sparse/ that fails if anyone swaps the measure.
+
+  statutory.screens.sparse_density.population_series:
+    value: null
+    unit: enum
+    description: which population series the density test uses
+    applies_to: the municipality a public school building stands in
+    contingent: true
+    citation:
+      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
+      session_law: "Act 73 of 2025, Sec. 37"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Legal values are decennial, acs_5yr, state_estimate and
+      unspecified_in_statute. If the statute names no series, then
+      unspecified_in_statute is the correct VERIFIED value and the choice becomes
+      a user-visible scenario input with no default rather than an implementation
+      detail. Compute both and publish the towns that move between them.
+
+  # --- Who determines necessity, and when -----------------------------------
+
+  statutory.determination.authority:
+    value: null
+    unit: enum
+    description: the body that determines whether a school is small or sparse by necessity
+    applies_to: public schools
+    contingent: true
+    citation:
+      statute: "2026 Acts and Resolves No. 170 (section numbers unread; see the worksheet)"
+      session_law: "Act 170 of 2026"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  statutory.determination.rules_due_date:
+    value: null
+    unit: date
+    description: the date by which the necessity rules must be adopted
+    applies_to: the determining authority
+    contingent: true
+    citation:
+      statute: "2026 Acts and Resolves No. 170 (section numbers unread; see the worksheet)"
+      session_law: "Act 170 of 2026"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Computes nothing, and is still worth reading early: it drives the
+      rulemaking comment deadline, and a missed comment window is unrecoverable
+      in a way a missed number is not.
+
+  # ==========================================================================
+  # PROPOSED, NOT LAW
+  #
+  # Everything below is is_law: false. It records what the State Board's special
+  # committee proposed on 2025-12-17 under the charge in Act 73 Sec. 8. The
+  # committee presented all five criteria under the heading "Possible criteria"
+  # and proposed no scoring, weighting or ranking -- each criterion reads "A
+  # school qualifies if", so they are independent sufficient paths. The engine
+  # must not add an aggregate: a composite score would be an editorial judgment
+  # wearing a computation's clothes, which README rule 3 forbids.
+  # ==========================================================================
+
+  framework.logic:
+    value: disjunctive
+    unit: enum
+    is_law: false
+    description: how the five proposed necessity criteria combine
+    applies_to: the proposed necessity framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: "A school qualifies if"
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Each criterion is framed this way, so they read as independent sufficient
+      paths rather than as a checklist to be scored. Unverified because the
+      presentation is not yet a hashed intake artifact.
+
+  framework.organizing_principle:
+    value: null
+    unit: unset
+    is_law: false
+    description: the committee's stated organizing principle for necessity
+    applies_to: the proposed necessity framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: >-
+        By necessity should be a function of unavoidable or demographic
+        circumstances, since the criteria for small and sparse are already
+        defined in statute. The operative test: a school cannot reasonably
+        increase enrollment or consolidate without creating undue hardship for
+        students, specifically in terms of travel time, safety, or lack of
+        feasible alternatives. Eligible side: "Schools that are small/sparse
+        because of geography or isolation". Ineligible side: "Schools that are
+        small/sparse due to local organizational decisions, preferences, or
+        policy choices".
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Carries no value: it is the framing the criteria hang off, quoted so a
+      reader can see the line the committee drew between circumstance and choice.
+
+  framework.criteria.travel_time_or_distance.travel_time_one_way_minutes.elementary:
+    value: 45
+    unit: minutes
+    is_law: false
+    description: proposed one-way travel time threshold for elementary pupils
+    applies_to: elementary schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: "45 minutes for elementary students"
+      verified: false
+      verified_date: null
+      verified_by: null
+
+  framework.criteria.travel_time_or_distance.travel_time_one_way_minutes.grades_7_12:
+    value: 60
+    unit: minutes
+    is_law: false
+    description: proposed one-way travel time threshold for grades 7 through 12
+    applies_to: secondary schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: "60 minutes for grades 7–12"
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      The thresholds split at grade 7 and the framework says nothing about a K-8
+      or K-12 school, of which Vermont has many. The engine applies the stricter
+      elementary threshold to a straddling span and flags it rather than picking
+      the one that produces a more convenient answer. This is a rulemaking
+      comment.
+
+  framework.criteria.travel_time_or_distance.road_miles_to_nearest_same_grade_span:
+    value: null
+    unit: miles
+    is_law: false
+    description: proposed road distance to the nearest school of the same grade span
+    applies_to: public schools under the proposed framework
+    range:
+      low: 10
+      high: 15
+      central: null
+      basis: >-
+        terrain, which the framework leaves undefined. Quoted: "Road miles to the
+        nearest school of the same grade span exceed 10–15 miles, depending on
+        terrain."
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: "Road miles to the nearest school of the same grade span exceed 10–15 miles, depending on terrain."
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      A range with an undefined basis, and it keeps a range rather than becoming
+      a point value, exactly as the verification checklist prescribes for the JFO
+      ranges. The engine reports against both ends and returns indeterminate in
+      between; picking 12.5 would invent the terrain rule the committee declined
+      to write.
+
+  framework.criteria.safe_transportation:
+    value: null
+    unit: unset
+    is_law: false
+    description: proposed criterion, unsafe or unreliable transportation
+    applies_to: public schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: >-
+        Terrain, winter road conditions, unpaved routes, or mountain gaps create
+        unsafe or unreliable transportation, as certified by the supervisory
+        union or AOE. Examples given: "Bus routes requiring travel over roads
+        closed in winter"; "Mountain passes that cause 60+ minute detours"; "Only
+        one road in/out of town (\"single ingress\") prone to closures".
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Terminal: not computable from public data, and correctly so. Single ingress
+      is arguably detectable from a road network, but detecting a candidate is
+      not certifying a condition, and publishing the former as the latter would
+      substitute our judgment for the supervisory union's.
+
+  framework.criteria.feasible_consolidation:
+    value: null
+    unit: unset
+    is_law: false
+    description: proposed criterion, no feasible consolidation
+    applies_to: public schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: >-
+        "Nearby schools – both within and outside the existing district boundary
+        - lack capacity to absorb students and still meet the State's Educational
+        Quality Standards, including class size minimums"; "Costs of renovation
+        or addition at receiving schools exceed projected savings from closure";
+        "Tuitioning out raises per-pupil costs or creates inequities in program
+        access, especially students with disabilities who require special
+        education services and other students whose learning needs cannot be met
+        by nearby non-public schools".
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Requires a local model: building capacity and project estimates are local
+      and not published statewide. The second limb also depends on
+      framework.open_questions.capital_cost_basis, which the framework does not
+      resolve.
+
+  framework.criteria.population_trajectory:
+    value: null
+    unit: unset
+    is_law: false
+    description: proposed criterion, projected enrollment stays below viability
+    applies_to: public schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: >-
+        The census block or town catchment area is projected to remain below an
+        enrollment that would support a viable larger school, even with
+        consolidation. Rationale given: "Provides flexibility in places where
+        schools may temporarily fall below 100 students."
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      CONSEQUENCE FOR THE UI. This criterion decouples eligibility from current
+      headcount: a school above the enrollment threshold today is not thereby
+      excluded. The enrollment screen is therefore a candidate filter and not a
+      gate, and the site must not present it as one. "Viable larger school" is
+      undefined. Requires a projection.
+
+  framework.criteria.closure_cost_increase:
+    value: null
+    unit: unset
+    is_law: false
+    description: proposed criterion, closure raises per-student cost
+    applies_to: public schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: >-
+        A school qualifies if closure or consolidation would create substantial,
+        measurable increases the district's average per student expenditure.
+        Limbs: "Tuitioning Costs: Reassigning students to non-public tuition
+        schools would lead to significantly higher per-pupil expenditures than
+        continuing to operate the school."; "Transportation Costs: Consolidation
+        would require additional buses, longer routes, more driver hours, or
+        substantial new operational transportation expenses, resulting in a
+        sustained increase in district transportation costs."; "Capital Costs at
+        Receiving Schools: Accommodating reassigned students would necessitate
+        major renovations, additions, safety upgrades, or new classrooms, and
+        these capital expenses would exceed any projected savings from closure.";
+        "New Facility Requirements: Closure would require new school construction
+        or major facility expansions elsewhere in the school's existing district
+        or nearby district where students would be reassigned, imposing a
+        material tax burden on the community."
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      Requires a local model. The quoted limbs contain the phrase "projected
+      savings from closure"; the word appears in this repository only inside that
+      quotation. The engine's field is a signed closure cost delta presented in
+      both directions, per README rule 3.
+
+  framework.determination_process:
+    value: null
+    unit: unset
+    is_law: false
+    description: the committee's recommended determination process
+    applies_to: the determining authority
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: >-
+        Recommends that AOE determine, annually, that schools "be designated as
+        small/sparse by necessity annually, on a timeline that aligns with
+        district budgeting and annual town meeting decisions", with the rules
+        folded into the Education Quality Standards.
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      No rules exist and no determinations have been published. The determination
+      status is `undetermined` for every school in Vermont as of this file's
+      drafting, and that is the State's position rather than a gap in our data.
+
+  # --- Choices the sources do not make, so the user must ---------------------
+  #
+  # Consistent with the existing convention that consolidation assumptions
+  # default to no reduction: where a choice drives the answer, the user makes it
+  # and sees it. These carry no value and never will -- they exist so the open
+  # question has a citable key, and so the engine can name it when it declines.
+
+  framework.open_questions.capital_cost_basis:
+    value: null
+    unit: enum
+    is_law: false
+    description: whether receiving-school renovation cost is measured gross or net of construction aid
+    applies_to: the feasible consolidation and closure cost criteria
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17 (the framework does not resolve this)"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      HIGH SEVERITY, and the best rulemaking comment available. Act 170 pays up
+      to 75% of construction costs for merged districts against 30% otherwise. On
+      a NET-of-aid basis, merging shrinks the district's cost of expanding a
+      receiving school, makes closure look cheaper, and thereby weakens the case
+      that the district's own small schools exist by necessity. On a GROSS basis
+      the merger decision does not touch the test. Same school, same numbers,
+      opposite answer. Legal values are gross_project_cost and
+      net_of_construction_aid; there is no default, the scenario states which it
+      used, and the result displays it.
+
+  framework.open_questions.grade_span_straddling:
+    value: null
+    unit: enum
+    is_law: false
+    description: which travel-time threshold applies to a school spanning grade 7
+    applies_to: K-8 and K-12 schools under the proposed framework
+    citation:
+      statute: "Framework for Considering Small/Sparse Schools That Operate by Necessity — Committee Report to the Vermont State Board of Education, 2025-12-17 (silent on straddling spans)"
+      session_law: null
+      source_url: "https://education.vermont.gov/document/sbe-agenda-item-j-2-12-17-2025"
+      quote: null
+      verified: false
+      verified_date: null
+      verified_by: null
+    structural_note: >-
+      The engine applies the stricter elementary threshold and flags the school.
+      Recorded as an open question rather than silently resolved, because
+      Vermont has many K-8 and K-12 schools and the choice is not ours to make.

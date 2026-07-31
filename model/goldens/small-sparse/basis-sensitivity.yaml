@@ -1,0 +1,43 @@
+name: a school whose status depends on which enrollment basis the statute means
+why: |
+  A publishable finding rather than a mere regression. This school enrolled 130
+  two years ago and 60 last year: 95 on a two-year average, which meets the
+  screen, and 60 on the latest year, which also meets it -- but reverse the
+  trajectory and the two readings part company. The paired fixture below holds
+  the reversal.
+
+  The set of Vermont schools whose answer depends on the reading is the story
+  here, not any one school's number.
+
+thresholds:
+  enrollment: { threshold: 100, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: 0, high: 6 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 130, 2029: 60 }
+  municipality:
+    population: 1000
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  enrollment_value: 95
+  small_screen_met: true
+  density_value: 25
+  sparse_screen_met: true
+  grant_amount: null
+  # The same school under the other reading of the statute. The runner computes
+  # it and asserts it, so the divergence is a tested fact and not a claim.
+  under_single_year_basis:
+    enrollment_value: 60
+    small_screen_met: true

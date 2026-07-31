@@ -1,15 +1,79 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:vt-budget:schema:provenance:1.0",
-  "title": "Intake artifact provenance",
-  "description": "Sits beside every raw artifact in intake/<su-slug>/<fy>/. Raw artifacts are never edited; this file records where each came from and who touched it. Provenance is the product -- when someone asks where a number came from and when it changed, the answer is a commit link.",
+  "title": "Artifact provenance",
+  "description": "Sits beside every raw artifact in intake/<su-slug>/<fy>/, and beside every committed derived product in derived/. Two kinds, because they answer different questions. A `sourced` record answers WHERE DID YOU GET THIS AND WHEN: raw artifacts are never edited, and this file records the URL, the retrieval and the hash. A `derived` record answers WHAT DID YOU RUN, ON WHAT INPUTS, AT WHAT VERSION -- routing output and geocoding output have no source URL, and forcing them into the sourced shape would produce a provenance record that cannot answer the only challenge anyone will make of them, which is 're-run it yourself'.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "entity", "fiscal_year", "artifacts"],
+  "required": ["schema_version", "entity"],
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "derived" } }, "required": ["kind"] },
+      "then": {
+        "required": ["derivation"],
+        "not": { "required": ["artifacts"] }
+      },
+      "else": { "required": ["fiscal_year", "artifacts"] }
+    }
+  ],
   "properties": {
     "schema_version": { "const": "1.0" },
+    "kind": {
+      "enum": ["sourced", "derived"],
+      "description": "Omitted means `sourced`, which is what every intake record is. Not defaulted by the validator: the schemas in this repo declare defaults for a human reader and ajv is configured not to fill them in, so an omitted field cannot masquerade as a deliberate one.",
+      "default": "sourced"
+    },
     "entity": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
     "fiscal_year": { "type": "integer", "minimum": 2015, "maximum": 2100 },
+    "derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "How a committed derived product was produced. Everything here exists so a reader who disputes an output can reproduce it: the algorithm and its version, the exact pinned inputs, the parameters, and the hash of what came out.",
+      "required": ["algorithm", "algorithm_version", "inputs", "run_id", "output_file", "output_sha256", "run_by"],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Slash-separated name of the computation, e.g. `geocode/school-municipality` or `routing/nearest-same-grade-span`."
+        },
+        "algorithm_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "Bumped whenever the output could change for unchanged inputs. A derived record whose version never moves is a record nobody can date."
+        },
+        "engine": {
+          "type": ["string", "null"],
+          "description": "External engine and version where one did the work, e.g. `valhalla 3.4.0`, or the service endpoint for a hosted one.",
+          "default": null
+        },
+        "inputs": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Every input pinned to something immutable -- a git sha, an intake artifact plus its hash, a dated API snapshot. An input recorded as a bare path is not pinned and the output is not reproducible.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ref", "pinned_by"],
+            "properties": {
+              "ref": { "type": "string", "minLength": 1 },
+              "pinned_by": { "enum": ["git_sha", "sha256", "retrieved_date", "api_version"] },
+              "pin": { "type": ["string", "null"], "default": null },
+              "note": { "type": ["string", "null"], "default": null }
+            }
+          }
+        },
+        "parameters": {
+          "type": ["object", "null"],
+          "description": "Settings that change the output, recorded so a rerun is a rerun and not a fresh experiment.",
+          "default": null
+        },
+        "run_id": { "type": "string", "minLength": 1 },
+        "run_by": { "type": "string", "minLength": 1 },
+        "output_file": { "type": "string", "minLength": 1 },
+        "output_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "note": { "type": ["string", "null"], "default": null }
+      }
+    },
     "artifacts": {
       "type": "array",
       "minItems": 1,

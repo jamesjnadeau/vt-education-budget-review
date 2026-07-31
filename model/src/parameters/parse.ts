@@ -128,6 +128,22 @@ export function parseParameterSet(raw: unknown): ParameterSet {
       );
     }
 
+    // Absent means true. These files are statutory parameter sets, so a
+    // parameter that is NOT law is the exceptional case and has to say so.
+    const isLaw = p['is_law'] !== false;
+
+    // A proposal cannot cite a statute section, because if it could there would
+    // be nothing to propose. This catches the failure the verification rule
+    // guards against, running backwards: a committee's recommendation dressed
+    // in a V.S.A. citation reads as settled law to every downstream renderer.
+    if (!isLaw && /\bV\.S\.A\./.test(citation.statute)) {
+      throw new ParameterFileError(
+        `parameters.${key} is marked is_law: false but cites "${citation.statute}", ` +
+          `which is a statute section. A proposed threshold has no statutory citation. ` +
+          `Cite the document that proposed it, or drop is_law: false because it is law.`,
+      );
+    }
+
     parameters.set(key, {
       key,
       value: (p['value'] ?? null) as Parameter['value'],
@@ -137,6 +153,8 @@ export function parseParameterSet(raw: unknown): ParameterSet {
       applies_to: (p['applies_to'] ?? null) as string | null,
       range,
       contingent,
+      is_law: isLaw,
+      structural_note: (p['structural_note'] ?? null) as string | null,
     });
   }
 

@@ -22,6 +22,8 @@ interface Parameter {
   citation: Citation;
   applies_to: string | null;
   contingent: boolean;
+  is_law: boolean;
+  structural_note: string | null;
   range: { low: number; high: number; basis: string } | null;
 }
 interface ParameterSet {
@@ -118,6 +120,49 @@ const counts = registry.counts as Record<string, number>;
     to the screen.
   </p>
 
+  <h2 id="blanks">The four kinds of blank</h2>
+  <p>
+    A blank on this site always means one specific thing, and the site says which. There are
+    four, they belong to different parties, and each implies a different remedy. Rendering any
+    two of them identically would misattribute a gap to whoever is easiest to blame.
+  </p>
+  <dl>
+    <dt><span class="tag unverified">unverified</span></dt>
+    <dd>
+      A statutory value has not been confirmed against current law. <strong>Our outstanding
+      work.</strong> The remedy is that somebody reads the act.
+    </dd>
+    <dt><span class="tag missing-input">missing input</span></dt>
+    <dd>
+      The source document does not publish the figure. <strong>A fact about the
+      document.</strong> Nobody here fixes it by working harder; it is recorded, with who
+      confirmed the absence and when.
+    </dd>
+    <dt><span class="tag undetermined">undetermined</span></dt>
+    <dd>
+      The State has not made a decision that does not yet exist. <strong>Nobody's, yet.</strong>
+      The Agency of Education has published no small or sparse by necessity determinations
+      because the rules governing them are unwritten — showing that as a missing document would
+      imply the Agency failed to publish something, which is false.
+    </dd>
+    <dt><span class="tag not-computable">not computable</span></dt>
+    <dd>
+      The question cannot be answered from public data at all: it needs a certification, a local
+      model, or a demographic projection. <strong>Nobody's, ever.</strong> This is a correct
+      final answer rather than a task, and a coverage view that painted it red would be
+      misdescribing what finished looks like.
+    </dd>
+  </dl>
+  <p>
+    Separately from all four, a figure may be <span class="tag contingent">contingent</span> —
+    resting on legislation that has not been enacted. That qualifies a value rather than
+    withholding one, and a figure can be both contingent and blank.
+  </p>
+  <p>
+    The <a href={`${base}/methodology/small-sparse/`}>small and sparse schools methodology</a>
+    covers the layer that needed the last two.
+  </p>
+
   <h2>Parameters and citations</h2>
   <p>
     Weights, yields and thresholds are data, not code. When the Legislature changes something,
@@ -169,6 +214,9 @@ const counts = registry.counts as Record<string, number>;
                     {p.value === null ? <span class="tag missing-input">not set</span> : String(p.value)}
                     {p.contingent && <br />}
                     {p.contingent && <span class="tag contingent">contingent</span>}
+                    {/* A proposal must never read as a rule anywhere it is shown. */}
+                    {p.is_law === false && <br />}
+                    {p.is_law === false && <span class="tag undetermined">proposed, not law</span>}
                   </td>
                   <td>
                     {p.citation.source_url ? (

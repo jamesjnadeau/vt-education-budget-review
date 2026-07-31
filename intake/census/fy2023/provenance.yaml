@@ -1,0 +1,17 @@
+schema_version: "1.0"
+kind: sourced
+entity: source/us-census-bureau
+fiscal_year: 2023
+artifacts:
+  - file: 2023_gaz_cousubs_50.txt
+    source_url: https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2023_Gazetteer/2023_gaz_cousubs_50.txt
+    retrieved_date: 2026-07-31
+    retrieval_method: http-fetch
+    sha256: d90edf169953b8f5550f46a8cec66fef4dea50abd8eff4cc09fecdd2ae2a62a3
+    bytes: 51647
+    media_type: text/plain
+    retrieved_by: npm run census:import
+    document_type: other
+    note: 2023 Gazetteer county subdivisions for Vermont. Supplies ALAND_SQMI, the
+      denominator of the sparse screen. Land area is used and water area is not;
+      the file carries both and the parser keeps them apart.

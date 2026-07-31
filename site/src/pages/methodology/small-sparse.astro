@@ -1,0 +1,225 @@
+---
+import Base from '../../layouts/Base.astro';
+import parameters from '../../generated/parameters.json';
+import smallSparse from '../../generated/small-sparse.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface Parameter {
+  key: string;
+  value: number | string | boolean | null;
+  unit: string;
+  description: string;
+  citation: {
+    statute: string;
+    session_law: string | null;
+    source_url: string | null;
+    quote: string | null;
+    verified: boolean;
+  };
+  contingent: boolean;
+  is_law: boolean;
+  structural_note: string | null;
+  range: { low: number; high: number; basis: string } | null;
+}
+
+const sets = parameters as unknown as Array<{ file: string; parameters: Parameter[] }>;
+const set = sets.find((s) => s.file.includes('small-sparse'));
+const params = set?.parameters ?? [];
+const statutory = params.filter((p) => p.key.startsWith('statutory.'));
+const framework = params.filter((p) => p.key.startsWith('framework.'));
+const structural = params.filter((p) => p.structural_note);
+
+const data = smallSparse as unknown as { counts: Record<string, number>; parameter_set_ref: string };
+---
+
+<Base
+  title="Small and sparse schools — methodology"
+  description="How the Act 73 small and sparse screens are computed, what is proposed rather than enacted, and why this layer cannot make the claim the rest of the site makes."
+>
+  <h1>Small and sparse schools — methodology</h1>
+  <p class="lede">
+    This layer is built differently from the rest of the site, and the differences are not
+    incidental. Read this before quoting anything from
+    <a href={`${base}/small-sparse/`}>the candidate page</a>.
+  </p>
+
+  <div class="notice blocking">
+    <strong>This layer cannot make the claim the rest of the site rests on.</strong>
+    <p>
+      Everywhere else, the strongest thing we can say is: <em>the engine reproduces the state's
+      published figures, and here are the tests</em>. Here there is nothing to reproduce. The
+      Agency of Education has published no small or sparse by necessity determinations, so no
+      fixture in this layer checks our arithmetic against the State's. The fixtures in
+      <code>model/goldens/small-sparse/</code> are hand-computed boundary cases against
+      hypothesis thresholds, and a green run of them means the arithmetic is right given a
+      guess. That is worth having. It is not worth more than it is.
+    </p>
+  </div>
+
+  <h2>Two screens and a determination</h2>
+  <p>
+    Act 73 of 2025, Sec. 37 creates two support grants. The screens are arithmetic: enrollment
+    below a threshold, and municipal population density below a threshold, measured in persons
+    per square mile <strong>of land</strong>. The land-versus-total-area distinction is not
+    pedantry — Vermont has towns whose water area is a third of their extent, and dividing by
+    total area understates their density and pulls them into eligibility they should not have.
+    A golden fixture fails if anyone swaps the measure.
+  </p>
+  <p>
+    Eligibility is a different thing from meeting the screens, and the gap between them is where
+    almost all the judgment lives. A school qualifies only if it is small or sparse
+    <em>by necessity</em> — because of geography or isolation rather than because of a local
+    decision. That determination belongs to the Agency of Education, annually, under rules
+    folded into the Education Quality Standards. Those rules do not exist. Until they do,
+    necessity is <span class="tag undetermined">undetermined</span> for every school in Vermont.
+  </p>
+
+  <h2>The two gates, and why one is not enough</h2>
+  <p>
+    A dollar figure on this layer has to pass two independent gates, and neither substitutes for
+    the other.
+  </p>
+  <ol>
+    <li>
+      <strong>The parameter gate</strong>, which the whole site has. The engine refuses to
+      compute from a statutory value that has not been verified against current law.
+    </li>
+    <li>
+      <strong>The assumption gate</strong>, which only this layer has. Even with every parameter
+      verified, no school is eligible until AOE says so. So a grant figure is produced only when
+      an eligibility basis is explicitly supplied — either a published agency determination, or
+      a user's stated assumption, which is carried verbatim beside every figure derived from it
+      and into any shared link.
+    </li>
+  </ol>
+  <p>
+    There is deliberately no code path from "meets both screens" to a dollar figure. The test
+    that asserts this sweeps every combination of screen outcome, pupil count and enrollment
+    basis, and it exists so that anyone who later reads the suppression as a bug and fixes it
+    finds out loudly, before a figure reaches a page.
+  </p>
+
+  <h2>What is law and what is a proposal</h2>
+  <p>
+    This layer draws on two sources with incompatible verification rules, and conflating them
+    would be the site's own verification rule running backwards — treating a proposal as law
+    rather than a summary as statute.
+  </p>
+  <p>
+    The <strong>{statutory.length} statutory parameters</strong> come from Act 73 as amended.
+    Every one is null and unverified. The citation of record is the act as enacted rather than
+    the codified section, because these provisions are contingently effective and Vermont
+    Statutes Online may not reflect them yet.
+  </p>
+  <p>
+    The <strong>{framework.length} framework parameters</strong> record what the State Board's
+    special committee proposed on 17 December 2025. They are marked
+    <span class="tag undetermined">proposed, not law</span> wherever they appear, and anything
+    measured against them is labelled as measured against a proposed standard. They are also
+    still unverified, for a specific reason: the committee's presentation is not yet a hashed
+    artifact in <code>intake/</code>, because education.vermont.gov returns HTTP 403 to
+    automated clients and it needs a manual save. Under the provenance rule that distinction is
+    the whole point.
+  </p>
+
+  <h2>The five necessity criteria are disjunctive and unscored</h2>
+  <p>
+    Each criterion the committee proposed reads "a school qualifies if", so they are independent
+    sufficient paths rather than a checklist. The committee proposed no scoring, weighting or
+    ranking, and the engine adds none — a composite score would be an editorial judgment wearing
+    a computation's clothes.
+  </p>
+  <p>
+    One of the five is partly computable: road distance to the nearest school of the same grade
+    span, against a proposed 10-to-15-mile range whose basis is "terrain", which the framework
+    leaves undefined. The engine reports against both ends of the range and returns
+    indeterminate in between rather than splitting the difference at 12.5, because picking a
+    midpoint would invent the rule the committee declined to write.
+  </p>
+  <p>
+    The other four are <span class="tag not-computable">not computable</span> from public data,
+    permanently:
+  </p>
+  <ul>
+    <li>
+      <strong>Safe transportation</strong> requires a certification by the supervisory union or
+      AOE. Single ingress is arguably detectable from a road network, but detecting a candidate
+      is not certifying a condition.
+    </li>
+    <li>
+      <strong>Feasible consolidation</strong> and <strong>closure cost increase</strong> require
+      a local model: building capacity and project estimates that are not published statewide.
+    </li>
+    <li>
+      <strong>Population trajectory</strong> requires a demographic projection and a definition
+      of "a viable larger school", which the framework does not supply.
+    </li>
+  </ul>
+  <p>
+    These are correct final answers, not gaps in our coverage. That is why they get their own
+    kind of blank rather than being counted as outstanding work.
+  </p>
+
+  <h2>The capital cost question</h2>
+  <p>
+    Two of the five criteria turn on whether renovation costs at a receiving school exceed the
+    savings projected from closure. The framework does not say whether those costs are measured
+    gross, or net of school construction aid — which Act 170 pays at up to 75 per cent for
+    merged districts against 30 per cent otherwise.
+  </p>
+  <p>
+    On a net-of-aid basis, merging shrinks a district's cost of expanding a receiving school,
+    makes closure look cheaper, and thereby weakens the case that the district's own small
+    schools exist by necessity. On a gross basis the merger decision does not touch the test.
+    Same school, same numbers, opposite answer. So the basis is a required scenario input with
+    no default, displayed with any result it produced.
+  </p>
+
+  <h2>Where the geography comes from</h2>
+  <ul>
+    <li>
+      <strong>Which town a school stands in</strong> — resolved by point in polygon: the
+      coordinates AOE publishes, against Census county subdivisions, pinned to the 2020
+      benchmark and vintage so the answer is reproducible. Deliberately <em>not</em> the AOE
+      mailing city, which is a postal designation: Vermont post office names routinely cover
+      parts of several towns, and the sparse screen tests the town the building stands in.
+      Committed under <code>derived/</code> with a provenance record naming the algorithm, its
+      version, the pinned inputs and the run.
+    </li>
+    <li>
+      <strong>Land area</strong> — the Census Gazetteer's ALAND for county subdivisions, pinned
+      to a vintage. Water area is carried alongside and nothing divides by it.
+    </li>
+    <li>
+      <strong>Population</strong> — the Census data API requires a key for county-subdivision
+      queries. {data.counts['with_population'] === 0
+        ? 'This build had none, so no population was retrieved and the density screen reports population as missing input rather than estimating it.'
+        : 'Retrieved for both the decennial and ACS series, so the towns that move between them can be published.'}
+    </li>
+    <li>
+      <strong>School-level enrollment</strong> — not available. AOE publishes average daily
+      membership by resident district, which is a town rather than a school. A town's membership
+      standing in for a school's roll would be a fabrication that looked like data.
+    </li>
+  </ul>
+
+  <h2>The structural questions, which matter more than any number</h2>
+  <p>
+    A parameter review catches a wrong number. It does not catch a wrong shape, and these are
+    the shapes this layer is guessing at. They are recorded against the parameters themselves so
+    the warning sits where the editing happens.
+  </p>
+  <dl>
+    {structural.map((p) => (
+      <>
+        <dt><code>{p.key}</code></dt>
+        <dd>{p.structural_note}</dd>
+      </>
+    ))}
+  </dl>
+
+  <p class="note">
+    Computed against <code>{data.parameter_set_ref}</code>.
+  </p>
+</Base>

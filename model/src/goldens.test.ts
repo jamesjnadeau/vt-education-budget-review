@@ -58,6 +58,14 @@ interface Golden {
   tolerance?: { weighted_membership?: number; rates?: number };
 }
 
+/**
+ * District fixtures only: the ones that reproduce the state's published
+ * weighted membership and rates.
+ *
+ * Deliberately not recursive. Subdirectories hold fixtures for other layers,
+ * with their own shapes and their own runners, and sweeping them in here would
+ * feed a small/sparse screen fixture to the membership engine.
+ */
 function goldenFiles(): string[] {
   if (!existsSync(GOLDENS_DIR)) return [];
   return readdirSync(GOLDENS_DIR)
@@ -65,10 +73,34 @@ function goldenFiles(): string[] {
     .map((f) => join(GOLDENS_DIR, f));
 }
 
+/** Every fixture anywhere under model/goldens/, for the publication gate. */
+function allFixtures(): string[] {
+  if (!existsSync(GOLDENS_DIR)) return [];
+  const out: string[] = [];
+  const walk = (dir: string): void => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const path = join(dir, entry.name);
+      if (entry.isDirectory()) walk(path);
+      else if (entry.name.endsWith('.yaml')) out.push(path);
+    }
+  };
+  walk(GOLDENS_DIR);
+  return out;
+}
+
+/**
+ * Every shipped parameter file, including domain-scoped ones.
+ *
+ * The pattern is `fy\d{4}` followed by anything, not `fy\d{4}` exactly. When the
+ * December JFO recommendations and the small/sparse grants each became their own
+ * file rather than an edit to an existing one, a stricter pattern here would
+ * have quietly exempted them from the gate below -- and a file exempt from the
+ * gate is a file that can declare itself verified with nothing reproducing it.
+ */
 function parameterFiles(): string[] {
   if (!existsSync(PARAMETERS_DIR)) return [];
   return readdirSync(PARAMETERS_DIR)
-    .filter((f) => /^fy\d{4}\.yaml$/.test(f))
+    .filter((f) => /^fy\d{4}.*\.yaml$/.test(f))
     .map((f) => join(PARAMETERS_DIR, f));
 }
 
@@ -80,12 +112,13 @@ describe('golden tests gate publication', () => {
     // the state's published figures are different claims. This project's
     // credibility rests on the second one, so the first must not be able to
     // stand alone.
+    const fixtures = allFixtures();
     const verifiedSets = parameterFiles().filter((file) => {
       const set = parseParameterSet(parseYaml(readFileSync(file, 'utf8')));
       return set.status === 'verified';
     });
 
-    if (verifiedSets.length > 0 && files.length === 0) {
+    if (verifiedSets.length > 0 && fixtures.length === 0) {
       throw new Error(
         `${verifiedSets.length} parameter file(s) declare status: verified, but ` +
           `model/goldens/ contains no fixtures. Citations checked by eye are not the same ` +
@@ -94,14 +127,21 @@ describe('golden tests gate publication', () => {
       );
     }
 
-    expect(verifiedSets.length === 0 || files.length > 0).toBe(true);
+    expect(verifiedSets.length === 0 || fixtures.length > 0).toBe(true);
   });
 
-  it('records honestly that there are no fixtures yet', () => {
+  it('records honestly that no fixture yet reproduces a state figure', () => {
     // Deliberately asserted rather than skipped. A skipped test is invisible in
     // a summary line; this one keeps the gap in the count where it can be seen,
     // and turns into a real failure the moment someone adds a fixture that the
     // engine cannot reproduce.
+    //
+    // Note it counts the DISTRICT fixtures, not every fixture under goldens/.
+    // The small/sparse fixtures are hand-computed arithmetic, not reproductions
+    // of anything the state has published -- there are no published necessity
+    // determinations to reproduce -- so letting them satisfy this assertion
+    // would let the project's strongest claim be made by fixtures that cannot
+    // support it.
     if (files.length === 0) {
       expect(parameterFiles().every((file) => {
         const set = parseParameterSet(parseYaml(readFileSync(file, 'utf8')));

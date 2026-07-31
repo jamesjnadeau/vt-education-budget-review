@@ -32,7 +32,10 @@ export type SchemaName =
   | 'grouping'
   | 'mapping'
   | 'adm'
-  | 'aoe-source';
+  | 'aoe-source'
+  | 'small-sparse'
+  | 'census-town'
+  | 'derived-municipality';
 
 const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   budget: 'urn:vt-budget:schema:budget:1.0',
@@ -44,6 +47,9 @@ const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   mapping: 'urn:vt-budget:schema:mapping:1.0',
   adm: 'urn:vt-budget:schema:adm:1.0',
   'aoe-source': 'urn:vt-budget:schema:aoe-source:1.0',
+  'small-sparse': 'urn:vt-budget:schema:small-sparse:1.0',
+  'census-town': 'urn:vt-budget:schema:census-town:1.0',
+  'derived-municipality': 'urn:vt-budget:schema:derived-municipality:1.0',
 };
 
 export interface SchemaError {
