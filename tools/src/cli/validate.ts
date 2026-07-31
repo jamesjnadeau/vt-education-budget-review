@@ -23,8 +23,11 @@ import { parse as parseYaml } from 'yaml';
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
+import { readCorrections } from '../registry/corrections.ts';
+import type { Correction } from '../registry/corrections.ts';
 import { readRegistry } from '../registry/store.ts';
 import {
+  checkCorrections,
   checkDerivedProvenance,
   checkLandAreaOnly,
   checkNullAccounting,
@@ -84,6 +87,19 @@ function main(): number {
     const data = readData(file);
     findings.push(...schemaFindings('registry', data, file));
     findings.push(...checkPlaceholderEntities(data, file));
+  }
+
+  // --- corrections register -----------------------------------------------
+  if (existsSync(PATHS.corrections)) {
+    const register = readData(PATHS.corrections);
+    findings.push(...schemaFindings('corrections', register, PATHS.corrections));
+    findings.push(
+      ...checkCorrections(
+        (register as { corrections?: Correction[] }).corrections ?? [],
+        rel(PATHS.corrections),
+        registry,
+      ),
+    );
   }
 
   // --- groupings ----------------------------------------------------------

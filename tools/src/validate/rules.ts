@@ -18,6 +18,14 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { PATHS, rel } from '../paths.ts';
+import {
+  EVIDENCE_FOR_CLASS,
+  FIELD_CLASS,
+  upstreamState,
+  valuesEqual,
+  type Correction,
+  type CorrectionValue,
+} from '../registry/corrections.ts';
 import { detectPlaceholder } from '../registry/placeholder.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 
@@ -551,6 +559,154 @@ export function checkRecomputation(record: BudgetRecord, file: string): Finding[
         message:
           `salaries + health + other benefits = ${parts.toLocaleString()}, but ` +
           `total_staff_costs is ${staffCosts.toLocaleString()}.`,
+      });
+    }
+  }
+
+  return findings;
+}
+
+// --------------------------------------------------------------------------
+// The corrections register
+// --------------------------------------------------------------------------
+
+/**
+ * Keeps the register honest about the source it makes claims against.
+ *
+ * The check that earns its keep is `correction-diverged`. When AOE moves a
+ * corrected field to some THIRD value -- a genuine new website, a merger -- the
+ * sync deliberately holds our value rather than silently deferring, because
+ * discarding an evidence-backed assertion without telling anyone is how the old
+ * override mechanism went wrong. Holding it is only safe if the build then
+ * stops, so this errors and a human resolves it.
+ */
+export function checkCorrections(
+  corrections: readonly Correction[],
+  file: string,
+  registry: ReadonlyMap<string, RegistryEntity>,
+): Finding[] {
+  const findings: Finding[] = [];
+  const seen = new Set<string>();
+
+  for (const c of corrections) {
+    if (c.status === 'withdrawn') continue;
+
+    const key = `${c.slug}#${c.field}`;
+    if (seen.has(key)) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'correction-duplicate',
+        message:
+          `two corrections claim ${key}. Which one is in force would depend on file order, ` +
+          `and a claim whose meaning depends on where it sits in a list is not a claim.`,
+      });
+      continue;
+    }
+    seen.add(key);
+
+    const entity = registry.get(c.slug);
+    if (!entity) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'correction-unknown-entity',
+        message: `"${c.slug}" is not a known registry entity. Run \`npm run registry:sync\` or correct the slug.`,
+      });
+      continue;
+    }
+
+    const fieldClass = FIELD_CLASS[c.field];
+    if (!fieldClass) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'correction-uncorrectable-field',
+        message:
+          `"${c.field}" is not a correctable field. Correctable fields are ` +
+          `${Object.keys(FIELD_CLASS).sort().join(', ')}. Identity keys are absent on purpose: ` +
+          `you cannot correct the thing that identifies the record. To widen the surface, ` +
+          `edit FIELD_CLASS in tools/src/registry/corrections.ts deliberately.`,
+      });
+      continue;
+    }
+
+    const allowed = EVIDENCE_FOR_CLASS[fieldClass];
+    if (!allowed.includes(c.evidence.class)) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'correction-evidence-tier',
+        message:
+          `${key} is a ${fieldClass} field and carries ${c.evidence.class} evidence. ` +
+          `It needs ${allowed.join(' or ')}. A wrong ${c.field} propagates into published ` +
+          `figures, so it earns the burden of proof a statutory parameter earns.`,
+      });
+      continue;
+    }
+
+    // FIELD_CLASS is deliberately type-agnostic: it is the whitelist of what
+    // CAN be corrected across every entity type, not what a given type
+    // carries. Without this check, a correction naming a school-only field
+    // (`municipality`) against a `town` entity would read `entity[c.field]`
+    // as `undefined`, and `JSON.stringify` drops `undefined` values, so the
+    // sync would silently reproduce the empty `aoe_published: {}` this
+    // register goes out of its way to avoid. `in` -- not a null or truthiness
+    // check -- is what tells "this type has no such field" apart from "this
+    // field is null", which here is a real, legitimate value.
+    if (!(c.field in entity)) {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'correction-field-not-on-entity',
+        message:
+          `${key}: "${entity.type}" records do not carry a "${c.field}" field. Check the ` +
+          `entity's type, or that the field name in this correction is correct.`,
+      });
+      continue;
+    }
+
+    const current = entity[c.field as keyof RegistryEntity] as CorrectionValue;
+    const published = entity.aoe_published?.[c.field] as CorrectionValue | undefined;
+
+    if (published === undefined) {
+      // No published figure recorded: either the sync retired this correction
+      // because AOE adopted it, or the sync has not run since it was written.
+      if (valuesEqual(current, c.our_value)) continue;
+      findings.push({
+        severity: valuesEqual(current, c.aoe_value) ? 'warning' : 'error',
+        file,
+        rule: valuesEqual(current, c.aoe_value) ? 'correction-unapplied' : 'correction-diverged',
+        message: valuesEqual(current, c.aoe_value)
+          ? `${key} is not applied to the registry. Run \`npm run registry:sync\`.`
+          : `${key}: the registry holds a value matching neither this correction nor the ` +
+            `AOE value it claims to replace. Rebuild with \`npm run registry:sync\` and, ` +
+            `if it persists, re-check the correction's premise.`,
+      });
+      continue;
+    }
+
+    if (upstreamState(c, published) === 'diverged') {
+      findings.push({
+        severity: 'error',
+        file,
+        rule: 'correction-diverged',
+        message:
+          `${key}: AOE now publishes a value matching neither the one this correction ` +
+          `objected to nor the one it asserts. The corrected value is still in force, ` +
+          `deliberately -- an evidence-backed assertion is not dropped silently -- but a ` +
+          `human has to look. Re-check the field, then either update aoe_value and the ` +
+          `evidence, or set status: withdrawn.`,
+      });
+      continue;
+    }
+
+    if (!valuesEqual(current, c.our_value)) {
+      findings.push({
+        severity: 'warning',
+        file,
+        rule: 'correction-unapplied',
+        message: `${key} is recorded but not applied to the registry. Run \`npm run registry:sync\`.`,
       });
     }
   }
