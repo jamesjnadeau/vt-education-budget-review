@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { EVIDENCE_FOR_CLASS, FIELD_CLASS, correctionsBySlug, readCorrections, valuesEqual } from './corrections.ts';
+import { EVIDENCE_FOR_CLASS, FIELD_CLASS, correctionsBySlug, readCorrections, upstreamState, valuesEqual } from './corrections.ts';
 import type { Correction } from './corrections.ts';
 
 function correction(over: Partial<Correction> = {}): Correction {
@@ -115,5 +115,35 @@ describe('readCorrections', () => {
     const path = join(dir, 'corrections.yaml');
     writeFileSync(path, '- one\n- two\n');
     expect(() => readCorrections(path)).toThrow(/expected an object/i);
+  });
+});
+
+describe('upstreamState', () => {
+  it('is adopted once AOE publishes the value we asserted', () => {
+    expect(upstreamState(correction(), 'https://new.example.invalid/')).toBe('adopted');
+  });
+
+  it('is outstanding while AOE still publishes what we objected to', () => {
+    expect(upstreamState(correction(), 'http://old.example.invalid/')).toBe('outstanding');
+  });
+
+  it('is diverged when AOE has moved to some third value', () => {
+    expect(upstreamState(correction(), 'https://third.example.invalid/')).toBe('diverged');
+  });
+
+  it('treats AOE dropping the field entirely as divergence, not adoption', () => {
+    // Null is not agreement. Reading it as adoption would retire a correction
+    // because the source went silent, which is the opposite of the source agreeing.
+    expect(upstreamState(correction(), null)).toBe('diverged');
+  });
+
+  it('compares list-valued fields by content', () => {
+    const c = correction({
+      field: 'member_towns',
+      aoe_value: ['town/a'],
+      our_value: ['town/a', 'town/b'],
+    });
+    expect(upstreamState(c, ['town/a', 'town/b'])).toBe('adopted');
+    expect(upstreamState(c, ['town/a'])).toBe('outstanding');
   });
 });

@@ -129,6 +129,20 @@ export function correctionsBySlug(cs: readonly Correction[]): Map<string, Correc
   return out;
 }
 
+/**
+ * Where a correction stands with AOE, computed from what they publish now.
+ *
+ * Adoption is checked BEFORE outstanding on purpose. If a correction were ever
+ * written with `aoe_value` equal to `our_value` it would be a no-op claim, and
+ * reporting it as outstanding forever would be the more confusing of the two
+ * wrong answers.
+ */
+export function upstreamState(c: Correction, aoeValue: CorrectionValue): UpstreamState {
+  if (valuesEqual(aoeValue, c.our_value)) return 'adopted';
+  if (valuesEqual(aoeValue, c.aoe_value)) return 'outstanding';
+  return 'diverged';
+}
+
 const CORRECTIONS_FILE_KEYS = new Set(['schema_version', 'corrections']);
 
 /**
