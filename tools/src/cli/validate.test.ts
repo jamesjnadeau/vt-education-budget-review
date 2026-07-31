@@ -54,4 +54,39 @@ describe('correctionsFindings', () => {
     expect(findings[0]?.severity).toBe('error');
     expect(findings[0]?.message).toMatch(/unrecognized key/i);
   });
+
+  it('reports the schema finding -- not corrections-unreadable, and no crash -- when a record is schema-invalid', () => {
+    // This is a DIFFERENT path than the malformed-register test above:
+    // readCorrections' own shape checks (object, recognized keys, corrections
+    // is an array) all pass here, so it returns normally. The record inside
+    // is what's invalid -- missing the required `evidence` -- which is
+    // exactly the case that exposed the original bug: a `try` wrapping
+    // schemaFindings and checkCorrections together let checkCorrections'
+    // crash on `c.evidence.class` abort the block before its schema finding
+    // could be returned, and reported the whole register as "unreadable"
+    // instead of naming the one missing field.
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(
+      path,
+      [
+        'schema_version: "1.0"',
+        'corrections:',
+        '  - slug: su/addison-central',
+        '    field: website',
+        '    aoe_value: http://old.example.invalid/',
+        '    aoe_value_observed: "2026-07-29"',
+        '    our_value: https://new.example.invalid/',
+        '    submitted_by: Tester',
+        '    submitted_date: "2026-07-31"',
+        '    status: open',
+        '    sent_date: null',
+        '    note: null',
+        '',
+      ].join('\n'),
+    );
+    expect(() => correctionsFindings(path, registry)).not.toThrow();
+    const findings = correctionsFindings(path, registry);
+    expect(findings.some((f) => f.rule === 'schema:corrections')).toBe(true);
+    expect(findings.map((f) => f.rule)).not.toContain('corrections-unreadable');
+  });
 });

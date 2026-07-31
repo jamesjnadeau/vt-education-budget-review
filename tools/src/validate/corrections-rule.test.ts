@@ -190,4 +190,26 @@ describe('checkCorrections', () => {
     );
     expect(findings.map((f) => f.rule)).not.toContain('correction-field-not-on-entity');
   });
+
+  it('skips a correction missing evidence rather than crashing on it', () => {
+    // Schema validation and this rule run over the SAME data, and this rule
+    // cannot assume the schema passed -- schemaFindings already reports a
+    // missing `evidence` precisely, so this must neither crash reading
+    // `c.evidence.class` nor add a second, less useful finding of its own.
+    const { evidence: _evidence, ...withoutEvidence } = correction();
+    const bad = withoutEvidence as unknown as Correction;
+    expect(() => run([bad])).not.toThrow();
+    expect(run([bad])).toEqual([]);
+  });
+
+  it('skips a correction missing slug, field, or status rather than crashing on it', () => {
+    const { slug: _slug, ...withoutSlug } = correction();
+    const { field: _field, ...withoutField } = correction();
+    const { status: _status, ...withoutStatus } = correction();
+    const bad = [withoutSlug, withoutField, withoutStatus].map(
+      (c) => c as unknown as Correction,
+    );
+    expect(() => run(bad)).not.toThrow();
+    expect(run(bad)).toEqual([]);
+  });
 });

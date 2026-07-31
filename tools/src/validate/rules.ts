@@ -589,6 +589,24 @@ export function checkCorrections(
   const seen = new Set<string>();
 
   for (const c of corrections) {
+    // Schema validation and this rule run over the SAME data, and findings
+    // are collected rather than fatal, by design -- so this cannot assume the
+    // schema passed. A correction missing a required field already has a
+    // precise schema:corrections finding pointing at what's absent; reading
+    // it as a claim anyway ranges from misleading (an undefined slug would
+    // read below as "unknown entity", which is not what's actually wrong) to
+    // an outright crash (undefined.class on a missing `evidence`). Skip it
+    // here WITHOUT another finding: the schema already reported this
+    // precisely, and two findings for one missing field is noise.
+    if (
+      typeof c.slug !== 'string' ||
+      typeof c.field !== 'string' ||
+      typeof c.status !== 'string' ||
+      typeof c.evidence?.class !== 'string'
+    ) {
+      continue;
+    }
+
     if (c.status === 'withdrawn') continue;
 
     const key = `${c.slug}#${c.field}`;

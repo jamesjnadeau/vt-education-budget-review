@@ -76,12 +76,17 @@ export function correctionsFindings(
   path: string,
   registry: ReadonlyMap<string, RegistryEntity>,
 ): Finding[] {
+  // Only readCorrections' own parse is fallible in a way this function needs
+  // to catch (bad top-level shape, not a schema violation on one record).
+  // schemaFindings and checkCorrections run OUTSIDE the try: they collect
+  // findings rather than throw, by design, so a broader try would catch a bug
+  // in one of them -- e.g. checkCorrections dereferencing a field a
+  // schema-invalid record omits -- and misreport it as the register itself
+  // being unreadable, discarding the precise schema finding that was already
+  // sitting in the array the abandoned block never got to return.
+  let register;
   try {
-    const register = readCorrections(path);
-    return [
-      ...schemaFindings('corrections', register, path),
-      ...checkCorrections(register.corrections, rel(path), registry),
-    ];
+    register = readCorrections(path);
   } catch (error) {
     return [
       {
@@ -92,6 +97,11 @@ export function correctionsFindings(
       },
     ];
   }
+
+  return [
+    ...schemaFindings('corrections', register, path),
+    ...checkCorrections(register.corrections, rel(path), registry),
+  ];
 }
 
 function main(): number {
