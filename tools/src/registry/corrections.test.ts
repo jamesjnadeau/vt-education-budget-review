@@ -1,6 +1,10 @@
-import { describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
-import { EVIDENCE_FOR_CLASS, FIELD_CLASS, correctionsBySlug, valuesEqual } from './corrections.ts';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
+import { EVIDENCE_FOR_CLASS, FIELD_CLASS, correctionsBySlug, readCorrections, valuesEqual } from './corrections.ts';
 import type { Correction } from './corrections.ts';
 
 function correction(over: Partial<Correction> = {}): Correction {
@@ -62,5 +66,54 @@ describe('correctionsBySlug', () => {
     ]);
     expect(grouped.get('su/addison-central')?.map((c) => c.field)).toEqual(['website', 'name']);
     expect(grouped.get('town/calais')).toHaveLength(1);
+  });
+});
+
+describe('readCorrections', () => {
+  let dir: string;
+
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), 'corrections-test-'));
+  });
+
+  afterEach(() => {
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it('treats a genuinely absent file as an empty register, not an error', () => {
+    expect(readCorrections(join(dir, 'does-not-exist.yaml'))).toEqual({
+      schema_version: '1.0',
+      corrections: [],
+    });
+  });
+
+  it('treats an explicit empty corrections list as an empty register, not an error', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'schema_version: "1.0"\ncorrections: []\n');
+    expect(readCorrections(path)).toEqual({ schema_version: '1.0', corrections: [] });
+  });
+
+  it('throws on the corrections/correction typo rather than silently discarding every claim', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'schema_version: "1.0"\ncorrection: []\n');
+    expect(() => readCorrections(path)).toThrow(/unrecognized key/i);
+  });
+
+  it('throws when corrections is present but not an array', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'schema_version: "1.0"\ncorrections: "oops"\n');
+    expect(() => readCorrections(path)).toThrow(/must be an array/i);
+  });
+
+  it('throws on a bare-scalar document instead of pretending it is an empty register', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'just a string\n');
+    expect(() => readCorrections(path)).toThrow(/expected an object/i);
+  });
+
+  it('throws on an array-shaped document instead of pretending it is an empty register', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, '- one\n- two\n');
+    expect(() => readCorrections(path)).toThrow(/expected an object/i);
   });
 });

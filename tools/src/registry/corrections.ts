@@ -19,7 +19,7 @@ import { existsSync, readFileSync } from 'node:fs';
 
 import { parse as parseYaml } from 'yaml';
 
-import { PATHS } from '../paths.ts';
+import { PATHS, rel } from '../paths.ts';
 
 export type CorrectionStatus = 'open' | 'sent' | 'withdrawn';
 
@@ -129,10 +129,47 @@ export function correctionsBySlug(cs: readonly Correction[]): Map<string, Correc
   return out;
 }
 
-/** An absent register is not an error: most repos have no corrections yet. */
-export function readCorrections(): CorrectionsFile {
-  if (!existsSync(PATHS.corrections)) return { schema_version: '1.0', corrections: [] };
-  const parsed = parseYaml(readFileSync(PATHS.corrections, 'utf8')) as CorrectionsFile | null;
-  if (!parsed) return { schema_version: '1.0', corrections: [] };
-  return { schema_version: '1.0', corrections: parsed.corrections ?? [] };
+const CORRECTIONS_FILE_KEYS = new Set(['schema_version', 'corrections']);
+
+/**
+ * An absent register is not an error: most repos have no corrections yet.
+ * A PRESENT-BUT-MALFORMED one is a different state and must not collapse into
+ * the same empty result -- that collapse is exactly the failure this register
+ * exists to prevent (see the module header). So this throws rather than
+ * shrugging on: a document that is not an object (a bare scalar or a list),
+ * unrecognized top-level keys (the `correction:`/`corrections:` typo), or a
+ * `corrections` value that is present but not an array. A blank YAML document
+ * (which parses to null) and an explicit `corrections: []` both stay non-errors:
+ * both spell "no corrections", the one state that IS legitimately empty.
+ */
+export function readCorrections(path: string = PATHS.corrections): CorrectionsFile {
+  if (!existsSync(path)) return { schema_version: '1.0', corrections: [] };
+
+  const parsed: unknown = parseYaml(readFileSync(path, 'utf8'));
+  if (parsed === null || parsed === undefined) return { schema_version: '1.0', corrections: [] };
+
+  if (typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error(
+      `${rel(path)}: expected an object with "schema_version" and "corrections" keys, ` +
+        `got ${Array.isArray(parsed) ? 'an array' : typeof parsed}.`,
+    );
+  }
+
+  const obj = parsed as Record<string, unknown>;
+  const unrecognized = Object.keys(obj).filter((k) => !CORRECTIONS_FILE_KEYS.has(k));
+  if (unrecognized.length > 0) {
+    throw new Error(
+      `${rel(path)}: unrecognized key(s) ${unrecognized.map((k) => `"${k}"`).join(', ')}. ` +
+        `Expected only "schema_version" and "corrections" -- check for a typo, ` +
+        `e.g. "correction" for "corrections".`,
+    );
+  }
+
+  const corrections = obj['corrections'];
+  if (corrections === undefined) return { schema_version: '1.0', corrections: [] };
+  if (!Array.isArray(corrections)) {
+    throw new Error(`${rel(path)}: "corrections" must be an array, got ${typeof corrections}.`);
+  }
+
+  return { schema_version: '1.0', corrections: corrections as Correction[] };
 }
