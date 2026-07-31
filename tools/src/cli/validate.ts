@@ -24,8 +24,8 @@ import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readCorrections } from '../registry/corrections.ts';
-import type { Correction } from '../registry/corrections.ts';
 import { readRegistry } from '../registry/store.ts';
+import type { RegistryEntity } from '../registry/types.ts';
 import {
   checkCorrections,
   checkDerivedProvenance,
@@ -55,6 +55,43 @@ function schemaFindings(schema: SchemaName, data: unknown, file: string): Findin
     rule: `schema:${schema}`,
     message: `${e.path} ${e.message}`,
   }));
+}
+
+/**
+ * Reads and checks the corrections register, exported (rather than inlined in
+ * `main`) so a blank or malformed register can be exercised directly, without
+ * standing up the whole CLI.
+ *
+ * `readCorrections`, not `readData`: a blank or comment-only register parses
+ * to `null`, a state its own docstring declares legitimate (no corrections
+ * yet), but handing a bare `null` to `schemaFindings` trips the schema's
+ * "must be an object" check for a file that is not actually malformed.
+ * `readCorrections` normalizes that case to `{schema_version, corrections:
+ * []}` and reserves throwing for genuine malformation (unrecognized keys, a
+ * non-array `corrections`). A validator exists so problems arrive as
+ * findings, not stack traces, so that throw is caught here rather than left
+ * to crash the whole run.
+ */
+export function correctionsFindings(
+  path: string,
+  registry: ReadonlyMap<string, RegistryEntity>,
+): Finding[] {
+  try {
+    const register = readCorrections(path);
+    return [
+      ...schemaFindings('corrections', register, path),
+      ...checkCorrections(register.corrections, rel(path), registry),
+    ];
+  } catch (error) {
+    return [
+      {
+        severity: 'error',
+        file: rel(path),
+        rule: 'corrections-unreadable',
+        message: error instanceof Error ? error.message : String(error),
+      },
+    ];
+  }
 }
 
 function main(): number {
@@ -90,17 +127,7 @@ function main(): number {
   }
 
   // --- corrections register -----------------------------------------------
-  if (existsSync(PATHS.corrections)) {
-    const register = readData(PATHS.corrections);
-    findings.push(...schemaFindings('corrections', register, PATHS.corrections));
-    findings.push(
-      ...checkCorrections(
-        (register as { corrections?: Correction[] }).corrections ?? [],
-        rel(PATHS.corrections),
-        registry,
-      ),
-    );
-  }
+  findings.push(...correctionsFindings(PATHS.corrections, registry));
 
   // --- groupings ----------------------------------------------------------
   try {
@@ -290,4 +317,9 @@ function main(): number {
   return e > 0 ? 1 : 0;
 }
 
-process.exit(main());
+// Guarded so a test can import `correctionsFindings` above without running
+// the whole validator against the live repo and calling process.exit out from
+// under the test runner.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  process.exit(main());
+}
