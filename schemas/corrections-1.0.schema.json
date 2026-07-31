@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:corrections:1.0",
+  "title": "Registry corrections",
+  "description": "Values this project asserts against what AOE publishes, with evidence. Each record is a claim about a named source rather than a local edit: it carries the value AOE published when the claim was made, so the sync can retire the claim once AOE agrees. Evidence is tiered by what the field can break -- a website is cosmetic, an operated_by relationship moves model output -- and the tier is enforced by checkCorrections, not by this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "corrections"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "corrections": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/correction" }
+    }
+  },
+  "$defs": {
+    "value": {
+      "description": "A registry field value. The array case is member_towns. Null means AOE published nothing, never 'we have not checked'.",
+      "type": ["string", "number", "array", "null"],
+      "items": { "type": "string" }
+    },
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slug",
+        "field",
+        "aoe_value",
+        "aoe_value_observed",
+        "our_value",
+        "evidence",
+        "submitted_by",
+        "submitted_date",
+        "status"
+      ],
+      "properties": {
+        "slug": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+        "field": { "type": "string", "minLength": 1 },
+        "aoe_value": { "$ref": "#/$defs/value" },
+        "aoe_value_observed": {
+          "type": "string",
+          "format": "date",
+          "description": "The registry/raw snapshot date aoe_value was read from."
+        },
+        "our_value": { "$ref": "#/$defs/value" },
+        "evidence": {
+          "oneOf": [
+            { "$ref": "#/$defs/retrieved_url" },
+            { "$ref": "#/$defs/cited_document" },
+            { "$ref": "#/$defs/derived_artifact" }
+          ]
+        },
+        "submitted_by": { "type": "string", "minLength": 1 },
+        "submitted_date": { "type": "string", "format": "date" },
+        "status": {
+          "enum": ["open", "sent", "withdrawn"],
+          "description": "The only human-authored states. adopted/outstanding/diverged are computed each sync by comparing what AOE now publishes against aoe_value and our_value."
+        },
+        "sent_date": { "type": ["string", "null"], "format": "date", "default": null },
+        "note": { "type": ["string", "null"], "default": null }
+      }
+    },
+    "retrieved_url": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "url", "retrieved", "observation"],
+      "properties": {
+        "class": { "const": "retrieved_url" },
+        "url": { "type": "string", "format": "uri" },
+        "retrieved": { "type": "string", "format": "date" },
+        "observation": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What the retrieval actually returned. Never a description of a retrieval nobody performed."
+        }
+      }
+    },
+    "cited_document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "document", "retrieved", "quote"],
+      "properties": {
+        "class": { "const": "cited_document" },
+        "document": { "type": "string", "minLength": 1 },
+        "document_url": { "type": ["string", "null"], "format": "uri", "default": null },
+        "document_path": { "type": ["string", "null"], "default": null },
+        "retrieved": { "type": "string", "format": "date" },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The operative sentence, verbatim. Not a summary -- the same standard docs/parameter-verification.md sets for a statutory parameter."
+        }
+      }
+    },
+    "derived_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "path", "provenance_sha256", "observation"],
+      "properties": {
+        "class": { "const": "derived_artifact" },
+        "path": { "type": "string", "minLength": 1 },
+        "provenance_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "observation": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -35,7 +35,8 @@ export type SchemaName =
   | 'aoe-source'
   | 'small-sparse'
   | 'census-town'
-  | 'derived-municipality';
+  | 'derived-municipality'
+  | 'corrections';
 
 const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   budget: 'urn:vt-budget:schema:budget:1.0',
@@ -50,6 +51,7 @@ const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   'small-sparse': 'urn:vt-budget:schema:small-sparse:1.0',
   'census-town': 'urn:vt-budget:schema:census-town:1.0',
   'derived-municipality': 'urn:vt-budget:schema:derived-municipality:1.0',
+  corrections: 'urn:vt-budget:schema:corrections:1.0',
 };
 
 export interface SchemaError {

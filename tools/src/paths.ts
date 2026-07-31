@@ -11,10 +11,13 @@ export const PATHS = {
   registryEntities: join(REPO_ROOT, 'registry', 'entities'),
   registryRaw: join(REPO_ROOT, 'registry', 'raw'),
   groupings: join(REPO_ROOT, 'registry', 'groupings.yaml'),
+  corrections: join(REPO_ROOT, 'registry', 'corrections.yaml'),
   intake: join(REPO_ROOT, 'intake'),
   warehouse: join(REPO_ROOT, 'warehouse'),
   /** Committed derived products: computed here, never retrieved. */
   derived: join(REPO_ROOT, 'derived'),
+  /** Reports and exports built for sending upstream. Not a data product. */
+  derivedCorrections: join(REPO_ROOT, 'derived', 'corrections'),
   schemas: join(REPO_ROOT, 'schemas'),
   collectors: join(REPO_ROOT, 'collectors'),
   parameters: join(REPO_ROOT, 'model', 'parameters'),
