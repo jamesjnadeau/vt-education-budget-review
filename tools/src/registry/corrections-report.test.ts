@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { Correction } from './corrections.ts';
 import type { RegistryEntity } from './types.ts';
-import { buildReport, formatValue, reportRows } from './corrections-report.ts';
+import { buildCsv, buildReport, csvField, formatValue, reportRows } from './corrections-report.ts';
 
 function entity(over: Partial<RegistryEntity> = {}): RegistryEntity {
   return {
@@ -214,5 +214,48 @@ describe('buildReport', () => {
 
   it('says so plainly when there is nothing to report', () => {
     expect(buildReport([], REGISTRY, '2026-07-31')).toContain('No open corrections');
+  });
+});
+
+describe('csvField', () => {
+  it('leaves an ordinary value alone', () => {
+    expect(csvField('website')).toBe('website');
+  });
+
+  it('quotes a value containing a comma', () => {
+    expect(csvField('Barre, Vermont')).toBe('"Barre, Vermont"');
+  });
+
+  it('doubles an embedded quote, per RFC 4180', () => {
+    // Board-document titles will hit this; a naive escape corrupts the file.
+    expect(csvField('The Board voted "aye"')).toBe('"The Board voted ""aye"""');
+  });
+
+  it('quotes a value containing a newline', () => {
+    expect(csvField('line one\nline two')).toBe('"line one\nline two"');
+  });
+});
+
+describe('buildCsv', () => {
+  it('leads with AOE’s identifiers, then the three requested columns', () => {
+    const csv = buildCsv([correction()], REGISTRY);
+    const [header] = csv.split('\r\n');
+    expect(header).toBe(
+      'org_id,org_name,field_name,old_value,new_value,evidence,checked_date,status',
+    );
+  });
+
+  it('writes one row per open correction, keyed on the OrgID', () => {
+    const csv = buildCsv([correction()], REGISTRY);
+    const rows = csv.trim().split('\r\n');
+    expect(rows).toHaveLength(2);
+    expect(rows[1]).toContain('SU003');
+    expect(rows[1]).toContain('http://old.example.invalid/');
+    expect(rows[1]).toContain('https://new.example.invalid/');
+    expect(csv).not.toContain('su/addison-central');
+  });
+
+  it('emits a header and nothing else when there is nothing to report', () => {
+    expect(buildCsv([], REGISTRY).trim().split('\r\n')).toHaveLength(1);
   });
 });

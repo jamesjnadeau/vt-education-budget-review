@@ -204,3 +204,39 @@ export function buildReport(
 
   return out;
 }
+
+/**
+ * RFC 4180 quoting. Written out rather than pulled in, because the rule is four
+ * lines and a dependency for four lines is a dependency to keep updated forever.
+ */
+export function csvField(value: string): string {
+  if (!/[",\r\n]/.test(value)) return value;
+  return `"${value.replace(/"/g, '""')}"`;
+}
+
+const CSV_COLUMNS = [
+  'org_id',
+  'org_name',
+  'field_name',
+  'old_value',
+  'new_value',
+  'evidence',
+  'checked_date',
+  'status',
+] as const satisfies ReadonlyArray<keyof ReportRow>;
+
+/**
+ * The same open corrections as the markdown report, as a file someone can sort
+ * and filter. `org_id` and `org_name` lead: a row that does not identify its
+ * organization cannot be acted on, whatever else it carries.
+ */
+export function buildCsv(
+  cs: readonly Correction[],
+  registry: ReadonlyMap<string, RegistryEntity>,
+): string {
+  const lines = [CSV_COLUMNS.join(',')];
+  for (const row of reportRows(cs, registry)) {
+    lines.push(CSV_COLUMNS.map((c) => csvField(String(row[c]))).join(','));
+  }
+  return lines.join('\r\n') + '\r\n';
+}
