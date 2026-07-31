@@ -20,6 +20,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { parse as parseYaml } from 'yaml';
 
 import { PATHS, rel } from '../paths.ts';
+import { AOE_ENDPOINTS, orgId, type Snapshot } from './aoe-client.ts';
 import type { ManualOverride, RegistryEntity } from './types.ts';
 
 export type CorrectionStatus = 'open' | 'sent' | 'withdrawn';
@@ -189,6 +190,104 @@ export function readCorrections(path: string = PATHS.corrections): CorrectionsFi
   return { schema_version: '1.0', corrections: corrections as Correction[] };
 }
 
+/**
+ * Correctable fields whose value can be read straight back out of a saved
+ * snapshot, and the raw API key each one maps onto.
+ *
+ * This exists so a claim's PREMISE -- "AOE published X" -- can be checked
+ * against the snapshot the claim itself names in `aoe_value_observed`, rather
+ * than only against whatever AOE publishes today. Those are different
+ * questions, and conflating them turns "this claim was never true" into "AOE
+ * has moved on", which sends a human to look at the wrong thing.
+ *
+ * FOUR CORRECTABLE FIELDS ARE DELIBERATELY ABSENT, and their absence is a
+ * decision rather than an oversight:
+ *
+ *   `operated_by`, `supervisory_union`, `member_towns` -- these are not raw
+ *   keys. They come out of the `ParentOrg`/`OperatedBy` pair, whose meaning is
+ *   INVERTED between towns and schools, and out of a second pass that inverts
+ *   the town->district edges into a district's member list. sync.ts's module
+ *   header exists to warn against re-implementing exactly that decoding; a
+ *   second copy here that drifted would report false premises against true
+ *   claims, which is worse than not checking.
+ *
+ *   `municipality` -- has no raw source at all. AOE never publishes a
+ *   municipality (see `schoolFields` in sync.ts), so its `aoe_value` is always
+ *   null and there is nothing in a snapshot to compare against.
+ *
+ * Their premises stay unchecked, and `correction-diverged` remains the only
+ * signal for them -- which is why its message names both possibilities.
+ */
+export const RAW_KEY_FOR_FIELD: Readonly<Record<string, string>> = {
+  website: 'Website',
+  name: 'Name',
+  mailing_city: 'MailingCity',
+  latitude: 'Latitude',
+  longitude: 'Longitude',
+};
+
+export interface PublishedLookup {
+  /**
+   * Whether the snapshot carries a record for this organization at all.
+   * Distinct from a record that carries no value for the field: a claim about
+   * an organization the snapshot never listed is a different failure from a
+   * claim about a field it left empty, and the two get different messages.
+   */
+  readonly recordFound: boolean;
+  /** What the snapshot published for the field. Null means it published none. */
+  readonly value: CorrectionValue;
+}
+
+/**
+ * What a saved snapshot published for one organization's field.
+ *
+ * Endpoints are read in `AOE_ENDPOINTS` declaration order, with later ones
+ * overriding earlier ones, because that is the order and the rule
+ * `normalizeSnapshot` merges by: `organizations` carries websites and mailing
+ * addresses the type-specific endpoints omit, so reading any single endpoint
+ * would report a website AOE does publish as absent. Only non-null values
+ * override, matching the sync's `stripNulls`.
+ */
+export function publishedValue(
+  snapshot: Snapshot,
+  aoeOrgId: string,
+  rawKey: string,
+): PublishedLookup {
+  let recordFound = false;
+  let value: CorrectionValue = null;
+
+  for (const endpoint of Object.keys(AOE_ENDPOINTS)) {
+    for (const raw of snapshot.endpoints[endpoint] ?? []) {
+      if (orgId(raw) !== aoeOrgId) continue;
+      recordFound = true;
+      const v = raw[rawKey];
+      if (v === null || v === undefined) continue;
+      value = typeof v === 'number' ? v : String(v);
+    }
+  }
+
+  return { recordFound, value };
+}
+
+/**
+ * Compares a claimed premise against what the snapshot published.
+ *
+ * Coordinates arrive from the API as strings (`"44.0153"`) and are stored as
+ * numbers, so a `latitude` correction legitimately writes a number where the
+ * raw record holds text. Comparing those as strings would fail a true claim on
+ * a formatting difference. Everything else compares as-is -- and an empty
+ * string is NOT read as a missing coordinate here, because
+ * `valuesEqual(null, '')` is deliberately false: the two spell different
+ * things and this function must not be the place that merges them.
+ */
+export function premiseHolds(claimed: CorrectionValue, published: CorrectionValue): boolean {
+  if (typeof claimed === 'number' && typeof published === 'string') {
+    const n = Number(published);
+    return Number.isFinite(n) && n === claimed;
+  }
+  return valuesEqual(claimed, published);
+}
+
 export function evidenceSummary(e: Evidence): string {
   switch (e.class) {
     case 'retrieved_url':
@@ -226,6 +325,19 @@ export function applyCorrections(
 
   for (const c of corrections) {
     if (c.status === 'withdrawn') continue;
+
+    // The whitelist is checked HERE as well as in checkCorrections, and the
+    // duplication is the point. The validator's copy exists to give the
+    // contributor a good message and block the merge; this one exists because
+    // the sync runs BEFORE the validator and writes its output to disk. Without
+    // it, a register naming `slug` or `aoe_org_id` -- fields that IDENTIFY the
+    // record rather than describe it -- rewrites the identity of an entity, and
+    // the sync reports and commits that registry before anything refuses it.
+    // A register that never passed review must not be able to corrupt data in
+    // the meantime. Skipped silently on purpose: the validator is where this
+    // gets explained, and duplicating the explanation here would mean
+    // maintaining the wording twice.
+    if (FIELD_CLASS[c.field] === undefined) continue;
 
     const aoeValue = entity[c.field as keyof RegistryEntity] as CorrectionValue;
     if (upstreamState(c, aoeValue) === 'adopted') continue;

@@ -18,15 +18,20 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { PATHS, rel } from '../paths.ts';
+import type { Snapshot } from '../registry/aoe-client.ts';
 import {
   EVIDENCE_FOR_CLASS,
   FIELD_CLASS,
+  RAW_KEY_FOR_FIELD,
+  premiseHolds,
+  publishedValue,
   upstreamState,
   valuesEqual,
   type Correction,
   type CorrectionValue,
 } from '../registry/corrections.ts';
 import { detectPlaceholder } from '../registry/placeholder.ts';
+import { ENTITY_REF, SOURCE_REF } from '../registry/slugs.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 
 export type Severity = 'error' | 'warning';
@@ -353,27 +358,21 @@ export function checkLandAreaOnly(data: unknown, file: string): Finding[] {
 // Registry references
 // --------------------------------------------------------------------------
 
-const ENTITY_REF = /^(su|sd|ud|school|town|academy|techcenter|independent|state)\/[a-z0-9]+(-[a-z0-9]+)*$/;
-
 /**
- * A publisher of data, rather than an organization in the registry.
+ * Every slug mentioned anywhere must resolve to a registry entity.
  *
- * AOE publishes statewide datasets but has no organization record for itself --
- * the only `state/` entity is Woodside, closed 2020 -- so provenance for an AOE
- * artifact has nothing valid to name. A `source/` slug fills that gap without
- * hand-authoring a registry record, which matters because the registry is
- * generated and `registry:sync` would be free to discard one.
- *
- * The early return below is deliberately belt-and-braces: `ENTITY_REF` does not
- * list `source`, so a source slug already falls through unmatched. It is written
- * out because `ENTITY_REF` mirrors the `entity_ref` pattern in
- * `common-1.0.schema.json`, that one *does* now list `source`, and the two
- * drifting into agreement would silently start requiring publishers to resolve
- * to registry entities -- the single thing a `source/` slug exists to avoid.
+ * `ENTITY_REF` and `SOURCE_REF` are imported, not written out here. This module
+ * used to carry its own copy of the pattern, deliberately omitting `source` so
+ * that a publisher slug fell through unmatched -- which made the `SOURCE_REF`
+ * early return below belt-and-braces. Now that there is one pattern and it
+ * includes `source` (as the schema's has all along), that early return is
+ * LOAD-BEARING: it is the single place the publisher exemption is granted, and
+ * it is granted explicitly rather than encoded as an omission from a copied
+ * pattern that nobody would notice going missing. AOE publishes statewide
+ * datasets but has no organization record of its own -- the only `state/` entity
+ * is Woodside, closed 2020 -- so requiring a `source/` slug to resolve to a
+ * registry entity is precisely what it exists to avoid.
  */
-const SOURCE_REF = /^source\/[a-z0-9]+(-[a-z0-9]+)*$/;
-
-/** Every slug mentioned anywhere must resolve to a registry entity. */
 export function checkRegistryRefs(
   value: unknown,
   file: string,
@@ -571,19 +570,139 @@ export function checkRecomputation(record: BudgetRecord, file: string): Finding[
 // --------------------------------------------------------------------------
 
 /**
+ * Reads a saved snapshot directory, or returns null when there is no directory
+ * of that date.
+ *
+ * Null is "no such snapshot", never "a snapshot with nothing in it" -- a claim
+ * citing a provenance record that does not exist is a worse failure than one
+ * whose record disagrees with it, and the two get different findings. Injected
+ * rather than read here so a test can hand this rule a snapshot without writing
+ * one to registry/raw/.
+ */
+export type SnapshotReader = (date: string) => Snapshot | null;
+
+/** Renders a value for a message without pretending null is an empty string. */
+function shown(v: CorrectionValue): string {
+  return v === null ? '(nothing)' : JSON.stringify(v);
+}
+
+/**
+ * Checks a claim's premise against the snapshot it names.
+ *
+ * Returns no finding at all -- rather than a passing verdict -- for the fields
+ * `RAW_KEY_FOR_FIELD` deliberately omits. See that table for which four and
+ * why: their premises are not checkable without re-implementing the type-
+ * dependent ParentOrg/OperatedBy decoding sync.ts's header warns against, and
+ * `municipality` has no raw source at all.
+ */
+function premiseFindings(
+  c: Correction,
+  entity: RegistryEntity,
+  file: string,
+  readSnapshotFor: SnapshotReader,
+): Finding[] {
+  const rawKey = RAW_KEY_FOR_FIELD[c.field];
+  if (!rawKey) return [];
+
+  const key = `${c.slug}#${c.field}`;
+
+  // Schema-invalid records are skipped without a second finding, the same way
+  // the caller skips a missing slug or evidence: the schema names the missing
+  // field precisely and this rule would only say it worse.
+  if (typeof c.aoe_value_observed !== 'string') return [];
+
+  if (!entity.aoe_org_id) {
+    // Every entity the sync writes carries the org ID it was keyed on, so this
+    // is a hand-edited or placeholder record. There is no key to look the raw
+    // record up by, and saying so is better than silently passing a claim
+    // whose premise was never examined.
+    return [
+      {
+        severity: 'error',
+        file,
+        rule: 'correction-premise-uncheckable',
+        message:
+          `${key}: "${c.slug}" carries no AOE organization ID, so the snapshot record this ` +
+          `claim rests on cannot be located. Re-run \`npm run registry:sync\`, or drop the claim.`,
+      },
+    ];
+  }
+
+  const snapshot = readSnapshotFor(c.aoe_value_observed);
+  if (!snapshot) {
+    return [
+      {
+        severity: 'error',
+        file,
+        rule: 'correction-snapshot-missing',
+        message:
+          `${key}: aoe_value_observed names ${c.aoe_value_observed}, but there is no snapshot ` +
+          `at registry/raw/${c.aoe_value_observed}/. The claim cites a provenance record that ` +
+          `is not in the repository, so nothing can confirm AOE ever published ` +
+          `${shown(c.aoe_value)}. Name a snapshot that exists (\`ls registry/raw\`).`,
+      },
+    ];
+  }
+
+  const { recordFound, value } = publishedValue(snapshot, entity.aoe_org_id, rawKey);
+  if (!recordFound) {
+    return [
+      {
+        severity: 'error',
+        file,
+        rule: 'correction-false-premise',
+        message:
+          `${key}: the ${c.aoe_value_observed} snapshot has no record for ${entity.aoe_org_id}, ` +
+          `so it cannot be the source of the claim that AOE published ${shown(c.aoe_value)}. ` +
+          `Check the org ID and the snapshot date.`,
+      },
+    ];
+  }
+
+  if (!premiseHolds(c.aoe_value, value)) {
+    return [
+      {
+        severity: 'error',
+        file,
+        rule: 'correction-false-premise',
+        message:
+          `${key}: this claims AOE published ${shown(c.aoe_value)}, but the ` +
+          `${c.aoe_value_observed} snapshot publishes ${shown(value)} for ${entity.aoe_org_id}. ` +
+          `A correction is a claim about a named source; one whose premise the source never ` +
+          `supported is not a correction. Fix aoe_value, or name the snapshot you actually read.`,
+      },
+    ];
+  }
+
+  return [];
+}
+
+/**
  * Keeps the register honest about the source it makes claims against.
  *
- * The check that earns its keep is `correction-diverged`. When AOE moves a
+ * Two checks earn their keep, and they ask different questions.
+ *
+ * `correction-false-premise` asks whether the claim was EVER true: every
+ * correction asserts "AOE published X", names the snapshot it read X from, and
+ * that snapshot is committed under registry/raw/, so the assertion is directly
+ * checkable. A claim whose premise never held is incoherent and must not
+ * validate.
+ *
+ * `correction-diverged` asks whether it is STILL true. When AOE moves a
  * corrected field to some THIRD value -- a genuine new website, a merger -- the
  * sync deliberately holds our value rather than silently deferring, because
  * discarding an evidence-backed assertion without telling anyone is how the old
  * override mechanism went wrong. Holding it is only safe if the build then
  * stops, so this errors and a human resolves it.
+ *
+ * Before the premise check existed, `correction-diverged` was the only signal
+ * for both, and it asserted the second explanation for a symptom that had two.
  */
 export function checkCorrections(
   corrections: readonly Correction[],
   file: string,
   registry: ReadonlyMap<string, RegistryEntity>,
+  readSnapshotFor: SnapshotReader,
 ): Finding[] {
   const findings: Finding[] = [];
   const seen = new Set<string>();
@@ -684,6 +803,12 @@ export function checkCorrections(
       continue;
     }
 
+    const premise = premiseFindings(c, entity, file, readSnapshotFor);
+    if (premise.length > 0) {
+      findings.push(...premise);
+      continue;
+    }
+
     const current = entity[c.field as keyof RegistryEntity] as CorrectionValue;
     const published = entity.aoe_published?.[c.field] as CorrectionValue | undefined;
 
@@ -710,10 +835,21 @@ export function checkCorrections(
         file,
         rule: 'correction-diverged',
         message:
-          `${key}: AOE now publishes a value matching neither the one this correction ` +
-          `objected to nor the one it asserts. The corrected value is still in force, ` +
-          `deliberately -- an evidence-backed assertion is not dropped silently -- but a ` +
-          `human has to look. Re-check the field, then either update aoe_value and the ` +
+          `${key}: AOE publishes a value matching neither the one this correction objected ` +
+          `to nor the one it asserts. ` +
+          // Divergence has two possible causes and the message must not assert
+          // the one it cannot distinguish. Where the premise IS checkable it
+          // has already been checked above -- this finding is unreachable
+          // until it passes -- so only one cause remains and the message says
+          // so. Where it is not, both stay open and the message names both.
+          (RAW_KEY_FOR_FIELD[c.field]
+            ? `The premise checks out against registry/raw/${c.aoe_value_observed}/, so AOE ` +
+              `has moved on since then. `
+            : `Either AOE has moved on since ${c.aoe_value_observed}, or the claim's premise ` +
+              `was never true -- this field's premise cannot be read back out of a snapshot ` +
+              `(see RAW_KEY_FOR_FIELD), so neither has been ruled out. `) +
+          `The corrected value is still in force, deliberately: an evidence-backed assertion ` +
+          `is not dropped silently. Re-check the field, then either update aoe_value and the ` +
           `evidence, or set status: withdrawn.`,
       });
       continue;

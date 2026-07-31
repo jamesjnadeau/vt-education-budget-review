@@ -209,7 +209,17 @@ Sits beside the existing `checkRegistryRefs` and `checkPlaceholderEntities`.
 - the evidence class matches the field's tier, and a `cited_document` carries a
   substantive `quote` rather than a stub
 - `aoe_value` matches what the snapshot named by `aoe_value_observed` actually
-  published — a correction whose premise was never true fails here
+  published — a correction whose premise was never true fails here. This is
+  implemented for the fields that map straight onto a raw API key (`website`,
+  `name`, `mailing_city`, `latitude`, `longitude`) and deliberately **not
+  attempted** for `operated_by`, `supervisory_union`, `member_towns` or
+  `municipality`: the first three would require re-implementing the
+  type-dependent `ParentOrg`/`OperatedBy` decoding that `sync.ts`'s header warns
+  against, where a copy that drifted would report false premises against true
+  claims, and the fourth has no raw source at all. Naming a snapshot that is not
+  in the repository fails here too. For the four unchecked fields
+  `correction-diverged` remains the only signal, which is why its message names
+  both possible causes rather than asserting one.
 - **diverged** corrections are errors
 
 ### `tools/src/cli/registry-corrections.ts`

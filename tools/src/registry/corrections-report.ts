@@ -9,7 +9,10 @@
  * `supervisory_union`, `member_towns`, and `municipality` are themselves
  * registry references, so a corrected `member_towns` list is exactly as much
  * a leak as an unresolved subject would be if it printed `town/calais`
- * instead of `T042 — Calais`.
+ * instead of `T042 — Calais`. It includes EVIDENCE LOCATORS, which are file
+ * paths into this repository and reach the same reader by a different route
+ * (see `reportEvidence`). And it includes the organization's own name, which
+ * for a `name` correction is not the name AOE holds (see `aoeName`).
  *
  * The report closes by naming what AOE has already adopted. That section is not
  * politeness -- a data steward who can see their previous effort landed is a
@@ -17,13 +20,14 @@
  */
 
 import {
-  evidenceSummary,
   upstreamState,
   valuesEqual,
   type Correction,
   type CorrectionStatus,
   type CorrectionValue,
+  type Evidence,
 } from './corrections.ts';
+import { ENTITY_REF, SOURCE_REF } from './slugs.ts';
 import type { RegistryEntity } from './types.ts';
 
 export interface ReportRow {
@@ -39,31 +43,41 @@ export interface ReportRow {
 }
 
 /**
- * Mirrors `$defs.entity_ref` in `schemas/common-1.0.schema.json` (itself
- * already mirrored once, as `ENTITY_REF` in `tools/src/validate/rules.ts`).
- * `source/` is left out on purpose: none of the four entity-ref-valued
- * correctable fields (`operated_by`, `supervisory_union`, `member_towns`,
- * `municipality`) can hold one -- that prefix names a data publisher, not an
- * organization the registry carries a record for. If the schema pattern ever
- * changes, all copies must change together.
- */
-const ENTITY_REF = /^(su|sd|ud|school|town|academy|techcenter|independent|state)\/[a-z0-9]+(-[a-z0-9]+)*$/;
-
-/**
  * A correction value that merely looks like a slug (a URL, a name) is printed
  * as-is. One that IS a slug -- `operated_by`, `member_towns`, and the like are
  * registry references, not descriptive text -- must resolve to the
  * organization AOE's system knows, or the report leaks exactly the kind of
  * internal identifier the module header says never appears here.
+ *
+ * `ENTITY_REF` is imported from `slugs.ts`, where the entity-type prefixes are
+ * defined. It used to be a hand-copy, which is a poor way to build a leak
+ * guard: adding a prefix to `slugs.ts` and forgetting the copy here would let a
+ * corrected `operated_by` print a raw repo slug into an email to AOE, and no
+ * test would fail.
  */
 function formatScalar(v: string | number, registry: ReadonlyMap<string, RegistryEntity>): string {
   if (typeof v === 'number' || !ENTITY_REF.test(v)) return String(v);
+
+  // The `source/` prefix is excluded from resolution HERE, explicitly, rather
+  // than by importing a pattern that quietly omits it. A source slug names a
+  // data publisher, not an organization -- there is deliberately no registry
+  // record to find -- so looking one up would report it as a missing
+  // organization, which is a wrong answer rather than merely an unhelpful one.
+  // It is still not printed: this function's contract is that no repo-internal
+  // identifier gets past it, and a publisher slug is one. Unreachable today
+  // (no entity-ref-valued correctable field can hold a source ref) and kept
+  // because the next correctable field is not required to respect that.
+  if (SOURCE_REF.test(v)) return '(a data source, not an organization)';
+
   const referenced = registry.get(v);
   // Already an error the validator catches (correction-unknown-entity,
   // registry-reference); the report's job is to say so plainly, not to make
   // the dangling reference worse by printing our internal slug for it.
   if (!referenced) return '(organization not in the registry)';
-  return `${referenced.aoe_org_id ?? '(no AOE ID)'} — ${referenced.name}`;
+  // aoeName, not `.name`: a referenced organization can be under a name
+  // correction of its own, and naming it by OUR proposed name has the same
+  // problem as heading a row with it -- see aoeName below.
+  return `${referenced.aoe_org_id ?? '(no AOE ID)'} — ${aoeName(referenced)}`;
 }
 
 export function formatValue(v: CorrectionValue, registry: ReadonlyMap<string, RegistryEntity>): string {
@@ -80,6 +94,62 @@ function checkedDate(c: Correction): string {
   return c.evidence.class === 'derived_artifact' ? c.submitted_date : c.evidence.retrieved;
 }
 
+/**
+ * The evidence, as the recipient can act on it.
+ *
+ * Deliberately NOT `evidenceSummary`, which is the provenance rendering: it
+ * names the locator -- `intake/acsd/2026-05-minutes.pdf`, or a `derived/` path
+ * and the provenance hash of the record relied on -- and that is exactly right
+ * for `corrections.yaml` and for the generated `manual_overrides` reason, where
+ * the whole point is that a reader here can find the record. It is exactly
+ * wrong in an email to AOE, where a path into this repository identifies
+ * nothing the recipient can open and, per the module header, is precisely what
+ * must never leave. The register still stores the locator; this is a rendering
+ * concern and is solved by rendering.
+ *
+ * What survives is what makes the claim checkable BY THEM: a public URL where
+ * there is one, the document's title and the operative quote where there is
+ * not, and an offer to send the record.
+ */
+export function reportEvidence(e: Evidence): string {
+  switch (e.class) {
+    case 'retrieved_url':
+      // A URL is public by construction: the recipient can open it themselves,
+      // which is why contact fields need nothing more than this.
+      return `Retrieved ${e.url} on ${e.retrieved}: ${e.observation}`;
+    case 'cited_document':
+      return e.document_url
+        ? `${e.document} (${e.document_url}), retrieved ${e.retrieved}: "${e.quote}"`
+        : `${e.document}, obtained ${e.retrieved}: "${e.quote}" (we hold a copy of this ` +
+          `record and can send it on request)`;
+    case 'derived_artifact':
+      // Described rather than located. The path and provenance hash identify a
+      // file in this repository and mean nothing to the recipient; the
+      // observation is the finding itself, which is what they can act on.
+      return (
+        `Computed by us from published sources rather than read off a document: ${e.observation} ` +
+        `(the computation and its inputs are recorded in our provenance log, available on request)`
+      );
+  }
+}
+
+/**
+ * How AOE's own records name this organization.
+ *
+ * A `name` correction is the case that breaks the obvious answer: by the time
+ * the report runs, the sync has already patched `entity.name` to the name WE
+ * propose, so heading the item with it would identify the organization to the
+ * recipient by a name their system has never held -- above a body reading
+ * "Currently published: <the name they do hold>". `aoe_published.name` is
+ * exactly the figure their system carries, which is the whole reason the sync
+ * records it. Its absence means no name correction is in force, and then
+ * `entity.name` IS AOE's name.
+ */
+function aoeName(entity: RegistryEntity): string {
+  const published = entity.aoe_published?.['name'];
+  return typeof published === 'string' ? published : entity.name;
+}
+
 function rowFor(
   c: Correction,
   entity: RegistryEntity,
@@ -88,12 +158,12 @@ function rowFor(
 ): ReportRow {
   return {
     org_id: entity.aoe_org_id ?? '(no AOE ID)',
-    org_name: entity.name,
+    org_name: aoeName(entity),
     entity_type: entity.type,
     field_name: c.field,
     old_value: formatValue(oldValue, registry),
     new_value: formatValue(c.our_value, registry),
-    evidence: evidenceSummary(c.evidence),
+    evidence: reportEvidence(c.evidence),
     checked_date: checkedDate(c),
     status: c.status,
   };

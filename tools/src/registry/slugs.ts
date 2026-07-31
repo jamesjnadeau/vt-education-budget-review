@@ -26,6 +26,45 @@ const TYPE_PREFIX: Readonly<Record<EntityType, string>> = {
   state: 'state',
 };
 
+/**
+ * A publisher of data rather than an organization in the registry.
+ *
+ * AOE publishes statewide datasets but has no organization record for itself,
+ * so provenance for an AOE artifact has nothing valid to name. A `source/` slug
+ * fills that gap without hand-authoring a registry record the generated sync
+ * would be free to discard. It is part of the reference pattern below and is
+ * exempted, explicitly, by each consumer that needs to exempt it.
+ */
+export const SOURCE_REF = /^source\/[a-z0-9]+(-[a-z0-9]+)*$/;
+
+/**
+ * The one entity-reference pattern.
+ *
+ * It was three: this file's prefixes, a hand-copy in `validate/rules.ts`, and a
+ * hand-copy in `registry/corrections-report.ts` — and the copies had already
+ * drifted apart over `source`. That last copy is a LEAK GUARD (it decides
+ * whether a corrections-report value is a repo slug that must be resolved to an
+ * AOE identifier before it is emailed to AOE), so a forgotten copy is a repo
+ * slug in outgoing correspondence with no test failing.
+ *
+ * Built from `TYPE_PREFIX` rather than written out, so a new entity type
+ * updates every consumer by construction: `EntityType` makes the table entry
+ * mandatory, and the pattern follows. `source` is appended because it is a
+ * legal reference everywhere a slug is written, and because
+ * `common-1.0.schema.json`'s `entity_ref` — the fourth copy, which JSON Schema
+ * cannot import — includes it, and `registry.test.ts` pins the two together.
+ *
+ * The pattern SOURCE is exported beside the compiled regex because that is what
+ * the schema copy can be compared against: `RegExp.prototype.source` escapes the
+ * forward slash, so comparing against it would need a normalizing step, and a
+ * drift guard that massages its inputs is a drift guard nobody trusts.
+ */
+export const ENTITY_REF_PATTERN = `^(${[...Object.values(TYPE_PREFIX), 'source'].join(
+  '|',
+)})/[a-z0-9]+(-[a-z0-9]+)*$`;
+
+export const ENTITY_REF = new RegExp(ENTITY_REF_PATTERN);
+
 /** Words stripped from names before slugging, because nearly every entity has them. */
 const NOISE = [
   'supervisory union',

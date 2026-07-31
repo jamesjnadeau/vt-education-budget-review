@@ -1,9 +1,21 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
+import { PATHS } from '../paths.ts';
 import type { AoeRawRecord, Snapshot } from './aoe-client.ts';
 import { orgId } from './aoe-client.ts';
 import type { Correction } from './corrections.ts';
-import { assignSlug, entityTypeFromOrgType, makeSlug, slugifyName } from './slugs.ts';
+import {
+  ENTITY_REF,
+  ENTITY_REF_PATTERN,
+  SOURCE_REF,
+  assignSlug,
+  entityTypeFromOrgType,
+  makeSlug,
+  slugifyName,
+} from './slugs.ts';
 import { diffRegistry, normalizeSnapshot, relationshipsFor } from './sync.ts';
 
 describe('the API is inconsistent about its own primary key', () => {
@@ -84,6 +96,35 @@ describe('slugs', () => {
     expect(entityTypeFromOrgType('Independent School (IS)')).toBe('independent');
     expect(entityTypeFromOrgType('Recognized School (IS)')).toBe('independent');
     expect(entityTypeFromOrgType('Head Start (HDS)')).toBeNull();
+  });
+});
+
+describe('the entity-reference pattern', () => {
+  it('matches every prefix the slug table can mint, and the source prefix', () => {
+    expect(ENTITY_REF.test('su/addison-central')).toBe(true);
+    expect(ENTITY_REF.test('ud/addison-central-uusd-55')).toBe(true);
+    expect(ENTITY_REF.test('techcenter/patricia-hannaford')).toBe(true);
+    expect(ENTITY_REF.test('source/aoe-adm')).toBe(true);
+    expect(ENTITY_REF.test('https://example.invalid/')).toBe(false);
+    expect(ENTITY_REF.test('Addison Central Supervisory District')).toBe(false);
+  });
+
+  it('agrees, character for character, with the schema copy JSON Schema cannot import', () => {
+    // The fourth copy. Three TypeScript copies were collapsed into ENTITY_REF;
+    // this one cannot be, so it is pinned instead. Without this, adding an
+    // entity type to TYPE_PREFIX would leave the schema rejecting slugs the
+    // sync mints -- and, worse in the other direction, leave a pattern that
+    // guards outgoing correspondence disagreeing with the pattern that defines
+    // what a slug is.
+    const common = JSON.parse(
+      readFileSync(join(PATHS.schemas, 'common-1.0.schema.json'), 'utf8'),
+    ) as { $defs: { entity_ref: { pattern: string } } };
+    expect(common.$defs.entity_ref.pattern).toBe(ENTITY_REF_PATTERN);
+  });
+
+  it('exempts a source slug, which names a publisher with no registry record', () => {
+    expect(SOURCE_REF.test('source/aoe-adm')).toBe(true);
+    expect(SOURCE_REF.test('su/addison-central')).toBe(false);
   });
 });
 

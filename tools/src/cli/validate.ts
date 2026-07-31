@@ -24,7 +24,7 @@ import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readCorrections } from '../registry/corrections.ts';
-import { readRegistry } from '../registry/store.ts';
+import { readRegistry, readSnapshotIfPresent } from '../registry/store.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 import {
   checkCorrections,
@@ -40,6 +40,7 @@ import {
   summarize,
   type BudgetRecord,
   type Finding,
+  type SnapshotReader,
 } from '../validate/rules.ts';
 import { validateAgainst, type SchemaName } from '../validate/schemas.ts';
 
@@ -75,6 +76,11 @@ function schemaFindings(schema: SchemaName, data: unknown, file: string): Findin
 export function correctionsFindings(
   path: string,
   registry: ReadonlyMap<string, RegistryEntity>,
+  // The premise check reads the snapshot each claim names. Defaulted rather
+  // than required so `npm run validate` needs no wiring at the call site, and
+  // parameterized so a test can hand it a snapshot of its own without writing
+  // one into registry/raw/.
+  readSnapshotFor: SnapshotReader = readSnapshotIfPresent,
 ): Finding[] {
   // Only readCorrections' own parse is fallible in a way this function needs
   // to catch (bad top-level shape, not a schema violation on one record).
@@ -100,7 +106,7 @@ export function correctionsFindings(
 
   return [
     ...schemaFindings('corrections', register, path),
-    ...checkCorrections(register.corrections, rel(path), registry),
+    ...checkCorrections(register.corrections, rel(path), registry, readSnapshotFor),
   ];
 }
 

@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import type { Snapshot } from '../registry/aoe-client.ts';
 import type { Correction } from '../registry/corrections.ts';
 import type { RegistryEntity } from '../registry/types.ts';
-import { checkCorrections } from './rules.ts';
+import { checkCorrections, type SnapshotReader } from './rules.ts';
 
 function entity(over: Partial<RegistryEntity> = {}): RegistryEntity {
   return {
@@ -57,8 +58,46 @@ function correction(over: Partial<Correction> = {}): Correction {
 
 const FILE = 'registry/corrections.yaml';
 
-function run(cs: readonly Correction[], e = entity()) {
-  return checkCorrections(cs, FILE, new Map([[e.slug, e]]));
+/**
+ * A stand-in for registry/raw/2026-07-29/. SU003's website sits on the
+ * `organizations` endpoint and NOT on `supervisoryUnions`, which is how the
+ * live API publishes it -- so a premise check that read only the first endpoint
+ * carrying the record would report a website AOE does publish as absent, and
+ * fail every true website claim in the register.
+ */
+const SNAPSHOT: Snapshot = {
+  date: '2026-07-29',
+  endpoints: {
+    supervisoryUnions: [
+      {
+        ServerId: 6,
+        Name: 'Addison Central Supervisory District',
+        OrgID: 'SU003',
+        OrgType: 'Supervisory Union (SU)',
+        OperatedBy: 'SU003',
+      },
+    ],
+    organizations: [
+      {
+        ServerId: 6,
+        Name: 'Addison Central Supervisory District',
+        OrgID: 'SU003',
+        OrgType: 'Supervisory Union (SU)',
+        OperatedBy: 'SU003',
+        Website: 'http://old.example.invalid/',
+        MailingCity: 'Middlebury',
+        Latitude: '44.0153',
+        Longitude: null,
+      },
+    ],
+  },
+};
+
+/** Only 2026-07-29 exists, so any other date is a claim citing a missing record. */
+const SNAPSHOTS: SnapshotReader = (date) => (date === SNAPSHOT.date ? SNAPSHOT : null);
+
+function run(cs: readonly Correction[], e = entity(), snapshots: SnapshotReader = SNAPSHOTS) {
+  return checkCorrections(cs, FILE, new Map([[e.slug, e]]), snapshots);
 }
 
 describe('checkCorrections', () => {
@@ -128,6 +167,142 @@ describe('checkCorrections', () => {
   it('says nothing about a correction AOE has adopted', () => {
     const e = entity({ website: 'https://new.example.invalid/', aoe_published: {} });
     expect(run([correction()], e)).toEqual([]);
+  });
+
+  it('rejects a claim the snapshot it names never supported', () => {
+    // The premise check. Without it this reads only as correction-diverged
+    // against today's value, whose message blames AOE for moving on when in
+    // fact the claim was never true.
+    const findings = run([correction({ aoe_value: 'http://never-published.invalid/' })]);
+    expect(findings[0]?.rule).toBe('correction-false-premise');
+    expect(findings[0]?.severity).toBe('error');
+    // Both figures, so the author can see which one to fix.
+    expect(findings[0]?.message).toContain('http://never-published.invalid/');
+    expect(findings[0]?.message).toContain('http://old.example.invalid/');
+  });
+
+  it('reads the premise from whichever endpoint publishes the field', () => {
+    // SU003's Website is on `organizations` only; the type-specific endpoint
+    // carries the same org with no website at all.
+    expect(run([correction()])).toEqual([]);
+  });
+
+  it('rejects a claim citing a snapshot that is not in the repository', () => {
+    // A premise whose provenance record does not exist cannot be checked by
+    // anyone, now or later, which is a failure of the same kind as a false one.
+    const findings = run([correction({ aoe_value_observed: '2019-01-01' })]);
+    expect(findings[0]?.rule).toBe('correction-snapshot-missing');
+    expect(findings[0]?.severity).toBe('error');
+    expect(findings[0]?.message).toContain('registry/raw/2019-01-01/');
+  });
+
+  it('rejects a claim about an organization the named snapshot does not list', () => {
+    const e = entity({ aoe_org_id: 'SU999' });
+    const findings = run([correction()], e);
+    expect(findings[0]?.rule).toBe('correction-false-premise');
+    expect(findings[0]?.message).toContain('no record for SU999');
+  });
+
+  it('compares a coordinate numerically, since the API publishes it as a string', () => {
+    // The snapshot holds Latitude: "44.0153"; the correction holds 44.0153.
+    // Compared as strings, every true coordinate claim would read as false.
+    const surveyed = (over: Partial<Correction>) =>
+      correction({
+        field: 'latitude',
+        our_value: 44.5,
+        evidence: {
+          class: 'cited_document',
+          document: 'Town survey plat',
+          document_url: 'https://example.invalid/plat.pdf',
+          document_path: null,
+          retrieved: '2026-07-31',
+          quote: 'The building corner is set at latitude 44.5000 N.',
+        },
+        ...over,
+      });
+    const e = entity({ latitude: 44.5, aoe_published: { latitude: 44.0153 } });
+    expect(run([surveyed({ aoe_value: 44.0153 })], e)).toEqual([]);
+    expect(run([surveyed({ aoe_value: 44.9 })], e).map((f) => f.rule)).toContain(
+      'correction-false-premise',
+    );
+  });
+
+  it('does not attempt a premise it cannot read: the relationship fields are skipped', () => {
+    // operated_by comes out of the type-dependent ParentOrg/OperatedBy decoding
+    // sync.ts warns against re-implementing, so it is deliberately absent from
+    // RAW_KEY_FOR_FIELD. This claim contradicts the snapshot's raw OperatedBy
+    // outright and must still pass: an unchecked premise is the decision here,
+    // not a check that quietly reads the wrong field.
+    const e = entity({
+      operated_by: 'ud/somewhere',
+      aoe_published: { operated_by: null },
+    });
+    const findings = run(
+      [
+        correction({
+          field: 'operated_by',
+          aoe_value: null,
+          our_value: 'ud/somewhere',
+          evidence: {
+            class: 'cited_document',
+            document: 'Act 170 merger order',
+            document_url: 'https://example.invalid/order.pdf',
+            document_path: null,
+            retrieved: '2026-07-31',
+            quote: 'The district shall be operated by the union district effective July 1, 2026.',
+          },
+        }),
+      ],
+      e,
+    );
+    expect(findings).toEqual([]);
+  });
+
+  it('blames AOE for divergence only where the premise was actually confirmed', () => {
+    const e = entity({ aoe_published: { website: 'https://third.example.invalid/' } });
+    const [checkable] = run([correction()], e);
+    expect(checkable?.rule).toBe('correction-diverged');
+    expect(checkable?.message).toContain('has moved on');
+
+    // member_towns has no readable premise, so the message must offer both
+    // explanations rather than asserting the one it cannot distinguish.
+    const su = entity({
+      member_towns: ['town/a', 'town/b'],
+      aoe_published: { member_towns: ['town/c'] },
+    });
+    const [unreadable] = run(
+      [
+        correction({
+          field: 'member_towns',
+          aoe_value: ['town/a'],
+          our_value: ['town/a', 'town/b'],
+          evidence: {
+            class: 'cited_document',
+            document: 'Act 170 merger order',
+            document_url: 'https://example.invalid/order.pdf',
+            document_path: null,
+            retrieved: '2026-07-31',
+            quote: 'The towns of A and B shall constitute the district.',
+          },
+        }),
+      ],
+      su,
+    );
+    expect(unreadable?.rule).toBe('correction-diverged');
+    expect(unreadable?.message).toContain('never true');
+  });
+
+  it('says so when the entity carries no AOE id to look the snapshot record up by', () => {
+    // Never produced by the sync -- every entity it writes is keyed on the org
+    // ID -- so this is a hand-edited record. It must not pass silently: a
+    // premise nobody can examine is not a premise that held.
+    // The key is REMOVED rather than set to undefined: `aoe_org_id` is an
+    // optional property, so absence is its only spelling for "no AOE ID" and
+    // there is no second one that could mean something subtly different.
+    const { aoe_org_id: _absent, ...withoutOrgId } = entity();
+    const findings = run([correction()], withoutOrgId);
+    expect(findings[0]?.rule).toBe('correction-premise-uncheckable');
+    expect(findings[0]?.severity).toBe('error');
   });
 
   it('catches two corrections claiming the same field', () => {

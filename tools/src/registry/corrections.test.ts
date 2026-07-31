@@ -226,6 +226,24 @@ describe('applyCorrections', () => {
     expect(result.manual_overrides).toEqual([]);
   });
 
+  it('refuses a field that is not on the whitelist, even though the validator also refuses it', () => {
+    // Confirmed live before this guard existed: `field: slug` rewrote the
+    // entity's slug and `field: aoe_org_id` rewrote its AOE ID. checkCorrections
+    // refuses both, so neither could reach `main` -- but the sync runs FIRST,
+    // and wrote and reported the corrupted registry before anything said no.
+    // The validator's job is to explain; this one's is to make sure a register
+    // that never passed review cannot corrupt data in the meantime.
+    const result = applyCorrections(entity(), [
+      correction({ field: 'slug', aoe_value: 'su/addison-central', our_value: 'su/hijacked' }),
+      correction({ field: 'aoe_org_id', aoe_value: 'SU003', our_value: 'SU999' }),
+    ]);
+    expect(result.slug).toBe('su/addison-central');
+    expect(result.aoe_org_id).toBe('SU003');
+    // Nor may they leave a trace claiming they were applied.
+    expect(result.manual_overrides).toEqual([]);
+    expect(result.aoe_published).toBeUndefined();
+  });
+
   it('is idempotent: applying to its own output changes nothing further', () => {
     const once = applyCorrections(entity(), [correction()]);
     // Re-running the sync must not treat our own asserted value as AOE adoption.
@@ -292,6 +310,31 @@ describe('applyCorrections', () => {
 });
 
 describe('evidenceSummary', () => {
+  it('keeps the full locator, which is the provenance record the report must not print', () => {
+    // The register and the generated manual_overrides reason are read by people
+    // with the repository in front of them, and for them the path IS the point.
+    // Suppressing the locator is the report's job (see reportEvidence), and
+    // doing it here instead would destroy the provenance to fix the rendering.
+    expect(
+      evidenceSummary({
+        class: 'derived_artifact',
+        path: 'derived/school-municipality/vt.yaml',
+        provenance_sha256: 'a'.repeat(64),
+        observation: 'Point-in-polygon match.',
+      }),
+    ).toContain('derived/school-municipality/vt.yaml');
+    expect(
+      evidenceSummary({
+        class: 'cited_document',
+        document: 'Board minutes',
+        document_url: null,
+        document_path: 'intake/acsd/2026-05-minutes.pdf',
+        retrieved: '2026-07-31',
+        quote: 'A sentence.',
+      }),
+    ).toContain('intake/acsd/2026-05-minutes.pdf');
+  });
+
   it('renders a retrieval as a checkable one-liner', () => {
     expect(evidenceSummary(correction().evidence)).toBe(
       'Retrieved https://new.example.invalid/ on 2026-07-31: Serves the district site.',
