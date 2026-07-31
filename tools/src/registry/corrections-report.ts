@@ -5,7 +5,11 @@
  * ours. Every row is keyed on the OrgID and organization name THEY use, and no
  * repo slug appears anywhere in the output. `su/addison-central` is an internal
  * identifier; `SU003 — Addison Central Supervisory District` is a record they
- * can open.
+ * can open. That includes VALUES, not just the row's subject: `operated_by`,
+ * `supervisory_union`, `member_towns`, and `municipality` are themselves
+ * registry references, so a corrected `member_towns` list is exactly as much
+ * a leak as an unresolved subject would be if it printed `town/calais`
+ * instead of `T042 — Calais`.
  *
  * The report closes by naming what AOE has already adopted. That section is not
  * politeness -- a data steward who can see their previous effort landed is a
@@ -34,24 +38,61 @@ export interface ReportRow {
   readonly status: CorrectionStatus;
 }
 
-export function formatValue(v: CorrectionValue): string {
+/**
+ * Mirrors `$defs.entity_ref` in `schemas/common-1.0.schema.json` (itself
+ * already mirrored once, as `ENTITY_REF` in `tools/src/validate/rules.ts`).
+ * `source/` is left out on purpose: none of the four entity-ref-valued
+ * correctable fields (`operated_by`, `supervisory_union`, `member_towns`,
+ * `municipality`) can hold one -- that prefix names a data publisher, not an
+ * organization the registry carries a record for. If the schema pattern ever
+ * changes, all copies must change together.
+ */
+const ENTITY_REF = /^(su|sd|ud|school|town|academy|techcenter|independent|state)\/[a-z0-9]+(-[a-z0-9]+)*$/;
+
+/**
+ * A correction value that merely looks like a slug (a URL, a name) is printed
+ * as-is. One that IS a slug -- `operated_by`, `member_towns`, and the like are
+ * registry references, not descriptive text -- must resolve to the
+ * organization AOE's system knows, or the report leaks exactly the kind of
+ * internal identifier the module header says never appears here.
+ */
+function formatScalar(v: string | number, registry: ReadonlyMap<string, RegistryEntity>): string {
+  if (typeof v === 'number' || !ENTITY_REF.test(v)) return String(v);
+  const referenced = registry.get(v);
+  // Already an error the validator catches (correction-unknown-entity,
+  // registry-reference); the report's job is to say so plainly, not to make
+  // the dangling reference worse by printing our internal slug for it.
+  if (!referenced) return '(organization not in the registry)';
+  return `${referenced.aoe_org_id ?? '(no AOE ID)'} — ${referenced.name}`;
+}
+
+export function formatValue(v: CorrectionValue, registry: ReadonlyMap<string, RegistryEntity>): string {
   if (v === null) return '(none published)';
-  if (Array.isArray(v)) return v.join('; ');
-  return String(v);
+  if (Array.isArray(v)) return v.map((x) => formatScalar(x, registry)).join('; ');
+  // Array.isArray narrows the true branch to `readonly string[]` but, being a
+  // guard written for mutable arrays, does not narrow it OUT of this branch --
+  // `v` is still typed `string | number | readonly string[]` here even though
+  // the array case is already handled above.
+  return formatScalar(v as string | number, registry);
 }
 
 function checkedDate(c: Correction): string {
   return c.evidence.class === 'derived_artifact' ? c.submitted_date : c.evidence.retrieved;
 }
 
-function rowFor(c: Correction, entity: RegistryEntity, oldValue: CorrectionValue): ReportRow {
+function rowFor(
+  c: Correction,
+  entity: RegistryEntity,
+  oldValue: CorrectionValue,
+  registry: ReadonlyMap<string, RegistryEntity>,
+): ReportRow {
   return {
     org_id: entity.aoe_org_id ?? '(no AOE ID)',
     org_name: entity.name,
     entity_type: entity.type,
     field_name: c.field,
-    old_value: formatValue(oldValue),
-    new_value: formatValue(c.our_value),
+    old_value: formatValue(oldValue, registry),
+    new_value: formatValue(c.our_value, registry),
     evidence: evidenceSummary(c.evidence),
     checked_date: checkedDate(c),
     status: c.status,
@@ -73,7 +114,7 @@ export function reportRows(
     if (published === undefined) continue; // retired, i.e. adopted
     if (upstreamState(c, published) === 'adopted') continue;
 
-    rows.push(rowFor(c, entity, published));
+    rows.push(rowFor(c, entity, published, registry));
   }
   return rows;
 }
@@ -97,7 +138,7 @@ export function adoptedRows(
     const current = entity[c.field as keyof RegistryEntity] as CorrectionValue;
     if (!valuesEqual(current, c.our_value)) continue;
 
-    rows.push(rowFor(c, entity, c.aoe_value));
+    rows.push(rowFor(c, entity, c.aoe_value, registry));
   }
   return rows;
 }
