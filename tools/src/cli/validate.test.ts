@@ -65,6 +65,42 @@ describe('correctionsFindings', () => {
     // crash on `c.evidence.class` abort the block before its schema finding
     // could be returned, and reported the whole register as "unreadable"
     // instead of naming the one missing field.
+    //
+    // The correction must resolve to a REAL registry entity here, unlike the
+    // shared empty `registry` used above: checkCorrections stops at
+    // correction-unknown-entity before it ever reaches the evidence-tier
+    // dereference this test means to exercise, so an empty registry made this
+    // test pass against both the broken and the fixed code -- proving
+    // nothing. That was caught in review; see the fix report.
+    const populatedRegistry: ReadonlyMap<string, RegistryEntity> = new Map([
+      [
+        'su/addison-central',
+        {
+          slug: 'su/addison-central',
+          name: 'Addison Central Supervisory District',
+          type: 'su',
+          aoe_org_id: 'SU003',
+          aoe_server_id: 6,
+          edfi_id: 9003,
+          effective_from: '2026-07-29',
+          effective_from_basis: 'first_observed',
+          effective_to: null,
+          effective_to_basis: 'unknown',
+          successor: null,
+          successor_basis: null,
+          supervisory_union: null,
+          operated_by: null,
+          reporting_only: false,
+          member_towns: [],
+          grades: [],
+          website: 'http://old.example.invalid/',
+          latitude: null,
+          longitude: null,
+          manual_overrides: [],
+          notes: null,
+        },
+      ],
+    ]);
     const path = join(dir, 'corrections.yaml');
     writeFileSync(
       path,
@@ -84,8 +120,8 @@ describe('correctionsFindings', () => {
         '',
       ].join('\n'),
     );
-    expect(() => correctionsFindings(path, registry)).not.toThrow();
-    const findings = correctionsFindings(path, registry);
+    expect(() => correctionsFindings(path, populatedRegistry)).not.toThrow();
+    const findings = correctionsFindings(path, populatedRegistry);
     expect(findings.some((f) => f.rule === 'schema:corrections')).toBe(true);
     expect(findings.map((f) => f.rule)).not.toContain('corrections-unreadable');
   });
