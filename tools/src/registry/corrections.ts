@@ -205,19 +205,24 @@ export function evidenceSummary(e: Evidence): string {
 /**
  * Applies the register to a freshly normalized entity.
  *
- * MUST be given an entity carrying AOE's values, straight from the snapshot.
+ * MUST be given an entity carrying ONLY AOE's values, straight from the
+ * snapshot -- never a value this function (or a prior sync) already asserted.
  * Given an already-corrected entity it would read our own assertion as AOE
- * agreement and retire the correction -- which is exactly why this replaced the
+ * agreement and retire the correction, which is exactly why this replaced the
  * old `applyOverrides`, whose habit of reading the previous registry state is
- * what made overrides immortal.
+ * what made overrides immortal. Guaranteeing that input is the CALLER's job,
+ * not this function's -- see the `municipality` handling in sync.ts's
+ * `schoolFields`, which exists only because that field has no AOE value to
+ * fall back on and once carried the prior registry's (i.e. our own) value
+ * forward by mistake.
  */
 export function applyCorrections(
   entity: RegistryEntity,
   corrections: readonly Correction[],
 ): RegistryEntity {
-  const next = { ...entity } as Record<string, unknown>;
   const published: Record<string, CorrectionValue> = {};
   const overrides: ManualOverride[] = [];
+  const patch: Record<string, unknown> = {};
 
   for (const c of corrections) {
     if (c.status === 'withdrawn') continue;
@@ -225,7 +230,7 @@ export function applyCorrections(
     const aoeValue = entity[c.field as keyof RegistryEntity] as CorrectionValue;
     if (upstreamState(c, aoeValue) === 'adopted') continue;
 
-    next[c.field] = c.our_value;
+    patch[c.field] = c.our_value;
     published[c.field] = aoeValue;
     overrides.push({
       field: c.field,
@@ -237,23 +242,39 @@ export function applyCorrections(
     // Correcting a municipality must move its basis too, or the basis goes on
     // claiming a point-in-polygon provenance the value no longer has.
     if (c.field === 'municipality') {
-      next['municipality_basis'] = c.evidence.class === 'derived_artifact'
+      patch['municipality_basis'] = c.evidence.class === 'derived_artifact'
         ? 'census_geocoder_point_in_polygon'
         : 'manual';
     }
   }
 
+  // `aoe_published` and `manual_overrides` are stripped out and reappended at
+  // the end, in that order, rather than folded into a spread-and-patch of
+  // `entity`: the type and schema both declare `aoe_published` immediately
+  // before `manual_overrides`, and store.ts pretty-prints one field per line
+  // specifically so a sync diff stays readable, so the two fields this
+  // function owns must serialize in the order a reader expects, not wherever
+  // an object spread happens to leave them (a fresh key from a plain
+  // `next['aoe_published'] = ...` assignment lands at the very end, after
+  // `notes`). Stripping the entity's own `aoe_published` first also matters
+  // on its merits: without it, a stale map from an adopted correction could
+  // survive under `rest` even though `published` below is empty for it.
+  const {
+    manual_overrides: _manualOverrides,
+    aoe_published: _aoePublished,
+    notes,
+    ...rest
+  } = entity as unknown as Record<string, unknown> & { notes: unknown };
+
+  const next: Record<string, unknown> = { ...rest, ...patch };
   // Only written when a correction is actually in force. An entity with none
   // (the common case -- ~900 of them today) must not carry an empty map: that
   // would put a key that says nothing on every record the sync touches, just
-  // to make room for the handful this register actually corrects. An entity
-  // whose last correction was just adopted loses the map entirely rather than
-  // keeping a stale one, which is why this is not a plain conditional set.
+  // to make room for the handful this register actually corrects.
   if (Object.keys(published).length > 0) {
     next['aoe_published'] = published;
-  } else {
-    delete next['aoe_published'];
   }
   next['manual_overrides'] = overrides;
+  next['notes'] = notes;
   return next as unknown as RegistryEntity;
 }

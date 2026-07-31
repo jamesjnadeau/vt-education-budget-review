@@ -155,9 +155,8 @@
 
         "aoe_published": {
           "type": "object",
-          "description": "What AOE publishes for each field currently under correction, kept alongside the corrected value rather than reconciled with it. A field leaves this map the moment AOE adopts the correction. Written by the sync from registry/corrections.yaml; do not hand-edit.",
-          "additionalProperties": true,
-          "default": {}
+          "description": "What AOE publishes for each field currently under correction, kept alongside the corrected value rather than reconciled with it. Absent entirely -- never an empty object -- when no correction is in force for this entity. A field leaves this map the moment AOE adopts the correction. Written by the sync from registry/corrections.yaml; do not hand-edit.",
+          "additionalProperties": true
         },
         "manual_overrides": {
           "type": "array",

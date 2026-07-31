@@ -235,6 +235,60 @@ describe('applyCorrections', () => {
     const twice = applyCorrections(once, [correction()]);
     expect(twice.manual_overrides.length).toBeLessThanOrEqual(1);
   });
+
+  it('serializes aoe_published immediately before manual_overrides, not after notes', () => {
+    // store.ts pretty-prints one field per line specifically so a sync diff
+    // stays readable. The type and schema both declare this order; nothing
+    // enforces it at runtime except this test, so a future refactor that goes
+    // back to a plain `next['aoe_published'] = ...` assignment (which appends
+    // after `notes`, since a fresh entity never already has the key) would
+    // pass every other test here and still regress the diff quality.
+    const result = applyCorrections(entity({ notes: 'a note' }), [correction()]);
+    const keys = Object.keys(result);
+    expect(keys.indexOf('aoe_published')).toBeLessThan(keys.indexOf('manual_overrides'));
+    expect(keys.indexOf('manual_overrides')).toBeLessThan(keys.indexOf('notes'));
+  });
+
+  describe('a municipality correction moves municipality_basis with it', () => {
+    // The one piece of field-specific logic in this function, and the branch
+    // that would notice nothing if it inverted: both outcomes look identical
+    // to every OTHER assertion in this file, since neither is `website`.
+    it('sets census_geocoder_point_in_polygon when the evidence is a derived artifact', () => {
+      const c = correction({
+        field: 'municipality',
+        aoe_value: null,
+        our_value: 'town/vergennes',
+        evidence: {
+          class: 'derived_artifact',
+          path: 'derived/school-municipality/vt-school-municipality.yaml',
+          provenance_sha256: 'a'.repeat(64),
+          observation: 'Point-in-polygon geocode places the building in Vergennes.',
+        },
+      });
+      const result = applyCorrections(entity({ municipality: null }), [c]);
+      expect(result.municipality).toBe('town/vergennes');
+      expect(result.municipality_basis).toBe('census_geocoder_point_in_polygon');
+    });
+
+    it('sets manual for any other evidence class', () => {
+      const c = correction({
+        field: 'municipality',
+        aoe_value: null,
+        our_value: 'town/vergennes',
+        evidence: {
+          class: 'cited_document',
+          document: 'Town clerk confirmation',
+          document_url: null,
+          document_path: null,
+          retrieved: '2026-07-31',
+          quote: 'The building sits within Vergennes town lines.',
+        },
+      });
+      const result = applyCorrections(entity({ municipality: null }), [c]);
+      expect(result.municipality).toBe('town/vergennes');
+      expect(result.municipality_basis).toBe('manual');
+    });
+  });
 });
 
 describe('evidenceSummary', () => {

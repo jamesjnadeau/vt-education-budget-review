@@ -86,10 +86,23 @@ const SCHOOL_TYPES: Partial<Record<EntityType, RegistryEntity['school_type']>> =
  *   several towns, so wiring MailingCity into the field the sparse screen reads
  *   would put a plausible wrong town behind a statutory test. The mailing city
  *   is recorded under its own name; the municipality arrives from the point-in-
- *   polygon geocode in `derived/school-municipality/`, or from a human.
+ *   polygon geocode in `derived/school-municipality/`, or from a human -- in
+ *   both cases through a `municipality` correction in the register, which is
+ *   the ONLY route into this field (`writeRegistry` is never called from the
+ *   geocode tool). It MUST start here as AOE's actual value, which is null:
+ *   AOE never publishes a municipality at all. Carrying `prior.municipality`
+ *   forward, the way `geocode_precision` below does, would hand `applyCorrections`
+ *   an entity that already carries OUR asserted value from the last sync --
+ *   which reads as AOE having agreed with us, and retires a correction AOE
+ *   never touched. `applyCorrections` is only correct on an entity carrying
+ *   AOE's values; guaranteeing that is this function's job, not its caller's.
+ *   A correction still in force re-derives the value every sync regardless.
  *
  *   `geocode_precision` -- AOE states none, so the sync says `unknown` rather
  *   than assuming rooftop. The distance criterion declines at that precision.
+ *   Unlike `municipality` this field is not in `FIELD_CLASS` (not correctable),
+ *   so there is no register to re-derive it and carrying it forward from prior
+ *   is the only way a hand-set value would ever survive a sync.
  */
 function schoolFields(
   type: EntityType,
@@ -105,10 +118,11 @@ function schoolFields(
     grade_span: span,
     grade_span_class: gradeSpanClassOf(span),
     mailing_city: raw.MailingCity ?? null,
-    // Preserved across syncs: whatever established these did not come from the
-    // API, so the API must not be able to erase them.
-    municipality: prior?.municipality ?? null,
-    municipality_basis: prior?.municipality_basis ?? 'unknown',
+    municipality: null,
+    municipality_basis: 'unknown',
+    // Preserved across syncs: whatever established this did not come from the
+    // API, so the API must not be able to erase it. Safe only because this
+    // field carries no correction of its own -- see the comment above.
     geocode_precision: prior?.geocode_precision ?? 'unknown',
     school_type: schoolType,
   };
@@ -366,6 +380,11 @@ const DIFFED_FIELDS: ReadonlyArray<keyof RegistryEntity> = [
   'member_towns',
   'grades',
   'website',
+  // Without this, AOE moving a corrected field to some third value produces
+  // no diffed field at all -- we hold our own value throughout, so nothing
+  // else here changes -- and the one event a correction most needs a human to
+  // notice (AOE diverged further, rather than agreeing) reads as "0 changes."
+  'aoe_published',
 ];
 
 /**

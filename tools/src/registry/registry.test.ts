@@ -308,6 +308,60 @@ describe('normalizing a snapshot', () => {
     // Fields not under a correction still track the API.
     expect(town?.supervisory_union).toBe('su/addison-northwest');
   });
+
+  it('keeps a municipality correction in force across two syncs in a row', () => {
+    // Regression pin: AOE publishes no municipality at all, ever -- the API
+    // has no such field. `schoolFields` in sync.ts used to carry
+    // `prior.municipality` forward the same way it does `geocode_precision`,
+    // so on the SECOND sync the entity handed to `applyCorrections` already
+    // carried OUR asserted value where AOE's silence belongs. `upstreamState`
+    // then read that as AOE having agreed with a claim it never saw, and the
+    // correction retired itself: `aoe_published` vanished, the override
+    // count dropped to zero, and the value itself survived only as an
+    // unattributed field still claiming a provenance it no longer had. Two
+    // real syncs in a row, not one, is the only way to catch that -- a
+    // single sync's "prior" is always empty and can't leak anything.
+    const correction: Correction = {
+      slug: 'school/vergennes-union-high-school',
+      field: 'municipality',
+      aoe_value: null,
+      aoe_value_observed: '2026-07-29',
+      our_value: 'town/vergennes',
+      evidence: {
+        class: 'derived_artifact',
+        path: 'derived/school-municipality/vt-school-municipality.yaml',
+        provenance_sha256: 'a'.repeat(64),
+        observation: 'Point-in-polygon geocode places the building in Vergennes.',
+      },
+      submitted_by: 'jn',
+      submitted_date: '2026-07-29',
+      status: 'open',
+      sent_date: null,
+      note: null,
+    };
+
+    const first = normalizeSnapshot(SNAPSHOT, {
+      existing: new Map(),
+      today: '2026-07-29',
+      corrections: [correction],
+    });
+    const school1 = first.entities.find((e) => e.slug === 'school/vergennes-union-high-school');
+    expect(school1?.municipality).toBe('town/vergennes');
+    expect(school1?.aoe_published?.['municipality']).toBeNull();
+    expect(school1?.manual_overrides).toHaveLength(1);
+
+    const existing = new Map(first.entities.map((e) => [e.slug, e]));
+    const second = normalizeSnapshot(SNAPSHOT, {
+      existing,
+      today: '2027-01-01',
+      corrections: [correction],
+    });
+    const school2 = second.entities.find((e) => e.slug === 'school/vergennes-union-high-school');
+
+    expect(school2?.municipality).toBe('town/vergennes');
+    expect(school2?.aoe_published?.['municipality']).toBeNull();
+    expect(school2?.manual_overrides).toHaveLength(1);
+  });
 });
 
 describe('diffing, which is the body of the nightly sync PR', () => {
@@ -357,5 +411,37 @@ describe('diffing, which is the body of the nightly sync PR', () => {
     const change = diffRegistry(before, after)[0];
     expect(change?.kind).toBe('modified');
     expect(change?.fields).toContain('grades');
+  });
+
+  it('reports AOE diverging further on a corrected field, not just AOE adopting it', () => {
+    // The event a correction most needs a human to see. While a correction is
+    // outstanding we hold our own value throughout, so no OTHER diffed field
+    // moves -- `website` here stays exactly what we asserted, both before and
+    // after. Without `aoe_published` in DIFFED_FIELDS this produced "0
+    // change(s)" in the changelog even though the committed file changed:
+    // the one figure that says whether AOE has come around moved from one
+    // published value to a different one, unseen.
+    const su = before.get('su/addison-northwest');
+    if (!su) throw new Error('fixture');
+
+    const before2 = new Map(before);
+    before2.set('su/addison-northwest', {
+      ...su,
+      website: 'https://corrected.example.invalid/',
+      aoe_published: { website: 'http://old.example.invalid/' },
+    });
+    const after = new Map(before2);
+    after.set('su/addison-northwest', {
+      ...su,
+      website: 'https://corrected.example.invalid/',
+      aoe_published: { website: 'https://third.example.invalid/' },
+    });
+
+    const changes = diffRegistry(before2, after);
+    expect(changes).toHaveLength(1);
+    expect(changes[0]?.kind).toBe('modified');
+    expect(changes[0]?.fields).toContain('aoe_published');
+    // The genuinely corrected field itself did not move -- only AOE's figure did.
+    expect(changes[0]?.fields).not.toContain('website');
   });
 });
