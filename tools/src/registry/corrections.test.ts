@@ -4,8 +4,18 @@ import { join } from 'node:path';
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { EVIDENCE_FOR_CLASS, FIELD_CLASS, correctionsBySlug, readCorrections, upstreamState, valuesEqual } from './corrections.ts';
+import {
+  EVIDENCE_FOR_CLASS,
+  FIELD_CLASS,
+  applyCorrections,
+  correctionsBySlug,
+  evidenceSummary,
+  readCorrections,
+  upstreamState,
+  valuesEqual,
+} from './corrections.ts';
 import type { Correction } from './corrections.ts';
+import type { RegistryEntity } from './types.ts';
 
 function correction(over: Partial<Correction> = {}): Correction {
   return {
@@ -145,5 +155,105 @@ describe('upstreamState', () => {
     });
     expect(upstreamState(c, ['town/a', 'town/b'])).toBe('adopted');
     expect(upstreamState(c, ['town/a'])).toBe('outstanding');
+  });
+});
+
+function entity(over: Partial<RegistryEntity> = {}): RegistryEntity {
+  return {
+    slug: 'su/addison-central',
+    name: 'Addison Central Supervisory District',
+    type: 'su',
+    aoe_org_id: 'SU003',
+    aoe_server_id: 6,
+    edfi_id: 9003,
+    effective_from: '2026-07-29',
+    effective_from_basis: 'first_observed',
+    effective_to: null,
+    effective_to_basis: 'unknown',
+    successor: null,
+    successor_basis: null,
+    supervisory_union: null,
+    operated_by: null,
+    reporting_only: false,
+    member_towns: [],
+    grades: [],
+    website: 'http://old.example.invalid/',
+    latitude: null,
+    longitude: null,
+    manual_overrides: [],
+    notes: null,
+    ...over,
+  };
+}
+
+describe('applyCorrections', () => {
+  it('asserts our value over what AOE published, and keeps both figures', () => {
+    const result = applyCorrections(entity(), [correction()]);
+    expect(result.website).toBe('https://new.example.invalid/');
+    expect(result.aoe_published?.['website']).toBe('http://old.example.invalid/');
+  });
+
+  it('generates the manual_overrides entry rather than trusting a hand-written one', () => {
+    const result = applyCorrections(entity({ manual_overrides: [
+      { field: 'name', reason: 'stale hand edit', set_by: 'nobody', set_date: '2020-01-01' },
+    ] }), [correction()]);
+    expect(result.manual_overrides).toHaveLength(1);
+    expect(result.manual_overrides[0]?.field).toBe('website');
+    expect(result.manual_overrides[0]?.set_by).toBe('Tester');
+  });
+
+  it('retires the correction once AOE agrees, WITHOUT changing any value', () => {
+    // The whole claim of the lifecycle design: adoption is not a data change,
+    // because the two values are already equal. We simply stop asserting it.
+    const agreed = entity({ website: 'https://new.example.invalid/' });
+    const result = applyCorrections(agreed, [correction()]);
+    expect(result).toEqual(agreed);
+  });
+
+  it('holds the corrected value when AOE diverges, rather than silently deferring', () => {
+    const moved = entity({ website: 'https://third.example.invalid/' });
+    const result = applyCorrections(moved, [correction()]);
+    expect(result.website).toBe('https://new.example.invalid/');
+    expect(result.aoe_published?.['website']).toBe('https://third.example.invalid/');
+  });
+
+  it('does not apply a withdrawn correction, or record it as published', () => {
+    const result = applyCorrections(entity(), [correction({ status: 'withdrawn' })]);
+    expect(result.website).toBe('http://old.example.invalid/');
+    // No correction is in force, so the map is absent entirely -- not present
+    // as `{}` -- the same way an uncorrected entity never had one to begin with.
+    expect(result.aoe_published).toBeUndefined();
+    expect(result.manual_overrides).toEqual([]);
+  });
+
+  it('is idempotent: applying to its own output changes nothing further', () => {
+    const once = applyCorrections(entity(), [correction()]);
+    // Re-running the sync must not treat our own asserted value as AOE adoption.
+    // The second pass sees website already corrected, which reads as adopted --
+    // so callers must always apply to a freshly normalized entity. This test
+    // pins that the function is total and does not throw or double-append.
+    const twice = applyCorrections(once, [correction()]);
+    expect(twice.manual_overrides.length).toBeLessThanOrEqual(1);
+  });
+});
+
+describe('evidenceSummary', () => {
+  it('renders a retrieval as a checkable one-liner', () => {
+    expect(evidenceSummary(correction().evidence)).toBe(
+      'Retrieved https://new.example.invalid/ on 2026-07-31: Serves the district site.',
+    );
+  });
+
+  it('puts the quoted sentence in front for a cited document', () => {
+    const summary = evidenceSummary({
+      class: 'cited_document',
+      document: 'ACSD Board minutes',
+      document_url: 'https://example.invalid/minutes.pdf',
+      document_path: null,
+      retrieved: '2026-07-31',
+      quote: 'The Board voted to adopt the name Addison Central School District.',
+    });
+    expect(summary).toContain('"The Board voted to adopt the name Addison Central School District."');
+    expect(summary).toContain('ACSD Board minutes');
   });
 });

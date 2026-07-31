@@ -20,6 +20,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { parse as parseYaml } from 'yaml';
 
 import { PATHS, rel } from '../paths.ts';
+import type { ManualOverride, RegistryEntity } from './types.ts';
 
 export type CorrectionStatus = 'open' | 'sent' | 'withdrawn';
 
@@ -186,4 +187,73 @@ export function readCorrections(path: string = PATHS.corrections): CorrectionsFi
   }
 
   return { schema_version: '1.0', corrections: corrections as Correction[] };
+}
+
+export function evidenceSummary(e: Evidence): string {
+  switch (e.class) {
+    case 'retrieved_url':
+      return `Retrieved ${e.url} on ${e.retrieved}: ${e.observation}`;
+    case 'cited_document': {
+      const where = e.document_url ?? e.document_path ?? 'no locator recorded';
+      return `${e.document} (${where}), retrieved ${e.retrieved}: "${e.quote}"`;
+    }
+    case 'derived_artifact':
+      return `Derived at ${e.path} (sha256 ${e.provenance_sha256.slice(0, 12)}…): ${e.observation}`;
+  }
+}
+
+/**
+ * Applies the register to a freshly normalized entity.
+ *
+ * MUST be given an entity carrying AOE's values, straight from the snapshot.
+ * Given an already-corrected entity it would read our own assertion as AOE
+ * agreement and retire the correction -- which is exactly why this replaced the
+ * old `applyOverrides`, whose habit of reading the previous registry state is
+ * what made overrides immortal.
+ */
+export function applyCorrections(
+  entity: RegistryEntity,
+  corrections: readonly Correction[],
+): RegistryEntity {
+  const next = { ...entity } as Record<string, unknown>;
+  const published: Record<string, CorrectionValue> = {};
+  const overrides: ManualOverride[] = [];
+
+  for (const c of corrections) {
+    if (c.status === 'withdrawn') continue;
+
+    const aoeValue = entity[c.field as keyof RegistryEntity] as CorrectionValue;
+    if (upstreamState(c, aoeValue) === 'adopted') continue;
+
+    next[c.field] = c.our_value;
+    published[c.field] = aoeValue;
+    overrides.push({
+      field: c.field,
+      reason: `Corrected against AOE's published value. ${evidenceSummary(c.evidence)}`,
+      set_by: c.submitted_by,
+      set_date: c.submitted_date,
+    });
+
+    // Correcting a municipality must move its basis too, or the basis goes on
+    // claiming a point-in-polygon provenance the value no longer has.
+    if (c.field === 'municipality') {
+      next['municipality_basis'] = c.evidence.class === 'derived_artifact'
+        ? 'census_geocoder_point_in_polygon'
+        : 'manual';
+    }
+  }
+
+  // Only written when a correction is actually in force. An entity with none
+  // (the common case -- ~900 of them today) must not carry an empty map: that
+  // would put a key that says nothing on every record the sync touches, just
+  // to make room for the handful this register actually corrects. An entity
+  // whose last correction was just adopted loses the map entirely rather than
+  // keeping a stale one, which is why this is not a plain conditional set.
+  if (Object.keys(published).length > 0) {
+    next['aoe_published'] = published;
+  } else {
+    delete next['aoe_published'];
+  }
+  next['manual_overrides'] = overrides;
+  return next as unknown as RegistryEntity;
 }

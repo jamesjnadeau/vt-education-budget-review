@@ -78,6 +78,18 @@ export interface RegistryEntity {
   readonly geocode_precision?: 'rooftop' | 'parcel' | 'street' | 'municipality_centroid' | 'unknown';
   readonly school_type?: 'public' | 'approved_independent' | 'career_technical_center' | 'other' | null;
 
+  /**
+   * What AOE publishes for each field currently under correction.
+   *
+   * Both figures are kept and never reconciled, the same way a budget record
+   * keeps a district's printed per-pupil figure alongside our recomputation.
+   * A field disappears from here the moment AOE adopts the correction, which is
+   * what "the override retires itself" means in the data. Absent entirely on
+   * an entity with no correction in force -- never an empty object -- so the
+   * ~900 uncorrected entities don't each carry a key that says nothing.
+   */
+  readonly aoe_published?: Readonly<Record<string, string | number | null | readonly string[]>>;
+
   readonly manual_overrides: readonly ManualOverride[];
   readonly notes: string | null;
 }

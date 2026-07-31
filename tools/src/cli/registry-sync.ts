@@ -15,6 +15,7 @@
 import { writeFileSync } from 'node:fs';
 
 import { fetchAll } from '../registry/aoe-client.ts';
+import { readCorrections } from '../registry/corrections.ts';
 import { diffRegistry, normalizeSnapshot, type Change } from '../registry/sync.ts';
 import { listSnapshots, readRegistry, readSnapshot, writeRegistry, writeSnapshot } from '../registry/store.ts';
 import type { RegistryEntity } from '../registry/types.ts';
@@ -107,7 +108,15 @@ async function main(): Promise<number> {
     }
   }
 
-  const { entities, warnings, notTracked } = normalizeSnapshot(snapshot, { existing, today: date });
+  const register = readCorrections();
+  if (register.corrections.length > 0) {
+    console.log(`\nApplying ${register.corrections.length} correction(s) from registry/corrections.yaml.`);
+  }
+  const { entities, warnings, notTracked } = normalizeSnapshot(snapshot, {
+    existing,
+    today: date,
+    corrections: register.corrections,
+  });
 
   const after = new Map<string, RegistryEntity>(entities.map((e) => [e.slug, e]));
   const changes = diffRegistry(existing, after);
