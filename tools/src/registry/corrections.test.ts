@@ -1,0 +1,464 @@
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { parse as parseYaml } from 'yaml';
+
+import {
+  EVIDENCE_FOR_CLASS,
+  FIELD_CLASS,
+  applyCorrections,
+  correctionsBySlug,
+  evidenceSummary,
+  isOutstanding,
+  markSent,
+  readCorrections,
+  upstreamState,
+  valuesEqual,
+} from './corrections.ts';
+import type { Correction } from './corrections.ts';
+import type { RegistryEntity } from './types.ts';
+
+function correction(over: Partial<Correction> = {}): Correction {
+  return {
+    slug: 'su/addison-central',
+    field: 'website',
+    aoe_value: 'http://old.example.invalid/',
+    aoe_value_observed: '2026-07-29',
+    our_value: 'https://new.example.invalid/',
+    evidence: {
+      class: 'retrieved_url',
+      url: 'https://new.example.invalid/',
+      retrieved: '2026-07-31',
+      observation: 'Serves the district site.',
+    },
+    submitted_by: 'Tester',
+    submitted_date: '2026-07-31',
+    status: 'open',
+    sent_date: null,
+    recipient: null,
+    note: null,
+    ...over,
+  };
+}
+
+describe('the field tier table', () => {
+  it('is the whitelist: a field absent from it is not correctable', () => {
+    expect(FIELD_CLASS['website']).toBe('contact');
+    expect(FIELD_CLASS['operated_by']).toBe('structural');
+    expect(FIELD_CLASS['aoe_org_id']).toBeUndefined();
+    expect(FIELD_CLASS['slug']).toBeUndefined();
+  });
+
+  it('demands a cited document wherever a wrong value would move model output', () => {
+    expect(EVIDENCE_FOR_CLASS['structural']).toEqual(['cited_document']);
+    expect(EVIDENCE_FOR_CLASS['identity']).toEqual(['cited_document']);
+    expect(EVIDENCE_FOR_CLASS['contact']).toEqual(['retrieved_url']);
+    expect(EVIDENCE_FOR_CLASS['spatial']).toEqual(['cited_document', 'derived_artifact']);
+  });
+});
+
+describe('valuesEqual', () => {
+  it('compares list-valued fields by content, not identity', () => {
+    expect(valuesEqual(['town/a', 'town/b'], ['town/a', 'town/b'])).toBe(true);
+    expect(valuesEqual(['town/a'], ['town/a', 'town/b'])).toBe(false);
+  });
+
+  it('does not treat null and the empty string as the same absence', () => {
+    expect(valuesEqual(null, '')).toBe(false);
+    expect(valuesEqual(null, null)).toBe(true);
+  });
+});
+
+describe('correctionsBySlug', () => {
+  it('groups every correction under its entity, preserving file order', () => {
+    const grouped = correctionsBySlug([
+      correction({ field: 'website' }),
+      correction({ field: 'name', our_value: 'A' }),
+      correction({ slug: 'town/calais' }),
+    ]);
+    expect(grouped.get('su/addison-central')?.map((c) => c.field)).toEqual(['website', 'name']);
+    expect(grouped.get('town/calais')).toHaveLength(1);
+  });
+});
+
+describe('readCorrections', () => {
+  let dir: string;
+
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), 'corrections-test-'));
+  });
+
+  afterEach(() => {
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it('treats a genuinely absent file as an empty register, not an error', () => {
+    expect(readCorrections(join(dir, 'does-not-exist.yaml'))).toEqual({
+      schema_version: '1.0',
+      corrections: [],
+    });
+  });
+
+  it('treats an explicit empty corrections list as an empty register, not an error', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'schema_version: "1.0"\ncorrections: []\n');
+    expect(readCorrections(path)).toEqual({ schema_version: '1.0', corrections: [] });
+  });
+
+  it('throws on the corrections/correction typo rather than silently discarding every claim', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'schema_version: "1.0"\ncorrection: []\n');
+    expect(() => readCorrections(path)).toThrow(/unrecognized key/i);
+  });
+
+  it('throws when corrections is present but not an array', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'schema_version: "1.0"\ncorrections: "oops"\n');
+    expect(() => readCorrections(path)).toThrow(/must be an array/i);
+  });
+
+  it('throws on a bare-scalar document instead of pretending it is an empty register', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, 'just a string\n');
+    expect(() => readCorrections(path)).toThrow(/expected an object/i);
+  });
+
+  it('throws on an array-shaped document instead of pretending it is an empty register', () => {
+    const path = join(dir, 'corrections.yaml');
+    writeFileSync(path, '- one\n- two\n');
+    expect(() => readCorrections(path)).toThrow(/expected an object/i);
+  });
+});
+
+describe('upstreamState', () => {
+  it('is adopted once AOE publishes the value we asserted', () => {
+    expect(upstreamState(correction(), 'https://new.example.invalid/')).toBe('adopted');
+  });
+
+  it('is outstanding while AOE still publishes what we objected to', () => {
+    expect(upstreamState(correction(), 'http://old.example.invalid/')).toBe('outstanding');
+  });
+
+  it('is diverged when AOE has moved to some third value', () => {
+    expect(upstreamState(correction(), 'https://third.example.invalid/')).toBe('diverged');
+  });
+
+  it('treats AOE dropping the field entirely as divergence, not adoption', () => {
+    // Null is not agreement. Reading it as adoption would retire a correction
+    // because the source went silent, which is the opposite of the source agreeing.
+    expect(upstreamState(correction(), null)).toBe('diverged');
+  });
+
+  it('compares list-valued fields by content', () => {
+    const c = correction({
+      field: 'member_towns',
+      aoe_value: ['town/a'],
+      our_value: ['town/a', 'town/b'],
+    });
+    expect(upstreamState(c, ['town/a', 'town/b'])).toBe('adopted');
+    expect(upstreamState(c, ['town/a'])).toBe('outstanding');
+  });
+});
+
+function entity(over: Partial<RegistryEntity> = {}): RegistryEntity {
+  return {
+    slug: 'su/addison-central',
+    name: 'Addison Central Supervisory District',
+    type: 'su',
+    aoe_org_id: 'SU003',
+    aoe_server_id: 6,
+    edfi_id: 9003,
+    effective_from: '2026-07-29',
+    effective_from_basis: 'first_observed',
+    effective_to: null,
+    effective_to_basis: 'unknown',
+    successor: null,
+    successor_basis: null,
+    supervisory_union: null,
+    operated_by: null,
+    reporting_only: false,
+    member_towns: [],
+    grades: [],
+    website: 'http://old.example.invalid/',
+    latitude: null,
+    longitude: null,
+    manual_overrides: [],
+    notes: null,
+    ...over,
+  };
+}
+
+describe('applyCorrections', () => {
+  it('asserts our value over what AOE published, and keeps both figures', () => {
+    const result = applyCorrections(entity(), [correction()]);
+    expect(result.website).toBe('https://new.example.invalid/');
+    expect(result.aoe_published?.['website']).toBe('http://old.example.invalid/');
+  });
+
+  it('generates the manual_overrides entry rather than trusting a hand-written one', () => {
+    const result = applyCorrections(entity({ manual_overrides: [
+      { field: 'name', reason: 'stale hand edit', set_by: 'nobody', set_date: '2020-01-01' },
+    ] }), [correction()]);
+    expect(result.manual_overrides).toHaveLength(1);
+    expect(result.manual_overrides[0]?.field).toBe('website');
+    expect(result.manual_overrides[0]?.set_by).toBe('Tester');
+  });
+
+  it('retires the correction once AOE agrees, WITHOUT changing any value', () => {
+    // The whole claim of the lifecycle design: adoption is not a data change,
+    // because the two values are already equal. We simply stop asserting it.
+    const agreed = entity({ website: 'https://new.example.invalid/' });
+    const result = applyCorrections(agreed, [correction()]);
+    expect(result).toEqual(agreed);
+  });
+
+  it('holds the corrected value when AOE diverges, rather than silently deferring', () => {
+    const moved = entity({ website: 'https://third.example.invalid/' });
+    const result = applyCorrections(moved, [correction()]);
+    expect(result.website).toBe('https://new.example.invalid/');
+    expect(result.aoe_published?.['website']).toBe('https://third.example.invalid/');
+  });
+
+  it('does not apply a withdrawn correction, or record it as published', () => {
+    const result = applyCorrections(entity(), [correction({ status: 'withdrawn' })]);
+    expect(result.website).toBe('http://old.example.invalid/');
+    // No correction is in force, so the map is absent entirely -- not present
+    // as `{}` -- the same way an uncorrected entity never had one to begin with.
+    expect(result.aoe_published).toBeUndefined();
+    expect(result.manual_overrides).toEqual([]);
+  });
+
+  it('refuses a field that is not on the whitelist, even though the validator also refuses it', () => {
+    // Confirmed live before this guard existed: `field: slug` rewrote the
+    // entity's slug and `field: aoe_org_id` rewrote its AOE ID. checkCorrections
+    // refuses both, so neither could reach `main` -- but the sync runs FIRST,
+    // and wrote and reported the corrupted registry before anything said no.
+    // The validator's job is to explain; this one's is to make sure a register
+    // that never passed review cannot corrupt data in the meantime.
+    const result = applyCorrections(entity(), [
+      correction({ field: 'slug', aoe_value: 'su/addison-central', our_value: 'su/hijacked' }),
+      correction({ field: 'aoe_org_id', aoe_value: 'SU003', our_value: 'SU999' }),
+    ]);
+    expect(result.slug).toBe('su/addison-central');
+    expect(result.aoe_org_id).toBe('SU003');
+    // Nor may they leave a trace claiming they were applied.
+    expect(result.manual_overrides).toEqual([]);
+    expect(result.aoe_published).toBeUndefined();
+  });
+
+  it('is idempotent: applying to its own output changes nothing further', () => {
+    const once = applyCorrections(entity(), [correction()]);
+    // Re-running the sync must not treat our own asserted value as AOE adoption.
+    // The second pass sees website already corrected, which reads as adopted --
+    // so callers must always apply to a freshly normalized entity. This test
+    // pins that the function is total and does not throw or double-append.
+    const twice = applyCorrections(once, [correction()]);
+    expect(twice.manual_overrides.length).toBeLessThanOrEqual(1);
+  });
+
+  it('serializes aoe_published immediately before manual_overrides, not after notes', () => {
+    // store.ts pretty-prints one field per line specifically so a sync diff
+    // stays readable. The type and schema both declare this order; nothing
+    // enforces it at runtime except this test, so a future refactor that goes
+    // back to a plain `next['aoe_published'] = ...` assignment (which appends
+    // after `notes`, since a fresh entity never already has the key) would
+    // pass every other test here and still regress the diff quality.
+    const result = applyCorrections(entity({ notes: 'a note' }), [correction()]);
+    const keys = Object.keys(result);
+    expect(keys.indexOf('aoe_published')).toBeLessThan(keys.indexOf('manual_overrides'));
+    expect(keys.indexOf('manual_overrides')).toBeLessThan(keys.indexOf('notes'));
+  });
+
+  describe('a municipality correction moves municipality_basis with it', () => {
+    // The one piece of field-specific logic in this function, and the branch
+    // that would notice nothing if it inverted: both outcomes look identical
+    // to every OTHER assertion in this file, since neither is `website`.
+    it('sets census_geocoder_point_in_polygon when the evidence is a derived artifact', () => {
+      const c = correction({
+        field: 'municipality',
+        aoe_value: null,
+        our_value: 'town/vergennes',
+        evidence: {
+          class: 'derived_artifact',
+          path: 'derived/school-municipality/vt-school-municipality.yaml',
+          provenance_sha256: 'a'.repeat(64),
+          observation: 'Point-in-polygon geocode places the building in Vergennes.',
+        },
+      });
+      const result = applyCorrections(entity({ municipality: null }), [c]);
+      expect(result.municipality).toBe('town/vergennes');
+      expect(result.municipality_basis).toBe('census_geocoder_point_in_polygon');
+    });
+
+    it('sets manual for any other evidence class', () => {
+      const c = correction({
+        field: 'municipality',
+        aoe_value: null,
+        our_value: 'town/vergennes',
+        evidence: {
+          class: 'cited_document',
+          document: 'Town clerk confirmation',
+          document_url: null,
+          document_path: null,
+          retrieved: '2026-07-31',
+          quote: 'The building sits within Vergennes town lines.',
+        },
+      });
+      const result = applyCorrections(entity({ municipality: null }), [c]);
+      expect(result.municipality).toBe('town/vergennes');
+      expect(result.municipality_basis).toBe('manual');
+    });
+  });
+});
+
+describe('evidenceSummary', () => {
+  it('keeps the full locator, which is the provenance record the report must not print', () => {
+    // The register and the generated manual_overrides reason are read by people
+    // with the repository in front of them, and for them the path IS the point.
+    // Suppressing the locator is the report's job (see reportEvidence), and
+    // doing it here instead would destroy the provenance to fix the rendering.
+    expect(
+      evidenceSummary({
+        class: 'derived_artifact',
+        path: 'derived/school-municipality/vt.yaml',
+        provenance_sha256: 'a'.repeat(64),
+        observation: 'Point-in-polygon match.',
+      }),
+    ).toContain('derived/school-municipality/vt.yaml');
+    expect(
+      evidenceSummary({
+        class: 'cited_document',
+        document: 'Board minutes',
+        document_url: null,
+        document_path: 'intake/acsd/2026-05-minutes.pdf',
+        retrieved: '2026-07-31',
+        quote: 'A sentence.',
+      }),
+    ).toContain('intake/acsd/2026-05-minutes.pdf');
+  });
+
+  it('renders a retrieval as a checkable one-liner', () => {
+    expect(evidenceSummary(correction().evidence)).toBe(
+      'Retrieved https://new.example.invalid/ on 2026-07-31: Serves the district site.',
+    );
+  });
+
+  it('puts the quoted sentence in front for a cited document', () => {
+    const summary = evidenceSummary({
+      class: 'cited_document',
+      document: 'ACSD Board minutes',
+      document_url: 'https://example.invalid/minutes.pdf',
+      document_path: null,
+      retrieved: '2026-07-31',
+      quote: 'The Board voted to adopt the name Addison Central School District.',
+    });
+    expect(summary).toContain('"The Board voted to adopt the name Addison Central School District."');
+    expect(summary).toContain('ACSD Board minutes');
+  });
+});
+
+describe('isOutstanding', () => {
+  const outstanding = entity({ aoe_published: { website: 'http://old.example.invalid/' } });
+  const registry = new Map([[outstanding.slug, outstanding]]);
+
+  it('is true for an open claim AOE has not adopted', () => {
+    expect(isOutstanding(correction(), registry)).toBe(true);
+  });
+
+  it('is false once AOE has adopted the value (no aoe_published recorded)', () => {
+    const adopted = entity({ website: 'https://new.example.invalid/', aoe_published: {} });
+    expect(isOutstanding(correction(), new Map([[adopted.slug, adopted]]))).toBe(false);
+  });
+
+  it('is false for a withdrawn claim', () => {
+    expect(isOutstanding(correction({ status: 'withdrawn' }), registry)).toBe(false);
+  });
+
+  it('is false when the entity is not in the registry', () => {
+    expect(isOutstanding(correction({ slug: 'su/nowhere' }), registry)).toBe(false);
+  });
+});
+
+describe('markSent', () => {
+  const REGISTER = [
+    '# header comment that must survive a round-trip',
+    'schema_version: "1.0"',
+    'corrections:',
+    '  - slug: su/addison-central',
+    '    field: website',
+    '    aoe_value: "http://old.example.invalid/"',
+    '    aoe_value_observed: "2026-07-29"',
+    '    our_value: "https://new.example.invalid/"',
+    '    evidence:',
+    '      class: retrieved_url',
+    '      url: "https://new.example.invalid/"',
+    '      retrieved: "2026-07-31"',
+    '      observation: Serves the district site.',
+    '    submitted_by: Tester',
+    '    submitted_date: "2026-07-31"',
+    '    status: open',
+    '    sent_date: null',
+    '    note: null',
+    '  - slug: town/calais',
+    '    field: website',
+    '    aoe_value: "http://calais.invalid/"',
+    '    aoe_value_observed: "2026-07-29"',
+    '    our_value: "https://calais.example/"',
+    '    evidence:',
+    '      class: retrieved_url',
+    '      url: "https://calais.example/"',
+    '      retrieved: "2026-07-31"',
+    '      observation: Serves the town site.',
+    '    submitted_by: Tester',
+    '    submitted_date: "2026-07-31"',
+    '    status: sent',
+    '    sent_date: "2026-07-15"',
+    '    note: null',
+    '',
+  ].join('\n');
+
+  const fields = { sent_date: '2026-07-31', recipient: 'data@vermont.gov', note: null };
+  const bothKeys = new Set(['su/addison-central#website', 'town/calais#website']);
+
+  it('flips the open claim to sent and stamps who and when', () => {
+    const { text, marked } = markSent(REGISTER, bothKeys, fields);
+    expect(marked).toEqual(['su/addison-central#website']);
+
+    const parsed = parseYaml(text);
+    expect(parsed.corrections[0].status).toBe('sent');
+    expect(parsed.corrections[0].sent_date).toBe('2026-07-31');
+    expect(parsed.corrections[0].recipient).toBe('data@vermont.gov');
+  });
+
+  it('leaves an already-sent claim untouched, even when named', () => {
+    const { text } = markSent(REGISTER, bothKeys, fields);
+    const parsed = parseYaml(text);
+    expect(parsed.corrections[1].status).toBe('sent');
+    expect(parsed.corrections[1].sent_date).toBe('2026-07-15');
+  });
+
+  it('preserves the file header comment', () => {
+    const { text } = markSent(REGISTER, bothKeys, fields);
+    expect(text).toContain('# header comment that must survive a round-trip');
+  });
+
+  it('is idempotent: a second run marks nothing', () => {
+    const once = markSent(REGISTER, bothKeys, fields);
+    const twice = markSent(once.text, bothKeys, fields);
+    expect(twice.marked).toEqual([]);
+    expect(twice.text).toBe(once.text);
+  });
+
+  it('leaves an open claim that was not named alone', () => {
+    const { text, marked } = markSent(REGISTER, new Set(['town/calais#website']), fields);
+    expect(marked).toEqual([]);
+    expect(parseYaml(text).corrections[0].status).toBe('open');
+  });
+
+  it('writes a note only when one is given', () => {
+    const withNote = markSent(REGISTER, bothKeys, { ...fields, note: 'Emailed the July batch.' });
+    expect(parseYaml(withNote.text).corrections[0].note).toBe('Emailed the July batch.');
+  });
+});

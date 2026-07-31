@@ -1,0 +1,34 @@
+# Values this project asserts against what AOE publishes, with the evidence.
+#
+# A record here is a CLAIM ABOUT A NAMED SOURCE, not a local edit. It says "AOE
+# currently publishes X, and X is wrong, and here is why" -- a premise that can
+# be checked and a status that resolves itself when AOE comes to agree.
+#
+# `status` is one of open | sent | withdrawn, and those are the ONLY values a
+# human writes. Whether AOE has adopted a correction is computed each sync by
+# comparing what they publish now against `aoe_value` and `our_value`.
+#
+# Evidence is tiered by what the field can break. See FIELD_CLASS in
+# tools/src/registry/corrections.ts; `npm run validate` enforces it.
+schema_version: "1.0"
+corrections:
+  - slug: su/addison-central
+    field: website
+    aoe_value: "http://www.acsu.k12.vt.us/"
+    aoe_value_observed: "2026-07-29"
+    our_value: "https://www.acsdvt.org"
+    evidence:
+      class: retrieved_url
+      url: "https://www.acsdvt.org"
+      retrieved: "2026-07-31"
+      observation: >-
+        Returns HTTP 200 and titles itself "Addison Central School District",
+        referring to itself as ACSD throughout. The acsu.k12.vt.us host AOE
+        publishes still resolves but refuses connections on port 80 (curl exit
+        code 7, connection failure rather than name-resolution failure), so the
+        published URL reaches nothing.
+    submitted_by: "James Nadeau"
+    submitted_date: "2026-07-31"
+    status: open
+    sent_date: null
+    note: null

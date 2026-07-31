@@ -18,6 +18,7 @@
     "test:watch": "vitest",
     "typecheck": "tsc --build --force",
     "registry:sync": "tsx tools/src/cli/registry-sync.ts",
+    "registry:corrections": "tsx tools/src/cli/registry-corrections.ts",
     "validate": "tsx tools/src/cli/validate.ts",
     "coverage": "tsx tools/src/cli/coverage.ts",
     "extract": "tsx tools/src/cli/extract.ts",

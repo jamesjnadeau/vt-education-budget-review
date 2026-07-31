@@ -134,6 +134,19 @@ export function readSnapshot(date: string): Snapshot {
   return { date, endpoints };
 }
 
+/**
+ * The snapshot for a date, or null when no directory of that date exists.
+ *
+ * `readSnapshot` throws, which is right for the sync (`--from 2026-07-29` with
+ * no such snapshot is a mistyped argument, not a data finding). The validator
+ * needs the other shape: a correction naming a snapshot that is not there is a
+ * finding it must report and carry on from, alongside every other finding in
+ * the run.
+ */
+export function readSnapshotIfPresent(date: string): Snapshot | null {
+  return existsSync(join(PATHS.registryRaw, date)) ? readSnapshot(date) : null;
+}
+
 export function listSnapshots(): string[] {
   if (!existsSync(PATHS.registryRaw)) return [];
   return readdirSync(PATHS.registryRaw)

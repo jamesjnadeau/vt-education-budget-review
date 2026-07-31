@@ -23,8 +23,11 @@ import { parse as parseYaml } from 'yaml';
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
-import { readRegistry } from '../registry/store.ts';
+import { readCorrections } from '../registry/corrections.ts';
+import { readRegistry, readSnapshotIfPresent } from '../registry/store.ts';
+import type { RegistryEntity } from '../registry/types.ts';
 import {
+  checkCorrections,
   checkDerivedProvenance,
   checkLandAreaOnly,
   checkNullAccounting,
@@ -37,6 +40,7 @@ import {
   summarize,
   type BudgetRecord,
   type Finding,
+  type SnapshotReader,
 } from '../validate/rules.ts';
 import { validateAgainst, type SchemaName } from '../validate/schemas.ts';
 
@@ -52,6 +56,58 @@ function schemaFindings(schema: SchemaName, data: unknown, file: string): Findin
     rule: `schema:${schema}`,
     message: `${e.path} ${e.message}`,
   }));
+}
+
+/**
+ * Reads and checks the corrections register, exported (rather than inlined in
+ * `main`) so a blank or malformed register can be exercised directly, without
+ * standing up the whole CLI.
+ *
+ * `readCorrections`, not `readData`: a blank or comment-only register parses
+ * to `null`, a state its own docstring declares legitimate (no corrections
+ * yet), but handing a bare `null` to `schemaFindings` trips the schema's
+ * "must be an object" check for a file that is not actually malformed.
+ * `readCorrections` normalizes that case to `{schema_version, corrections:
+ * []}` and reserves throwing for genuine malformation (unrecognized keys, a
+ * non-array `corrections`). A validator exists so problems arrive as
+ * findings, not stack traces, so that throw is caught here rather than left
+ * to crash the whole run.
+ */
+export function correctionsFindings(
+  path: string,
+  registry: ReadonlyMap<string, RegistryEntity>,
+  // The premise check reads the snapshot each claim names. Defaulted rather
+  // than required so `npm run validate` needs no wiring at the call site, and
+  // parameterized so a test can hand it a snapshot of its own without writing
+  // one into registry/raw/.
+  readSnapshotFor: SnapshotReader = readSnapshotIfPresent,
+): Finding[] {
+  // Only readCorrections' own parse is fallible in a way this function needs
+  // to catch (bad top-level shape, not a schema violation on one record).
+  // schemaFindings and checkCorrections run OUTSIDE the try: they collect
+  // findings rather than throw, by design, so a broader try would catch a bug
+  // in one of them -- e.g. checkCorrections dereferencing a field a
+  // schema-invalid record omits -- and misreport it as the register itself
+  // being unreadable, discarding the precise schema finding that was already
+  // sitting in the array the abandoned block never got to return.
+  let register;
+  try {
+    register = readCorrections(path);
+  } catch (error) {
+    return [
+      {
+        severity: 'error',
+        file: rel(path),
+        rule: 'corrections-unreadable',
+        message: error instanceof Error ? error.message : String(error),
+      },
+    ];
+  }
+
+  return [
+    ...schemaFindings('corrections', register, path),
+    ...checkCorrections(register.corrections, rel(path), registry, readSnapshotFor),
+  ];
 }
 
 function main(): number {
@@ -85,6 +141,9 @@ function main(): number {
     findings.push(...schemaFindings('registry', data, file));
     findings.push(...checkPlaceholderEntities(data, file));
   }
+
+  // --- corrections register -----------------------------------------------
+  findings.push(...correctionsFindings(PATHS.corrections, registry));
 
   // --- groupings ----------------------------------------------------------
   try {
@@ -274,4 +333,9 @@ function main(): number {
   return e > 0 ? 1 : 0;
 }
 
-process.exit(main());
+// Guarded so a test can import `correctionsFindings` above without running
+// the whole validator against the live repo and calling process.exit out from
+// under the test runner.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  process.exit(main());
+}

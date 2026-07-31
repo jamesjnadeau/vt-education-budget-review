@@ -153,9 +153,14 @@
           "default": null
         },
 
+        "aoe_published": {
+          "type": "object",
+          "description": "What AOE publishes for each field currently under correction, kept alongside the corrected value rather than reconciled with it. Absent entirely -- never an empty object -- when no correction is in force for this entity. A field leaves this map the moment AOE adopts the correction. Written by the sync from registry/corrections.yaml; do not hand-edit.",
+          "additionalProperties": true
+        },
         "manual_overrides": {
           "type": "array",
-          "description": "Fields set by hand rather than by the sync, with the reason. The sync must not clobber these. The registry has to tolerate gaps in the API -- the API is a convenience layer, not a dependency.",
+          "description": "GENERATED from registry/corrections.yaml by the sync -- do not hand-edit. One entry per correction currently in force, with the evidence summarized in `reason`. Entries disappear when AOE adopts the correction.",
           "items": {
             "type": "object",
             "additionalProperties": false,

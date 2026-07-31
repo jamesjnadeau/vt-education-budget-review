@@ -26,10 +26,20 @@
       "reporting_only": false,
       "member_towns": [],
       "grades": [],
-      "website": "http://www.acsu.k12.vt.us/",
+      "website": "https://www.acsdvt.org",
       "latitude": null,
       "longitude": null,
-      "manual_overrides": [],
+      "aoe_published": {
+        "website": "http://www.acsu.k12.vt.us/"
+      },
+      "manual_overrides": [
+        {
+          "field": "website",
+          "reason": "Corrected against AOE's published value. Retrieved https://www.acsdvt.org on 2026-07-31: Returns HTTP 200 and titles itself \"Addison Central School District\", referring to itself as ACSD throughout. The acsu.k12.vt.us host AOE publishes still resolves but refuses connections on port 80 (curl exit code 7, connection failure rather than name-resolution failure), so the published URL reaches nothing.",
+          "set_by": "James Nadeau",
+          "set_date": "2026-07-31"
+        }
+      ],
       "notes": null
     },
     {
