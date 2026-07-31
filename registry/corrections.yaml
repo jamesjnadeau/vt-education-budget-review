@@ -11,4 +11,24 @@
 # Evidence is tiered by what the field can break. See FIELD_CLASS in
 # tools/src/registry/corrections.ts; `npm run validate` enforces it.
 schema_version: "1.0"
-corrections: []
+corrections:
+  - slug: su/addison-central
+    field: website
+    aoe_value: "http://www.acsu.k12.vt.us/"
+    aoe_value_observed: "2026-07-29"
+    our_value: "https://www.acsdvt.org"
+    evidence:
+      class: retrieved_url
+      url: "https://www.acsdvt.org"
+      retrieved: "2026-07-31"
+      observation: >-
+        Returns HTTP 200 and titles itself "Addison Central School District",
+        referring to itself as ACSD throughout. The acsu.k12.vt.us host AOE
+        publishes still resolves but refuses connections on port 80 (curl exit
+        code 7, connection failure rather than name-resolution failure), so the
+        published URL reaches nothing.
+    submitted_by: "James Nadeau"
+    submitted_date: "2026-07-31"
+    status: open
+    sent_date: null
+    note: null

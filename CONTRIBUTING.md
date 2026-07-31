@@ -29,6 +29,38 @@ If a number here disagrees with a number a district published, that is worth rep
 you think we are right — the disagreement itself is often the interesting part, and the schema
 keeps both figures deliberately.
 
+## Correcting AOE organization data
+
+Some of what AOE publishes is out of date. A correction is not a local edit — it
+is a claim against a named source, recorded in `registry/corrections.yaml` with
+the value AOE published, the value it should be, and how you checked.
+
+Evidence is tiered by what the field can break. A website needs a URL, the date
+you retrieved it, and what you saw. A relationship — `operated_by`,
+`supervisory_union`, `member_towns` — changes model output for every town
+involved, so it needs a document and the operative sentence quoted, the same
+standard `docs/parameter-verification.md` sets for a statutory parameter.
+
+`npm run validate` enforces that tier and that the field and entity are real. If
+AOE later moves the field to some third value that matches neither figure, the
+corrected value stays in force — an evidence-backed assertion is not dropped
+silently — but the build fails until a human resolves it: re-check the field,
+then either update the correction's evidence or set `status: withdrawn`.
+
+Corrections retire themselves. Once AOE publishes the value you asserted, the
+sync stops asserting it — the entity is unchanged, because the two values now
+agree.
+
+To send the open set upstream:
+
+    npm run registry:corrections -- --report --csv
+
+This writes a markdown email body and a CSV to `derived/corrections/`, both keyed
+on AOE's own organization IDs rather than our slugs, because the person receiving
+them works in AOE's systems and not this repository. Neither file is committed —
+both are exactly reproducible from `registry/corrections.yaml` at any commit, and
+the durable record of what was sent is that file's own `sent_date`.
+
 ## Verifying a statutory parameter
 
 This is the highest-value contribution available right now, because nothing on the site can

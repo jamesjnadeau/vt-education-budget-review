@@ -29,3 +29,11 @@ npm-debug.log*
 build/
 site/public/data/
 site/src/generated/
+
+# Timestamped correspondence sent to AOE, regenerated on every run and exactly
+# reproducible from registry/corrections.yaml plus the code at any commit --
+# unlike intake/, which is committed precisely because it CANNOT be
+# regenerated. The durable record of what was sent is `sent_date` in the
+# register itself, not these files.
+derived/corrections/*.md
+derived/corrections/*.csv
