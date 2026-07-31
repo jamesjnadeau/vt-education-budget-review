@@ -50,6 +50,7 @@ function correction(over: Partial<Correction> = {}): Correction {
     submitted_date: '2026-07-31',
     status: 'open',
     sent_date: null,
+    recipient: null,
     note: null,
     ...over,
   };

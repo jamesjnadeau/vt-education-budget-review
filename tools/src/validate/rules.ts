@@ -728,6 +728,29 @@ export function checkCorrections(
 
     if (c.status === 'withdrawn') continue;
 
+    // A `sent` claim is a claim with a receipt: it must name who it went to and
+    // when, or its audit trail cannot be reconstructed later. This is the gate
+    // that makes `npm run registry:corrections -- --sent` the sane path to the
+    // sent state -- a hand-edit that flips `status` to sent without the two
+    // stamps is caught here rather than leaving a silent hole in the record.
+    if (c.status === 'sent') {
+      const missing: string[] = [];
+      if (c.sent_date == null) missing.push('sent_date');
+      if (c.recipient == null) missing.push('recipient');
+      if (missing.length > 0) {
+        findings.push({
+          severity: 'error',
+          file,
+          rule: 'correction-sent-incomplete',
+          message:
+            `${c.slug}#${c.field} is marked sent but records no ${missing.join(' or ')}. ` +
+            `A sent correction names who received it and when, or the audit trail is a ` +
+            `claim without a receipt. Mark corrections sent with ` +
+            `\`npm run registry:corrections -- --sent\` rather than editing status by hand.`,
+        });
+      }
+    }
+
     const key = `${c.slug}#${c.field}`;
     if (seen.has(key)) {
       findings.push({

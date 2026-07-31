@@ -51,6 +51,7 @@ function correction(over: Partial<Correction> = {}): Correction {
     submitted_date: '2026-07-31',
     status: 'open',
     sent_date: null,
+    recipient: null,
     note: null,
     ...over,
   };
@@ -108,6 +109,27 @@ describe('checkCorrections', () => {
   it('rejects a correction against an entity that does not exist', () => {
     const findings = run([correction({ slug: 'su/nowhere' })]);
     expect(findings.map((f) => f.rule)).toContain('correction-unknown-entity');
+  });
+
+  it('flags a sent correction that records no recipient', () => {
+    const findings = run([
+      correction({ status: 'sent', sent_date: '2026-07-31', recipient: null }),
+    ]);
+    expect(findings.map((f) => f.rule)).toContain('correction-sent-incomplete');
+  });
+
+  it('flags a sent correction that records no sent_date', () => {
+    const findings = run([
+      correction({ status: 'sent', sent_date: null, recipient: 'data@vermont.gov' }),
+    ]);
+    expect(findings.map((f) => f.rule)).toContain('correction-sent-incomplete');
+  });
+
+  it('accepts a sent correction that records both recipient and date', () => {
+    const findings = run([
+      correction({ status: 'sent', sent_date: '2026-07-31', recipient: 'data@vermont.gov' }),
+    ]);
+    expect(findings.map((f) => f.rule)).not.toContain('correction-sent-incomplete');
   });
 
   it('refuses to correct the field that identifies the record', () => {

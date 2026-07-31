@@ -333,6 +333,7 @@ describe('normalizing a snapshot', () => {
       submitted_date: '2026-07-29',
       status: 'open',
       sent_date: null,
+      recipient: null,
       note: null,
     };
 
@@ -378,6 +379,7 @@ describe('normalizing a snapshot', () => {
       submitted_date: '2026-07-29',
       status: 'open',
       sent_date: null,
+      recipient: null,
       note: null,
     };
 

@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { parse as parseYaml } from 'yaml';
 
 import {
   EVIDENCE_FOR_CLASS,
@@ -10,6 +11,8 @@ import {
   applyCorrections,
   correctionsBySlug,
   evidenceSummary,
+  isOutstanding,
+  markSent,
   readCorrections,
   upstreamState,
   valuesEqual,
@@ -34,6 +37,7 @@ function correction(over: Partial<Correction> = {}): Correction {
     submitted_date: '2026-07-31',
     status: 'open',
     sent_date: null,
+    recipient: null,
     note: null,
     ...over,
   };
@@ -352,5 +356,109 @@ describe('evidenceSummary', () => {
     });
     expect(summary).toContain('"The Board voted to adopt the name Addison Central School District."');
     expect(summary).toContain('ACSD Board minutes');
+  });
+});
+
+describe('isOutstanding', () => {
+  const outstanding = entity({ aoe_published: { website: 'http://old.example.invalid/' } });
+  const registry = new Map([[outstanding.slug, outstanding]]);
+
+  it('is true for an open claim AOE has not adopted', () => {
+    expect(isOutstanding(correction(), registry)).toBe(true);
+  });
+
+  it('is false once AOE has adopted the value (no aoe_published recorded)', () => {
+    const adopted = entity({ website: 'https://new.example.invalid/', aoe_published: {} });
+    expect(isOutstanding(correction(), new Map([[adopted.slug, adopted]]))).toBe(false);
+  });
+
+  it('is false for a withdrawn claim', () => {
+    expect(isOutstanding(correction({ status: 'withdrawn' }), registry)).toBe(false);
+  });
+
+  it('is false when the entity is not in the registry', () => {
+    expect(isOutstanding(correction({ slug: 'su/nowhere' }), registry)).toBe(false);
+  });
+});
+
+describe('markSent', () => {
+  const REGISTER = [
+    '# header comment that must survive a round-trip',
+    'schema_version: "1.0"',
+    'corrections:',
+    '  - slug: su/addison-central',
+    '    field: website',
+    '    aoe_value: "http://old.example.invalid/"',
+    '    aoe_value_observed: "2026-07-29"',
+    '    our_value: "https://new.example.invalid/"',
+    '    evidence:',
+    '      class: retrieved_url',
+    '      url: "https://new.example.invalid/"',
+    '      retrieved: "2026-07-31"',
+    '      observation: Serves the district site.',
+    '    submitted_by: Tester',
+    '    submitted_date: "2026-07-31"',
+    '    status: open',
+    '    sent_date: null',
+    '    note: null',
+    '  - slug: town/calais',
+    '    field: website',
+    '    aoe_value: "http://calais.invalid/"',
+    '    aoe_value_observed: "2026-07-29"',
+    '    our_value: "https://calais.example/"',
+    '    evidence:',
+    '      class: retrieved_url',
+    '      url: "https://calais.example/"',
+    '      retrieved: "2026-07-31"',
+    '      observation: Serves the town site.',
+    '    submitted_by: Tester',
+    '    submitted_date: "2026-07-31"',
+    '    status: sent',
+    '    sent_date: "2026-07-15"',
+    '    note: null',
+    '',
+  ].join('\n');
+
+  const fields = { sent_date: '2026-07-31', recipient: 'data@vermont.gov', note: null };
+  const bothKeys = new Set(['su/addison-central#website', 'town/calais#website']);
+
+  it('flips the open claim to sent and stamps who and when', () => {
+    const { text, marked } = markSent(REGISTER, bothKeys, fields);
+    expect(marked).toEqual(['su/addison-central#website']);
+
+    const parsed = parseYaml(text);
+    expect(parsed.corrections[0].status).toBe('sent');
+    expect(parsed.corrections[0].sent_date).toBe('2026-07-31');
+    expect(parsed.corrections[0].recipient).toBe('data@vermont.gov');
+  });
+
+  it('leaves an already-sent claim untouched, even when named', () => {
+    const { text } = markSent(REGISTER, bothKeys, fields);
+    const parsed = parseYaml(text);
+    expect(parsed.corrections[1].status).toBe('sent');
+    expect(parsed.corrections[1].sent_date).toBe('2026-07-15');
+  });
+
+  it('preserves the file header comment', () => {
+    const { text } = markSent(REGISTER, bothKeys, fields);
+    expect(text).toContain('# header comment that must survive a round-trip');
+  });
+
+  it('is idempotent: a second run marks nothing', () => {
+    const once = markSent(REGISTER, bothKeys, fields);
+    const twice = markSent(once.text, bothKeys, fields);
+    expect(twice.marked).toEqual([]);
+    expect(twice.text).toBe(once.text);
+  });
+
+  it('leaves an open claim that was not named alone', () => {
+    const { text, marked } = markSent(REGISTER, new Set(['town/calais#website']), fields);
+    expect(marked).toEqual([]);
+    expect(parseYaml(text).corrections[0].status).toBe('open');
+  });
+
+  it('writes a note only when one is given', () => {
+    const withNote = markSent(REGISTER, bothKeys, { ...fields, note: 'Emailed the July batch.' });
+    expect(parseYaml(withNote.text).corrections[0].note).toBe('Emailed the July batch.');
   });
 });

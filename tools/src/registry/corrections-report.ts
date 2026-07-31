@@ -20,7 +20,7 @@
  */
 
 import {
-  upstreamState,
+  isOutstanding,
   valuesEqual,
   type Correction,
   type CorrectionStatus,
@@ -176,14 +176,11 @@ export function reportRows(
 ): ReportRow[] {
   const rows: ReportRow[] = [];
   for (const c of cs) {
-    if (c.status === 'withdrawn') continue;
-    const entity = registry.get(c.slug);
-    if (!entity) continue;
-
-    const published = entity.aoe_published?.[c.field] as CorrectionValue | undefined;
-    if (published === undefined) continue; // retired, i.e. adopted
-    if (upstreamState(c, published) === 'adopted') continue;
-
+    // The one predicate the report and the mark-sent command share, so the set
+    // that leaves in an email is exactly the set that gets stamped `sent`.
+    if (!isOutstanding(c, registry)) continue;
+    const entity = registry.get(c.slug) as RegistryEntity;
+    const published = entity.aoe_published?.[c.field] as CorrectionValue;
     rows.push(rowFor(c, entity, published, registry));
   }
   return rows;

@@ -57,6 +57,12 @@
           "description": "The only human-authored states. adopted/outstanding/diverged are computed each sync by comparing what AOE now publishes against aoe_value and our_value."
         },
         "sent_date": { "type": ["string", "null"], "format": "date", "default": null },
+        "recipient": {
+          "type": ["string", "null"],
+          "format": "email",
+          "default": null,
+          "description": "The AOE address a sent batch went to. Null until sent. checkCorrections requires it, with sent_date, once status is sent."
+        },
         "note": { "type": ["string", "null"], "default": null }
       }
     },

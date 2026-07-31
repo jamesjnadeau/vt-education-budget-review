@@ -17,7 +17,7 @@
 
 import { existsSync, readFileSync } from 'node:fs';
 
-import { parse as parseYaml } from 'yaml';
+import { isMap, isSeq, parse as parseYaml, parseDocument } from 'yaml';
 
 import { PATHS, rel } from '../paths.ts';
 import { AOE_ENDPOINTS, orgId, type Snapshot } from './aoe-client.ts';
@@ -76,6 +76,8 @@ export interface Correction {
   readonly submitted_date: string;
   readonly status: CorrectionStatus;
   readonly sent_date: string | null;
+  /** The AOE address a `sent` batch went to. Null until sent. */
+  readonly recipient: string | null;
   readonly note: string | null;
 }
 
@@ -145,6 +147,27 @@ export function upstreamState(c: Correction, aoeValue: CorrectionValue): Upstrea
   return 'diverged';
 }
 
+/**
+ * Whether a correction is still something AOE ought to hear about: a live claim
+ * whose value they have not yet adopted. This is the single predicate both the
+ * report (`reportRows`) and the mark-sent command select on, deliberately shared
+ * so the set that gets emailed can never drift from the set that gets stamped
+ * `sent`. A withdrawn claim, a claim about an entity the registry does not carry,
+ * and a claim the sync has already retired (no `aoe_published` recorded, meaning
+ * AOE now publishes our value) are all not outstanding.
+ */
+export function isOutstanding(
+  c: Correction,
+  registry: ReadonlyMap<string, RegistryEntity>,
+): boolean {
+  if (c.status === 'withdrawn') return false;
+  const entity = registry.get(c.slug);
+  if (!entity) return false;
+  const published = entity.aoe_published?.[c.field] as CorrectionValue | undefined;
+  if (published === undefined) return false;
+  return upstreamState(c, published) !== 'adopted';
+}
+
 const CORRECTIONS_FILE_KEYS = new Set(['schema_version', 'corrections']);
 
 /**
@@ -188,6 +211,54 @@ export function readCorrections(path: string = PATHS.corrections): CorrectionsFi
   }
 
   return { schema_version: '1.0', corrections: corrections as Correction[] };
+}
+
+/** What marking a correction sent records: who the batch went to and when, and an optional note. */
+export interface SentStamp {
+  readonly sent_date: string;
+  readonly recipient: string;
+  readonly note: string | null;
+}
+
+/**
+ * Rewrites the corrections register, flipping the named claims from `open` to
+ * `sent` and stamping each with who received the batch and when.
+ *
+ * It works on the file's TEXT through the YAML document API rather than
+ * re-serializing a parsed object, because the register is hand-authored: its
+ * header comment, and any a contributor left on a record, are part of the
+ * document and must survive being written back. Only `open` claims are touched,
+ * so a second run over the same set is a no-op -- the returned `marked` list is
+ * exactly the keys this call changed, empty when there was nothing to do.
+ *
+ * `note` is written only when given: a batch sent without a note must not
+ * blank out a note a record already carried.
+ */
+export function markSent(
+  yamlText: string,
+  keys: ReadonlySet<string>,
+  stamp: SentStamp,
+): { text: string; marked: string[] } {
+  const doc = parseDocument(yamlText);
+  const seq = doc.get('corrections');
+  const marked: string[] = [];
+
+  if (isSeq(seq)) {
+    for (const item of seq.items) {
+      if (!isMap(item)) continue;
+      if (item.get('status') !== 'open') continue;
+      const key = `${String(item.get('slug'))}#${String(item.get('field'))}`;
+      if (!keys.has(key)) continue;
+
+      item.set('status', 'sent');
+      item.set('sent_date', stamp.sent_date);
+      item.set('recipient', stamp.recipient);
+      if (stamp.note !== null) item.set('note', stamp.note);
+      marked.push(key);
+    }
+  }
+
+  return { text: String(doc), marked };
 }
 
 /**

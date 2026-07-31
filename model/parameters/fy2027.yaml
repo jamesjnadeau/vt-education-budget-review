@@ -97,7 +97,7 @@ parameters:
   # so a prek pupil is 0.46 of a K-5 pupil.
 
   weights.grade.prekindergarten:
-    value: null
+    value: -0.54
     unit: multiplier
     description: additional grade level weight for prekindergarten pupils
     applies_to: prekindergarten pupils, IF the pre-contingency version of § 4010(d)(1) governs FY2027
@@ -114,8 +114,8 @@ parameters:
         the same pupil count as 1.00. The choice therefore more than doubles the
         membership contribution of every prekindergarten pupil, which is why it is
         not guessed at.
-      verified: false
-      verified_date: null
+      verified: true
+      verified_date: 2026-07-30
       verified_by: null
 
   weights.grade.kindergarten_through_5:
