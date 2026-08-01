@@ -1,0 +1,97 @@
+schema_version: "1.0"
+extracted_by: "@jamesjnadeau"
+extracted_date: 2026-08-01
+entity: su/addison-central
+fiscal_year: 2023
+status: proposed
+source: intake/su-addison-central/fy2023/Annual Report FY23 Budget Book.pdf
+adopted_date: 2021-03-02
+revenues:
+  education_fund: 4392664
+  local: null
+  federal: 2561942
+  other: 60165
+  total_stated: 7014771
+expenditures:
+  instruction: 23561931
+  special_education: 5213830
+  administration_district: 1983052
+  administration_school: null
+  operations_maintenance: 3279782
+  transportation: 1064286
+  debt_service: 176413
+  other: null
+  total_stated: 41578089
+personnel:
+  total_staff_costs: 23561931
+  salaries: null
+  benefits_health: null
+  benefits_other: null
+  fte:
+    teachers: null
+    support_staff: null
+    administrators: null
+    total: null
+enrollment:
+  adm: null
+per_pupil:
+  as_stated: 20076.16
+  as_stated_basis: on page 13, 2nd paragraph
+tax:
+  towns:
+    - town: town/bridport
+      homestead_rate_stated: 1.71
+      cla: 90.58
+    - town: town/cornwall
+      homestead_rate_stated: 1.72
+      cla: 90.02
+    - town: town/middlebury
+      homestead_rate_stated: 1.66
+      cla: 93.4
+    - town: town/ripton
+      homestead_rate_stated: 1.85
+      cla: 83.61
+    - town: town/salisbury
+      homestead_rate_stated: 1.78
+      cla: 87.27
+    - town: town/shoreham
+      homestead_rate_stated: 1.65
+      cla: 94.08
+    - town: town/weybridge
+      homestead_rate_stated: 1.61
+      cla: 96.53
+lines_flagged: []
+not_published:
+  - path: revenues.local
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: expenditures.administration_school
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: expenditures.other
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.salaries
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.benefits_health
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.benefits_other
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.fte.teachers
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.fte.support_staff
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.fte.administrators
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: personnel.fte.total
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
+  - path: enrollment.adm
+    confirmed_by: "@jamesjnadeau"
+    confirmed_date: 2026-08-01
