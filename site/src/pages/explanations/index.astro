@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { sortExplanations } from '../../lib/explanations';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const articles = sortExplanations(await getCollection('explanations'));
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base
+  title="Explanations — Vermont School Budgets"
+  description="Plain-language explanations of how Vermont pays for schools, how your tax rate is set, what changes by 2028, and the words to know."
+  feedHref={`${base}/explanations/rss.xml`}
+>
+  <h1>Explanations</h1>
+  <p class="lede">
+    Plain-language pieces on how Vermont funds its schools — the history, how your own
+    rate is set, what a town decides before March 2028, and a glossary. Follow along by
+    <a href={`${base}/explanations/rss.xml`}>RSS</a>.
+  </p>
+
+  <div class="grid">
+    {
+      articles.map((a) => (
+        <article class="card">
+          <h2 style="margin-top:0">
+            <a href={`${base}/explanations/${a.id}/`}>{a.data.title}</a>
+          </h2>
+          <p style="color:var(--text-muted);margin:.25rem 0">{a.data.subtitle}</p>
+          <p>{a.data.description}</p>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:0">
+            <time datetime={a.data.pubDate.toISOString()}>{dateFmt.format(a.data.pubDate)}</time>
+          </p>
+        </article>
+      ))
+    }
+  </div>
+</Base>
