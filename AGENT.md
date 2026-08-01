@@ -109,7 +109,19 @@ Documented in full in `tools/src/registry/aoe-client.ts` and `sync.ts`. The shor
    grantee carries a separate `HDS` org ID. This is accurate, not an upstream error;
    the district, its town and its schools are tracked under their own records.
 
-8. **Two SU websites are published without a URL scheme** (`www.brsu.org`,
+8. **Two organizations are mistyped as supervisory unions** and must be filtered out:
+   the **University of Vermont** (`HE001`, higher education) and the **Department of
+   Corrections** (`SU099`, adult education inside state facilities, grades `AW`). Both
+   are published on the `supervisoryUnions` endpoint typed `Supervisory Union (SU)` —
+   the same type a real SU carries — so only the stable org ID tells them apart. Left
+   in, each stands as a permanent red gap on the coverage dashboard for a school-district
+   budget it will never publish. Filtered by `UNTRACKED_ORG_IDS` in
+   `tools/src/registry/slugs.ts` and routed to the sync's "deliberately not tracked"
+   list, never dropped silently. This is the identity-keyed sibling of the OrgType-keyed
+   `UNTRACKED_ORG_TYPES` (item 7); reach for it only when AOE mistypes a specific org
+   under a type that is otherwise tracked.
+
+9. **Two SU websites are published without a URL scheme** (`www.brsu.org`,
    `www.orangesouthwest.org`), so they are not valid URIs until normalized.
 
 ## The rule that matters most here
