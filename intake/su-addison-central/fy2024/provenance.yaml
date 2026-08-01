@@ -1,0 +1,14 @@
+schema_version: "1.0"
+entity: su/addison-central
+fiscal_year: 2024
+artifacts:
+  - file: ACSD Budget Book FY24.pdf
+    source_url: https://www.acsdvt.org/district-link/annual-report-and-budget/annual-report-and-budget
+    retrieved_date: 2026-07-31
+    retrieval_method: email
+    sha256: 8bb3efd5e7fb16cc05db496f4f96a854bc0589dc4dc1b9636029783d955fe43a
+    bytes: 14120413
+    media_type: application/pdf
+    retrieved_by: "@jamesjnadeau"
+    document_type: budget_book
+    note: null
