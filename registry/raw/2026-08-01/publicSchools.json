@@ -1,0 +1,5426 @@
+[
+  {
+    "ServerId": 67,
+    "Name": "Academy School",
+    "OrgId": "PS001",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1001
+  },
+  {
+    "ServerId": 69,
+    "Name": "Albany Community School",
+    "OrgId": "PS007",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U093",
+    "EdFi_ID": 1007
+  },
+  {
+    "ServerId": 70,
+    "Name": "Albert Bridge School (West Windsor)",
+    "OrgId": "PS008",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU052",
+    "OperatedBy": "U086",
+    "EdFi_ID": 1008
+  },
+  {
+    "ServerId": 71,
+    "Name": "Albert D. Lawton School",
+    "OrgId": "PS009",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1009
+  },
+  {
+    "ServerId": 72,
+    "Name": "Alburgh Community Education Center",
+    "OrgId": "PS010",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU024",
+    "OperatedBy": "T003",
+    "EdFi_ID": 1010
+  },
+  {
+    "ServerId": 73,
+    "Name": "Arlington Memorial",
+    "OrgId": "PS011",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "T005",
+    "EdFi_ID": 1011
+  },
+  {
+    "ServerId": 74,
+    "Name": "Bakersfield School",
+    "OrgId": "PS015",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U085",
+    "EdFi_ID": 1015
+  },
+  {
+    "ServerId": 75,
+    "Name": "Barnard Academy",
+    "OrgId": "PS017",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU051",
+    "OperatedBy": "U076",
+    "EdFi_ID": 1017
+  },
+  {
+    "ServerId": 76,
+    "Name": "Barnet Elementary School",
+    "OrgId": "PS018",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "U078",
+    "EdFi_ID": 1018
+  },
+  {
+    "ServerId": 77,
+    "Name": "Barre Town Elementary & Middle School",
+    "OrgId": "PS020",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU061",
+    "OperatedBy": "U097",
+    "EdFi_ID": 1020
+  },
+  {
+    "ServerId": 80,
+    "Name": "Barstow Memorial School",
+    "OrgId": "PS021",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU036",
+    "OperatedBy": "U049",
+    "EdFi_ID": 1021
+  },
+  {
+    "ServerId": 81,
+    "Name": "Barton Graded School",
+    "OrgId": "PS022",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U093",
+    "EdFi_ID": 1022
+  },
+  {
+    "ServerId": 82,
+    "Name": "Beeman Elementary School",
+    "OrgId": "PS023",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU001",
+    "OperatedBy": "U061",
+    "EdFi_ID": 1023
+  },
+  {
+    "ServerId": 83,
+    "Name": "Bellows Falls Middle School",
+    "OrgId": "PS024",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU047",
+    "OperatedBy": "T169",
+    "EdFi_ID": 1024
+  },
+  {
+    "ServerId": 84,
+    "Name": "Bellows Falls Union High School",
+    "OrgId": "PS025",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU047",
+    "OperatedBy": "U027",
+    "EdFi_ID": 1025
+  },
+  {
+    "ServerId": 85,
+    "Name": "Bellows Free Academy Elementary (Fairfax)",
+    "OrgId": "PS027",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "EE",
+      "PK"
+    ],
+    "ParentOrg": "SU022",
+    "OperatedBy": "T071",
+    "EdFi_ID": 1027
+  },
+  {
+    "ServerId": 88,
+    "Name": "Bennington Elementary School",
+    "OrgId": "PS029",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U087",
+    "EdFi_ID": 1029
+  },
+  {
+    "ServerId": 89,
+    "Name": "Benson Village School",
+    "OrgId": "PS031",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU004",
+    "OperatedBy": "U062",
+    "EdFi_ID": 1031
+  },
+  {
+    "ServerId": 90,
+    "Name": "Berkshire Elementary School",
+    "OrgId": "PS032",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U085",
+    "EdFi_ID": 1032
+  },
+  {
+    "ServerId": 91,
+    "Name": "Berlin Elementary School",
+    "OrgId": "PS033",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU032",
+    "OperatedBy": "U092",
+    "EdFi_ID": 1033
+  },
+  {
+    "ServerId": 92,
+    "Name": "Bethel Elementary School",
+    "OrgId": "PS034",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U079",
+    "EdFi_ID": 1034
+  },
+  {
+    "ServerId": 94,
+    "Name": "Blue Mountain Union School",
+    "OrgId": "PS036",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU027",
+    "OperatedBy": "U021",
+    "EdFi_ID": 1036
+  },
+  {
+    "ServerId": 97,
+    "Name": "Bradford Elementary School",
+    "OrgId": "PS037",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU027",
+    "OperatedBy": "U091",
+    "EdFi_ID": 1037
+  },
+  {
+    "ServerId": 98,
+    "Name": "Braintree School",
+    "OrgId": "PS038",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU028",
+    "OperatedBy": "U059",
+    "EdFi_ID": 1038
+  },
+  {
+    "ServerId": 99,
+    "Name": "Brattleboro Union High School",
+    "OrgId": "PS040",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1040
+  },
+  {
+    "ServerId": 100,
+    "Name": "Brewster Pierce School",
+    "OrgId": "PS041",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1041
+  },
+  {
+    "ServerId": 101,
+    "Name": "Bridport Central School",
+    "OrgId": "PS043",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1043
+  },
+  {
+    "ServerId": 102,
+    "Name": "Brighton Elementary School",
+    "OrgId": "PS044",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T030",
+    "EdFi_ID": 1044
+  },
+  {
+    "ServerId": 103,
+    "Name": "Bristol Elementary School",
+    "OrgId": "PS045",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK"
+    ],
+    "ParentOrg": "SU001",
+    "OperatedBy": "U061",
+    "EdFi_ID": 1045
+  },
+  {
+    "ServerId": 104,
+    "Name": "Brookfield School",
+    "OrgId": "PS047",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK"
+    ],
+    "ParentOrg": "SU028",
+    "OperatedBy": "U059",
+    "EdFi_ID": 1047
+  },
+  {
+    "ServerId": 105,
+    "Name": "Brownington Central School",
+    "OrgId": "PS049",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U093",
+    "EdFi_ID": 1049
+  },
+  {
+    "ServerId": 106,
+    "Name": "Browns River Middle School",
+    "OrgId": "PS050",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1050
+  },
+  {
+    "ServerId": 107,
+    "Name": "Burke Town School",
+    "OrgId": "PS051",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1051
+  },
+  {
+    "ServerId": 108,
+    "Name": "Burlington High School",
+    "OrgId": "PS052",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1052
+  },
+  {
+    "ServerId": 109,
+    "Name": "Cabot School",
+    "OrgId": "PS055",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "T038",
+    "EdFi_ID": 1055
+  },
+  {
+    "ServerId": 110,
+    "Name": "Calais Elementary School",
+    "OrgId": "PS056",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK"
+    ],
+    "ParentOrg": "SU032",
+    "OperatedBy": "U092",
+    "EdFi_ID": 1056
+  },
+  {
+    "ServerId": 111,
+    "Name": "Cambridge Elementary School",
+    "OrgId": "PS057",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "T040",
+    "EdFi_ID": 1057
+  },
+  {
+    "ServerId": 112,
+    "Name": "Camels Hump Middle School",
+    "OrgId": "PS058",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1058
+  },
+  {
+    "ServerId": 113,
+    "Name": "Canaan Schools",
+    "OrgId": "PS059",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "PK",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU019",
+    "OperatedBy": "T041",
+    "EdFi_ID": 1059
+  },
+  {
+    "ServerId": 114,
+    "Name": "Cavendish Town Elementary School",
+    "OrgId": "PS063",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU063",
+    "OperatedBy": "U077",
+    "EdFi_ID": 1063
+  },
+  {
+    "ServerId": 115,
+    "Name": "Chamberlin School",
+    "OrgId": "PS064",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU016",
+    "OperatedBy": "T191",
+    "EdFi_ID": 1064
+  },
+  {
+    "ServerId": 116,
+    "Name": "Champlain School",
+    "OrgId": "PS065",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1065
+  },
+  {
+    "ServerId": 117,
+    "Name": "Champlain Valley Union High School",
+    "OrgId": "PS066",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU014",
+    "OperatedBy": "U056",
+    "EdFi_ID": 1066
+  },
+  {
+    "ServerId": 118,
+    "Name": "Charleston Elementary School",
+    "OrgId": "PS067",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T044",
+    "EdFi_ID": 1067
+  },
+  {
+    "ServerId": 119,
+    "Name": "Charlotte Central School",
+    "OrgId": "PS068",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU014",
+    "OperatedBy": "U056",
+    "EdFi_ID": 1068
+  },
+  {
+    "ServerId": 120,
+    "Name": "First Branch Middle School (Chelsea)",
+    "OrgId": "PS069",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U082",
+    "EdFi_ID": 1069
+  },
+  {
+    "ServerId": 121,
+    "Name": "Chester Andover Elementary School",
+    "OrgId": "PS070",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU063",
+    "OperatedBy": "U077",
+    "EdFi_ID": 1070
+  },
+  {
+    "ServerId": 122,
+    "Name": "Clarendon Elementary School",
+    "OrgId": "PS071",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU033",
+    "OperatedBy": "U052",
+    "EdFi_ID": 1071
+  },
+  {
+    "ServerId": 123,
+    "Name": "Colchester High School",
+    "OrgId": "PS072",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU007",
+    "OperatedBy": "T050",
+    "EdFi_ID": 1072
+  },
+  {
+    "ServerId": 124,
+    "Name": "Colchester Middle School",
+    "OrgId": "PS073",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU007",
+    "OperatedBy": "T050",
+    "EdFi_ID": 1073
+  },
+  {
+    "ServerId": 125,
+    "Name": "Concord Graded/Middle School",
+    "OrgId": "PS074",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1074
+  },
+  {
+    "ServerId": 126,
+    "Name": "Bingham Memorial School",
+    "OrgId": "PS076",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1076
+  },
+  {
+    "ServerId": 127,
+    "Name": "Coventry Village School",
+    "OrgId": "PS077",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T054",
+    "EdFi_ID": 1077
+  },
+  {
+    "ServerId": 128,
+    "Name": "Craftsbury Schools",
+    "OrgId": "PS078",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "PK",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU035",
+    "OperatedBy": "T055",
+    "EdFi_ID": 1078
+  },
+  {
+    "ServerId": 129,
+    "Name": "Currier Memorial Union School",
+    "OrgId": "PS079",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1079
+  },
+  {
+    "ServerId": 130,
+    "Name": "C. P. Smith School",
+    "OrgId": "PS080",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1080
+  },
+  {
+    "ServerId": 131,
+    "Name": "Danville School",
+    "OrgId": "PS082",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "PK",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "T057",
+    "EdFi_ID": 1082
+  },
+  {
+    "ServerId": 132,
+    "Name": "Twin Valley Elementary School",
+    "OrgId": "PS083",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU049",
+    "OperatedBy": "U075",
+    "EdFi_ID": 1083
+  },
+  {
+    "ServerId": 133,
+    "Name": "Derby Elementary School",
+    "OrgId": "PS084",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T058",
+    "EdFi_ID": 1084
+  },
+  {
+    "ServerId": 134,
+    "Name": "Dorset Elementary School",
+    "OrgId": "PS085",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1085
+  },
+  {
+    "ServerId": 135,
+    "Name": "Dover Elementary School",
+    "OrgId": "PS086",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "U073",
+    "EdFi_ID": 1086
+  },
+  {
+    "ServerId": 136,
+    "Name": "Dummerston Schools",
+    "OrgId": "PS087",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1087
+  },
+  {
+    "ServerId": 137,
+    "Name": "East Montpelier Elementary School",
+    "OrgId": "PS091",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU032",
+    "OperatedBy": "U092",
+    "EdFi_ID": 1091
+  },
+  {
+    "ServerId": 138,
+    "Name": "Eden Central School",
+    "OrgId": "PS093",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "U058A",
+    "EdFi_ID": 1093
+  },
+  {
+    "ServerId": 139,
+    "Name": "Edmunds Elementary School",
+    "OrgId": "PS094",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1094
+  },
+  {
+    "ServerId": 140,
+    "Name": "Edmunds Middle School",
+    "OrgId": "PS095",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1095
+  },
+  {
+    "ServerId": 141,
+    "Name": "Enosburg Falls Elementary School",
+    "OrgId": "PS096",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U088",
+    "EdFi_ID": 1096
+  },
+  {
+    "ServerId": 142,
+    "Name": "Enosburg Falls Middle/High School",
+    "OrgId": "PS098",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U088",
+    "EdFi_ID": 1098
+  },
+  {
+    "ServerId": 145,
+    "Name": "Essex Elementary School",
+    "OrgId": "PS099",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "EE"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1099
+  },
+  {
+    "ServerId": 146,
+    "Name": "Essex Middle School",
+    "OrgId": "PS101",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1101
+  },
+  {
+    "ServerId": 147,
+    "Name": "Fair Haven Grade School",
+    "OrgId": "PS103",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU004",
+    "OperatedBy": "U062",
+    "EdFi_ID": 1103
+  },
+  {
+    "ServerId": 148,
+    "Name": "Fair Haven Union Middle and High School",
+    "OrgId": "PS104",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "8",
+      "7",
+      "AW"
+    ],
+    "ParentOrg": "SU004",
+    "OperatedBy": "U062",
+    "EdFi_ID": 1104
+  },
+  {
+    "ServerId": 149,
+    "Name": "Fairfield Center School",
+    "OrgId": "PS105",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU023",
+    "OperatedBy": "U057",
+    "EdFi_ID": 1105
+  },
+  {
+    "ServerId": 150,
+    "Name": "Samuel Morey Elementary School",
+    "OrgId": "PS106",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "EE"
+    ],
+    "ParentOrg": "SU064",
+    "OperatedBy": "U146",
+    "EdFi_ID": 1106
+  },
+  {
+    "ServerId": 151,
+    "Name": "Fayston Elementary School",
+    "OrgId": "PS107",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1107
+  },
+  {
+    "ServerId": 152,
+    "Name": "Ferrisburgh Central School",
+    "OrgId": "PS108",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU002",
+    "OperatedBy": "U054",
+    "EdFi_ID": 1108
+  },
+  {
+    "ServerId": 153,
+    "Name": "Fisher School",
+    "OrgId": "PS109",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "T005",
+    "EdFi_ID": 1109
+  },
+  {
+    "ServerId": 154,
+    "Name": "Fletcher Elementary School",
+    "OrgId": "PS110",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU022",
+    "OperatedBy": "T077",
+    "EdFi_ID": 1110
+  },
+  {
+    "ServerId": 155,
+    "Name": "Flood Brook School",
+    "OrgId": "PS111",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1111
+  },
+  {
+    "ServerId": 156,
+    "Name": "Folsom Education & Community Center",
+    "OrgId": "PS112",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU024",
+    "OperatedBy": "T192",
+    "EdFi_ID": 1112
+  },
+  {
+    "ServerId": 157,
+    "Name": "Founders Memorial School",
+    "OrgId": "PS113",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "3",
+      "4",
+      "5"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1113
+  },
+  {
+    "ServerId": 158,
+    "Name": "Franklin Central School",
+    "OrgId": "PS115",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU021",
+    "OperatedBy": "U089",
+    "EdFi_ID": 1115
+  },
+  {
+    "ServerId": 159,
+    "Name": "Georgia Elementary & Middle School",
+    "OrgId": "PS117",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE",
+      "PK"
+    ],
+    "ParentOrg": "SU022",
+    "OperatedBy": "T079",
+    "EdFi_ID": 1117
+  },
+  {
+    "ServerId": 162,
+    "Name": "Glover Community School",
+    "OrgId": "PS118",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U093",
+    "EdFi_ID": 1118
+  },
+  {
+    "ServerId": 163,
+    "Name": "Grafton Elementary School",
+    "OrgId": "PS120",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU047",
+    "OperatedBy": "U095",
+    "EdFi_ID": 1120
+  },
+  {
+    "ServerId": 164,
+    "Name": "Grand Isle School",
+    "OrgId": "PS122",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU024",
+    "OperatedBy": "U066",
+    "EdFi_ID": 1122
+  },
+  {
+    "ServerId": 165,
+    "Name": "Green Mountain Union High School",
+    "OrgId": "PS124",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU063",
+    "OperatedBy": "U077",
+    "EdFi_ID": 1124
+  },
+  {
+    "ServerId": 166,
+    "Name": "Lakeview Early Education Center",
+    "OrgId": "PS126",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK"
+    ],
+    "ParentOrg": "SU035",
+    "OperatedBy": "U094",
+    "EdFi_ID": 1126
+  },
+  {
+    "ServerId": 167,
+    "Name": "Guilford Central School",
+    "OrgId": "PS128",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1128
+  },
+  {
+    "ServerId": 168,
+    "Name": "Halifax West School",
+    "OrgId": "PS129",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU049",
+    "OperatedBy": "T090",
+    "EdFi_ID": 1129
+  },
+  {
+    "ServerId": 169,
+    "Name": "Hardwick Elementary School",
+    "OrgId": "PS131",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU035",
+    "OperatedBy": "U094",
+    "EdFi_ID": 1131
+  },
+  {
+    "ServerId": 170,
+    "Name": "Hartford High School",
+    "OrgId": "PS134",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU054",
+    "OperatedBy": "T093",
+    "EdFi_ID": 1134
+  },
+  {
+    "ServerId": 171,
+    "Name": "Hartford Memorial Middle School",
+    "OrgId": "PS135",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU054",
+    "OperatedBy": "T093",
+    "EdFi_ID": 1135
+  },
+  {
+    "ServerId": 172,
+    "Name": "Hartland Elementary School",
+    "OrgId": "PS137",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU052",
+    "OperatedBy": "T094",
+    "EdFi_ID": 1137
+  },
+  {
+    "ServerId": 173,
+    "Name": "Harwood Union Middle/High School",
+    "OrgId": "PS138",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1138
+  },
+  {
+    "ServerId": 174,
+    "Name": "Hazen Union High School",
+    "OrgId": "PS139",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU035",
+    "OperatedBy": "U026",
+    "EdFi_ID": 1139
+  },
+  {
+    "ServerId": 175,
+    "Name": "Milton Elementary School",
+    "OrgId": "PS140",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU010",
+    "OperatedBy": "T126",
+    "EdFi_ID": 1140
+  },
+  {
+    "ServerId": 176,
+    "Name": "Hiawatha Elementary School",
+    "OrgId": "PS141",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "EE"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1141
+  },
+  {
+    "ServerId": 177,
+    "Name": "Highgate Elementary School",
+    "OrgId": "PS142",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU021",
+    "OperatedBy": "U089",
+    "EdFi_ID": 1142
+  },
+  {
+    "ServerId": 178,
+    "Name": "Hinesburg Community School",
+    "OrgId": "PS143",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU014",
+    "OperatedBy": "U056",
+    "EdFi_ID": 1143
+  },
+  {
+    "ServerId": 181,
+    "Name": "Hyde Park Elementary School",
+    "OrgId": "PS145",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "U058A",
+    "EdFi_ID": 1145
+  },
+  {
+    "ServerId": 182,
+    "Name": "Irasburg Village School",
+    "OrgId": "PS147",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U093",
+    "EdFi_ID": 1147
+  },
+  {
+    "ServerId": 184,
+    "Name": "Jamaica Village School",
+    "OrgId": "PS149",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "U072A",
+    "EdFi_ID": 1149
+  },
+  {
+    "ServerId": 185,
+    "Name": "Jericho Elementary School",
+    "OrgId": "PS152",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1152
+  },
+  {
+    "ServerId": 186,
+    "Name": "Johnson Elementary School",
+    "OrgId": "PS153",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "U058A",
+    "EdFi_ID": 1153
+  },
+  {
+    "ServerId": 187,
+    "Name": "J. F. Kennedy Elementary School",
+    "OrgId": "PS154",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU017",
+    "OperatedBy": "T249",
+    "EdFi_ID": 1154
+  },
+  {
+    "ServerId": 188,
+    "Name": "J. J. Flynn School",
+    "OrgId": "PS155",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1155
+  },
+  {
+    "ServerId": 189,
+    "Name": "Elmore School",
+    "OrgId": "PS156",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "1",
+      "2",
+      "3"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "U090",
+    "EdFi_ID": 1156
+  },
+  {
+    "ServerId": 190,
+    "Name": "Lake Region Union High School",
+    "OrgId": "PS157",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U024",
+    "EdFi_ID": 1157
+  },
+  {
+    "ServerId": 191,
+    "Name": "Lamoille Union High School",
+    "OrgId": "PS158",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "U058B",
+    "EdFi_ID": 1158
+  },
+  {
+    "ServerId": 192,
+    "Name": "Sustainability Academy at Lawrence Barnes",
+    "OrgId": "PS159",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1159
+  },
+  {
+    "ServerId": 193,
+    "Name": "Leland & Gray Union Middle & High School",
+    "OrgId": "PS161",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "U072B",
+    "EdFi_ID": 1161
+  },
+  {
+    "ServerId": 194,
+    "Name": "Lincoln Community School",
+    "OrgId": "PS162",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU070",
+    "OperatedBy": "T112",
+    "EdFi_ID": 1162
+  },
+  {
+    "ServerId": 195,
+    "Name": "Lothrop School",
+    "OrgId": "PS165",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU036",
+    "OperatedBy": "U053",
+    "EdFi_ID": 1165
+  },
+  {
+    "ServerId": 196,
+    "Name": "Lowell Graded School",
+    "OrgId": "PS166",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T114",
+    "EdFi_ID": 1166
+  },
+  {
+    "ServerId": 197,
+    "Name": "Ludlow Elementary School",
+    "OrgId": "PS167",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU063",
+    "OperatedBy": "U083",
+    "EdFi_ID": 1167
+  },
+  {
+    "ServerId": 198,
+    "Name": "Lunenburg School",
+    "OrgId": "PS168",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1168
+  },
+  {
+    "ServerId": 199,
+    "Name": "Lyman C. Hunt Middle School",
+    "OrgId": "PS169",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1169
+  },
+  {
+    "ServerId": 200,
+    "Name": "Lyndon Town School",
+    "OrgId": "PS170",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1170
+  },
+  {
+    "ServerId": 201,
+    "Name": "Main Street Middle School",
+    "OrgId": "PS173",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU069",
+    "OperatedBy": "U071",
+    "EdFi_ID": 1173
+  },
+  {
+    "ServerId": 202,
+    "Name": "Malletts Bay School",
+    "OrgId": "PS174",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "3",
+      "4",
+      "5"
+    ],
+    "ParentOrg": "SU007",
+    "OperatedBy": "T050",
+    "EdFi_ID": 1174
+  },
+  {
+    "ServerId": 203,
+    "Name": "Manchester Elementary/Middle School",
+    "OrgId": "PS175",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1175
+  },
+  {
+    "ServerId": 206,
+    "Name": "Marion W. Cross School",
+    "OrgId": "PS176",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU055",
+    "OperatedBy": "T145",
+    "EdFi_ID": 1176
+  },
+  {
+    "ServerId": 207,
+    "Name": "Marlboro Elementary School",
+    "OrgId": "PS177",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "T120",
+    "EdFi_ID": 1177
+  },
+  {
+    "ServerId": 208,
+    "Name": "Middlebury ID #4 School",
+    "OrgId": "PS179",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1179
+  },
+  {
+    "ServerId": 209,
+    "Name": "Middlebury Union High School",
+    "OrgId": "PS180",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1180
+  },
+  {
+    "ServerId": 210,
+    "Name": "Rumney Memorial School",
+    "OrgId": "PS181",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU032",
+    "OperatedBy": "U092",
+    "EdFi_ID": 1181
+  },
+  {
+    "ServerId": 211,
+    "Name": "Middletown Springs Elementary School",
+    "OrgId": "PS182",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U069",
+    "EdFi_ID": 1182
+  },
+  {
+    "ServerId": 212,
+    "Name": "Mill River Union High School",
+    "OrgId": "PS183",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU033",
+    "OperatedBy": "U052",
+    "EdFi_ID": 1183
+  },
+  {
+    "ServerId": 213,
+    "Name": "Miller's Run School",
+    "OrgId": "PS184",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1184
+  },
+  {
+    "ServerId": 214,
+    "Name": "Milton Senior High School",
+    "OrgId": "PS186",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU010",
+    "OperatedBy": "T126",
+    "EdFi_ID": 1186
+  },
+  {
+    "ServerId": 217,
+    "Name": "Missisquoi Valley Union High School",
+    "OrgId": "PS187",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU021",
+    "OperatedBy": "U089",
+    "EdFi_ID": 1187
+  },
+  {
+    "ServerId": 218,
+    "Name": "Molly Stark School",
+    "OrgId": "PS188",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U087",
+    "EdFi_ID": 1188
+  },
+  {
+    "ServerId": 219,
+    "Name": "Monkton Central School",
+    "OrgId": "PS189",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU001",
+    "OperatedBy": "U061",
+    "EdFi_ID": 1189
+  },
+  {
+    "ServerId": 220,
+    "Name": "Montgomery Elementary School",
+    "OrgId": "PS190",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U085",
+    "EdFi_ID": 1190
+  },
+  {
+    "ServerId": 221,
+    "Name": "Montpelier High School",
+    "OrgId": "PS191",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU069",
+    "OperatedBy": "U071",
+    "EdFi_ID": 1191
+  },
+  {
+    "ServerId": 222,
+    "Name": "Monument Elementary School",
+    "OrgId": "PS192",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U087",
+    "EdFi_ID": 1192
+  },
+  {
+    "ServerId": 223,
+    "Name": "Moretown Elementary School",
+    "OrgId": "PS193",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1193
+  },
+  {
+    "ServerId": 224,
+    "Name": "Morristown Elementary School",
+    "OrgId": "PS194",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "U090",
+    "EdFi_ID": 1194
+  },
+  {
+    "ServerId": 225,
+    "Name": "Mt. Abraham Union High School",
+    "OrgId": "PS195",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU001",
+    "OperatedBy": "U061",
+    "EdFi_ID": 1195
+  },
+  {
+    "ServerId": 226,
+    "Name": "Mt. Anthony Senior Union High School",
+    "OrgId": "PS196",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U014",
+    "EdFi_ID": 1196
+  },
+  {
+    "ServerId": 227,
+    "Name": "Mt. Anthony Union Middle School",
+    "OrgId": "PS197",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U014",
+    "EdFi_ID": 1197
+  },
+  {
+    "ServerId": 228,
+    "Name": "Mt. Holly School",
+    "OrgId": "PS198",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU063",
+    "OperatedBy": "U083",
+    "EdFi_ID": 1198
+  },
+  {
+    "ServerId": 229,
+    "Name": "Mt. Mansfield Union High School",
+    "OrgId": "PS199",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1199
+  },
+  {
+    "ServerId": 230,
+    "Name": "Neshobe School",
+    "OrgId": "PS200",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU036",
+    "OperatedBy": "U053",
+    "EdFi_ID": 1200
+  },
+  {
+    "ServerId": 231,
+    "Name": "Newark Street School",
+    "OrgId": "PS201",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1201
+  },
+  {
+    "ServerId": 232,
+    "Name": "Newbury Elementary School",
+    "OrgId": "PS202",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU027",
+    "OperatedBy": "U091",
+    "EdFi_ID": 1202
+  },
+  {
+    "ServerId": 233,
+    "Name": "Newport City Elementary School",
+    "OrgId": "PS204",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T139",
+    "EdFi_ID": 1204
+  },
+  {
+    "ServerId": 234,
+    "Name": "Newport Town School",
+    "OrgId": "PS205",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T140",
+    "EdFi_ID": 1205
+  },
+  {
+    "ServerId": 235,
+    "Name": "The Newton School",
+    "OrgId": "PS206",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "T199",
+    "EdFi_ID": 1206
+  },
+  {
+    "ServerId": 236,
+    "Name": "North Country Union High School",
+    "OrgId": "PS208",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "U022B",
+    "EdFi_ID": 1208
+  },
+  {
+    "ServerId": 238,
+    "Name": "Northfield Elementary School",
+    "OrgId": "PS210",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU068",
+    "OperatedBy": "U068",
+    "EdFi_ID": 1210
+  },
+  {
+    "ServerId": 239,
+    "Name": "Northfield Middle/High School",
+    "OrgId": "PS211",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU068",
+    "OperatedBy": "U068",
+    "EdFi_ID": 1211
+  },
+  {
+    "ServerId": 240,
+    "Name": "Orange Center School",
+    "OrgId": "PS215",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU068",
+    "OperatedBy": "U067",
+    "EdFi_ID": 1215
+  },
+  {
+    "ServerId": 241,
+    "Name": "Orchard School",
+    "OrgId": "PS216",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU016",
+    "OperatedBy": "T191",
+    "EdFi_ID": 1216
+  },
+  {
+    "ServerId": 242,
+    "Name": "Orleans Elementary School",
+    "OrgId": "PS217",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU034",
+    "OperatedBy": "U093",
+    "EdFi_ID": 1217
+  },
+  {
+    "ServerId": 243,
+    "Name": "Orwell Village School",
+    "OrgId": "PS218",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU004",
+    "OperatedBy": "U062",
+    "EdFi_ID": 1218
+  },
+  {
+    "ServerId": 244,
+    "Name": "Otter Valley Union Middle/High School",
+    "OrgId": "PS219",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU036",
+    "OperatedBy": "U053",
+    "EdFi_ID": 1219
+  },
+  {
+    "ServerId": 245,
+    "Name": "Oxbow Union High School",
+    "OrgId": "PS220",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU027",
+    "OperatedBy": "U091",
+    "EdFi_ID": 1220
+  },
+  {
+    "ServerId": 246,
+    "Name": "Peacham Elementary School",
+    "OrgId": "PS223",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "T151",
+    "EdFi_ID": 1223
+  },
+  {
+    "ServerId": 247,
+    "Name": "Peoples Academy",
+    "OrgId": "PS224",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "U090",
+    "EdFi_ID": 1224
+  },
+  {
+    "ServerId": 248,
+    "Name": "Porters Point School",
+    "OrgId": "PS227",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2"
+    ],
+    "ParentOrg": "SU007",
+    "OperatedBy": "T050",
+    "EdFi_ID": 1227
+  },
+  {
+    "ServerId": 249,
+    "Name": "Poultney Elementary School",
+    "OrgId": "PS229",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U070",
+    "EdFi_ID": 1229
+  },
+  {
+    "ServerId": 250,
+    "Name": "Poultney High School",
+    "OrgId": "PS230",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U070",
+    "EdFi_ID": 1230
+  },
+  {
+    "ServerId": 251,
+    "Name": "Pownal Elementary School",
+    "OrgId": "PS231",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U087",
+    "EdFi_ID": 1231
+  },
+  {
+    "ServerId": 252,
+    "Name": "Proctor Elementary School",
+    "OrgId": "PS232",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U070",
+    "EdFi_ID": 1232
+  },
+  {
+    "ServerId": 253,
+    "Name": "Proctor Junior/Senior High School",
+    "OrgId": "PS233",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U070",
+    "EdFi_ID": 1233
+  },
+  {
+    "ServerId": 254,
+    "Name": "Putney Central School",
+    "OrgId": "PS234",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1234
+  },
+  {
+    "ServerId": 255,
+    "Name": "Randolph Union High School",
+    "OrgId": "PS237",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU028",
+    "OperatedBy": "U059",
+    "EdFi_ID": 1237
+  },
+  {
+    "ServerId": 256,
+    "Name": "Reading Elementary School",
+    "OrgId": "PS239",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "EE"
+    ],
+    "ParentOrg": "SU051",
+    "OperatedBy": "U076",
+    "EdFi_ID": 1239
+  },
+  {
+    "ServerId": 257,
+    "Name": "Readsboro Elementary School",
+    "OrgId": "PS240",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU049",
+    "OperatedBy": "T164",
+    "EdFi_ID": 1240
+  },
+  {
+    "ServerId": 258,
+    "Name": "Richford Elementary School",
+    "OrgId": "PS241",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U088",
+    "EdFi_ID": 1241
+  },
+  {
+    "ServerId": 259,
+    "Name": "Richford Junior/Senior High School",
+    "OrgId": "PS242",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U088",
+    "EdFi_ID": 1242
+  },
+  {
+    "ServerId": 260,
+    "Name": "Richmond Elementary School",
+    "OrgId": "PS243",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1243
+  },
+  {
+    "ServerId": 262,
+    "Name": "Riverside Middle School",
+    "OrgId": "PS245",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "5",
+      "8"
+    ],
+    "ParentOrg": "SU056",
+    "OperatedBy": "T193",
+    "EdFi_ID": 1245
+  },
+  {
+    "ServerId": 263,
+    "Name": "Robinson School",
+    "OrgId": "PS246",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU001",
+    "OperatedBy": "U061",
+    "EdFi_ID": 1246
+  },
+  {
+    "ServerId": 264,
+    "Name": "Rochester Elementary School",
+    "OrgId": "PS247",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U081",
+    "EdFi_ID": 1247
+  },
+  {
+    "ServerId": 265,
+    "Name": "Central Elementary School",
+    "OrgId": "PS249",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU047",
+    "OperatedBy": "T169",
+    "EdFi_ID": 1249
+  },
+  {
+    "ServerId": 267,
+    "Name": "Rutland Senior High School",
+    "OrgId": "PS253",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU040",
+    "OperatedBy": "T173",
+    "EdFi_ID": 1253
+  },
+  {
+    "ServerId": 268,
+    "Name": "Northeast Primary School",
+    "OrgId": "PS255",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU040",
+    "OperatedBy": "T173",
+    "EdFi_ID": 1255
+  },
+  {
+    "ServerId": 269,
+    "Name": "Northwest Primary School",
+    "OrgId": "PS256",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU040",
+    "OperatedBy": "T173",
+    "EdFi_ID": 1256
+  },
+  {
+    "ServerId": 270,
+    "Name": "Rutland Town Elementary School",
+    "OrgId": "PS258",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "T174",
+    "EdFi_ID": 1258
+  },
+  {
+    "ServerId": 273,
+    "Name": "Salisbury Community School",
+    "OrgId": "PS259",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1259
+  },
+  {
+    "ServerId": 274,
+    "Name": "Saxton River Elementary School",
+    "OrgId": "PS260",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU047",
+    "OperatedBy": "T169",
+    "EdFi_ID": 1260
+  },
+  {
+    "ServerId": 275,
+    "Name": "Shaftsbury Elementary School",
+    "OrgId": "PS262",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U087",
+    "EdFi_ID": 1262
+  },
+  {
+    "ServerId": 276,
+    "Name": "Sharon Elementary School",
+    "OrgId": "PS263",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "T184",
+    "EdFi_ID": 1263
+  },
+  {
+    "ServerId": 277,
+    "Name": "Shelburne Community School",
+    "OrgId": "PS264",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE",
+      "PK"
+    ],
+    "ParentOrg": "SU014",
+    "OperatedBy": "U056",
+    "EdFi_ID": 1264
+  },
+  {
+    "ServerId": 280,
+    "Name": "Sheldon Elementary School",
+    "OrgId": "PS266",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU020",
+    "OperatedBy": "U085",
+    "EdFi_ID": 1266
+  },
+  {
+    "ServerId": 281,
+    "Name": "Killington Elementary School",
+    "OrgId": "PS267",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU051",
+    "OperatedBy": "U076",
+    "EdFi_ID": 1267
+  },
+  {
+    "ServerId": 282,
+    "Name": "Shoreham Elementary School",
+    "OrgId": "PS268",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1268
+  },
+  {
+    "ServerId": 283,
+    "Name": "Shrewsbury Mountain School",
+    "OrgId": "PS269",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU033",
+    "OperatedBy": "U052",
+    "EdFi_ID": 1269
+  },
+  {
+    "ServerId": 284,
+    "Name": "Smilie Memorial Elementary School",
+    "OrgId": "PS270",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1270
+  },
+  {
+    "ServerId": 285,
+    "Name": "Rick Marcotte Central School",
+    "OrgId": "PS271",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU016",
+    "OperatedBy": "T191",
+    "EdFi_ID": 1271
+  },
+  {
+    "ServerId": 286,
+    "Name": "South Burlington High School",
+    "OrgId": "PS272",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU016",
+    "OperatedBy": "T191",
+    "EdFi_ID": 1272
+  },
+  {
+    "ServerId": 287,
+    "Name": "Frederick H. Tuttle Middle School",
+    "OrgId": "PS273",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU016",
+    "OperatedBy": "T191",
+    "EdFi_ID": 1273
+  },
+  {
+    "ServerId": 288,
+    "Name": "South Royalton Elementary School",
+    "OrgId": "PS274",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U079",
+    "EdFi_ID": 1274
+  },
+  {
+    "ServerId": 289,
+    "Name": "Spaulding High School",
+    "OrgId": "PS276",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU061",
+    "OperatedBy": "U097",
+    "EdFi_ID": 1276
+  },
+  {
+    "ServerId": 290,
+    "Name": "Elm Hill School",
+    "OrgId": "PS277",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU056",
+    "OperatedBy": "T193",
+    "EdFi_ID": 1277
+  },
+  {
+    "ServerId": 291,
+    "Name": "Springfield High School",
+    "OrgId": "PS278",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU056",
+    "OperatedBy": "T193",
+    "EdFi_ID": 1278
+  },
+  {
+    "ServerId": 292,
+    "Name": "Union Street School",
+    "OrgId": "PS280",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "3",
+      "4",
+      "2"
+    ],
+    "ParentOrg": "SU056",
+    "OperatedBy": "T193",
+    "EdFi_ID": 1280
+  },
+  {
+    "ServerId": 293,
+    "Name": "Stamford Elementary School",
+    "OrgId": "PS284",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU049",
+    "OperatedBy": "T194",
+    "EdFi_ID": 1284
+  },
+  {
+    "ServerId": 294,
+    "Name": "Stockbridge Central School",
+    "OrgId": "PS285",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U081",
+    "EdFi_ID": 1285
+  },
+  {
+    "ServerId": 295,
+    "Name": "Stowe Elementary School",
+    "OrgId": "PS286",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "T198",
+    "EdFi_ID": 1286
+  },
+  {
+    "ServerId": 299,
+    "Name": "St. Albans City Elementary School",
+    "OrgId": "PS288",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU023",
+    "OperatedBy": "U057",
+    "EdFi_ID": 1288
+  },
+  {
+    "ServerId": 300,
+    "Name": "St. Albans Town Educational Center",
+    "OrgId": "PS289",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU023",
+    "OperatedBy": "U057",
+    "EdFi_ID": 1289
+  },
+  {
+    "ServerId": 301,
+    "Name": "Summit Street School",
+    "OrgId": "PS292",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1292
+  },
+  {
+    "ServerId": 302,
+    "Name": "Sunderland Elementary School",
+    "OrgId": "PS293",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1293
+  },
+  {
+    "ServerId": 303,
+    "Name": "Sutton Village School",
+    "OrgId": "PS294",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU067",
+    "OperatedBy": "U064",
+    "EdFi_ID": 1294
+  },
+  {
+    "ServerId": 304,
+    "Name": "Swanton School",
+    "OrgId": "PS295",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU021",
+    "OperatedBy": "U089",
+    "EdFi_ID": 1295
+  },
+  {
+    "ServerId": 305,
+    "Name": "Thetford Elementary School",
+    "OrgId": "PS298",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU027",
+    "OperatedBy": "T205",
+    "EdFi_ID": 1298
+  },
+  {
+    "ServerId": 306,
+    "Name": "Thomas Fleming School",
+    "OrgId": "PS299",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "4",
+      "5",
+      "3"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1299
+  },
+  {
+    "ServerId": 307,
+    "Name": "Tinmouth Elementary School",
+    "OrgId": "PS300",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU033",
+    "OperatedBy": "U052",
+    "EdFi_ID": 1300
+  },
+  {
+    "ServerId": 308,
+    "Name": "Townshend Village School",
+    "OrgId": "PS301",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "U072A",
+    "EdFi_ID": 1301
+  },
+  {
+    "ServerId": 309,
+    "Name": "Troy School",
+    "OrgId": "PS302",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "T209",
+    "EdFi_ID": 1302
+  },
+  {
+    "ServerId": 310,
+    "Name": "First Branch Elementary School (Tunbridge)",
+    "OrgId": "PS303",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U082",
+    "EdFi_ID": 1303
+  },
+  {
+    "ServerId": 311,
+    "Name": "Twinfield Union School",
+    "OrgId": "PS304",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "U033",
+    "EdFi_ID": 1304
+  },
+  {
+    "ServerId": 312,
+    "Name": "U-32 Middle & High School",
+    "OrgId": "PS305",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU032",
+    "OperatedBy": "U092",
+    "EdFi_ID": 1305
+  },
+  {
+    "ServerId": 313,
+    "Name": "Underhill Central School",
+    "OrgId": "PS306",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU012",
+    "OperatedBy": "U401",
+    "EdFi_ID": 1306
+  },
+  {
+    "ServerId": 314,
+    "Name": "Union Elementary School",
+    "OrgId": "PS308",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "EE"
+    ],
+    "ParentOrg": "SU069",
+    "OperatedBy": "U071",
+    "EdFi_ID": 1308
+  },
+  {
+    "ServerId": 315,
+    "Name": "Union Memorial School",
+    "OrgId": "PS309",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU007",
+    "OperatedBy": "T050",
+    "EdFi_ID": 1309
+  },
+  {
+    "ServerId": 316,
+    "Name": "Waits River Valley Union School",
+    "OrgId": "PS310",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE",
+      "3"
+    ],
+    "ParentOrg": "SU027",
+    "OperatedBy": "U036",
+    "EdFi_ID": 1310
+  },
+  {
+    "ServerId": 317,
+    "Name": "Vergennes Union Elementary School",
+    "OrgId": "PS311",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU002",
+    "OperatedBy": "U054",
+    "EdFi_ID": 1311
+  },
+  {
+    "ServerId": 318,
+    "Name": "Vergennes Union High School",
+    "OrgId": "PS312",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU002",
+    "OperatedBy": "U054",
+    "EdFi_ID": 1312
+  },
+  {
+    "ServerId": 319,
+    "Name": "Vernon Elementary School",
+    "OrgId": "PS313",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "T214",
+    "EdFi_ID": 1313
+  },
+  {
+    "ServerId": 320,
+    "Name": "Waitsfield Elementary School",
+    "OrgId": "PS315",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1315
+  },
+  {
+    "ServerId": 321,
+    "Name": "Walden School",
+    "OrgId": "PS316",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "U078",
+    "EdFi_ID": 1316
+  },
+  {
+    "ServerId": 322,
+    "Name": "Wallingford Village School",
+    "OrgId": "PS317",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU033",
+    "OperatedBy": "U052",
+    "EdFi_ID": 1317
+  },
+  {
+    "ServerId": 323,
+    "Name": "Wardsboro Central School",
+    "OrgId": "PS319",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "U073",
+    "EdFi_ID": 1319
+  },
+  {
+    "ServerId": 324,
+    "Name": "Warren Elementary School",
+    "OrgId": "PS320",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1320
+  },
+  {
+    "ServerId": 325,
+    "Name": "Washington Village School",
+    "OrgId": "PS322",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "EE"
+    ],
+    "ParentOrg": "SU068",
+    "OperatedBy": "U067",
+    "EdFi_ID": 1322
+  },
+  {
+    "ServerId": 326,
+    "Name": "Waterford Elementary School",
+    "OrgId": "PS324",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU009",
+    "OperatedBy": "U078",
+    "EdFi_ID": 1324
+  },
+  {
+    "ServerId": 327,
+    "Name": "Waterville Elementary School",
+    "OrgId": "PS325",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "U058A",
+    "EdFi_ID": 1325
+  },
+  {
+    "ServerId": 328,
+    "Name": "Wells Village School",
+    "OrgId": "PS328",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U069",
+    "EdFi_ID": 1328
+  },
+  {
+    "ServerId": 329,
+    "Name": "West Rutland School",
+    "OrgId": "PS331",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "PK",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU066",
+    "OperatedBy": "U070",
+    "EdFi_ID": 1331
+  },
+  {
+    "ServerId": 330,
+    "Name": "Westford Elementary School",
+    "OrgId": "PS333",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "EE",
+      "PK"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1333
+  },
+  {
+    "ServerId": 331,
+    "Name": "Westminster Schools",
+    "OrgId": "PS334",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU047",
+    "OperatedBy": "T234",
+    "EdFi_ID": 1334
+  },
+  {
+    "ServerId": 332,
+    "Name": "Weybridge Elementary School",
+    "OrgId": "PS336",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1336
+  },
+  {
+    "ServerId": 333,
+    "Name": "Integrated Arts Academy at H. O. Wheeler",
+    "OrgId": "PS337",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU015",
+    "OperatedBy": "T037",
+    "EdFi_ID": 1337
+  },
+  {
+    "ServerId": 334,
+    "Name": "White River School",
+    "OrgId": "PS339",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU054",
+    "OperatedBy": "T093",
+    "EdFi_ID": 1339
+  },
+  {
+    "ServerId": 335,
+    "Name": "Williamstown Elementary School",
+    "OrgId": "PS343",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU068",
+    "OperatedBy": "U068",
+    "EdFi_ID": 1343
+  },
+  {
+    "ServerId": 338,
+    "Name": "Williamstown Middle/High School",
+    "OrgId": "PS344",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU068",
+    "OperatedBy": "U068",
+    "EdFi_ID": 1344
+  },
+  {
+    "ServerId": 342,
+    "Name": "Winooski High School",
+    "OrgId": "PS351",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU017",
+    "OperatedBy": "T249",
+    "EdFi_ID": 1351
+  },
+  {
+    "ServerId": 343,
+    "Name": "Wolcott Elementary School",
+    "OrgId": "PS352",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU035",
+    "OperatedBy": "T250",
+    "EdFi_ID": 1352
+  },
+  {
+    "ServerId": 344,
+    "Name": "Woodbury Elementary School",
+    "OrgId": "PS353",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU035",
+    "OperatedBy": "U094",
+    "EdFi_ID": 1353
+  },
+  {
+    "ServerId": 345,
+    "Name": "Woodford Hollow School",
+    "OrgId": "PS354",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU005",
+    "OperatedBy": "U087",
+    "EdFi_ID": 1354
+  },
+  {
+    "ServerId": 346,
+    "Name": "Woodstock Elementary School",
+    "OrgId": "PS355",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU051",
+    "OperatedBy": "U076",
+    "EdFi_ID": 1355
+  },
+  {
+    "ServerId": 347,
+    "Name": "Woodstock Union Middle/High School",
+    "OrgId": "PS356",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU051",
+    "OperatedBy": "U076",
+    "EdFi_ID": 1356
+  },
+  {
+    "ServerId": 348,
+    "Name": "Doty Memorial School",
+    "OrgId": "PS357",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU032",
+    "OperatedBy": "U092",
+    "EdFi_ID": 1357
+  },
+  {
+    "ServerId": 349,
+    "Name": "Randolph Elementary School",
+    "OrgId": "PS359",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU028",
+    "OperatedBy": "U059",
+    "EdFi_ID": 1359
+  },
+  {
+    "ServerId": 350,
+    "Name": "North Country Union Junior High School",
+    "OrgId": "PS364",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "U022A",
+    "EdFi_ID": 1364
+  },
+  {
+    "ServerId": 351,
+    "Name": "Rutland Middle School",
+    "OrgId": "PS365",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU040",
+    "OperatedBy": "T173",
+    "EdFi_ID": 1365
+  },
+  {
+    "ServerId": 352,
+    "Name": "Middlebury Union Middle School",
+    "OrgId": "PS366",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "6"
+    ],
+    "ParentOrg": "SU003",
+    "OperatedBy": "U055",
+    "EdFi_ID": 1366
+  },
+  {
+    "ServerId": 353,
+    "Name": "Brattleboro Area Middle School",
+    "OrgId": "PS367",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1367
+  },
+  {
+    "ServerId": 354,
+    "Name": "Jay/Westfield Joint Elementary School",
+    "OrgId": "PS374",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU031",
+    "OperatedBy": "J105",
+    "EdFi_ID": 1374
+  },
+  {
+    "ServerId": 355,
+    "Name": "Dothan Brook School",
+    "OrgId": "PS378",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU054",
+    "OperatedBy": "T093",
+    "EdFi_ID": 1378
+  },
+  {
+    "ServerId": 356,
+    "Name": "Ottauquechee School",
+    "OrgId": "PS380",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU054",
+    "OperatedBy": "T093",
+    "EdFi_ID": 1380
+  },
+  {
+    "ServerId": 357,
+    "Name": "Barre City Elementary/Middle School",
+    "OrgId": "PS381",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU061",
+    "OperatedBy": "U097",
+    "EdFi_ID": 1381
+  },
+  {
+    "ServerId": 360,
+    "Name": "Rutland Intermediate School",
+    "OrgId": "PS382",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "ParentOrg": "SU040",
+    "OperatedBy": "T173",
+    "EdFi_ID": 1382
+  },
+  {
+    "ServerId": 361,
+    "Name": "Oak Grove School",
+    "OrgId": "PS383",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1383
+  },
+  {
+    "ServerId": 362,
+    "Name": "Green Street School",
+    "OrgId": "PS385",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU048",
+    "OperatedBy": "U096",
+    "EdFi_ID": 1385
+  },
+  {
+    "ServerId": 363,
+    "Name": "Essex High School",
+    "OrgId": "PS388",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU065",
+    "OperatedBy": "U051",
+    "EdFi_ID": 1388
+  },
+  {
+    "ServerId": 364,
+    "Name": "Brookside Primary School",
+    "OrgId": "PS390",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "EE"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1390
+  },
+  {
+    "ServerId": 365,
+    "Name": "Crossett Brook Middle School",
+    "OrgId": "PS391",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU042",
+    "OperatedBy": "U060",
+    "EdFi_ID": 1391
+  },
+  {
+    "ServerId": 366,
+    "Name": "Mettawee Community School",
+    "OrgId": "PS392",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U084",
+    "EdFi_ID": 1392
+  },
+  {
+    "ServerId": 367,
+    "Name": "Peoples Academy Middle Level",
+    "OrgId": "PS394",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "U090",
+    "EdFi_ID": 1394
+  },
+  {
+    "ServerId": 368,
+    "Name": "Williston Schools",
+    "OrgId": "PS398",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU014",
+    "OperatedBy": "U056",
+    "EdFi_ID": 1398
+  },
+  {
+    "ServerId": 373,
+    "Name": "Westshire Elementary School",
+    "OrgId": "PS399",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU064",
+    "OperatedBy": "U146",
+    "EdFi_ID": 1399
+  },
+  {
+    "ServerId": 374,
+    "Name": "St. Johnsbury School",
+    "OrgId": "PS400",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "EE"
+    ],
+    "ParentOrg": "SU011",
+    "OperatedBy": "T179",
+    "EdFi_ID": 1400
+  },
+  {
+    "ServerId": 377,
+    "Name": "Winooski Middle School",
+    "OrgId": "PS401",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU017",
+    "OperatedBy": "T249",
+    "EdFi_ID": 1401
+  },
+  {
+    "ServerId": 378,
+    "Name": "Lamoille Union Middle School",
+    "OrgId": "PS404",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU025",
+    "OperatedBy": "U058B",
+    "EdFi_ID": 1404
+  },
+  {
+    "ServerId": 379,
+    "Name": "Bellows Free Academy High School (Fairfax)",
+    "OrgId": "PS405",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU022",
+    "OperatedBy": "T071",
+    "EdFi_ID": 1405
+  },
+  {
+    "ServerId": 380,
+    "Name": "Bellows Free Academy (St. Albans)",
+    "OrgId": "PS406",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU023",
+    "OperatedBy": "U057",
+    "EdFi_ID": 1406
+  },
+  {
+    "ServerId": 381,
+    "Name": "Weathersfield School",
+    "OrgId": "PS407",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU052",
+    "OperatedBy": "T227",
+    "EdFi_ID": 1407
+  },
+  {
+    "ServerId": 382,
+    "Name": "Newbrook Elementary School",
+    "OrgId": "PS408",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "EE"
+    ],
+    "ParentOrg": "SU046",
+    "OperatedBy": "U072A",
+    "EdFi_ID": 1408
+  },
+  {
+    "ServerId": 383,
+    "Name": "Prosper Valley School",
+    "OrgId": "PS409",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6"
+    ],
+    "ParentOrg": "SU051",
+    "OperatedBy": "U076",
+    "EdFi_ID": 1409
+  },
+  {
+    "ServerId": 384,
+    "Name": "Windsor School",
+    "OrgId": "PS410",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "PK",
+      "EE",
+      "AW"
+    ],
+    "ParentOrg": "SU052",
+    "OperatedBy": "U086",
+    "EdFi_ID": 1410
+  },
+  {
+    "ServerId": 385,
+    "Name": "Twin Valley Middle High School",
+    "OrgId": "PS411",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU049",
+    "OperatedBy": "U075",
+    "EdFi_ID": 1411
+  },
+  {
+    "ServerId": 386,
+    "Name": "Castleton Elementary School",
+    "OrgId": "PS413",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "PK",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU004",
+    "OperatedBy": "U062",
+    "EdFi_ID": 1413
+  },
+  {
+    "ServerId": 388,
+    "Name": "White River Valley Middle School",
+    "OrgId": "PS416",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U079",
+    "EdFi_ID": 1416
+  },
+  {
+    "ServerId": 389,
+    "Name": "White River Valley High School",
+    "OrgId": "PS417",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU030",
+    "OperatedBy": "U079",
+    "EdFi_ID": 1417
+  },
+  {
+    "ServerId": 390,
+    "Name": "Otter Creek Academy at Leicester Sudbury and Whiting",
+    "OrgId": "PS418",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "EE"
+    ],
+    "ParentOrg": "SU036",
+    "OperatedBy": "U053",
+    "EdFi_ID": 1418
+  },
+  {
+    "ServerId": 1146,
+    "Name": "Stowe Middle School",
+    "OrgId": "PS419",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "T198",
+    "EdFi_ID": 1419
+  },
+  {
+    "ServerId": 1192,
+    "Name": "Stowe High School",
+    "OrgId": "PS420",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU026",
+    "OperatedBy": "T198",
+    "EdFi_ID": 1420
+  },
+  {
+    "ServerId": 1369,
+    "Name": "Milton Middle School",
+    "OrgId": "PS185",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "5"
+    ],
+    "ParentOrg": "SU010",
+    "OperatedBy": "T126",
+    "EdFi_ID": 1185
+  },
+  {
+    "ServerId": 1650,
+    "Name": "Vergennes Union Middle School",
+    "OrgId": "PS421",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "7",
+      "8",
+      "6"
+    ],
+    "ParentOrg": "SU002",
+    "OperatedBy": "U054",
+    "EdFi_ID": 1421
+  },
+  {
+    "ServerId": 1665,
+    "Name": " Green Ridge Elementary School",
+    "OrgId": "PS422",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "EE"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1422
+  },
+  {
+    "ServerId": 1666,
+    "Name": "Taconic Elementary School",
+    "OrgId": "PS423",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "EE",
+      "PK",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1423
+  },
+  {
+    "ServerId": 1667,
+    "Name": " Equinox Valley Middle School",
+    "OrgId": "PS424",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU006",
+    "OperatedBy": "U063",
+    "EdFi_ID": 1424
+  },
+  {
+    "ServerId": 1668,
+    "Name": "Bellows Free Academy Middle School ",
+    "OrgId": "PS425",
+    "OrgType": "Public School (PS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "ParentOrg": "SU022",
+    "OperatedBy": "T071",
+    "EdFi_ID": 1425
+  }
+]
