@@ -114,7 +114,7 @@ parameters:
         the same pupil count as 1.00. The choice therefore more than doubles the
         membership contribution of every prekindergarten pupil, which is why it is
         not guessed at.
-      verified: ture
+      verified: true
       verified_date: "2026-08-01"
       verified_by: James Nadeau through knowledge of existing system, statute description is confusing. 
 
