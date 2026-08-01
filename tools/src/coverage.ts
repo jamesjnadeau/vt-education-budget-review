@@ -22,7 +22,7 @@ import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
-import { flagIssueUrl, intakeIssueUrl, CONFIG } from './config.ts';
+import { flagIssueUrl, intakeIssueUrl, normalizeIssueUrl, CONFIG } from './config.ts';
 import { walkFiles } from './fs-walk.ts';
 import { PATHS, rel } from './paths.ts';
 import type { RegistryEntity } from './registry/types.ts';
@@ -40,6 +40,8 @@ export interface CoverageCell {
   readonly lastKnownSource: string | null;
   /** Deep link to the prefilled budget-intake issue form, or null once normalized. */
   readonly intakeUrl: string | null;
+  /** Deep link to the prefilled budget-normalize form; set only for intake_only cells. */
+  readonly normalizeUrl: string | null;
   readonly flagUrl: string | null;
   readonly notPublishedNote: string | null;
 }
@@ -178,6 +180,13 @@ export function buildCoverage(
 
       totals[state]++;
 
+      // The artifact to normalize: the first intake file, at the path the intake
+      // index reads it from. Only meaningful for an intake_only cell.
+      const sourcePath =
+        intakeFiles.length > 0
+          ? `intake/${entity.slug.replace('/', '-')}/fy${fiscalYear}/${intakeFiles[0]}`
+          : null;
+
       cells.push({
         entity: entity.slug,
         entityName: entity.name,
@@ -188,6 +197,10 @@ export function buildCoverage(
         budgetStatus: warehouseEntry?.status ?? null,
         lastKnownSource,
         intakeUrl: state === 'normalized' ? null : intakeIssueUrl(entity.slug, fiscalYear),
+        normalizeUrl:
+          state === 'intake_only' && sourcePath
+            ? normalizeIssueUrl(entity.slug, fiscalYear, sourcePath)
+            : null,
         flagUrl: state === 'missing' ? flagIssueUrl(entity.slug, entity.name, fiscalYear, lastKnownSource) : null,
         notPublishedNote: confirmedAbsent?.note ?? null,
       });

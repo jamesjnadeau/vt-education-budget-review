@@ -1,0 +1,67 @@
+name: Normalize
+
+# Turns a budget-normalize issue into a pull request: build a budget record from
+# the form, validate it against the schema and cross-file rules, and open a PR
+# adding warehouse/<slug>/fy<year>-<status>.yaml. Anything wrong is a comment on
+# the issue, which stays open so the `edited` trigger picks up the fix.
+#
+# The logic lives in tools/src/normalize/ (pure, unit-tested) and
+# tools/src/cli/normalize.ts (the IO shell). This file stays thin.
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: normalize-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  normalize:
+    # Recognise a normalize issue by the label OR the template's title prefix.
+    # The title check is load-bearing: GitHub only applies a template's labels
+    # that already exist in the repo, so an issue can arrive unlabelled, and
+    # gating on the label alone would drop it silently.
+    if: >-
+      startsWith(github.event.issue.title, 'Budget normalize:') ||
+      contains(github.event.issue.labels.*.name, 'budget-normalize')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint a GitHub App token
+        # Short-lived App token so the PR is the App's and validate.yml runs on
+        # it -- a PR opened with the built-in GITHUB_TOKEN starts no workflows.
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.INTAKE_APP_ID }}
+          private-key: ${{ secrets.INTAKE_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v5
+        # No lfs: the record is a plain YAML, and the source existence check only
+        # needs the intake pointer to be present, not its bytes.
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          lfs: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Process the submission
+        # The issue body is attacker-controlled: passed as an env var and read
+        # from process.env, never interpolated into this run block.
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR_LOGIN: ${{ github.event.issue.user.login }}
+          ISSUE_AUTHOR_ID: ${{ github.event.issue.user.id }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: npm run normalize

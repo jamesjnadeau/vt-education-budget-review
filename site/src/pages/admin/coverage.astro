@@ -14,6 +14,7 @@ interface Cell {
   intakeFiles: string[];
   lastKnownSource: string | null;
   intakeUrl: string | null;
+  normalizeUrl: string | null;
   flagUrl: string | null;
   notPublishedNote: string | null;
 }
@@ -85,12 +86,18 @@ const LABEL: Record<Cell['state'], string> = {
                 const title = `${titleCase(entity.name)} FY${year}: ${LABEL[cell.state]}`;
                 const href = cell.warehouseFile
                   ? null
-                  : (cell.intakeUrl ?? cell.flagUrl ?? null);
+                  : (cell.normalizeUrl ?? cell.intakeUrl ?? cell.flagUrl ?? null);
+                const linkText =
+                  cell.state === 'intake_only'
+                    ? 'normalize'
+                    : cell.state === 'missing'
+                      ? 'send in'
+                      : LABEL[cell.state];
                 return (
                   <td>
                     {href ? (
                       <a class={`cell ${cell.state}`} href={href} title={title}>
-                        {cell.state === 'missing' ? 'send in' : LABEL[cell.state]}
+                        {linkText}
                       </a>
                     ) : (
                       <span class={`cell ${cell.state}`} title={title}>

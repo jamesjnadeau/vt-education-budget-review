@@ -40,6 +40,30 @@ export function intakeIssueUrl(entitySlug: string, fiscalYear: number): string |
   return `${CONFIG.repositoryUrl}/issues/new?${params.toString()}`;
 }
 
+/**
+ * Deep link to the budget-normalize issue form, prefilled with a cell's entity,
+ * fiscal year, and the intake artifact to extract from.
+ *
+ * The counterpart to `intakeIssueUrl`: intake lands the raw document, this turns
+ * it into a warehouse record. Offered from `intake_only` cells -- the ones that
+ * have an artifact and no record yet -- so the extractor starts from a form that
+ * already knows which document they are reading.
+ */
+export function normalizeIssueUrl(
+  entitySlug: string,
+  fiscalYear: number,
+  sourcePath: string,
+): string | null {
+  if (!CONFIG.repositoryUrl) return null;
+  const params = new URLSearchParams({
+    template: 'budget-normalize.yml',
+    entity: entitySlug,
+    fiscal_year: String(fiscalYear),
+    source: sourcePath,
+  });
+  return `${CONFIG.repositoryUrl}/issues/new?${params.toString()}`;
+}
+
 /** Pre-filled issue for tracking a gap without an upload. */
 export function flagIssueUrl(
   entitySlug: string,

@@ -1,0 +1,314 @@
+name: Normalize a budget document
+description: >-
+  Enter the figures from a budget book already in intake/. A bot validates them
+  against the budget schema and opens a pull request adding the warehouse record.
+title: "Budget normalize: "
+labels: [budget-normalize]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        For a document already landed in `intake/`. Every figure below is either a
+        number **or the literal `n/p`** if the budget book does not publish it — a
+        blank is rejected, because a null has to mean "not published", never "not
+        looked". An `n/p` is recorded as confirmed by you on the day you submit.
+  - type: input
+    id: entity
+    attributes:
+      label: "entity"
+      description: Registry slug. Prefilled from the coverage cell.
+      placeholder: "su/addison-central"
+    validations:
+      required: true
+  - type: input
+    id: fiscal_year
+    attributes:
+      label: "fiscal_year"
+      description: Four-digit fiscal year. Prefilled from the coverage cell.
+      placeholder: "2023"
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: "status"
+      description: Where in its lifecycle this budget was when the document was published.
+      options:
+        - proposed
+        - warned
+        - approved
+        - actual
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: "source"
+      description: Repo-relative intake path. Prefilled from the coverage cell.
+      placeholder: "intake/su-addison-central/fy2023/budget.pdf"
+    validations:
+      required: true
+  - type: input
+    id: source_pages
+    attributes:
+      label: "source_pages"
+      description: Optional page or section reference, so the record is checkable by hand.
+      placeholder: "pp. 14-17"
+    validations:
+      required: false
+  - type: input
+    id: adopted_date
+    attributes:
+      label: "adopted_date"
+      description: Optional; town-meeting or board vote date for approved/actual budgets.
+      placeholder: "2023-03-07"
+    validations:
+      required: false
+  - type: input
+    id: revenues_education_fund
+    attributes:
+      label: "revenues.education_fund"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: revenues_local
+    attributes:
+      label: "revenues.local"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: revenues_federal
+    attributes:
+      label: "revenues.federal"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: revenues_other
+    attributes:
+      label: "revenues.other"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: revenues_total_stated
+    attributes:
+      label: "revenues.total_stated"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number (optional)"
+    validations:
+      required: false
+  - type: input
+    id: expenditures_instruction
+    attributes:
+      label: "expenditures.instruction"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_special_education
+    attributes:
+      label: "expenditures.special_education"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_administration_district
+    attributes:
+      label: "expenditures.administration_district"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_administration_school
+    attributes:
+      label: "expenditures.administration_school"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_operations_maintenance
+    attributes:
+      label: "expenditures.operations_maintenance"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_transportation
+    attributes:
+      label: "expenditures.transportation"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_debt_service
+    attributes:
+      label: "expenditures.debt_service"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_other
+    attributes:
+      label: "expenditures.other"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: expenditures_total_stated
+    attributes:
+      label: "expenditures.total_stated"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number (optional)"
+    validations:
+      required: false
+  - type: input
+    id: personnel_total_staff_costs
+    attributes:
+      label: "personnel.total_staff_costs"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_salaries
+    attributes:
+      label: "personnel.salaries"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_benefits_health
+    attributes:
+      label: "personnel.benefits_health"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_benefits_other
+    attributes:
+      label: "personnel.benefits_other"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_fte_teachers
+    attributes:
+      label: "personnel.fte.teachers"
+      description: Full-time-equivalent headcount, or n/p.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_fte_support_staff
+    attributes:
+      label: "personnel.fte.support_staff"
+      description: Full-time-equivalent headcount, or n/p.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_fte_administrators
+    attributes:
+      label: "personnel.fte.administrators"
+      description: Full-time-equivalent headcount, or n/p.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_fte_total
+    attributes:
+      label: "personnel.fte.total"
+      description: Full-time-equivalent headcount, or n/p.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: personnel_as_stated_note
+    attributes:
+      label: "personnel.as_stated_note"
+      description: Optional; leave blank if not applicable.
+    validations:
+      required: false
+  - type: input
+    id: enrollment_adm
+    attributes:
+      label: "enrollment.adm"
+      description: As stated in the document, or n/p.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: enrollment_adm_basis
+    attributes:
+      label: "enrollment.adm_basis"
+      description: Optional; leave blank if not applicable.
+    validations:
+      required: false
+  - type: input
+    id: enrollment_equalized_pupils_stated
+    attributes:
+      label: "enrollment.equalized_pupils_stated"
+      description: As stated in the document, or n/p.
+      placeholder: "number (optional)"
+    validations:
+      required: false
+  - type: input
+    id: per_pupil_as_stated
+    attributes:
+      label: "per_pupil.as_stated"
+      description: Whole dollars, or n/p if the document does not publish it.
+      placeholder: "number or n/p"
+    validations:
+      required: true
+  - type: input
+    id: per_pupil_as_stated_basis
+    attributes:
+      label: "per_pupil.as_stated_basis"
+      description: Optional; leave blank if not applicable.
+    validations:
+      required: false
+  - type: input
+    id: membership_note
+    attributes:
+      label: "membership_note"
+      description: Optional; leave blank if not applicable.
+    validations:
+      required: false
+  - type: textarea
+    id: tax_towns
+    attributes:
+      label: "tax.towns"
+      description: >-
+        One member town per line as `town-slug, homestead_rate, cla` (each rate a
+        number or n/p; CLA as a ratio like 0.8734). Or a single line `n/p` if the
+        document publishes no per-town table.
+      placeholder: "town/addison, 1.5225, 0.8734"
+    validations:
+      required: true
+  - type: textarea
+    id: lines_flagged
+    attributes:
+      label: "lines_flagged"
+      description: >-
+        Optional. Anything that did not fit cleanly, one per line as
+        `path :: what was off` (e.g. `expenditures.other :: bond premium lumped in`).
+    validations:
+      required: false

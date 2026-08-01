@@ -42,6 +42,7 @@ const cells = (coverage.cells as Array<{
   warehouseFile: string | null;
   intakeFiles: string[];
   intakeUrl: string | null;
+  normalizeUrl: string | null;
   flagUrl: string | null;
 }>).filter((c) => c.entity === su.slug);
 
@@ -117,7 +118,13 @@ for (const town of towns) {
             {cells.map((c) => (
               <tr>
                 <th scope="row">FY{c.fiscalYear}</th>
-                <td>{c.state.replace('_', ' ')}</td>
+                <td>
+                  {c.state === 'intake_only' && c.normalizeUrl ? (
+                    <a href={c.normalizeUrl}>normalize</a>
+                  ) : (
+                    c.state.replace('_', ' ')
+                  )}
+                </td>
                 <td>
                   {c.warehouseFile ? <code>{c.warehouseFile}</code> : c.intakeFiles.join(', ') || '—'}
                 </td>
