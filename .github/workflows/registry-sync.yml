@@ -1,6 +1,6 @@
 name: Registry sync
 
-# Nightly diff of the AOE directory against our registry. Opens a pull request
+# Monthly diff of the AOE directory against our registry. Opens a pull request
 # when anything changed and NEVER auto-merges: every structural change in
 # Vermont education gets a human reading and a commit message explaining it.
 #
@@ -9,7 +9,7 @@ name: Registry sync
 
 on:
   schedule:
-    - cron: '17 7 * * *'
+    - cron: '17 7 1 * *'
   workflow_dispatch:
 
 permissions:
@@ -45,7 +45,7 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No directory changes today."
+            echo "No directory changes this month."
           fi
 
       - name: Open pull request
