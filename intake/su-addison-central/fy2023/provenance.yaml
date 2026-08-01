@@ -1,0 +1,14 @@
+schema_version: "1.0"
+entity: su/addison-central
+fiscal_year: 2023
+artifacts:
+  - file: Annual Report FY23 Budget Book.pdf
+    source_url: null
+    retrieved_date: 2026-07-31
+    retrieval_method: email
+    sha256: 68fda55201fd9acde8bd6246938fc36955606a35b4788b1922cf352ea7e62b2f
+    bytes: 8854490
+    media_type: application/pdf
+    retrieved_by: "@jamesjnadeau"
+    document_type: budget_book
+    note: downloaded from https://www.acsdvt.org/district-link/annual-report-and-budget/annual-report-and-budget
