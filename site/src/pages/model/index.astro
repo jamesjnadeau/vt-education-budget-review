@@ -7,55 +7,54 @@ const liveParameters = JSON.stringify(parameters);
 ---
 
 <Base
-  title="Modeling tool — Vermont School Budgets"
-  description="Model what merging or closing schools would do to education spending and homestead tax rates, with every step of the arithmetic shown and cited."
+  title="What-if tool — Vermont School Budgets"
+  description="Try out what merging or closing schools would do to school spending and home tax rates, with every step of the math shown and sourced."
 >
-  <h1>Modeling tool</h1>
+  <h1>What-if tool</h1>
   <p class="lede">
-    Every step of the weighted-membership and tax-rate arithmetic, shown and cited. Change the
-    figures and watch each step change with them.
+    See every step of the math behind a district's student count and tax rate — with a source for
+    each one. Change a number and watch every step change with it.
   </p>
 
   <div class="notice blocking">
-    <strong>This tool cannot produce Vermont figures yet, and it will not pretend otherwise</strong>
+    <strong>This tool can't show real Vermont numbers yet — and it won't fake them</strong>
     <p>
-      No statutory parameter has been verified against current statute text, so on the live
-      parameter set every step below reports what blocked it instead of showing a number. That is
-      the engine working correctly: it refuses to compute from an unverified weight rather than
-      returning a plausible one.
+      We have not checked any of the legal numbers against the current law yet. So with the live
+      settings, every step below tells you what is stopping it instead of showing a number. That is
+      the tool doing its job: it would rather stop than hand you a number it can't stand behind.
     </p>
     <p>
-      Switch to the illustrative example to see what a completed walkthrough looks like. Its
-      weights are deliberately arbitrary round numbers, and every step will say so.
+      Want to see what a finished walk-through looks like? Switch to the example below. Its numbers
+      are made-up round numbers, picked to be easy to follow — and every step says so.
     </p>
   </div>
 
   <form id="scenario-form">
     <div class="controls">
       <div class="field">
-        <label for="parameter-mode">Parameter set</label>
+        <label for="parameter-mode">Which numbers to use</label>
         <select id="parameter-mode">
-          <option value="live">Live — FY2027 (nothing verified yet)</option>
-          <option value="example">Illustrative example (not Vermont law)</option>
+          <option value="live">Live — FY2027 (nothing checked yet)</option>
+          <option value="example">Example (not real Vermont law)</option>
         </select>
       </div>
     </div>
 
     <div id="example-warning" class="notice" hidden>
-      <strong>These are not Vermont's pupil weights</strong>
+      <strong>These are not Vermont's real pupil weights</strong>
       <p>
-        The weights in this mode are arbitrary round numbers — a secondary weight of exactly 2, an
-        economic deprivation weight of exactly 0.5 — chosen so the arithmetic is checkable by
-        hand. They exist to demonstrate the shape of the calculation, not its result. Every
-        parameter below carries the citation "SYNTHETIC TEST FIXTURE — not a statutory value and
-        not Vermont law", so a figure copied out of this mode announces what it is.
+        The numbers in this mode are made-up round numbers — like a high-school weight of exactly
+        2, or a low-income weight of exactly 0.5 — picked so you can check the math by hand. They
+        show how the math works, not what the real answer is. Every number below is labeled
+        "SYNTHETIC TEST FIXTURE — not a real law and not Vermont law," so if you copy a number out
+        of this mode, it says what it is.
       </p>
     </div>
 
-    <h2>Membership</h2>
+    <h2>How many students</h2>
     <p>
-      Average daily membership by grade band, for two years. The statutory averaging rule decides
-      how many years actually count.
+      The average number of students, by grade group, for two years. This count is called average
+      daily membership. A rule in the law decides how many of those years actually count.
     </p>
     <div class="controls">
       <div class="field">
@@ -96,15 +95,15 @@ const liveParameters = JSON.stringify(parameters);
 
     <div class="controls">
       <div class="field">
-        <label for="state-placed">State-placed students (FTE, most recent year)</label>
+        <label for="state-placed">State-placed students (full-time count, most recent year)</label>
         <input id="state-placed" type="number" min="0" step="0.01" value="0" />
       </div>
       <div class="field">
-        <label for="econ">Pupils at or below 185% FPL</label>
+        <label for="econ">Students in families at or below 185% of the poverty line</label>
         <input id="econ" type="number" min="0" step="0.01" value="40" />
       </div>
       <div class="field">
-        <label for="el">English learner pupils</label>
+        <label for="el">Students learning English</label>
         <input id="el" type="number" min="0" step="0.01" value="8" />
       </div>
     </div>
@@ -136,7 +135,7 @@ const liveParameters = JSON.stringify(parameters);
         <input id="spending" type="number" min="0" step="1000" value="3370000" />
       </div>
       <div class="field">
-        <label for="cla">Common level of appraisal</label>
+        <label for="cla">Common level of appraisal (how close town values are to real sale prices)</label>
         <input id="cla" type="number" min="0.1" max="2" step="0.0001" value="0.8" />
       </div>
       <div class="field">
@@ -151,7 +150,7 @@ const liveParameters = JSON.stringify(parameters);
              produce a missing_input node whose blocker tells the user
              exactly which official figure is needed -- a null is
              explicable, an invented number is not. -->
-        <label for="statewide-avg">Statewide average per pupil education spending (Secretary's determination)</label>
+        <label for="statewide-avg">Statewide average spending per student (set by the Secretary of Education)</label>
         <input id="statewide-avg" type="number" min="0" step="1" value="" />
       </div>
     </div>
@@ -161,36 +160,35 @@ const liveParameters = JSON.stringify(parameters);
   <div id="summary"></div>
   <div id="blockers"></div>
 
-  <h2>Show your work</h2>
+  <h2>Show the work</h2>
   <p>
-    Every step of the calculation, in order, with what it did and why. This is the engine's own
-    computation tree rendered directly — not a description of the arithmetic written separately
-    from it, which could drift.
+    Every step of the math, in order, with what it did and why. This is the tool's own work shown
+    directly — not a separate write-up that could drift away from the real math.
   </p>
   <div id="walkthrough"></div>
 
-  <h2>Authorities used</h2>
+  <h2>Laws and sources used</h2>
   <div id="citations"></div>
 
-  <h2>Assumptions register</h2>
+  <h2>What we assumed</h2>
   <p>
-    Scenario assumptions and why each one defaults where it does. Every one is adjustable. Note
-    in particular that consolidation defaults assume <em>no</em> reduction: any reduction shown is
-    one you chose and can see, rather than one this tool assumed on your behalf.
+    The guesses this what-if starts with, and why each one starts where it does. You can change
+    every one. One thing to know: when schools combine, the tool assumes <em>no</em> cuts by
+    default. Any cut you see is one you chose and can see — not one the tool made for you.
   </p>
   <div id="assumptions"></div>
 
   <h2>What this tool will not do</h2>
   <p>
-    It does not rank scenarios, score them, or describe any result as a saving. Changes are
-    signed numbers presented in both directions. Transportation costs can be set to rise as well
-    as fall, because consolidation frequently lengthens bus routes — a tool that only allowed that
-    figure to fall would be modelling a conclusion rather than a system.
+    It does not rank what-ifs, score them, or call any result a "saving." Changes are shown as
+    plus-or-minus numbers, both ways. You can set busing costs to go up as well as down, because
+    combining schools often makes bus routes longer. A tool that only let that number go down
+    would be building in an answer instead of showing the real choices.
   </p>
   <p>
-    Transition costs, construction aid, legacy debt incentives and transportation routing are out
-    of scope and are not modelled. Where a position is assumed to be consolidated without a stated
-    salary, the effect is reported as unknown rather than as zero.
+    Some things are left out on purpose and are not part of the math: one-time moving costs,
+    building aid, old-debt perks, and exact bus-route planning. If a job is assumed to be combined
+    but no salary is given, the tool reports the effect as unknown — not as zero.
   </p>
 </Base>
 

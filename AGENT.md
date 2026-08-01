@@ -1,5 +1,32 @@
 # Notes for agents and contributors working on this repo
 
+## Write all public-facing text at a 5th-grade reading level
+
+Every word a visitor can read on the site — page copy, headings, navigation labels,
+button and form labels, table captions, status chips, error and empty-state messages,
+and page titles and meta descriptions — must be written so any Vermonter can understand
+it. Aim for roughly a **5th-grade reading level**.
+
+This is not about dumbing the site down. Its whole purpose is that everyone in Vermont
+can understand what is being said about their schools and taxes. Precision still comes
+first — never flatten a real distinction (the four kinds of blank, "confirmed not
+published" vs. "missing", "proposed, not yet law") to make a sentence shorter.
+
+How to hit it:
+
+- Short sentences, one idea each. Prefer active voice ("we haven't checked this yet"
+  over "this has not been verified").
+- Everyday words in place of jargon where the jargon is only style: "comes from a public
+  source you can check" not "is traceable to a public source"; "master list" not
+  "canonical registry"; "the math engine" not "the formula engine".
+- **Keep** the terms that are genuinely load-bearing — proper and legal names like
+  *supervisory union*, *Act 73*, *common level of appraisal*, *average daily
+  membership* — but add a plain-language gloss the first time each appears.
+- Read it aloud. If it sounds like a statute or a spec, rewrite it.
+
+The technical notes in this file, code comments, commit messages, and `docs/` are for
+contributors, not the public, and are exempt.
+
 ## legislature.vermont.gov serves an incomplete TLS certificate chain
 
 **Symptom.** Any attempt to fetch statute text fails with:

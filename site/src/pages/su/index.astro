@@ -33,9 +33,10 @@ for (const cell of coverage.cells as Array<{ entity: string; state: string }>) {
 <Base title="Supervisory unions — Vermont School Budgets">
   <h1>Supervisory unions and supervisory districts</h1>
   <p class="lede">
-    {sus.filter((s) => !s.effective_to).length} active, {sus.filter((s) => s.effective_to).length} closed.
-    Closed entities are kept rather than deleted, so their history stays queryable — which is
-    what before-and-after merger comparisons depend on.
+    A supervisory union is a group of Vermont school districts that share some staff and services.
+    {sus.filter((s) => !s.effective_to).length} are active and {sus.filter((s) => s.effective_to).length} are closed.
+    We keep the closed ones instead of deleting them, so their history stays here — that is what
+    lets you compare things before and after a merger.
   </p>
 
   <div class="scroll-x">

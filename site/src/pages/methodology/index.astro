@@ -39,135 +39,134 @@ const sets = parameters as ParameterSet[];
 const counts = registry.counts as Record<string, number>;
 ---
 
-<Base title="Methodology — Vermont School Budgets">
-  <h1>Methodology</h1>
+<Base title="How it works — Vermont School Budgets">
+  <h1>How it works</h1>
   <p class="lede">
-    What this site holds, how it computes, and what it refuses to do. Published with the same
-    prominence as any result, because a result whose method is buried is not independently
-    verifiable.
+    What this site holds, how it does the math, and what it refuses to do. We put this right up
+    front, same as any result, because a number you can't check the method for is not a number you
+    can trust.
   </p>
 
-  <h2>The registry</h2>
+  <h2>The master list</h2>
   <p>
-    Everything keys off a canonical record of who exists, synced nightly from the Agency of
-    Education's public data API and archived in full on every sync. It currently holds
+    Everything starts from one master list of who exists. We pull it fresh each night from the
+    Agency of Education's public data feed and save a full copy every time. Right now it holds
     {counts['su']} supervisory unions, {counts['ud']} unified districts, {counts['school']}
     schools, {counts['town']} towns, {counts['independent']} independent schools,
-    {counts['techcenter']} technical and vocational centres and {counts['academy']} academies.
+    {counts['techcenter']} career and technical centers, and {counts['academy']} academies.
   </p>
   <p>
-    Entities have stable internal identifiers of our own, mapped to AOE's. AOE identifiers and
-    names will churn as the 2029 reorganization proceeds; a URL cited in a committee packet has
-    to keep resolving afterwards. Entities are never deleted — they close, with a date — so
-    before-and-after comparisons across a reorganization remain possible.
+    Each one gets a steady ID of our own, tied to the AOE's ID. AOE's IDs and names will change a
+    lot as the 2029 reorganization moves ahead, and a link used in a committee packet still has to
+    work later. We never delete anything — it closes, with a date — so you can still compare things
+    before and after a reorganization.
   </p>
   <p>
-    Two limits are worth stating plainly. The API publishes no opening dates, so an entity's
-    "first recorded" date is the date our sync first observed it and is labelled as such, not as
-    a founding date. And it publishes no successor relationships at all, so any statement that
-    one district succeeded another is hand-entered from statute and carries a note saying so.
+    Two limits, said plainly. The data feed gives no opening dates, so a "first recorded" date is
+    just the day our sync first saw it, and we label it that way — not as a founding date. And the
+    feed shows no "this district replaced that one" links at all, so any claim that one district
+    followed another is typed in by hand from the law and carries a note saying so.
   </p>
 
-  <h2>The budget schema</h2>
+  <h2>How we store a budget</h2>
   <p>
-    One record per district per fiscal year, deliberately coarse: about a dozen rollup categories
-    aligned to the state's chart of accounts, not four hundred line items. Depth can be added
-    later; it cannot easily be removed once a hundred documents have been extracted at the wrong
-    grain.
+    One record per district per year, kept simple on purpose: about a dozen broad categories that
+    line up with the state's account list, not four hundred tiny line items. We can add more detail
+    later; we can't easily take it back out once a hundred documents have been entered at the wrong
+    level.
   </p>
   <p>
-    Each record carries two different cuts of <em>the same dollars</em>. Expenditures slice
-    spending by function — instruction, special education, district administration, school
-    administration, operations, transportation, debt service. Personnel slices it by object —
-    salaries, health insurance, other benefits, and full-time-equivalent headcount. The two
-    describe one total and are never additive; validation rejects any record where staff costs
-    exceed total expenditure, because that can only mean one of them was misread.
+    Each record shows <em>the same dollars</em> two ways. One way splits spending by job —
+    teaching, special education, district office, school office, running the buildings, busing, and
+    paying off debt. The other splits it by type — pay, health insurance, other benefits, and how
+    many full-time staff. Both describe one total, so you never add them together. Our checks reject
+    any record where staff costs are more than total spending, because that can only mean one of the
+    two was read wrong.
   </p>
   <p>
-    Health insurance is broken out on its own because it is the cost driver most board arguments
-    are actually about, and because it is the line that keeps growing when headcount does not.
+    We pull out health insurance on its own, because it is what most school board arguments are
+    really about, and because it keeps growing even when staff numbers do not.
   </p>
   <p>
-    Where a district prints a figure that disagrees with our recomputation — per-pupil spending
-    especially — both are kept and the disagreement is recorded. It is not reconciled away. The
-    discrepancy is frequently the interesting part.
+    When a district prints a number that does not match the one we work out — spending per student,
+    most of all — we keep both and note that they disagree. We do not quietly smooth it over. The
+    gap is often the interesting part.
   </p>
 
   <h3>What a blank means</h3>
   <p>
-    Every blank money field in the warehouse must be accounted for: either listed as not
-    published by the source document, with the name of the person who confirmed that and the date
-    they did, or flagged as a line that did not fit cleanly. Validation fails otherwise. This is
-    what makes a blank mean "the district did not publish this" rather than "nobody looked" —
-    without the rule, those two are the same value and the data cannot be trusted.
+    Every blank money box has to be explained: either marked "not in the source document," with the
+    name of the person who confirmed that and the date, or flagged as a line that did not fit
+    cleanly. If it isn't explained, the checks fail. That is what makes a blank mean "the district
+    did not publish this" instead of "nobody looked." Without the rule, those two look the same, and
+    the data can't be trusted.
   </p>
 
-  <h2>The engine</h2>
+  <h2>The math engine</h2>
   <p>
-    The formula engine is a small dependency-free library used both by the build (to precompute
-    baselines) and by your browser (to run scenarios). Its output is not a number but a tree:
-    every node carries its inputs, the operation applied, the result, an explanation in plain
-    language, and the citation of every statutory parameter used. The walkthrough you see in the
-    modeling tool is that tree rendered directly — the narration and the arithmetic are produced
-    in the same call and cannot drift apart.
+    The math engine is a small, self-contained piece of code. It runs both when we build the site
+    and in your browser when you try a what-if. What it hands back is not just a number but a tree
+    of steps. Each step carries its inputs, what it did, the result, a plain-language note, and the
+    source for every legal number it used. The walk-through you see in the what-if tool is that tree
+    shown directly — the words and the math are made together and can't drift apart.
   </p>
   <p>
-    Two properties are structural rather than matters of discipline. An unverified statutory
-    parameter cannot produce a number: the node returns nothing, is marked unverified, and that
-    status propagates to everything above it, so an unchecked weight cannot become a published
-    figure four steps downstream. And "we have not verified this against statute" is a different
-    status from "the district did not publish this" — the engine keeps them distinct all the way
-    to the screen.
+    Two things are built into how it works, not just good habits. A legal number that hasn't been
+    checked can't produce a result: the step returns nothing, gets marked unchecked, and that mark
+    spreads up to every step that depends on it — so an unchecked weight can't quietly become a
+    published number four steps later. And "we haven't checked this against the law" is a different
+    mark from "the district didn't publish this." The engine keeps the two apart all the way to the
+    screen.
   </p>
 
   <h2 id="blanks">The four kinds of blank</h2>
   <p>
-    A blank on this site always means one specific thing, and the site says which. There are
-    four, they belong to different parties, and each implies a different remedy. Rendering any
-    two of them identically would misattribute a gap to whoever is easiest to blame.
+    A blank on this site always means one specific thing, and the site tells you which. There are
+    four. Each belongs to a different group, and each needs a different fix. Showing any two of them
+    the same way would pin a gap on whoever is easiest to blame.
   </p>
   <dl>
     <dt><span class="tag unverified">unverified</span></dt>
     <dd>
-      A statutory value has not been confirmed against current law. <strong>Our outstanding
-      work.</strong> The remedy is that somebody reads the act.
+      A legal number has not been checked against the current law. <strong>Our work still to
+      do.</strong> The fix is that someone reads the law.
     </dd>
     <dt><span class="tag missing-input">missing input</span></dt>
     <dd>
-      The source document does not publish the figure. <strong>A fact about the
-      document.</strong> Nobody here fixes it by working harder; it is recorded, with who
-      confirmed the absence and when.
+      The source document does not include the number. <strong>A fact about the
+      document.</strong> No one here fixes it by working harder; we just record it, with who
+      confirmed it was missing and when.
     </dd>
     <dt><span class="tag undetermined">undetermined</span></dt>
     <dd>
-      The State has not made a decision that does not yet exist. <strong>Nobody's, yet.</strong>
-      The Agency of Education has published no small or sparse by necessity determinations
-      because the rules governing them are unwritten — showing that as a missing document would
-      imply the Agency failed to publish something, which is false.
+      The State has not made a decision that does not exist yet. <strong>Nobody's fault, for
+      now.</strong> The Agency of Education has made no small-or-sparse-by-necessity decisions
+      because the rules for them are not written yet — showing that as a missing document would
+      suggest the Agency failed to publish something, which is not true.
     </dd>
     <dt><span class="tag not-computable">not computable</span></dt>
     <dd>
-      The question cannot be answered from public data at all: it needs a certification, a local
-      model, or a demographic projection. <strong>Nobody's, ever.</strong> This is a correct
-      final answer rather than a task, and a coverage view that painted it red would be
-      misdescribing what finished looks like.
+      The question can't be answered from public data at all: it needs an official sign-off, a
+      local study, or a population forecast. <strong>This will never change.</strong> It is a
+      correct final answer, not a task, and a coverage chart that marked it red would be getting
+      "done" wrong.
     </dd>
   </dl>
   <p>
-    Separately from all four, a figure may be <span class="tag contingent">contingent</span> —
-    resting on legislation that has not been enacted. That qualifies a value rather than
-    withholding one, and a figure can be both contingent and blank.
+    Apart from all four, a number can be <span class="tag contingent">contingent</span> — it rests
+    on a law that has not passed yet. That is a warning label on a number, not a missing number,
+    and a number can be both contingent and blank.
   </p>
   <p>
-    The <a href={`${base}/methodology/small-sparse/`}>small and sparse schools methodology</a>
-    covers the layer that needed the last two.
+    The <a href={`${base}/methodology/small-sparse/`}>small and sparse schools page</a>
+    covers the part that needed the last two.
   </p>
 
-  <h2>Parameters and citations</h2>
+  <h2>Numbers from the law, and their sources</h2>
   <p>
-    Weights, yields and thresholds are data, not code. When the Legislature changes something,
-    which it has in most recent sessions, the change is an edit to a file like the one below and
-    every calculation, citation and explanation updates with it.
+    Weights, yields, and cutoffs are data, not code. When the Legislature changes one — which it has
+    in most recent sessions — we edit a file like the one below, and every calculation, source, and
+    note updates with it.
   </p>
 
   {
@@ -179,16 +178,15 @@ const counts = registry.counts as Record<string, number>;
         {set.unverified_count > 0 && (
           <div class="notice blocking">
             <strong>
-              {set.unverified_count} of {set.parameters.length} parameters are unverified
+              {set.unverified_count} of {set.parameters.length} numbers are unchecked
             </strong>
             <p>
-              No value below has been confirmed against current statute text, so the engine will
-              not compute with any of them. The authoritative sources — the Legislature's statutes
-              site and the Agency of Education — were not reachable from the environment this file
-              was drafted in, and filling the values in from memory or from a secondary mirror
-              would be precisely the failure this site exists to be the opposite of. Vermont's
-              education funding statutes were amended by Act 127 of 2022 and Act 73 of 2025, so a
-              remembered weight is quite likely to be a repealed one.
+              No number below has been checked against the current law, so the engine won't do any
+              math with them. The official sources — the Legislature's laws website and the Agency
+              of Education — could not be reached when this file was written, and filling the numbers
+              in from memory or a copy would be the exact mistake this site exists to avoid.
+              Vermont's school funding laws were changed by Act 127 of 2022 and Act 73 of 2025, so a
+              number from memory is very likely an out-of-date one.
             </p>
           </div>
         )}
@@ -196,10 +194,10 @@ const counts = registry.counts as Record<string, number>;
           <table>
             <thead>
               <tr>
-                <th scope="col">Parameter</th>
+                <th scope="col">Number</th>
                 <th scope="col">Value</th>
-                <th scope="col">Citation</th>
-                <th scope="col">Verified</th>
+                <th scope="col">Source</th>
+                <th scope="col">Checked</th>
               </tr>
             </thead>
             <tbody>
@@ -216,7 +214,7 @@ const counts = registry.counts as Record<string, number>;
                     {p.contingent && <span class="tag contingent">contingent</span>}
                     {/* A proposal must never read as a rule anywhere it is shown. */}
                     {p.is_law === false && <br />}
-                    {p.is_law === false && <span class="tag undetermined">proposed, not law</span>}
+                    {p.is_law === false && <span class="tag undetermined">proposed, not yet law</span>}
                   </td>
                   <td>
                     {p.citation.source_url ? (
@@ -237,7 +235,7 @@ const counts = registry.counts as Record<string, number>;
                     {p.citation.verified ? (
                       <span class="tag ok">{p.citation.verified_date}</span>
                     ) : (
-                      <span class="tag unverified">not verified</span>
+                      <span class="tag unverified">not checked</span>
                     )}
                   </td>
                 </tr>
@@ -249,43 +247,42 @@ const counts = registry.counts as Record<string, number>;
     ))
   }
 
-  <h2>The foundation formula</h2>
+  <h2>The new base-amount formula</h2>
   <p>
-    Act 73 of 2025 sets Vermont on a course toward a base-amount formula with a statewide rate,
-    contingently effective for the 2028–29 reorganization. The Legislature has not set its
-    parameters. Those parameters are therefore marked contingent and hold no value at all — not a
-    placeholder, not an estimate. When there is a defensible basis for a range, such as published
-    consultant recommendations, they will carry a range with that basis attached rather than a
-    point estimate, and everything computed from them will be labelled contingent throughout.
+    Act 73 of 2025 points Vermont toward a new way of funding schools: a set base amount per
+    student and one statewide tax rate, set to start with the 2028–29 reorganization if it takes
+    effect. The Legislature has not set the numbers yet. So those numbers are marked contingent and
+    hold no value at all — not a placeholder, not a guess. When there is a solid basis for a range,
+    like published consultant advice, they will show a range with that basis attached instead of a
+    single number, and everything figured from them will be labeled contingent all the way through.
   </p>
   <p>
-    One structural point matters more than any number here: under a statewide rate, a district's
-    own budget no longer determines its own rate. That is a different causal structure from the
-    current yield system, not merely different arithmetic, and the tool says so where it applies.
+    One point matters more than any number here: with one statewide rate, a district's own budget
+    no longer sets its own tax rate. That is a different cause-and-effect than today's system, not
+    just different math, and the tool says so wherever it applies.
   </p>
 
-  <h2>Golden tests</h2>
+  <h2>Proof the math is right</h2>
   <p>
-    Before any computed figure is published, the engine must reproduce the state's own published
-    weighted membership and announced tax rates for a sample of districts, to within rounding.
-    Those fixtures live in the repository and run in continuous integration. Reproducing the
-    state's published figures, with the tests public, is the strongest available evidence that
-    this site's arithmetic is right — and none of it is claimed until those tests exist and pass.
+    Before we publish any figured number, the engine has to match the state's own published student
+    counts and announced tax rates for a sample of districts, down to rounding. Those test cases
+    live in the code and run automatically on every change. Matching the state's own published
+    numbers, with the tests out in the open, is the strongest proof we can give that this site's
+    math is right — and we claim none of it until those tests exist and pass.
   </p>
 
   <h2>What the tool will not do</h2>
   <p>
-    It does not score, rank or recommend scenarios, and there is no "savings" framing anywhere in
-    it — not in the interface and not in the code, where the field is called a signed delta
-    precisely so that nobody can quietly assume which direction was hoped for. Changes are shown
-    in both directions with the assumptions that drive them visible and adjustable, and the
-    assumptions register is published beside every result.
+    It does not score, rank, or recommend what-ifs, and there is no "savings" spin anywhere in it —
+    not on screen and not in the code, where the field is named so no one can quietly assume which
+    way the answer was hoped to go. Changes are shown both ways, with the guesses behind them
+    visible and yours to change, and the list of guesses sits beside every result.
   </p>
 
   <h2>Corrections</h2>
   <p>
-    Errors get fixed in public. Every change to data, formulas or citations is a commit, and the
-    <a href={`${base}/changelog/`}>changelog</a> renders them. When this site is wrong, the record
-    of it being wrong and then corrected stays visible.
+    We fix mistakes in the open. Every change to data, formulas, or sources is saved as a commit,
+    and the <a href={`${base}/changelog/`}>list of changes</a> shows them. When this site is wrong,
+    the record of it being wrong and then fixed stays visible.
   </p>
 </Base>

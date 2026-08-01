@@ -20,36 +20,33 @@ const doc = groupings as {
 ---
 
 <Base title="Act 170 groupings — Vermont School Budgets">
-  <h1>Act 170 statutory groupings</h1>
+  <h1>Act 170 groups</h1>
   <p class="lede">
-    The district groupings named in {doc.act?.name ?? 'Act 170'}. These are the default scenarios
-    in the modeling tool: for most residents, the question is not "what if we merged with
-    anyone" but "what happens under the grouping the Legislature has already put us in".
+    The groups of school districts named in {doc.act?.name ?? 'Act 170'}. These are the starting
+    what-ifs in the tool. For most people, the real question is not "what if we merged with
+    someone?" but "what happens under the group the Legislature already put us in?"
   </p>
 
   {
     doc.groupings.length === 0 ? (
       <div class="notice blocking">
-        <strong>Not yet transcribed</strong>
+        <strong>Not typed in yet</strong>
         <p>
-          This list is empty because the act text has not been transcribed, not because the act
-          contains no groupings. It contains them, and they are load-bearing for everything this
-          tool does.
+          This list is empty because we have not typed the groups in yet — not because the law has
+          none. The law does have them, and they matter for everything this tool does.
         </p>
         <p>
-          No public API publishes them, and the Legislature's site could not be reached from the
-          environment this site was built in. Writing out twenty groupings of district names from
-          memory would put a fabrication in the single place where a reader is most dependent on
-          being told the truth: someone opening this page is asking which districts the
-          Legislature grouped them with, and a confident wrong answer there is considerably worse
-          than no answer.
+          No public data feed lists them, and we could not reach the Legislature's website when
+          this site was built. Writing out twenty groups of district names from memory would risk
+          putting a made-up answer in the one place people most need the truth. Someone on this
+          page is asking which districts the Legislature grouped them with, and a confident wrong
+          answer there is much worse than no answer.
         </p>
         <p>
-          Transcribing them is a bounded, mechanical task against the act text. When it is done,
-          each grouping records the district names exactly as the act writes them alongside the
-          registry identifiers they map to, so the mapping itself can be checked — act names and
-          agency names do not always agree, and any name that cannot be matched is listed rather
-          than dropped.
+          Typing them in is a small, careful job of copying from the law's own text. When it is
+          done, each group will show the district names exactly as the law writes them, next to the
+          IDs we match them to, so the match can be checked. Names in the law and names used by the
+          Agency do not always agree, and any name we cannot match will be listed, not dropped.
         </p>
       </div>
     ) : (
@@ -63,7 +60,7 @@ const doc = groupings as {
             </h3>
             <p style="margin:.3rem 0 0;font-size:.9rem;color:var(--text-muted)">
               {g.members.length} district(s)
-              {!g.verified && <span class="tag unverified" style="margin-left:.5rem">unverified</span>}
+              {!g.verified && <span class="tag unverified" style="margin-left:.5rem">not checked</span>}
             </p>
           </li>
         ))}
@@ -71,13 +68,13 @@ const doc = groupings as {
     )
   }
 
-  <h2>Source</h2>
+  <h2>Where this comes from</h2>
   <dl class="facts">
-    <dt>Citation</dt>
+    <dt>Law</dt>
     <dd>{doc.act?.citation?.statute ?? '—'}</dd>
-    <dt>Verified</dt>
+    <dt>Checked against the law</dt>
     <dd>
-      {doc.act?.citation?.verified ? 'yes' : <span class="tag unverified">not verified</span>}
+      {doc.act?.citation?.verified ? 'yes' : <span class="tag unverified">not checked yet</span>}
     </dd>
   </dl>
 </Base>

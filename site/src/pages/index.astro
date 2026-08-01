@@ -16,92 +16,93 @@ const expected = coverage.cells.length;
 ---
 
 <Base
-  title="Vermont School Budgets — published, normalized, and modelable"
-  description="Every Vermont supervisory union's released budgets in a normalized, documented form, plus a tool to model what merging or closing schools would do to your town's spending and homestead tax rate."
+  title="Vermont School Budgets — public, sorted, and yours to try out"
+  description="Every Vermont supervisory union's budgets in one clear, sourced form, plus a tool to try out what merging or closing schools would do to your town's spending and home tax rate."
 >
   <h1>Vermont school budgets, in the open</h1>
 
   <p class="lede">
-    Every Vermont supervisory union's released budgets, published in one normalized form with
-    every number traceable to its source — and a tool that lets you model what merging or
-    closing schools would do to your town's education spending and homestead tax rate, with
-    every step of the arithmetic shown and cited to statute.
+    Every Vermont supervisory union — a group of school districts that share staff and services —
+    has its budgets here, put in one clear form with every number tied back to where it came from.
+    There is also a tool that lets you try out what merging or closing schools would do to your
+    town's school spending and home tax rate, with every step of the math shown and linked to the
+    law.
   </p>
 
   <div class="notice blocking">
     <strong>What this site can and cannot tell you today</strong>
     <p>
-      The entity registry is complete: {counts['su']} supervisory unions, {counts['ud']} unified
-      districts, {counts['school']} schools and {counts['town']} towns, synced from the Agency of
-      Education's public data API with every raw response archived.
+      The master list of who exists is complete: {counts['su']} supervisory unions,
+      {counts['ud']} unified districts, {counts['school']} schools, and {counts['town']} towns,
+      pulled from the Agency of Education's public data feed with every raw response saved.
     </p>
     <p>
       <strong style="display:inline">No budget documents have been collected yet</strong> —
-      {normalized} of {expected} expected district-years. The
-      <a href={`${base}/admin/coverage/`}>coverage dashboard</a> shows exactly which are missing,
-      and it is public precisely so the gaps are visible.
+      {normalized} of {expected} district-years. The
+      <a href={`${base}/admin/coverage/`}>what-we-have page</a> shows exactly which are missing,
+      and it is public on purpose, so the gaps are easy to see.
     </p>
     <p>
-      <strong style="display:inline">No statutory parameter has been verified yet</strong> —
-      {unverified} of {totalParams}. Until a pupil weight or yield has been read off current
-      statute text by a person, the engine refuses to compute with it and returns nothing rather
-      than a plausible guess. You will see that refusal, explained, wherever a figure would
-      otherwise appear.
+      <strong style="display:inline">No legal number has been checked yet</strong> —
+      {unverified} of {totalParams}. Until a person reads a pupil weight or yield straight from the
+      current law, the engine won't do math with it and returns nothing instead of a good-looking
+      guess. You will see it stop, with the reason, anywhere a number would otherwise show up.
     </p>
   </div>
 
   <h2>Why it is built this way</h2>
 
-  <h3>Provenance is the product</h3>
+  <h3>Every number can be traced</h3>
   <p>
-    Every number on this site has to be traceable to a public source. The repository is the
-    warehouse: raw budget documents are stored exactly as released, never edited, each with a
-    record of where it came from, when, who fetched it, and its SHA-256 hash. When someone asks
-    where a number came from and when it changed, the answer is a link to a commit.
+    Every number on this site has to come from a public source you can check. We store the raw
+    budget documents exactly as they were released, never edited, each with a record of where it
+    came from, when, who got it, and a fingerprint of the file. When someone asks where a number
+    came from and when it changed, the answer is a link to the exact saved change.
   </p>
 
-  <h3>The arithmetic is inspectable</h3>
+  <h3>You can check the math</h3>
   <p>
-    The modeling engine runs in your browser and its source is open. Its output is not a number
-    but a tree: every step carries its inputs, the operation applied, the result, an explanation
-    in plain language, and the citation of every statutory parameter used. Independent
-    verification is only worth something if the verification can itself be checked.
+    The math engine runs in your browser, and its code is open. What it gives back is not just a
+    number but a tree of steps: each step shows its inputs, what it did, the result, a
+    plain-language note, and the source for every legal number it used. Checking the state's work
+    only means something if you can check the checking too.
   </p>
 
-  <h3>Absence is reported, not filled in</h3>
+  <h3>We show what's missing, we don't make it up</h3>
   <p>
-    A blank in this site's data means one of two specific things, and it will always say which.
-    Either the district did not publish that figure — recorded with who confirmed it and when —
-    or a statutory value has not yet been checked against current law. Neither is ever quietly
-    replaced with an estimate, and the two are never shown as the same thing.
+    A blank in this site's data means one of two specific things, and it always tells you which.
+    Either the district did not publish that number — noted with who confirmed it and when — or a
+    legal number has not been checked against the current law yet. Neither is ever quietly swapped
+    for a guess, and the two are never shown as the same thing.
   </p>
 
   <h2>Where to start</h2>
   <ul class="grid">
     <li class="card">
-      <h3 style="margin-top:0"><a href={`${base}/model/`}>The modeling tool</a></h3>
-      <p>Compose a merger or closure scenario and see the arithmetic step by step.</p>
+      <h3 style="margin-top:0"><a href={`${base}/model/`}>The what-if tool</a></h3>
+      <p>Build a merger or closure what-if and see the math step by step.</p>
     </li>
     <li class="card">
       <h3 style="margin-top:0"><a href={`${base}/su/`}>Supervisory unions</a></h3>
-      <p>{counts['su']} profiles: member districts, schools, towns, and budget documents held.</p>
+      <p>{counts['su']} pages: their districts, schools, towns, and the budgets we have.</p>
     </li>
     <li class="card">
-      <h3 style="margin-top:0"><a href={`${base}/methodology/`}>Methodology</a></h3>
-      <p>The schema, the engine, every parameter with its citation and verification status.</p>
+      <h3 style="margin-top:0"><a href={`${base}/methodology/`}>How it works</a></h3>
+      <p>How we store budgets, how the engine works, and every number with its source and whether
+        it has been checked.</p>
     </li>
     <li class="card">
-      <h3 style="margin-top:0"><a href={`${base}/admin/coverage/`}>Coverage</a></h3>
-      <p>Which budgets are held, which are missing, and how to send one in.</p>
+      <h3 style="margin-top:0"><a href={`${base}/admin/coverage/`}>What we have</a></h3>
+      <p>Which budgets we have, which are missing, and how to send one in.</p>
     </li>
   </ul>
 
-  <h2>Neutrality</h2>
+  <h2>We stay neutral</h2>
   <p>
-    This site is independent. It is not produced by, for, or in opposition to the Agency of
-    Education, any supervisory union, or any advocacy organization. It computes and explains; it
-    does not score, rank, or recommend, and it does not frame any result as a saving. A scenario
-    that costs more is presented exactly as prominently as one that costs less, because which of
-    those a reader is hoping for is not this site's business.
+    This site is independent. It is not made by, for, or against the Agency of Education, any
+    supervisory union, or any advocacy group. It does the math and explains it; it does not score,
+    rank, or recommend, and it never spins a result as a "saving." A what-if that costs more is
+    shown just as prominently as one that costs less, because which one you are hoping for is not
+    this site's business.
   </p>
 </Base>

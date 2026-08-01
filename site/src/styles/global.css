@@ -156,6 +156,12 @@ main {
   margin: 0 auto;
   padding: 1.5rem 1.25rem 2.5rem;
 }
+.site-footer .copyright {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+}
 
 .lede {
   font-size: 1.12rem;

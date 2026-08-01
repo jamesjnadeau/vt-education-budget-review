@@ -27,41 +27,41 @@ const cellFor = (slug: string, year: number) =>
   cells.find((c) => c.entity === slug && c.fiscalYear === year);
 
 const LABEL: Record<Cell['state'], string> = {
-  normalized: 'normalized',
-  intake_only: 'in intake, not extracted',
+  normalized: 'entered and ready',
+  intake_only: 'uploaded, not entered yet',
   not_published: 'confirmed not published',
   missing: 'missing',
 };
 ---
 
-<Base title="Coverage — Vermont School Budgets">
-  <h1>Coverage</h1>
+<Base title="What we have — Vermont School Budgets">
+  <h1>What we have</h1>
   <p class="lede">
-    Which budget documents this site holds, and which it does not. Published rather than kept
-    internal, because a site that shows what it is missing is more trustworthy than one that only
-    shows what it has.
+    Which budget documents this site has, and which it does not. We show this in the open rather
+    than keeping it inside, because a site that shows what it is missing is easier to trust than
+    one that only shows what it has.
   </p>
 
   <div class="notice">
     <strong>Grey and red are different facts</strong>
     <p>
-      <em>Confirmed not published</em> means someone checked and the district published no budget
-      document that year, with a record of who checked and when. <em>Missing</em> means we have
-      not got it — which may be because it exists and has not been collected, or because nobody
-      has looked. Collapsing the two would make the headline coverage figure meaningless.
+      <em>Confirmed not published</em> means someone checked and the district put out no budget
+      document that year, with a record of who checked and when. <em>Missing</em> means we just
+      don't have it — maybe it exists and no one has collected it yet, or maybe no one has looked.
+      Treating the two as the same would make the top coverage number meaningless.
     </p>
   </div>
 
   <ul class="legend">
-    <li><span class="swatch" style="background:var(--state-normalized)"></span> Normalized ({coverage.totals.normalized})</li>
-    <li><span class="swatch" style="background:var(--state-intake)"></span> In intake, not extracted ({coverage.totals.intake_only})</li>
+    <li><span class="swatch" style="background:var(--state-normalized)"></span> Held ({coverage.totals.normalized})</li>
+    <li><span class="swatch" style="background:var(--state-intake)"></span> Uploaded, not entered yet ({coverage.totals.intake_only})</li>
     <li><span class="swatch" style="background:var(--state-absent)"></span> Confirmed not published ({coverage.totals.not_published})</li>
     <li><span class="swatch" style="background:var(--state-missing)"></span> Missing ({coverage.totals.missing})</li>
   </ul>
 
   <p>
-    {coverage.totals.normalized} of {cells.length} expected supervisory-union fiscal years are
-    normalized. Generated {coverage.generated}.
+    We hold and have entered {coverage.totals.normalized} of the {cells.length} supervisory-union
+    years we expect. Made {coverage.generated}.
   </p>
 
   <div class="scroll-x">
@@ -89,7 +89,7 @@ const LABEL: Record<Cell['state'], string> = {
                   : (cell.normalizeUrl ?? cell.intakeUrl ?? cell.flagUrl ?? null);
                 const linkText =
                   cell.state === 'intake_only'
-                    ? 'normalize'
+                    ? 'enter it'
                     : cell.state === 'missing'
                       ? 'send in'
                       : LABEL[cell.state];
@@ -116,24 +116,22 @@ const LABEL: Record<Cell['state'], string> = {
 
   <h2>How to send a budget in</h2>
   <p>
-    There is no login, because there is no server. Every red cell above opens a short issue
-    form, already filled in with the supervisory union and fiscal year. Drag the PDF or
-    spreadsheet into it, say where it came from, and submit — no checkout, no git, no account
-    beyond a GitHub login.
+    There is no login, because there is no server. Every red box above opens a short form, already
+    filled in with the supervisory union and year. Drag the PDF or spreadsheet in, say where it
+    came from, and send it — no checkout, no code tools, no account beyond a GitHub login.
   </p>
   <p>
-    A bot takes it from there: it validates the form, computes the document's hash from the
-    bytes you sent, and opens a pull request that adds the raw file and its provenance record.
-    The commit is the bot's, with you credited as a co-author — weaker than a commit in your own
-    name, and the honest trade for a provenance record that is checked and machine-computed
-    rather than typed by hand. If anything is wrong the bot comments on your issue saying what,
-    and re-checks when you fix it.
+    A bot takes it from there. It checks the form, makes a fingerprint of the exact file you sent,
+    and opens a request to add the file and a record of where it came from. The save is the bot's,
+    with you credited as a co-author — a little weaker than a save in your own name, and the fair
+    trade for a source record that is checked by machine instead of typed by hand. If something is
+    wrong, the bot comments on your report to say what, and checks again when you fix it.
   </p>
   <p>
-    Two things still matter most: <strong>send the document exactly as the district released
-    it</strong> — do not crop, re-save or convert it — and <strong>say where it came from</strong>.
-    If you would rather just flag a gap than send a file, the missing cells also link to a
-    pre-filled issue for that.
+    Two things matter most: <strong>send the document exactly as the district put it out</strong> —
+    do not crop, re-save, or change its format — and <strong>say where it came from</strong>.
+    If you would rather just point out a gap than send a file, the missing boxes also open a
+    ready-made report for that.
   </p>
 
   {
@@ -141,9 +139,9 @@ const LABEL: Record<Cell['state'], string> = {
       <div class="notice blocking">
         <strong>Everything is missing, and that is accurate</strong>
         <p>
-          No budget documents have been collected yet. The pipeline that would normalize,
-          validate and publish them is built and tested; what it lacks is documents. The
-          collector configuration for each supervisory union records where to start looking.
+          No budget documents have been collected yet. The system that would clean them up, check
+          them, and publish them is built and tested — what it lacks is documents. Each supervisory
+          union has a collector setup that records where to start looking.
         </p>
       </div>
     )

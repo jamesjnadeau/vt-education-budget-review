@@ -10,13 +10,13 @@ interface Props {
 const { title, description, feedHref } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const modelingNav = [
-  ['/model/', 'Modeling tool'],
+  ['/model/', 'What-if tool'],
   ['/su/', 'Supervisory unions'],
   ['/groupings/', 'Act 170 groupings'],
   ['/small-sparse/', 'Small & sparse schools'],
-  ['/methodology/', 'Methodology'],
-  ['/admin/coverage/', 'Coverage'],
-  ['/changelog/', 'Changelog'],
+  ['/methodology/', 'How it works'],
+  ['/admin/coverage/', 'What we have'],
+  ['/changelog/', 'What changed'],
 ];
 ---
 
@@ -60,22 +60,24 @@ const modelingNav = [
     <footer class="site-footer">
       <div class="inner">
         <p>
-          <strong>This site computes and explains. It does not score, rank, or recommend.</strong>
-          Scenarios are shown as changes in both directions with the assumptions that drive
-          them visible and adjustable. Nothing here is a recommendation about what any
-          district should do.
+          <strong>This site does the math and shows its work. It does not pick winners, rank
+          choices, or tell anyone what to do.</strong>
+          When it shows a "what if," it shows the change both ways — the cost can go up or down —
+          and you can see and change every number behind it. Nothing here tells a district what
+          it should do.
         </p>
         <p>
-          Every figure is traceable to a public source. Where a number is absent, the site
-          says which of four things that means: the district did not publish it; a statutory
-          parameter has not yet been verified against current law; the State has not yet made
-          a decision; or the question cannot be answered from public data at all. Those are
-          different things and are never shown as the same thing.
+          Every number here comes from a public source you can check. When a number is missing,
+          the site tells you which of four things is going on: the district never published it;
+          we have not checked a legal number against the current law yet; the State has not made
+          a decision yet; or the question just cannot be answered from public data. These are
+          four different things, and the site never mixes them up.
         </p>
         <p>
-          Data and methodology are open. Corrections are made in public and appear in the
-          <a href={`${base}/changelog/`}>changelog</a>.
+          The data and the methods are open for anyone to see. When we fix a mistake, we fix it
+          in the open, and it shows up in the list of <a href={`${base}/changelog/`}>changes</a>.
         </p>
+        <p class="copyright">© 2026 James Nadeau</p>
       </div>
     </footer>
   </body>

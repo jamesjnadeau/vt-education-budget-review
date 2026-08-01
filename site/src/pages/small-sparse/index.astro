@@ -52,101 +52,98 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 
 <Base
   title="Small and sparse schools — Vermont School Budgets"
-  description="The two statutory screens for the Act 73 small and sparse school support grants, and why no school in Vermont can yet be screened against them."
+  description="The two tests for the Act 73 small and sparse school grants, and why no school in Vermont can be tested against them yet."
 >
   <h1>Small and sparse schools</h1>
   <p class="lede">
-    Act 73 of 2025 creates support grants for schools that are small or sparse
-    <em>by necessity</em>. This page holds the geography those grants turn on. It holds no
-    verdicts, and it will not until somebody reads the enacted acts — the reason is below,
-    stated before the table rather than after it.
+    Act 73 of 2025 creates money grants for schools that are small or spread out (sparse)
+    <em>by necessity</em>. This page holds the maps and land facts those grants depend on. It does
+    not say who qualifies, and it won't until someone reads the passed laws — the reason is right
+    below, before the table instead of after it.
   </p>
 
   <div class="notice blocking">
     <strong>Nothing on this page says whether a school qualifies.</strong>
     <p>
-      Three separate things stand between this table and an answer, and they belong to three
-      different parties:
+      Three separate things stand between this table and an answer, and each one belongs to a
+      different group:
     </p>
     <ul>
       {data.why.map((reason) => <li>{reason}</li>)}
     </ul>
     <p>
-      The middle one is ours. The first is ours too. The third is the State's, and it is not a
-      criticism: the Agency of Education cannot publish determinations under rules that do not
-      exist yet.
+      The first two are on us. The third is the State's, and that is not a complaint: the Agency
+      of Education can't decide who qualifies under rules that do not exist yet.
     </p>
   </div>
 
-  <h2>What the statute asks</h2>
+  <h2>What the law asks for</h2>
   <p>
-    Two screens, both arithmetic. A school is <strong>small</strong> if its enrollment is below
-    a threshold. A school is <strong>sparse</strong> if the municipality it stands in has fewer
-    than some number of people per square mile <em>of land</em>. Both thresholds are in
-    <a href={`${base}/methodology/small-sparse/`}>the parameter file</a>, and both are null.
+    Two tests, both simple math. A school is <strong>small</strong> if it has fewer students than
+    a set cutoff. A school is <strong>sparse</strong> if the town it sits in has fewer than a set
+    number of people per square mile <em>of land</em>. Both cutoffs live in
+    <a href={`${base}/methodology/small-sparse/`}>the settings file</a>, and both are still blank.
   </p>
   <p>
-    Meeting both screens does not make a school eligible. Eligibility additionally requires a
-    determination of <em>necessity</em> — that the school is small or sparse because of
-    geography or isolation rather than because of a local decision. Nobody has made that
-    determination for any school in Vermont, and the criteria for making it are a proposal to
-    the State Board rather than a rule.
+    Passing both tests does not make a school eligible. To qualify, someone must also decide the
+    school is small or sparse <em>by necessity</em> — because of where it is or how cut off it is,
+    not because of a local choice. Nobody has made that decision for any school in Vermont, and
+    the rules for making it are still just a proposal to the State Board, not law.
   </p>
   <p>
-    One of the proposed criteria matters for how this page should be read: a school is not
-    disqualified by being <em>above</em> the enrollment threshold today, because the framework
-    contemplates places whose enrollment dips temporarily. The enrollment screen is a candidate
-    filter, not a gate.
+    One of the proposed rules matters for how to read this page: a school is not ruled out just
+    for being <em>above</em> the student cutoff today, because the plan allows for places whose
+    numbers dip for a while. The student test narrows the list of maybes; it is not a locked gate.
   </p>
 
   <h2>What is here, and what is not</h2>
   <table class="scroll-x">
-    <caption>Coverage of the inputs the two screens need</caption>
+    <caption>What we have for the two tests</caption>
     <tbody>
       <tr>
-        <th scope="row">Schools in the registry</th>
+        <th scope="row">Schools on our master list</th>
         <td>{data.counts['schools']}</td>
-        <td>Every open school, academy and technical centre.</td>
+        <td>Every open school, academy, and career-tech center.</td>
       </tr>
       <tr>
-        <th scope="row">Located in a municipality</th>
+        <th scope="row">Matched to a town</th>
         <td>{data.counts['with_municipality']}</td>
         <td>
-          Resolved from AOE-published coordinates against Census county subdivisions, not from
-          the mailing address. A Vermont post office name routinely covers parts of several
+          Worked out from the school's map location (from AOE) against Census town borders — not
+          from its mailing address. In Vermont, one post office name often covers parts of several
           towns.
         </td>
       </tr>
       <tr>
-        <th scope="row">With land area</th>
+        <th scope="row">With land size</th>
         <td>{data.counts['with_land_area']}</td>
-        <td>Census Gazetteer ALAND. Land only — total area would understate density.</td>
+        <td>From the Census land-area file. Land only — using total area would make towns look
+          less crowded than they are.</td>
       </tr>
       <tr>
-        <th scope="row">With municipal population</th>
+        <th scope="row">With town population</th>
         <td>{data.counts['with_population']}</td>
         <td>
           {data.population_series_held.length === 0
-            ? 'None retrieved: the Census data API requires a key for county-subdivision queries and this build had none.'
+            ? 'None yet: the Census population feed needs a key for town-level numbers, and this build did not have one.'
             : `Series held: ${data.population_series_held.join(', ')}.`}
         </td>
       </tr>
       <tr>
-        <th scope="row">With school-level enrollment</th>
+        <th scope="row">With each school's own student count</th>
         <td>{data.counts['with_enrollment']}</td>
         <td>
-          AOE publishes average daily membership by <em>resident district</em>, which is a town
-          rather than a school. No per-school series is available through the public API, and a
-          town's membership standing in for a school's roll would be a fabrication that looked
-          like data.
+          AOE reports student counts by <em>home district</em>, which is a town, not a single
+          school. There is no per-school count in the public feed, and using a town's count in
+          place of a school's would be a made-up number dressed up as data.
         </td>
       </tr>
       <tr>
-        <th scope="row">Screens resolved</th>
+        <th scope="row">Tests finished</th>
         <td>{data.counts['screens_resolved']}</td>
         <td>
-          Zero, and it stays zero while the thresholds are unverified — independently of every
-          row above.
+          Zero — and it stays zero while the cutoffs are unchecked, no matter what the rows above
+          say.
         </td>
       </tr>
     </tbody>
@@ -154,24 +151,24 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 
   {withoutTown > 0 && (
     <p class="note">
-      {withoutTown} schools are not in the table because their municipality is not established:
-      AOE publishes no coordinates for them, or their coordinates fall in a place the registry
-      tracks only through an incorporated school district. Both cases are listed in
-      <code>derived/school-municipality/</code> rather than quietly dropped.
+      {withoutTown} schools are not in the table because we can't yet say which town they sit in:
+      AOE gives no map location for them, or their location falls in a place we track only through
+      a school district. Both cases are listed in
+      <code>derived/school-municipality/</code> instead of being quietly dropped.
     </p>
   )}
 
-  <h2>The candidate geography</h2>
+  <h2>The map facts we do have</h2>
   <p class="note">
-    Population and enrollment columns are blank for the reasons above. The density column is
-    what it will be computed from, once there is a population series and a verified threshold to
-    compare it against.
+    The population and student columns are blank for the reasons above. The density column is what
+    those numbers will be figured from, once we have a population series and a checked cutoff to
+    compare it to.
   </p>
 
   <table class="scroll-x">
     <caption>
-      {rows.length} schools with an established municipality. FY{data.fiscal_year} frame,
-      computed against <code>{data.parameter_set_ref}</code>.
+      {rows.length} schools where we know the town. FY{data.fiscal_year} view,
+      figured against <code>{data.parameter_set_ref}</code>.
     </caption>
     <thead>
       <tr>
@@ -181,8 +178,8 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <th scope="col">Land area (sq mi)</th>
         <th scope="col">Population</th>
         <th scope="col">Density</th>
-        <th scope="col">Small screen</th>
-        <th scope="col">Sparse screen</th>
+        <th scope="col">Small test</th>
+        <th scope="col">Sparse test</th>
         <th scope="col">Necessity</th>
       </tr>
     </thead>
@@ -203,29 +200,28 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
     </tbody>
   </table>
 
-  <h2>Reading the blanks</h2>
+  <h2>What a blank means</h2>
   <p>
-    Four kinds, and the site never renders two of them the same way. See
-    <a href={`${base}/methodology/#blanks`}>the methodology page</a> for the full legend.
+    There are four kinds, and the site never shows two of them the same way. See
+    <a href={`${base}/methodology/#blanks`}>the how-it-works page</a> for the full list.
   </p>
   <ul>
     <li>
-      <span class="tag unverified">unverified</span> — a statutory value has not been checked
-      against current law. <strong>Ours.</strong>
+      <span class="tag unverified">unverified</span> — a legal number has not been checked
+      against the current law yet. <strong>This one is on us.</strong>
     </li>
     <li>
       <span class="tag missing-input">missing input</span> — the source document does not
-      publish it. <strong>A fact about the document.</strong>
+      include it. <strong>A fact about the document.</strong>
     </li>
     <li>
       <span class="tag undetermined">undetermined</span> — the State has not made a decision
-      that does not yet exist. <strong>Nobody's, yet.</strong>
+      that does not exist yet. <strong>Nobody's fault, for now.</strong>
     </li>
     <li>
-      <span class="tag not-computable">not computable</span> — the question cannot be answered
-      from public data at all. <strong>Nobody's, ever.</strong> Four of the five necessity
-      criteria are permanently in this category, and that is a correct answer rather than an
-      outstanding task.
+      <span class="tag not-computable">not computable</span> — the question can't be answered
+      from public data at all. <strong>This will never change.</strong> Four of the five necessity
+      rules sit here for good, and that is a correct answer, not a task still to do.
     </li>
   </ul>
 

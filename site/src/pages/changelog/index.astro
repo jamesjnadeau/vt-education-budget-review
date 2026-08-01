@@ -6,52 +6,50 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const generated = new Date(registry.generated as string).toISOString().slice(0, 10);
 ---
 
-<Base title="Changelog — Vermont School Budgets">
-  <h1>Changelog</h1>
+<Base title="What changed — Vermont School Budgets">
+  <h1>What changed</h1>
   <p class="lede">
-    Every change to this site's data, formulas and citations is a commit. This page renders
-    them, so the history of what changed and when is public rather than something you have to
+    Every change to this site's data, formulas, and sources is saved as a commit. This page shows
+    them, so the history of what changed and when is out in the open — not something you have to
     take on trust.
   </p>
 
   <div class="notice">
-    <strong>Not yet populated</strong>
+    <strong>Nothing here yet</strong>
     <p>
-      This page is generated from the repository's commit history — registry syncs, parameter
-      file releases and data corrections. It fills in as those happen. The site was built on
-      {generated}; there is no history to render yet beyond its construction.
+      This page is built from the project's save history — nightly list updates, new number files,
+      and data fixes. It fills in as those happen. The site was built on
+      {generated}, so there is no history to show yet beyond that.
     </p>
   </div>
 
   <h2>What will appear here</h2>
 
-  <h3>Registry syncs</h3>
+  <h3>Master-list updates</h3>
   <p>
-    The nightly sync compares the Agency of Education's directory against our registry and opens
-    a pull request whenever it differs — never merging automatically, so every structural change
-    in Vermont education gets a human reading and a commit message explaining it. As a
-    side-effect, that record becomes a public changelog of district reorganization, which is
-    something nobody else is currently publishing.
+    Each night, a job compares the Agency of Education's directory against our master list and
+    opens a request whenever they differ — never merging on its own, so every change in Vermont's
+    school setup gets read by a person and a note explaining it. As a bonus, that record becomes a
+    public history of district reorganization, which nobody else is publishing right now.
   </p>
 
-  <h3>Parameter releases</h3>
+  <h3>New number files</h3>
   <p>
-    Each time a statutory value is verified against current law, or the Legislature changes one,
-    a new parameter file is released and appears here with its citations. The consultant
-    recommendations on special education, sparsity, secondary and career-technical weights will
-    arrive as a new file rather than an edit to an existing one, so the before and after both stay
-    inspectable.
+    Each time a legal number is checked against the current law, or the Legislature changes one,
+    a new number file is released and shows up here with its sources. The consultant advice on
+    special education, sparsity, high-school, and career-tech weights will come as a new file
+    rather than an edit to an old one, so you can still see both the before and the after.
   </p>
 
   <h3>Corrections</h3>
   <p>
-    When a figure here turns out to be wrong, the correction is a commit like any other and it
-    appears on this page. That is deliberate. A site that quietly edits its mistakes is asking
-    for more trust than one that leaves the record of them visible, and it deserves less.
+    When a number here turns out to be wrong, the fix is a saved change like any other and it
+    shows up on this page. That is on purpose. A site that quietly edits its mistakes is asking
+    for more trust than one that leaves the record visible — and it deserves less.
   </p>
 
   <p>
-    See also the <a href={`${base}/methodology/`}>methodology</a>, which states the current
-    verification status of every parameter.
+    See also <a href={`${base}/methodology/`}>how it works</a>, which shows whether each number
+    has been checked yet.
   </p>
 </Base>
