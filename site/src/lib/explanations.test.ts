@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sortExplanations } from './explanations';
+import { sortExplanations } from './explanations.ts';
 
 type Entry = { id: string; data: { order: number; pubDate: Date } };
 

@@ -13,6 +13,11 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/generated/**"],
+  // Astro-runtime .ts (content config + endpoint routes) import virtual modules
+  // like `astro:content` and use `import.meta.env`, which plain tsc cannot
+  // resolve -- those belong to the `astro check` surface (a separate decision,
+  // see below). `astro build` still typechecks them in CI. Pure-logic .ts under
+  // src/lib stays covered here.
+  "exclude": ["src/generated/**", "src/content.config.ts", "src/pages/**"],
   "references": [{ "path": "../model" }]
 }
