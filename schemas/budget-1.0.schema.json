@@ -41,7 +41,7 @@
     },
     "source": {
       "type": "string",
-      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^\\s]+$",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$",
       "description": "Repo-relative path to the raw intake artifact this record was extracted from. CI rejects any record whose source path does not exist."
     },
     "source_pages": {

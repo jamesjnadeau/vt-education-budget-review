@@ -20,7 +20,7 @@
     "schema_version": { "const": "1.0" },
     "source": {
       "type": "string",
-      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^\\s]+$",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$",
       "description": "The hashed artifact this was transcribed from."
     },
     "area_measure": {
