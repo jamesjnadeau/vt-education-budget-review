@@ -1,0 +1,62 @@
+name: LFS audit
+
+# Monthly full re-verification of the raw artifact store.
+#
+# validate.yml and deploy.yml fetch only the artifacts a change touched, to keep
+# per-merge bandwidth inside the free tier. That is correct -- an artifact is
+# immutable once it lands, so re-hashing all 324 of them on every push pays for
+# bytes that cannot have changed. But the old full fetch caught store corruption
+# by accident, and that check has to live somewhere. Here it is, on a cadence
+# matching how often an LFS store actually rots rather than on every push. One
+# full-corpus fetch a month fits the free allowance.
+
+on:
+  schedule:
+    # 07:00 UTC on the first of each month.
+    - cron: '0 7 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lfs-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Cache LFS objects
+        # Shares the object cache the per-PR runs build up. The full pull below
+        # then re-downloads only objects the cache is missing -- typically just
+        # what landed since last month -- so even the whole-corpus audit rarely
+        # pays full bandwidth.
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-${{ github.sha }}
+          restore-keys: |
+            lfs-
+
+      - name: Materialise the whole corpus
+        # Deliberately the full store, so every artifact's bytes are re-hashed.
+        run: git lfs pull
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Re-verify every artifact hash
+        # No VALIDATE_CHANGED_ARTIFACTS: with the full corpus materialised there
+        # are no pointers, so every hash is checked. A mismatch means the store
+        # rotted or an artifact was edited -- either way the schema says an
+        # artifact is never changed, so it fails.
+        run: npm run validate

@@ -14,8 +14,14 @@ need to get this perfect by hand.
 
 ### If you are adding a budget document to `intake/`
 
-Provenance is the product here, so these fields are not optional — they are what
-makes the number citable later.
+Most budget documents do not come in as a pull request at all: the coverage
+dashboard's issue form collects the file and its provenance, and a bot opens the
+PR for you with the hash already computed. You only need to open one of these by
+hand for a document **over GitHub's 25 MB issue-attachment limit**, which the
+form cannot accept.
+
+If that is you, provenance is still the product, so `provenance.yaml` is not
+optional — it is what makes the number citable later:
 
 - **Entity:** <!-- e.g. su/washington-central -->
 - **Fiscal year:**
@@ -24,7 +30,8 @@ makes the number citable later.
 - **How?** <!-- website download / emailed by the district / picked up at a meeting / records request -->
 - **Is this the document exactly as released?** <!-- Raw artifacts are never edited, cropped, or re-saved. If you had to alter it in any way, say so. -->
 
-If there is no `provenance.yaml` in the folder yet, CI will tell you what it needs.
+Write those into a `provenance.yaml` beside the file. If it is missing or
+incomplete, CI will tell you what it needs.
 
 ---
 

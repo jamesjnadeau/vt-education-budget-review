@@ -13,7 +13,7 @@ interface Cell {
   warehouseFile: string | null;
   intakeFiles: string[];
   lastKnownSource: string | null;
-  uploadUrl: string | null;
+  intakeUrl: string | null;
   flagUrl: string | null;
   notPublishedNote: string | null;
 }
@@ -85,12 +85,12 @@ const LABEL: Record<Cell['state'], string> = {
                 const title = `${titleCase(entity.name)} FY${year}: ${LABEL[cell.state]}`;
                 const href = cell.warehouseFile
                   ? null
-                  : (cell.uploadUrl ?? cell.flagUrl ?? null);
+                  : (cell.intakeUrl ?? cell.flagUrl ?? null);
                 return (
                   <td>
                     {href ? (
                       <a class={`cell ${cell.state}`} href={href} title={title}>
-                        {cell.state === 'missing' ? 'upload' : LABEL[cell.state]}
+                        {cell.state === 'missing' ? 'send in' : LABEL[cell.state]}
                       </a>
                     ) : (
                       <span class={`cell ${cell.state}`} title={title}>
@@ -109,16 +109,24 @@ const LABEL: Record<Cell['state'], string> = {
 
   <h2>How to send a budget in</h2>
   <p>
-    There is no login, because there is no server. Uploads go through git, which sounds worse
-    than it is: every red cell above links to GitHub's web upload page, already pointed at the
-    right folder. It is an ordinary file picker, and committing through it produces a normal
-    commit with your name on it.
+    There is no login, because there is no server. Every red cell above opens a short issue
+    form, already filled in with the supervisory union and fiscal year. Drag the PDF or
+    spreadsheet into it, say where it came from, and submit — no checkout, no git, no account
+    beyond a GitHub login.
   </p>
   <p>
-    A pull request template asks for the provenance fields — where the document came from, when
-    you retrieved it, and how. Validation runs automatically and will tell you what is missing.
+    A bot takes it from there: it validates the form, computes the document's hash from the
+    bytes you sent, and opens a pull request that adds the raw file and its provenance record.
+    The commit is the bot's, with you credited as a co-author — weaker than a commit in your own
+    name, and the honest trade for a provenance record that is checked and machine-computed
+    rather than typed by hand. If anything is wrong the bot comments on your issue saying what,
+    and re-checks when you fix it.
+  </p>
+  <p>
+    Two things still matter most: <strong>send the document exactly as the district released
+    it</strong> — do not crop, re-save or convert it — and <strong>say where it came from</strong>.
     If you would rather just flag a gap than send a file, the missing cells also link to a
-    pre-filled issue.
+    pre-filled issue for that.
   </p>
 
   {

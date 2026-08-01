@@ -23,7 +23,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          lfs: true
+          # Selective LFS, same as validate.yml: fetch only what changed in the
+          # merge, not the whole corpus. build:data reads intake filenames, not
+          # bytes, so pointers are enough for everything but hash verification.
+          lfs: false
+          fetch-depth: 0
+
+      - name: Cache LFS objects
+        # Same LFS object cache as validate.yml, so a merge to main re-checks the
+        # changed artifacts without re-downloading anything already seen.
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-${{ github.sha }}
+          restore-keys: |
+            lfs-
+
+      - name: Fetch only the changed LFS artifacts
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: bash .github/scripts/lfs-pull-changed.sh
 
       - uses: actions/setup-node@v4
         with:

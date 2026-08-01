@@ -1,0 +1,63 @@
+name: Intake
+
+# Turns a budget-intake issue into a pull request: validate the form, download
+# the attached document, hash it, and open a PR adding the raw artifact and a
+# generated provenance.yaml. Anything wrong is reported as a comment on the
+# issue, which stays open so the `edited` trigger picks up the fix.
+#
+# The logic lives in tools/src/intake/ (pure, unit-tested) and
+# tools/src/cli/intake.ts (the IO shell). This file stays deliberately thin.
+
+on:
+  issues:
+    types: [opened, edited]
+
+# Least privilege: open a PR and comment, never more. In particular no direct
+# push to main -- human merge stays the gate, the same one validate.yml is.
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  # Serialise runs for the same issue so an `edited` fired while an `opened` run
+  # is still going cannot race on the branch.
+  group: intake-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  intake:
+    # Only budget-intake issues, and never re-enter on an issue the bot itself
+    # is closing.
+    if: contains(github.event.issue.labels.*.name, 'budget-intake')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        # No lfs: the workflow WRITES a new LFS object; it needs none of the
+        # existing corpus. provenance.yaml is a plain git file and is read
+        # without a fetch.
+        with:
+          lfs: false
+
+      - name: Install Git LFS filters
+        run: git lfs install
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Process the submission
+        # The issue body is attacker-controlled. It is passed as an environment
+        # variable and read by the Node script from process.env -- it is NEVER
+        # interpolated into this run block, which would be command execution for
+        # an anonymous stranger holding a write token.
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR_LOGIN: ${{ github.event.issue.user.login }}
+          ISSUE_AUTHOR_ID: ${{ github.event.issue.user.id }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run intake

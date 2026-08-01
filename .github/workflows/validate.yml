@@ -23,10 +23,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Intake artifacts live in LFS. Fetching them is what makes hash
-          # verification meaningful -- without it the validator can only see
-          # pointer files and says so rather than passing silently.
-          lfs: true
+          # Intake artifacts live in LFS, but fetching the WHOLE corpus on every
+          # run bills for bytes that never change -- cost that scales with
+          # commit rate, not data volume. Fetch nothing here; the next step
+          # pulls only the artifacts this change actually touched.
+          lfs: false
+          # Full history so the diff against the base ref (PR) or previous
+          # commit (push) can be computed. History without LFS blobs is cheap.
+          fetch-depth: 0
+
+      - name: Cache LFS objects
+        # Restore the LFS object store from the most recent run. `git lfs pull`
+        # then checks out any object already here without re-downloading it, so
+        # a changed artifact costs bandwidth once and is free on every run after.
+        # Actions cache does not count against LFS bandwidth. The unique per-sha
+        # key always saves; the prefix restore-key inherits the latest cache.
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-${{ github.sha }}
+          restore-keys: |
+            lfs-
+
+      - name: Fetch only the changed LFS artifacts
+        # Selective `git lfs pull` for the intake artifacts this change touched.
+        # Hash verification is meaningful only with the bytes in hand, but only
+        # the changed artifacts can have a new hash -- the rest were verified
+        # when they landed and the schema declares them immutable. The monthly
+        # lfs-audit workflow re-verifies the whole store on a cadence matching
+        # how often LFS stores actually rot.
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: bash .github/scripts/lfs-pull-changed.sh
 
       - uses: actions/setup-node@v4
         with:
@@ -42,6 +72,10 @@ jobs:
         run: npm test
 
       - name: Validate data
+        # VALIDATE_CHANGED_ARTIFACTS was written to $GITHUB_ENV by the fetch
+        # step. A changed artifact still sitting as an unfetched pointer is a
+        # hard error here, not a warning: a selective fetch that silently
+        # skipped a file would verify nothing and report success.
         run: npm run validate
 
       - name: Parameter status

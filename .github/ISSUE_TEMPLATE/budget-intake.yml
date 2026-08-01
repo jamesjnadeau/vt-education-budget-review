@@ -1,0 +1,108 @@
+name: Send in a budget document
+description: >-
+  Attach a budget document and say where it came from. A bot validates it,
+  computes its hash, and opens a pull request that adds it to intake/.
+title: 'Budget intake: '
+labels: [budget-intake]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thanks for sending a document in. Two things matter most: **send it
+        exactly as the district released it** — do not crop, re-save or convert
+        it — and **say where it came from**. Everything else the bot works out
+        from the file itself, including the hash. If anything is wrong it will
+        comment here saying what; fix it in place and it re-checks
+        automatically.
+
+  - type: input
+    id: entity
+    attributes:
+      label: Entity
+      description: The supervisory-union slug. Prefilled from the coverage page; leave it as it was.
+      placeholder: su/addison-central
+    validations:
+      required: true
+
+  - type: input
+    id: fiscal_year
+    attributes:
+      label: Fiscal year
+      description: The four-digit fiscal year, e.g. 2025. Prefilled from the coverage page.
+      placeholder: '2025'
+    validations:
+      required: true
+
+  - type: textarea
+    id: document
+    attributes:
+      label: Document
+      description: >-
+        Drag the PDF or spreadsheet into this box so it uploads as an
+        attachment. One document per issue — for a second file, open a second
+        issue.
+      placeholder: Drop the file here.
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      description: >-
+        The URL you retrieved it from. Leave blank only if it was emailed to you
+        or handed over in person — then explain in the note below.
+      placeholder: https://district.org/budget/fy2025-budget-book.pdf
+    validations:
+      required: false
+
+  - type: input
+    id: retrieved_date
+    attributes:
+      label: Retrieved date
+      description: The date you obtained it, as YYYY-MM-DD.
+      placeholder: '2025-01-15'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: retrieval_method
+    attributes:
+      label: Retrieval method
+      description: How you obtained it.
+      options:
+        - http-fetch
+        - scrape
+        - manual-download
+        - email
+        - in_person
+        - foia
+    validations:
+      required: true
+
+  - type: dropdown
+    id: document_type
+    attributes:
+      label: Document type
+      description: What kind of document this is.
+      options:
+        - budget_book
+        - annual_report
+        - town_meeting_warning
+        - board_presentation
+        - spreadsheet
+        - aoe_report
+        - tax_department_report
+        - other
+    validations:
+      required: true
+
+  - type: textarea
+    id: note
+    attributes:
+      label: Note
+      description: >-
+        Anything worth recording about where it came from. Required when there
+        is no source URL — say who sent it or where you collected it, and when.
+    validations:
+      required: false

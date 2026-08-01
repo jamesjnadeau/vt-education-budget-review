@@ -41,7 +41,7 @@ const cells = (coverage.cells as Array<{
   state: string;
   warehouseFile: string | null;
   intakeFiles: string[];
-  uploadUrl: string | null;
+  intakeUrl: string | null;
   flagUrl: string | null;
 }>).filter((c) => c.entity === su.slug);
 
@@ -94,11 +94,11 @@ for (const town of towns) {
           Nothing has been collected yet for any of the {cells.length} fiscal years this site
           tracks. This is a gap in coverage, not a statement that the SU published nothing.
         </p>
-        {cells[0]?.uploadUrl && (
+        {cells[0]?.intakeUrl && (
           <p>
             If you have one:{' '}
-            <a href={cells[0].uploadUrl}>upload it through GitHub</a> — committing through the
-            web interface is an ordinary file picker and produces a normal commit. Or{' '}
+            <a href={cells[0].intakeUrl}>send it in through the issue form</a> — drag the file in
+            and say where it came from, and a bot opens the pull request. Or{' '}
             <a href={cells[0].flagUrl ?? '#'}>open an issue</a> recording what you checked.
           </p>
         )}

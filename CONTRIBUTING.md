@@ -6,18 +6,39 @@ someone reading a statute carefully.
 ## Sending in a budget document
 
 The [coverage dashboard](https://example.invalid/admin/coverage/) shows every gap. Each missing
-cell links to GitHub's web upload page, already pointed at the right folder. That is an ordinary
-file picker, and committing through it produces a normal commit — no local checkout needed.
+cell opens a short issue form, already filled in with the supervisory union and fiscal year.
+Drag the PDF or spreadsheet into it, answer where it came from, and submit. No local checkout,
+no git, no `git-lfs` — just a GitHub login and the file.
 
-Two things matter more than anything else:
+A bot does the rest: it validates the form, computes the document's hash from the bytes you
+sent, and opens a pull request adding the raw artifact and a generated `provenance.yaml`. The
+commit is the bot's, and you are credited with a `Co-authored-by:` trailer rather than authoring
+it yourself. That is weaker than a commit in your own name, and it is the deliberate trade for a
+provenance record that is structurally validated and machine-computed instead of one a template
+asks you to fill in by hand — the hash in particular is no longer a field a typo can silently
+break. If anything is wrong, the bot comments on your issue with the specific problem and
+re-checks when you edit it.
+
+Two things matter more than anything else, and the form still asks for both:
 
 **Send the document exactly as released.** Do not crop it, re-save it, extract the budget pages,
 or convert it. The raw artifact is the provenance record for every number derived from it, and a
 re-saved PDF has a different hash from the one the district published.
 
-**Say where it came from.** The pull request template asks for the source URL, the date you
-retrieved it, and how. If it was emailed to you by a business manager rather than downloaded,
-say that — it is a perfectly good provenance record, it just needs to be recorded as one.
+**Say where it came from.** The form asks for the source URL, the date you retrieved it, and how.
+If it was emailed to you by a business manager rather than downloaded, say that — it is a
+perfectly good provenance record, it just needs to be recorded as one.
+
+**If the document is over 25 MB**, GitHub will not let you attach it to an issue — the one case
+the form cannot handle. Then, and only then, you need a local checkout:
+
+```bash
+git lfs install
+# add the file under intake/<su-slug-with-dashes>/fy<year>/, write a provenance.yaml beside it,
+git add intake/... && git commit && git push
+```
+
+open a pull request, and CI tells you what the `provenance.yaml` still needs.
 
 ## Reporting an error
 

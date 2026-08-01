@@ -22,7 +22,7 @@ import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
-import { flagIssueUrl, uploadUrl, CONFIG } from './config.ts';
+import { flagIssueUrl, intakeIssueUrl, CONFIG } from './config.ts';
 import { walkFiles } from './fs-walk.ts';
 import { PATHS, rel } from './paths.ts';
 import type { RegistryEntity } from './registry/types.ts';
@@ -38,7 +38,8 @@ export interface CoverageCell {
   readonly intakeFiles: readonly string[];
   readonly budgetStatus: string | null;
   readonly lastKnownSource: string | null;
-  readonly uploadUrl: string | null;
+  /** Deep link to the prefilled budget-intake issue form, or null once normalized. */
+  readonly intakeUrl: string | null;
   readonly flagUrl: string | null;
   readonly notPublishedNote: string | null;
 }
@@ -186,7 +187,7 @@ export function buildCoverage(
         intakeFiles,
         budgetStatus: warehouseEntry?.status ?? null,
         lastKnownSource,
-        uploadUrl: state === 'normalized' ? null : uploadUrl(entity.slug, fiscalYear),
+        intakeUrl: state === 'normalized' ? null : intakeIssueUrl(entity.slug, fiscalYear),
         flagUrl: state === 'missing' ? flagIssueUrl(entity.slug, entity.name, fiscalYear, lastKnownSource) : null,
         notPublishedNote: confirmedAbsent?.note ?? null,
       });

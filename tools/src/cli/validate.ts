@@ -22,7 +22,7 @@ import { parse as parseYaml } from 'yaml';
 
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { walkFiles } from '../fs-walk.ts';
-import { PATHS, rel } from '../paths.ts';
+import { PATHS, REPO_ROOT, rel } from '../paths.ts';
 import { readCorrections } from '../registry/corrections.ts';
 import { readRegistry, readSnapshotIfPresent } from '../registry/store.ts';
 import type { RegistryEntity } from '../registry/types.ts';
@@ -110,8 +110,30 @@ export function correctionsFindings(
   ];
 }
 
+/**
+ * Absolute paths of the artifacts CI fetched selectively this run, read from
+ * `VALIDATE_CHANGED_ARTIFACTS` (newline- or whitespace-separated, repo-relative
+ * -- exactly the list the workflow feeds `git lfs pull --include`). An artifact
+ * in this set that is still a pointer is a hard error rather than a warning:
+ * the selective fetch was supposed to materialise it and did not. Empty off CI,
+ * where a full `git lfs pull` (or none) is in effect and an unfetched pointer
+ * is the ordinary, non-blocking warning.
+ */
+function requireFetchedFromEnv(): ReadonlySet<string> {
+  const raw = process.env['VALIDATE_CHANGED_ARTIFACTS'];
+  if (!raw) return new Set();
+  return new Set(
+    raw
+      .split(/\s+/)
+      .map((p) => p.trim())
+      .filter(Boolean)
+      .map((p) => join(REPO_ROOT, p)),
+  );
+}
+
 function main(): number {
   const verifyHashes = !process.argv.includes('--no-hashes');
+  const requireFetched = requireFetchedFromEnv();
   const findings: Finding[] = [];
   const counts = {
     registry: 0,
@@ -208,7 +230,7 @@ function main(): number {
     findings.push(...checkRegistryRefs(data, file, registry));
     if (Array.isArray((data as { artifacts?: unknown }).artifacts)) {
       findings.push(
-        ...checkProvenanceDoc(data as never, file, dirname(file), { verifyHashes }),
+        ...checkProvenanceDoc(data as never, file, dirname(file), { verifyHashes, requireFetched }),
       );
     }
   }

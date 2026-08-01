@@ -199,9 +199,22 @@ export function checkProvenanceDoc(
   doc: ProvenanceDoc,
   file: string,
   dir: string,
-  options: { readonly verifyHashes: boolean },
+  options: {
+    readonly verifyHashes: boolean;
+    /**
+     * Absolute paths of artifacts that MUST be materialised this run -- the
+     * ones that changed against the base ref, which CI fetches selectively
+     * instead of pulling the whole LFS corpus. An artifact in this set that is
+     * still a pointer means the selective fetch silently failed, and a run that
+     * verifies nothing while reporting success is worse than the bandwidth bill
+     * the selective fetch exists to avoid. So for these it is an error, not the
+     * warning an unchanged, deliberately-unfetched pointer earns.
+     */
+    readonly requireFetched?: ReadonlySet<string>;
+  },
 ): Finding[] {
   const findings: Finding[] = [];
+  const requireFetched = options.requireFetched ?? new Set<string>();
 
   for (const artifact of doc.artifacts) {
     const path = join(dir, artifact.file);
@@ -218,13 +231,18 @@ export function checkProvenanceDoc(
     if (options.verifyHashes) {
       const isLfsPointer = readFileSync(path, 'utf8').startsWith('version https://git-lfs');
       if (isLfsPointer) {
+        const mustBeFetched = requireFetched.has(path);
         findings.push({
-          severity: 'warning',
+          severity: mustBeFetched ? 'error' : 'warning',
           file,
-          rule: 'hash-verification',
-          message:
-            `"${artifact.file}" is an unfetched Git LFS pointer, so its hash could not be ` +
-            `verified. Run \`git lfs pull\` before treating this check as having passed.`,
+          rule: mustBeFetched ? 'hash-verification-unfetched' : 'hash-verification',
+          message: mustBeFetched
+            ? `"${artifact.file}" changed in this run but is still an unfetched Git LFS pointer, ` +
+              `so its hash was not verified. The selective \`git lfs pull\` did not materialise ` +
+              `it. Failing rather than passing: a changed artifact whose bytes were never seen ` +
+              `has been verified by nothing.`
+            : `"${artifact.file}" is an unfetched Git LFS pointer, so its hash could not be ` +
+              `verified. Run \`git lfs pull\` before treating this check as having passed.`,
         });
         continue;
       }

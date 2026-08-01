@@ -19,16 +19,25 @@ export const CONFIG = {
 } as const;
 
 /**
- * Deep link to GitHub's web upload UI, pre-targeted at the right intake path.
+ * Deep link to the budget-intake issue form, prefilled with the cell's entity
+ * and fiscal year.
  *
- * Committing through the GitHub web interface IS a git commit, so this
- * satisfies the everything-through-git constraint while being an ordinary
- * file-picker experience for whoever has the PDF.
+ * The everything-through-git constraint is still satisfied -- the document
+ * reaches the repository as a reviewed pull request -- but by a bot opening that
+ * PR from the issue, not by a direct web commit. Web commits cannot write the
+ * Git LFS pointers the raw artifacts require, so the file picker GitHub offers
+ * refuses the exact file types this project collects. The issue form's textarea
+ * accepts the drag-and-drop attachment a dedicated upload field still does not,
+ * and the intake workflow does the rest.
  */
-export function uploadUrl(entitySlug: string, fiscalYear: number): string | null {
+export function intakeIssueUrl(entitySlug: string, fiscalYear: number): string | null {
   if (!CONFIG.repositoryUrl) return null;
-  const dir = `intake/${entitySlug.replace('/', '-')}/fy${fiscalYear}`;
-  return `${CONFIG.repositoryUrl}/upload/${CONFIG.defaultBranch}/${dir}`;
+  const params = new URLSearchParams({
+    template: 'budget-intake.yml',
+    entity: entitySlug,
+    fiscal_year: String(fiscalYear),
+  });
+  return `${CONFIG.repositoryUrl}/issues/new?${params.toString()}`;
 }
 
 /** Pre-filled issue for tracking a gap without an upload. */

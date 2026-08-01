@@ -26,6 +26,7 @@
     "census:import": "tsx tools/src/cli/census-import.ts",
     "school:municipality": "tsx tools/src/cli/school-municipality.ts",
     "collect": "tsx tools/src/cli/collect.ts",
+    "intake": "tsx tools/src/cli/intake.ts",
     "params": "tsx tools/src/cli/params.ts",
     "build:data": "tsx tools/src/cli/build-data.ts",
     "build:site": "npm run build --workspace site",
