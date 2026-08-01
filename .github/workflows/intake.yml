@@ -10,7 +10,9 @@ name: Intake
 
 on:
   issues:
-    types: [opened, edited]
+    # `labeled` is here so applying the budget-intake label to an existing issue
+    # re-runs intake -- the clean way to reprocess one after a fix ships.
+    types: [opened, edited, labeled]
 
 # Least privilege: open a PR and comment, never more. In particular no direct
 # push to main -- human merge stays the gate, the same one validate.yml is.
@@ -27,9 +29,17 @@ concurrency:
 
 jobs:
   intake:
-    # Only budget-intake issues, and never re-enter on an issue the bot itself
-    # is closing.
-    if: contains(github.event.issue.labels.*.name, 'budget-intake')
+    # Recognise a budget-intake issue by the label OR the template's title
+    # prefix. The title check is load-bearing, not redundant: GitHub only
+    # applies a template's labels that already exist in the repository and
+    # silently drops the rest, so an intake issue can arrive with no label at
+    # all. Gating on the label alone let those pass unprocessed -- no comment,
+    # no PR -- which for a channel about never silently dropping a submission is
+    # the worst possible failure. Junk that merely shares the prefix is caught
+    # by the validator and answered with a comment, not silence.
+    if: >-
+      startsWith(github.event.issue.title, 'Budget intake:') ||
+      contains(github.event.issue.labels.*.name, 'budget-intake')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

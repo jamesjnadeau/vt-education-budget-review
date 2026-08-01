@@ -48,14 +48,26 @@ describe('filenameError', () => {
 });
 
 describe('isAllowedAttachmentUrl', () => {
-  it('allows the three GitHub attachment hosts', () => {
+  it('allows the GitHub attachment hosts', () => {
     expect(isAllowedAttachmentUrl('https://github.com/user-attachments/assets/uuid')).toBe(true);
     expect(isAllowedAttachmentUrl('https://objects.githubusercontent.com/x')).toBe(true);
     expect(isAllowedAttachmentUrl('https://user-images.githubusercontent.com/1/2.png')).toBe(true);
   });
 
+  it('allows the user-attachments/files URL GitHub gives non-image uploads (PDFs, spreadsheets)', () => {
+    // Images and videos get /user-attachments/assets/<uuid>; every other file
+    // type -- the ones this channel actually collects -- gets
+    // /user-attachments/files/<id>/<name>. Rejecting it refuses every PDF.
+    expect(
+      isAllowedAttachmentUrl(
+        'https://github.com/user-attachments/files/30609145/Annual.Report.FY23.Budget.Book.pdf',
+      ),
+    ).toBe(true);
+  });
+
   it('rejects github.com paths that are not user-attachments', () => {
     expect(isAllowedAttachmentUrl('https://github.com/owner/repo/raw/main/evil')).toBe(false);
+    expect(isAllowedAttachmentUrl('https://github.com/user-attachments/../evil')).toBe(false);
   });
 
   it('rejects any other host, so the workflow is not a fetch proxy', () => {

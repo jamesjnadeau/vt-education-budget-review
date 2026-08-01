@@ -94,9 +94,15 @@ const ALLOWED_HOSTS = new Set(['objects.githubusercontent.com', 'user-images.git
 
 /**
  * Whether the URL points at a GitHub attachment store. Only `https`, only the
- * three known hosts, and `github.com` only under `/user-attachments/assets/`.
- * An exact host match (not a suffix test) rejects lookalikes such as
- * `objects.githubusercontent.com.evil.com`.
+ * known hosts, and `github.com` only under `/user-attachments/`. An exact host
+ * match (not a suffix test) rejects lookalikes such as
+ * `objects.githubusercontent.com.evil.com`; the URL parser normalises away any
+ * `..` in the path before the prefix test.
+ *
+ * GitHub uses two `/user-attachments/` shapes: `/assets/<uuid>` for images and
+ * videos, and `/files/<id>/<name>` for every other file type -- which is what a
+ * dragged-in PDF or spreadsheet, the whole point of this channel, gets. Both
+ * are accepted; a bare `/user-attachments/...` with neither segment is not.
  */
 export function isAllowedAttachmentUrl(url: string): boolean {
   let parsed: URL;
@@ -107,7 +113,10 @@ export function isAllowedAttachmentUrl(url: string): boolean {
   }
   if (parsed.protocol !== 'https:') return false;
   if (parsed.hostname === 'github.com') {
-    return parsed.pathname.startsWith('/user-attachments/assets/');
+    return (
+      parsed.pathname.startsWith('/user-attachments/assets/') ||
+      parsed.pathname.startsWith('/user-attachments/files/')
+    );
   }
   return ALLOWED_HOSTS.has(parsed.hostname);
 }
