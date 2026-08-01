@@ -100,7 +100,7 @@ parameters:
     value: -0.54
     unit: multiplier
     description: additional grade level weight for prekindergarten pupils
-    applies_to: prekindergarten pupils, IF the pre-contingency version of § 4010(d)(1) governs FY2027
+    applies_to: prekindergarten pupils; the pre-repeal version of § 4010(d)(1) is treated as governing FY2027
     citation:
       statute: "16 V.S.A. § 4010(d)(1)(A)"
       session_law: "2025 Acts and Resolves No. 73, § 35 (contingently effective)"
@@ -108,12 +108,14 @@ parameters:
       quote: >-
         Version effective until contingency met: "(A) prekindergarten—negative 0.54".
         Version effective July 1, 2026 if contingency met: "(A) [Repealed.]".
-        Left null because July 1, 2026 falls inside FY2027 and the contingency
-        status is not determinable from the codified section. Being an additive
-        increment, -0.54 makes a prekindergarten pupil count as 0.46; repeal makes
-        the same pupil count as 1.00. The choice therefore more than doubles the
-        membership contribution of every prekindergarten pupil, which is why it is
-        not guessed at.
+        July 1, 2026 falls inside FY2027, so which version governs turns on whether
+        the contingency was met. That status is not stated in the codified section;
+        the maintainer has determined it was NOT met, so the pre-repeal -0.54 weight
+        still governs FY2027 -- see verified_by. Being an additive increment, -0.54
+        makes a prekindergarten pupil count as 0.46 where repeal would make the same
+        pupil count as 1.00, so this determination more than halves each
+        prekindergarten pupil's membership contribution relative to repeal, which is
+        why it is verified deliberately rather than assumed.
       verified: true
       verified_date: "2026-08-01"
       verified_by: James Nadeau through knowledge of existing system, statute description is confusing. 
@@ -399,7 +401,7 @@ parameters:
   # and must never be filled by carrying the prior year forward.
 
   yield.property_dollar_equivalent:
-    value: 9,401
+    value: 9401
     unit: usd_per_pupil
     description: property dollar equivalent yield -- per pupil education spending producing a $1.00 homestead rate
     applies_to: all homestead property

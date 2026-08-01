@@ -110,25 +110,36 @@ describe('year-specific provisions are not copied blindly', () => {
     expect(sets.get(2026)?.parameters.get('membership.hold_harmless_applies')?.value).toBe(false);
   });
 
-  it('leaves the prekindergarten weight determinate before FY2027 and open in FY2027', () => {
-    // The contingent repeal is effective July 1, 2026 -- the first day of FY2027.
+  it('carries the pre-repeal prekindergarten weight, including into FY2027', () => {
+    // The contingent repeal of the -0.54 weight is effective July 1, 2026 -- the
+    // first day of FY2027 -- but the maintainer has verified that the contingency
+    // did not fire, so the pre-repeal weight still governs FY2027.
     expect(sets.get(2025)?.parameters.get('weights.grade.prekindergarten')?.value).toBe(-0.54);
     expect(sets.get(2025)?.parameters.get('weights.grade.prekindergarten')?.citation.verified).toBe(true);
 
     expect(sets.get(2026)?.parameters.get('weights.grade.prekindergarten')?.value).toBe(-0.54);
     expect(sets.get(2026)?.parameters.get('weights.grade.prekindergarten')?.citation.verified).toBe(true);
 
-    expect(sets.get(2027)?.parameters.get('weights.grade.prekindergarten')?.value).toBeNull();
-    expect(sets.get(2027)?.parameters.get('weights.grade.prekindergarten')?.citation.verified).toBe(false);
+    expect(sets.get(2027)?.parameters.get('weights.grade.prekindergarten')?.value).toBe(-0.54);
+    expect(sets.get(2027)?.parameters.get('weights.grade.prekindergarten')?.citation.verified).toBe(true);
   });
 
   it('never carries an annually set amount across years', () => {
-    // The yields and the statewide adjustment are set each year. Copying one
-    // forward would be indistinguishable from having looked it up.
+    // The yields and the statewide adjustment are set each year. Once looked up
+    // a figure is verified, but copying one forward would be indistinguishable
+    // from having looked it up -- so no two years may share a value, and any
+    // amount present must be a usable number, never a comma string.
     for (const key of ['yield.property_dollar_equivalent', 'yield.income_dollar_equivalent', 'tax.statewide_adjustment']) {
+      const seenBy = new Map<unknown, number>(); // value -> first fiscal year that held it
       for (const [fy, set] of sets) {
         const p = set.parameters.get(key);
-        expect(p?.citation.verified, `FY${fy} ${key} must not be marked verified until looked up`).toBe(false);
+        const value = p?.value;
+        if (value === null || value === undefined) continue;
+        expect(typeof value, `FY${fy} ${key} must be numeric, not a comma string`).toBe('number');
+        expect(p?.citation.verified, `FY${fy} ${key} carries a value, so it must be verified`).toBe(true);
+        const prior = seenBy.get(value);
+        expect(prior, `FY${fy} ${key} (${value}) repeats FY${prior}'s figure -- an annually set amount carried forward`).toBeUndefined();
+        seenBy.set(value, fy);
       }
     }
   });
