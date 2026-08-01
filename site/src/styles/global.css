@@ -418,3 +418,50 @@ button {
   font-size: 0.86rem;
   color: var(--text-muted);
 }
+
+/* Primary-nav "Modeling" dropdown (native <details>, no JS). */
+.nav-group {
+  position: relative;
+}
+.nav-group > summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--link);
+  user-select: none;
+}
+.nav-group > summary::-webkit-details-marker {
+  display: none;
+}
+.nav-group > summary::after {
+  content: '▾';
+  font-size: 0.7em;
+  margin-left: 0.3em;
+}
+.nav-group[open] > summary::after {
+  content: '▴';
+}
+.nav-group-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  min-width: 12rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+}
+/* On narrow screens the absolute panel would overflow; let it flow inline. */
+@media (max-width: 640px) {
+  .nav-group-menu {
+    position: static;
+    box-shadow: none;
+    margin-top: 0.4rem;
+    min-width: 0;
+  }
+}
