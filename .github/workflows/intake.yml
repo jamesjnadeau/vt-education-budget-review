@@ -50,12 +50,12 @@ jobs:
         # GITHUB_TOKEN does not start further workflows, so validate.yml would
         # never run on an intake PR; made by the App, it does.
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.INTAKE_APP_ID }}
           private-key: ${{ secrets.INTAKE_APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         # No lfs: the workflow WRITES a new LFS object; it needs none of the
         # existing corpus. provenance.yaml is a plain git file and is read
         # without a fetch. The App token is persisted so `git push` is the App.
@@ -66,7 +66,7 @@ jobs:
       - name: Install Git LFS filters
         run: git lfs install
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm

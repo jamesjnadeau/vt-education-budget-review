@@ -27,7 +27,7 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: false
 
@@ -36,7 +36,7 @@ jobs:
         # then re-downloads only objects the cache is missing -- typically just
         # what landed since last month -- so even the whole-corpus audit rarely
         # pays full bandwidth.
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .git/lfs
           key: lfs-${{ github.sha }}
@@ -47,7 +47,7 @@ jobs:
         # Deliberately the full store, so every artifact's bytes are re-hashed.
         run: git lfs pull
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm

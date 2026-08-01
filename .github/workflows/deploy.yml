@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # Selective LFS, same as validate.yml: fetch only what changed in the
           # merge, not the whole corpus. build:data reads intake filenames, not
@@ -32,7 +32,7 @@ jobs:
       - name: Cache LFS objects
         # Same LFS object cache as validate.yml, so a merge to main re-checks the
         # changed artifacts without re-downloading anything already seen.
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .git/lfs
           key: lfs-${{ github.sha }}
@@ -46,14 +46,14 @@ jobs:
           BEFORE: ${{ github.event.before }}
         run: bash .github/scripts/lfs-pull-changed.sh
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
 
       - run: npm ci
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
         id: pages
 
       - name: Validate before publishing
@@ -68,7 +68,7 @@ jobs:
           SITE_BASE: ${{ steps.pages.outputs.base_path }}
         run: npm run build:data && npm run build:site
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: site/dist
 
@@ -80,4 +80,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
