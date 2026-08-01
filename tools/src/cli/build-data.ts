@@ -86,9 +86,15 @@ function main(): number {
   }
   for (const list of byType.values()) list.sort((a, b) => a.name.localeCompare(b.name));
 
+  // Counts describe the active universe. A closed school or SU (one whose
+  // effective_to has passed) still keeps its history page, but it is not
+  // counted here — otherwise the headline tallies claim more exists than does.
+  const todayIso = today.toISOString().slice(0, 10);
+  const isActive = (e: RegistryEntity) => !e.effective_to || e.effective_to >= todayIso;
+
   writeJson(join(PATHS.siteGenerated, 'registry.json'), {
     generated: today.toISOString(),
-    counts: Object.fromEntries([...byType].map(([k, v]) => [k, v.length])),
+    counts: Object.fromEntries([...byType].map(([k, v]) => [k, v.filter(isActive).length])),
     entities: [...registry.values()].sort((a, b) => a.slug.localeCompare(b.slug)),
   });
 
