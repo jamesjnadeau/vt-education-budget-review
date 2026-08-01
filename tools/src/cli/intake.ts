@@ -36,6 +36,7 @@ import {
   type ProvenanceDoc,
 } from '../intake/provenance.ts';
 import { buildSubmission, type Submission } from '../intake/submission.ts';
+import { writeScratchFile } from '../intake/scratch.ts';
 import { MAX_ATTACHMENT_BYTES, contentErrors, isAllowedAttachmentUrl } from '../intake/security.ts';
 
 interface Env {
@@ -63,9 +64,7 @@ function readEnv(): Env {
 
 /** Comments the given lines on the issue and leaves it open. */
 function comment(env: Env, lines: readonly string[]): void {
-  const bodyFile = join(PATHS.build, 'intake-comment.md');
-  mkdirSync(PATHS.build, { recursive: true });
-  writeFileSync(bodyFile, lines.join('\n\n') + '\n', 'utf8');
+  const bodyFile = writeScratchFile(PATHS.build, 'intake-comment.md', lines.join('\n\n') + '\n');
   execFileSync('gh', ['issue', 'comment', env.issueNumber, '--body-file', bodyFile], {
     stdio: 'inherit',
   });
@@ -121,14 +120,13 @@ function commitAndOpenPr(env: Env, submission: Submission, relArtifactPath: stri
   const dirRel = relArtifactPath.replace(/[^/]+$/, '');
   git('add', relArtifactPath, join(dirRel, 'provenance.yaml'));
 
-  const messageFile = join(PATHS.build, 'intake-commit.txt');
-  writeFileSync(
-    messageFile,
+  const messageFile = writeScratchFile(
+    PATHS.build,
+    'intake-commit.txt',
     `Intake ${submission.entity} FY${submission.fiscalYear}\n\n` +
       `Raw artifact and its provenance record, filed via issue #${env.issueNumber}. ` +
       `Nothing else changes; extraction and normalization stay a separate step.\n\n` +
       `Co-authored-by: ${env.authorLogin} <${coauthorEmail}>\n`,
-    'utf8',
   );
 
   // The commit is authored by the default Actions bot identity. No deploy key
@@ -158,16 +156,15 @@ function commitAndOpenPr(env: Env, submission: Submission, relArtifactPath: stri
     return;
   }
 
-  const prBodyFile = join(PATHS.build, 'intake-pr.md');
-  writeFileSync(
-    prBodyFile,
+  const prBodyFile = writeScratchFile(
+    PATHS.build,
+    'intake-pr.md',
     `Adds \`${relArtifactPath}\` and its \`provenance.yaml\`, from #${env.issueNumber}.\n\n` +
       `The raw artifact and its provenance record only — extraction and normalization are a ` +
       `separate, deliberate step. \`validate.yml\` checks this like any other PR.\n\n` +
       `Provenance was computed from the received bytes (sha256, size, media type) and the author ` +
       `recorded as their GitHub handle, rather than typed by hand.\n\n` +
       `Closes #${env.issueNumber}\n`,
-    'utf8',
   );
   execFileSync(
     'gh',
