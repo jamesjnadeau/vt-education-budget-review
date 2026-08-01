@@ -25,10 +25,10 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
     <a href={`${base}/explanations/rss.xml`}>RSS</a>.
   </p>
 
-  <div class="grid">
+  <ul class="grid">
     {
       articles.map((a) => (
-        <article class="card">
+        <li class="card">
           <h2 style="margin-top:0">
             <a href={`${base}/explanations/${a.id}/`}>{a.data.title}</a>
           </h2>
@@ -37,8 +37,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
           <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:0">
             <time datetime={a.data.pubDate.toISOString()}>{dateFmt.format(a.data.pubDate)}</time>
           </p>
-        </article>
+        </li>
       ))
     }
-  </div>
+  </ul>
 </Base>
