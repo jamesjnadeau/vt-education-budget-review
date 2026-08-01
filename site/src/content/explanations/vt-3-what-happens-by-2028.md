@@ -1,9 +1,9 @@
-# What Happens Between Now And March 2028
-
-## Your town has a decision coming
-
-*Piece 3 of 3. Piece 1 tells the 30 year history. Piece 2 explains how your tax rate gets set. A separate glossary defines every term used here.*
-
+---
+title: What Happens Between Now And March 2028
+subtitle: Your town has a decision coming
+description: Piece 3 of 3. Piece 1 tells the 30 year history. Piece 2 explains how your tax rate gets set. A separate glossary defines every term used here.
+pubDate: 2026-07-30
+order: 3
 ---
 
 In June of 2026, Vermont passed a law called Act 170.

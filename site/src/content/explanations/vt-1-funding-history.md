@@ -1,9 +1,9 @@
-# How Vermont Pays For Schools
-
-## The last 30 years, told in plain words
-
-*Piece 1 of 3. Piece 2 explains how your own tax rate gets set. Piece 3 covers what happens between now and March 2028. A separate glossary defines every term used here.*
-
+---
+title: How Vermont Pays For Schools
+subtitle: The last 30 years, told in plain words
+description: Piece 1 of 3. Piece 2 explains how your own tax rate gets set. Piece 3 covers what happens between now and March 2028. A separate glossary defines every term used here.
+pubDate: 2026-07-28
+order: 1
 ---
 
 Vermont has changed the way it pays for schools many times. Some changes were small. A few of them changed everything.

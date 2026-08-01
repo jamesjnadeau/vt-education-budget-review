@@ -1,9 +1,9 @@
-# Vermont School Funding: Words To Know
-
-## A plain-language glossary
-
-*Companion to the three-part series. Piece 1 is the 30 year history. Piece 2 explains how your tax rate gets set. Piece 3 covers what happens between now and March 2028.*
-
+---
+title: "Vermont School Funding: Words To Know"
+subtitle: A plain-language glossary
+description: A plain-language glossary companion to the three-part series, defining every term in ABC order with the laws listed as a story at the end.
+pubDate: 2026-07-31
+order: 4
 ---
 
 Vermont school funding has its own language. Some of it is legal. Some of it is just habit. None of it is explained to you before someone starts using it at a meeting.

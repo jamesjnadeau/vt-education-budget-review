@@ -1,9 +1,9 @@
-# Where Your School Tax Rate Comes From
-
-## The math behind the number on your bill
-
-*Piece 2 of 3. Piece 1 tells the 30 year history. Piece 3 covers what happens between now and March 2028. A separate glossary defines every term used here.*
-
+---
+title: Where Your School Tax Rate Comes From
+subtitle: The math behind the number on your bill
+description: Piece 2 of 3. Piece 1 tells the 30 year history. Piece 3 covers what happens between now and March 2028. A separate glossary defines every term used here.
+pubDate: 2026-07-29
+order: 2
 ---
 
 Most people open their tax bill, look at the number, and have no idea how it got there.
