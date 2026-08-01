@@ -33,10 +33,11 @@ const liveParameters = JSON.stringify(parameters);
     <div class="controls">
       <div class="field">
         <label for="parameter-mode">Which numbers to use</label>
-        <select id="parameter-mode">
-          <option value="live">Live — FY2027 (nothing checked yet)</option>
-          <option value="example">Example (not real Vermont law)</option>
-        </select>
+        <!-- Options are filled in by the model tool from the build's parameter
+             sets: one per live fiscal year, then the example. The whole tool
+             needs JavaScript to compute anything, so an empty select with no
+             script is the honest resting state. -->
+        <select id="parameter-mode"></select>
       </div>
     </div>
 

@@ -6,12 +6,16 @@
  * walkthrough is not a summary of the calculation -- it is the calculation's
  * own tree, rendered node by node.
  *
- * Two parameter sets are selectable, and the distinction is enforced visually
- * rather than left to a footnote:
+ * The parameter set is selectable, and the distinction between kinds is
+ * enforced visually rather than left to a footnote:
  *
- *   live      the real FY2027 file. Every value is null and every citation
- *             unverified, so the engine declines to compute and the tool shows
- *             precisely which parameter blocked each step.
+ *   live      one option per real fiscal-year file (FY2025, FY2026, FY2027,
+ *             …), read straight from the build's parameters.json. Every value
+ *             is null and every citation unverified, so the engine declines to
+ *             compute and the tool shows precisely which parameter blocked each
+ *             step. Each option's label reports that year's own status and
+ *             count of unverified numbers, so no year is passed off as more
+ *             settled than it is.
  *
  *   example   deliberately arbitrary weights, so a reader can see what a
  *             completed walkthrough looks like. Their citation field reads
@@ -41,6 +45,39 @@ interface RawParameterSet {
   status: 'draft' | 'verified' | 'superseded';
   note: string | null;
   parameters: Parameter[];
+  // Present on the sets read from parameters.json; absent on the empty
+  // fallbacks constructed in code. `file` is the source path, used to keep
+  // this tool to the main-formula year files; `unverified_count` drives the
+  // honest per-year label in the picker.
+  file?: string;
+  unverified_count?: number;
+}
+
+// The what-if tool drives the main pupil-weighting and tax-rate formula, whose
+// parameter files are named fyNNNN.yaml, one per fiscal year. Suffixed variants
+// (e.g. fy2030-small-sparse.yaml) parameterise their own tools and pages, so
+// they are not offered here even though the build bundles them into the same
+// parameters.json. A set with no file recorded is kept rather than dropped.
+const MAIN_FORMULA_FILE = /(?:^|\/)fy\d{4}\.yaml$/;
+
+function liveSets(sets: RawParameterSet[]): RawParameterSet[] {
+  return sets
+    .filter((s) => s.file === undefined || MAIN_FORMULA_FILE.test(s.file))
+    .sort((a, b) => b.fiscal_year - a.fiscal_year);
+}
+
+// One label per live option. It states the year's own status rather than a
+// single blanket caveat: a year with unverified numbers says how many, a
+// verified year says so, and everything else reads as draft.
+function liveLabel(set: RawParameterSet): string {
+  const n = set.unverified_count ?? 0;
+  const detail =
+    n > 0
+      ? `${n} number${n === 1 ? '' : 's'} not checked yet`
+      : set.status === 'verified'
+        ? 'verified'
+        : 'draft';
+  return `Live — FY${set.fiscal_year} (${detail})`;
 }
 
 function toParameterSet(raw: RawParameterSet): ParameterSet {
@@ -324,15 +361,35 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
 
   renderAssumptions(assumptions);
 
+  // Build the picker from the parameter sets themselves: one option per live
+  // fiscal year (newest first, so the most recent year is the default), then
+  // the example. Nothing here names a year, so adding fy2028.yaml to the build
+  // makes it selectable with no change to this file.
+  const sets = liveSets(liveParameters);
+  if (modeSelect) {
+    modeSelect.replaceChildren();
+    for (const set of sets) {
+      const option = document.createElement('option');
+      option.value = String(set.fiscal_year);
+      option.textContent = liveLabel(set);
+      modeSelect.append(option);
+    }
+    const example = document.createElement('option');
+    example.value = 'example';
+    example.textContent = 'Example (not real Vermont law)';
+    modeSelect.append(example);
+  }
+
   const recompute = (): void => {
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
 
+    const selectedYear = Number(modeSelect?.value);
     const parameters = useExample
       ? exampleParameters()
       : toParameterSet(
-          liveParameters.find((p) => p.fiscal_year === 2027) ?? {
-            fiscal_year: 2027,
+          liveParameters.find((p) => p.fiscal_year === selectedYear) ?? {
+            fiscal_year: selectedYear,
             status: 'draft',
             note: null,
             parameters: [],
