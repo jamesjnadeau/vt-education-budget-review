@@ -15,6 +15,7 @@ import {
   entityTypeFromOrgType,
   makeSlug,
   slugifyName,
+  untrackedOrgIdReason,
 } from './slugs.ts';
 import { diffRegistry, normalizeSnapshot, relationshipsFor } from './sync.ts';
 
@@ -96,6 +97,16 @@ describe('slugs', () => {
     expect(entityTypeFromOrgType('Independent School (IS)')).toBe('independent');
     expect(entityTypeFromOrgType('Recognized School (IS)')).toBe('independent');
     expect(entityTypeFromOrgType('Head Start (HDS)')).toBeNull();
+  });
+
+  it('names why a mistyped non-LEA org ID is not tracked, and passes real SUs through', () => {
+    // HE001 (University of Vermont) and SU099 (Department of Corrections) carry
+    // the tracked "Supervisory Union (SU)" type, so only the org ID tells them
+    // apart from a real SU like SU002.
+    expect(untrackedOrgIdReason('HE001')).toMatch(/higher-education/);
+    expect(untrackedOrgIdReason('SU099')).toMatch(/Department of Corrections/);
+    expect(untrackedOrgIdReason('SU002')).toBeNull();
+    expect(untrackedOrgIdReason(undefined)).toBeNull();
   });
 });
 
@@ -249,6 +260,37 @@ describe('normalizing a snapshot', () => {
     expect(warnings.join(' ')).toMatch(/skipped a placeholder record/);
     // The real records in the same snapshot are untouched.
     expect(entities.some((e) => e.slug === 'town/addison')).toBe(true);
+  });
+
+  it('drops organizations AOE mistypes as supervisory unions but that are not K-12 LEAs', () => {
+    // AOE publishes the University of Vermont and the Department of Corrections
+    // on the supervisoryUnions endpoint, typed "Supervisory Union (SU)". Neither
+    // is a K-12 supervisory union: UVM is higher education (the HE org-ID
+    // family) and Corrections runs adult education inside state facilities. The
+    // OrgType is tracked, so only the stable org ID tells them apart -- and
+    // leaving them in lists both as red gaps on the coverage dashboard forever.
+    const withNonLeas = snapshotOf({
+      ...SNAPSHOT.endpoints,
+      supervisoryUnions: [
+        ...(SNAPSHOT.endpoints['supervisoryUnions'] ?? []),
+        { ServerId: 1640, Name: 'University of Vermont', OrgID: 'HE001', OrgType: 'Supervisory Union (SU)' },
+        { ServerId: 1642, Name: 'Department of Corrections', OrgID: 'SU099', OrgType: 'Supervisory Union (SU)', Grades: ['AW'] },
+      ],
+    });
+    const { entities, warnings, notTracked } = normalizeSnapshot(withNonLeas, {
+      existing: new Map(),
+      today: '2026-07-29',
+    });
+
+    // Neither appears as an entity, and neither is an anomaly to warn about.
+    expect(entities.some((e) => e.aoe_org_id === 'HE001')).toBe(false);
+    expect(entities.some((e) => e.aoe_org_id === 'SU099')).toBe(false);
+    expect(warnings).toHaveLength(0);
+    // The omission is recorded as the deliberate decision it is.
+    expect(notTracked.join(' ')).toMatch(/University of Vermont/);
+    expect(notTracked.join(' ')).toMatch(/Department of Corrections/);
+    // A real supervisory union in the same snapshot is untouched.
+    expect(entities.some((e) => e.slug === 'su/addison-northwest')).toBe(true);
   });
 
   it('keeps a reporting bucket but flags it and awards it no membership', () => {

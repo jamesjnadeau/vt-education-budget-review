@@ -210,6 +210,53 @@ export function untrackedReason(orgType: string | undefined): string | null {
   return null;
 }
 
+/**
+ * Specific organizations AOE publishes under a TRACKED OrgType but that are not
+ * Vermont K-12 local education agencies, keyed by AOE org ID with the reason.
+ *
+ * `UNTRACKED_ORG_TYPES` above cannot catch these: AOE types both of them
+ * "Supervisory Union (SU)", which is exactly the type a real supervisory union
+ * carries, so the discriminator has to be identity, not type. It is the org ID
+ * rather than the name because the ID is the stable key the whole registry is
+ * built on -- names churn as mergers close (see this module's header) -- and
+ * because a name match would risk a real district whose name happens to contain
+ * one of these strings, while `HE001`/`SU099` name exactly one record each.
+ *
+ * Kept deliberately narrow and explicit, the same discipline as
+ * `registry/placeholder.ts`: an exact org-ID match, one documented reason per
+ * entry, and -- because the sync routes these to `notTracked` -- never a silent
+ * drop. Left in the live SU lists, each would stand as a permanent red gap on
+ * the coverage dashboard for a budget it will never publish.
+ */
+export const UNTRACKED_ORG_IDS: ReadonlyArray<readonly [string, string]> = [
+  [
+    'HE001',
+    'The University of Vermont is a higher-education institution (the HE org-ID ' +
+      'family), not a K-12 supervisory union. AOE lists it on the supervisory-union ' +
+      'endpoint, but it operates no school district and publishes no school-district ' +
+      'budget of the kind this warehouse holds.',
+  ],
+  [
+    'SU099',
+    'The Department of Corrections is a state agency that provides education inside ' +
+      'correctional facilities (its grades are coded "AW", adult), not a K-12 ' +
+      'supervisory union with member towns and a school-district budget. Its SU-range ' +
+      'org ID is an upstream typing, not evidence of a district.',
+  ],
+];
+
+/**
+ * Why a specific organization is deliberately not tracked despite a tracked
+ * OrgType, or null if its org ID is not on the list. See `UNTRACKED_ORG_IDS`.
+ */
+export function untrackedOrgIdReason(orgId: string | undefined): string | null {
+  if (!orgId) return null;
+  for (const [id, reason] of UNTRACKED_ORG_IDS) {
+    if (id === orgId) return reason;
+  }
+  return null;
+}
+
 /** Maps the API's OrgType strings onto our entity types. */
 export function entityTypeFromOrgType(orgType: string | undefined): EntityType | null {
   if (!orgType) return null;

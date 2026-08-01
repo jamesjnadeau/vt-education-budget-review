@@ -25,7 +25,7 @@ import { gradeSpanClassOf, normalizeGradeSpan } from '@vt-budget/model';
 import { orgId, type AoeRawRecord, type Snapshot } from './aoe-client.ts';
 import { applyCorrections, correctionsBySlug, type Correction } from './corrections.ts';
 import { detectPlaceholder, isReportingBucket } from './placeholder.ts';
-import { assignSlug, entityTypeFromOrgType, untrackedReason } from './slugs.ts';
+import { assignSlug, entityTypeFromOrgType, untrackedOrgIdReason, untrackedReason } from './slugs.ts';
 import type { EntityType, RegistryEntity } from './types.ts';
 
 export interface NormalizeOptions {
@@ -193,6 +193,18 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
         continue;
       }
 
+      // Identity-level omission, checked before the type does its work: AOE
+      // types these as supervisory unions, so the type gate would wave them
+      // through. See UNTRACKED_ORG_IDS -- the org ID is the only thing that
+      // distinguishes a mistyped non-LEA from a real SU.
+      const untrackedById = untrackedOrgIdReason(id);
+      if (untrackedById) {
+        notTracked.push(
+          `${String(endpoint)}: "${raw.Name ?? id}" (${id}) is not tracked. ${untrackedById}`,
+        );
+        continue;
+      }
+
       const type = entityTypeFromOrgType(raw.OrgType);
       if (!type) {
         const reason = untrackedReason(raw.OrgType);
@@ -229,6 +241,10 @@ export function normalizeSnapshot(snapshot: Snapshot, options: NormalizeOptions)
     // A closed scratch record is still a scratch record. This endpoint is a
     // separate entry point into the registry and needs the same filter.
     if (detectPlaceholder({ id, name: raw.Name ?? null }).isPlaceholder) continue;
+    // A non-LEA AOE mistypes as an SU is one whether it is live or closed; this
+    // endpoint is a separate entry point into the registry and needs the same
+    // filter. Silent, matching this loop's handling of placeholders above.
+    if (untrackedOrgIdReason(id)) continue;
     const type = entityTypeFromOrgType(raw.OrgType);
     if (!type) continue;
     const prior = merged.get(id);
