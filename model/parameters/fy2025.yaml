@@ -412,7 +412,7 @@ parameters:
   # lookup someone owes, not a wait. Do not copy them from another year.
 
   yield.property_dollar_equivalent:
-    value: null
+    value: 9846
     unit: usd_per_pupil
     description: property dollar equivalent yield -- per pupil education spending producing a $1.00 homestead rate
     applies_to: all homestead property
@@ -424,9 +424,9 @@ parameters:
         Definition at § 5401(15). The FY2025 amount was set by the FY2025 yield act
         and has not been transcribed here. It is a published historical figure --
         look it up rather than carrying another year's forward.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
 
   yield.income_dollar_equivalent:
     value: null

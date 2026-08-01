@@ -399,7 +399,7 @@ parameters:
   # and must never be filled by carrying the prior year forward.
 
   yield.property_dollar_equivalent:
-    value: null
+    value: 9,401
     unit: usd_per_pupil
     description: property dollar equivalent yield -- per pupil education spending producing a $1.00 homestead rate
     applies_to: all homestead property
@@ -413,9 +413,9 @@ parameters:
         $1.00 per $100.00 of equalized education property value. The definition is
         statutory; the annual amount is set by the yield act and is not yet
         established for FY2027.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
 
   yield.income_dollar_equivalent:
     value: null
