@@ -42,11 +42,25 @@ jobs:
       contains(github.event.issue.labels.*.name, 'budget-intake')
     runs-on: ubuntu-latest
     steps:
+      - name: Mint a GitHub App token
+        # A short-lived installation token, minted per run -- no long-lived
+        # secret, which is the whole reason this design refused a PAT. Used for
+        # the checkout (so the push is the App's), and for gh (so the PR is the
+        # App's). That identity matters: a push or PR made with the built-in
+        # GITHUB_TOKEN does not start further workflows, so validate.yml would
+        # never run on an intake PR; made by the App, it does.
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.INTAKE_APP_ID }}
+          private-key: ${{ secrets.INTAKE_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v4
         # No lfs: the workflow WRITES a new LFS object; it needs none of the
         # existing corpus. provenance.yaml is a plain git file and is read
-        # without a fetch.
+        # without a fetch. The App token is persisted so `git push` is the App.
         with:
+          token: ${{ steps.app-token.outputs.token }}
           lfs: false
 
       - name: Install Git LFS filters
@@ -69,5 +83,5 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_AUTHOR_LOGIN: ${{ github.event.issue.user.login }}
           ISSUE_AUTHOR_ID: ${{ github.event.issue.user.id }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: npm run intake
