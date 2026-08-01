@@ -418,7 +418,7 @@ parameters:
       verified_by: James Nadeau
 
   yield.income_dollar_equivalent:
-    value: null
+    value: 12960
     unit: usd_per_pupil
     description: income dollar equivalent yield -- per pupil education spending producing a 2.0 percent income percentage
     applies_to: homesteads claiming an income adjustment
@@ -429,9 +429,9 @@ parameters:
       quote: >-
         Definition at § 5401(16). The annual amount is set by the yield act and is
         not yet established for FY2027.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
 
   tax.statewide_adjustment:
     value: null
