@@ -4,11 +4,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  feedHref?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, feedHref } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const nav = [
+const modelingNav = [
   ['/model/', 'Modeling tool'],
   ['/su/', 'Supervisory unions'],
   ['/groupings/', 'Act 170 groupings'],
@@ -26,6 +27,14 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {feedHref && (
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Vermont School Budgets — Explanations"
+        href={feedHref}
+      />
+    )}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -33,7 +42,13 @@ const nav = [
       <div class="inner">
         <a class="site-title" href={`${base}/`}>Vermont School Budgets</a>
         <nav aria-label="Primary">
-          {nav.map(([href, label]) => <a href={`${base}${href}`}>{label}</a>)}
+          <details class="nav-group">
+            <summary>Modeling</summary>
+            <div class="nav-group-menu">
+              {modelingNav.map(([href, label]) => <a href={`${base}${href}`}>{label}</a>)}
+            </div>
+          </details>
+          <a href={`${base}/explanations/`}>Explanations</a>
         </nav>
       </div>
     </header>
