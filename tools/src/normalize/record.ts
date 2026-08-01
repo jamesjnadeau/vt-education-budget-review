@@ -15,7 +15,7 @@ import { parseIssueForm } from '../intake/parse.ts';
 import { FIGURE_FIELDS, STATUSES, parseFigure, setPath } from './fields.ts';
 import { parseTaxTable } from './tax.ts';
 
-const SOURCE_PATTERN = /^intake\/[a-z0-9-]+\/fy[0-9]{4}\/[^\s]+$/;
+const SOURCE_PATTERN = /^intake\/[a-z0-9-]+\/fy[0-9]{4}\/[^\/]+$/;
 const FIRST_FY = 2015;
 const LAST_FY = 2100;
 

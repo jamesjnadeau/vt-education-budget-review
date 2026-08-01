@@ -124,6 +124,14 @@ describe('buildRecord — identity validation', () => {
     expect(errorsFrom({ body: body({ source: 'somewhere/else.pdf' }) }).join('\n')).toMatch(/source/i);
   });
 
+  it('accepts a source whose filename contains spaces', () => {
+    const source = 'intake/su-addison-central/fy2023/Annual Report FY23 Budget Book.pdf';
+    const r = buildRecord(input({ body: body({ source }) }));
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect((r.record as Record<string, any>).source).toBe(source);
+  });
+
   it('rejects a source that does not exist in the repository', () => {
     expect(errorsFrom({ sourceExists: () => false }).join('\n')).toMatch(/source/i);
   });
