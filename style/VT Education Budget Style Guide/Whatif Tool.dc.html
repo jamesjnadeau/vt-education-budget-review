@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: "Public Sans", Helvetica, Arial, sans-serif; background: #ffffff; color: #1b1b1b; -webkit-font-smoothing: antialiased; }
+  a { color: #16603c; }
+  a:hover { color: #0d3c26; }
+  input, select, button { font: inherit; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#ffffff; display:flex; flex-direction:column;">
+
+  <header style="background:#16603c; color:#ffffff;">
+    <div style="max-width:1200px; margin:0 auto; padding:22px 24px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div style="width:52px; height:52px; flex:none; border:2px dashed rgba(255,255,255,0.5); border-radius:4px; display:flex; align-items:center; justify-content:center; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:9px; line-height:1.15; text-align:center; color:rgba(255,255,255,0.72); padding:4px;">project mark</div>
+        <div>
+          <p style="margin:0 0 2px; font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:#ffbe2e; font-weight:700;">An independent project · not a government site</p>
+          <p style="margin:0; font-family:Merriweather,Georgia,serif; font-size:26px; line-height:1.2; font-weight:700;">Vermont School Budgets</p>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center;">
+        <label for="q" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Search</label>
+        <input id="q" type="search" placeholder="Search the model" style="height:42px; width:230px; padding:0 12px; border:1px solid #ffffff; background:#ffffff; color:#1b1b1b;">
+        <button type="button" style="height:42px; padding:0 20px; background:#ffbe2e; color:#1b1b1b; border:1px solid #ffbe2e; font-weight:700; cursor:pointer;" style-hover="background:#e6a916; border-color:#e6a916;">Search</button>
+      </div>
+    </div>
+    <nav aria-label="Primary" style="border-top:1px solid rgba(255,255,255,0.22); background:#125233;">
+      <div style="max-width:1200px; margin:0 auto; padding:0 24px; display:flex; flex-wrap:wrap;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="6">
+          <a href="{{ item.href }}" style="padding:14px 18px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-bottom:4px solid transparent;" style-hover="background:#0d3c26; border-bottom-color:#ffbe2e;">{{ item.label }}</a>
+        </sc-for>
+      </div>
+    </nav>
+  </header>
+
+  <div style="background:#f0f0f0; border-bottom:1px solid #dfe1e2;">
+    <div style="max-width:1200px; margin:0 auto; padding:12px 24px; font-size:14px; color:#565c65; display:flex; gap:8px; flex-wrap:wrap;">
+      <a href="#">Home</a><span>›</span>
+      <a href="#">Modeling</a><span>›</span>
+      <span style="color:#1b1b1b;">What-if tool</span>
+    </div>
+  </div>
+
+  <main id="main" style="flex:1; width:100%; max-width:1200px; margin:0 auto; padding:0 24px 72px; display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:56px; align-items:start;">
+
+    <div style="min-width:0;">
+      <div style="padding:44px 0 28px; border-bottom:1px solid #dfe1e2;">
+        <h1 style="margin:0 0 16px; font-family:Merriweather,Georgia,serif; font-size:44px; line-height:1.15; font-weight:700; text-wrap:pretty;">What-if tool</h1>
+        <p style="margin:0 0 20px; font-size:20px; line-height:1.6; color:#3d4551; max-width:62ch; text-wrap:pretty;">See every step of the math behind a district's student count and tax rate — with a source for each one. Change a number and every step below changes with it.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <span style="padding:5px 12px; background:#eef4f1; border:1px solid #c3d9ce; color:#16603c; font-size:13px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;">Unofficial model</span>
+          <span style="padding:5px 12px; background:#f0f0f0; border:1px solid #dfe1e2; color:#565c65; font-size:13px; font-weight:600;">Built on FY2026 published data</span>
+        </div>
+      </div>
+
+      <section style="padding:36px 0 8px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span style="flex:none; width:34px; height:34px; border-radius:50%; background:#16603c; color:#ffffff; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:16px;">1</span>
+          <h2 style="margin:0; font-family:Merriweather,Georgia,serif; font-size:30px; line-height:1.25; font-weight:700;">How many students</h2>
+        </div>
+        <p style="margin:0 0 28px 48px; font-size:17px; line-height:1.65; color:#3d4551; max-width:62ch; text-wrap:pretty;">The average number of students, by grade group, across two years — called average daily membership. Weights in the law then adjust that raw count.</p>
+
+        <div style="margin-left:48px; display:grid; gap:24px;">
+          <fieldset style="border:1px solid #dfe1e2; border-top:4px solid #16603c; padding:22px 24px 26px; margin:0;">
+            <legend style="padding:0 10px; margin-left:-10px; font-size:16px; font-weight:700;">FY2025 students by grade</legend>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;">
+              <sc-for list="{{ fy25 }}" as="f" hint-placeholder-count="4">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <label for="{{ f.id }}" style="font-size:15px; font-weight:600;">{{ f.label }}</label>
+                  <input id="{{ f.id }}" type="number" value="{{ f.value }}" onChange="{{ f.onChange }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+                </div>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <fieldset style="border:1px solid #dfe1e2; border-top:4px solid #16603c; padding:22px 24px 26px; margin:0;">
+            <legend style="padding:0 10px; margin-left:-10px; font-size:16px; font-weight:700;">FY2026 students by grade</legend>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px;">
+              <sc-for list="{{ fy26 }}" as="f" hint-placeholder-count="4">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <label for="{{ f.id }}" style="font-size:15px; font-weight:600;">{{ f.label }}</label>
+                  <input id="{{ f.id }}" type="number" value="{{ f.value }}" onChange="{{ f.onChange }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+                </div>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <fieldset style="border:1px solid #dfe1e2; border-top:4px solid #16603c; padding:22px 24px 26px; margin:0;">
+            <legend style="padding:0 10px; margin-left:-10px; font-size:16px; font-weight:700;">Students who add extra weight</legend>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;">
+              <sc-for list="{{ weights }}" as="f" hint-placeholder-count="3">
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <label for="{{ f.id }}" style="font-size:15px; font-weight:600;">{{ f.label }}</label>
+                  <input id="{{ f.id }}" type="number" value="{{ f.value }}" onChange="{{ f.onChange }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+                </div>
+              </sc-for>
+            </div>
+          </fieldset>
+
+          <fieldset style="border:1px solid #dfe1e2; border-top:4px solid #16603c; padding:22px 24px 26px; margin:0;">
+            <legend style="padding:0 10px; margin-left:-10px; font-size:16px; font-weight:700;">Sparsity &amp; small schools</legend>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label for="ppsm" style="font-size:15px; font-weight:600;">Persons per square mile</label>
+                <input id="ppsm" type="number" value="{{ density }}" onChange="{{ onDensity }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label for="smallname" style="font-size:15px; font-weight:600;">Small school name <span style="font-weight:400; color:#565c65;">(optional)</span></label>
+                <input id="smallname" type="text" placeholder="e.g. Granville Village School" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label for="smallenroll" style="font-size:15px; font-weight:600;">Its two-year average enrollment</label>
+                <input id="smallenroll" type="number" value="{{ smallEnroll }}" onChange="{{ onSmallEnroll }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </section>
+
+      <section style="padding:36px 0 8px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:6px;">
+          <span style="flex:none; width:34px; height:34px; border-radius:50%; background:#16603c; color:#ffffff; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:16px;">2</span>
+          <h2 style="margin:0; font-family:Merriweather,Georgia,serif; font-size:30px; line-height:1.25; font-weight:700;">Spending and the town</h2>
+        </div>
+        <div style="margin-left:48px; margin-top:22px; display:grid; gap:24px;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label for="spend" style="font-size:15px; font-weight:600;">Education spending ($)</label>
+              <input id="spend" type="number" value="{{ spending }}" onChange="{{ onSpending }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label for="cla" style="font-size:15px; font-weight:600;">Common level of appraisal</label>
+              <input id="cla" type="number" value="{{ cla }}" onChange="{{ onCla }}" style="height:44px; padding:0 12px; border:2px solid #565c65;">
+              <p style="margin:0; font-size:14px; color:#565c65;">How close town values are to real sale prices.</p>
+            </div>
+          </div>
+          <div style="border-left:8px solid #ffbe2e; background:#fef6e4; padding:18px 22px;">
+            <p style="margin:0 0 12px; font-size:16px; font-weight:700;">The State's figure — you must enter it</p>
+            <div style="display:flex; flex-direction:column; gap:6px; max-width:420px;">
+              <label for="statewide" style="font-size:15px; font-weight:600;">Statewide average spending per student</label>
+              <input id="statewide" type="number" value="{{ statewide }}" onChange="{{ onStatewide }}" style="height:44px; padding:0 12px; border:2px solid #565c65; background:#ffffff;">
+              <p style="margin:0; font-size:14px; color:#565c65;">Set by the Secretary of Education. This site does not publish it for you.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding:36px 0 8px;">
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:22px;">
+          <span style="flex:none; width:34px; height:34px; border-radius:50%; background:#16603c; color:#ffffff; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:16px;">3</span>
+          <h2 style="margin:0; font-family:Merriweather,Georgia,serif; font-size:30px; line-height:1.25; font-weight:700;">Result</h2>
+        </div>
+        <div style="margin-left:48px; border:1px solid #dfe1e2; border-top:6px solid #16603c;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+            <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+              <div style="padding:26px 24px; border-right:1px solid #dfe1e2; border-bottom:1px solid #dfe1e2;">
+                <p style="margin:0 0 8px; font-size:13px; letter-spacing:0.07em; text-transform:uppercase; font-weight:700; color:#565c65;">{{ r.label }}</p>
+                <p style="margin:0 0 6px; font-family:Merriweather,Georgia,serif; font-size:32px; line-height:1.1; font-weight:700; color:#16603c;">{{ r.value }}</p>
+                <p style="margin:0; font-size:14px; color:#565c65; line-height:1.5;">{{ r.note }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding:36px 0 0;">
+        <h2 style="margin:0 0 8px; font-family:Merriweather,Georgia,serif; font-size:30px; line-height:1.25; font-weight:700;">Show the math</h2>
+        <p style="margin:0 0 22px; font-size:17px; line-height:1.65; color:#3d4551; max-width:62ch;">Every step, in order, with the statute or data source it comes from.</p>
+        <ol style="list-style:none; margin:0; padding:0; display:grid; gap:2px; border:1px solid #dfe1e2;">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+            <li style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:18px 22px; background:#ffffff; border-bottom:1px solid #f0f0f0;">
+              <div>
+                <p style="margin:0 0 4px; font-size:16px; font-weight:600; color:#1b1b1b;">{{ s.label }}</p>
+                <p style="margin:0; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:13px; color:#565c65;">{{ s.source }}</p>
+              </div>
+              <p style="margin:0; font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:17px; font-weight:600; color:#1b1b1b; white-space:nowrap;">{{ s.value }}</p>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+    </div>
+
+    <aside style="position:sticky; top:24px; padding-top:44px; display:grid; gap:24px;">
+      <div style="border:1px solid #dfe1e2; background:#f5f8f6;">
+        <p style="margin:0; padding:14px 20px; background:#16603c; color:#ffffff; font-size:15px; font-weight:700;">Current estimate</p>
+        <div style="padding:20px;">
+          <p style="margin:0 0 4px; font-size:13px; text-transform:uppercase; letter-spacing:0.07em; font-weight:700; color:#565c65;">Homestead tax rate</p>
+          <p style="margin:0 0 16px; font-family:Merriweather,Georgia,serif; font-size:40px; line-height:1; font-weight:700; color:#16603c;">{{ taxRate }}</p>
+          <p style="margin:0 0 4px; font-size:13px; text-transform:uppercase; letter-spacing:0.07em; font-weight:700; color:#565c65;">Per $100,000 of house value</p>
+          <p style="margin:0; font-size:22px; font-weight:700;">{{ perHundredK }}</p>
+        </div>
+      </div>
+      <div style="border:1px solid #dfe1e2; padding:20px;">
+        <p style="margin:0 0 12px; font-size:16px; font-weight:700;">Sources used</p>
+        <ul style="list-style:none; margin:0; padding:0; display:grid; gap:10px; font-size:15px; line-height:1.5;">
+          <sc-for list="{{ sources }}" as="s" hint-placeholder-count="4">
+            <li><a href="{{ s.href }}">{{ s.label }}</a></li>
+          </sc-for>
+        </ul>
+      </div>
+      <button type="button" onClick="{{ reset }}" style="height:48px; background:#16603c; color:#ffffff; border:none; font-weight:700; cursor:pointer;" style-hover="background:#0d3c26;">Reset to published figures</button>
+    </aside>
+  </main>
+
+  <footer style="background:#1b1b1b; color:#e6e6e6; padding:48px 0 0;">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px 40px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:40px; border-bottom:1px solid #3d4551;">
+      <div>
+        <p style="margin:0 0 10px; font-family:Merriweather,Georgia,serif; font-size:20px; font-weight:700; color:#ffffff;">Vermont School Budgets</p>
+        <p style="margin:0; font-size:15px; line-height:1.6; color:#c9c9c9; max-width:34ch;">An open-source model of Vermont's education funding formula, built so anyone can check the math.</p>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="2">
+        <div>
+          <p style="margin:0 0 12px; font-size:14px; letter-spacing:0.07em; text-transform:uppercase; font-weight:700; color:#ffffff;">{{ col.title }}</p>
+          <ul style="list-style:none; margin:0; padding:0; display:grid; gap:9px; font-size:15px;">
+            <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="4">
+              <li><a href="{{ l.href }}" style="color:#c9c9c9; text-decoration:none;" style-hover="color:#ffffff; text-decoration:underline;">{{ l.label }}</a></li>
+            </sc-for>
+          </ul>
+        </div>
+      </sc-for>
+    </div>
+    <div style="max-width:1200px; margin:0 auto; padding:28px 24px 40px;">
+      <div style="display:flex; gap:14px; align-items:flex-start; max-width:80ch;">
+        <span style="flex:none; margin-top:2px; display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border:1px solid #8d9297; border-radius:50%; font-size:12px; font-weight:700; color:#c9c9c9;">i</span>
+        <p style="margin:0; font-size:14px; line-height:1.65; color:#a9aeb1;">This is not an official State of Vermont website. It is an independent, volunteer-built project and is not affiliated with, endorsed by, or reviewed by the Vermont Agency of Education or any state agency. Figures are estimates produced by an open-source model; for official numbers, see <a href="https://education.vermont.gov/" style="color:#c9c9c9;">education.vermont.gov</a>.</p>
+      </div>
+      <p style="margin:20px 0 0 34px; font-size:14px; color:#8d9297;">Source code and data on GitHub · Last model update FY2026</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#16603c&quot;,&quot;options&quot;:[&quot;#16603c&quot;,&quot;#1a4480&quot;,&quot;#71767a&quot;,&quot;#7b3f00&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;showMathTable&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;disclaimerProminence&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;quiet footer note&quot;,&quot;footer + header tag&quot;,&quot;banner at top&quot;],&quot;default&quot;:&quot;footer + header tag&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const F = (n, d = 0) => Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+
+class Component extends DCLogic {
+  state = {
+    fy25: { pk: 92, k5: 410, g68: 208, g912: 265 },
+    fy26: { pk: 88, k5: 402, g68: 214, g912: 258 },
+    w: { poverty: 260, english: 41, small: 0 },
+    density: 38,
+    smallEnroll: 74,
+    spending: 24800000,
+    cla: 82.4,
+    statewide: 13733
+  };
+
+  num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+
+  field = (group, key, label) => ({
+    id: group + '-' + key,
+    label,
+    value: this.state[group][key],
+    onChange: (e) => {
+      const v = this.num(e.target.value);
+      this.setState(s => ({ [group]: { ...s[group], [key]: v } }));
+    }
+  });
+
+  calc() {
+    const { fy25, fy26, w, density, spending, cla, statewide, smallEnroll } = this.state;
+    const avg = k => (this.num(fy25[k]) + this.num(fy26[k])) / 2;
+    const raw = avg('pk') + avg('k5') + avg('g68') + avg('g912');
+    const gradeWeighted = avg('pk') * 1.0 + avg('k5') * 1.0 + avg('g68') * 1.13 + avg('g912') * 1.18;
+    const povertyW = this.num(w.poverty) * 0.25;
+    const englishW = this.num(w.english) * 12.0 / 12;
+    const sparsity = density < 50 ? gradeWeighted * 0.06 : 0;
+    const smallW = this.num(smallEnroll) > 0 && this.num(smallEnroll) < 100 ? this.num(smallEnroll) * 0.09 : 0;
+    const total = gradeWeighted + povertyW + englishW + sparsity + smallW;
+    const perPupil = total > 0 ? this.num(spending) / total : 0;
+    const equalized = statewide > 0 ? (perPupil / this.num(statewide)) * 1.391 : 0;
+    const rate = cla > 0 ? equalized / (this.num(cla) / 100) : 0;
+    return { raw, gradeWeighted, povertyW, englishW, sparsity, smallW, total, perPupil, equalized, rate };
+  }
+
+  renderVals() {
+    const c = this.calc();
+    const s = this.state;
+    return {
+      nav: [
+        { label: 'Overview', href: '#' },
+        { label: 'The formula', href: '#' },
+        { label: 'What-if tool', href: '#' },
+        { label: 'Districts', href: '#' },
+        { label: 'Data & sources', href: '#' },
+        { label: 'About this project', href: '#' }
+      ],
+      fy25: [
+        this.field('fy25', 'pk', 'Pre-K'),
+        this.field('fy25', 'k5', 'Grades K–5'),
+        this.field('fy25', 'g68', 'Grades 6–8'),
+        this.field('fy25', 'g912', 'Grades 9–12')
+      ],
+      fy26: [
+        this.field('fy26', 'pk', 'Pre-K'),
+        this.field('fy26', 'k5', 'Grades K–5'),
+        this.field('fy26', 'g68', 'Grades 6–8'),
+        this.field('fy26', 'g912', 'Grades 9–12')
+      ],
+      weights: [
+        this.field('w', 'poverty', 'Students in economic need'),
+        this.field('w', 'english', 'English learners')
+      ],
+      density: s.density,
+      onDensity: e => this.setState({ density: this.num(e.target.value) }),
+      smallEnroll: s.smallEnroll,
+      onSmallEnroll: e => this.setState({ smallEnroll: this.num(e.target.value) }),
+      spending: s.spending,
+      onSpending: e => this.setState({ spending: this.num(e.target.value) }),
+      cla: s.cla,
+      onCla: e => this.setState({ cla: this.num(e.target.value) }),
+      statewide: s.statewide,
+      onStatewide: e => this.setState({ statewide: this.num(e.target.value) }),
+      results: [
+        { label: 'Raw students', value: F(c.raw, 1), note: 'Two-year average, before weights.' },
+        { label: 'Weighted students', value: F(c.total, 1), note: 'What the formula actually counts.' },
+        { label: 'Spending per weighted student', value: '$' + F(c.perPupil), note: 'Education spending ÷ weighted count.' },
+        { label: 'Homestead tax rate', value: '$' + c.rate.toFixed(4), note: 'Per $100 of house value, after CLA.' }
+      ],
+      steps: [
+        { label: 'Two-year average membership', source: '16 V.S.A. § 4001(1)', value: F(c.raw, 1) },
+        { label: 'Grade-level weights applied', source: 'Act 127 § 4010(b)', value: F(c.gradeWeighted, 1) },
+        { label: 'Economic-need weight', source: 'Act 127 § 4010(b)(2)', value: '+' + F(c.povertyW, 1) },
+        { label: 'English-learner weight', source: 'Act 127 § 4010(b)(3)', value: '+' + F(c.englishW, 1) },
+        { label: 'Sparsity adjustment', source: 'Act 127 § 4010(c)', value: '+' + F(c.sparsity, 1) },
+        { label: 'Small-school adjustment', source: '16 V.S.A. § 4015', value: '+' + F(c.smallW, 1) },
+        { label: 'Total weighted membership', source: 'Sum of the above', value: F(c.total, 1) },
+        { label: 'Equalized homestead rate', source: '32 V.S.A. § 5402', value: '$' + c.equalized.toFixed(4) },
+        { label: 'Divided by the CLA', source: '32 V.S.A. § 5401(3)', value: '$' + c.rate.toFixed(4) }
+      ],
+      taxRate: '$' + c.rate.toFixed(4),
+      perHundredK: '$' + F(c.rate * 1000) + ' / yr',
+      sources: [
+        { label: 'AOE published ADM data, FY2026', href: '#' },
+        { label: 'Act 127 pupil weighting statute', href: '#' },
+        { label: 'Tax Department CLA table', href: '#' },
+        { label: 'District budget filings', href: '#' }
+      ],
+      footerCols: [
+        { title: 'The model', links: [
+          { label: 'How the formula works', href: '#' },
+          { label: 'What-if tool', href: '#' },
+          { label: 'Assumptions & limits', href: '#' },
+          { label: 'Change log', href: '#' }
+        ]},
+        { title: 'This project', links: [
+          { label: 'About', href: '#' },
+          { label: 'Source code', href: '#' },
+          { label: 'Report an error', href: '#' },
+          { label: 'Official AOE site', href: 'https://education.vermont.gov/' }
+        ]}
+      ],
+      reset: () => this.setState({
+        fy25: { pk: 92, k5: 410, g68: 208, g912: 265 },
+        fy26: { pk: 88, k5: 402, g68: 214, g912: 258 },
+        w: { poverty: 260, english: 41, small: 0 },
+        density: 38, smallEnroll: 74, spending: 24800000, cla: 82.4, statewide: 13733
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

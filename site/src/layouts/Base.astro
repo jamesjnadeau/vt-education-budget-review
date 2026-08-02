@@ -27,6 +27,12 @@ const modelingNav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Merriweather:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     {feedHref && (
       <link
         rel="alternate"
@@ -40,8 +46,11 @@ const modelingNav = [
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="inner">
+        <p class="brand-tag">An independent project · not a government site</p>
         <a class="site-title" href={`${base}/`}>Vermont School Budgets</a>
-        <nav aria-label="Primary">
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        <div class="inner">
           <details class="nav-group">
             <summary>Modeling</summary>
             <div class="nav-group-menu">
@@ -49,8 +58,8 @@ const modelingNav = [
             </div>
           </details>
           <a href={`${base}/explanations/`}>Explanations</a>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
 
     <main id="main">
@@ -59,25 +68,53 @@ const modelingNav = [
 
     <footer class="site-footer">
       <div class="inner">
-        <p>
-          <strong>This site does the math and shows its work. It does not pick winners, rank
-          choices, or tell anyone what to do.</strong>
-          When it shows a "what if," it shows the change both ways — the cost can go up or down —
-          and you can see and change every number behind it. Nothing here tells a district what
-          it should do.
-        </p>
-        <p>
-          Every number here comes from a public source you can check. When a number is missing,
-          the site tells you which of four things is going on: the district never published it;
-          we have not checked a legal number against the current law yet; the State has not made
-          a decision yet; or the question just cannot be answered from public data. These are
-          four different things, and the site never mixes them up.
-        </p>
-        <p>
-          The data and the methods are open for anyone to see. When we fix a mistake, we fix it
-          in the open, and it shows up in the list of <a href={`${base}/changelog/`}>changes</a>.
-        </p>
-        <p class="copyright">© 2026 James Nadeau</p>
+        <div class="footer-top">
+          <div>
+            <p class="footer-brand-title">Vermont School Budgets</p>
+            <p class="footer-brand-text">
+              An open model of Vermont's education funding formula, built so anyone can check the
+              math against a public source.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h2>The model</h2>
+            <ul>
+              {modelingNav.map(([href, label]) => (
+                <li><a href={`${base}${href}`}>{label}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>This project</h2>
+            <ul>
+              <li><a href={`${base}/explanations/`}>Explanations</a></li>
+              <li><a href={`${base}/changelog/`}>What changed</a></li>
+              <li><a href="https://education.vermont.gov/">Official AOE site</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-disclaimer">
+          <p>
+            <strong>This site does the math and shows its work. It does not pick winners, rank
+            choices, or tell anyone what to do.</strong>
+            When it shows a "what if," it shows the change both ways — the cost can go up or down —
+            and you can see and change every number behind it. Nothing here tells a district what
+            it should do.
+          </p>
+          <p>
+            Every number here comes from a public source you can check. When a number is missing,
+            the site tells you which of four things is going on: the district never published it;
+            we have not checked a legal number against the current law yet; the State has not made
+            a decision yet; or the question just cannot be answered from public data. These are
+            four different things, and the site never mixes them up.
+          </p>
+          <p>
+            The data and the methods are open for anyone to see. When we fix a mistake, we fix it
+            in the open, and it shows up in the list of <a href={`${base}/changelog/`}>changes</a>.
+          </p>
+          <p class="copyright">© 2026 James Nadeau · Not affiliated with the State of Vermont</p>
+        </div>
       </div>
     </footer>
   </body>
