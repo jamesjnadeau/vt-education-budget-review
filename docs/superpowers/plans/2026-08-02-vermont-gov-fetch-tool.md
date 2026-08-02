@@ -618,12 +618,12 @@ Expected: ends with `exit=1`.
 
 - [ ] **Step 4: Verify a real fetch against a live vermont.gov page**
 
-Run: `npm run vt:fetch -- https://legislature.vermont.gov/statutes/section/16/135/04001`
-Expected: prints a path under `/tmp` ending `.txt`, then a line with `200 text <n>B sha256:<hex>`. This exercises the AIA cert repair end to end (it fails loudly if `statuteAgent()` cannot fetch the intermediate — network-dependent; skip if offline).
+Run: `npm run vt:fetch -- https://legislature.vermont.gov/statutes/section/16/133/04001`
+Expected: prints a path under `/tmp` ending `.txt`, then a line with `200 text <n>B sha256:<hex>`. This exercises the AIA cert repair end to end (it fails loudly if `statuteAgent()` cannot fetch the intermediate — network-dependent; skip if offline). (Section 16 V.S.A. § 4001 lives under chapter 133, not 135.)
 
 Confirm the file has statute text:
 
-Run: `head -5 /tmp/legislature.vermont.gov_statutes_section_16_135_04001.txt`
+Run: `head -5 /tmp/legislature.vermont.gov_statutes_section_16_133_04001.txt`
 Expected: readable statute text, not HTML tags.
 
 - [ ] **Step 5: Commit**
@@ -731,7 +731,7 @@ Expected: no errors.
 
 - [ ] **Step 3: End-to-end smoke of a document fetch (network-dependent)**
 
-Run: `npm run vt:fetch -- https://legislature.vermont.gov/statutes/section/16/135/04001 --out /tmp/vt-smoke`
+Run: `npm run vt:fetch -- https://legislature.vermont.gov/statutes/section/16/133/04001 --out /tmp/vt-smoke`
 Expected: a `.txt` file appears in `/tmp/vt-smoke` with statute text; stdout shows `200 text`. Skip if offline.
 
 - [ ] **Step 4: Confirm nothing else changed**
