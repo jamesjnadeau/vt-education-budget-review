@@ -16,19 +16,6 @@ const liveParameters = JSON.stringify(parameters);
     each one. Change a number and watch every step change with it.
   </p>
 
-  <div class="notice blocking">
-    <strong>This tool can't show real Vermont numbers yet — and it won't fake them</strong>
-    <p>
-      We have not checked any of the legal numbers against the current law yet. So with the live
-      settings, every step below tells you what is stopping it instead of showing a number. That is
-      the tool doing its job: it would rather stop than hand you a number it can't stand behind.
-    </p>
-    <p>
-      Want to see what a finished walk-through looks like? Switch to the example below. Its numbers
-      are made-up round numbers, picked to be easy to follow — and every step says so.
-    </p>
-  </div>
-
   <form id="scenario-form">
     <div class="controls">
       <div class="field">
@@ -57,77 +44,89 @@ const liveParameters = JSON.stringify(parameters);
       The average number of students, by grade group, for two years. This count is called average
       daily membership. A rule in the law decides how many of those years actually count.
     </p>
-    <div class="controls">
-      <div class="field">
-        <label for="prek-1">FY2025 prekindergarten</label>
-        <input id="prek-1" type="number" min="0" step="0.01" value="10" />
+    <fieldset class="field-group">
+      <legend>FY2025 students by grade</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="prek-1">FY2025 prekindergarten</label>
+          <input id="prek-1" type="number" min="0" step="0.01" value="10" />
+        </div>
+        <div class="field">
+          <label for="k5-1">FY2025 kindergarten through grade 5</label>
+          <input id="k5-1" type="number" min="0" step="0.01" value="100" />
+        </div>
+        <div class="field">
+          <label for="g68-1">FY2025 grades 6 through 8</label>
+          <input id="g68-1" type="number" min="0" step="0.01" value="50" />
+        </div>
+        <div class="field">
+          <label for="g912-1">FY2025 grades 9 through 12</label>
+          <input id="g912-1" type="number" min="0" step="0.01" value="50" />
+        </div>
       </div>
-      <div class="field">
-        <label for="k5-1">FY2025 kindergarten through grade 5</label>
-        <input id="k5-1" type="number" min="0" step="0.01" value="100" />
+    </fieldset>
+    <fieldset class="field-group">
+      <legend>FY2026 students by grade</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="prek-2">FY2026 prekindergarten</label>
+          <input id="prek-2" type="number" min="0" step="0.01" value="20" />
+        </div>
+        <div class="field">
+          <label for="k5-2">FY2026 kindergarten through grade 5</label>
+          <input id="k5-2" type="number" min="0" step="0.01" value="200" />
+        </div>
+        <div class="field">
+          <label for="g68-2">FY2026 grades 6 through 8</label>
+          <input id="g68-2" type="number" min="0" step="0.01" value="100" />
+        </div>
+        <div class="field">
+          <label for="g912-2">FY2026 grades 9 through 12</label>
+          <input id="g912-2" type="number" min="0" step="0.01" value="100" />
+        </div>
       </div>
-      <div class="field">
-        <label for="g68-1">FY2025 grades 6 through 8</label>
-        <input id="g68-1" type="number" min="0" step="0.01" value="50" />
-      </div>
-      <div class="field">
-        <label for="g912-1">FY2025 grades 9 through 12</label>
-        <input id="g912-1" type="number" min="0" step="0.01" value="50" />
-      </div>
-    </div>
-    <div class="controls">
-      <div class="field">
-        <label for="prek-2">FY2026 prekindergarten</label>
-        <input id="prek-2" type="number" min="0" step="0.01" value="20" />
-      </div>
-      <div class="field">
-        <label for="k5-2">FY2026 kindergarten through grade 5</label>
-        <input id="k5-2" type="number" min="0" step="0.01" value="200" />
-      </div>
-      <div class="field">
-        <label for="g68-2">FY2026 grades 6 through 8</label>
-        <input id="g68-2" type="number" min="0" step="0.01" value="100" />
-      </div>
-      <div class="field">
-        <label for="g912-2">FY2026 grades 9 through 12</label>
-        <input id="g912-2" type="number" min="0" step="0.01" value="100" />
-      </div>
-    </div>
+    </fieldset>
 
-    <div class="controls">
-      <div class="field">
-        <label for="state-placed">State-placed students (full-time count, most recent year)</label>
-        <input id="state-placed" type="number" min="0" step="0.01" value="0" />
+    <fieldset class="field-group">
+      <legend>Students who add extra weight</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="state-placed">State-placed students (full-time count, most recent year)</label>
+          <input id="state-placed" type="number" min="0" step="0.01" value="0" />
+        </div>
+        <div class="field">
+          <label for="econ">Students in families at or below 185% of the poverty line</label>
+          <input id="econ" type="number" min="0" step="0.01" value="40" />
+        </div>
+        <div class="field">
+          <label for="el">Students learning English</label>
+          <input id="el" type="number" min="0" step="0.01" value="8" />
+        </div>
       </div>
-      <div class="field">
-        <label for="econ">Students in families at or below 185% of the poverty line</label>
-        <input id="econ" type="number" min="0" step="0.01" value="40" />
-      </div>
-      <div class="field">
-        <label for="el">Students learning English</label>
-        <input id="el" type="number" min="0" step="0.01" value="8" />
-      </div>
-    </div>
+    </fieldset>
 
     <!-- Sparsity and small-school eligibility are derived from density, not
          asserted. 16 V.S.A. 4010(d)(4) sets the density bands and (d)(5)
          gates the small-school weight on 55 or fewer persons per square
          mile, so a checkbox would let the user claim a weight the statute
          would not grant. -->
-    <div class="controls">
-      <div class="field">
-        <label for="density">Persons per square mile in the district</label>
-        <input id="density" type="number" min="0" step="0.1" value="30" />
+    <fieldset class="field-group">
+      <legend>Sparsity &amp; small schools</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="density">Persons per square mile in the district</label>
+          <input id="density" type="number" min="0" step="0.1" value="30" />
+        </div>
+        <div class="field">
+          <label for="small-school-name">Small school name (optional)</label>
+          <input id="small-school-name" type="text" value="" />
+        </div>
+        <div class="field">
+          <label for="small-school-enrollment">That school's average two-year enrollment</label>
+          <input id="small-school-enrollment" type="number" min="0" step="0.01" value="" />
+        </div>
       </div>
-      <div class="field">
-        <label for="small-school-name">Small school name (optional)</label>
-        <input id="small-school-name" type="text" value="" />
-      </div>
-      <div class="field">
-        <label for="small-school-enrollment">That school's average two-year enrollment</label>
-        <input id="small-school-enrollment" type="number" min="0" step="0.01" value="" />
-      </div>
-    </div>
+    </fieldset>
 
     <h2>Spending and the town</h2>
     <div class="controls">
@@ -139,22 +138,29 @@ const liveParameters = JSON.stringify(parameters);
         <label for="cla">Common level of appraisal (how close town values are to real sale prices)</label>
         <input id="cla" type="number" min="0.1" max="2" step="0.0001" value="0.8" />
       </div>
-      <div class="field">
-        <!-- Every other field on this form is a figure the user is supposing
-             about their own district, so an illustrative default is honest.
-             This one is a state-determined statutory input: the statewide
-             average district per pupil education spending, increased by
-             inflation, that the Secretary of Education determines on or
-             before November 15 (32 V.S.A. § 5401(12)). Inventing a number
-             here would render a fabricated Vermont figure in the UI, so it
-             is left empty. Empty is null, which makes excessSpending
-             produce a missing_input node whose blocker tells the user
-             exactly which official figure is needed -- a null is
-             explicable, an invented number is not. -->
-        <label for="statewide-avg">Statewide average spending per student (set by the Secretary of Education)</label>
-        <input id="statewide-avg" type="number" min="0" step="1" value="" />
-      </div>
     </div>
+
+    <!-- Every other field on this form is a figure the user is supposing about
+         their own district, so an illustrative default is honest. This one is a
+         state-determined statutory input: the statewide average district per
+         pupil education spending, increased by inflation, that the Secretary of
+         Education determines on or before November 15 (32 V.S.A. § 5401(12)).
+         Inventing a number here would render a fabricated Vermont figure in the
+         UI, so it is left empty and marked required: empty is null, which makes
+         excessSpending produce a missing_input node whose blocker tells the user
+         exactly which official figure is needed -- a null is explicable, an
+         invented number is not. The `required` attribute drives the empty-state
+         highlight (see .field-required in global.css) without ever fabricating a
+         value; the form is JS-driven, so it never gates a native submit. -->
+    <fieldset class="field-group">
+      <legend>The State's figure (you must enter it)</legend>
+      <div class="controls">
+        <div class="field field-required">
+          <label for="statewide-avg">Statewide average spending per student (set by the Secretary of Education)</label>
+          <input id="statewide-avg" type="number" min="0" step="1" value="" required aria-required="true" />
+        </div>
+      </div>
+    </fieldset>
   </form>
 
   <h2>Result</h2>

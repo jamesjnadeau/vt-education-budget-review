@@ -178,13 +178,18 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
     const item = el('li', 'step');
     item.style.paddingLeft = `${1 + depth * 0.9}rem`;
 
-    const head = el('div', 'step-head');
+    // The step's header (label, status, value) is always visible; its
+    // explanation and sources fold away behind a native disclosure, so the
+    // resting view is a clean list of steps and the work is one click away.
+    const disclosure = el('details', 'step-disclosure');
+    const head = el('summary', 'step-head');
     head.append(el('span', 'step-label', node.label));
     head.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
     head.append(el('span', 'step-value', formatValue(node.value, node.unit)));
-    item.append(head);
+    disclosure.append(head);
 
-    item.append(el('p', 'step-explanation', node.explanation));
+    const detail = el('div', 'step-detail');
+    detail.append(el('p', 'step-explanation', node.explanation));
 
     for (const parameter of node.parameters) {
       const cite = el('p', 'step-citation');
@@ -196,11 +201,13 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
         cite.append(document.createTextNode(' '));
         cite.append(el('span', 'tag unverified', 'not verified'));
       }
-      item.append(cite);
+      detail.append(cite);
     }
 
-    for (const note of node.notes) item.append(el('p', 'step-citation', note));
+    for (const note of node.notes) detail.append(el('p', 'step-citation', note));
 
+    disclosure.append(detail);
+    item.append(disclosure);
     list.append(item);
   }
 

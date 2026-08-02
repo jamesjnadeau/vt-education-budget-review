@@ -327,7 +327,7 @@ parameters:
       verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5402.txt; awaiting human countersignature"
 
   tax.nonhomestead_base_rate:
-    value: 1.59
+    value: 1.643
     unit: rate_per_100
     description: nonhomestead education property tax rate, before division by the statewide adjustment
     applies_to: all nonhomestead property
@@ -436,7 +436,7 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: null
+    value: 0.75
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
@@ -449,9 +449,10 @@ parameters:
         tax grand list of all municipalities to the aggregate value of the equalized
         education property tax grand list of all municipalities. Determined annually
         by the Department of Taxes; not yet published for FY2027.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
+
 
   # --- Foundation formula (contingent on Act 73) ----------------------------
 
@@ -461,6 +462,16 @@ parameters:
     description: base education amount per pupil
     applies_to: all school districts
     contingent: true
+    range:
+      low: 6800
+      high: 7000
+      central: null
+      basis: >-
+        The $6,800.00 statutory base (16 V.S.A. § 4011(b)) is the lower bound;
+        the FY2027 amount is that base increased by the NEEP Cumulative Price
+        Index plus one-tenth of one percent, which has not yet been published or
+        applied. $7,000 is an upper estimate of the indexed figure pending the
+        published index.
     citation:
       statute: "16 V.S.A. § 4011(b)"
       session_law: "2025 Acts and Resolves No. 73 (contingently effective July 1, 2028)"
@@ -474,9 +485,9 @@ parameters:
         of one percent." The $6,800.00 statutory base is fixed, but the FY2027
         amount depends on a published price index that has not been applied here,
         so no point value is asserted.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
 
   foundation.statewide_homestead_rate:
     value: null

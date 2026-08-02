@@ -360,6 +360,29 @@ th {
   gap: 0.5rem;
   align-items: baseline;
 }
+/* The header is a <summary>: it stays visible while the explanation and
+   sources fold away. Drop the native disclosure triangle and carry the
+   open/closed state with our own arrow so it inherits the design's colours. */
+summary.step-head {
+  cursor: pointer;
+  list-style: none;
+}
+summary.step-head::-webkit-details-marker {
+  display: none;
+}
+summary.step-head::before {
+  content: '▸';
+  align-self: center;
+  color: var(--text-muted);
+  font-size: 0.8em;
+  line-height: 1;
+}
+.step-disclosure[open] > summary.step-head::before {
+  content: '▾';
+}
+.step-detail {
+  margin-top: 0.15rem;
+}
 .step-label {
   font-weight: 600;
 }
@@ -415,6 +438,25 @@ button {
   align-items: end;
   margin: 1.5rem 0;
 }
+
+/* A related row of inputs, grouped under a header. Native <fieldset> ships a
+   border, inset padding, and a min-width that fights flex-wrap, so all three
+   are reset; the grouping is carried by the legend alone. */
+.field-group {
+  border: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  min-width: 0;
+}
+.field-group > legend {
+  padding: 0;
+  font-weight: 650;
+  font-size: 1rem;
+  color: var(--text);
+}
+.field-group > .controls {
+  margin: 0.6rem 0 0;
+}
 .field {
   display: flex;
   flex-direction: column;
@@ -423,6 +465,18 @@ button {
 .field label {
   font-size: 0.86rem;
   color: var(--text-muted);
+}
+
+/* A field the user must supply and the tool will not fake. While its input is
+   empty (or otherwise invalid) it stands out in the missing-data red, so an
+   unfilled required figure reads as an open task, not an oversight. `required`
+   here is the honest signal, never a licence to invent a value. */
+.field-required input:invalid {
+  border-color: var(--state-missing);
+  box-shadow: 0 0 0 1px var(--state-missing);
+}
+.field-required:has(input:invalid) label {
+  color: var(--state-missing);
 }
 
 /* Primary-nav "Modeling" dropdown (native <details>, no JS). */

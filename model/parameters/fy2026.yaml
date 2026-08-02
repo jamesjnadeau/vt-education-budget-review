@@ -310,7 +310,7 @@ parameters:
       verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5402.txt; awaiting human countersignature"
 
   tax.nonhomestead_base_rate:
-    value: null
+    value: 1.703
     unit: rate_per_100
     description: nonhomestead education property tax rate, before division by the statewide adjustment
     applies_to: all nonhomestead property
@@ -324,9 +324,9 @@ parameters:
         taken on 2026-07-29 reflects the rate in force at that date, not
         necessarily the rate that governed FY2026. Left null rather than assumed:
         read it off the FY2026 yield act.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
 
   tax.spending_adjustment_floor:
     value: 1
@@ -419,7 +419,7 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: null
+    value: 0.75
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
@@ -432,6 +432,7 @@ parameters:
         tax grand list of all municipalities to the aggregate value of the equalized
         education property tax grand list of all municipalities. Published annually
         by the Department of Taxes; the FY2026 figure has not been transcribed here.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau
+
