@@ -228,6 +228,8 @@ export const SHARE_FIELDS: readonly ShareField[] = [
   { id: 'small-school-enrollment', param: 'enrollment' },
   { id: 'spending', param: 'spending' },
   { id: 'cla', param: 'cla' },
+  { id: 'capital-reserve', param: 'capital_reserve' },
+  { id: 'bond-exclusion', param: 'bond_exclusion' },
   { id: 'statewide-avg', param: 'statewide_avg' },
 ];
 
@@ -289,9 +291,11 @@ git commit -m "feat(model): pure encode/decode for shareable scenario links"
 This task adds the button markup, its styling, and the island glue that restores a shared scenario on load and copies a link on click. Because the vitest environment is `node` (no DOM), the glue is verified in the browser preview rather than by unit tests — the testable logic already lives in Task 1's pure functions.
 
 **Files:**
-- Modify: `site/src/pages/model/index.astro` (add markup after the `</form>`, around line 176)
-- Modify: `site/src/scripts/model-tool.ts` (imports at top ~line 44; add helpers; extend `initModelTool` ~lines 440–583)
+- Modify: `site/src/pages/model/index.astro` (add markup after the `</form>`, currently line 211)
+- Modify: `site/src/scripts/model-tool.ts` (imports at top ~line 44; add helpers near `numberField`/`textField` ~line 429–441; extend `initModelTool` ~lines 443–632)
 - Modify: `site/src/styles/global.css` (append share-toolbar styles)
+
+> Line numbers below are current at planning time but the files evolve; locate every edit by the quoted code anchor, not the line number.
 
 **Interfaces:**
 - Consumes from Task 1: `SHARE_FIELDS`, `decodeScenario`, `shareUrl`, and `type Scenario` from `./share-link.ts`.
@@ -299,7 +303,7 @@ This task adds the button markup, its styling, and the island glue that restores
 
 - [ ] **Step 1: Add the button and status markup to the page**
 
-In `site/src/pages/model/index.astro`, immediately after the closing `</form>` tag (currently line 176) and before `<h2>Result</h2>`, insert:
+In `site/src/pages/model/index.astro`, immediately after the closing `</form>` tag (currently line 211) and before `<h2>Result</h2>`, insert:
 
 ```astro
   <div class="share-tools">
@@ -327,12 +331,12 @@ Append to `site/src/styles/global.css`:
 }
 .share-status {
   font-size: 0.9rem;
-  color: var(--muted, var(--text));
+  color: var(--text-muted);
   word-break: break-all;
 }
 ```
 
-Note: `--muted` is used with a fallback to `--text` in case the variable is not defined; verify the variable's name against the `:root` block in global.css and use whatever muted/secondary text color exists (or drop the fallback and use `var(--text)` directly if there is no muted token).
+Note: `--text-muted` is the site's secondary-text token (defined in the `:root` block, e.g. global.css:13, and used throughout for help text) — use it directly.
 
 - [ ] **Step 3: Import the share-link module in the island**
 
@@ -344,7 +348,7 @@ import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-l
 
 - [ ] **Step 4: Add the DOM glue helpers**
 
-In `site/src/scripts/model-tool.ts`, add these two helpers next to the existing `numberField`/`textField` helpers (just above `export function initModelTool`, around line 422):
+In `site/src/scripts/model-tool.ts`, add these two helpers next to the existing `numberField`/`textField` helpers (just above `export function initModelTool`, which is currently at line 443):
 
 ```ts
 // Read every shareable field's current value into a Scenario keyed by DOM id.
@@ -384,7 +388,7 @@ function applyScenario(scenario: Scenario): void {
 
 - [ ] **Step 5: Restore a shared scenario on load**
 
-In `initModelTool`, the picker `<option>`s are built around lines 440–453, and the existing startup sequence ends (lines 582–583) with:
+In `initModelTool`, the picker `<option>`s are built earlier in the function (the loop that appends one `<option>` per live set plus the example option), and the existing startup sequence ends (currently lines 631–632) with:
 
 ```ts
   applyStatewidePrefill();
@@ -409,7 +413,7 @@ Leave the `applyStatewidePrefill` and `recompute` calls in place — the new lin
 
 - [ ] **Step 6: Wire the copy button**
 
-Still in `initModelTool`, after the existing event wiring (the `document.getElementById('scenario-form')?.addEventListener('input', recompute);` block and the `modeSelect?.addEventListener('change', …)` block, around lines 577–581) and before the final startup calls, add:
+Still in `initModelTool`, after the existing event wiring (the `document.getElementById('scenario-form')?.addEventListener('input', recompute);` block and the `modeSelect?.addEventListener('change', …)` block, currently lines 626–630) and before the final startup calls, add:
 
 ```ts
   // Build a link that reproduces the current form and copy it to the clipboard.
@@ -487,7 +491,7 @@ git commit -m "feat(model): copy a shareable link and restore scenarios from the
 **1. Spec coverage** — "save the parameters entered as a link someone can navigate to and see the same parameters":
 - *Save parameters as a link*: Task 2, Step 6 (button builds `shareUrl(base, readScenario())` and copies it). Encoding logic: Task 1 (`encodeScenario`, `shareUrl`).
 - *Navigate to the link and see the same parameters*: Task 2, Step 5 (`applyScenario(decodeScenario(window.location.search))` on load). Decoding logic: Task 1 (`decodeScenario`).
-- *All fields covered*: `SHARE_FIELDS` enumerates all 18 form fields including the mode picker; verified against `index.astro`'s ids (`parameter-mode`, `prek-1`, `k5-1`, `g68-1`, `g912-1`, `prek-2`, `k5-2`, `g68-2`, `g912-2`, `state-placed`, `econ`, `el`, `density`, `small-school-name`, `small-school-enrollment`, `spending`, `cla`, `statewide-avg`).
+- *All fields covered*: `SHARE_FIELDS` enumerates all 20 form fields including the mode picker; verified against `index.astro`'s ids (`parameter-mode`, `prek-1`, `k5-1`, `g68-1`, `g912-1`, `prek-2`, `k5-2`, `g68-2`, `g912-2`, `state-placed`, `econ`, `el`, `density`, `small-school-name`, `small-school-enrollment`, `spending`, `cla`, `capital-reserve`, `bond-exclusion`, `statewide-avg`). (`capital-reserve` and `bond-exclusion` are the Act 183 excess-spending adjustment inputs added by commit 1e02f32, read by `model-tool.ts` via `numberField`.)
 - No gaps found.
 
 **2. Placeholder scan** — every code step contains complete, runnable code; no TBD/TODO/"handle edge cases". The clipboard-unavailable fallback, the empty-scenario case, and the missing-option case are all handled explicitly. The one deliberate verification-time check (the `--muted` CSS variable name in Task 2 Step 2) is called out with a concrete resolution, not left vague.
