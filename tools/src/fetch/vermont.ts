@@ -169,7 +169,7 @@ export interface FetchResult {
  * saved as extracted text (`.txt`); anything else is saved as raw bytes under
  * its released name. The sha256 is of the bytes actually written, so it matches
  * the file on disk. Throws on any status >= 400 rather than saving an error
- * page. Does not enforce the vermont.gov allowlist -- the CLL does that.
+ * page. Does not enforce the vermont.gov allowlist -- the CLI does that.
  */
 export async function fetchToFolder(url: string, outDir: string): Promise<FetchResult> {
   const res = await fetchRaw(url);

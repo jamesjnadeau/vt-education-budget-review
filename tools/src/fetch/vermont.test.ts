@@ -98,6 +98,9 @@ describe('fetchToFolder (integration, localhost)', () => {
     } else if (req.url === '/missing') {
       res.writeHead(404, { 'content-type': 'text/html' });
       res.end('nope');
+    } else if (req.url === '/redirect') {
+      res.writeHead(302, { location: '/page' });
+      res.end();
     } else {
       res.writeHead(500);
       res.end();
@@ -133,5 +136,15 @@ describe('fetchToFolder (integration, localhost)', () => {
   it('throws on an http error status without writing a file', async () => {
     const dir = mkdtempSync(join(tmpdir(), 'vtfetch-'));
     await expect(fetchToFolder(`${baseUrl}/missing`, dir)).rejects.toThrow(/404/);
+  });
+
+  it('follows a relative redirect through to the final page', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'vtfetch-'));
+    const result = await fetchToFolder(`${baseUrl}/redirect`, dir);
+    expect(result.status).toBe(200);
+    expect(result.kind).toBe('text');
+    expect(result.finalUrl.endsWith('/page')).toBe(true);
+    const onDisk = readFileSync(result.savedPath, 'utf8');
+    expect(onDisk).toBe('Budget\nLine one.');
   });
 });
