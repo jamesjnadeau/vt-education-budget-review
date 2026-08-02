@@ -241,6 +241,34 @@ function make(ctx: EngineContext, args: MakeArgs): CalcNode {
     }
   }
 
+  // Interval propagation. When any input carries a range, evaluate this node's
+  // own formula at the corners of the input intervals and take the extremes.
+  // Every op is monotonic per argument, so the corner evaluation is the exact
+  // min/max; it reuses `compute` rather than duplicating each formula's interval
+  // math. Runs only when a point value exists, so a blocked node stays a plain
+  // blank rather than sprouting a band with no center.
+  let range: { low: number; high: number } | null = null;
+  if (value !== null && inputs.some((i) => i.range !== null)) {
+    const intervals = inputs.map((i) =>
+      i.range ? ([i.range.low, i.range.high] as const) : ([i.value as number, i.value as number] as const),
+    );
+    if (intervals.every(([lo, hi]) => Number.isFinite(lo) && Number.isFinite(hi))) {
+      const corners = intervals.reduce<number[][]>(
+        (acc, [lo, hi]) => {
+          const ends = lo === hi ? [lo] : [lo, hi];
+          return acc.flatMap((prefix) => ends.map((end) => [...prefix, end]));
+        },
+        [[]],
+      );
+      const results: number[] = [];
+      for (const corner of corners) {
+        const r = args.compute(corner, parameters);
+        if (r !== null && Number.isFinite(r)) results.push(r);
+      }
+      if (results.length > 0) range = { low: Math.min(...results), high: Math.max(...results) };
+    }
+  }
+
   const status = statusFromBlockers(blockers);
 
   return {
@@ -257,7 +285,7 @@ function make(ctx: EngineContext, args: MakeArgs): CalcNode {
     status,
     blockers,
     notes,
-    range: null,
+    range,
   };
 }
 

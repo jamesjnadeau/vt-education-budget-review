@@ -35,3 +35,41 @@ describe('estimated parameter leaf', () => {
     expect(node.blockers.map((b) => b.kind)).toEqual(['estimated_parameter']);
   });
 });
+
+describe('range propagation through make()', () => {
+  it('evaluates the formula at the range endpoints (division inverts the interval)', () => {
+    const ctx = createContext(withEstimatedStatewide());
+    const statewide = parameterNode(ctx, 'tax.statewide_adjustment', 'ratio'); // 0.75, range 0.7-0.8
+    const base = input(ctx, 'base rate', 1.59, 'rate_per_100');
+    const rate = quotient(ctx, 'rate', base, statewide, 'rate_per_100'); // 1.59 / statewide
+
+    expect(rate.value).toBeCloseTo(1.59 / 0.75, 10);
+    // Dividing by a larger denominator yields a smaller number, so low uses 0.8.
+    expect(rate.range?.low).toBeCloseTo(1.59 / 0.8, 10);
+    expect(rate.range?.high).toBeCloseTo(1.59 / 0.7, 10);
+  });
+
+  it('leaves range null when no input carries a range', () => {
+    const ctx = createContext(syntheticParameters());
+    const a = input(ctx, 'a', 2, 'ratio');
+    const b = input(ctx, 'b', 4, 'ratio');
+    expect(quotient(ctx, 'q', a, b, 'ratio').range).toBeNull();
+  });
+});
+
+describe('estimated band reaches the billed rates', () => {
+  it('carries the band and estimated status through townRate and nonhomesteadRate', () => {
+    const ctx = createContext(withEstimatedStatewide());
+    const perPupil = input(ctx, 'spending per pupil', 15000, 'usd_per_pupil');
+    const result = townRate(ctx, perPupil, { town: 'test', cla: 1, cla_source: 'test' }, 12000);
+
+    expect(result.billedRate.value).not.toBeNull();
+    expect(result.billedRate.status).toBe('estimated');
+    expect(result.billedRate.range).not.toBeNull();
+    expect(result.billedRate.range!.low).toBeLessThan(result.billedRate.range!.high);
+
+    const nonhs = nonhomesteadRate(ctx);
+    expect(nonhs.status).toBe('estimated');
+    expect(nonhs.range).not.toBeNull();
+  });
+});
