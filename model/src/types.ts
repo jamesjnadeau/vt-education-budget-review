@@ -118,6 +118,10 @@ export interface ParameterSet {
  *
  * `contingent` is not a blank: it qualifies a value rather than withholding
  * one.
+ *
+ * `estimated` is likewise not a blank: a parameter with a stated range but no
+ * published figure computes from the range's central value and is labeled as an
+ * estimate, so a reader never mistakes it for the settled number.
  */
 export type NodeStatus =
   | 'ok'
@@ -125,7 +129,8 @@ export type NodeStatus =
   | 'missing_input'
   | 'undetermined'
   | 'not_computable'
-  | 'contingent';
+  | 'contingent'
+  | 'estimated';
 
 export interface Blocker {
   readonly kind:
@@ -133,7 +138,8 @@ export interface Blocker {
     | 'missing_input'
     | 'contingent_parameter'
     | 'undetermined_determination'
-    | 'not_computable';
+    | 'not_computable'
+    | 'estimated_parameter';
   readonly ref: string;
   readonly detail: string;
 }

@@ -121,12 +121,13 @@ function statusFromBlockers(blockers: readonly Blocker[]): NodeStatus {
   if (blockers.some((b) => b.kind === 'unverified_parameter')) return 'unverified';
   if (blockers.some((b) => b.kind === 'missing_input')) return 'missing_input';
   if (blockers.some((b) => b.kind === 'contingent_parameter')) return 'contingent';
+  if (blockers.some((b) => b.kind === 'estimated_parameter')) return 'estimated';
   return 'ok';
 }
 
-/** A contingent parameter does not prevent a value -- it qualifies it. */
+/** A contingent or estimated parameter does not prevent a value -- it qualifies it. */
 function blocksValue(blockers: readonly Blocker[]): boolean {
-  return blockers.some((b) => b.kind !== 'contingent_parameter');
+  return blockers.some((b) => b.kind !== 'contingent_parameter' && b.kind !== 'estimated_parameter');
 }
 
 function dedupeBlockers(blockers: readonly Blocker[]): Blocker[] {
@@ -143,6 +144,28 @@ function dedupeBlockers(blockers: readonly Blocker[]): Blocker[] {
 
 function blockersOfParameter(p: Parameter): Blocker[] {
   const out: Blocker[] = [];
+
+  // A parameter with a stated range and a central value stands in for an
+  // unpublished figure: it computes from that central value as a labeled
+  // estimate rather than blocking. This deliberately takes precedence over the
+  // unverified/missing blockers it would otherwise raise -- we have chosen to
+  // carry the estimate, and `estimated_parameter` is non-blocking below.
+  if (p.range !== null && p.range.central !== null && p.value === null) {
+    out.push({
+      kind: 'estimated_parameter',
+      ref: p.key,
+      detail: `${p.description} (${p.citation.statute}) is carried as an estimate from a stated range; no figure has been published for this year.`,
+    });
+    if (p.contingent) {
+      out.push({
+        kind: 'contingent_parameter',
+        ref: p.key,
+        detail: `${p.description} depends on legislation that has not been enacted.`,
+      });
+    }
+    return out;
+  }
+
   if (!p.citation.verified) {
     out.push({
       kind: 'unverified_parameter',
@@ -383,7 +406,8 @@ export function lookup(ctx: EngineContext, key: string): Parameter {
 export function parameterNode(ctx: EngineContext, key: string, unit: Unit): CalcNode {
   const p = lookup(ctx, key);
   const blockers = dedupeBlockers(blockersOfParameter(p));
-  const numeric = typeof p.value === 'number' ? p.value : null;
+  const estimated = p.range !== null && p.range.central !== null && p.value === null;
+  const numeric = typeof p.value === 'number' ? p.value : estimated && p.range ? p.range.central : null;
   const cite = p.citation.session_law
     ? `${p.citation.statute}, as amended by ${p.citation.session_law}`
     : p.citation.statute;
@@ -409,12 +433,14 @@ export function parameterNode(ctx: EngineContext, key: string, unit: Unit): Calc
     parameters: [p],
     explanation: blocksValue(blockers)
       ? explainBlocked(p.description, blockers)
-      : p.is_law
-        ? `${p.description} is ${rendered}, set by ${cite}.`
-        : // A proposal must never read as a rule. The clause is generated here,
-          // beside the number, rather than left to a renderer to remember.
-          `${p.description} is ${rendered} under ${cite}. That is a PROPOSED standard, ` +
-          `not law: it has not been enacted and may never be.`,
+      : estimated && p.range
+        ? `${p.description} is estimated at ${formatValue(numeric, unit)} (range ${formatValue(p.range.low, unit)}–${formatValue(p.range.high, unit)}); ${cite} has not published a figure for this year, so the range's central value stands in. ${p.range.basis}`
+        : p.is_law
+          ? `${p.description} is ${rendered}, set by ${cite}.`
+          : // A proposal must never read as a rule. The clause is generated here,
+            // beside the number, rather than left to a renderer to remember.
+            `${p.description} is ${rendered} under ${cite}. That is a PROPOSED standard, ` +
+            `not law: it has not been enacted and may never be.`,
     status: statusFromBlockers(blockers),
     blockers,
     notes: p.is_law
