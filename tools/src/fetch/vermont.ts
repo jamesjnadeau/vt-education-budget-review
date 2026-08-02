@@ -60,3 +60,41 @@ export function htmlToText(html: string): string {
     .filter(Boolean)
     .join('\n');
 }
+
+/**
+ * Replaces every character that is not a safe filename character with `_`, then
+ * strips leading dots so the result can never be `.`, `..`, or a hidden file.
+ * Collapses runs of `_` so a messy path does not become a wall of underscores.
+ */
+function sanitizeSegment(raw: string): string {
+  const cleaned = raw
+    .replace(/[^A-Za-z0-9._-]/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^\.+/, '');
+  return cleaned;
+}
+
+/**
+ * The basename to write under the output folder. A document keeps the name the
+ * site released it under (sanitized); an HTML page becomes a `host_path.txt`
+ * slug so two pages from the same site do not collide. Never returns a name
+ * containing a path separator or starting with a dot.
+ */
+export function savedFileName(finalUrl: string, isHtml: boolean): string {
+  const parsed = new URL(finalUrl);
+  const host = parsed.hostname.toLowerCase();
+  const pathname = decodeURIComponent(parsed.pathname);
+
+  if (isHtml) {
+    const slug = sanitizeSegment(`${host}${pathname}`.replace(/\/+$/, ''));
+    const base = slug === sanitizeSegment(host) || slug === '' ? `${host}_index` : slug;
+    return `${sanitizeSegment(base)}.txt`;
+  }
+
+  const lastSegment = pathname.split('/').filter(Boolean).pop() ?? '';
+  const name = sanitizeSegment(lastSegment);
+  if (!name || !name.includes('.')) {
+    return name ? `${name}.bin` : `${sanitizeSegment(host)}.bin`;
+  }
+  return name;
+}

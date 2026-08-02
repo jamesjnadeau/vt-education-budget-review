@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { htmlToText, isHtmlResponse, isVermontGovUrl } from './vermont.ts';
+import { htmlToText, isHtmlResponse, isVermontGovUrl, savedFileName } from './vermont.ts';
 
 describe('isVermontGovUrl', () => {
   it('accepts vermont.gov and its subdomains over http or https', () => {
@@ -41,5 +41,35 @@ describe('htmlToText', () => {
 
   it('drops script contents entirely', () => {
     expect(htmlToText('<p>keep</p><script>var x = 1 < 2;</script>')).toBe('keep');
+  });
+});
+
+describe('savedFileName', () => {
+  it('keeps a document basename and sanitizes it', () => {
+    expect(savedFileName('https://education.vermont.gov/sites/aoe/files/FY24%20Budget.pdf', false)).toBe(
+      'FY24_Budget.pdf',
+    );
+    expect(savedFileName('https://education.vermont.gov/a/b/report.xlsx', false)).toBe('report.xlsx');
+  });
+
+  it('never lets a document name climb out of the folder', () => {
+    const name = savedFileName('https://x.vermont.gov/a/..', false);
+    expect(name.includes('/')).toBe(false);
+    expect(name.startsWith('.')).toBe(false);
+    expect(name).not.toBe('..');
+  });
+
+  it('slugs an html page to a .txt name from host and path', () => {
+    expect(savedFileName('https://legislature.vermont.gov/statutes/section/16/135/04001', true)).toBe(
+      'legislature.vermont.gov_statutes_section_16_135_04001.txt',
+    );
+  });
+
+  it('names an html root page by host', () => {
+    expect(savedFileName('https://education.vermont.gov/', true)).toBe('education.vermont.gov_index.txt');
+  });
+
+  it('falls back to a host-based name when a document path has no basename', () => {
+    expect(savedFileName('https://data.vermont.gov/', false)).toBe('data.vermont.gov.bin');
   });
 });
