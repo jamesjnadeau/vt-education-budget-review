@@ -641,6 +641,15 @@ dl.facts dd {
   margin: 0;
 }
 
+.student-summary-heading {
+  margin: 1.5rem 0 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+#student-summary dl.facts {
+  margin-top: 0.5rem;
+}
+
 /* ---- Forms ---------------------------------------------------------- */
 select,
 input {
