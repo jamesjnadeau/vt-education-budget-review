@@ -750,3 +750,19 @@ button:hover {
 .field-help a {
   color: inherit;
 }
+
+/* The "Copy shareable link" control sits below the what-if form. The status
+   span is a polite live region that reports the copy result (or, when the
+   clipboard API is unavailable, shows the URL so it can be copied by hand). */
+.share-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.5rem 0;
+}
+.share-status {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  word-break: break-all;
+}

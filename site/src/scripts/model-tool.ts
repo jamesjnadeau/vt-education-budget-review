@@ -43,6 +43,7 @@ import {
 } from '@vt-budget/model';
 
 import { enteredYearTotal } from './entered-total.ts';
+import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
 import { studentSummarySections } from './student-summary.ts';
 
@@ -440,6 +441,40 @@ function textField(id: string): string | null {
   return element.value.trim();
 }
 
+// Read every shareable field's current value into a Scenario keyed by DOM id.
+// Reads `.value`, which works for both the <input> fields and the <select>
+// mode picker. Blank fields are omitted, so the link carries only what the
+// user actually entered.
+function readScenario(): Scenario {
+  const scenario: Scenario = {};
+  for (const { id } of SHARE_FIELDS) {
+    const element = document.getElementById(id) as
+      | HTMLInputElement
+      | HTMLSelectElement
+      | null;
+    if (element && element.value.trim() !== '') scenario[id] = element.value;
+  }
+  return scenario;
+}
+
+// Write a decoded Scenario back into the form. Only fields the scenario carries
+// are touched, so a partial link leaves the untouched fields at their HTML
+// defaults. Setting a <select> to a value with no matching option is a no-op in
+// the browser, so a link naming a fiscal year that is no longer built simply
+// leaves the picker on its default -- recompute() then reports honestly that no
+// parameter file is available rather than inventing one.
+function applyScenario(scenario: Scenario): void {
+  for (const { id } of SHARE_FIELDS) {
+    const value = scenario[id];
+    if (value === undefined) continue;
+    const element = document.getElementById(id) as
+      | HTMLInputElement
+      | HTMLSelectElement
+      | null;
+    if (element) element.value = value;
+  }
+}
+
 export function initModelTool(liveParameters: RawParameterSet[]): void {
   const modeSelect = document.getElementById('parameter-mode') as HTMLSelectElement | null;
   const walkthrough = document.getElementById('walkthrough');
@@ -628,6 +663,38 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
     applyStatewidePrefill();
     recompute();
   });
+
+  // Build a link that reproduces the current form and copy it to the clipboard.
+  // The address bar is left untouched while editing; the link is produced only
+  // on click. When the clipboard API is unavailable (insecure context, denied
+  // permission) the URL is shown in the status line so it can be copied by hand.
+  const shareButton = document.getElementById('share-link');
+  const shareStatus = document.getElementById('share-status');
+  shareButton?.addEventListener('click', () => {
+    const base = window.location.origin + window.location.pathname;
+    const url = shareUrl(base, readScenario());
+    const clipboard = navigator.clipboard;
+    if (clipboard) {
+      clipboard.writeText(url).then(
+        () => {
+          if (shareStatus) shareStatus.textContent = 'Link copied to clipboard';
+        },
+        () => {
+          if (shareStatus) shareStatus.textContent = url;
+        },
+      );
+    } else if (shareStatus) {
+      shareStatus.textContent = url;
+    }
+  });
+
+  // A shared link carries a scenario in the query string. Apply it after the
+  // picker options exist (so the mode <select> can adopt the shared year) and
+  // before applyStatewidePrefill (so a statewide-average carried in the link
+  // counts as user-entered and the prefill leaves it alone). Fields the link
+  // omits keep their HTML defaults.
+  applyScenario(decodeScenario(window.location.search));
+
   applyStatewidePrefill();
   recompute();
 }
