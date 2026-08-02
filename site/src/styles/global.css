@@ -641,6 +641,14 @@ dl.facts dd {
   margin: 0;
 }
 
+/* Per-year tally shown at the foot of each grade fieldset. */
+.fieldset-total {
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
 .student-summary-heading {
   margin: 1.5rem 0 0;
   font-size: 1rem;
