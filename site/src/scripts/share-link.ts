@@ -50,6 +50,8 @@ export const SHARE_FIELDS: readonly ShareField[] = [
   { id: 'small-school-enrollment', param: 'enrollment' },
   { id: 'spending', param: 'spending' },
   { id: 'cla', param: 'cla' },
+  { id: 'capital-reserve', param: 'capital_reserve' },
+  { id: 'bond-exclusion', param: 'bond_exclusion' },
   { id: 'statewide-avg', param: 'statewide_avg' },
 ];
 

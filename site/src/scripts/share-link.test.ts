@@ -91,8 +91,18 @@ describe('round trip', () => {
       'small-school-name': 'A & B School',
       spending: '3370000',
       cla: '0.8',
+      'capital-reserve': '50000',
+      'bond-exclusion': '25000',
     };
     expect(decodeScenario(encodeScenario(scenario))).toEqual(scenario);
+  });
+
+  it('encodes Act 183 excess-spending fields with correct param names', () => {
+    const scenario: Scenario = {
+      'capital-reserve': '50000',
+      'bond-exclusion': '25000',
+    };
+    expect(encodeScenario(scenario)).toBe('capital_reserve=50000&bond_exclusion=25000');
   });
 });
 
