@@ -33,7 +33,8 @@
     "build:site": "npm run build --workspace site",
     "build": "npm run validate && npm run build:data && npm run build:site",
     "dev": "npm run build:data && npm run dev --workspace site",
-    "statute:sync": "tsx tools/src/cli/statute-sync.ts"
+    "statute:sync": "tsx tools/src/cli/statute-sync.ts",
+    "vt:fetch": "tsx tools/src/cli/vt-fetch.ts"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
