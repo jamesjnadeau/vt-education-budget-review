@@ -36,12 +36,14 @@ import {
   toSteps,
   townRate,
   type CalcNode,
+  type MembershipResult,
   type Parameter,
   type ParameterSet,
   type PublishedInput,
 } from '@vt-budget/model';
 
 import { nextStatewideAverage } from './statewide-average.ts';
+import { studentSummarySections } from './student-summary.ts';
 
 // The input key carrying the Secretary of Education's statewide average
 // determination on each year's parameter set. Matches the key used in the
@@ -403,6 +405,22 @@ function renderAssumptions(container: HTMLElement): void {
   container.append(wrap);
 }
 
+function renderStudentSummary(membership: MembershipResult, container: HTMLElement): void {
+  container.replaceChildren();
+  for (const section of studentSummarySections(membership)) {
+    container.append(el('h3', 'student-summary-heading', section.heading));
+    const dl = el('dl', 'facts');
+    for (const row of section.rows) {
+      dl.append(el('dt', undefined, row.label));
+      const dd = el('dd');
+      dd.append(document.createTextNode(formatValue(row.node.value, row.node.unit) + ' '));
+      dd.append(el('span', `tag ${STATUS_CLASS[row.node.status]}`, STATUS_LABEL[row.node.status]));
+      dl.append(dd);
+    }
+    container.append(dl);
+  }
+}
+
 // --------------------------------------------------------------------------
 // Wiring
 // --------------------------------------------------------------------------
@@ -429,6 +447,7 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
   const assumptions = document.getElementById('assumptions');
   const exampleWarning = document.getElementById('example-warning');
   const summary = document.getElementById('summary');
+  const studentSummary = document.getElementById('student-summary');
 
   if (!walkthrough || !blockers || !citations || !assumptions || !summary) return;
 
@@ -471,6 +490,7 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
 
     if (parameters.parameters.size === 0) {
       walkthrough.replaceChildren();
+      if (studentSummary) studentSummary.replaceChildren();
       summary.textContent = 'No parameter file is available to compute with.';
       return;
     }
@@ -510,6 +530,8 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
           : [],
       source: 'figures entered by you in this form',
     });
+
+    if (studentSummary) renderStudentSummary(membership, studentSummary);
 
     const spending = input(ctx, 'Education spending', numberField('spending'), 'usd', {
       source: 'figures entered by you in this form',

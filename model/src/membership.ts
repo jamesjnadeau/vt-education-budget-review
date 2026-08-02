@@ -95,6 +95,22 @@ export interface MembershipResult {
   readonly longTermMembership: CalcNode;
   /** Each statutory weight, expressed as the pupils it adds. */
   readonly increments: readonly CalcNode[];
+  /** The four § 4010(d)(1) grade-band increments: prek, K-5, 6-8, 9-12. */
+  readonly gradeWeightIncrements: readonly CalcNode[];
+  /** The remaining § 4010(d) weights: poverty, English learner, sparsity, small school. */
+  readonly demographicWeightIncrements: readonly CalcNode[];
+  /** Sum of the grade-band increments — extra pupils from grade weights. */
+  readonly gradeWeightTotal: CalcNode;
+  /** Sum of the demographic/district increments — extra pupils from those weights. */
+  readonly demographicWeightTotal: CalcNode;
+  /** Sum of every weight increment (grade + demographic). */
+  readonly allWeightsTotal: CalcNode;
+  /**
+   * The plain student count entered across the averaged years, before averaging
+   * and before State-placed students are added. Shown on the site so a reader
+   * can see the two-year average halve it; not a statutory quantity itself.
+   */
+  readonly enteredHeadcountBothYears: CalcNode;
   /** Before the § 4010(e) floor. Equal to `total` in years the floor is off. */
   readonly beforeHoldHarmless: CalcNode;
   /** The § 4010(e) floor, or null in years it does not apply. */
@@ -217,23 +233,21 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
   );
 
   // --- Weights, § 4010(d). Every one is an ADDITIONAL amount. --------------
-  const increments: CalcNode[] = [];
-
+  // Grade-band weights, § 4010(d)(1), kept as their own group so the site can
+  // show grade weighting apart from the demographic and district weights.
+  const gradeWeightIncrements: CalcNode[] = [];
   for (const band of BANDS) {
     const membership = bandMemberships.get(band.key);
     if (!membership) continue;
-    increments.push(
-      applyWeight(
-        ctx,
-        `Additional weighting for ${band.label}`,
-        membership,
-        band.weight,
-        'pupils',
-      ),
+    gradeWeightIncrements.push(
+      applyWeight(ctx, `Additional weighting for ${band.label}`, membership, band.weight, 'pupils'),
     );
   }
 
-  increments.push(
+  // Everything else § 4010(d) adds: poverty, English learner, sparsity, small school.
+  const demographicWeightIncrements: CalcNode[] = [];
+
+  demographicWeightIncrements.push(
     applyWeight(
       ctx,
       'Additional weighting for pupils at or below 185 percent of the federal poverty level',
@@ -249,7 +263,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
     ),
   );
 
-  increments.push(
+  demographicWeightIncrements.push(
     applyWeight(
       ctx,
       'Additional weighting for English learner pupils',
@@ -269,11 +283,11 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
   );
   const band = sparsityBand(data.persons_per_square_mile);
   if (band) {
-    increments.push(
+    demographicWeightIncrements.push(
       applyWeight(ctx, 'Additional weighting for low population density', longTermMembership, band, 'pupils'),
     );
   } else {
-    increments.push(
+    demographicWeightIncrements.push(
       input(
         ctx,
         'Additional weighting for low population density',
@@ -301,7 +315,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
     for (const school of data.small_schools) {
       const tier = smallSchoolTier(school.average_two_year_enrollment);
       if (!tier) continue;
-      increments.push(
+      demographicWeightIncrements.push(
         applyWeight(
           ctx,
           `Additional weighting for the small school ${school.name}`,
@@ -318,7 +332,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
       );
     }
   } else if (eligibleForSmallSchool === null) {
-    increments.push(
+    demographicWeightIncrements.push(
       input(ctx, 'Additional weighting for small schools', null, 'pupils', {
         notes: [
           'District population density was not supplied, so small school eligibility ' +
@@ -328,6 +342,23 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
       }),
     );
   }
+
+  const increments = [...gradeWeightIncrements, ...demographicWeightIncrements];
+
+  // The plain count entered across the averaged years, before averaging. Uses
+  // the same averaging window the bands do, so the site can show the two-year
+  // average halving it. Built from input nodes so a missing band blanks it.
+  const windowParam = ctx.parameters.parameters.get('membership.long_term_membership_years');
+  const declaredWindow = typeof windowParam?.value === 'number' ? windowParam.value : null;
+  const windowYears = data.adm_years.slice(-Math.max(1, declaredWindow ?? data.adm_years.length));
+  const enteredHeadcountBothYears = sum(
+    ctx,
+    'Students entered across the averaged years',
+    windowYears.flatMap((y) =>
+      BANDS.map((b) => input(ctx, `FY${y.fiscal_year} ${b.label}`, y[b.key], 'pupils', { source: data.source })),
+    ),
+    'pupils',
+  );
 
   // --- § 4010(d)(6) --------------------------------------------------------
   const beforeHoldHarmless = sum(
@@ -340,7 +371,23 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
   // --- § 4010(e) hold harmless ---------------------------------------------
   const { floor, total } = applyHoldHarmless(ctx, beforeHoldHarmless, data);
 
-  return { longTermMembership, increments, beforeHoldHarmless, holdHarmlessFloor: floor, total };
+  const gradeWeightTotal = sum(ctx, 'Extra pupils from grade weights', gradeWeightIncrements, 'pupils');
+  const demographicWeightTotal = sum(ctx, 'Extra pupils from demographic weights', demographicWeightIncrements, 'pupils');
+  const allWeightsTotal = sum(ctx, 'Extra pupils from all weights', increments, 'pupils');
+
+  return {
+    longTermMembership,
+    increments,
+    gradeWeightIncrements,
+    demographicWeightIncrements,
+    gradeWeightTotal,
+    demographicWeightTotal,
+    allWeightsTotal,
+    enteredHeadcountBothYears,
+    beforeHoldHarmless,
+    holdHarmlessFloor: floor,
+    total,
+  };
 }
 
 /**
