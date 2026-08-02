@@ -80,17 +80,22 @@ where:
   question. (Not the NIPA deflator — an earlier draft of this note had that wrong; the
   Agency's guidance specifies NEEP.)
 
-Two further rules from Source #1, which the model does **not** yet capture (noted as known
-gaps, not silently dropped):
+Two further rules from Source #1 adjust the **spending** side of the comparison. Both are
+now modeled (`excessSpending` in `model/src/tax.ts`, via `ExcessSpendingAdjustments`), as
+two optional per-district inputs on the modeling tool that default to "none":
 
 - **District per pupil spending**, the figure compared to the threshold, is current-year
   per pupil spending **plus 150% of capital reserve funds more than 5 years old** that were
-  previously excluded (24 V.S.A. § 2804(b)).
+  previously excluded (24 V.S.A. § 2804(b)). The 150% is the parameter
+  `tax.excess_spending_capital_reserve_multiplier`. It is `verified: false` until read
+  against the operative statute, so entering a capital-reserve figure currently *blocks*
+  the excess step with "parameter unverified" rather than computing on an unchecked number —
+  the honest interim state. Verifying that parameter unblocks it.
 - All prior statutory exemptions were repealed (16 V.S.A. § 4001(6)(B)) and replaced by a
   single exclusion: **principal and interest on voter-approved bonds approved before
   July 1, 2024** are not counted in education spending for the excess spending calculation.
   The overage is what gets double-counted; the exclusion shrinks the overage, it does not
-  reduce unadjusted education spending.
+  reduce unadjusted education spending. This has no unverified dependency, so it computes.
 
 ### What the model input should hold
 
@@ -170,6 +175,7 @@ state average CLA) from the Department of Taxes, not a placeholder.
 - **Multiplier**: `tax.excess_spending_threshold_ratio = 1.18` is confirmed 118% by Source #1.
 - **Statewide Adjustment**: give FY2026+ a real `tax.statewide_adjustment` from the Tax
   Department's annual rate letter.
-- **Not yet modeled** (known gaps): the pre-July-2024 bond exclusion and the 150%
-  capital-reserve add-on to district per pupil spending. Track these before claiming the
-  excess spending figure is complete for a real district.
+- **Bond exclusion and 150% capital-reserve add-on**: now modeled as two optional inputs
+  on the tool. The bond exclusion computes; the capital-reserve add-on blocks on the
+  unverified `tax.excess_spending_capital_reserve_multiplier` (1.5) until it is checked
+  against the operative statute per `docs/parameter-verification.md`.

@@ -156,6 +156,7 @@ export function exampleParameters(): ParameterSet {
     // it that way: a round 1.2 against a round $20,000 average gives a $24,000
     // threshold a reader can check by hand.
     ['tax.excess_spending_threshold_ratio', 1.2, 'ratio', 'the excess spending threshold, as a multiple of the statewide average'],
+    ['tax.excess_spending_capital_reserve_multiplier', 1.5, 'multiplier', 'the capital reserve add-on multiplier'],
     ['tax.income_percentage_target', 0.02, 'ratio', 'the income percentage target'],
     ['yield.property_dollar_equivalent', 10_000, 'usd_per_pupil', 'the property yield'],
     ['yield.income_dollar_equivalent', 20_000, 'usd_per_pupil', 'the income yield'],
@@ -529,6 +530,13 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
       // surfaces as a missing_input blocker in excessSpending rather than a
       // fabricated statewide number.
       numberField('statewide-avg'),
+      // Act 183 adjustments to the excess spending comparison. Blank means the
+      // district has none, so the comparison is just its per pupil spending.
+      {
+        capitalReserveFivePlusYears: numberField('capital-reserve'),
+        bondExclusionPreJuly2024: numberField('bond-exclusion'),
+        weightedMembership: membership.total,
+      },
     );
 
     renderWalkthrough(rate.billedRate, walkthrough);

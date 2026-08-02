@@ -140,6 +140,34 @@ const liveParameters = JSON.stringify(parameters);
       </div>
     </div>
 
+    <!-- Two district figures that adjust only the excess spending comparison
+         (Act 183 of 2024). They are left blank because most districts have
+         neither; blank means "none," so the comparison is just per pupil
+         spending. Entering them changes the amount over the threshold, never the
+         base spending that flows into the rate. See excessSpending in
+         model/src/tax.ts and docs/excess-spending-threshold.md. -->
+    <fieldset class="field-group">
+      <legend>Excess spending adjustments (optional)</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="capital-reserve">Capital reserve fund draws more than 5 years old ($)</label>
+          <input id="capital-reserve" type="number" min="0" step="1000" value="" />
+          <p class="field-help">
+            150% of this is added to the spending compared against the excess spending threshold
+            (24 V.S.A. § 2804(b)). Leave blank if the district has none.
+          </p>
+        </div>
+        <div class="field">
+          <label for="bond-exclusion">Principal &amp; interest on bonds approved before July 1, 2024 ($)</label>
+          <input id="bond-exclusion" type="number" min="0" step="1000" value="" />
+          <p class="field-help">
+            Excluded from the excess spending comparison (16 V.S.A. § 4001(6)(B)). This lowers only
+            the amount over the threshold, not the district's base spending. Leave blank if none.
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
     <!-- Every other field on this form is a figure the user is supposing about
          their own district, so an illustrative default is honest. This one is a
          state-determined statutory input: the statewide average district per

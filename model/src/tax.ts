@@ -27,7 +27,17 @@
  *    wrong by exactly the statewide adjustment factor.
  */
 
-import { greaterOf, input, parameterNode, product, quotient, sum } from './node.ts';
+import {
+  derive,
+  difference,
+  formatValue,
+  greaterOf,
+  input,
+  parameterNode,
+  product,
+  quotient,
+  sum,
+} from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
 export interface TownTaxInput {
@@ -45,17 +55,122 @@ export interface TownRateResult {
 }
 
 /**
+ * Two district-level adjustments Act 183 of 2024 made to the spending figure
+ * that is compared to the excess spending threshold. Both are optional: absent
+ * (undefined/null) means the district has none, and the comparison is just its
+ * per pupil education spending, unchanged. Supplying either requires
+ * `weightedMembership`, because the adjustments are stated in total dollars and
+ * the threshold is per pupil.
+ */
+export interface ExcessSpendingAdjustments {
+  /**
+   * Total dollars drawn from capital reserve funds more than 5 years old that
+   * were previously excluded (24 V.S.A. § 2804(b)). The statute counts 150% of
+   * this toward the compared spending.
+   */
+  readonly capitalReserveFivePlusYears?: number | null;
+  /**
+   * Total dollars of principal and interest on voter-approved bonds approved
+   * before July 1, 2024, excluded from the comparison (16 V.S.A. § 4001(6)(B)).
+   */
+  readonly bondExclusionPreJuly2024?: number | null;
+  /** Weighted long-term membership, to put the total-dollar adjustments per pupil. */
+  readonly weightedMembership?: CalcNode;
+}
+
+/**
+ * The per pupil spending figure compared to the excess spending threshold.
+ *
+ * Without adjustments this is just `perPupilSpending`. With them (Act 183), the
+ * comparison adds 150% of old capital reserve draws and subtracts pre-July-2024
+ * bond principal and interest, all converted to a per pupil basis. Only the
+ * *overage* is affected: the district's base per pupil spending, used elsewhere
+ * in the rate, is never reduced (32 V.S.A. § 5401(12); the exclusion "only
+ * adjusts the amount over the threshold").
+ */
+function comparedSpending(
+  ctx: EngineContext,
+  perPupilSpending: CalcNode,
+  adjustments: ExcessSpendingAdjustments,
+): CalcNode {
+  const { capitalReserveFivePlusYears: capRes, bondExclusionPreJuly2024: bond } = adjustments;
+  const hasCapRes = capRes !== undefined && capRes !== null;
+  const hasBond = bond !== undefined && bond !== null;
+  if (!hasCapRes && !hasBond) return perPupilSpending;
+
+  const membership =
+    adjustments.weightedMembership ??
+    input(ctx, 'Weighted long-term membership', null, 'pupils', {
+      source: 'required to put the excess spending adjustments per pupil',
+    });
+
+  // Capital reserve add-on: 150% of >5yr draws. The multiplier parameter is read
+  // only when there is a capital reserve amount, so a year without the parameter
+  // (or a district with no such draw) never trips a missing-parameter error.
+  const capResAmount = input(
+    ctx,
+    'Capital reserve fund draws more than five years old',
+    hasCapRes ? capRes : 0,
+    'usd',
+    { source: 'figures entered by you in this form' },
+  );
+  const capResAddon = hasCapRes
+    ? product(
+        ctx,
+        'Capital reserve amount counted toward excess spending (150%)',
+        capResAmount,
+        parameterNode(ctx, 'tax.excess_spending_capital_reserve_multiplier', 'multiplier'),
+        'usd',
+      )
+    : capResAmount;
+
+  const bondExclusion = input(
+    ctx,
+    'Principal and interest on bonds approved before July 1, 2024',
+    hasBond ? bond : 0,
+    'usd',
+    { source: 'figures entered by you in this form' },
+  );
+
+  const netAdjustment = difference(
+    ctx,
+    'Net adjustment to education spending for the excess spending test',
+    capResAddon,
+    bondExclusion,
+    'usd',
+  );
+  const perPupilAdjustment = quotient(
+    ctx,
+    'Per pupil adjustment for the excess spending test',
+    netAdjustment,
+    membership,
+    'usd_per_pupil',
+  );
+  return sum(
+    ctx,
+    'Per pupil spending compared to the excess spending threshold',
+    [perPupilSpending, perPupilAdjustment],
+    'usd_per_pupil',
+  );
+}
+
+/**
  * § 5401(12): per pupil education spending above 118 percent of the statewide
  * average, increased by inflation.
  *
  * The statewide average is determined by the Secretary of Education each
  * November from passed budgets, so it is an input rather than a parameter --
  * it is a published figure for a given year, not a rule.
+ *
+ * Act 183 of 2024 also adjusts the *spending* side of the comparison (see
+ * `comparedSpending`): 150% of old capital reserve draws is added and
+ * pre-July-2024 bond principal and interest is excluded.
  */
 export function excessSpending(
   ctx: EngineContext,
   perPupilSpending: CalcNode,
   statewideAveragePerPupil: number | null,
+  adjustments: ExcessSpendingAdjustments = {},
 ): CalcNode {
   const threshold = parameterNode(ctx, 'tax.excess_spending_threshold_ratio', 'ratio');
   const average = input(
@@ -74,26 +189,24 @@ export function excessSpending(
     'usd_per_pupil',
   );
 
-  if (perPupilSpending.value === null || thresholdAmount.value === null) {
-    // Preserve the blockers rather than asserting a zero we cannot justify.
-    return {
-      ...thresholdAmount,
-      id: ctx.nextId(),
-      label: 'Excess spending',
-      value: null,
-    };
-  }
+  const compared = comparedSpending(ctx, perPupilSpending, adjustments);
 
-  const over = Math.max(0, perPupilSpending.value - thresholdAmount.value);
-  return input(ctx, 'Excess spending', over, 'usd_per_pupil', {
-    source: 'computed from the statutory threshold',
-    notes:
-      over === 0
-        ? ['This district is at or below the excess spending threshold, so nothing is added.']
-        : [
-            'Spending above the threshold is added to the numerator of the spending ' +
-              'adjustment, which is what makes crossing the threshold a cliff edge.',
-          ],
+  // Build the result through the node machinery rather than by hand, so that a
+  // blocker on either side -- a missing statewide average, or the unverified
+  // capital-reserve multiplier -- propagates and the walkthrough says which one,
+  // instead of a bare em dash with no reason.
+  return derive(ctx, {
+    op: 'difference',
+    label: 'Excess spending',
+    unit: 'usd_per_pupil',
+    inputs: [compared, thresholdAmount],
+    compute: (ops) => Math.max(0, (ops[0] as number) - (ops[1] as number)),
+    explain: (value) =>
+      value === 0
+        ? 'This district is at or below the excess spending threshold, so nothing is added.'
+        : `Excess spending is ${formatValue(value, 'usd_per_pupil')} -- the amount by which the ` +
+          `compared per pupil spending exceeds the threshold. It is added to the numerator of the ` +
+          `spending adjustment, which is what makes crossing the threshold a cliff edge.`,
   });
 }
 
@@ -175,8 +288,9 @@ export function townRate(
   perPupilSpending: CalcNode,
   town: TownTaxInput,
   statewideAveragePerPupil: number | null,
+  adjustments: ExcessSpendingAdjustments = {},
 ): TownRateResult {
-  const excess = excessSpending(ctx, perPupilSpending, statewideAveragePerPupil);
+  const excess = excessSpending(ctx, perPupilSpending, statewideAveragePerPupil, adjustments);
   const adjustment = spendingAdjustment(ctx, perPupilSpending, excess);
   const equalizedRate = equalizedHomesteadRate(ctx, adjustment);
   return {

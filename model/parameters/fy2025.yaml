@@ -422,6 +422,29 @@ parameters:
       verified_date: "2026-07-29"
       verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5401.txt; awaiting human countersignature"
 
+  tax.excess_spending_capital_reserve_multiplier:
+    value: 1.5
+    unit: multiplier
+    description: share of capital reserve fund draws more than five years old counted toward the excess spending comparison
+    applies_to: districts drawing on capital reserve funds more than five years old
+    structural_note: >-
+      Excess spending was SUSPENDED for FY2025, so this multiplier is not
+      operative this year; it is recorded only so the calculation does not error
+      if a capital reserve figure is entered. Act 183 of 2024 reimplemented and
+      rebased the excess spending test beginning FY2026, adding this 150% capital
+      reserve add-on and an exclusion for pre-July-2024 bond principal and
+      interest (16 V.S.A. § 4001(6)(B)). See docs/excess-spending-threshold.md.
+    citation:
+      statute: "32 V.S.A. § 5401(12)"
+      session_law: "Act 183 of 2024"
+      source_url: "https://education.vermont.gov/data-and-reporting/financial-reports/excess-spending-threshold"
+      quote: >-
+        Agency of Education, Excess Spending Threshold Summary and Tax Rate Impact
+        (issued August 19, 2024): district per pupil spending includes "150% of
+        capital reserve funds more than 5-years old that were previously excluded
+        from excess spending per 24 V.S.A. § 2804 (b)."
+      verified: false
+
   tax.income_percentage_target:
     value: 0.02
     unit: ratio

@@ -47,6 +47,9 @@ interface Golden {
     education_spending: number;
     /** Needed to compute excess spending under 32 V.S.A. § 5401(12). */
     statewide_average_per_pupil: number | null;
+    /** Optional Act 183 adjustments to the excess spending comparison. */
+    capital_reserve_five_plus_years?: number | null;
+    bond_exclusion_pre_july_2024?: number | null;
     towns: Array<{ town: string; cla: number }>;
   };
   expected: {
@@ -211,7 +214,7 @@ describe.runIf(files.length > 0)('engine reproduces published state figures', ()
 
       for (const expectedTown of golden.expected.town_rates ?? []) {
         it(`reproduces the billed homestead rate for ${expectedTown.town}`, () => {
-          const { ctx, perPupil } = build();
+          const { ctx, membership, perPupil } = build();
           const townInput = golden.inputs.towns.find((t) => t.town === expectedTown.town);
           expect(townInput, `fixture has no CLA for ${expectedTown.town}`).toBeTruthy();
 
@@ -224,6 +227,11 @@ describe.runIf(files.length > 0)('engine reproduces published state figures', ()
               cla_source: golden.source.document,
             },
             golden.inputs.statewide_average_per_pupil,
+            {
+              capitalReserveFivePlusYears: golden.inputs.capital_reserve_five_plus_years ?? null,
+              bondExclusionPreJuly2024: golden.inputs.bond_exclusion_pre_july_2024 ?? null,
+              weightedMembership: membership.total,
+            },
           );
 
           expect(result.billedRate.value).not.toBeNull();
