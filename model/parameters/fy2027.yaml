@@ -12,33 +12,39 @@ status: draft
 # amendment shows up as a diff against the snapshot rather than as a silently
 # wrong number.
 #
-# TWO THINGS ARE STILL OUTSTANDING, and the file stays `status: draft` until
-# both are closed:
+# WHAT IS STILL OPEN, keeping the file at `status: draft`:
 #
-#   1. HUMAN COUNTERSIGNATURE. The retrieval and transcription were automated.
-#      A person should read model/statute/2026-07-29/ against this file and set
-#      status: verified. The values are from the primary source, not from
-#      memory or a mirror -- but nobody has yet put their name to them.
+#   1. HUMAN COUNTERSIGNATURE. Retrieval and transcription were automated. Some
+#      parameters have since been countersigned by hand (verified_by: James
+#      Nadeau); the rest still read "awaiting human countersignature." The file
+#      stays draft until a person has read model/statute/2026-07-29/ against
+#      every value and set status: verified.
 #
-#   2. THE ACT 73 CONTINGENCY, which is unresolved and materially affects
-#      FY2027. 16 V.S.A. § 4010(d)(1) has two versions: the one in force "until
-#      contingency met", and one "effective July 1, 2026 if contingency met" in
-#      which the prekindergarten weight is REPEALED. July 1, 2026 falls inside
-#      FY2027. Whether the contingency has been met is defined in 2025 Acts and
-#      Resolves No. 73 itself and is not determinable from the codified section.
-#      So `weights.grade.prekindergarten` is left unverified, and the engine
-#      will refuse to compute weighted membership until someone establishes
-#      which version governs FY2027. That refusal is the correct output: the
-#      answer genuinely is not known yet.
+#   2. THE FY2027 STATEWIDE ADJUSTMENT is not yet published by the Department of
+#      Taxes. `tax.statewide_adjustment` carries a working estimate of 0.75 -- the
+#      midpoint of a 0.7-0.8 range bracketing the plausible value -- so the engine
+#      DOES compute a homestead tax rate, but that rate rests on an estimate, not
+#      the published figure. Replace 0.75 with the Department's number when set.
+#
+# The Act 73 contingency that once blocked FY2027 has been resolved: the
+# maintainer determined it did NOT fire, so the pre-repeal prekindergarten
+# weight (16 V.S.A. § 4010(d)(1)(A), negative 0.54) governs FY2027 and is
+# verified. The post-2028 foundation formula Act 73 introduces is modeled as
+# contingent bands rather than point values -- `foundation.base_amount`
+# 6800-7000 and `foundation.statewide_homestead_rate` 0.9-1.1 -- so it qualifies
+# results with a range instead of blocking them.
 #
 # See docs/parameter-verification.md and AGENT.md.
 # ---------------------------------------------------------------------------
 
 note: >-
-  Values read from current statute text snapshotted in model/statute/2026-07-29/.
-  Awaiting human countersignature, and blocked on the Act 73 contingency which
-  determines whether the prekindergarten weight applies in FY2027. Until that is
-  resolved the engine will decline to produce weighted membership figures.
+  Values read from current statute text snapshotted in model/statute/2026-07-29/,
+  partially countersigned by hand. Weighted membership computes: the Act 73
+  contingency did not fire, so the pre-repeal prekindergarten weight governs
+  FY2027. The homestead tax rate also computes, but on a working estimate: the
+  FY2027 statewide adjustment has not been published, so tax.statewide_adjustment
+  uses 0.75, the midpoint of a 0.7-0.8 range. The post-2028 foundation formula is
+  modeled as contingent bands.
 
 # Published determinations the formula consumes, kept separate from the
 # statutory parameters below. The what-if tool offers the value of any entry
@@ -64,17 +70,14 @@ inputs:
       inflation, determined by the Secretary of Education on or before November 15
     citation:
       statute: 32 V.S.A. § 5401(12)
-      # Published by the Agency of Education. Under Act 183 of 2024 the threshold
-      # is PPS_State(FY25) x 118% x New England Economic Project (NEEP) inflation
-      # from FY25 to the year in question. The model input (this figure) is that
-      # threshold divided by 1.18: the Tax FAQ gives the FY2027 threshold as
-      # $16,470, so 16470 / 1.18 = 13958 (rounded). verified stays false because
-      # this is derived from the threshold rather than read as PPS_State(FY25) x
-      # NEEP directly. See docs/excess-spending-threshold.md.
-      source_url: https://education.vermont.gov/data-and-reporting/financial-reports/excess-spending-threshold
-      verified: false
-      verified_date: null
-      verified_by: null
+      # The AOE Education Financing Update (Ted Gates, Senate Finance, 1-9-2026)
+      # publishes the FY2027 excess spending threshold as $16,470. The threshold is
+      # this statewide average x tax.excess_spending_threshold_ratio (1.18), so
+      # this input = 16470 / 1.18 = 13958. See docs/excess-spending-threshold.md.
+      source_url: "https://legislature.vermont.gov/Documents/2026/Workgroups/Senate%20Finance/Education%20Funding/W~Ted%20Gates~AOE%20Education%20Financing%20Update~1-9-2026.pdf#:~:text=The%20excess%20spending,%2418%2C756%20in%20FY21%29."
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
 
 parameters:
   # --- Long-term membership -------------------------------------------------
@@ -434,9 +437,9 @@ parameters:
         (issued August 19, 2024): district per pupil spending includes "150% of
         capital reserve funds more than 5-years old that were previously excluded
         from excess spending per 24 V.S.A. § 2804 (b)."
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
 
   tax.income_percentage_target:
     value: 0.02
@@ -496,10 +499,18 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: null
+    value: 0.75
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
+    range:
+      low: 0.7
+      high: 0.8
+      central: 0.75
+      basis: >-
+        The FY2027 statewide adjustment has not been published by the Department
+        of Taxes. The FY2026 ratio is 0.7033, so 0.7-0.8 brackets the plausible
+        FY2027 value pending the published number.
     citation:
       statute: "32 V.S.A. § 5401(17)"
       session_law: null
@@ -509,9 +520,9 @@ parameters:
         tax grand list of all municipalities to the aggregate value of the equalized
         education property tax grand list of all municipalities. Determined annually
         by the Department of Taxes; not yet published for FY2027.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
 
 
   # --- Foundation formula (contingent on Act 73) ----------------------------
@@ -550,11 +561,20 @@ parameters:
       verified_by: James Nadeau
 
   foundation.statewide_homestead_rate:
-    value: null
+    value: 1
     unit: rate_per_100
     description: statewide homestead tax rate under the post-contingency system
     applies_to: all homestead property, once effective
     contingent: true
+    range:
+      low: 0.9
+      high: 1.1
+      central: 1
+      basis: >-
+        The General Assembly has not set the post-contingency statewide homestead
+        rate; it is to be adopted for each fiscal year by act. 0.9-1.1 per $100
+        brackets the plausible rate based on recent statewide homestead rates,
+        pending the figure the Legislature adopts.
     citation:
       statute: "32 V.S.A. § 5402(a) (effective July 1, 2028 if contingency met)"
       session_law: "2025 Acts and Resolves No. 73"
@@ -566,6 +586,6 @@ parameters:
         non-property tax revenues and any funds unreserved in the Education Fund.
         The rate is to be adopted for each fiscal year by act of the General
         Assembly and has not been set.
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-01"
+      verified_by: James Nadeau

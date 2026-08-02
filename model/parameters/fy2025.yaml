@@ -508,6 +508,15 @@ parameters:
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
+    range:
+      low: 0.7
+      high: 0.8
+      central: null
+      basis: >-
+        The FY2025 statewide adjustment has not been transcribed from the
+        Department of Taxes' published figure. The adjacent FY2026 ratio is
+        0.7033, so 0.7-0.8 brackets the plausible FY2025 value pending the
+        published number.
     citation:
       statute: "32 V.S.A. § 5401(17)"
       session_law: null

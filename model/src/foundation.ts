@@ -28,6 +28,15 @@ export interface FoundationResult {
   readonly basis: readonly string[];
 }
 
+export interface StatewideRateResult {
+  /** The computed rate, which is null while payments or the grand list are unset. */
+  readonly rate: CalcNode;
+  /** Low/high band from the declared range on the statewide homestead rate. */
+  readonly envelope: { readonly low: number; readonly high: number } | null;
+  readonly contingent: true;
+  readonly basis: readonly string[];
+}
+
 /**
  * Educational opportunity payment: base amount x weighted long-term membership.
  */
@@ -102,6 +111,33 @@ export function foundationEnvelope(
   };
 }
 
+/**
+ * The plausible band for the statewide homestead rate, taken from the declared
+ * range on foundation.statewide_homestead_rate.
+ *
+ * Mirrors foundationEnvelope, with one difference: the parameter is already a
+ * rate_per_100, so the band is its range verbatim -- there is nothing to
+ * multiply it by. Returns null when the parameter is absent or carries no
+ * range, so a band is never invented where no basis has been stated.
+ */
+export function rateEnvelope(
+  ctx: EngineContext,
+): { low: number; high: number; basis: string[] } | null {
+  let rate: Parameter;
+  try {
+    rate = lookup(ctx, 'foundation.statewide_homestead_rate');
+  } catch {
+    return null;
+  }
+  if (!rate.range) return null;
+
+  return {
+    low: rate.range.low,
+    high: rate.range.high,
+    basis: [rate.range.basis],
+  };
+}
+
 export function foundationPayment(
   ctx: EngineContext,
   weightedMembership: CalcNode,
@@ -110,6 +146,28 @@ export function foundationPayment(
   const envelope = foundationEnvelope(ctx, weightedMembership.value);
   return {
     payment,
+    envelope: envelope ? { low: envelope.low, high: envelope.high } : null,
+    contingent: true,
+    basis: envelope?.basis ?? [],
+  };
+}
+
+/**
+ * The statewide homestead rate bundled with the band implied by its declared
+ * range, so the rate travels with its plausible bounds the way the foundation
+ * payment travels with its envelope. The point rate stays null until payments
+ * and the grand list are known; the band is present whenever the rate
+ * parameter carries a range.
+ */
+export function foundationRate(
+  ctx: EngineContext,
+  totalPayments: CalcNode,
+  statewideGrandList: number | null,
+): StatewideRateResult {
+  const rate = statewideRate(ctx, totalPayments, statewideGrandList);
+  const envelope = rateEnvelope(ctx);
+  return {
+    rate,
     envelope: envelope ? { low: envelope.low, high: envelope.high } : null,
     contingent: true,
     basis: envelope?.basis ?? [],

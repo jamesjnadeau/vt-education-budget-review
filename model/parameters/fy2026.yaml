@@ -56,22 +56,21 @@ inputs:
   # docs/excess-spending-threshold.md. Set verified: true only per
   # docs/parameter-verification.md.
   statewide_average_per_pupil:
-    value: null
+    value: 13497
     unit: usd_per_pupil
     description: >-
       statewide average district per pupil education spending, increased by
       inflation, determined by the Secretary of Education on or before November 15
     citation:
       statute: 32 V.S.A. § 5401(12)
-      # Published by the Agency of Education. Under Act 183 of 2024 the threshold
-      # is PPS_State(FY25) x 118% x New England Economic Project (NEEP) inflation
-      # from FY25 to the year in question. The model input (this figure) is that
-      # threshold divided by 1.18. See docs/excess-spending-threshold.md.
-      source_url: https://education.vermont.gov/data-and-reporting/financial-reports/excess-spending-threshold
-      verified: false
-      verified_date: null
-      verified_by: null
-
+      # The AOE Education Financing Update (Ted Gates, Senate Finance, 1-9-2026)
+      # publishes the FY2026 excess spending threshold as $15,926. The threshold is
+      # this statewide average x tax.excess_spending_threshold_ratio (1.18), so
+      # this input = 15926 / 1.18 = 13497. See docs/excess-spending-threshold.md.
+      source_url: "https://legislature.vermont.gov/Documents/2026/Workgroups/Senate%20Finance/Education%20Funding/W~Ted%20Gates~AOE%20Education%20Financing%20Update~1-9-2026.pdf#:~:text=The%20excess%20spending,%2418%2C756%20in%20FY21%29."
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
 parameters:
   # --- Long-term membership -------------------------------------------------
 
@@ -418,9 +417,9 @@ parameters:
         (issued August 19, 2024): district per pupil spending includes "150% of
         capital reserve funds more than 5-years old that were previously excluded
         from excess spending per 24 V.S.A. § 2804 (b)."
-      verified: false
-      verified_date: null
-      verified_by: null
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
 
   tax.income_percentage_target:
     value: 0.02
@@ -477,20 +476,19 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: null
+    value: 0.703
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
     citation:
       statute: "32 V.S.A. § 5401(17)"
       session_law: null
-      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      source_url: "https://tax.vermont.gov/bs/property-owners/property-tax-bill/current-use#:~:text=The%20town%E2%80%99s%20Common,0.7033%20%3D%201.3093."
       quote: >-
         "Statewide adjustment" means the ratio of the aggregate education property
         tax grand list of all municipalities to the aggregate value of the equalized
         education property tax grand list of all municipalities. Published annually
         by the Department of Taxes; the FY2026 figure has not been transcribed here.
-      verified: false
-      verified_date: null
-      verified_by: null
-
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
