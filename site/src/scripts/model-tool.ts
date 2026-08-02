@@ -42,6 +42,7 @@ import {
   type PublishedInput,
 } from '@vt-budget/model';
 
+import { enteredYearTotal } from './entered-total.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
 import { studentSummarySections } from './student-summary.ts';
 
@@ -448,6 +449,8 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
   const exampleWarning = document.getElementById('example-warning');
   const summary = document.getElementById('summary');
   const studentSummary = document.getElementById('student-summary');
+  const fy2025Total = document.getElementById('fy2025-total');
+  const fy2026Total = document.getElementById('fy2026-total');
 
   if (!walkthrough || !blockers || !citations || !assumptions || !summary) return;
 
@@ -472,9 +475,25 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
     modeSelect.append(example);
   }
 
+  // A plain tally of the grade-band counts typed for one year, shown inside its
+  // fieldset. Independent of the parameter set, so it runs at the top of every
+  // recompute and stays honest about blanks: one empty band leaves the year's
+  // total unknown rather than reporting a partial sum as a headcount.
+  const showYearTotal = (element: HTMLElement | null, ids: readonly string[]): void => {
+    if (!element) return;
+    const total = enteredYearTotal(ids.map((id) => numberField(id)));
+    element.textContent =
+      total === null
+        ? 'Total entered: — (enter all four grades)'
+        : `Total entered: ${formatValue(total, 'pupils')} students`;
+  };
+
   const recompute = (): void => {
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
+
+    showYearTotal(fy2025Total, ['prek-1', 'k5-1', 'g68-1', 'g912-1']);
+    showYearTotal(fy2026Total, ['prek-2', 'k5-2', 'g68-2', 'g912-2']);
 
     const selectedYear = Number(modeSelect?.value);
     const parameters = useExample
