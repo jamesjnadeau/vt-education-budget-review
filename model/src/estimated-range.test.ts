@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
-import { createContext, input, nonhomesteadRate, parameterNode, quotient, townRate } from './index.ts';
+import {
+  createContext,
+  formatRange,
+  input,
+  nonhomesteadRate,
+  parameterNode,
+  quotient,
+  townRate,
+} from './index.ts';
 import type { ParameterSet } from './types.ts';
 import { syntheticParameters } from './testing/synthetic.ts';
 
@@ -71,5 +79,15 @@ describe('estimated band reaches the billed rates', () => {
     const nonhs = nonhomesteadRate(ctx);
     expect(nonhs.status).toBe('estimated');
     expect(nonhs.range).not.toBeNull();
+  });
+});
+
+describe('formatRange', () => {
+  it('formats low and high with the unit, joined by an en-dash', () => {
+    expect(formatRange({ low: 0.7, high: 0.8 }, 'ratio')).toBe('0.7–0.8');
+  });
+
+  it('returns null when there is no range', () => {
+    expect(formatRange(null, 'rate_per_100')).toBeNull();
   });
 });

@@ -79,6 +79,15 @@ export function formatValue(value: number | null, unit: Unit): string {
   }
 }
 
+/** Formats a low/high band with the same unit rules as formatValue. */
+export function formatRange(
+  range: { readonly low: number; readonly high: number } | null,
+  unit: Unit,
+): string | null {
+  if (range === null) return null;
+  return `${formatValue(range.low, unit)}–${formatValue(range.high, unit)}`;
+}
+
 export function unitNoun(unit: Unit): string {
   switch (unit) {
     case 'pupils':

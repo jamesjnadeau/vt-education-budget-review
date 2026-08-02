@@ -30,6 +30,7 @@ import {
   computeWeightedMembership,
   createContext,
   defaultAssumptions,
+  formatRange,
   formatValue,
   input,
   perWeightedPupil,
@@ -222,6 +223,7 @@ const STATUS_LABEL: Record<CalcNode['status'], string> = {
   undetermined: 'undetermined: the State has not decided',
   not_computable: 'not computable from public data',
   contingent: 'contingent on legislation',
+  estimated: 'estimated (from range)',
 };
 
 const STATUS_CLASS: Record<CalcNode['status'], string> = {
@@ -231,6 +233,7 @@ const STATUS_CLASS: Record<CalcNode['status'], string> = {
   undetermined: 'undetermined',
   not_computable: 'not-computable',
   contingent: 'contingent',
+  estimated: 'estimated',
 };
 
 function el(tag: string, className?: string, text?: string): HTMLElement {
@@ -256,6 +259,8 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
     head.append(el('span', 'step-label', node.label));
     head.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
     head.append(el('span', 'step-value', formatValue(node.value, node.unit)));
+    const stepBand = formatRange(node.range, node.unit);
+    if (stepBand) head.append(el('span', 'step-range', `range ${stepBand}`));
     disclosure.append(head);
 
     const detail = el('div', 'step-detail');
@@ -632,6 +637,8 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(node.value, node.unit) + ' '));
       dd.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
+      const factBand = formatRange(node.range, node.unit);
+      if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
     }
     summary.append(dl);

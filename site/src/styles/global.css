@@ -482,6 +482,16 @@ th {
   border-color: var(--accent);
   color: var(--accent);
 }
+.tag.estimated {
+  border-color: var(--accent);
+  color: var(--accent);
+  border-style: dashed;
+}
+.step-range,
+.fact-range {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
 .tag.ok {
   border-color: var(--state-normalized);
   color: var(--state-normalized);
