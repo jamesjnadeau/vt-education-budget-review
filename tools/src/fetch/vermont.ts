@@ -91,7 +91,12 @@ function sanitizeSegment(raw: string): string {
 export function savedFileName(finalUrl: string, isHtml: boolean): string {
   const parsed = new URL(finalUrl);
   const host = parsed.hostname.toLowerCase();
-  const pathname = decodeURIComponent(parsed.pathname);
+  let pathname: string;
+  try {
+    pathname = decodeURIComponent(parsed.pathname);
+  } catch {
+    pathname = parsed.pathname;
+  }
 
   if (isHtml) {
     const slug = sanitizeSegment(`${host}${pathname}`.replace(/\/+$/, ''));
@@ -118,7 +123,11 @@ interface RawResponse {
 }
 
 /**
- * GETs a URL, following up to five redirects. HTTPS requests go through the
+ * GETs a URL, following up to five redirects. Each hop must stay on the same
+ * host as the one before it, or be a vermont.gov host itself; anything else is
+ * refused rather than followed, so an open redirect or CDN hop cannot smuggle
+ * the fetch off-domain. Exhausting the redirect budget rejects rather than
+ * silently returning the last 3xx response. HTTPS requests go through the
  * statute agent, which supplies the intermediate certificate legislature.
  * vermont.gov omits; other vermont.gov hosts serve a complete chain and are
  * unaffected. Verification stays full -- see tools/src/statute/fetch.ts.
@@ -134,9 +143,19 @@ async function fetchRaw(url: string, redirectsLeft = 5): Promise<RawResponse> {
     getter(url, options, (res) => {
       const status = res.statusCode ?? 0;
       const location = res.headers.location;
-      if (status >= 300 && status < 400 && location && redirectsLeft > 0) {
+      if (status >= 300 && status < 400 && location) {
         res.resume();
-        resolve(fetchRaw(new URL(location, url).toString(), redirectsLeft - 1));
+        if (redirectsLeft <= 0) {
+          reject(new Error(`too many redirects fetching ${url}`));
+          return;
+        }
+        const nextUrl = new URL(location, url);
+        const currentHost = new URL(url).hostname;
+        if (nextUrl.hostname !== currentHost && !isVermontGovUrl(nextUrl.toString())) {
+          reject(new Error(`refused off-allowlist redirect to ${nextUrl.hostname} while fetching ${url}`));
+          return;
+        }
+        resolve(fetchRaw(nextUrl.toString(), redirectsLeft - 1));
         return;
       }
       const chunks: Buffer[] = [];

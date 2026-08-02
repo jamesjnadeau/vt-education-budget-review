@@ -72,6 +72,11 @@ describe('savedFileName', () => {
   it('falls back to a host-based name when a document path has no basename', () => {
     expect(savedFileName('https://data.vermont.gov/', false)).toBe('data.vermont.gov.bin');
   });
+
+  it('does not throw on malformed percent-encoding in the path', () => {
+    const name = savedFileName('https://x.vermont.gov/%ZZfile.pdf', false);
+    expect(name).toBe('_ZZfile.pdf');
+  });
 });
 
 import { createHash } from 'node:crypto';
@@ -100,6 +105,9 @@ describe('fetchToFolder (integration, localhost)', () => {
       res.end('nope');
     } else if (req.url === '/redirect') {
       res.writeHead(302, { location: '/page' });
+      res.end();
+    } else if (req.url === '/evil-redirect') {
+      res.writeHead(302, { location: 'http://example.com/' });
       res.end();
     } else {
       res.writeHead(500);
@@ -146,5 +154,12 @@ describe('fetchToFolder (integration, localhost)', () => {
     expect(result.finalUrl.endsWith('/page')).toBe(true);
     const onDisk = readFileSync(result.savedPath, 'utf8');
     expect(onDisk).toBe('Budget\nLine one.');
+  });
+
+  it('refuses an off-host redirect rather than following it', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'vtfetch-'));
+    await expect(fetchToFolder(`${baseUrl}/evil-redirect`, dir)).rejects.toThrow(
+      /refused|off-allowlist|redirect/i,
+    );
   });
 });
