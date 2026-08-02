@@ -65,11 +65,34 @@ export interface Parameter {
   readonly structural_note: string | null;
 }
 
+/**
+ * A figure the formula needs that is a published determination, not a rule.
+ *
+ * The statewide average per pupil education spending is the canonical case: the
+ * Secretary of Education determines it anew each year (32 V.S.A. § 5401(12)), so
+ * it is a fact about a document, not a statutory value. Keeping it here rather
+ * than among `parameters` is what lets a renderer show it with its own citation
+ * without ever presenting a published figure as if it were the law itself. Its
+ * `value` is null until the determination for the year is published.
+ */
+export interface PublishedInput {
+  readonly key: string;
+  readonly value: number | null;
+  readonly unit: string;
+  readonly description: string;
+  readonly citation: Citation;
+}
+
 export interface ParameterSet {
   readonly fiscal_year: number;
   readonly status: 'draft' | 'verified' | 'superseded';
   readonly note: string | null;
   readonly parameters: ReadonlyMap<string, Parameter>;
+  /**
+   * Published determinations the formula consumes as inputs, keyed by input
+   * key. Empty for a file that declares none — most files have no inputs block.
+   */
+  readonly inputs: ReadonlyMap<string, PublishedInput>;
 }
 
 /**

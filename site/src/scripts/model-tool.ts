@@ -38,19 +38,38 @@ import {
   type CalcNode,
   type Parameter,
   type ParameterSet,
+  type PublishedInput,
 } from '@vt-budget/model';
+
+import { nextStatewideAverage } from './statewide-average.ts';
+
+// The input key carrying the Secretary of Education's statewide average
+// determination on each year's parameter set. Matches the key used in the
+// fyNNNN.yaml `inputs:` blocks and the golden fixtures.
+const STATEWIDE_AVERAGE_KEY = 'statewide_average_per_pupil';
 
 interface RawParameterSet {
   fiscal_year: number;
   status: 'draft' | 'verified' | 'superseded';
   note: string | null;
   parameters: Parameter[];
+  // Published inputs (e.g. the statewide average) the formula consumes,
+  // distinct from statutory parameters. Absent on the empty fallbacks
+  // constructed in code.
+  inputs?: PublishedInput[];
   // Present on the sets read from parameters.json; absent on the empty
   // fallbacks constructed in code. `file` is the source path, used to keep
   // this tool to the main-formula year files; `unverified_count` drives the
   // honest per-year label in the picker.
   file?: string;
   unverified_count?: number;
+}
+
+// The published statewide-average figure on a set, or null when the year's
+// determination is not yet on file (its `inputs` value is null, or absent).
+function publishedStatewideAverage(set: RawParameterSet | undefined): number | null {
+  const entry = set?.inputs?.find((i) => i.key === STATEWIDE_AVERAGE_KEY);
+  return entry?.value ?? null;
 }
 
 // The what-if tool drives the main pupil-weighting and tax-rate formula, whose
@@ -86,6 +105,7 @@ function toParameterSet(raw: RawParameterSet): ParameterSet {
     status: raw.status,
     note: raw.note,
     parameters: new Map(raw.parameters.map((p) => [p.key, p])),
+    inputs: new Map((raw.inputs ?? []).map((i) => [i.key, i])),
   };
 }
 
@@ -99,20 +119,47 @@ const SYNTHETIC_CITATION = {
   verified_by: 'illustrative example',
 } as const;
 
-function exampleParameters(): ParameterSet {
-  const entries: Array<[string, number | null, string, string]> = [
-    ['membership.averaging_years', 2, 'years', 'the averaging window'],
-    ['weights.grade.prek', 1, 'multiplier', 'the prekindergarten weight'],
-    ['weights.grade.elementary', 1, 'multiplier', 'the elementary weight'],
-    ['weights.grade.secondary', 2, 'multiplier', 'the secondary weight'],
-    ['weights.economically_deprived', 0.5, 'multiplier', 'the economic deprivation weight'],
-    ['weights.english_learner', 0.25, 'multiplier', 'the English learner weight'],
-    ['weights.english_learner_newcomer_slife', 0.5, 'multiplier', 'the Newcomer/SLIFE weight'],
-    ['weights.sparsity', 0.1, 'multiplier', 'the sparsity weight'],
-    ['weights.small_school', 0.2, 'multiplier', 'the small school weight'],
+// The Example mode's parameters. Exported so a test can run the same
+// computation the island runs: the keys here MUST match every key the engine
+// reads, because a single missing key makes lookup() throw MissingParameterError
+// mid-walkthrough, and the throw lands inside recompute() after the example
+// banner is shown -- so the banner would flip to Example while the previous
+// (real) walkthrough stayed frozen on screen. The keys are kept in lockstep with
+// a real fyNNNN.yaml file's parameter keys; only the values are synthetic round
+// numbers, chosen so a reader can check the arithmetic by hand.
+export function exampleParameters(): ParameterSet {
+  const entries: Array<[string, number | boolean | null, string, string]> = [
+    ['membership.long_term_membership_years', 2, 'years', 'the averaging window'],
+    ['membership.hold_harmless_applies', false, 'boolean', 'whether the hold harmless floor applies'],
+    // Grade weights are ADDITIVE increments on a base count of 1, so a grades
+    // 9-12 weight of 1 makes a secondary pupil count as 2 -- the "high-school
+    // weight of exactly 2" the mode's banner promises.
+    ['weights.grade.prekindergarten', 0, 'multiplier', 'the prekindergarten weight'],
+    ['weights.grade.kindergarten_through_5', 0, 'multiplier', 'the kindergarten-through-5 weight'],
+    ['weights.grade.6_through_8', 0.5, 'multiplier', 'the grades 6-8 weight'],
+    ['weights.grade.9_through_12', 1, 'multiplier', 'the grades 9-12 weight'],
+    ['weights.poverty_185_fpl', 0.5, 'multiplier', 'the poverty weight'],
+    ['weights.english_learner', 0.5, 'multiplier', 'the English learner weight'],
+    // Every sparsity band, because the user can change density and the engine
+    // reads whichever band that density falls into.
+    ['weights.sparsity.density_under_36', 0.1, 'multiplier', 'the sparsity weight under 36 per sq mi'],
+    ['weights.sparsity.density_36_to_55', 0.05, 'multiplier', 'the sparsity weight 36-55 per sq mi'],
+    ['weights.sparsity.density_55_to_100', 0, 'multiplier', 'the sparsity weight 55-100 per sq mi'],
+    ['weights.small_school.density_ceiling', 50, 'count', 'the small-school density ceiling'],
+    ['weights.small_school.enrollment_under_100', 0.2, 'multiplier', 'the small-school weight under 100'],
+    ['weights.small_school.enrollment_100_to_250', 0.1, 'multiplier', 'the small-school weight 100-250'],
+    ['tax.homestead_base_rate', 1, 'rate_per_100', 'the homestead base rate'],
+    ['tax.nonhomestead_base_rate', 1.5, 'rate_per_100', 'the nonhomestead base rate'],
+    ['tax.spending_adjustment_floor', 1, 'ratio', 'the spending adjustment floor'],
+    // The engine reads the excess-spending threshold as a multiple of the
+    // statewide average (see excessSpending in the model), so the example states
+    // it that way: a round 1.2 against a round $20,000 average gives a $24,000
+    // threshold a reader can check by hand.
+    ['tax.excess_spending_threshold_ratio', 1.2, 'ratio', 'the excess spending threshold, as a multiple of the statewide average'],
+    ['tax.income_percentage_target', 0.02, 'ratio', 'the income percentage target'],
     ['yield.property_dollar_equivalent', 10_000, 'usd_per_pupil', 'the property yield'],
     ['yield.income_dollar_equivalent', 20_000, 'usd_per_pupil', 'the income yield'],
-    ['tax.excess_spending_threshold', 25_000, 'usd_per_pupil', 'the excess spending threshold'],
+    ['tax.statewide_adjustment', 1, 'ratio', 'the statewide adjustment'],
   ];
 
   const parameters = new Map<string, Parameter>();
@@ -130,11 +177,29 @@ function exampleParameters(): ParameterSet {
       structural_note: null,
     });
   }
+  // The statewide average is a published input, not a rule, so it rides in the
+  // set's inputs -- the same slot the live year files use. Giving the example a
+  // round synthetic figure lets this mode both auto-fill the field and show a
+  // completed excess-spending step, while its SYNTHETIC citation keeps it from
+  // ever reading as a real Vermont figure.
+  const inputs = new Map<string, PublishedInput>([
+    [
+      STATEWIDE_AVERAGE_KEY,
+      {
+        key: STATEWIDE_AVERAGE_KEY,
+        value: 20_000,
+        unit: 'usd_per_pupil',
+        description: 'the statewide average district per pupil education spending',
+        citation: SYNTHETIC_CITATION,
+      },
+    ],
+  ]);
   return {
     fiscal_year: 2027,
     status: 'draft',
     note: 'ILLUSTRATIVE EXAMPLE. Not Vermont law.',
     parameters,
+    inputs,
   };
 }
 
@@ -457,11 +522,12 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
         cla: numberField('cla'),
         cla_source: 'figure entered by you in this form',
       },
-      // No illustrative default exists for this field (see the form): it is the
-      // Secretary of Education's statewide average determination, not a figure
-      // the user is supposing about their own district. Left blank it is null,
-      // which surfaces as a missing_input blocker in excessSpending rather than
-      // a fabricated statewide number.
+      // The Secretary of Education's statewide average determination, not a
+      // figure the user is supposing about their own district. When the selected
+      // year has it on file the field is pre-filled from that published input
+      // (see applyStatewidePrefill); otherwise it is blank, which is null, which
+      // surfaces as a missing_input blocker in excessSpending rather than a
+      // fabricated statewide number.
       numberField('statewide-avg'),
     );
 
@@ -487,7 +553,32 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
     summary.append(dl);
   };
 
+  // Offer the selected year's published statewide average, without ever
+  // overwriting a figure the user typed. The decision lives in a pure, tested
+  // helper; this is the DOM glue around it. It runs on year changes and once at
+  // startup -- never on plain input, so a value the user is typing stands.
+  const statewideField = document.getElementById('statewide-avg') as HTMLInputElement | null;
+  let lastStatewideAutofill: number | null = null;
+  const applyStatewidePrefill = (): void => {
+    if (!statewideField) return;
+    const published =
+      modeSelect?.value === 'example'
+        ? (exampleParameters().inputs.get(STATEWIDE_AVERAGE_KEY)?.value ?? null)
+        : publishedStatewideAverage(
+            liveParameters.find((p) => p.fiscal_year === Number(modeSelect?.value)),
+          );
+    const result = nextStatewideAverage(published, statewideField.value, lastStatewideAutofill);
+    if (result !== null) {
+      statewideField.value = result.field;
+      lastStatewideAutofill = result.autofilled;
+    }
+  };
+
   document.getElementById('scenario-form')?.addEventListener('input', recompute);
-  modeSelect?.addEventListener('change', recompute);
+  modeSelect?.addEventListener('change', () => {
+    applyStatewidePrefill();
+    recompute();
+  });
+  applyStatewidePrefill();
   recompute();
 }

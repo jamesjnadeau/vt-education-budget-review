@@ -720,3 +720,16 @@ button:hover {
 .field-required:has(input:invalid) label {
   color: var(--state-missing);
 }
+
+/* Explanatory text under a field: where a figure comes from, which law calls
+   for it. Smaller and muted so it reads as a footnote to the input, not a
+   competing heading. */
+.field-help {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.15rem 0 0;
+  max-width: 60ch;
+}
+.field-help a {
+  color: inherit;
+}

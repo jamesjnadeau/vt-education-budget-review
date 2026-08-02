@@ -145,19 +145,31 @@ const liveParameters = JSON.stringify(parameters);
          state-determined statutory input: the statewide average district per
          pupil education spending, increased by inflation, that the Secretary of
          Education determines on or before November 15 (32 V.S.A. § 5401(12)).
-         Inventing a number here would render a fabricated Vermont figure in the
-         UI, so it is left empty and marked required: empty is null, which makes
-         excessSpending produce a missing_input node whose blocker tells the user
-         exactly which official figure is needed -- a null is explicable, an
-         invented number is not. The `required` attribute drives the empty-state
-         highlight (see .field-required in global.css) without ever fabricating a
-         value; the form is JS-driven, so it never gates a native submit. -->
+         The tool never invents a value here. When the selected fiscal year has
+         the Secretary's published figure recorded in its parameter file (the
+         `inputs:` block, keyed statewide_average_per_pupil), the island fills
+         this field from it and the user may override it; when no figure is on
+         file the field stays empty, which is null, which makes excessSpending
+         produce a missing_input node whose blocker names exactly which official
+         figure is needed -- a null is explicable, an invented number is not. The
+         `required` attribute drives the empty-state highlight (see
+         .field-required in global.css) without ever fabricating a value; the
+         form is JS-driven, so it never gates a native submit. -->
     <fieldset class="field-group">
-      <legend>The State's figure (you must enter it)</legend>
+      <legend>The State's figure</legend>
       <div class="controls">
         <div class="field field-required">
           <label for="statewide-avg">Statewide average spending per student (set by the Secretary of Education)</label>
           <input id="statewide-avg" type="number" min="0" step="1" value="" required aria-required="true" />
+          <p class="field-help">
+            Under <strong>32 V.S.A. § 5401(12)</strong>, a district's per-pupil spending above 118%
+            of this statewide average counts as <em>excess spending</em>, which raises the homestead
+            tax rate. The Secretary of Education determines the figure — the statewide average
+            district per-pupil education spending, increased by inflation — on or before November 15
+            each year, and it is published by the Vermont Agency of Education. Enter that published
+            number here. When a fiscal year's figure has been recorded in the tool's parameters,
+            selecting that year fills this in for you, and you can still override it.
+          </p>
         </div>
       </div>
     </fieldset>

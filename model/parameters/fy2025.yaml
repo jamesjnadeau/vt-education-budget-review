@@ -41,6 +41,38 @@ note: >-
   annually set yields and statewide adjustment are historical and should be
   filled in from the FY2025 yield act. Awaiting human countersignature.
 
+# Published determinations the formula consumes, kept separate from the
+# statutory parameters below. The what-if tool offers the value of any entry
+# here as the default for its matching field.
+inputs:
+  # 32 V.S.A. § 5401(12): the statewide average district per pupil education
+  # spending, increased by inflation. A published figure, not a rule -- so it
+  # lives here rather than in parameters.
+  #
+  # BUT FOR FY2025 THE EXCESS SPENDING THRESHOLD WAS SUSPENDED. The Agency of
+  # Education's historical record shows the threshold "Suspended" for FY2022
+  # through FY2025, so in FY2025 the excess spending penalty did not apply and a
+  # district's per-pupil spending added nothing to its rate on this account.
+  # Leaving the value null is therefore right, but for a different reason than
+  # the other years: not "figure not published" but "the penalty did not apply."
+  # Do NOT enter a value here that would let the tool compute a threshold the law
+  # suspended. See docs/excess-spending-threshold.md.
+  statewide_average_per_pupil:
+    value: null
+    unit: usd_per_pupil
+    description: >-
+      statewide average district per pupil education spending, increased by
+      inflation, determined by the Secretary of Education on or before November 15
+    citation:
+      statute: 32 V.S.A. § 5401(12)
+      # Published by the Agency of Education. Under Act 183 of 2024 the threshold
+      # is PPS_State(FY25) x 118% x New England Economic Project (NEEP) inflation
+      # from FY25 to the year in question, reimplemented FY2026 -- so FY2025
+      # itself was suspended. The model input (this figure) is that threshold
+      # divided by 1.18. See docs/excess-spending-threshold.md.
+      source_url: https://education.vermont.gov/data-and-reporting/financial-reports/excess-spending-threshold
+      verified: false
+
 parameters:
   # --- Long-term membership -------------------------------------------------
 

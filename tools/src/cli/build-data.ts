@@ -109,6 +109,7 @@ function main(): number {
       note: set.note,
       unverified_count: unverifiedParameters(set).length,
       parameters: [...set.parameters.values()],
+      inputs: [...set.inputs.values()],
     };
   });
   writeJson(join(PATHS.siteGenerated, 'parameters.json'), parameterSets);

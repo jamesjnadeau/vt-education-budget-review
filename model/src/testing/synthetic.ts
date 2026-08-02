@@ -165,5 +165,6 @@ export function syntheticParameters(options: SyntheticOptions = {}): ParameterSe
     status: 'draft',
     note: 'SYNTHETIC TEST FIXTURE. Not Vermont law.',
     parameters,
+    inputs: new Map(),
   };
 }

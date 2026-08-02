@@ -40,6 +40,40 @@ note: >-
   determines whether the prekindergarten weight applies in FY2027. Until that is
   resolved the engine will decline to produce weighted membership figures.
 
+# Published determinations the formula consumes, kept separate from the
+# statutory parameters below. The what-if tool offers the value of any entry
+# here as the default for its matching field.
+inputs:
+  # 32 V.S.A. § 5401(12): the statewide average district per pupil education
+  # spending, increased by inflation. A published figure, not a rule -- so it
+  # lives here rather than in parameters. The tool multiplies it by
+  # tax.excess_spending_threshold_ratio (1.18) to get the threshold.
+  #
+  # Under Act 183 of 2024 the base is FROZEN at the FY2025 statewide average and
+  # inflation-adjusted forward, so this value is the FY2025 base inflated to
+  # FY2027 -- equivalently, the published FY2027 threshold divided by 1.18. The
+  # Tax Department FAQ gives the FY2027 threshold as $16,470, so this value is
+  # about 16470 / 1.18 = $13,958; confirm against the Agency of Education's
+  # Excess Spending Threshold Summary before entering it and setting verified.
+  # See docs/excess-spending-threshold.md and docs/parameter-verification.md.
+  statewide_average_per_pupil:
+    value: 13958
+    unit: usd_per_pupil
+    description: >-
+      statewide average district per pupil education spending, increased by
+      inflation, determined by the Secretary of Education on or before November 15
+    citation:
+      statute: 32 V.S.A. § 5401(12)
+      # Published by the Agency of Education. Under Act 183 of 2024 the threshold
+      # is PPS_State(FY25) x 118% x New England Economic Project (NEEP) inflation
+      # from FY25 to the year in question. The model input (this figure) is that
+      # threshold divided by 1.18: the Tax FAQ gives the FY2027 threshold as
+      # $16,470, so 16470 / 1.18 = 13958 (rounded). verified stays false because
+      # this is derived from the threshold rather than read as PPS_State(FY25) x
+      # NEEP directly. See docs/excess-spending-threshold.md.
+      source_url: https://education.vermont.gov/data-and-reporting/financial-reports/excess-spending-threshold
+      verified: false
+
 parameters:
   # --- Long-term membership -------------------------------------------------
 

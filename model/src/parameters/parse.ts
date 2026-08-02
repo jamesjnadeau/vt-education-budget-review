@@ -6,7 +6,7 @@
  * nothing in the engine ever touches the filesystem.
  */
 
-import type { Citation, Parameter, ParameterRange, ParameterSet } from '../types.ts';
+import type { Citation, Parameter, ParameterRange, ParameterSet, PublishedInput } from '../types.ts';
 
 export class ParameterFileError extends Error {
   constructor(message: string) {
@@ -79,6 +79,49 @@ function parseRange(raw: unknown, key: string): ParameterRange | null {
     central: (r['central'] ?? null) as number | null,
     basis,
   };
+}
+
+/**
+ * Parses the optional `inputs:` block: published determinations the formula
+ * consumes, kept distinct from statutory `parameters`. Absent block -> empty
+ * map. A value may be null (the determination for the year is not yet
+ * published), but every entry still needs a unit, a description and a citation,
+ * because a figure with no source is exactly what this block exists to prevent.
+ */
+function parseInputs(raw: unknown): Map<string, PublishedInput> {
+  const inputs = new Map<string, PublishedInput>();
+  if (raw === null || raw === undefined) return inputs;
+
+  const rawInputs = asRecord(raw, 'inputs');
+  for (const [key, value] of Object.entries(rawInputs)) {
+    const i = asRecord(value, `inputs.${key}`);
+    const description = i['description'];
+    if (typeof description !== 'string' || description.length === 0) {
+      throw new ParameterFileError(
+        `inputs.${key}.description is required -- it is the phrase the walkthrough ` +
+          `uses to name this input to a reader.`,
+      );
+    }
+    const unit = i['unit'];
+    if (typeof unit !== 'string') {
+      throw new ParameterFileError(`inputs.${key}.unit is required.`);
+    }
+    const rawValue = i['value'];
+    if (rawValue !== null && rawValue !== undefined && typeof rawValue !== 'number') {
+      throw new ParameterFileError(
+        `inputs.${key}.value must be a number or null. A published input is a ` +
+          `numeric determination; leave it null until the figure is published.`,
+      );
+    }
+    inputs.set(key, {
+      key,
+      value: (rawValue ?? null) as number | null,
+      unit,
+      description,
+      citation: parseCitation(i['citation'], key),
+    });
+  }
+  return inputs;
 }
 
 export function parseParameterSet(raw: unknown): ParameterSet {
@@ -179,6 +222,7 @@ export function parseParameterSet(raw: unknown): ParameterSet {
     status,
     note: (doc['note'] ?? null) as string | null,
     parameters,
+    inputs: parseInputs(doc['inputs']),
   };
 }
 
