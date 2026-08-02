@@ -142,27 +142,38 @@ function dedupeBlockers(blockers: readonly Blocker[]): Blocker[] {
   return out;
 }
 
+/**
+ * A parameter with a stated range and a central value stands in for an
+ * unpublished figure: it computes from that central value as a labeled
+ * estimate rather than blocking. Shared by `blockersOfParameter` (which
+ * decides whether to raise) and `parameterNode` (which decides what to
+ * compute) so the two can never drift apart on what counts as an estimate.
+ */
+function isEstimated(p: Parameter): boolean {
+  return p.range !== null && p.range.central !== null && p.value === null;
+}
+
+function contingentBlocker(p: Parameter): Blocker {
+  return {
+    kind: 'contingent_parameter',
+    ref: p.key,
+    detail: `${p.description} depends on legislation that has not been enacted.`,
+  };
+}
+
 function blockersOfParameter(p: Parameter): Blocker[] {
   const out: Blocker[] = [];
 
-  // A parameter with a stated range and a central value stands in for an
-  // unpublished figure: it computes from that central value as a labeled
-  // estimate rather than blocking. This deliberately takes precedence over the
-  // unverified/missing blockers it would otherwise raise -- we have chosen to
-  // carry the estimate, and `estimated_parameter` is non-blocking below.
-  if (p.range !== null && p.range.central !== null && p.value === null) {
+  // This deliberately takes precedence over the unverified/missing blockers
+  // it would otherwise raise -- we have chosen to carry the estimate, and
+  // `estimated_parameter` is non-blocking below.
+  if (isEstimated(p)) {
     out.push({
       kind: 'estimated_parameter',
       ref: p.key,
       detail: `${p.description} (${p.citation.statute}) is carried as an estimate from a stated range; no figure has been published for this year.`,
     });
-    if (p.contingent) {
-      out.push({
-        kind: 'contingent_parameter',
-        ref: p.key,
-        detail: `${p.description} depends on legislation that has not been enacted.`,
-      });
-    }
+    if (p.contingent) out.push(contingentBlocker(p));
     return out;
   }
 
@@ -180,13 +191,7 @@ function blockersOfParameter(p: Parameter): Blocker[] {
       detail: `${p.description} has no value set for this fiscal year.`,
     });
   }
-  if (p.contingent) {
-    out.push({
-      kind: 'contingent_parameter',
-      ref: p.key,
-      detail: `${p.description} depends on legislation that has not been enacted.`,
-    });
-  }
+  if (p.contingent) out.push(contingentBlocker(p));
   return out;
 }
 
@@ -406,7 +411,7 @@ export function lookup(ctx: EngineContext, key: string): Parameter {
 export function parameterNode(ctx: EngineContext, key: string, unit: Unit): CalcNode {
   const p = lookup(ctx, key);
   const blockers = dedupeBlockers(blockersOfParameter(p));
-  const estimated = p.range !== null && p.range.central !== null && p.value === null;
+  const estimated = isEstimated(p);
   const numeric = typeof p.value === 'number' ? p.value : estimated && p.range ? p.range.central : null;
   const cite = p.citation.session_law
     ? `${p.citation.statute}, as amended by ${p.citation.session_law}`
