@@ -252,10 +252,24 @@ function make(ctx: EngineContext, args: MakeArgs): CalcNode {
 
   // Interval propagation. When any input carries a range, evaluate this node's
   // own formula at the corners of the input intervals and take the extremes.
-  // Every op is monotonic per argument, so the corner evaluation is the exact
-  // min/max; it reuses `compute` rather than duplicating each formula's interval
-  // math. Runs only when a point value exists, so a blocked node stays a plain
+  // It reuses `compute` rather than duplicating each formula's interval math.
+  // Runs only when a point value exists, so a blocked node stays a plain
   // blank rather than sprouting a band with no center.
+  //
+  // Corner evaluation is the exact min/max ONLY under two assumptions: every
+  // op here is coordinate-wise monotone per argument (true today), AND each
+  // ranged input is independent of the others (also true today — no node yet
+  // combines two inputs derived from the same ranged source). If a future
+  // node introduced such a "diamond" dependency, corner evaluation would
+  // become an over-approximation (it would evaluate impossible corners),
+  // not exact.
+  //
+  // Monotonicity also assumes no denominator's interval straddles zero — if
+  // it did, the true quotient range would be unbounded, and corner
+  // evaluation would silently return a wrongly-narrow finite band. `make()`
+  // is op-agnostic and has no way to know which inputs are denominators, so
+  // this isn't guarded here; it's unreachable with current parameters (e.g.
+  // the statewide adjustment ranges 0.7-0.8, never crossing zero).
   let range: { low: number; high: number } | null = null;
   if (value !== null && inputs.some((i) => i.range !== null)) {
     const intervals = inputs.map((i) =>

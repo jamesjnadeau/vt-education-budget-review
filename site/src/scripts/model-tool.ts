@@ -422,6 +422,8 @@ function renderStudentSummary(membership: MembershipResult, container: HTMLEleme
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(row.node.value, row.node.unit) + ' '));
       dd.append(el('span', `tag ${STATUS_CLASS[row.node.status]}`, STATUS_LABEL[row.node.status]));
+      const factBand = formatRange(row.node.range, row.node.unit);
+      if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
     }
     container.append(dl);
