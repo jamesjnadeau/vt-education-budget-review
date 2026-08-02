@@ -21,10 +21,12 @@ status: draft
 #      every value and set status: verified.
 #
 #   2. THE FY2027 STATEWIDE ADJUSTMENT is not yet published by the Department of
-#      Taxes. `tax.statewide_adjustment` carries a working estimate of 0.75 -- the
-#      midpoint of a 0.7-0.8 range bracketing the plausible value -- so the engine
-#      DOES compute a homestead tax rate, but that rate rests on an estimate, not
-#      the published figure. Replace 0.75 with the Department's number when set.
+#      Taxes. `tax.statewide_adjustment` stays unverified with no point value,
+#      but carries a 0.7-0.8 range whose central estimate (0.75) the engine uses
+#      to compute the homestead tax rate, alongside the min/max the range
+#      implies. Every figure that rests on it is labeled `estimated (from range)`
+#      in the tool, not presented as the published number. Give it a verified
+#      value when the Department publishes one.
 #
 # The Act 73 contingency that once blocked FY2027 has been resolved: the
 # maintainer determined it did NOT fire, so the pre-repeal prekindergarten
@@ -41,10 +43,10 @@ note: >-
   Values read from current statute text snapshotted in model/statute/2026-07-29/,
   partially countersigned by hand. Weighted membership computes: the Act 73
   contingency did not fire, so the pre-repeal prekindergarten weight governs
-  FY2027. The homestead tax rate also computes, but on a working estimate: the
-  FY2027 statewide adjustment has not been published, so tax.statewide_adjustment
-  uses 0.75, the midpoint of a 0.7-0.8 range. The post-2028 foundation formula is
-  modeled as contingent bands.
+  FY2027. The homestead tax rate is computed as an estimate -- the FY2027
+  statewide adjustment is unpublished, so tax.statewide_adjustment stays null and
+  unverified and the engine uses its 0.7-0.8 range (central 0.75), showing the
+  implied min/max. The post-2028 foundation formula is modeled as contingent bands.
 
 # Published determinations the formula consumes, kept separate from the
 # statutory parameters below. The what-if tool offers the value of any entry
@@ -499,7 +501,7 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: 0.75
+    value: null
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
@@ -520,9 +522,9 @@ parameters:
         tax grand list of all municipalities to the aggregate value of the equalized
         education property tax grand list of all municipalities. Determined annually
         by the Department of Taxes; not yet published for FY2027.
-      verified: true
-      verified_date: "2026-08-02"
-      verified_by: James Nadeau
+      verified: false
+      verified_date: null
+      verified_by: null
 
 
   # --- Foundation formula (contingent on Act 73) ----------------------------
