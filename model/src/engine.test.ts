@@ -160,6 +160,45 @@ describe('weighted long-term membership', () => {
   });
 });
 
+describe('membership breakdown for display', () => {
+  it('splits grade weights from demographic weights and totals each', () => {
+    const ctx = createContext(syntheticParameters());
+    const r = computeWeightedMembership(ctx, DISTRICT);
+
+    // Grade increments: prek 15×-0.5=-7.5, K-5 150×0=0, 6-8 80×0.5=40, 9-12 60×1=60.
+    expect(r.gradeWeightIncrements).toHaveLength(4);
+    expect(r.gradeWeightTotal.value).toBeCloseTo(92.5, 10);
+
+    // Demographic increments: poverty 40×1=40, EL 8×2=16, sparsity 0 (density 120, no band).
+    expect(r.demographicWeightTotal.value).toBeCloseTo(56, 10);
+
+    // Grade + demographic equals the existing cumulation of all weights.
+    expect(r.allWeightsTotal.value).toBeCloseTo(148.5, 10);
+    expect(r.increments).toHaveLength(r.gradeWeightIncrements.length + r.demographicWeightIncrements.length);
+  });
+
+  it('sums entered headcount across the averaged years without averaging', () => {
+    const ctx = createContext(syntheticParameters());
+    const r = computeWeightedMembership(ctx, DISTRICT);
+    // (10+100+60+40) + (20+200+100+80) = 210 + 400 = 610; the two-year average
+    // (long-term membership, which also adds State-placed) is 310.
+    expect(r.enteredHeadcountBothYears.value).toBe(610);
+    expect(r.longTermMembership.value).toBe(310);
+  });
+
+  it("leaves the entered headcount blank when a year's band is missing", () => {
+    const ctx = createContext(syntheticParameters());
+    const r = computeWeightedMembership(ctx, {
+      ...DISTRICT,
+      adm_years: DISTRICT.adm_years.map((y, i) =>
+        i === 0 ? { ...y, grades_9_through_12: null } : y,
+      ),
+    });
+    expect(r.enteredHeadcountBothYears.value).toBeNull();
+    expect(r.enteredHeadcountBothYears.status).toBe('missing_input');
+  });
+});
+
 describe('sparsity, which applies to every pupil in a qualifying district', () => {
   it('bands density exactly as § 4010(d)(4) does', () => {
     expect(sparsityBand(35.9)).toBe('weights.sparsity.density_under_36');
