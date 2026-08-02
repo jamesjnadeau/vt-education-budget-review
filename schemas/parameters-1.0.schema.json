@@ -21,9 +21,32 @@
       "minProperties": 1,
       "propertyNames": { "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9][a-z0-9_]*)*$" },
       "additionalProperties": { "$ref": "#/$defs/parameter" }
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Published determinations the formula consumes as inputs, kept DISTINCT from the statutory `parameters`. These are figures an agency publishes annually (e.g. the statewide average per pupil spending) rather than rules set in statute. Optional -- most files have none. Parsed by model/src/parameters/parse.ts into PublishedInput. A value may be null until the year's figure is published, but every entry still needs a unit, a description and a citation: a figure with no source is exactly what this block exists to prevent.",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9][a-z0-9_]*)*$" },
+      "additionalProperties": { "$ref": "#/$defs/input" }
     }
   },
   "$defs": {
+    "unit": {
+      "enum": ["multiplier", "usd", "usd_per_pupil", "rate_per_100", "ratio", "count", "years", "students", "persons_per_square_mile", "minutes", "miles", "date", "boolean", "enum", "unset"]
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "description", "citation"],
+      "properties": {
+        "value": {
+          "type": ["number", "null"],
+          "description": "A published input is a numeric determination; null means the figure for the year is not yet published. Unlike a parameter, it is never a string, boolean or array."
+        },
+        "unit": { "$ref": "#/$defs/unit" },
+        "description": { "type": "string", "minLength": 1 },
+        "citation": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/citation" }
+      }
+    },
     "parameter": {
       "type": "object",
       "additionalProperties": false,
@@ -33,9 +56,7 @@
           "type": ["number", "string", "boolean", "array", "null"],
           "description": "Null means not yet verified against current statute text, or not yet set by the Legislature. Null is the honest default and the engine handles it by refusing to produce a number, not by substituting one."
         },
-        "unit": {
-          "enum": ["multiplier", "usd", "usd_per_pupil", "rate_per_100", "ratio", "count", "years", "students", "persons_per_square_mile", "minutes", "miles", "date", "boolean", "enum", "unset"]
-        },
+        "unit": { "$ref": "#/$defs/unit" },
         "description": { "type": "string", "minLength": 1 },
         "citation": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/citation" },
         "is_law": {

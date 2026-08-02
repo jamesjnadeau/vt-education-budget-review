@@ -72,6 +72,8 @@ inputs:
       # divided by 1.18. See docs/excess-spending-threshold.md.
       source_url: https://education.vermont.gov/data-and-reporting/financial-reports/excess-spending-threshold
       verified: false
+      verified_date: null
+      verified_by: null
 
 parameters:
   # --- Long-term membership -------------------------------------------------
@@ -444,6 +446,8 @@ parameters:
         capital reserve funds more than 5-years old that were previously excluded
         from excess spending per 24 V.S.A. § 2804 (b)."
       verified: false
+      verified_date: null
+      verified_by: null
 
   tax.income_percentage_target:
     value: 0.02

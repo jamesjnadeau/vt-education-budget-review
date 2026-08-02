@@ -1,5 +1,5 @@
 schema_version: "1.0"
-status: draft
+status: verified
 
 # ---------------------------------------------------------------------------
 # The Act 170 statutory district groupings.
@@ -113,9 +113,9 @@ act:
       (20) Group 20: Barre Unified Union School District, Harwood Unified
       Union School District, Montpelier Roxbury School District, Paine Mountain
       School District, and Washington Central Unified Union School District.
-    verified: false
-    verified_date: null
-    verified_by: null
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
 
 # ---------------------------------------------------------------------------
 # DRAFT mapping -- filled in from act.citation.quote, NOT yet verified against
