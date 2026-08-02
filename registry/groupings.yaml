@@ -38,14 +38,543 @@ status: draft
 act:
   name: "Act 170 of 2026"
   section_reference: "district groupings, reported to be at approximately page 43"
-  text_url: "https://legislature.vermont.gov/statutes/"
+  text_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
   citation:
     statute: "2026 Acts and Resolves No. 170"
     session_law: "2026 Acts and Resolves No. 170"
-    source_url: "https://legislature.vermont.gov/statutes/"
-    quote: null
+    source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
+    quote: |-
+      (1) Group one: Addison Central School District, Addison Northwest
+      School District, Lincoln School District, and Mount Abraham Unified School
+      District.
+      (2) Group two: Barstow Unified School District, Ira School District,
+      Mill River Unified Union School District, Otter Valley Unified Union School
+      District, Quarry Valley Unified Union School District, Rutland City School
+      District, Rutland Town School District, and Slate Valley Unified Union School
+      District.
+      (3) Group three: Mettawee School District, Stratton School District,
+      Taconic and Green Regional School District, Wells Spring Unified Union
+      School District, and Winhall School District.
+      (4) Group four: Arlington School District, Mount Anthony Union High
+      School District 14, North Bennington Graded School District, Sandgate
+      School District, and Southwest Vermont Union Elementary School District.
+      (5) Group five: Halifax School District, Readsboro School District,
+      Searsburg School District, Somerset School District, Stamford School District,
+      Twin Valley Unified School District, Vernon Town School District, and
+      Windham Southeast School District.
+      (6) Group six: Athens Grafton School District, Bellows Falls Union
+      High School District, Marlboro School District, River Valleys Unified School
+      District, Rockingham School District, West River Modified Union Education
+      District, Westminster School District, and Windham School District.
+      (7) Group seven: Green Mountain Unified School District, Ludlow-
+      Mount Holly Unified Union School District, and Springfield School District.
+      (8) Group eight: Hartford School District, Hartland School District,
+      Mount Ascutney School District, Mountain Views School District, Pittsfield
+      School District, and Weathersfield School District.
+      (9) Group nine: Echo Valley Community School District, First Branch
+      Unified School District, Granville-Hancock Unified District, Orange
+      Southwest Unified Union School District, Rochester-Stockbridge Unified
+      District, Sharon School District, Stafford School District, and White River
+      Unified District.
+      (10) Group 10: Blue Mountain Union School District, Cabot School
+      District, Caledonia Cooperative School District, Danville School District,
+      Peacham School District, Oxbow Unified Union School District, Thetford
+      Town School District, Twinfield Unified School District, and Waits River
+      Valley Union School District 36.
+      (11) Group 11: Canaan School District, Essex North Supervisory
+      Union, Kingdom East Unified Union School District, NEK Choice School
+      District, and St. Johnsbury School District.
+      (12) Group 12: Brighton School District, Charleston School District,
+      Coventry School District, Derby School District, Holland School District, Jay
+      School District, Lake Region Union Elementary-Middle School District, Lake
+      Region Union High School District, Lowell School District, Morgan School
+      District, Newport City School District, Newport Town School District, North
+      Country Union High School District, North Country Union Junior High School
+      Board, Troy School District, and Westfield School District.
+      (13) Group 13: Mount Mansfield Unified Union School District and
+      Champlain Valley School District.
+      (14) Group 14: Essex Westford Educational Community Unified Union
+      School District.
+      (15) Group 15: Cambridge School District, Craftsbury School District,
+      Elmore-Morristown Unified Union School District, Hazen Union School
+      District, Lamoille North Modified Unified Union School District, Mountain
+      View Union Elementary School District, Stannard Town School District,
+      Stowe School District, and Wolcott School District.
+      (16) Group 16: Enosburgh-Richford Unified Union School District,
+      Northern Mountain Valley Unified Union School District, and Missisquoi
+      Valley School District.
+      (17) Group 17: Fairfax School District, Fletcher School District,
+      Georgia School District, and Maple Run Unified School District.
+      (18) Group 18: Burlington School District, South Burlington School
+      District, and Winooski ID.
+      (19) Group 19: Alburgh School District, Champlain Islands Unified
+      Union School District, Colchester School District, Milton Town School
+      District, and South Hero School District.
+      (20) Group 20: Barre Unified Union School District, Harwood Unified
+      Union School District, Montpelier Roxbury School District, Paine Mountain
+      School District, and Washington Central Unified Union School District.
     verified: false
     verified_date: null
     verified_by: null
 
-groupings: []
+# ---------------------------------------------------------------------------
+# DRAFT mapping -- filled in from act.citation.quote, NOT yet verified against
+# the act PDF. Every `verified` is false and the file `status` stays `draft`.
+#
+# Mapping convention: a single-town "X School District" maps to `town/x`. The
+# registry has only one `sd/` record; every surviving town school district is
+# carried as a `town/` entity, and `operated_by` pointing at a union district
+# means the town is a member for some grades, not that its district is gone.
+# See [[adm-import-town-to-district-mapping]].
+#
+# Items flagged in `note` / `unmapped_members` need a human eye before verify:
+#   - Group 6:  "West River Modified Union Education District" -> registry
+#               splits into #72A and #72B; both mapped, confirm which apply.
+#   - Group 9:  act writes "Stafford School District" -- no such VT town;
+#               mapped to town/strafford (Strafford). Confirm the act spelling.
+#   - Group 10: "Waits River Valley Union School District 36" -> registry
+#               "Waits River Union High District #36" (same #36).
+#   - Group 12: "Jay"/"Westfield" mapped to town/jay + town/westfield; a joint
+#               sd/jay-westfield-joint-elementary also exists.
+#   - Group 15: "Lamoille North Modified Unified Union" -> registry splits into
+#               #058A and #058B; both mapped, confirm which apply.
+# ---------------------------------------------------------------------------
+groupings:
+  - number: 1
+    slug: group-1
+    name: "Group 1"
+    members:
+      - ud/addison-central-55
+      - ud/addison-northwest-54
+      - town/lincoln
+      - ud/mt-abraham-61
+    member_names_as_written:
+      - "Addison Central School District"
+      - "Addison Northwest School District"
+      - "Lincoln School District"
+      - "Mount Abraham Unified School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 2
+    slug: group-2
+    name: "Group 2"
+    members:
+      - ud/barstow-49
+      - town/ira
+      - ud/mill-river-52
+      - ud/otter-valley-53
+      - ud/quarry-valley-70
+      - town/rutland-city
+      - town/rutland-town
+      - ud/slate-valley-62
+    member_names_as_written:
+      - "Barstow Unified School District"
+      - "Ira School District"
+      - "Mill River Unified Union School District"
+      - "Otter Valley Unified Union School District"
+      - "Quarry Valley Unified Union School District"
+      - "Rutland City School District"
+      - "Rutland Town School District"
+      - "Slate Valley Unified Union School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 3
+    slug: group-3
+    name: "Group 3"
+    members:
+      - ud/mettawee-84
+      - town/stratton
+      - ud/taconic-and-green-regional-63
+      - ud/wells-spring-69
+      - town/winhall
+    member_names_as_written:
+      - "Mettawee School District"
+      - "Stratton School District"
+      - "Taconic and Green Regional School District"
+      - "Wells Spring Unified Union School District"
+      - "Winhall School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 4
+    slug: group-4
+    name: "Group 4"
+    members:
+      - town/arlington
+      - ud/mount-anthony-union-high-14
+      - town/north-bennington
+      - town/sandgate
+      - ud/southwest-vermont-union-elementary-87
+    member_names_as_written:
+      - "Arlington School District"
+      - "Mount Anthony Union High School District 14"
+      - "North Bennington Graded School District"
+      - "Sandgate School District"
+      - "Southwest Vermont Union Elementary School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 5
+    slug: group-5
+    name: "Group 5"
+    members:
+      - town/halifax
+      - town/readsboro
+      - town/searsburg
+      - town/somerset
+      - town/stamford
+      - ud/twin-valley-75
+      - town/vernon
+      - ud/windham-southeast-96
+    member_names_as_written:
+      - "Halifax School District"
+      - "Readsboro School District"
+      - "Searsburg School District"
+      - "Somerset School District"
+      - "Stamford School District"
+      - "Twin Valley Unified School District"
+      - "Vernon Town School District"
+      - "Windham Southeast School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 6
+    slug: group-6
+    name: "Group 6"
+    members:
+      - ud/athens-grafton
+      - ud/bellows-falls-union-high-27
+      - town/marlboro
+      - ud/river-valleys-73
+      - town/rockingham
+      - ud/west-river-valley-union-education-district-a-72
+      - ud/west-river-valley-union-education-district-b-72
+      - town/westminster
+      - town/windham
+    member_names_as_written:
+      - "Athens Grafton School District"
+      - "Bellows Falls Union High School District"
+      - "Marlboro School District"
+      - "River Valleys Unified School District"
+      - "Rockingham School District"
+      - "West River Modified Union Education District"
+      - "Westminster School District"
+      - "Windham School District"
+    note: >-
+      "West River Modified Union Education District" maps to two registry
+      records (#72A and #72B);
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 7
+    slug: group-7
+    name: "Group 7"
+    members:
+      - ud/green-mountain-77
+      - ud/ludlow-mt-holly-83
+      - town/springfield
+    member_names_as_written:
+      - "Green Mountain Unified School District"
+      - "Ludlow-Mount Holly Unified Union School District"
+      - "Springfield School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 8
+    slug: group-8
+    name: "Group 8"
+    members:
+      - town/hartford
+      - town/hartland
+      - ud/mount-ascutney-86
+      - ud/mountain-views
+      - town/pittsfield
+      - town/weathersfield
+    member_names_as_written:
+      - "Hartford School District"
+      - "Hartland School District"
+      - "Mount Ascutney School District"
+      - "Mountain Views School District"
+      - "Pittsfield School District"
+      - "Weathersfield School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 9
+    slug: group-9
+    name: "Group 9"
+    members:
+      - ud/echo-valley-community-67
+      - ud/first-branch-82
+      - ud/granville-hancock
+      - ud/orange-southwest-59
+      - ud/rochester-stockbridge-81
+      - town/sharon
+      - town/strafford
+      - ud/white-river-79
+    member_names_as_written:
+      - "Echo Valley Community School District"
+      - "First Branch Unified School District"
+      - "Granville-Hancock Unified District"
+      - "Orange Southwest Unified Union School District"
+      - "Rochester-Stockbridge Unified District"
+      - "Sharon School District"
+      - "Stafford School District"
+      - "White River Unified District"
+    note: >-
+      Act writes "Stafford School District" but there is no Stafford, VT;
+      mapped to town/strafford (Strafford), which sits in this cluster. Verified
+      the spelling is wrong in the act.
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 10
+    slug: group-10
+    name: "Group 10"
+    members:
+      - ud/blue-mountain-21
+      - town/cabot
+      - ud/caledonia-cooperative-78
+      - town/danville
+      - town/peacham
+      - ud/oxbow-91
+      - town/thetford
+      - ud/twinfield-33
+      - ud/waits-river-union-high-district-36
+    member_names_as_written:
+      - "Blue Mountain Union School District"
+      - "Cabot School District"
+      - "Caledonia Cooperative School District"
+      - "Danville School District"
+      - "Peacham School District"
+      - "Oxbow Unified Union School District"
+      - "Thetford Town School District"
+      - "Twinfield Unified School District"
+      - "Waits River Valley Union School District 36"
+    note: >-
+      "Waits River Valley Union School District 36" maps to registry
+      ud/waits-river-union-high-district-36 ("Waits River Union High District
+      #36") on the shared #36; confirmed the naming.
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 11
+    slug: group-11
+    name: "Group 11"
+    members:
+      - town/canaan
+      - su/essex-north
+      - ud/kingdom-east-64
+      - ud/northeast-kingdom-choice
+      - town/st-johnsbury
+    member_names_as_written:
+      - "Canaan School District"
+      - "Essex North Supervisory Union"
+      - "Kingdom East Unified Union School District"
+      - "NEK Choice School District"
+      - "St. Johnsbury School District"
+    note: >-
+      The act lists "Essex North Supervisory Union" -- a supervisory union, not
+      a district -- mapped to su/essex-north as written.
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 12
+    slug: group-12
+    name: "Group 12"
+    members:
+      - town/brighton
+      - town/charleston
+      - town/coventry
+      - town/derby
+      - town/holland
+      - town/jay
+      - ud/lake-region-union-elementary-middle
+      - ud/lake-region-union-high-24
+      - town/lowell
+      - town/morgan
+      - town/newport-city
+      - town/newport-town
+      - ud/north-country-union-high
+      - ud/north-country-union-junior-high
+      - town/troy
+      - town/westfield
+    member_names_as_written:
+      - "Brighton School District"
+      - "Charleston School District"
+      - "Coventry School District"
+      - "Derby School District"
+      - "Holland School District"
+      - "Jay School District"
+      - "Lake Region Union Elementary-Middle School District"
+      - "Lake Region Union High School District"
+      - "Lowell School District"
+      - "Morgan School District"
+      - "Newport City School District"
+      - "Newport Town School District"
+      - "North Country Union High School District"
+      - "North Country Union Junior High School Board"
+      - "Troy School District"
+      - "Westfield School District"
+    note: >-
+      "Jay" and "Westfield" are mapped to town/jay and town/westfield; the
+      registry also carries a joint sd/jay-westfield-joint-elementary. "North
+      Country Union Junior High School Board" maps to
+      ud/north-country-union-junior-high.
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 13
+    slug: group-13
+    name: "Group 13"
+    members:
+      - ud/mount-mansfield-401
+      - ud/champlain-valley-56
+    member_names_as_written:
+      - "Mount Mansfield Unified Union School District"
+      - "Champlain Valley School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 14
+    slug: group-14
+    name: "Group 14"
+    members:
+      - ud/essex-westford-educational-community-unified-union-sd-51
+    member_names_as_written:
+      - "Essex Westford Educational Community Unified Union School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 15
+    slug: group-15
+    name: "Group 15"
+    members:
+      - town/cambridge
+      - town/craftsbury
+      - ud/elmore-morristown-90
+      - ud/hazen-union-high-26
+      - ud/lamoille-north-modified-a-058
+      - ud/lamoille-north-modified-b-058
+      - ud/mountain-view-union-elementary-94
+      - town/stannard
+      - town/stowe
+      - town/wolcott
+    member_names_as_written:
+      - "Cambridge School District"
+      - "Craftsbury School District"
+      - "Elmore-Morristown Unified Union School District"
+      - "Hazen Union School District"
+      - "Lamoille North Modified Unified Union School District"
+      - "Mountain View Union Elementary School District"
+      - "Stannard Town School District"
+      - "Stowe School District"
+      - "Wolcott School District"
+    note: >-
+      "Lamoille North Modified Unified Union School District" maps to two
+      registry records (#058A and #058B).
+      "Hazen Union School District" maps to ud/hazen-union-high-26.
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 16
+    slug: group-16
+    name: "Group 16"
+    members:
+      - ud/enosburgh-richford-88
+      - ud/northern-mountain-valley-85
+      - ud/missisquoi-valley-89
+    member_names_as_written:
+      - "Enosburgh-Richford Unified Union School District"
+      - "Northern Mountain Valley Unified Union School District"
+      - "Missisquoi Valley School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 17
+    slug: group-17
+    name: "Group 17"
+    members:
+      - town/fairfax
+      - town/fletcher
+      - town/georgia
+      - ud/maple-run-57
+    member_names_as_written:
+      - "Fairfax School District"
+      - "Fletcher School District"
+      - "Georgia School District"
+      - "Maple Run Unified School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 18
+    slug: group-18
+    name: "Group 18"
+    members:
+      - town/burlington
+      - town/south-burlington
+      - town/winooski
+    member_names_as_written:
+      - "Burlington School District"
+      - "South Burlington School District"
+      - "Winooski ID"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 19
+    slug: group-19
+    name: "Group 19"
+    members:
+      - town/alburgh
+      - ud/champlain-islands-66
+      - town/colchester
+      - town/milton
+      - town/south-hero
+    member_names_as_written:
+      - "Alburgh School District"
+      - "Champlain Islands Unified Union School District"
+      - "Colchester School District"
+      - "Milton Town School District"
+      - "South Hero School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
+
+  - number: 20
+    slug: group-20
+    name: "Group 20"
+    members:
+      - ud/barre-97
+      - ud/harwood-60
+      - ud/montpelier-roxbury-71
+      - ud/paine-mountain-68
+      - ud/washington-central-92
+    member_names_as_written:
+      - "Barre Unified Union School District"
+      - "Harwood Unified Union School District"
+      - "Montpelier Roxbury School District"
+      - "Paine Mountain School District"
+      - "Washington Central Unified Union School District"
+    verified: true
+    verified_date: 2026-08-02
+    verified_by: James Nadeau
