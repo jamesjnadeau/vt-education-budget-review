@@ -13,6 +13,14 @@
  * mechanics can be tested against a localhost server.
  */
 
+import { createHash } from 'node:crypto';
+import { get as httpGet } from 'node:http';
+import { get as httpsGet } from 'node:https';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { statuteAgent } from '../statute/fetch.ts';
+
 /** True for `vermont.gov` or any `*.vermont.gov` host over http/https. */
 export function isVermontGovUrl(url: string): boolean {
   let parsed: URL;
@@ -97,4 +105,96 @@ export function savedFileName(finalUrl: string, isHtml: boolean): string {
     return name ? `${name}.bin` : `${sanitizeSegment(host)}.bin`;
   }
   return name;
+}
+
+/** Browser-like so education.vermont.gov serves us; self-identifying. */
+const USER_AGENT = 'Mozilla/5.0 (compatible; VT Budget bot)';
+
+interface RawResponse {
+  readonly finalUrl: string;
+  readonly status: number;
+  readonly contentType: string | null;
+  readonly body: Buffer;
+}
+
+/**
+ * GETs a URL, following up to five redirects. HTTPS requests go through the
+ * statute agent, which supplies the intermediate certificate legislature.
+ * vermont.gov omits; other vermont.gov hosts serve a complete chain and are
+ * unaffected. Verification stays full -- see tools/src/statute/fetch.ts.
+ */
+async function fetchRaw(url: string, redirectsLeft = 5): Promise<RawResponse> {
+  const isHttps = url.startsWith('https:');
+  const agent = isHttps ? await statuteAgent() : undefined;
+  const getter = isHttps ? httpsGet : httpGet;
+  return new Promise<RawResponse>((resolve, reject) => {
+    const options = agent
+      ? { agent, headers: { 'user-agent': USER_AGENT } }
+      : { headers: { 'user-agent': USER_AGENT } };
+    getter(url, options, (res) => {
+      const status = res.statusCode ?? 0;
+      const location = res.headers.location;
+      if (status >= 300 && status < 400 && location && redirectsLeft > 0) {
+        res.resume();
+        resolve(fetchRaw(new URL(location, url).toString(), redirectsLeft - 1));
+        return;
+      }
+      const chunks: Buffer[] = [];
+      res.on('data', (c: Buffer) => chunks.push(c));
+      res.on('end', () =>
+        resolve({
+          finalUrl: url,
+          status,
+          contentType: (res.headers['content-type'] as string | undefined) ?? null,
+          body: Buffer.concat(chunks),
+        }),
+      );
+    }).on('error', reject);
+  });
+}
+
+export interface FetchResult {
+  readonly requestedUrl: string;
+  readonly finalUrl: string;
+  readonly status: number;
+  readonly contentType: string | null;
+  readonly savedPath: string;
+  readonly sha256: string;
+  readonly bytes: number;
+  readonly kind: 'text' | 'raw';
+}
+
+/**
+ * Fetches one URL into `outDir` and returns what landed. An HTML response is
+ * saved as extracted text (`.txt`); anything else is saved as raw bytes under
+ * its released name. The sha256 is of the bytes actually written, so it matches
+ * the file on disk. Throws on any status >= 400 rather than saving an error
+ * page. Does not enforce the vermont.gov allowlist -- the CLL does that.
+ */
+export async function fetchToFolder(url: string, outDir: string): Promise<FetchResult> {
+  const res = await fetchRaw(url);
+  if (res.status >= 400) {
+    throw new Error(
+      `HTTP ${res.status} fetching ${res.finalUrl}. Nothing was saved. If this is ` +
+        `education.vermont.gov still refusing an automated client, fetch it by hand.`,
+    );
+  }
+
+  const html = isHtmlResponse(res.contentType);
+  const bytes = html ? Buffer.from(htmlToText(res.body.toString('utf8')), 'utf8') : res.body;
+
+  mkdirSync(outDir, { recursive: true });
+  const savedPath = join(outDir, savedFileName(res.finalUrl, html));
+  writeFileSync(savedPath, bytes);
+
+  return {
+    requestedUrl: url,
+    finalUrl: res.finalUrl,
+    status: res.status,
+    contentType: res.contentType,
+    savedPath,
+    sha256: createHash('sha256').update(bytes).digest('hex'),
+    bytes: bytes.length,
+    kind: html ? 'text' : 'raw',
+  };
 }

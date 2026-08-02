@@ -73,3 +73,65 @@ describe('savedFileName', () => {
     expect(savedFileName('https://data.vermont.gov/', false)).toBe('data.vermont.gov.bin');
   });
 });
+
+import { createHash } from 'node:crypto';
+import { mkdtempSync, readFileSync } from 'node:fs';
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { afterAll, beforeAll } from 'vitest';
+
+import { fetchToFolder } from './vermont.ts';
+
+describe('fetchToFolder (integration, localhost)', () => {
+  const PDF_BYTES = Buffer.from('%PDF-1.7\nhello vermont\n');
+  let baseUrl = '';
+  const server = createServer((req, res) => {
+    if (req.url === '/page') {
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+      res.end('<h1>Budget</h1><p>Line one.</p>');
+    } else if (req.url === '/files/report.pdf') {
+      res.writeHead(200, { 'content-type': 'application/pdf' });
+      res.end(PDF_BYTES);
+    } else if (req.url === '/missing') {
+      res.writeHead(404, { 'content-type': 'text/html' });
+      res.end('nope');
+    } else {
+      res.writeHead(500);
+      res.end();
+    }
+  });
+
+  beforeAll(async () => {
+    await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+    baseUrl = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+  });
+  afterAll(async () => {
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  });
+
+  it('saves an html page as extracted .txt with a matching sha256', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'vtfetch-'));
+    const result = await fetchToFolder(`${baseUrl}/page`, dir);
+    expect(result.kind).toBe('text');
+    expect(result.status).toBe(200);
+    const onDisk = readFileSync(result.savedPath, 'utf8');
+    expect(onDisk).toBe('Budget\nLine one.');
+    expect(result.sha256).toBe(createHash('sha256').update(onDisk).digest('hex'));
+  });
+
+  it('saves a document as raw bytes, unchanged', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'vtfetch-'));
+    const result = await fetchToFolder(`${baseUrl}/files/report.pdf`, dir);
+    expect(result.kind).toBe('raw');
+    expect(result.savedPath.endsWith('report.pdf')).toBe(true);
+    expect(readFileSync(result.savedPath).equals(PDF_BYTES)).toBe(true);
+  });
+
+  it('throws on an http error status without writing a file', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'vtfetch-'));
+    await expect(fetchToFolder(`${baseUrl}/missing`, dir)).rejects.toThrow(/404/);
+  });
+});
