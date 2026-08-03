@@ -521,36 +521,16 @@ describe('scenarios present movement in both directions', () => {
   const base: DistrictBudget = {
     entity: 'ud/a',
     fiscal_year: 2027,
-    expenditures: {
-      instruction: 1_000_000,
-      special_education: 200_000,
-      administration_district: 100_000,
-      administration_school: 80_000,
-      operations_maintenance: 150_000,
-      transportation: 90_000,
-      debt_service: 50_000,
-      other: 30_000,
-      total_stated: 1_700_000,
-    },
-    personnel: {
-      total_staff_costs: 1_200_000,
-      salaries: 900_000,
-      benefits_health: 220_000,
-      benefits_other: 80_000,
-      fte_total: 60,
-    },
+    total_stated: 1_700_000,
     source: 'test fixture',
   };
   const two = [base, { ...base, entity: 'ud/b' }];
 
   it('reports a signed delta that can go either way', () => {
     const ctx = createContext(syntheticParameters());
-
-    // Two districts, each with a published total of 1,700,000 -> 3,400,000.
     const reduced = runScenario(ctx, {
       name: 'assume a 5% consolidation efficiency',
       districts: two,
-      consolidatedPositions: [],
       assumptions: defaultAssumptions().map((a) =>
         a.key === 'consolidation_factor' ? { ...a, value: 0.95 } : a,
       ),
@@ -561,7 +541,6 @@ describe('scenarios present movement in both directions', () => {
     const increased = runScenario(ctx, {
       name: 'assume costs rise 5% during the transition',
       districts: two,
-      consolidatedPositions: [],
       assumptions: defaultAssumptions().map((a) =>
         a.key === 'consolidation_factor' ? { ...a, value: 1.05 } : a,
       ),
@@ -571,15 +550,10 @@ describe('scenarios present movement in both directions', () => {
 
   it('reports the current total as unknown when a district did not publish it', () => {
     const ctx = createContext(syntheticParameters());
-    const missing: DistrictBudget = {
-      ...base,
-      entity: 'ud/c',
-      expenditures: { ...base.expenditures, total_stated: null },
-    };
+    const missing: DistrictBudget = { ...base, entity: 'ud/c', total_stated: null };
     const result = runScenario(ctx, {
       name: 'one district published no total',
       districts: [base, missing],
-      consolidatedPositions: [],
       assumptions: defaultAssumptions(),
     });
     expect(result.currentTotal.value).toBeNull();
@@ -591,111 +565,9 @@ describe('scenarios present movement in both directions', () => {
     const result = runScenario(ctx, {
       name: 'merge with no assumed consolidation',
       districts: two,
-      consolidatedPositions: [],
       assumptions: defaultAssumptions(),
     });
     expect(result.delta.value).toBe(0);
-  });
-
-  it('reports an unpriced consolidated position as unknown, never as zero', () => {
-    const ctx = createContext(syntheticParameters());
-    const result = runScenario(ctx, {
-      name: 'merge two superintendencies',
-      districts: two,
-      consolidatedPositions: [
-        { role: 'superintendent', fte: 1, average_salary: null, note: 'one, not two' },
-      ],
-      assumptions: defaultAssumptions(),
-    });
-    expect(result.staffing.salariesScenario.value).toBeNull();
-  });
-
-  it('applies the health insurance trend independently of headcount', () => {
-    const ctx = createContext(syntheticParameters());
-    const result = runScenario(ctx, {
-      name: 'merge with health costs still rising',
-      districts: two,
-      consolidatedPositions: [
-        { role: 'superintendent', fte: 1, average_salary: 150_000, note: 'one, not two' },
-      ],
-      assumptions: defaultAssumptions().map((a) =>
-        a.key === 'health_insurance_trend' ? { ...a, value: 0.1 } : a,
-      ),
-    });
-    expect(result.staffing.healthCurrent.value).toBe(440_000);
-    expect(result.staffing.healthScenario.value).toBeCloseTo(484_000, 6);
-  });
-
-  it('flags a district whose function rollups do not reconcile to its stated total', () => {
-    const ctx = createContext(syntheticParameters());
-    const mismatched: DistrictBudget = {
-      ...base,
-      entity: 'ud/d',
-      // Grains still sum to 1,700,000; the printed total says otherwise.
-      expenditures: { ...base.expenditures, total_stated: 2_000_000 },
-    };
-    const result = runScenario(ctx, {
-      name: 'grains disagree with the printed total',
-      districts: [mismatched],
-      consolidatedPositions: [],
-      assumptions: defaultAssumptions(),
-    });
-    expect(
-      result.caveats.some((c) => c.includes('ud/d') && /reconcile/i.test(c)),
-    ).toBe(true);
-  });
-
-  it('skips reconciliation check when any grain is null', () => {
-    const ctx = createContext(syntheticParameters());
-    const nullGrain: DistrictBudget = {
-      ...base,
-      entity: 'ud/e',
-      // A grain is null: reconciliation check must be skipped even though
-      // the grains that exist do not sum to the stated total.
-      expenditures: { ...base.expenditures, instruction: null, total_stated: 2_000_000 },
-    };
-    const result = runScenario(ctx, {
-      name: 'district with unpublished instruction costs',
-      districts: [nullGrain],
-      consolidatedPositions: [],
-      assumptions: defaultAssumptions(),
-    });
-    // No caveat should match both entity and reconcile pattern.
-    expect(
-      result.caveats.some((c) => c.includes('ud/e') && /reconcile/i.test(c)),
-    ).toBe(false);
-  });
-
-  it('does not flag a difference exactly at the tolerance threshold', () => {
-    const ctx = createContext(syntheticParameters());
-    // Grains sum to 1,001,000; stated total is 1,000,000.
-    // Difference: 1,000.  Tolerance: max(1, 1,000,000 * 0.001) = 1,000.
-    // Since 1,000 is NOT > 1,000 (strict > check), no caveat is pushed.
-    const atTolerance: DistrictBudget = {
-      ...base,
-      entity: 'ud/f',
-      expenditures: {
-        instruction: 1_001_000,
-        special_education: 0,
-        administration_district: 0,
-        administration_school: 0,
-        operations_maintenance: 0,
-        transportation: 0,
-        debt_service: 0,
-        other: 0,
-        total_stated: 1_000_000,
-      },
-    };
-    const result = runScenario(ctx, {
-      name: 'district with grains exactly at tolerance boundary',
-      districts: [atTolerance],
-      consolidatedPositions: [],
-      assumptions: defaultAssumptions(),
-    });
-    // No caveat should match both entity and reconcile pattern.
-    expect(
-      result.caveats.some((c) => c.includes('ud/f') && /reconcile/i.test(c)),
-    ).toBe(false);
   });
 });
 
