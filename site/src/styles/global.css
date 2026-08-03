@@ -492,6 +492,14 @@ th {
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
+.notice.blocking .blocker-name {
+  font-weight: 600;
+}
+.notice.blocking .blocker-range {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
 .tag.ok {
   border-color: var(--state-normalized);
   color: var(--state-normalized);

@@ -36,11 +36,13 @@ import {
   perWeightedPupil,
   toSteps,
   townRate,
+  type Blocker,
   type CalcNode,
   type MembershipResult,
   type Parameter,
   type ParameterSet,
   type PublishedInput,
+  type Unit,
 } from '@vt-budget/model';
 
 import { enteredYearTotal } from './entered-total.ts';
@@ -289,17 +291,80 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
   container.append(list);
 }
 
+/**
+ * One blocking item, named and annotated with its estimation range.
+ *
+ * A blocker's `ref` is the parameter (or input) key, so we lead with it: a
+ * reader who only skims wants to know *which* figure is at issue before reading
+ * why. A range is what turns a blank into an estimate, so each item reports
+ * whether one has been supplied and, if so, its values. Three states matter and
+ * must not collapse: no range (nothing to estimate from), a range that still
+ * lacks the central value estimation needs, and a range with a central value
+ * the engine is already using to carry the figure as an estimate.
+ */
+function blockerItem(b: Blocker, byKey: Map<string, Parameter>): HTMLElement {
+  const li = el('li');
+  li.append(el('code', 'blocker-name', b.ref));
+  li.append(document.createTextNode(` — ${b.detail}`));
+
+  const param = byKey.get(b.ref);
+  const band = param ? formatRange(param.range, param.unit as Unit) : null;
+  const range = el('p', 'blocker-range');
+  if (band && param?.range?.central !== null && param?.range?.central !== undefined) {
+    range.textContent =
+      `A range has been supplied — ${band}, central ${formatValue(param.range.central, param.unit as Unit)} — and the engine uses that central value to carry this figure as an estimate until a number is published.`;
+  } else if (band) {
+    range.textContent =
+      `A range has been supplied — ${band} — but it has no central value yet, so it cannot be estimated until one is set.`;
+  } else {
+    range.textContent =
+      'No range has been supplied; one is needed before this item can be estimated.';
+  }
+  li.append(range);
+  return li;
+}
+
 function renderBlockers(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   if (root.blockers.length === 0) return;
 
+  const byKey = new Map(collectParameters(root).map((p) => [p.key, p]));
+
   const box = el('div', 'notice blocking');
   box.append(el('strong', undefined, `${root.blockers.length} thing(s) stand between this scenario and a number`));
 
+  const estimated = root.blockers.filter((b) => b.kind === 'estimated_parameter');
+  const contingent = root.blockers.filter((b) => b.kind === 'contingent_parameter');
   const unverified = root.blockers.filter((b) => b.kind === 'unverified_parameter');
   const missing = root.blockers.filter((b) => b.kind === 'missing_input');
   const undetermined = root.blockers.filter((b) => b.kind === 'undetermined_determination');
   const terminal = root.blockers.filter((b) => b.kind === 'not_computable');
+
+  if (estimated.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${estimated.length} figure(s) are carried as an estimate from a stated range because no number has been published. The scenario still produces a value; it is labeled an estimate rather than the settled figure.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of estimated) ul.append(blockerItem(b, byKey));
+    box.append(ul);
+  }
+
+  if (contingent.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${contingent.length} item(s) depend on legislation that has not been enacted, so they are shown as a band rather than a single number.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of contingent) ul.append(blockerItem(b, byKey));
+    box.append(ul);
+  }
 
   if (unverified.length > 0) {
     box.append(
@@ -310,7 +375,7 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
       ),
     );
     const ul = el('ul');
-    for (const b of unverified) ul.append(el('li', undefined, b.detail));
+    for (const b of unverified) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
@@ -323,7 +388,7 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
       ),
     );
     const ul = el('ul');
-    for (const b of missing) ul.append(el('li', undefined, b.detail));
+    for (const b of missing) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
@@ -336,7 +401,7 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
       ),
     );
     const ul = el('ul');
-    for (const b of undetermined) ul.append(el('li', undefined, b.detail));
+    for (const b of undetermined) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
@@ -349,7 +414,7 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
       ),
     );
     const ul = el('ul');
-    for (const b of terminal) ul.append(el('li', undefined, b.detail));
+    for (const b of terminal) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
