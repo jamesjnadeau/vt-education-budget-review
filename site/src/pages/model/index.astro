@@ -44,45 +44,50 @@ const liveParameters = JSON.stringify(parameters);
       The average number of students, by grade group, for two years. This count is called average
       daily membership. A rule in the law decides how many of those years actually count.
     </p>
+    <!-- The two membership years are the selected fiscal year and the one before
+         it (16 V.S.A. § 4001(7)'s two-year average). The "FYNNNN" prefixes here
+         are placeholders: the model island rewrites every [data-adm-slot] span
+         to the right pair whenever the year picker changes, so slot 0 is the
+         earlier year and slot 1 is the selected year. -->
     <fieldset class="field-group">
-      <legend>FY2025 students by grade</legend>
+      <legend><span data-adm-slot="0">FY2025</span> students by grade</legend>
       <div class="controls">
         <div class="field">
-          <label for="prek-1">FY2025 prekindergarten</label>
+          <label for="prek-1"><span data-adm-slot="0">FY2025</span> prekindergarten</label>
           <input id="prek-1" type="number" min="0" step="0.01" value="10" />
         </div>
         <div class="field">
-          <label for="k5-1">FY2025 kindergarten through grade 5</label>
+          <label for="k5-1"><span data-adm-slot="0">FY2025</span> kindergarten through grade 5</label>
           <input id="k5-1" type="number" min="0" step="0.01" value="100" />
         </div>
         <div class="field">
-          <label for="g68-1">FY2025 grades 6 through 8</label>
+          <label for="g68-1"><span data-adm-slot="0">FY2025</span> grades 6 through 8</label>
           <input id="g68-1" type="number" min="0" step="0.01" value="50" />
         </div>
         <div class="field">
-          <label for="g912-1">FY2025 grades 9 through 12</label>
+          <label for="g912-1"><span data-adm-slot="0">FY2025</span> grades 9 through 12</label>
           <input id="g912-1" type="number" min="0" step="0.01" value="50" />
         </div>
       </div>
       <p class="fieldset-total" id="fy2025-total" aria-live="polite"></p>
     </fieldset>
     <fieldset class="field-group">
-      <legend>FY2026 students by grade</legend>
+      <legend><span data-adm-slot="1">FY2026</span> students by grade</legend>
       <div class="controls">
         <div class="field">
-          <label for="prek-2">FY2026 prekindergarten</label>
+          <label for="prek-2"><span data-adm-slot="1">FY2026</span> prekindergarten</label>
           <input id="prek-2" type="number" min="0" step="0.01" value="20" />
         </div>
         <div class="field">
-          <label for="k5-2">FY2026 kindergarten through grade 5</label>
+          <label for="k5-2"><span data-adm-slot="1">FY2026</span> kindergarten through grade 5</label>
           <input id="k5-2" type="number" min="0" step="0.01" value="200" />
         </div>
         <div class="field">
-          <label for="g68-2">FY2026 grades 6 through 8</label>
+          <label for="g68-2"><span data-adm-slot="1">FY2026</span> grades 6 through 8</label>
           <input id="g68-2" type="number" min="0" step="0.01" value="100" />
         </div>
         <div class="field">
-          <label for="g912-2">FY2026 grades 9 through 12</label>
+          <label for="g912-2"><span data-adm-slot="1">FY2026</span> grades 9 through 12</label>
           <input id="g912-2" type="number" min="0" step="0.01" value="100" />
         </div>
       </div>

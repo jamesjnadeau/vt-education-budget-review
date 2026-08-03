@@ -245,6 +245,19 @@ function el(tag: string, className?: string, text?: string): HTMLElement {
   return node;
 }
 
+// Rewrite the grade-entry legends and labels to name the two membership years
+// for the selected fiscal year. The markup carries `data-adm-slot="0"` on every
+// span that should show the earlier year and `"1"` on every span for the later
+// year; this is the one place that fills them in, so the form always agrees with
+// the fiscal year the walkthrough is computing.
+function setAdmYearLabels(earlierYear: number, laterYear: number): void {
+  const byYear: Record<string, number> = { '0': earlierYear, '1': laterYear };
+  for (const span of document.querySelectorAll<HTMLElement>('[data-adm-slot]')) {
+    const year = byYear[span.dataset.admSlot ?? ''];
+    if (year !== undefined) span.textContent = `FY${year}`;
+  }
+}
+
 function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   const list = el('ol', 'walkthrough');
@@ -614,6 +627,15 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
           },
         );
 
+    // The two average-daily-membership years are the selected fiscal year and
+    // the one before it (16 V.S.A. § 4001(7)). Both the form's grade-entry
+    // legends/labels and the walkthrough's per-year steps read from this pair,
+    // so the year the user is entering figures for tracks the picker instead of
+    // sitting on whatever year was hardcoded when the form was written.
+    const laterYear = parameters.fiscal_year;
+    const earlierYear = laterYear - 1;
+    setAdmYearLabels(earlierYear, laterYear);
+
     if (parameters.parameters.size === 0) {
       walkthrough.replaceChildren();
       if (studentSummary) studentSummary.replaceChildren();
@@ -630,14 +652,14 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
       entity: 'ud/illustrative',
       adm_years: [
         {
-          fiscal_year: 2025,
+          fiscal_year: earlierYear,
           prekindergarten: numberField('prek-1'),
           kindergarten_through_5: numberField('k5-1'),
           grades_6_through_8: numberField('g68-1'),
           grades_9_through_12: numberField('g912-1'),
         },
         {
-          fiscal_year: 2026,
+          fiscal_year: laterYear,
           prekindergarten: numberField('prek-2'),
           kindergarten_through_5: numberField('k5-2'),
           grades_6_through_8: numberField('g68-2'),
