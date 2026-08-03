@@ -30,7 +30,6 @@ export type SchemaName =
   | 'collector'
   | 'parameters'
   | 'grouping'
-  | 'mapping'
   | 'adm'
   | 'aoe-source'
   | 'small-sparse'
@@ -45,7 +44,6 @@ const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   collector: 'urn:vt-budget:schema:collector:1.0',
   parameters: 'urn:vt-budget:schema:parameters:1.0',
   grouping: 'urn:vt-budget:schema:grouping:1.0',
-  mapping: 'urn:vt-budget:schema:mapping:1.0',
   adm: 'urn:vt-budget:schema:adm:1.0',
   'aoe-source': 'urn:vt-budget:schema:aoe-source:1.0',
   'small-sparse': 'urn:vt-budget:schema:small-sparse:1.0',

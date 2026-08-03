@@ -21,7 +21,6 @@
     "registry:corrections": "tsx tools/src/cli/registry-corrections.ts",
     "validate": "tsx tools/src/cli/validate.ts",
     "coverage": "tsx tools/src/cli/coverage.ts",
-    "extract": "tsx tools/src/cli/extract.ts",
     "adm:import": "tsx tools/src/cli/adm-import.ts",
     "census:import": "tsx tools/src/cli/census-import.ts",
     "school:municipality": "tsx tools/src/cli/school-municipality.ts",

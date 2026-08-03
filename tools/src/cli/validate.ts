@@ -139,7 +139,6 @@ function main(): number {
     warehouse: 0,
     provenance: 0,
     collectors: 0,
-    mappings: 0,
     parameters: 0,
     groupings: 0,
     derived: 0,
@@ -210,14 +209,6 @@ function main(): number {
     counts.collectors++;
     const data = readData(file);
     findings.push(...schemaFindings('collector', data, file));
-    findings.push(...checkRegistryRefs(data, file, registry));
-  }
-
-  // --- extraction mappings ------------------------------------------------
-  for (const file of walkFiles(PATHS.collectors, (n) => /^fy\d{4}\.yaml$/.test(n))) {
-    counts.mappings++;
-    const data = readData(file);
-    findings.push(...schemaFindings('mapping', data, file));
     findings.push(...checkRegistryRefs(data, file, registry));
   }
 
@@ -330,7 +321,7 @@ function main(): number {
   console.log(
     `Checked ${counts.registry} registry file(s), ${counts.groupings} grouping file(s), ` +
       `${counts.parameters} parameter file(s), ${counts.collectors} collector config(s), ` +
-      `${counts.mappings} mapping(s), ${counts.provenance} provenance file(s), ` +
+      `${counts.provenance} provenance file(s), ` +
       `${counts.derived} derived file(s), ${counts.warehouse} warehouse record(s).`,
   );
   if (!verifyHashes) console.log('Hash verification skipped (--no-hashes).');
