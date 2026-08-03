@@ -12,30 +12,30 @@ revenues:
   total_stated: 9239721
 expenditures:
   total_stated: 46338984
-  previous_year_actual: null
+  previous_year_actual: 38955982
 tax:
   towns:
     - town: town/bridport
-      homestead_rate_stated: 1.71
-      cla: 90.58
+      homestead_rate_stated: 1.77
+      cla: 79.29
     - town: town/cornwall
-      homestead_rate_stated: 1.72
-      cla: 90.02
+      homestead_rate_stated: 1.63
+      cla: 85.67
     - town: town/middlebury
-      homestead_rate_stated: 1.66
-      cla: 93.4
+      homestead_rate_stated: 1.67
+      cla: 83.88
     - town: town/ripton
-      homestead_rate_stated: 1.85
-      cla: 83.61
+      homestead_rate_stated: 1.76
+      cla: 79.45
     - town: town/salisbury
-      homestead_rate_stated: 1.78
-      cla: 87.27
+      homestead_rate_stated: 1.84
+      cla: 75.97
     - town: town/shoreham
-      homestead_rate_stated: 1.65
-      cla: 94.08
+      homestead_rate_stated: 1.69
+      cla: 82.90
     - town: town/weybridge
-      homestead_rate_stated: 1.61
-      cla: 96.53
+      homestead_rate_stated: 1.65
+      cla: 84.75
 lines_flagged:
   - path: revenues.education_fund_previous_year_actual
     issue: prior-year actual education-fund receipts not yet transcribed from the source; backfill from the budget book
