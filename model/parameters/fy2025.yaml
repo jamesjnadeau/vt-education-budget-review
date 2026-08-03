@@ -504,28 +504,16 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: null
+    value: 1
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
-    range:
-      low: 0.7
-      high: 0.8
-      central: null
-      basis: >-
-        The FY2025 statewide adjustment has not been transcribed from the
-        Department of Taxes' published figure. The adjacent FY2026 ratio is
-        0.7033, so 0.7-0.8 brackets the plausible FY2025 value pending the
-        published number.
     citation:
       statute: "32 V.S.A. § 5401(17)"
       session_law: null
       source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
       quote: >-
-        "Statewide adjustment" means the ratio of the aggregate education property
-        tax grand list of all municipalities to the aggregate value of the equalized
-        education property tax grand list of all municipalities. Published annually
-        by the Department of Taxes; the FY2025 figure has not been transcribed here.
-      verified: false
-      verified_date: null
-      verified_by: null
+        There was no statewide adjustment in 2025
+      verified: true
+      verified_date: "2026-08-02"
+      verified_by: James Nadeau
