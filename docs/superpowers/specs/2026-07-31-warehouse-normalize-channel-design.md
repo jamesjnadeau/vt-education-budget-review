@@ -147,9 +147,9 @@ intake split. It reuses `parseIssueForm` from `tools/src/intake/parse.ts` and
 2. Build the record, enforcing the sentinel on accountable fields, parsing the
    tax and `lines_flagged` textareas, and generating the `not_published` entries.
 3. Validate in-process against `schemas/budget-1.0.schema.json` **and** the
-   cross-file rules — `checkNullAccounting`, `checkProvenance`,
-   `checkRecomputation` — so a problem arrives as a comment on the issue before a
-   branch exists, not as a red check on a PR a bot opened.
+   cross-file rules — `checkNullAccounting` and `checkProvenance` — so a
+   problem arrives as a comment on the issue before a branch exists, not as a
+   red check on a PR a bot opened.
 4. Validate `entity` and every town slug against the registry, `status` against
    the enum, and `source` against both the intake-path pattern and the
    repository — a record whose `source` does not exist is rejected here rather

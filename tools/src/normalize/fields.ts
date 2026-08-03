@@ -3,10 +3,11 @@
  *
  * The form labels its inputs with the record's own dotted paths
  * (`revenues.education_fund`), so there is no label-to-path mapping to drift:
- * this table IS the correspondence, and the issue form mirrors it. `accountable`
- * marks the figures the validator's null-accounting rule holds to account -- the
- * ones the form demands a number or the `n/p` sentinel for. The rest are
- * descriptive or a printed total, where a blank is a legitimate null.
+ * this table IS the correspondence, and the issue form mirrors it. This table
+ * holds the five essential money figures, and every one of them is
+ * `accountable`: the validator's null-accounting rule holds each to account,
+ * the form demands a number or the `n/p` sentinel for it, and a blank is
+ * rejected rather than treated as a legitimate null.
  */
 
 export type FigureKind = 'money' | 'fte' | 'number' | 'text';

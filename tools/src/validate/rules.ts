@@ -94,10 +94,9 @@ export function collectNullPaths(value: unknown, prefix = ''): string[] {
  * Every unexplained null is an error.
  *
  * This is the rule that makes a null in the warehouse mean "the district did
- * not publish it" rather than "we did not look". Without it the two are
- * indistinguishable, and the entire personnel block -- which the plan makes a
- * first-class extraction target precisely because merger claims are staffing
- * claims -- would quietly fill with nulls that mean nothing.
+ * not publish it" rather than "we did not look". Without it, a null
+ * `expenditures.previous_year_actual` -- a figure the source may simply not
+ * have printed -- would be indistinguishable from one nobody checked.
  */
 export function checkNullAccounting(record: BudgetRecord, file: string): Finding[] {
   const explained = new Set<string>([

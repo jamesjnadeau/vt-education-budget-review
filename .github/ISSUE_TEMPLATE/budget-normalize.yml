@@ -121,6 +121,7 @@ body:
       label: "lines_flagged"
       description: >-
         Optional. Anything that did not fit cleanly, one per line as
-        `path :: what was off` (e.g. `expenditures.other :: bond premium lumped in`).
+        `path :: what was off` (e.g. `expenditures.previous_year_actual ::
+        prior-year column unreadable`).
     validations:
       required: false
