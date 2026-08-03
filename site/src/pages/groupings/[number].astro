@@ -1,0 +1,204 @@
+---
+import Base from '../../layouts/Base.astro';
+import groupingsDoc from '../../generated/groupings.json';
+import groupingBudgets from '../../generated/grouping-budgets.json';
+import { createContext, runScenario, defaultAssumptions, formatValue } from '@vt-budget/model';
+import type { DistrictBudget } from '@vt-budget/model';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface Grouping {
+  number: number;
+  slug: string;
+  name: string;
+  members: string[];
+  verified: boolean;
+}
+interface GroupingBudgetMember {
+  slug: string;
+  name_as_written: string | null;
+  budget: DistrictBudget | null;
+  resolution: 'direct' | 'via_su' | 'missing' | 'ambiguous';
+  fiscal_year: number | null;
+  status: string | null;
+}
+interface GroupingBudgets {
+  number: number;
+  slug: string;
+  name: string;
+  members: GroupingBudgetMember[];
+  resolved_count: number;
+  member_count: number;
+  fiscal_years_present: number[];
+}
+
+const doc = groupingsDoc as {
+  act?: { name?: string; citation?: { statute?: string } };
+  groupings: Grouping[];
+};
+const budgetsByNumber = new Map(
+  (groupingBudgets as GroupingBudgets[]).map((g) => [g.number, g]),
+);
+
+export function getStaticPaths() {
+  const source = groupingsDoc as { groupings: Grouping[] };
+  return source.groupings.map((g) => ({ params: { number: String(g.number) }, props: { grouping: g } }));
+}
+
+const { grouping } = Astro.props as { grouping: Grouping };
+const budgets = budgetsByNumber.get(grouping.number) ?? {
+  number: grouping.number,
+  slug: grouping.slug,
+  name: grouping.name,
+  members: [],
+  resolved_count: 0,
+  member_count: grouping.members.length,
+  fiscal_years_present: [],
+};
+
+// The combined total is only stated when every member resolved to a non-null
+// total. A resolved record whose total is null (published nothing) is still a
+// gap, because null propagates through the model to an unknown current total.
+const computable =
+  budgets.member_count > 0 &&
+  budgets.members.length > 0 &&
+  budgets.members.every((m) => m.budget && m.budget.total_stated !== null);
+
+let result: ReturnType<typeof runScenario> | null = null;
+if (computable) {
+  const ctx = createContext({
+    fiscal_year: budgets.fiscal_years_present[0] ?? 0,
+    status: 'draft',
+    note: null,
+    parameters: new Map(),
+    inputs: new Map(),
+  });
+  result = runScenario(ctx, {
+    name: grouping.name,
+    districts: budgets.members.map((m) => m.budget as DistrictBudget),
+    assumptions: defaultAssumptions(),
+  });
+}
+
+const gaps = budgets.members.filter((m) => !m.budget || m.budget.total_stated === null);
+const mixedYears = budgets.fiscal_years_present.length > 1;
+const state: 'computed' | 'partial' | 'recruitment' = computable
+  ? 'computed'
+  : budgets.resolved_count === 0
+    ? 'recruitment'
+    : 'partial';
+---
+
+<Base title={`${grouping.name} — Vermont School Budgets`}>
+  <p><a href={`${base}/groupings/`}>← All Act 170 groups</a></p>
+  <h1>{grouping.name}</h1>
+  <p class="lede">
+    The districts {doc.act?.name ?? 'Act 170'} groups together, run individually and combined.
+    A grouping is a what-if the Legislature already named — this page runs it.
+    {!grouping.verified && <span class="tag unverified" style="margin-left:.5rem">membership not checked</span>}
+  </p>
+
+  {state === 'computed' && result && (
+    <>
+      <h2>Run individually</h2>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Status</th><th scope="col">Total expenditure</th></tr>
+          </thead>
+          <tbody>
+            {budgets.members.map((m) => (
+              <tr>
+                <th scope="row">{m.name_as_written ?? m.slug}</th>
+                <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
+                <td>{m.status ?? '—'}{m.resolution === 'via_su' && <span class="tag" style="margin-left:.4rem">via SU</span>}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
+                <td>{m.budget && m.budget.total_stated !== null ? formatValue(m.budget.total_stated, 'usd') : 'not published'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Combined</h2>
+      <dl class="facts">
+        <dt>{result.currentTotal.label}</dt>
+        <dd>{formatValue(result.currentTotal.value, 'usd')}</dd>
+        <dt>{result.scenarioTotal.label}</dt>
+        <dd>{formatValue(result.scenarioTotal.value, 'usd')}</dd>
+        <dt>{result.delta.label}</dt>
+        <dd>{formatValue(result.delta.value, 'usd')}</dd>
+      </dl>
+      <p style="color:var(--text-muted)">
+        At the default consolidation factor of 1.0 the change is {formatValue(result.delta.value, 'usd')} by
+        design: the tool assumes no consolidation you did not choose. Adjust the factor in the
+        <a href={`${base}/model/`}>what-if tool</a> to see movement in either direction.
+      </p>
+
+      {mixedYears && (
+        <div class="notice">
+          <strong>Members' budgets are from different years</strong>
+          <p>The combined figure mixes fiscal years {budgets.fiscal_years_present.map((y) => `FY${y}`).join(', ')}. Compare years before quoting it.</p>
+        </div>
+      )}
+
+      <h2>Assumptions</h2>
+      <dl class="facts">
+        {result.assumptions.map((a) => (
+          <>
+            <dt>{a.label}</dt>
+            <dd>{a.value} — {a.rationale}</dd>
+          </>
+        ))}
+      </dl>
+
+      <h2>Before you quote this</h2>
+      <ul>{result.caveats.map((c) => <li>{c}</li>)}</ul>
+    </>
+  )}
+
+  {state === 'partial' && (
+    <>
+      <h2>Run individually (partial)</h2>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Total expenditure</th></tr>
+          </thead>
+          <tbody>
+            {budgets.members.map((m) => (
+              <tr>
+                <th scope="row">{m.name_as_written ?? m.slug}</th>
+                <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
+                <td>{m.budget && m.budget.total_stated !== null ? formatValue(m.budget.total_stated, 'usd') : 'no budget held'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="notice blocking">
+        <strong>Combined total not computed: {gaps.length} of {budgets.member_count} member budgets are missing</strong>
+        <p>A combined figure is only shown when every member has a published total, so one missing budget does not silently shrink the group. Missing or unmatched:</p>
+        <ul>
+          {gaps.map((m) => <li>{m.name_as_written ?? m.slug} — {m.resolution === 'ambiguous' ? 'budget held only at the supervisory-union level, which serves more than one district' : 'no budget held'}</li>)}
+        </ul>
+        <p>Have one of these budgets? <a href={`${base}/su/`}>Find the supervisory union</a> and send the document in through its issue form — a bot opens the pull request.</p>
+      </div>
+    </>
+  )}
+
+  {state === 'recruitment' && (
+    <div class="notice blocking">
+      <strong>No member budgets held for this group yet</strong>
+      <p>None of the {budgets.member_count} districts in this group has a budget document collected, so the merger comparison cannot be run. This is a gap in coverage, not a statement that these districts published nothing.</p>
+      <h3>Members</h3>
+      <ul>{budgets.members.map((m) => <li>{m.name_as_written ?? m.slug} <code>{m.slug}</code></li>)}</ul>
+      <p>Have one of these budgets? <a href={`${base}/su/`}>Find the supervisory union</a> and send it in through its issue form.</p>
+    </div>
+  )}
+
+  <h2>Where this comes from</h2>
+  <dl class="facts">
+    <dt>Law</dt>
+    <dd>{doc.act?.citation?.statute ?? '—'}</dd>
+  </dl>
+</Base>
