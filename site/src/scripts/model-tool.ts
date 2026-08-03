@@ -571,6 +571,7 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
   const studentSummary = document.getElementById('student-summary');
   const fy2025Total = document.getElementById('fy2025-total');
   const fy2026Total = document.getElementById('fy2026-total');
+  const priorYearGroup = document.getElementById('prior-year-group');
 
   if (!walkthrough || !blockers || !citations || !assumptions || !summary) return;
 
@@ -636,6 +637,15 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
     const earlierYear = laterYear - 1;
     setAdmYearLabels(earlierYear, laterYear);
 
+    // Last year's weighted membership is only asked for where § 4010(e) binds;
+    // the parameter file says whether it does. Hiding the field elsewhere keeps
+    // an inert input off the form, and — because it is hidden, not just ignored —
+    // a figure left over from a floor year cannot silently ride along into a year
+    // the floor is off.
+    const floorApplies =
+      parameters.parameters.get('membership.hold_harmless_applies')?.value === true;
+    if (priorYearGroup) priorYearGroup.hidden = !floorApplies;
+
     if (parameters.parameters.size === 0) {
       walkthrough.replaceChildren();
       if (studentSummary) studentSummary.replaceChildren();
@@ -670,6 +680,9 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
       poverty_185_fpl: numberField('econ'),
       english_learners: numberField('el'),
       persons_per_square_mile: numberField('density'),
+      // Only consult last year's figure where the floor is in force; in other
+      // years it plays no part and the field is hidden, so we do not read it.
+      prior_year_weighted_membership: floorApplies ? numberField('prior-year-membership') : null,
       // A school with no name is no school. An unnamed row would otherwise
       // become a weight applied to an anonymous entity in the walkthrough.
       small_schools:

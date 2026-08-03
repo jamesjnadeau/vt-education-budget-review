@@ -94,6 +94,29 @@ const liveParameters = JSON.stringify(parameters);
       <p class="fieldset-total" id="fy2026-total" aria-live="polite"></p>
     </fieldset>
 
+    <!-- The § 4010(e) hold harmless floor only binds in years the parameter file
+         marks membership.hold_harmless_applies = true (FY2025 among the live
+         years). The island shows this fieldset only for those years and hides it
+         otherwise, so a figure that has no effect never sits on the form asking
+         to be filled in. Its value feeds prior_year_weighted_membership. -->
+    <fieldset class="field-group" id="prior-year-group" hidden>
+      <legend>Last year's membership</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="prior-year-membership"
+            >District's weighted long-term membership last year (<span data-adm-slot="0">FY2024</span>)</label
+          >
+          <input id="prior-year-membership" type="number" min="0" step="0.01" value="" />
+          <p class="field-help">
+            The hold harmless floor (16 V.S.A. § 4010(e)) is in force this year, so this year's
+            weighted membership cannot fall below 96.5% of last year's. Enter last year's figure so
+            the floor can be tested. Leave it blank if you don't have it — the result stays unknown
+            rather than skipping the floor.
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
     <fieldset class="field-group">
       <legend>Students who add extra weight</legend>
       <div class="controls">
