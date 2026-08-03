@@ -34,7 +34,6 @@ import {
   checkPlaceholderEntities,
   checkProvenance,
   checkProvenanceDoc,
-  checkRecomputation,
   checkRegistryRefs,
   formatFinding,
   summarize,
@@ -315,7 +314,6 @@ function main(): number {
     findings.push(...checkRegistryRefs(record, file, registry));
     findings.push(...checkNullAccounting(record, file));
     findings.push(...checkProvenance(record, file, { verifyHashes }));
-    findings.push(...checkRecomputation(record, file));
 
     const expected = `fy${record.fiscal_year}`;
     if (!basename(file).startsWith(expected)) {

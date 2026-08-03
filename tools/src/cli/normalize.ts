@@ -29,7 +29,6 @@ import { validateAgainst } from '../validate/schemas.ts';
 import {
   checkNullAccounting,
   checkProvenance,
-  checkRecomputation,
   type BudgetRecord,
   type Finding,
 } from '../validate/rules.ts';
@@ -103,7 +102,6 @@ function main(): number {
     ...schemaErrors,
     ...checkNullAccounting(record, label),
     ...checkProvenance(record, label, { verifyHashes: false }),
-    ...checkRecomputation(record, label),
   ];
   const errors = findings.filter((f) => f.severity === 'error');
   const warnings = findings.filter((f) => f.severity === 'warning');

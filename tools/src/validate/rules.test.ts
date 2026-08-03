@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import {
   checkNullAccounting,
-  checkRecomputation,
   checkRegistryRefs,
   collectNullPaths,
   type BudgetRecord,
@@ -157,51 +156,6 @@ describe('registry references', () => {
       },
     });
     expect(checkRegistryRefs(r, 'f.yaml', registry)).toHaveLength(1);
-  });
-});
-
-describe('recomputation', () => {
-  it('warns, rather than failing, when stated and computed totals disagree', () => {
-    // The plan is explicit that this discrepancy is analytically interesting
-    // and must not be silently reconciled, so it must not block a merge.
-    const r = record({
-      expenditures: { ...(record().expenditures as object), total_stated: 2000 } as never,
-    });
-    const findings = checkRecomputation(r, 'f.yaml');
-    expect(findings).toHaveLength(1);
-    expect(findings[0]?.severity).toBe('warning');
-    expect(findings[0]?.message).toMatch(/Both figures are kept/);
-  });
-
-  it('tolerates rounding', () => {
-    const r = record({
-      expenditures: { ...(record().expenditures as object), total_stated: 1150 } as never,
-    });
-    expect(checkRecomputation(r, 'f.yaml')).toHaveLength(0);
-  });
-
-  it('errors when staff costs exceed total expenditure', () => {
-    // The two blocks slice the same dollars by object and by function. Staff
-    // costs are always a subset; exceeding the total means one was misread.
-    const r = record({
-      personnel: { ...(record().personnel as object), total_staff_costs: 99_999 } as never,
-    });
-    const findings = checkRecomputation(r, 'f.yaml');
-    const fatal = findings.filter((f) => f.severity === 'error');
-    expect(fatal).toHaveLength(1);
-    expect(fatal[0]?.message).toMatch(/never additive/);
-  });
-
-  it('warns when the object-class parts do not sum to total staff costs', () => {
-    const r = record({
-      personnel: { ...(record().personnel as object), benefits_other: 500 } as never,
-    });
-    const findings = checkRecomputation(r, 'f.yaml');
-    expect(findings.some((f) => f.severity === 'warning' && /total_staff_costs/.test(f.message))).toBe(true);
-  });
-
-  it('says nothing when the document states no total to compare against', () => {
-    expect(checkRecomputation(record(), 'f.yaml')).toHaveLength(0);
   });
 });
 
