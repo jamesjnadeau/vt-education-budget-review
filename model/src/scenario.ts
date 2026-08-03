@@ -21,7 +21,7 @@
  * own rationale. Nothing is hidden in a constant.
  */
 
-import { difference, input, product, sum } from './node.ts';
+import { difference, input, product } from './node.ts';
 import type { CalcNode, EngineContext, Unit } from './types.ts';
 
 export interface Assumption {
@@ -43,6 +43,8 @@ export interface ExpenditureRollup {
   readonly transportation: number | null;
   readonly debt_service: number | null;
   readonly other: number | null;
+  /** Total expenditure as published. The figure the merger math runs on. */
+  readonly total_stated: number | null;
 }
 
 export interface PersonnelRollup {
@@ -88,48 +90,18 @@ export interface ScenarioSpec {
 export function defaultAssumptions(): Assumption[] {
   return [
     {
-      key: 'district_admin_retained',
-      label: 'Share of combined district administration retained after merger',
-      value: 1,
-      unit: 'ratio',
-      rationale:
-        'Starts at 1.0 -- no reduction assumed -- so that any reduction shown is one ' +
-        'the user chose and can see, rather than one the tool assumed on their behalf. ' +
-        'District-level administration is the function a merger can actually consolidate; ' +
-        'how much of it a real board would consolidate is a political question, not an ' +
-        'arithmetic one, and the tool declines to answer it for them.',
-      userAdjustable: true,
-    },
-    {
-      key: 'school_admin_retained',
-      label: 'Share of school-level administration retained',
-      value: 1,
-      unit: 'ratio',
-      rationale:
-        'School-level costs follow the buildings. Merging districts does not by itself ' +
-        'remove a principal from a school that remains open; only closing the school does.',
-      userAdjustable: true,
-    },
-    {
-      key: 'operations_retained',
-      label: 'Share of operations and maintenance retained',
-      value: 1,
-      unit: 'ratio',
-      rationale:
-        'Buildings that stay open cost what they cost. This moves only when a closure ' +
-        'scenario removes a building.',
-      userAdjustable: true,
-    },
-    {
-      key: 'transportation_multiplier',
-      label: 'Transportation cost multiplier',
+      key: 'consolidation_factor',
+      label: 'Consolidation factor applied to combined total expenditure',
       value: 1,
       unit: 'multiplier',
       rationale:
-        'Defaults to no change, and can be set above 1. Consolidation frequently ' +
-        'lengthens bus routes rather than shortening them; a tool that only allowed ' +
-        'this to fall would be modelling a conclusion instead of a system. Route-level ' +
-        'transportation modelling is explicitly out of scope for v1.',
+        'Starts at 1.0 -- no change -- so any reduction or increase shown is one the ' +
+        'user chose and can see, never one the tool assumed for them. A merger can ' +
+        'consolidate district administration and some shared services, but how much a ' +
+        'real board would consolidate is a political question, not an arithmetic one. ' +
+        'The factor applies to the combined published total because districts do not ' +
+        'slice their budgets the same way, so a line-by-line model would be comparing ' +
+        'figures that are not comparable.',
       userAdjustable: true,
     },
     {
@@ -180,17 +152,8 @@ function totalOf(
   return acc;
 }
 
-export interface LineComparison {
-  readonly line: string;
-  readonly current: CalcNode;
-  readonly scenario: CalcNode;
-  /** Signed. Positive means the scenario is higher. Never named "savings". */
-  readonly delta: CalcNode;
-}
-
 export interface ScenarioResult {
   readonly name: string;
-  readonly lines: readonly LineComparison[];
   readonly currentTotal: CalcNode;
   readonly scenarioTotal: CalcNode;
   readonly delta: CalcNode;
@@ -210,61 +173,28 @@ export interface StaffingComparison {
   readonly fteRemoved: number;
 }
 
-const SCALED_LINES: ReadonlyArray<{
-  readonly key: keyof ExpenditureRollup;
-  readonly label: string;
-  readonly assumption: string | null;
-}> = [
-  { key: 'instruction', label: 'Instruction', assumption: null },
-  { key: 'special_education', label: 'Special education', assumption: null },
-  { key: 'administration_district', label: 'District administration', assumption: 'district_admin_retained' },
-  { key: 'administration_school', label: 'School administration', assumption: 'school_admin_retained' },
-  { key: 'operations_maintenance', label: 'Operations and maintenance', assumption: 'operations_retained' },
-  { key: 'transportation', label: 'Transportation', assumption: 'transportation_multiplier' },
-  { key: 'debt_service', label: 'Debt service', assumption: null },
-  { key: 'other', label: 'Other', assumption: null },
-];
-
 export function runScenario(ctx: EngineContext, spec: ScenarioSpec): ScenarioResult {
-  const lines: LineComparison[] = [];
-  const currentNodes: CalcNode[] = [];
-  const scenarioNodes: CalcNode[] = [];
+  const currentValue = totalOf(spec.districts, (d) => d.expenditures.total_stated);
+  const currentTotal = input(ctx, 'Total expenditure, current structure', currentValue, 'usd', {
+    source: spec.districts.map((d) => d.source).join('; '),
+    notes: [
+      'The sum of each district’s published total expenditure. Function-level ' +
+        'figures are kept on each record but are not summed across districts, ' +
+        'because districts do not slice their budgets the same way.',
+    ],
+  });
 
-  for (const line of SCALED_LINES) {
-    const currentValue = totalOf(spec.districts, (d) => d.expenditures[line.key]);
-    const current = input(ctx, `${line.label}, current structure`, currentValue, 'usd', {
-      source: spec.districts.map((d) => d.source).join('; '),
-    });
-
-    let scenario: CalcNode;
-    if (line.assumption === null) {
-      scenario = input(ctx, `${line.label}, scenario`, currentValue, 'usd', {
-        source: 'unchanged by this scenario',
-        notes: [`${line.label} is not assumed to change under a change of district boundaries.`],
-      });
-    } else {
-      const factor = assumptionValue(spec, line.assumption);
-      const multiplier = input(ctx, assumptionLabel(spec, line.assumption), factor, 'multiplier', {
-        source: 'scenario assumption',
-      });
-      scenario = product(ctx, `${line.label}, scenario`, current, multiplier, 'usd');
-    }
-
-    const delta = difference(ctx, `${line.label}, change`, scenario, current, 'usd');
-    lines.push({ line: line.label, current, scenario, delta });
-    currentNodes.push(current);
-    scenarioNodes.push(scenario);
-  }
-
-  const currentTotal = sum(ctx, 'Total expenditure, current structure', currentNodes, 'usd');
-  const scenarioTotal = sum(ctx, 'Total expenditure, scenario', scenarioNodes, 'usd');
+  const factor = assumptionValue(spec, 'consolidation_factor');
+  const multiplier = input(ctx, assumptionLabel(spec, 'consolidation_factor'), factor, 'multiplier', {
+    source: 'scenario assumption',
+  });
+  const scenarioTotal = product(ctx, 'Total expenditure, scenario', currentTotal, multiplier, 'usd');
   const delta = difference(ctx, 'Change in total expenditure', scenarioTotal, currentTotal, 'usd');
 
   const staffing = computeStaffing(ctx, spec);
 
   return {
     name: spec.name,
-    lines,
     currentTotal,
     scenarioTotal,
     delta,
@@ -362,24 +292,47 @@ function computeStaffing(ctx: EngineContext, spec: ScenarioSpec): StaffingCompar
   };
 }
 
+const GRAIN_KEYS: ReadonlyArray<keyof ExpenditureRollup> = [
+  'instruction',
+  'special_education',
+  'administration_district',
+  'administration_school',
+  'operations_maintenance',
+  'transportation',
+  'debt_service',
+  'other',
+];
+
+/** Sum of the eight function grains, or null if any grain is unpublished. */
+function sumGrains(e: ExpenditureRollup): number | null {
+  let acc = 0;
+  for (const key of GRAIN_KEYS) {
+    const v = e[key];
+    if (v === null) return null;
+    acc += v;
+  }
+  return acc;
+}
+
 function buildCaveats(spec: ScenarioSpec): string[] {
   const caveats: string[] = [
     'This scenario changes district boundaries on paper. It does not model the ' +
       'transition costs of getting there: contract harmonization, severance, ' +
       'systems integration, or the multi-year period in which two structures ' +
       'run in parallel.',
-    'Construction aid, legacy debt incentives and transportation routing are out ' +
-      'of scope for version 1 and are not modelled. Debt service is carried ' +
-      'forward unchanged.',
-    'Instruction and special education are held constant on the assumption that ' +
-      'the same students are taught. A scenario that changes class sizes or ' +
-      'programme offerings is not represented by holding these lines flat.',
+    'The headline delta is a single consolidation factor applied to the combined ' +
+      'published total expenditure. The tool does not model which functions change ' +
+      'or by how much, and it does not separate debt service, construction aid or ' +
+      'transportation routing, all of which are out of scope for version 1.',
+    'The staffing figures are an independent view of the same budget. They do not ' +
+      'feed the headline delta -- that comes solely from the consolidation factor -- ' +
+      'so the two must never be added together.',
   ];
 
   if (spec.consolidatedPositions.length === 0) {
     caveats.push(
-      'This scenario consolidates no positions. Any change shown comes entirely ' +
-        'from the line-level assumptions, not from staffing.',
+      'This scenario consolidates no positions, so the staffing view shows no ' +
+        'change. The headline delta comes entirely from the consolidation factor.',
     );
   }
 
@@ -390,6 +343,25 @@ function buildCaveats(spec: ScenarioSpec): string[] {
         'salary, so the staffing effect cannot be quantified and is reported as ' +
         'unknown rather than as zero.',
     );
+  }
+
+  // Mirrors the validator's recomputation tolerance (0.1%, floor of $1). The
+  // published total is authoritative; a gap is surfaced, not silently resolved.
+  for (const d of spec.districts) {
+    const grains = sumGrains(d.expenditures);
+    const stated = d.expenditures.total_stated;
+    if (grains !== null && stated !== null) {
+      const diff = Math.abs(grains - stated);
+      if (diff > Math.max(1, stated * 0.001)) {
+        caveats.push(
+          `${d.entity}: function rollups do not reconcile to the stated total. ` +
+            `The eight function grains sum to ${grains.toLocaleString()} but the ` +
+            `published total is ${stated.toLocaleString()} (difference ` +
+            `${diff.toLocaleString()}). The published total is used; this gap is not ` +
+            `explained here and should be checked against the source document.`,
+        );
+      }
+    }
   }
 
   return caveats;

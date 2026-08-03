@@ -163,3 +163,28 @@ describe('buildRecord — tax and lines_flagged', () => {
     expect(errorsFrom({ body: body({ lines_flagged: 'no separator here' }) }).length).toBeGreaterThan(0);
   });
 });
+
+describe('buildRecord — non-accountable field emission', () => {
+  it('emits null for a blank non-accountable field like expenditures.total_stated', () => {
+    const r = buildRecord(input({ body: body({ 'expenditures.total_stated': '' }) }));
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    const rec = r.record as Record<string, any>;
+    // The key must be present and null, not omitted
+    expect(rec.expenditures).toHaveProperty('total_stated');
+    expect(rec.expenditures.total_stated).toBeNull();
+  });
+
+  it('still rejects a blank accountable field like expenditures.instruction', () => {
+    const errs = errorsFrom({ body: body({ 'expenditures.instruction': '' }) });
+    expect(errs.join('\n')).toMatch(/expenditures\.instruction/);
+  });
+
+  it('accepts n/p for a non-accountable field and emits null', () => {
+    const r = buildRecord(input({ body: body({ 'expenditures.total_stated': 'n/p' }) }));
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    const rec = r.record as Record<string, any>;
+    expect(rec.expenditures.total_stated).toBeNull();
+  });
+});

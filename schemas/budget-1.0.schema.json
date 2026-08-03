@@ -107,7 +107,8 @@
         "operations_maintenance",
         "transportation",
         "debt_service",
-        "other"
+        "other",
+        "total_stated"
       ],
       "properties": {
         "instruction": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },

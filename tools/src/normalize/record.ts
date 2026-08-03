@@ -127,11 +127,15 @@ export function buildRecord(inputData: NormalizeInput): NormalizeResult {
     }
 
     if (!field.accountable) {
-      // Optional numeric: a blank is a legitimate null (omitted); a value is
+      // Optional numeric: a blank is a legitimate null (emitted); a value is
       // parsed, and an n/p on an optional field simply means null.
-      if (raw === null) continue;
+      if (raw === null) {
+        setPath(record, field.path, null);
+        continue;
+      }
       const parsed = parseFigure(raw);
       if ('error' in parsed) errors.push(`${field.path} ${parsed.error}`);
+      else if ('notPublished' in parsed) setPath(record, field.path, null);
       else if ('value' in parsed) setPath(record, field.path, parsed.value);
       continue;
     }
