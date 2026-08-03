@@ -292,6 +292,28 @@ function computeStaffing(ctx: EngineContext, spec: ScenarioSpec): StaffingCompar
   };
 }
 
+const GRAIN_KEYS: ReadonlyArray<keyof ExpenditureRollup> = [
+  'instruction',
+  'special_education',
+  'administration_district',
+  'administration_school',
+  'operations_maintenance',
+  'transportation',
+  'debt_service',
+  'other',
+];
+
+/** Sum of the eight function grains, or null if any grain is unpublished. */
+function sumGrains(e: ExpenditureRollup): number | null {
+  let acc = 0;
+  for (const key of GRAIN_KEYS) {
+    const v = e[key];
+    if (v === null) return null;
+    acc += v;
+  }
+  return acc;
+}
+
 function buildCaveats(spec: ScenarioSpec): string[] {
   const caveats: string[] = [
     'This scenario changes district boundaries on paper. It does not model the ' +
@@ -321,6 +343,25 @@ function buildCaveats(spec: ScenarioSpec): string[] {
         'salary, so the staffing effect cannot be quantified and is reported as ' +
         'unknown rather than as zero.',
     );
+  }
+
+  // Mirrors the validator's recomputation tolerance (0.1%, floor of $1). The
+  // published total is authoritative; a gap is surfaced, not silently resolved.
+  for (const d of spec.districts) {
+    const grains = sumGrains(d.expenditures);
+    const stated = d.expenditures.total_stated;
+    if (grains !== null && stated !== null) {
+      const diff = Math.abs(grains - stated);
+      if (diff > Math.max(1, stated * 0.001)) {
+        caveats.push(
+          `${d.entity}: function rollups do not reconcile to the stated total. ` +
+            `The eight function grains sum to ${grains.toLocaleString()} but the ` +
+            `published total is ${stated.toLocaleString()} (difference ` +
+            `${diff.toLocaleString()}). The published total is used; this gap is not ` +
+            `explained here and should be checked against the source document.`,
+        );
+      }
+    }
   }
 
   return caveats;

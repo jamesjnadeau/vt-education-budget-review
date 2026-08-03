@@ -625,6 +625,25 @@ describe('scenarios present movement in both directions', () => {
     expect(result.staffing.healthCurrent.value).toBe(440_000);
     expect(result.staffing.healthScenario.value).toBeCloseTo(484_000, 6);
   });
+
+  it('flags a district whose function rollups do not reconcile to its stated total', () => {
+    const ctx = createContext(syntheticParameters());
+    const mismatched: DistrictBudget = {
+      ...base,
+      entity: 'ud/d',
+      // Grains still sum to 1,700,000; the printed total says otherwise.
+      expenditures: { ...base.expenditures, total_stated: 2_000_000 },
+    };
+    const result = runScenario(ctx, {
+      name: 'grains disagree with the printed total',
+      districts: [mismatched],
+      consolidatedPositions: [],
+      assumptions: defaultAssumptions(),
+    });
+    expect(
+      result.caveats.some((c) => c.includes('ud/d') && /reconcile/i.test(c)),
+    ).toBe(true);
+  });
 });
 
 describe('the walkthrough', () => {
