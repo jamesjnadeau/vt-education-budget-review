@@ -50,19 +50,30 @@ export interface GroupingBudgets {
   readonly fiscal_years_present: readonly number[];
 }
 
-const STATUS_RANK: Record<string, number> = { adopted: 2, proposed: 1 };
+// The warehouse budget `status` vocabulary is proposed | warned | approved |
+// actual (schemas/budget-1.0.schema.json). `actual` is year-end realized spend,
+// not a proposed/adopted budget, so it is NOT ranked here: it is used only as a
+// last resort, when a member has no budget-status record at all.
+const BUDGET_STATUS_RANK: Record<string, number> = { approved: 3, warned: 2, proposed: 1 };
+const BUDGET_STATUSES = new Set(Object.keys(BUDGET_STATUS_RANK));
 
 /** A registry entity that is itself a district: a UD, or a town that runs its own school. */
 function isDistrictLike(e: RegistryEntity): boolean {
   return e.type === 'ud' || (e.type === 'town' && !e.operated_by && !e.reporting_only);
 }
 
-/** Latest fiscal year wins; adopted beats proposed within a year. Null if none. */
+/**
+ * Pick one record. Prefer a real budget (approved > warned > proposed, latest
+ * fiscal year first) over an `actual`; fall back to the latest `actual` only
+ * when the member has no budget-status record. Null when there are no candidates.
+ */
 function pickBudget(candidates: readonly BudgetInput[]): BudgetInput | null {
   if (candidates.length === 0) return null;
-  return [...candidates].sort((a, b) => {
+  const budgets = candidates.filter((c) => BUDGET_STATUSES.has(c.status));
+  const pool = budgets.length > 0 ? budgets : candidates;
+  return [...pool].sort((a, b) => {
     if (b.fiscal_year !== a.fiscal_year) return b.fiscal_year - a.fiscal_year;
-    return (STATUS_RANK[b.status] ?? 0) - (STATUS_RANK[a.status] ?? 0);
+    return (BUDGET_STATUS_RANK[b.status] ?? 0) - (BUDGET_STATUS_RANK[a.status] ?? 0);
   })[0]!;
 }
 
@@ -116,7 +127,8 @@ export function buildGroupingBudgets(
       if (su) {
         const suBudget = pickBudget(byEntity.get(su) ?? []);
         if (suBudget) {
-          if ((suDistrictCount.get(su) ?? 0) === 1) {
+          const districtCount = suDistrictCount.get(su) ?? 0;
+          if (districtCount === 1) {
             return {
               slug,
               name_as_written: name,
@@ -126,8 +138,12 @@ export function buildGroupingBudgets(
               status: suBudget.status,
             };
           }
-          // SU has budget data but more than one district member: cannot split.
-          return { slug, name_as_written: name, budget: null, resolution: 'ambiguous', fiscal_year: null, status: null };
+          if (districtCount > 1) {
+            // SU has budget data but more than one district member: cannot split.
+            return { slug, name_as_written: name, budget: null, resolution: 'ambiguous', fiscal_year: null, status: null };
+          }
+          // districtCount === 0: an SU budget with no district-like member to
+          // attribute it to (e.g. a non-district member). Fall through to missing.
         }
       }
 

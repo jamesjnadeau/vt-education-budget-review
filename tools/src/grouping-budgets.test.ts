@@ -84,20 +84,58 @@ describe('buildGroupingBudgets', () => {
     expect(member.budget).toBeNull();
   });
 
-  it('prefers the latest fiscal year, and adopted over proposed within a year', () => {
+  it('prefers the latest fiscal year, and approved over proposed within a year', () => {
     const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud' }));
     const g = buildGroupingBudgets(
       [GROUP(['ud/a-1'])],
       reg,
       [
-        budget({ entity: 'ud/a-1', fiscal_year: 2023, status: 'adopted' }),
+        budget({ entity: 'ud/a-1', fiscal_year: 2023, status: 'approved' }),
         budget({ entity: 'ud/a-1', fiscal_year: 2024, status: 'proposed' }),
-        budget({ entity: 'ud/a-1', fiscal_year: 2024, status: 'adopted' }),
+        budget({ entity: 'ud/a-1', fiscal_year: 2024, status: 'approved' }),
       ],
     )[0]!;
     const member = g.members[0]!;
     expect(member.fiscal_year).toBe(2024);
-    expect(member.status).toBe('adopted');
+    expect(member.status).toBe('approved');
+  });
+
+  it('prefers a budget-status record over a more recent actual', () => {
+    const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud' }));
+    const g = buildGroupingBudgets(
+      [GROUP(['ud/a-1'])],
+      reg,
+      [
+        budget({ entity: 'ud/a-1', fiscal_year: 2023, status: 'approved' }),
+        budget({ entity: 'ud/a-1', fiscal_year: 2025, status: 'actual' }),
+      ],
+    )[0]!;
+    const member = g.members[0]!;
+    expect(member.fiscal_year).toBe(2023);
+    expect(member.status).toBe('approved');
+  });
+
+  it('falls back to the latest actual when the member has no budget-status record', () => {
+    const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud' }));
+    const g = buildGroupingBudgets(
+      [GROUP(['ud/a-1'])],
+      reg,
+      [
+        budget({ entity: 'ud/a-1', fiscal_year: 2024, status: 'actual' }),
+        budget({ entity: 'ud/a-1', fiscal_year: 2025, status: 'actual' }),
+      ],
+    )[0]!;
+    const member = g.members[0]!;
+    expect(member.fiscal_year).toBe(2025);
+    expect(member.status).toBe('actual');
+  });
+
+  it('marks a member missing (not ambiguous) when its SU budget has no district-like member to attribute', () => {
+    const reg = registryOf(entity({ slug: 'school/x', type: 'school', supervisory_union: 'su/z' }));
+    const g = buildGroupingBudgets([GROUP(['school/x'])], reg, [budget({ entity: 'su/z' })])[0]!;
+    const member = g.members[0]!;
+    expect(member.resolution).toBe('missing');
+    expect(member.budget).toBeNull();
   });
 
   it('adapts total_stated from expenditures (not revenues) and keeps an unpublished total null', () => {
