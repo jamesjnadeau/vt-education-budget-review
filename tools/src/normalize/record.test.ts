@@ -77,33 +77,33 @@ describe('buildRecord — happy path', () => {
 
 describe('buildRecord — the sentinel', () => {
   it('turns n/p into a not_published entry attributed to the author and date', () => {
-    const r = buildRecord(input({ body: body({ 'personnel.benefits_health': 'n/p' }) }));
+    const r = buildRecord(input({ body: body({ 'expenditures.previous_year_actual': 'n/p' }) }));
     if (!r.ok) throw new Error('expected ok');
     const rec = r.record as Record<string, any>;
-    expect(rec.personnel.benefits_health).toBeNull();
-    const entry = rec.not_published.find((n: any) => n.path === 'personnel.benefits_health');
+    expect(rec.expenditures.previous_year_actual).toBeNull();
+    const entry = rec.not_published.find((n: any) => n.path === 'expenditures.previous_year_actual');
     expect(entry).toEqual({
-      path: 'personnel.benefits_health',
+      path: 'expenditures.previous_year_actual',
       confirmed_by: '@octocat',
       confirmed_date: '2026-07-31',
     });
   });
 
   it('still validates against the schema and null-accounting with an n/p field', () => {
-    const r = buildRecord(input({ body: body({ 'personnel.benefits_health': 'n/p' }) }));
+    const r = buildRecord(input({ body: body({ 'expenditures.previous_year_actual': 'n/p' }) }));
     if (!r.ok) throw new Error('expected ok');
     expect(validateAgainst('budget', r.record)).toEqual([]);
     expect(checkNullAccounting(r.record as BudgetRecord, 'f.yaml')).toEqual([]);
   });
 
   it('rejects an empty accountable field, naming it', () => {
-    const errs = errorsFrom({ body: body({ 'expenditures.instruction': '' }) });
-    expect(errs.join('\n')).toMatch(/expenditures\.instruction/);
+    const errs = errorsFrom({ body: body({ 'expenditures.previous_year_actual': '' }) });
+    expect(errs.join('\n')).toMatch(/expenditures\.previous_year_actual/);
   });
 
   it('rejects a value that is neither a number nor n/p', () => {
-    const errs = errorsFrom({ body: body({ 'revenues.local': 'a lot' }) });
-    expect(errs.join('\n')).toMatch(/revenues\.local/);
+    const errs = errorsFrom({ body: body({ 'revenues.education_fund': 'a lot' }) });
+    expect(errs.join('\n')).toMatch(/revenues\.education_fund/);
   });
 });
 
@@ -151,40 +151,15 @@ describe('buildRecord — tax and lines_flagged', () => {
 
   it('parses lines_flagged in the path :: issue format', () => {
     const r = buildRecord(
-      input({ body: body({ lines_flagged: 'expenditures.other :: bond premium lumped in' }) }),
+      input({ body: body({ lines_flagged: 'expenditures.previous_year_actual :: prior-year column unreadable' }) }),
     );
     if (!r.ok) throw new Error('expected ok');
     expect((r.record as any).lines_flagged).toEqual([
-      { path: 'expenditures.other', issue: 'bond premium lumped in', resolution: 'pending' },
+      { path: 'expenditures.previous_year_actual', issue: 'prior-year column unreadable', resolution: 'pending' },
     ]);
   });
 
   it('rejects an unparseable lines_flagged line', () => {
     expect(errorsFrom({ body: body({ lines_flagged: 'no separator here' }) }).length).toBeGreaterThan(0);
-  });
-});
-
-describe('buildRecord — non-accountable field emission', () => {
-  it('emits null for a blank non-accountable field like expenditures.total_stated', () => {
-    const r = buildRecord(input({ body: body({ 'expenditures.total_stated': '' }) }));
-    expect(r.ok).toBe(true);
-    if (!r.ok) return;
-    const rec = r.record as Record<string, any>;
-    // The key must be present and null, not omitted
-    expect(rec.expenditures).toHaveProperty('total_stated');
-    expect(rec.expenditures.total_stated).toBeNull();
-  });
-
-  it('still rejects a blank accountable field like expenditures.instruction', () => {
-    const errs = errorsFrom({ body: body({ 'expenditures.instruction': '' }) });
-    expect(errs.join('\n')).toMatch(/expenditures\.instruction/);
-  });
-
-  it('accepts n/p for a non-accountable field and emits null', () => {
-    const r = buildRecord(input({ body: body({ 'expenditures.total_stated': 'n/p' }) }));
-    expect(r.ok).toBe(true);
-    if (!r.ok) return;
-    const rec = r.record as Record<string, any>;
-    expect(rec.expenditures.total_stated).toBeNull();
   });
 });

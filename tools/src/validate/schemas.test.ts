@@ -35,3 +35,33 @@ describe('budget schema requires a stated expenditure total', () => {
     expect(required).toContain('total_stated');
   });
 });
+
+describe('budget schema is slimmed to the essentials', () => {
+  const schema = JSON.parse(
+    readFileSync(join(PATHS.schemas, 'budget-1.0.schema.json'), 'utf8'),
+  );
+
+  it('requires exactly the essential top-level blocks', () => {
+    expect(new Set(schema.required)).toEqual(
+      new Set([
+        'schema_version', 'entity', 'fiscal_year', 'status', 'source',
+        'revenues', 'expenditures', 'tax', 'not_published', 'lines_flagged',
+      ]),
+    );
+  });
+
+  it('has dropped the personnel, enrollment and per_pupil blocks', () => {
+    expect(schema.properties.personnel).toBeUndefined();
+    expect(schema.properties.enrollment).toBeUndefined();
+    expect(schema.properties.per_pupil).toBeUndefined();
+  });
+
+  it('requires the previous-year actuals nested under revenues and expenditures', () => {
+    expect(new Set(schema.properties.revenues.required)).toEqual(
+      new Set(['education_fund', 'education_fund_previous_year_actual', 'total_stated']),
+    );
+    expect(new Set(schema.properties.expenditures.required)).toEqual(
+      new Set(['total_stated', 'previous_year_actual']),
+    );
+  });
+});

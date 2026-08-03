@@ -20,41 +20,11 @@ export interface FigureField {
 export const STATUSES = ['proposed', 'warned', 'approved', 'actual'] as const;
 
 export const FIGURE_FIELDS: readonly FigureField[] = [
-  // Revenues by source.
   { path: 'revenues.education_fund', kind: 'money', accountable: true },
-  { path: 'revenues.local', kind: 'money', accountable: true },
-  { path: 'revenues.federal', kind: 'money', accountable: true },
-  { path: 'revenues.other', kind: 'money', accountable: true },
-  { path: 'revenues.total_stated', kind: 'money', accountable: false },
-  // Expenditures by function.
-  { path: 'expenditures.instruction', kind: 'money', accountable: true },
-  { path: 'expenditures.special_education', kind: 'money', accountable: true },
-  { path: 'expenditures.administration_district', kind: 'money', accountable: true },
-  { path: 'expenditures.administration_school', kind: 'money', accountable: true },
-  { path: 'expenditures.operations_maintenance', kind: 'money', accountable: true },
-  { path: 'expenditures.transportation', kind: 'money', accountable: true },
-  { path: 'expenditures.debt_service', kind: 'money', accountable: true },
-  { path: 'expenditures.other', kind: 'money', accountable: true },
-  { path: 'expenditures.total_stated', kind: 'money', accountable: false },
-  // Personnel by object class.
-  { path: 'personnel.total_staff_costs', kind: 'money', accountable: true },
-  { path: 'personnel.salaries', kind: 'money', accountable: true },
-  { path: 'personnel.benefits_health', kind: 'money', accountable: true },
-  { path: 'personnel.benefits_other', kind: 'money', accountable: true },
-  { path: 'personnel.fte.teachers', kind: 'fte', accountable: true },
-  { path: 'personnel.fte.support_staff', kind: 'fte', accountable: true },
-  { path: 'personnel.fte.administrators', kind: 'fte', accountable: true },
-  { path: 'personnel.fte.total', kind: 'fte', accountable: true },
-  { path: 'personnel.as_stated_note', kind: 'text', accountable: false },
-  // Enrollment.
-  { path: 'enrollment.adm', kind: 'number', accountable: true },
-  { path: 'enrollment.adm_basis', kind: 'text', accountable: false },
-  { path: 'enrollment.equalized_pupils_stated', kind: 'number', accountable: false },
-  // Per pupil.
-  { path: 'per_pupil.as_stated', kind: 'money', accountable: true },
-  { path: 'per_pupil.as_stated_basis', kind: 'text', accountable: false },
-  // Top-level note.
-  { path: 'membership_note', kind: 'text', accountable: false },
+  { path: 'revenues.education_fund_previous_year_actual', kind: 'money', accountable: true },
+  { path: 'revenues.total_stated', kind: 'money', accountable: true },
+  { path: 'expenditures.total_stated', kind: 'money', accountable: true },
+  { path: 'expenditures.previous_year_actual', kind: 'money', accountable: true },
 ];
 
 export type FigureParse = { value: number } | { notPublished: true } | { error: string };

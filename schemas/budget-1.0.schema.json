@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:vt-budget:schema:budget:1.0",
   "title": "Normalized district budget record, schema version 1.0",
-  "description": "One record per district-fiscal-year. Deliberately coarse: a dozen rollup categories, not 400 line items. Two dimensions describe the SAME dollars and must never be summed together -- `expenditures` slices spending by function, `personnel` slices it by object class. A null money value means the source document did not publish that figure; it never means it was not looked for. That guarantee is enforced by the validator, which requires every null to be accounted for in `not_published` or `lines_flagged`.",
+  "description": "One record per district-fiscal-year. Deliberately minimal: the current-year stated revenue and education-fund receipts, the current-year stated expenditure total, the prior-year actuals for the education fund and for total expenditure, and the per-town stated tax figures. A null money value means the source document did not publish that figure; it never means it was not looked for. The validator enforces that guarantee by requiring every null to be accounted for in `not_published` or `lines_flagged`.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -13,16 +13,13 @@
     "source",
     "revenues",
     "expenditures",
-    "personnel",
-    "enrollment",
-    "per_pupil",
     "tax",
     "not_published",
     "lines_flagged"
   ],
   "properties": {
     "schema_version": {
-      "description": "Version of this schema the record was extracted under. Records extracted under 1.0 remain valid when 1.2 exists; the build reads the declared version and applies the matching validator.",
+      "description": "Version of this schema the record was extracted under.",
       "const": "1.0"
     },
     "entity": {
@@ -46,13 +43,7 @@
     },
     "source_pages": {
       "type": ["string", "null"],
-      "description": "Page or section reference within the source artifact, e.g. 'pp. 14-17' or 'Budget Summary table'. Makes a record checkable by hand in under a minute.",
-      "default": null
-    },
-    "mapping": {
-      "type": ["string", "null"],
-      "pattern": "^collectors/[a-z0-9-]+/mappings/fy[0-9]{4}\\.yaml$",
-      "description": "Path to the mapping file that drove the extraction, when one was used.",
+      "description": "Page or section reference within the source artifact, e.g. 'pp. 14-17'. Makes a record checkable by hand in under a minute.",
       "default": null
     },
     "adopted_date": {
@@ -75,22 +66,20 @@
     "revenues": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Revenue by source. Should sum to total_revenue where the document states one.",
-      "required": ["education_fund", "local", "federal", "other"],
+      "description": "The current-year stated total revenue, the education-fund receipts within it, and the prior year's actual education-fund figure as printed in this document.",
+      "required": ["education_fund", "education_fund_previous_year_actual", "total_stated"],
       "properties": {
         "education_fund": {
           "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Statewide Education Fund receipts -- the main line for most Vermont districts."
+          "description": "Statewide Education Fund receipts for this fiscal year -- the main revenue line for most Vermont districts."
         },
-        "local": {
+        "education_fund_previous_year_actual": {
           "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Locally raised revenue other than the education property tax: tuition received, fees, rentals, endowment."
+          "description": "The actual (not budgeted) education-fund receipts for the prior fiscal year, as printed in this document's comparison column."
         },
-        "federal": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "other": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
         "total_stated": {
           "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Total revenue as printed in the document. Preserved separately so a mismatch against the sum of the parts is visible rather than silently reconciled."
+          "description": "Total revenue for this fiscal year as printed in the document."
         }
       }
     },
@@ -98,123 +87,16 @@
     "expenditures": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Spending sliced BY FUNCTION, aligned to AOE's chart of accounts rollups. Never sum this block with `personnel` -- they describe the same dollars.",
-      "required": [
-        "instruction",
-        "special_education",
-        "administration_district",
-        "administration_school",
-        "operations_maintenance",
-        "transportation",
-        "debt_service",
-        "other",
-        "total_stated"
-      ],
+      "description": "The current-year stated expenditure total and the prior year's actual expenditure total as printed in this document.",
+      "required": ["total_stated", "previous_year_actual"],
       "properties": {
-        "instruction": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "special_education": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "administration_district": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "District- and SU-level administration. This is the line consolidation scenarios act on most directly."
-        },
-        "administration_school": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Building-level administration. Follows the buildings in closure/merger scenarios, unlike administration_district."
-        },
-        "operations_maintenance": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "transportation": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "debt_service": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "other": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
         "total_stated": {
           "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Total expenditure as printed. Preserved to expose reconciliation gaps rather than hide them."
-        }
-      }
-    },
-
-    "personnel": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "The same dollars as `expenditures`, sliced BY OBJECT CLASS. Health insurance is broken out because it is the cost driver most board fights are actually about. Where a budget document does not publish this cut, the fields stay null and are listed in not_published -- never estimated.",
-      "required": ["total_staff_costs", "salaries", "benefits_health", "benefits_other", "fte"],
-      "properties": {
-        "total_staff_costs": {
+          "description": "Total expenditure for this fiscal year as printed in the document."
+        },
+        "previous_year_actual": {
           "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Salaries + all benefits. A subset of total expenditures, not an addition to them."
-        },
-        "salaries": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money" },
-        "benefits_health": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Health insurance only. Modeled with its own separately adjustable trend rate because it grows even when headcount does not."
-        },
-        "benefits_other": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "FICA, retirement, dental, life, disability, tuition reimbursement, and other non-health benefits."
-        },
-        "fte": {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "Headcount in full-time equivalents, where the budget document states it. AOE-published staffing data is joined in separately at normalization time and kept in a labeled parallel series -- it is never merged into these district-stated fields.",
-          "required": ["teachers", "support_staff", "administrators", "total"],
-          "properties": {
-            "teachers": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/fte" },
-            "support_staff": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/fte" },
-            "administrators": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/fte" },
-            "total": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/fte" }
-          }
-        },
-        "as_stated_note": {
-          "type": ["string", "null"],
-          "description": "How this document presents staffing -- which cuts it publishes, which it does not, and any wrinkle in reading them.",
-          "default": null
-        }
-      }
-    },
-
-    "enrollment": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["adm"],
-      "properties": {
-        "adm": {
-          "type": ["number", "null"],
-          "minimum": 0,
-          "description": "Average daily membership as reported IN THE BUDGET DOCUMENT. AOE-published ADM is joined separately; where they disagree the discrepancy is recorded in membership_note, not reconciled."
-        },
-        "adm_basis": {
-          "type": ["string", "null"],
-          "description": "What the document says its ADM figure is: which year, which count date, whether averaged.",
-          "default": null
-        },
-        "equalized_pupils_stated": {
-          "type": ["number", "null"],
-          "minimum": 0,
-          "description": "Weighted/equalized pupil count as printed by the district, if given. The engine's own recomputation lives in the precomputed baselines, not here.",
-          "default": null
-        }
-      }
-    },
-
-    "membership_note": {
-      "type": ["string", "null"],
-      "description": "Any discrepancy between district-stated membership and AOE-reported ADM, stated plainly.",
-      "default": null
-    },
-
-    "per_pupil": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "Both figures are kept. Districts' printed per-pupil numbers sometimes will not match a recomputation; that discrepancy is analytically interesting and must not be silently fixed.",
-      "required": ["as_stated"],
-      "properties": {
-        "as_stated": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "What the district printed."
-        },
-        "as_stated_basis": {
-          "type": ["string", "null"],
-          "description": "What the district says its per-pupil figure divides by -- ADM, equalized pupils, weighted membership. Frequently the source of the discrepancy.",
-          "default": null
+          "description": "The actual (not budgeted) total expenditure for the prior fiscal year, as printed in this document's comparison column."
         }
       }
     },
@@ -261,7 +143,7 @@
           "path": {
             "type": "string",
             "pattern": "^[a-z_]+(\\.[a-z_0-9]+)*$",
-            "examples": ["personnel.benefits_health", "personnel.fte.administrators"]
+            "examples": ["expenditures.previous_year_actual", "revenues.education_fund_previous_year_actual"]
           },
           "confirmed_by": { "type": "string", "minLength": 1 },
           "confirmed_date": { "type": "string", "format": "date" },
@@ -272,7 +154,7 @@
 
     "lines_flagged": {
       "type": "array",
-      "description": "Anything that did not fit cleanly: line items spanning two rollup categories, figures that do not reconcile, apparent errors in the source, judgement calls made during extraction.",
+      "description": "Anything that did not fit cleanly: figures that do not reconcile, apparent errors in the source, judgement calls made during extraction, or an essential figure not yet transcribed.",
       "items": {
         "type": "object",
         "additionalProperties": false,

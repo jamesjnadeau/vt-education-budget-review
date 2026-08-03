@@ -63,12 +63,8 @@ export interface BudgetRecord {
  * listed -- a missing note is not a missing figure.
  */
 const ACCOUNTABLE = [
-  /^revenues\.(education_fund|local|federal|other)$/,
-  /^expenditures\.(instruction|special_education|administration_district|administration_school|operations_maintenance|transportation|debt_service|other)$/,
-  /^personnel\.(total_staff_costs|salaries|benefits_health|benefits_other)$/,
-  /^personnel\.fte\.(teachers|support_staff|administrators|total)$/,
-  /^enrollment\.adm$/,
-  /^per_pupil\.as_stated$/,
+  /^revenues\.(education_fund|education_fund_previous_year_actual|total_stated)$/,
+  /^expenditures\.(total_stated|previous_year_actual)$/,
   /^tax\.towns\.\d+\.(homestead_rate_stated|cla)$/,
 ];
 

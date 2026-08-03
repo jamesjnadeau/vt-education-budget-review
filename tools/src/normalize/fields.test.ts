@@ -42,20 +42,15 @@ describe('setPath', () => {
 });
 
 describe('FIGURE_FIELDS', () => {
-  it('carries the accountable figures the null-accounting rule enforces', () => {
-    const accountable = FIGURE_FIELDS.filter((f) => f.accountable).map((f) => f.path);
-    expect(accountable).toContain('revenues.education_fund');
-    expect(accountable).toContain('expenditures.special_education');
-    expect(accountable).toContain('personnel.benefits_health');
-    expect(accountable).toContain('personnel.fte.total');
-    expect(accountable).toContain('enrollment.adm');
-    expect(accountable).toContain('per_pupil.as_stated');
-  });
-
-  it('marks the printed-total fields optional, not accountable', () => {
-    const totals = FIGURE_FIELDS.filter((f) => f.path.endsWith('.total_stated'));
-    expect(totals).toHaveLength(2);
-    expect(totals.every((f) => !f.accountable)).toBe(true);
+  it('is exactly the five essential money figures, all accountable', () => {
+    expect(FIGURE_FIELDS.map((f) => f.path)).toEqual([
+      'revenues.education_fund',
+      'revenues.education_fund_previous_year_actual',
+      'revenues.total_stated',
+      'expenditures.total_stated',
+      'expenditures.previous_year_actual',
+    ]);
+    expect(FIGURE_FIELDS.every((f) => f.accountable && f.kind === 'money')).toBe(true);
   });
 });
 

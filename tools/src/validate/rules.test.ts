@@ -15,27 +15,8 @@ function record(over: Partial<BudgetRecord> = {}): BudgetRecord {
     fiscal_year: 2027,
     status: 'proposed',
     source: 'intake/test/fy2027/budget.pdf',
-    revenues: { education_fund: 1000, local: 100, federal: 50, other: 0 },
-    expenditures: {
-      instruction: 600,
-      special_education: 200,
-      administration_district: 100,
-      administration_school: 80,
-      operations_maintenance: 90,
-      transportation: 50,
-      debt_service: 20,
-      other: 10,
-    },
-    personnel: {
-      total_staff_costs: 800,
-      salaries: 600,
-      benefits_health: 150,
-      benefits_other: 50,
-      fte: { teachers: 20, support_staff: 10, administrators: 3, total: 33 },
-      as_stated_note: null,
-    },
-    enrollment: { adm: 250 },
-    per_pupil: { as_stated: 4600 },
+    revenues: { education_fund: 1000, education_fund_previous_year_actual: 950, total_stated: 1200 },
+    expenditures: { total_stated: 1150, previous_year_actual: 1100 },
     tax: { towns: [{ town: 'town/test', homestead_rate_stated: 1.5, cla: 0.9 }] },
     not_published: [],
     lines_flagged: [],
@@ -62,36 +43,22 @@ describe('null accounting', () => {
     expect(checkNullAccounting(record(), 'f.yaml')).toHaveLength(0);
   });
 
-  it('rejects an unexplained null in the personnel block', () => {
+  it('rejects an unexplained null in an essential figure', () => {
     const r = record({
-      personnel: {
-        total_staff_costs: 800,
-        salaries: 600,
-        benefits_health: null,
-        benefits_other: 50,
-        fte: { teachers: 20, support_staff: 10, administrators: 3, total: 33 },
-        as_stated_note: null,
-      },
+      expenditures: { total_stated: 1150, previous_year_actual: null },
     });
     const findings = checkNullAccounting(r, 'f.yaml');
     expect(findings).toHaveLength(1);
     expect(findings[0]?.severity).toBe('error');
-    expect(findings[0]?.message).toMatch(/personnel\.benefits_health is null/);
+    expect(findings[0]?.message).toMatch(/expenditures\.previous_year_actual is null/);
     expect(findings[0]?.message).toMatch(/cannot be distinguished from a field nobody checked/);
   });
 
   it('accepts the same null once it is confirmed absent from the source', () => {
     const r = record({
-      personnel: {
-        total_staff_costs: 800,
-        salaries: 600,
-        benefits_health: null,
-        benefits_other: 50,
-        fte: { teachers: 20, support_staff: 10, administrators: 3, total: 33 },
-        as_stated_note: 'this document does not break out health insurance',
-      },
+      expenditures: { total_stated: 1150, previous_year_actual: null },
       not_published: [
-        { path: 'personnel.benefits_health', confirmed_by: 'jn', confirmed_date: '2026-07-29' },
+        { path: 'expenditures.previous_year_actual', confirmed_by: 'jn', confirmed_date: '2026-07-29' },
       ],
     });
     expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
@@ -99,8 +66,10 @@ describe('null accounting', () => {
 
   it('accepts a null explained as a flagged line instead', () => {
     const r = record({
-      enrollment: { adm: null },
-      lines_flagged: [{ path: 'enrollment.adm', issue: 'document gives two conflicting ADM figures' }],
+      revenues: { education_fund: 1000, education_fund_previous_year_actual: null, total_stated: 1200 },
+      lines_flagged: [
+        { path: 'revenues.education_fund_previous_year_actual', issue: 'prior-year actual not yet transcribed' },
+      ],
     });
     expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
   });
@@ -122,8 +91,8 @@ describe('null accounting', () => {
   });
 
   it('does not demand an explanation for optional descriptive fields', () => {
-    // A missing note is not a missing figure.
-    const r = record({ membership_note: null, adopted_date: null });
+    // A missing date is not a missing figure.
+    const r = record({ adopted_date: null });
     expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
   });
 });
