@@ -530,6 +530,7 @@ describe('scenarios present movement in both directions', () => {
       transportation: 90_000,
       debt_service: 50_000,
       other: 30_000,
+      total_stated: 1_700_000,
     },
     personnel: {
       total_staff_costs: 1_200_000,
@@ -545,25 +546,44 @@ describe('scenarios present movement in both directions', () => {
   it('reports a signed delta that can go either way', () => {
     const ctx = createContext(syntheticParameters());
 
+    // Two districts, each with a published total of 1,700,000 -> 3,400,000.
     const reduced = runScenario(ctx, {
-      name: 'consolidate half of district administration',
+      name: 'assume a 5% consolidation efficiency',
       districts: two,
       consolidatedPositions: [],
       assumptions: defaultAssumptions().map((a) =>
-        a.key === 'district_admin_retained' ? { ...a, value: 0.5 } : a,
+        a.key === 'consolidation_factor' ? { ...a, value: 0.95 } : a,
       ),
     });
-    expect(reduced.delta.value).toBe(-100_000);
+    expect(reduced.currentTotal.value).toBe(3_400_000);
+    expect(reduced.delta.value).toBeCloseTo(-170_000, 6);
 
     const increased = runScenario(ctx, {
-      name: 'transportation costs rise on longer routes',
+      name: 'assume costs rise 5% during the transition',
       districts: two,
       consolidatedPositions: [],
       assumptions: defaultAssumptions().map((a) =>
-        a.key === 'transportation_multiplier' ? { ...a, value: 1.2 } : a,
+        a.key === 'consolidation_factor' ? { ...a, value: 1.05 } : a,
       ),
     });
-    expect(increased.delta.value).toBeCloseTo(36_000, 6);
+    expect(increased.delta.value).toBeCloseTo(170_000, 6);
+  });
+
+  it('reports the current total as unknown when a district did not publish it', () => {
+    const ctx = createContext(syntheticParameters());
+    const missing: DistrictBudget = {
+      ...base,
+      entity: 'ud/c',
+      expenditures: { ...base.expenditures, total_stated: null },
+    };
+    const result = runScenario(ctx, {
+      name: 'one district published no total',
+      districts: [base, missing],
+      consolidatedPositions: [],
+      assumptions: defaultAssumptions(),
+    });
+    expect(result.currentTotal.value).toBeNull();
+    expect(result.delta.value).toBeNull();
   });
 
   it('changes nothing at all under default assumptions', () => {
