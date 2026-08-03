@@ -18,12 +18,19 @@ pre-defined merger scenario. The page should show **who belongs** and a
 
 ## Key constraints discovered
 
-- **The merger model already exists.** `model/src/scenario.ts` → `runScenario()`
-  takes member district budgets and returns `currentTotal` (members' published
-  totals summed = run individually), `scenarioTotal` (combined total × a
-  consolidation factor, default 1.0 = no change), a signed `delta`, a `staffing`
-  comparison, adjustable `assumptions`, and `caveats`. We reuse it; we do not
-  re-implement any of it in the view.
+- **The merger model already exists, and it is total-driven.** The current
+  `model/src/scenario.ts` → `runScenario()` (after the merged
+  `total-driven-merger-calc` work) is deliberately minimal. It takes a flat
+  `DistrictBudget = { entity, fiscal_year, total_stated, source }` — where
+  `total_stated` is the district's **published total expenditure** — and returns
+  `currentTotal` (members' published totals summed = run individually),
+  `scenarioTotal` (combined total × a consolidation factor, default 1.0 = no
+  change), a signed `delta`, `assumptions`, and `caveats`. There is **no staffing
+  view, no personnel/FTE rollup, and exactly one assumption** (`consolidation_factor`);
+  `defaultAssumptions()` returns only that, and `buildCaveats()` returns two fixed
+  caveats. We reuse it as-is and do not re-implement or extend it in the view.
+  (An earlier, richer rollup version with staffing existed but was replaced; do
+  not design against it.)
 - **Data is sparse.** Only one entity in the warehouse has budget data today
   (`warehouse/su-addison-central/`), and even it has salaries/benefits/FTE `null`.
   So for ~19 of 20 groups the page has nothing to compute and must degrade
@@ -76,9 +83,13 @@ Any member matching more than one record after 1–2, or where step 2 is ambiguo
 has both `adopted` and `proposed` for that year, prefer `adopted`. Carry the
 chosen record's `fiscal_year` and `status` through.
 
-**Adapter `BudgetRecord → DistrictBudget`:** map `expenditures` straight across,
-map `personnel.fte.total → fte_total`, carry `entity`, `fiscal_year`, `source`.
-Unpublished figures stay `null` and propagate.
+**Adapter `BudgetRecord → DistrictBudget`:** the model's `DistrictBudget` is flat,
+so the adapter is small — `entity` ← `record.entity`, `fiscal_year` ←
+`record.fiscal_year`, `total_stated` ← `record.expenditures.total_stated` (the
+published **total expenditure**, not revenues), `source` ← `record.source`. An
+unpublished `expenditures.total_stated` stays `null` and propagates (the model
+returns `currentTotal` = null if any member's total is null). No personnel/FTE
+fields are mapped, because the model has none.
 
 **Emitted shape per grouping:**
 
@@ -103,14 +114,17 @@ New file `site/src/pages/groupings/[number].astro`.
 - `getStaticPaths()` emits one path per grouping from `groupings.json`, keyed on
   `number` (matching the existing `/groupings/${g.number}/` links). Props carry
   the grouping plus its entry from `grouping-budgets.json`.
-- At build, the page imports `runScenario` and `defaultAssumptions` from
-  `@vt-budget/model`. It builds a `ScenarioSpec` from members that resolved to a
-  non-null budget, at consolidation factor 1.0 and **no consolidated positions**
-  (the honest default — the page asserts no staffing cuts nobody chose). It runs
-  the scenario **only when every member resolved to a non-null total**; otherwise
-  it skips computation and renders the gap state.
-- The `EngineContext` is created following the existing pattern used in
-  `scenario.ts`'s tests / the `/model/` island.
+- At build, the page imports `runScenario`, `defaultAssumptions`, and
+  `createContext` from `@vt-budget/model`. It builds a `ScenarioSpec = { name,
+  districts, assumptions: defaultAssumptions() }` from members that resolved to a
+  non-null budget, at the default consolidation factor 1.0. It runs the scenario
+  **only when every member resolved to a non-null total**; otherwise it skips
+  computation and renders the gap state.
+- `runScenario` needs an `EngineContext` but never reads its parameters (it only
+  uses `ctx.nextId`). The page builds a minimal context with
+  `createContext({ fiscal_year: <group FY or 0>, status: 'draft', note: null,
+  parameters: new Map(), inputs: new Map() })`. No real `ParameterSet` /
+  `parameters.json` is needed for the merger math.
 
 ## Section 3 — Page layout & empty states
 
@@ -126,10 +140,9 @@ Then one of three states:
 - Combined total (`currentTotal`), scenario total at factor 1.0, and the signed
   `delta`, with a plain-language note that at the default factor the delta is $0
   by design and any change shown is one the user chose.
-- Staffing view (salaries / health / other / FTE) exactly as `runScenario`
-  returns it, including its "does not feed the headline delta" caveat.
-- Assumptions register (the three adjustable assumptions with rationales).
-- The model's `caveats` list, verbatim.
+- Assumptions register: the single `consolidation_factor` assumption with its
+  rationale, rendered from `result.assumptions`.
+- The model's `caveats` list (the two fixed caveats), verbatim.
 - "Explore this in the what-if tool" link to `/model/` (interactive-later hook).
 
 **(b) Some members resolved → partial:** show the "run individually" table for the
@@ -157,10 +170,11 @@ vitest suite alongside existing `tools/src` tests:
 - **year/status selection** — latest FY wins; `adopted` beats `proposed` same year.
 - **null propagation** — a member with null `expenditures.total_stated` makes the
   group not-all-resolved, so no combined total is asserted.
-- **adapter** — `personnel.fte.total → fte_total`; unpublished fields stay `null`.
+- **adapter** — `total_stated` comes from `record.expenditures.total_stated` (not
+  `revenues.total_stated`); an unpublished total stays `null`.
 
 Lean on the model's existing `scenario` tests for `runScenario` behavior (delta,
-staffing, caveats) rather than re-testing the engine. The `.astro` page gets no
+caveats) rather than re-testing the engine. The `.astro` page gets no
 unit test (consistent with the repo); its three states are verified in the browser
 preview against Group 1 (computes) and a data-less group (recruitment state) as
 the final check.
