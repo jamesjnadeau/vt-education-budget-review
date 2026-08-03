@@ -24,6 +24,7 @@ import { parse as parseYaml } from 'yaml';
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { buildCoverage } from '../coverage.ts';
+import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
@@ -122,6 +123,11 @@ function main(): number {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
   }
   writeJson(join(PATHS.siteGenerated, 'groupings.json'), groupings);
+  const groupingList = (groupings as { groupings?: GroupingInput[] }).groupings ?? [];
+  writeJson(
+    join(PATHS.siteGenerated, 'grouping-budgets.json'),
+    buildGroupingBudgets(groupingList, registry, budgets as unknown as BudgetInput[]),
+  );
 
   // --- coverage ------------------------------------------------------------
   const coverage = buildCoverage(registry, { today });
