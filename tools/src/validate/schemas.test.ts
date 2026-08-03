@@ -25,3 +25,13 @@ describe('schema source-path patterns accept filenames with spaces', () => {
     });
   }
 });
+
+describe('budget schema requires a stated expenditure total', () => {
+  it('lists expenditures.total_stated as required', () => {
+    const schema = JSON.parse(
+      readFileSync(join(PATHS.schemas, 'budget-1.0.schema.json'), 'utf8'),
+    );
+    const required = schema.properties.expenditures.required as string[];
+    expect(required).toContain('total_stated');
+  });
+});
