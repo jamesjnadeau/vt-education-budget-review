@@ -79,9 +79,13 @@ Any member matching more than one record after 1–2, or where step 2 is ambiguo
 (SU with multiple district children), is marked `ambiguous` and treated as a gap —
 **never summed**. This is the no-double-counting guarantee.
 
-**Year/status selection per member:** pick the latest `fiscal_year`; if a member
-has both `adopted` and `proposed` for that year, prefer `adopted`. Carry the
-chosen record's `fiscal_year` and `status` through.
+**Year/status selection per member:** the warehouse `status` vocabulary is
+`proposed | warned | approved | actual`. Prefer a real *budget* record over an
+`actual` (year-end realized spend is not an adopted budget): among budget-status
+records pick the latest `fiscal_year`, then `approved > warned > proposed`. Use
+`actual` only as a last resort when the member has no budget-status record at
+all, and mark such a member's row on the page. Carry the chosen record's
+`fiscal_year` and `status` through.
 
 **Adapter `BudgetRecord → DistrictBudget`:** the model's `DistrictBudget` is flat,
 so the adapter is small — `entity` ← `record.entity`, `fiscal_year` ←
