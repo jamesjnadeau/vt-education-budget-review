@@ -87,58 +87,40 @@ The warehouse can only be trusted if everything in it conforms to one model. Two
 **Layer 1 — the canonical budget schema** (`/schemas/budget.schema.json`, versioned). One record per district-fiscal-year, roughly:
  
 ```yaml
-entity: su/washington-central        # registry ID
+schema_version: "1.0"
+entity: su/<slug>                     # registry slug
 fiscal_year: 2027
-status: proposed | warned | approved | actual
-source: intake/washington-central/fy2027/annual-report.pdf
-schema_version: 1.0
-adopted_date: 2027-03-03             # Town Meeting vote where applicable
+status: proposed|warned|approved|actual
+source: intake/<slug>/fy<year>/<file> # the raw artifact this came from
+adopted_date: 2027-03-07   # optional; town-meeting/board vote date
 revenues:
-  education_fund: …
-  local: …
-  federal: …
-  other: …
-expenditures:                        # a deliberately coarse rollup, by function
-  instruction: …
-  special_education: …
-  administration_district: …
-  administration_school: …
-  operations_maintenance: …
-  transportation: …
-  debt_service: …
-  other: …
-personnel:                           # staff costs — an object-class cut of the
-  total_staff_costs: …               #   SAME dollars as `expenditures`, sliced
-  salaries: …                        #   across the functions; never additive
-  benefits_health: …                 #   with it. benefits_other = FICA,
-  benefits_other: …                  #   retirement, dental, life, etc.
-  fte:                               # headcount, where the budget states it
-    teachers: …
-    support_staff: …
-    administrators: …
-    total: …
-  as_stated_note: …                  # many budget docs don't break out health
-                                     #   insurance or FTE; leave null and flag,
-                                     #   never infer or estimate
-enrollment:
-  adm: …                             # as reported in the budget doc
-membership_note: …                   # discrepancies vs AOE-reported ADM
-per_pupil:
-  as_stated: …                       # what the district printed
-  as_computed: …                     # your recomputation
+  education_fund: …                   # this year's education-fund receipts
+  education_fund_previous_year_actual: …  # prior year's ACTUAL, from the comparison column
+  total_stated: …                     # this year's total revenue as printed
+expenditures:
+  total_stated: …                     # this year's total expenditure as printed
+  previous_year_actual: …             # prior year's ACTUAL total expenditure
 tax:
-  towns:                             # per member town
-    - town: town/calais
-      homestead_rate_stated: …
-      cla: …
-lines_flagged: […]                   # anything that didn't fit cleanly
+  towns: [ { town, homestead_rate_stated, cla } ]  # per member town, as stated
+not_published: [ … ]                  # every null accounted for, with who/when
+lines_flagged: [ … ]                  # anything that didn't fit cleanly
 ```
  
-Design principles for the schema: **coarse on purpose** (map to a dozen rollup categories aligned with AOE's chart of accounts, not 400 line items — you can deepen later, you can't easily re-extract shallower), **two dimensions, kept distinct** (`expenditures` slices spending by function, `personnel` slices the same dollars by object — salaries and benefits, with health insurance broken out because it is the cost driver every board fight is actually about; the two blocks describe one total and must never be summed together, and where a budget document doesn't publish the object-class breakdown the fields stay null and flagged rather than estimated), **preserve both stated and computed values** (districts' printed per-pupil figures sometimes won't match your recomputation; the discrepancy is analytically interesting and must not be silently "fixed"), and **version the schema** so FY24 records extracted under v1.0 remain valid when v1.2 exists.
+Design principles for the schema: **essentials only** (the current-year stated
+revenue and education-fund receipts, the current-year stated expenditure total,
+the prior-year actuals for each, and the per-town stated tax figures — six
+figures, not a chart of accounts), **a null always means "not published"**
+(enforced by the null-accounting rule: every null is listed in `not_published`
+or `lines_flagged`), and **version the schema** so records stay readable as it
+evolves.
+
+**Extraction.** Records are entered through the `budget-normalize` issue form,
+which mirrors these fields one-to-one; a bot validates the submission against
+the schema and opens a pull request adding the warehouse record. Every warehouse
+record links back to its intake artifact; CI rejects any record whose `source`
+does not exist or whose schema validation fails.
  
-**Layer 2 — extraction.** A CLI (`extract`) that takes a raw artifact plus an SU-specific mapping file and emits a schema-conformant record. For PDFs this is assisted, not automated: the tool pre-fills what it can, a human confirms in a review step, and the mapping file captures the SU's quirks so next year is faster. The `personnel` fields are first-class extraction targets, not nice-to-haves: every mapping file must declare where the budget document states salaries, health insurance, and FTEs — or explicitly record that it doesn't — so a null in the warehouse always means "the district didn't publish it," never "we didn't look." Every warehouse record links back to its intake artifact; CI rejects any warehouse file whose `source` doesn't exist or whose schema validation fails.
- 
-**Enrichment joins.** At normalization time, join in AOE-published ADM/enrollment, weighted membership, staffing data (educator FTEs and salary reporting, where published), and Tax Department CLA and rate data, each with its own provenance. The staffing join matters doubly here: it cross-checks the district-stated `personnel` figures and fills the FTE picture where budget documents are silent — kept as a separate, labeled series, never merged into the district-stated fields. Budget documents are the districts' voice; AOE and Tax data are the state's; the warehouse keeps both and labels which is which.
+**Enrichment joins.** At normalization time, join in AOE-published ADM, weighted membership, staffing data (educator FTEs and salary reporting, where published), and Tax Department CLA and rate data, each with its own provenance — kept as a separate, labeled series, never merged into the district-stated fields. Budget documents are the districts' voice; AOE and Tax data are the state's; the warehouse keeps both and labels which is which.
  
 ---
  
@@ -164,8 +146,11 @@ The public face of the system, and the demonstration asset the business plan wan
  
 Pick a starting point (their town, SU, or one of the 20 Act 170 groupings), then compose a scenario: merge these districts, close this school, move its students to that one, adjust assumptions. The tool shows, side by side, current vs. scenario:
  
-- combined and per-town spending under the coarse rollup categories, with explicit, user-visible assumptions for consolidation effects (e.g., district-level administration merges; school-level costs follow the buildings);
-- **staff costs, split salary vs. benefits** — consolidation math runs through the `personnel` block, not just the functional rollup, because merger savings claims are overwhelmingly staffing claims: the tool shows which FTEs each scenario assumes are consolidated, at what salary, and applies a separately adjustable health-insurance cost (and trend rate), since healthcare is the line that grows even when headcount doesn't;
+- **combined published total expenditure**, with a single explicit, user-visible
+  consolidation factor (starting at 1.0 — no change) applied to the combined
+  total; the tool models the headline delta off published totals only, because
+  districts do not slice their budgets the same way, and shows movement in both
+  directions with equal weight;
 - membership and **weighted membership**, recomputed for the combined entity;
 - education spending per weighted pupil;
 - **homestead tax rate per member town**, through CLA, under (a) the current yield-based system and (b) a parameterized foundation-formula stub with sensitivity sliders for the parameters the Legislature hasn't set.
@@ -235,7 +220,7 @@ One repo to start. Split `/model` into its own published package only if others 
  
 **Phase 1 — Weeks 1–2 (early–mid Aug):** Pull the OpenAPI spec; generate the client; build registry sync with snapshots; hand-enter the Act 170 groupings; scaffold repo, schemas v1.0, CI validation; start the engine with the FY27 parameter file, verifying each citation against current statute text as it's entered.
  
-**Phase 2 — Weeks 3–5 (mid Aug–early Sep):** Engine golden tests passing against published FY26/FY27 figures for 5+ districts. Collector configs and intake for your **top 15 warm-list SUs** (the business plan's ranked list drives coverage order — don't sequence alphabetically). Extraction CLI + first mapping files. Coverage dashboard.
+**Phase 2 — Weeks 3–5 (mid Aug–early Sep):** Engine golden tests passing against published FY26/FY27 figures for 5+ districts. Collector configs and intake for your **top 15 warm-list SUs** (the business plan's ranked list drives coverage order — don't sequence alphabetically). First `budget-normalize` submissions for those SUs. Coverage dashboard.
  
 **Phase 3 — Weeks 6–8 (Sep):** Astro site: SU pages, methodology, coverage. Modeling tool v1: merge scenarios and town rate impacts under the current system for the 20 statutory groupings. Private links to 3–5 trusted business managers from the warm list — they will find your extraction errors faster than any test suite, and previewing to them is itself business development.
  
@@ -257,7 +242,7 @@ Scoping discipline: v1 covers the current funding system rigorously and the foun
 | Statute citations drift as law changes | Citations live in parameter files with `verified_date`; a legislative-session checklist item to re-verify each session |
 | Scenario tool misread as advocacy | No rankings or recommendations; symmetric presentation; assumptions register; neutrality statement on the landing page and in the tool footer |
 | LFS/Pages size limits as intake grows | Coarse warehouse JSON stays small; raw artifacts can migrate to release assets with hashes in git if needed |
-| Solo bus factor | Everything-as-code in one repo means a subcontract analyst can be productive in a day; the mapping files encode your SU-specific knowledge so it isn't only in your head |
+| Solo bus factor | Everything-as-code in one repo means a subcontract analyst can be productive in a day; the `budget-normalize` issue form and schema validation encode the process so it isn't only in your head |
  
 ---
  

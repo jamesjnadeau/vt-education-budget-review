@@ -29,9 +29,9 @@ Three were settled before this was written and the rest follow from them.
 
 **The audience is trusted extractors, not the public.** Unlike intake — which a
 parent or reporter uses once — normalizing a budget book means reading it and
-mapping four hundred line items onto a dozen rollups. That is work for someone
-who has done it before, so the form can be long and demand precision rather than
-holding a stranger's hand.
+locating a handful of published totals, not a chart of accounts. That is work
+for someone who has done it before, so the form can be long and demand
+precision rather than holding a stranger's hand.
 
 **Every figure is a number or the literal `n/p`; blank is an error.** The budget
 schema's whole claim is that a null means "the district did not publish this,"
@@ -77,26 +77,15 @@ and the repository rather than trusted — a prefilled field can be edited.
 These are exactly the fields the validator's null-accounting rule holds
 accountable. Each must be a number or the literal `n/p`; empty is rejected.
 
-- **Revenues:** `education_fund`, `local`, `federal`, `other`
-- **Expenditures (by function):** `instruction`, `special_education`,
-  `administration_district`, `administration_school`, `operations_maintenance`,
-  `transportation`, `debt_service`, `other`
-- **Personnel (by object class):** `total_staff_costs`, `salaries`,
-  `benefits_health`, `benefits_other`
-- **FTE:** `teachers`, `support_staff`, `administrators`, `total`
-- **Enrollment:** `adm`
-- **Per pupil:** `as_stated`
+- **Revenues:** `education_fund`, `education_fund_previous_year_actual`,
+  `total_stated`
+- **Expenditures:** `total_stated`, `previous_year_actual`
+- **Tax:** each member town's `homestead_rate_stated` and `cla`
 
 ### Optional descriptive fields — blank is fine
 
-These are not accountable — a missing note is not a missing figure — so a blank
-maps to null with no sentinel required: `revenues.total_stated`,
-`expenditures.total_stated`, `enrollment.adm_basis`,
-`enrollment.equalized_pupils_stated`, `per_pupil.as_stated_basis`,
-`personnel.as_stated_note`, `membership_note`.
-
-The two `total_stated` figures are worth capturing where the document prints
-them: they are what the recomputation check compares the summed parts against.
+Identity/metadata only: `source_pages`, `adopted_date`. Every budget figure is
+now accountable, so there are no optional numeric fields.
 
 ### Tax — a structured textarea
 
@@ -116,8 +105,8 @@ table" is stated, not left silent.
 
 ### lines_flagged — an optional textarea
 
-Anything that did not fit cleanly — a line item spanning two rollups, a figure
-that does not reconcile, a judgement call. One finding per line:
+Anything that did not fit cleanly — an ambiguous figure in the source document,
+a discrepancy between two documents, a judgement call. One finding per line:
 
 ```
 path :: issue text
@@ -196,16 +185,9 @@ is neither a number nor `n/p`; a `status` outside the enum; an `entity` or town
 slug with no registry record; a `source` that does not match the intake pattern
 or does not exist; a malformed tax or `lines_flagged` line.
 
-Recomputation mismatches are **not** rejections. When the expenditure rollups do
-not sum to the stated total, or the district's printed per-pupil figure disagrees
-with a recomputation, that is a finding to publish, not a bug to fix — the schema
-keeps both figures on purpose. The bot does not write these into `lines_flagged`
-itself — that field is the extractor's own account, and the validator's rule
-deliberately only prompts a human to explain the difference rather than wording
-it for them. Instead the bot notes each mismatch in the PR body, and
-`validate.yml` surfaces the same warnings on the PR; the extractor can add a
-`lines_flagged` explanation by editing the issue, which re-runs. The mismatch
-never blocks the merge.
+The slim model carries no cross-field recomputation check: the six essential
+figures are each stated independently, with no rollup or per-pupil derivation
+to reconcile against.
 
 ## The coverage trigger
 
@@ -247,7 +229,9 @@ Plus the happy path: a well-formed body produces a record that validates against
 ## Out of scope
 
 - **Extracting the figures from the PDF.** A human still reads the budget book
-  and maps its line items onto the rollups; this channel structures and validates
+  and captures the six essential figures (total revenue, education-fund
+  receipts and their prior-year actual, total expenditure and its prior-year
+  actual, and per-town tax figures); this channel structures and validates
   what they read, it does not read it for them.
 - **More than one record per issue.** One district-fiscal-year-status per form,
   the same way intake takes one document per issue.
