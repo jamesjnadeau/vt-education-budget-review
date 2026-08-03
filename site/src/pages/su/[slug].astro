@@ -2,7 +2,16 @@
 import Base from '../../layouts/Base.astro';
 import registry from '../../generated/registry.json';
 import coverage from '../../generated/coverage.json';
+import adm from '../../generated/adm.json';
+import parameters from '../../generated/parameters.json';
 import { slugTail, titleCase } from '../../lib/display';
+
+interface AdmGapEntry {
+  input: string;
+  statute: string;
+  supplied: boolean;
+  note: string;
+}
 
 interface Entity {
   slug: string;
@@ -53,6 +62,31 @@ for (const town of towns) {
   list.push(town);
   byDistrict.set(town.operated_by, list);
 }
+
+// --- What the baseline figures are waiting on ---------------------------------
+// The engine refuses to publish weighted membership, per-pupil spending or
+// homestead rates while any input is missing. The three families below are those
+// inputs, drawn from the same generated data the engine reads.
+
+// 1. Membership inputs. adm.json's gaps block enumerates every § 4010 input and
+//    whether it has been imported; missingMembershipInputs are the ones absent
+//    for every district, and blockReasons the structural notes behind them.
+const admGaps = adm.gaps as {
+  entries: AdmGapEntry[];
+  weighted_membership_blocked_because: string[];
+};
+const missingMembershipInputs = admGaps.entries.filter((e) => !e.supplied);
+const blockReasons = admGaps.weighted_membership_blocked_because;
+
+// 2. Spending. The numerator of per-pupil spending is education spending, which
+//    comes from this SU's own budget documents.
+const normalizedYears = cells.filter((c) => c.state === 'normalized').length;
+
+// 3. Statutory numbers. Homestead rates rest on yields and weights whose check
+//    status lives in the parameter files; count the ones still unchecked.
+const paramSets = parameters as Array<{ unverified_count: number; parameters: unknown[] }>;
+const unverifiedParams = paramSets.reduce((n, s) => n + s.unverified_count, 0);
+const totalParams = paramSets.reduce((n, s) => n + s.parameters.length, 0);
 ---
 
 <Base title={`${titleCase(su.name)} — Vermont School Budgets`}>
@@ -137,20 +171,63 @@ for (const town of towns) {
   }
 
   <h2>Baseline figures</h2>
+  <p>
+    Three figures anchor everything else: weighted long-term membership, spending per weighted
+    pupil, and each member town's homestead rate. None can be computed yet. The engine returns
+    nothing rather than a plausible number — so here is exactly what each one is still waiting on.
+  </p>
+
   <div class="notice blocking">
-    <strong>Not computed</strong>
+    <strong>Weighted long-term membership — missing inputs</strong>
+    <p>Even where student counts are published, the count as it stands cannot be reduced to the figure the statute asks for:</p>
+    <ul>
+      {blockReasons.map((reason) => <li>{reason}</li>)}
+    </ul>
     <p>
-      Weighted membership, spending per weighted pupil and member-town homestead rates are all
-      downstream of statutory parameters that have not yet been verified against current statute
-      text. The engine returns nothing rather than a plausible number.
+      Concretely, these <span style="white-space:nowrap">16 V.S.A. § 4010</span> inputs are not yet
+      held for any district:
     </p>
+    <ul>
+      {missingMembershipInputs.map((e) => (
+        <li>
+          <code>{e.input}</code>{' '}
+          <span style="color:var(--text-muted);font-size:.9rem">— {e.statute}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="notice blocking">
+    <strong>Spending per weighted pupil — needs education spending</strong>
     <p>
-      What is missing, precisely, is listed on the
-      <a href={`${base}/methodology/`}>methodology page</a>. You can see the shape of the
-      calculation, every step and every citation, in the
-      <a href={`${base}/model/?su=${slugTail(su.slug)}`}>modeling tool</a>.
+      This divides a district's education spending by the weighted membership above, so it is
+      blocked by that figure and by the spending itself. Education spending comes from the budget
+      documents listed earlier on this page:{' '}
+      {normalizedYears === 0
+        ? `none of the ${cells.length} fiscal years tracked here are normalized yet`
+        : `${normalizedYears} of ${cells.length} fiscal years are normalized`}.
     </p>
   </div>
+
+  <div class="notice blocking">
+    <strong>Member-town homestead rates — need the two figures above</strong>
+    <p>
+      A homestead rate rests on both figures above and on the statutory yields and weights that
+      convert spending into a rate.
+      {unverifiedParams > 0 && (
+        <>
+          {' '}Of the legal numbers those calculations draw on, {unverifiedParams} of {totalParams}
+          {' '}are still unchecked against current statute — listed year by year, with sources, on
+          the <a href={`${base}/methodology/`}>methodology page</a>.
+        </>
+      )}
+    </p>
+  </div>
+
+  <p>
+    You can see the shape of the whole calculation — every step and every citation — in the{' '}
+    <a href={`${base}/model/?su=${slugTail(su.slug)}`}>modeling tool</a>.
+  </p>
 
   <h2>Member districts ({districts.length})</h2>
   {
