@@ -448,7 +448,8 @@ In `buildCaveats`, insert this block immediately before the final `return caveat
       const diff = Math.abs(grains - stated);
       if (diff > Math.max(1, stated * 0.001)) {
         caveats.push(
-          `${d.entity}: function rollups sum to ${grains.toLocaleString()} but the ` +
+          `${d.entity}: function rollups do not reconcile to the stated total. ` +
+            `The eight function grains sum to ${grains.toLocaleString()} but the ` +
             `published total is ${stated.toLocaleString()} (difference ` +
             `${diff.toLocaleString()}). The published total is used; this gap is not ` +
             `explained here and should be checked against the source document.`,

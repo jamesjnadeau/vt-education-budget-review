@@ -644,6 +644,59 @@ describe('scenarios present movement in both directions', () => {
       result.caveats.some((c) => c.includes('ud/d') && /reconcile/i.test(c)),
     ).toBe(true);
   });
+
+  it('skips reconciliation check when any grain is null', () => {
+    const ctx = createContext(syntheticParameters());
+    const nullGrain: DistrictBudget = {
+      ...base,
+      entity: 'ud/e',
+      // A grain is null: reconciliation check must be skipped even though
+      // the grains that exist do not sum to the stated total.
+      expenditures: { ...base.expenditures, instruction: null, total_stated: 2_000_000 },
+    };
+    const result = runScenario(ctx, {
+      name: 'district with unpublished instruction costs',
+      districts: [nullGrain],
+      consolidatedPositions: [],
+      assumptions: defaultAssumptions(),
+    });
+    // No caveat should match both entity and reconcile pattern.
+    expect(
+      result.caveats.some((c) => c.includes('ud/e') && /reconcile/i.test(c)),
+    ).toBe(false);
+  });
+
+  it('does not flag a difference exactly at the tolerance threshold', () => {
+    const ctx = createContext(syntheticParameters());
+    // Grains sum to 1,001,000; stated total is 1,000,000.
+    // Difference: 1,000.  Tolerance: max(1, 1,000,000 * 0.001) = 1,000.
+    // Since 1,000 is NOT > 1,000 (strict > check), no caveat is pushed.
+    const atTolerance: DistrictBudget = {
+      ...base,
+      entity: 'ud/f',
+      expenditures: {
+        instruction: 1_001_000,
+        special_education: 0,
+        administration_district: 0,
+        administration_school: 0,
+        operations_maintenance: 0,
+        transportation: 0,
+        debt_service: 0,
+        other: 0,
+        total_stated: 1_000_000,
+      },
+    };
+    const result = runScenario(ctx, {
+      name: 'district with grains exactly at tolerance boundary',
+      districts: [atTolerance],
+      consolidatedPositions: [],
+      assumptions: defaultAssumptions(),
+    });
+    // No caveat should match both entity and reconcile pattern.
+    expect(
+      result.caveats.some((c) => c.includes('ud/f') && /reconcile/i.test(c)),
+    ).toBe(false);
+  });
 });
 
 describe('the walkthrough', () => {
