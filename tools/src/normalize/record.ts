@@ -135,6 +135,7 @@ export function buildRecord(inputData: NormalizeInput): NormalizeResult {
       }
       const parsed = parseFigure(raw);
       if ('error' in parsed) errors.push(`${field.path} ${parsed.error}`);
+      else if ('notPublished' in parsed) setPath(record, field.path, null);
       else if ('value' in parsed) setPath(record, field.path, parsed.value);
       continue;
     }
