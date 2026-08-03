@@ -23,19 +23,19 @@ tax:
       cla: 85.67
     - town: town/middlebury
       homestead_rate_stated: 1.67
-      cla: 83.88
+      cla: .8388
     - town: town/ripton
       homestead_rate_stated: 1.76
-      cla: 79.45
+      cla: .7945
     - town: town/salisbury
       homestead_rate_stated: 1.84
-      cla: 75.97
+      cla: .7597
     - town: town/shoreham
       homestead_rate_stated: 1.69
-      cla: 82.90
+      cla: .8290
     - town: town/weybridge
       homestead_rate_stated: 1.65
-      cla: 84.75
+      cla: .8475
 lines_flagged:
   - path: revenues.education_fund_previous_year_actual
     issue: prior-year actual education-fund receipts not yet transcribed from the source; backfill from the budget book

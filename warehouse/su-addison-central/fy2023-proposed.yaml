@@ -17,25 +17,25 @@ tax:
   towns:
     - town: town/bridport
       homestead_rate_stated: 1.71
-      cla: 90.58
+      cla: .9058
     - town: town/cornwall
       homestead_rate_stated: 1.72
-      cla: 90.02
+      cla: .9002
     - town: town/middlebury
       homestead_rate_stated: 1.66
-      cla: 93.4
+      cla: .934
     - town: town/ripton
       homestead_rate_stated: 1.85
-      cla: 83.61
+      cla: .8361
     - town: town/salisbury
       homestead_rate_stated: 1.78
-      cla: 87.27
+      cla: .8727
     - town: town/shoreham
       homestead_rate_stated: 1.65
-      cla: 94.08
+      cla: .9408
     - town: town/weybridge
       homestead_rate_stated: 1.61
-      cla: 96.53
+      cla: .9653
 lines_flagged:
   - path: revenues.education_fund_previous_year_actual
     issue: prior-year actual education-fund receipts not yet transcribed from the source; backfill from the budget book
