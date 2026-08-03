@@ -2,17 +2,17 @@ schema_version: "1.0"
 extracted_by: "@jamesjnadeau"
 extracted_date: 2026-08-02
 entity: su/addison-central
-fiscal_year: 2024
+fiscal_year: 2025
 status: proposed
-source: intake/su-addison-central/fy2023/Annual Report FY23 Budget Book.pdf
-adopted_date: 2023-03-01
+source: intake/su-addison-central/fy2025/FY25BudgetBookMasterFinalv1.pdf
+adopted_date: 2024-03-01
 revenues:
-  education_fund: 5339299
-  education_fund_previous_year_actual: null
-  total_stated: 9239721
+  education_fund: null 
+  education_fund_previous_year_actual:  10500049
+  total_stated: 10562568 
 expenditures:
-  total_stated: 46338984
-  previous_year_actual: 38955982
+  total_stated: 40041512
+  previous_year_actual: 36997236
 tax:
   towns:
     - town: town/bridport
