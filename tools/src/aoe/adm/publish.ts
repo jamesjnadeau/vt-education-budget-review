@@ -50,8 +50,48 @@ export interface AdmPublication {
       readonly total: number;
       readonly justification: string;
     }>;
+    readonly statutory_bands: Record<
+      string,
+      {
+        readonly prekindergarten: number | null;
+        readonly kindergarten_through_5: number | null;
+        readonly grades_6_through_8: number | null;
+        readonly grades_9_through_12: number | null;
+      }
+    >;
   }>;
   readonly gaps: ReturnType<typeof buildGapRegister>;
+}
+
+const STATUTORY_BANDS = [
+  'prekindergarten',
+  'kindergarten_through_5',
+  'grades_6_through_8',
+  'grades_9_through_12',
+] as const;
+
+/**
+ * Map a district's published-band values onto the four statutory bands, summing
+ * any published columns that share a statutory band and dropping columns that
+ * map to null. Returns null for a band with no contributing column. Every value
+ * is null when the year does not map, and the caller emits {} in that case.
+ */
+function toStatutoryBands(
+  bands: Array<{ header: string; statutory_band: string | null }>,
+  values: ReadonlyArray<number | null>,
+): Record<(typeof STATUTORY_BANDS)[number], number | null> {
+  const out = Object.fromEntries(STATUTORY_BANDS.map((b) => [b, null])) as Record<
+    (typeof STATUTORY_BANDS)[number],
+    number | null
+  >;
+  bands.forEach((band, col) => {
+    const key = band.statutory_band as (typeof STATUTORY_BANDS)[number] | null;
+    if (!key || !STATUTORY_BANDS.includes(key)) return;
+    const v = values[col];
+    if (v === null || v === undefined) return;
+    out[key] = Number(((out[key] ?? 0) + v).toFixed(2));
+  });
+  return out;
 }
 
 export function buildAdmPublication(
@@ -89,6 +129,13 @@ export function buildAdmPublication(
 
       const rollup = aggregate(joined, record.bands_as_published.length);
 
+      const statutory_bands: Record<string, ReturnType<typeof toStatutoryBands>> = {};
+      if (record.maps_to_statutory_bands) {
+        for (const d of rollup.districts) {
+          statutory_bands[d.district] = toStatutoryBands(record.bands_as_published, d.values);
+        }
+      }
+
       return {
         fiscal_year: record.fiscal_year,
         count_year: record.count_year,
@@ -101,6 +148,7 @@ export function buildAdmPublication(
           total: e.total,
           justification: e.justification,
         })),
+        statutory_bands,
       };
     });
 

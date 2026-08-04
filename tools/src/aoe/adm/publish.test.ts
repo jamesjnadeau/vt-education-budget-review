@@ -26,6 +26,36 @@ const RECORD = {
   extracted_date: '2026-07-29',
 };
 
+function nonMappingRecord() {
+  return { ...RECORD };
+}
+
+function mappingRecord() {
+  return {
+    ...RECORD,
+    fiscal_year: 2030,
+    count_year: '2028-2029',
+    bands_as_published: [
+      { header: 'PK', statutory_band: 'prekindergarten' },
+      { header: 'K-5', statutory_band: 'kindergarten_through_5' },
+      { header: '6-8', statutory_band: 'grades_6_through_8' },
+      { header: '9-12', statutory_band: 'grades_9_through_12' },
+    ],
+    maps_to_statutory_bands: true,
+    towns: [
+      {
+        entity: 'town/burlington',
+        aoe_org_id: 'T037',
+        name_as_published: 'Burlington',
+        town_class: 'own_district',
+        values: [5, 100, 50, 60],
+      },
+    ],
+    band_totals: [5, 100, 50, 60],
+    grand_total: 215,
+  };
+}
+
 describe('publishing the ADM series', () => {
   const pub = buildAdmPublication([RECORD], readRegistry(), '2026-07-29T00:00:00.000Z');
 
@@ -77,5 +107,24 @@ describe('publishing the ADM series', () => {
     );
     const excluded = (year?.exclusions ?? []).reduce((acc, e) => acc + e.total, 0);
     expect(Number((districts + excluded).toFixed(2))).toBe(year?.grand_total);
+  });
+});
+
+describe('statutory-band rollup', () => {
+  it('is empty for a year whose bands do not map to the statutory bands', () => {
+    // adm24 publishes K-6 / 7-12, which have no statutory-band counterpart.
+    const pub = buildAdmPublication([nonMappingRecord()], readRegistry(), '2026-08-04T00:00:00Z');
+    expect(pub.years[0]?.statutory_bands).toEqual({});
+  });
+
+  it('keys each district by statutory band for a mapping year', () => {
+    const pub = buildAdmPublication([mappingRecord()], readRegistry(), '2026-08-04T00:00:00Z');
+    const bands = pub.years[0]?.statutory_bands['town/burlington'];
+    expect(bands).toEqual({
+      prekindergarten: 5,
+      kindergarten_through_5: 100,
+      grades_6_through_8: 50,
+      grades_9_through_12: 60,
+    });
   });
 });
