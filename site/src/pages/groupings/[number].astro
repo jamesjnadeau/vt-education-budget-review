@@ -169,7 +169,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
               <tr>
                 <th scope="row">{m.name_as_written ?? m.slug}</th>
                 <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
-                <td>{m.budget && m.budget.total_stated !== null ? formatValue(m.budget.total_stated, 'usd') : 'no budget held'}</td>
+                <td>{m.budget && m.budget.total_stated !== null ? formatValue(m.budget.total_stated, 'usd') : 'no budget held'}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
               </tr>
             ))}
           </tbody>
