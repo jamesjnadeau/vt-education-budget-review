@@ -56,6 +56,36 @@ function mappingRecord() {
   };
 }
 
+function mappingRecordWithSharedAndUnmappedColumns() {
+  return {
+    ...RECORD,
+    fiscal_year: 2031,
+    count_year: '2029-2030',
+    bands_as_published: [
+      { header: 'PK', statutory_band: 'prekindergarten' },
+      { header: 'K-3', statutory_band: 'kindergarten_through_5' },
+      { header: '4-5', statutory_band: 'kindergarten_through_5' },
+      { header: 'Ungraded', statutory_band: null },
+      { header: '9-12', statutory_band: 'grades_9_through_12' },
+    ],
+    maps_to_statutory_bands: true,
+    towns: [
+      {
+        entity: 'town/burlington',
+        aoe_org_id: 'T037',
+        name_as_published: 'Burlington',
+        town_class: 'own_district',
+        // PK=5, K-3=60, 4-5=40 (sums to 100 with K-3), Ungraded=999 (must be
+        // dropped even though this year maps), 9-12=60. grades_6_through_8 has
+        // no contributing column at all, so it must stay null.
+        values: [5, 60, 40, 999, 60],
+      },
+    ],
+    band_totals: [5, 60, 40, 999, 60],
+    grand_total: 1164,
+  };
+}
+
 describe('publishing the ADM series', () => {
   const pub = buildAdmPublication([RECORD], readRegistry(), '2026-07-29T00:00:00.000Z');
 
@@ -126,5 +156,27 @@ describe('statutory-band rollup', () => {
       grades_6_through_8: 50,
       grades_9_through_12: 60,
     });
+  });
+
+  it('sums columns sharing a band, drops a null-tagged column even within a mapping year, and leaves an unfilled band null', () => {
+    const pub = buildAdmPublication(
+      [mappingRecordWithSharedAndUnmappedColumns()],
+      readRegistry(),
+      '2026-08-04T00:00:00Z',
+    );
+    const bands = pub.years[0]?.statutory_bands['town/burlington'];
+    expect(bands).toEqual({
+      prekindergarten: 5,
+      // 60 + 40 from the two K-3 / 4-5 columns both tagged
+      // kindergarten_through_5 -- proves summation rather than overwrite.
+      kindergarten_through_5: 100,
+      // No published column carries this statutory band, so it stays null
+      // even though its siblings are populated.
+      grades_6_through_8: null,
+      grades_9_through_12: 60,
+    });
+    // The 999-pupil "Ungraded" column is tagged statutory_band: null. It must
+    // not silently land in any band -- confirm it doesn't inflate any total.
+    expect(Object.values(bands ?? {})).not.toContain(999);
   });
 });
