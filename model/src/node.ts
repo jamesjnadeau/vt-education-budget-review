@@ -55,7 +55,7 @@ const decimal4 = new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 });
 const plain = new Intl.NumberFormat('en-US');
 
 export function formatValue(value: number | null, unit: Unit): string {
-  if (value === null) return '—';
+  if (value == null || !Number.isFinite(value)) return '—';
   switch (unit) {
     case 'usd':
     case 'usd_per_pupil':

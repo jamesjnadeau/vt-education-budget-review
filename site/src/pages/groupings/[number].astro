@@ -62,7 +62,7 @@ const budgets = budgetsByNumber.get(grouping.number) ?? {
 const computable =
   budgets.member_count > 0 &&
   budgets.members.length > 0 &&
-  budgets.members.every((m) => m.budget && m.budget.total_stated !== null);
+  budgets.members.every((m) => m.budget && m.budget.education_spending !== null);
 
 let result: ReturnType<typeof runScenario> | null = null;
 if (computable) {
@@ -80,7 +80,7 @@ if (computable) {
   });
 }
 
-const gaps = budgets.members.filter((m) => !m.budget || m.budget.total_stated === null);
+const gaps = budgets.members.filter((m) => !m.budget || m.budget.education_spending === null);
 const mixedYears = budgets.fiscal_years_present.length > 1;
 const state: 'computed' | 'partial' | 'recruitment' = computable
   ? 'computed'
@@ -104,7 +104,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
       <div class="scroll-x">
         <table>
           <thead>
-            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Status</th><th scope="col">Total expenditure</th></tr>
+            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Status</th><th scope="col">Education spending</th></tr>
           </thead>
           <tbody>
             {budgets.members.map((m) => (
@@ -112,7 +112,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
                 <th scope="row">{m.name_as_written ?? m.slug}</th>
                 <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
                 <td>{m.status ?? '—'}{m.resolution === 'via_su' && <span class="tag" style="margin-left:.4rem">via SU</span>}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
-                <td>{m.budget && m.budget.total_stated !== null ? formatValue(m.budget.total_stated, 'usd') : 'not published'}</td>
+                <td>{m.budget && m.budget.education_spending !== null ? formatValue(m.budget.education_spending, 'usd') : 'not published'}</td>
               </tr>
             ))}
           </tbody>
@@ -162,14 +162,14 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
       <div class="scroll-x">
         <table>
           <thead>
-            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Total expenditure</th></tr>
+            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Education spending</th></tr>
           </thead>
           <tbody>
             {budgets.members.map((m) => (
               <tr>
                 <th scope="row">{m.name_as_written ?? m.slug}</th>
                 <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
-                <td>{m.budget && m.budget.total_stated !== null ? formatValue(m.budget.total_stated, 'usd') : 'no budget held'}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
+                <td>{m.budget && m.budget.education_spending !== null ? formatValue(m.budget.education_spending, 'usd') : 'no budget held'}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
               </tr>
             ))}
           </tbody>
