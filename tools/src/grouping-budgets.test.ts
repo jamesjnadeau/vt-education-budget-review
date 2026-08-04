@@ -138,6 +138,16 @@ describe('buildGroupingBudgets', () => {
     expect(member.budget).toBeNull();
   });
 
+  it('does not attribute an SU budget to a non-district-like member even when the SU has one district-like member', () => {
+    const reg = registryOf(
+      entity({ slug: 'ud/real-1', type: 'ud', supervisory_union: 'su/z' }),
+      entity({ slug: 'school/x', type: 'school', supervisory_union: 'su/z' }),
+    );
+    const g = buildGroupingBudgets([GROUP(['school/x'])], reg, [budget({ entity: 'su/z' })])[0]!;
+    expect(g.members[0]!.resolution).toBe('missing');
+    expect(g.members[0]!.budget).toBeNull();
+  });
+
   it('adapts total_stated from expenditures (not revenues) and keeps an unpublished total null', () => {
     const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud' }));
     const g = buildGroupingBudgets(

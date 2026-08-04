@@ -123,8 +123,13 @@ export function buildGroupingBudgets(
         };
       }
 
-      const su = registry.get(slug)?.supervisory_union ?? null;
-      if (su) {
+      // via_su only applies when the member is itself a district (spec rule 2).
+      // A non-district-like member (e.g. a school, or a town operated by another
+      // district) must never inherit its SU's budget, or the same SU total could
+      // be attributed to two members of one group and double-counted.
+      const self = registry.get(slug);
+      const su = self?.supervisory_union ?? null;
+      if (su && self && isDistrictLike(self)) {
         const suBudget = pickBudget(byEntity.get(su) ?? []);
         if (suBudget) {
           const districtCount = suDistrictCount.get(su) ?? 0;
