@@ -790,9 +790,17 @@ export function initModelTool(
     }
   };
 
-  // Load-a-district ADM prefill. Mirrors the statewide-average prefill: it fills
-  // a field only when the user has not already typed one, and it records what it
-  // autofilled so a later prefill can replace its own value but never the user's.
+  // Load-a-district ADM prefill. Unlike statewide-avg (which starts blank), the
+  // eight grade inputs ship with non-blank illustrative defaults (prek-1=10,
+  // k5-1=100, ...) so a first-time visitor sees a complete walkthrough. That
+  // means "field.value !== ''" cannot stand in for "the user typed this" --
+  // every field would look user-owned before the user ever touches the form.
+  // So editedness is tracked directly: an `input` listener on each of the eight
+  // fields records a real keystroke. Setting `field.value = …` from code does
+  // not dispatch `input` in the browser (the existing statewide/scenario-link
+  // prefills already rely on this -- they call recompute() by hand rather than
+  // relying on the form's `input` listener), so the set only ever gains an id
+  // through the user's own typing, never through our own writes below.
   const entities = resolvedAdmData.entities ?? {};
   const loadEntity = document.getElementById('load-entity') as HTMLSelectElement | null;
   const loadYear = document.getElementById('load-year') as HTMLSelectElement | null;
@@ -804,25 +812,39 @@ export function initModelTool(
   const BAND_FIELD: Record<string, string> = {
     prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
   };
-  const autofilledAdm = new Set<string>();
+  const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
+  const userEditedAdm = new Set<string>();
+  for (const id of admFieldIds) {
+    document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
+  }
 
+  // A missing entity/year row (no budget or AOE record for that exact year --
+  // most often the earlier of the two ADM years) is not a "leave it alone"
+  // signal; it means every band in that row is exactly as unresolved as an
+  // explicit source:'unknown' band, so it is folded into the same branch below
+  // rather than left to fall through to a stale value or a blank note.
   const fillBandRow = (band: Record<string, ResolvedAdmBand> | undefined, slot: '1' | '2'): void => {
     for (const [key, prefix] of Object.entries(BAND_FIELD)) {
       const id = `${prefix}-${slot}`;
       const field = document.getElementById(id) as HTMLInputElement | null;
       const note = document.querySelector<HTMLElement>(`[data-adm-source="${id}"]`);
       if (!field) continue;
+      // A field the user has actually typed into is never touched -- neither
+      // its value nor its source note -- so a prefill can never overwrite, or
+      // even relabel, something the user entered themselves.
+      if (userEditedAdm.has(id)) continue;
       const resolved = band?.[key];
-      // Never overwrite a value the user typed (one we did not autofill).
-      const userTyped = field.value !== '' && !autofilledAdm.has(id);
-      if (!userTyped && resolved && resolved.value !== null) {
+      if (resolved && resolved.value !== null) {
         field.value = String(resolved.value);
-        autofilledAdm.add(id);
-      } else if (!userTyped) {
+        if (note) note.textContent = SOURCE_TEXT[resolved.source] ?? '';
+      } else {
+        // No value on file -- either the band is explicitly unknown, or the
+        // whole row (band) is missing for this entity/year. Both read as "not
+        // available" and leave the field blank, so the note never claims a
+        // source for a value that isn't there.
         field.value = '';
-        autofilledAdm.delete(id);
+        if (note) note.textContent = SOURCE_TEXT.unknown ?? '';
       }
-      if (note) note.textContent = resolved ? SOURCE_TEXT[resolved.source] ?? '' : '';
     }
   };
 
