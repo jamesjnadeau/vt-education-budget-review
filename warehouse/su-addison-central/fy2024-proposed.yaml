@@ -6,21 +6,20 @@ fiscal_year: 2024
 status: proposed
 source: intake/su-addison-central/fy2023/Annual Report FY23 Budget Book.pdf
 adopted_date: 2023-03-01
-revenues:
-  education_fund: 5339299
-  education_fund_previous_year_actual: null
-  total_stated: 9239721
-expenditures:
-  total_stated: 46338984
-  previous_year_actual: 38955982
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
 tax:
   towns:
     - town: town/bridport
       homestead_rate_stated: 1.77
-      cla: 79.29
+      cla: .7929
     - town: town/cornwall
       homestead_rate_stated: 1.63
-      cla: 85.67
+      cla: .8567
     - town: town/middlebury
       homestead_rate_stated: 1.67
       cla: .8388
@@ -36,11 +35,21 @@ tax:
     - town: town/weybridge
       homestead_rate_stated: 1.65
       cla: .8475
+notes: null
 lines_flagged:
-  - path: revenues.education_fund_previous_year_actual
-    issue: prior-year actual education-fund receipts not yet transcribed from the source; backfill from the budget book
+  - path: education_spending
+    issue: education spending not yet transcribed from the source; backfill from the FY23 budget book
     resolution: pending
-  - path: expenditures.previous_year_actual
-    issue: prior-year actual total expenditure not yet transcribed from the source; backfill from the budget book
+  - path: adm.prekindergarten
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY23 budget book
+    resolution: pending
+  - path: adm.kindergarten_through_5
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY23 budget book
+    resolution: pending
+  - path: adm.grades_6_through_8
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY23 budget book
+    resolution: pending
+  - path: adm.grades_9_through_12
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY23 budget book
     resolution: pending
 not_published: []

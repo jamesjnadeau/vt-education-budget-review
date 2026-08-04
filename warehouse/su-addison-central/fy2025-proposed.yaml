@@ -6,13 +6,12 @@ fiscal_year: 2025
 status: proposed
 source: intake/su-addison-central/fy2025/FY25BudgetBookMasterFinalv1.pdf
 adopted_date: 2024-03-01
-revenues:
-  education_fund: null 
-  education_fund_previous_year_actual:  10500049
-  total_stated: 10562568 
-expenditures:
-  total_stated: 40041512
-  previous_year_actual: 36997236
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
 tax:
   towns:
     - town: town/bridport
@@ -36,11 +35,21 @@ tax:
     - town: town/weybridge
       homestead_rate_stated: 1.65
       cla: .8475
+notes: null
 lines_flagged:
-  - path: revenues.education_fund_previous_year_actual
-    issue: prior-year actual education-fund receipts not yet transcribed from the source; backfill from the budget book
+  - path: education_spending
+    issue: education spending not yet transcribed from the source; backfill from the FY25 budget book
     resolution: pending
-  - path: expenditures.previous_year_actual
-    issue: prior-year actual total expenditure not yet transcribed from the source; backfill from the budget book
+  - path: adm.prekindergarten
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY25 budget book
+    resolution: pending
+  - path: adm.kindergarten_through_5
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY25 budget book
+    resolution: pending
+  - path: adm.grades_6_through_8
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY25 budget book
+    resolution: pending
+  - path: adm.grades_9_through_12
+    issue: district-stated ADM by band not yet transcribed from the source; backfill from the FY25 budget book
     resolution: pending
 not_published: []
