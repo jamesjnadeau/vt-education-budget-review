@@ -128,6 +128,56 @@ export function checkNullAccounting(record: BudgetRecord, file: string): Finding
 }
 
 // --------------------------------------------------------------------------
+// District-stated vs AOE ADM cross-check
+// --------------------------------------------------------------------------
+
+const ADM_BANDS = [
+  'prekindergarten',
+  'kindergarten_through_5',
+  'grades_6_through_8',
+  'grades_9_through_12',
+] as const;
+
+/** Pupils. Two ADM counts within this of each other are not a discrepancy. */
+const ADM_TOLERANCE = 0.5;
+
+/**
+ * Warns where the district's stated ADM and the state's AOE count disagree for
+ * the same band. A warning, never an error, and never reconciled: a district
+ * disagreeing with the state about its own pupils is a finding to publish, not
+ * a bug to fix. `aoeBands` is null when no comparable AOE figure exists (a
+ * non-mapping year), in which case this is silent.
+ */
+export function checkAdmCrossCheck(
+  record: BudgetRecord,
+  aoeBands: Record<string, number | null> | null,
+  file: string,
+): Finding[] {
+  if (!aoeBands) return [];
+  const adm = (record as { adm?: Record<string, number | null> }).adm;
+  if (!adm) return [];
+
+  const findings: Finding[] = [];
+  for (const band of ADM_BANDS) {
+    const d = adm[band];
+    const a = aoeBands[band];
+    if (typeof d !== 'number' || typeof a !== 'number') continue;
+    if (Math.abs(d - a) > ADM_TOLERANCE) {
+      findings.push({
+        severity: 'warning',
+        file,
+        rule: 'adm-cross-check',
+        message:
+          `adm.${band}: this record states ${d}, the AOE count for the same year is ${a}. ` +
+          `Recorded, not reconciled -- a district's stated membership and the state's count ` +
+          `are different voices, and the disagreement is itself the finding.`,
+      });
+    }
+  }
+  return findings;
+}
+
+// --------------------------------------------------------------------------
 // Provenance
 // --------------------------------------------------------------------------
 

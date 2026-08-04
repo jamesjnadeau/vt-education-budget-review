@@ -21,7 +21,8 @@ import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
-import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { parseParameterSet, resolveAdm, unverifiedParameters, type BandValues } from '@vt-budget/model';
+import { aoeBandsFor } from '../adm-lookup.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
@@ -145,6 +146,22 @@ function main(): number {
       join(PATHS.siteGenerated, 'adm.json'),
       buildAdmPublication(admRecords, registry, today.toISOString()),
     );
+  }
+
+  // --- resolved ADM (district-first, AOE fallback), per entity+year --------
+  if (admRecords.length > 0) {
+    const publication = buildAdmPublication(admRecords, registry, today.toISOString());
+    const entities: Record<string, Record<string, unknown>> = {};
+    for (const budget of budgets) {
+      const adm = (budget as { adm?: BandValues | null }).adm ?? null;
+      const aoe = aoeBandsFor(budget.entity, budget.fiscal_year, publication, registry);
+      if (!adm && !aoe) continue;
+      (entities[budget.entity] ??= {})[String(budget.fiscal_year)] = resolveAdm(adm, aoe);
+    }
+    writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
+      generated: today.toISOString(),
+      entities,
+    });
   }
 
   let smallSparseCounts: Record<string, number> | null = null;

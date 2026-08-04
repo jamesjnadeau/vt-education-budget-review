@@ -18,5 +18,6 @@ export * from './membership.ts';
 export * from './tax.ts';
 export * from './foundation.ts';
 export * from './scenario.ts';
+export * from './adm-resolution.ts';
 export * from './small-sparse.ts';
 export { parseParameterSet, unverifiedParameters, staleParameters, ParameterFileError } from './parameters/parse.ts';

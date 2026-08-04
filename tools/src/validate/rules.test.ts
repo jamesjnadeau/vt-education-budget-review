@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  checkAdmCrossCheck,
   checkNullAccounting,
   checkRegistryRefs,
   collectNullPaths,
@@ -158,5 +159,28 @@ describe('source references are not registry references', () => {
     );
     expect(findings).toHaveLength(1);
     expect(findings[0]?.rule).toBe('registry-reference');
+  });
+});
+
+describe('adm cross-check', () => {
+  const rec = () => ({
+    adm: { prekindergarten: 10, kindergarten_through_5: 100, grades_6_through_8: 50, grades_9_through_12: 50 },
+  }) as any;
+
+  it('is silent when no AOE figure is available', () => {
+    expect(checkAdmCrossCheck(rec(), null, 'f.yaml')).toHaveLength(0);
+  });
+
+  it('is silent when the figures agree within tolerance', () => {
+    const aoe = { prekindergarten: 10.2, kindergarten_through_5: 100, grades_6_through_8: 50, grades_9_through_12: 50 };
+    expect(checkAdmCrossCheck(rec(), aoe, 'f.yaml')).toHaveLength(0);
+  });
+
+  it('warns (never errors) on a band that disagrees beyond tolerance', () => {
+    const aoe = { prekindergarten: 10, kindergarten_through_5: 130, grades_6_through_8: 50, grades_9_through_12: 50 };
+    const findings = checkAdmCrossCheck(rec(), aoe, 'f.yaml');
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.severity).toBe('warning');
+    expect(findings[0]?.message).toMatch(/kindergarten_through_5/);
   });
 });

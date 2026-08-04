@@ -21,12 +21,15 @@ import { basename, dirname, join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { aoeBandsFor } from '../adm-lookup.ts';
+import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, REPO_ROOT, rel } from '../paths.ts';
 import { readCorrections } from '../registry/corrections.ts';
 import { readRegistry, readSnapshotIfPresent } from '../registry/store.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 import {
+  checkAdmCrossCheck,
   checkCorrections,
   checkDerivedProvenance,
   checkLandAreaOnly,
@@ -261,6 +264,14 @@ function main(): number {
     findings.push(...checkRegistryRefs(data, file, registry));
   }
 
+  // --- AOE publication, built once for the cross-check below --------------
+  const admDir = join(PATHS.warehouse, 'aoe-adm');
+  const admRecords = walkFiles(admDir, (n) => /^adm\d{2}\.yaml$/.test(n)).map((file) => readData(file));
+  const admPublication =
+    admRecords.length > 0
+      ? buildAdmPublication(admRecords, registry, new Date(0).toISOString())
+      : { generated: '', years: [], gaps: [] as unknown };
+
   // --- warehouse ----------------------------------------------------------
   for (const file of walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json'))) {
     counts.warehouse++;
@@ -305,6 +316,13 @@ function main(): number {
     findings.push(...checkRegistryRefs(record, file, registry));
     findings.push(...checkNullAccounting(record, file));
     findings.push(...checkProvenance(record, file, { verifyHashes }));
+    findings.push(
+      ...checkAdmCrossCheck(
+        record,
+        aoeBandsFor(record.entity, record.fiscal_year, admPublication, registry),
+        file,
+      ),
+    );
 
     const expected = `fy${record.fiscal_year}`;
     if (!basename(file).startsWith(expected)) {
