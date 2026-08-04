@@ -249,7 +249,7 @@ Expected: **exit 0**, `0 errors`. (Hints/warnings may remain; they don't fail th
 - [ ] **Step 4: Confirm `tsc --build` is unaffected**
 
 Run: `npm run typecheck`
-Expected: PASS, exit 0. (`env.d.ts` is not part of the `.ts`-only composite build; this confirms the new file didn't disturb it.)
+Expected: PASS, exit 0. (`env.d.ts` *is* part of the composite program — `src/**/*.ts` matches `.d.ts` — so a passing build confirms its additive/optional `Window` augmentation doesn't disturb the other `.ts` in it.)
 
 - [ ] **Step 5: Commit**
 
