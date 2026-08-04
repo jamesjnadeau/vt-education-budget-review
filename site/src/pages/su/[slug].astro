@@ -4,6 +4,7 @@ import registry from '../../generated/registry.json';
 import coverage from '../../generated/coverage.json';
 import adm from '../../generated/adm.json';
 import parameters from '../../generated/parameters.json';
+import homesteadComparison from '../../generated/homestead-comparison.json';
 import { slugTail, titleCase } from '../../lib/display';
 
 interface AdmGapEntry {
@@ -87,6 +88,16 @@ const normalizedYears = cells.filter((c) => c.state === 'normalized').length;
 const paramSets = parameters as Array<{ unverified_count: number; parameters: unknown[] }>;
 const unverifiedParams = paramSets.reduce((n, s) => n + s.unverified_count, 0);
 const totalParams = paramSets.reduce((n, s) => n + s.parameters.length, 0);
+
+// 4. Homestead rate comparison. Published rates are available now; calculated
+//    rates are blocked until the inputs above are, which the table shows
+//    directly per town/year rather than restating the blockers in prose.
+const homesteadYears = (homesteadComparison.sus as Record<string, Record<string, Array<{
+  town: string; published: number | null; calculated: number | null; blocker: string | null; difference: number | null;
+}>>>)[su.slug] ?? {};
+const homesteadRows = Object.entries(homesteadYears)
+  .flatMap(([year, cells]) => cells.map((c) => ({ year, ...c })))
+  .sort((a, b) => Number(b.year) - Number(a.year) || a.town.localeCompare(b.town));
 ---
 
 <Base title={`${titleCase(su.name)} — Vermont School Budgets`}>
@@ -228,6 +239,48 @@ const totalParams = paramSets.reduce((n, s) => n + s.parameters.length, 0);
     You can see the shape of the whole calculation — every step and every citation — in the{' '}
     <a href={`${base}/model/?su=${slugTail(su.slug)}`}>modeling tool</a>.
   </p>
+
+  {homesteadRows.length > 0 && (
+    <>
+      <h2>Homestead rate: calculated vs published</h2>
+      <p>
+        Each member town's homestead rate as printed in the budget, beside the rate the statutory
+        formula produces from this SU's education spending and resolved membership. The calculated
+        column is blank while any statutory parameter it needs is still unverified — it shows what
+        it is waiting on, and fills in once those are checked.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Town</th>
+              <th scope="col">Year</th>
+              <th scope="col">Published</th>
+              <th scope="col">Calculated (billed)</th>
+              <th scope="col">Difference</th>
+            </tr>
+          </thead>
+          <tbody>
+            {homesteadRows.map((r) => (
+              <tr>
+                <th scope="row">{slugTail(r.town)}</th>
+                <td>FY{r.year}</td>
+                <td>{r.published === null ? '—' : r.published.toFixed(4)}</td>
+                <td>
+                  {r.calculated !== null ? (
+                    r.calculated.toFixed(4)
+                  ) : (
+                    <span class="tag unverified">awaiting {r.blocker ?? 'inputs'}</span>
+                  )}
+                </td>
+                <td>{r.difference === null ? '—' : r.difference.toFixed(4)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  )}
 
   <h2>Member districts ({districts.length})</h2>
   {

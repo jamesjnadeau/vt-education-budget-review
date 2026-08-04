@@ -26,6 +26,7 @@ import { aoeBandsFor } from '../adm-lookup.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
+import { buildHomesteadComparison } from '../homestead-comparison.ts';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
@@ -102,8 +103,14 @@ function main(): number {
 
   // --- parameters ----------------------------------------------------------
   const parameterFiles = walkFiles(PATHS.parameters, (n) => n.endsWith('.yaml'));
-  const parameterSets = parameterFiles.map((file) => {
-    const set = parseParameterSet(parseYaml(readFileSync(file, 'utf8')));
+  // Parsed once here and reused below: parameters.json wants the plain-object
+  // shape (a Map does not serialize), but the homestead builder needs the real
+  // ParameterSet -- Map-backed parameters/inputs -- to hand to createContext.
+  const parsedParameterSets = parameterFiles.map((file) =>
+    parseParameterSet(parseYaml(readFileSync(file, 'utf8'))),
+  );
+  const parameterSets = parameterFiles.map((file, i) => {
+    const set = parsedParameterSets[i]!;
     return {
       file: rel(file),
       fiscal_year: set.fiscal_year,
@@ -141,26 +148,28 @@ function main(): number {
   const admRecords = walkFiles(admDir, (n) => /^adm\d{2}\.yaml$/.test(n)).map(
     (file) => parseYaml(readFileSync(file, 'utf8')) as unknown,
   );
-  if (admRecords.length > 0) {
-    writeJson(
-      join(PATHS.siteGenerated, 'adm.json'),
-      buildAdmPublication(admRecords, registry, today.toISOString()),
-    );
+  // Built once and reused by adm.json, resolved-adm.json and the homestead
+  // builder below -- all three read the same publication.
+  const admPublication =
+    admRecords.length > 0 ? buildAdmPublication(admRecords, registry, today.toISOString()) : null;
+  if (admPublication) {
+    writeJson(join(PATHS.siteGenerated, 'adm.json'), admPublication);
   }
 
   // --- resolved ADM (district-first, AOE fallback), per entity+year --------
-  if (admRecords.length > 0) {
-    const publication = buildAdmPublication(admRecords, registry, today.toISOString());
-    const entities: Record<string, Record<string, unknown>> = {};
+  // Also handed to the homestead builder below, so it is kept in a Record
+  // rather than written and forgotten.
+  const resolvedAdmByEntity: Record<string, Record<string, ReturnType<typeof resolveAdm>>> = {};
+  if (admPublication) {
     for (const budget of budgets) {
       const adm = (budget as { adm?: BandValues | null }).adm ?? null;
-      const aoe = aoeBandsFor(budget.entity, budget.fiscal_year, publication, registry);
+      const aoe = aoeBandsFor(budget.entity, budget.fiscal_year, admPublication, registry);
       if (!adm && !aoe) continue;
-      (entities[budget.entity] ??= {})[String(budget.fiscal_year)] = resolveAdm(adm, aoe);
+      (resolvedAdmByEntity[budget.entity] ??= {})[String(budget.fiscal_year)] = resolveAdm(adm, aoe);
     }
     writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
       generated: today.toISOString(),
-      entities,
+      entities: resolvedAdmByEntity,
     });
   }
 
@@ -196,6 +205,18 @@ function main(): number {
   // registry.json, because other records reference it -- it just is not a place.
   const towns = (byType.get('town') ?? []).filter((t) => !t.reporting_only);
   const schools = byType.get('school') ?? [];
+
+  // --- homestead: calculated vs published, per SU/year/town ----------------
+  writeJson(
+    join(PATHS.siteGenerated, 'homestead-comparison.json'),
+    buildHomesteadComparison(
+      sus,
+      budgets as unknown as Parameters<typeof buildHomesteadComparison>[1],
+      resolvedAdmByEntity,
+      parsedParameterSets,
+      today.toISOString(),
+    ),
+  );
 
   const budgetsByEntity = new Map<string, BudgetRecord[]>();
   for (const budget of budgets) {
