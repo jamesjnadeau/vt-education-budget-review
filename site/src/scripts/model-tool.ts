@@ -50,6 +50,26 @@ import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-l
 import { nextStatewideAverage } from './statewide-average.ts';
 import { studentSummarySections } from './student-summary.ts';
 
+// resolved-adm.json (Task 5's output) is a build artifact under
+// site/src/generated/ -- gitignored and written by `npm run build:data`, which
+// `npm run typecheck` runs standalone and *before* (see .github/workflows/
+// validate.yml). A static `import ... from '../generated/resolved-adm.json'`
+// here would make tsc resolve a file that does not exist yet on a fresh
+// checkout (TS2307), the same reason none of the other generated/*.json files
+// are imported directly by a .ts file in this project -- they are only ever
+// imported from .astro frontmatter (excluded from the tsc project; see
+// site/tsconfig.json) and handed to this island as a parameter, exactly like
+// `liveParameters` below. `ResolvedAdmData` mirrors that pattern.
+export interface ResolvedAdmBand {
+  value: number | null;
+  source: 'district' | 'aoe' | 'unknown';
+}
+
+export interface ResolvedAdmData {
+  generated?: string;
+  entities: Record<string, Record<string, Record<string, ResolvedAdmBand>>>;
+}
+
 // The input key carrying the Secretary of Education's statewide average
 // determination on each year's parameter set. Matches the key used in the
 // fyNNNN.yaml `inputs:` blocks and the golden fixtures.
@@ -560,7 +580,10 @@ function applyScenario(scenario: Scenario): void {
   }
 }
 
-export function initModelTool(liveParameters: RawParameterSet[]): void {
+export function initModelTool(
+  liveParameters: RawParameterSet[],
+  resolvedAdmData: ResolvedAdmData = { entities: {} },
+): void {
   const modeSelect = document.getElementById('parameter-mode') as HTMLSelectElement | null;
   const walkthrough = document.getElementById('walkthrough');
   const blockers = document.getElementById('blockers');
@@ -766,6 +789,65 @@ export function initModelTool(liveParameters: RawParameterSet[]): void {
       lastStatewideAutofill = result.autofilled;
     }
   };
+
+  // Load-a-district ADM prefill. Mirrors the statewide-average prefill: it fills
+  // a field only when the user has not already typed one, and it records what it
+  // autofilled so a later prefill can replace its own value but never the user's.
+  const entities = resolvedAdmData.entities ?? {};
+  const loadEntity = document.getElementById('load-entity') as HTMLSelectElement | null;
+  const loadYear = document.getElementById('load-year') as HTMLSelectElement | null;
+  const SOURCE_TEXT: Record<string, string> = {
+    district: 'from the district’s budget',
+    aoe: 'from the state AOE count',
+    unknown: 'not available',
+  };
+  const BAND_FIELD: Record<string, string> = {
+    prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
+  };
+  const autofilledAdm = new Set<string>();
+
+  const fillBandRow = (band: Record<string, ResolvedAdmBand> | undefined, slot: '1' | '2'): void => {
+    for (const [key, prefix] of Object.entries(BAND_FIELD)) {
+      const id = `${prefix}-${slot}`;
+      const field = document.getElementById(id) as HTMLInputElement | null;
+      const note = document.querySelector<HTMLElement>(`[data-adm-source="${id}"]`);
+      if (!field) continue;
+      const resolved = band?.[key];
+      // Never overwrite a value the user typed (one we did not autofill).
+      const userTyped = field.value !== '' && !autofilledAdm.has(id);
+      if (!userTyped && resolved && resolved.value !== null) {
+        field.value = String(resolved.value);
+        autofilledAdm.add(id);
+      } else if (!userTyped) {
+        field.value = '';
+        autofilledAdm.delete(id);
+      }
+      if (note) note.textContent = resolved ? SOURCE_TEXT[resolved.source] ?? '' : '';
+    }
+  };
+
+  const applyAdmPrefill = (): void => {
+    const entity = loadEntity?.value ?? '';
+    const year = loadYear?.value ?? '';
+    if (!entity || !year || !entities[entity]?.[year]) return;
+    fillBandRow(entities[entity]?.[String(Number(year) - 1)], '1');
+    fillBandRow(entities[entity]?.[year], '2');
+    recompute();
+  };
+
+  // Populate the entity options (sorted), and the year options for the chosen entity.
+  for (const slug of Object.keys(entities).sort()) {
+    const opt = document.createElement('option');
+    opt.value = slug; opt.textContent = slug;
+    loadEntity?.append(opt);
+  }
+  loadEntity?.addEventListener('change', () => {
+    if (!loadYear) return;
+    loadYear.replaceChildren(new Option('— none —', ''));
+    for (const y of Object.keys(entities[loadEntity.value] ?? {}).sort()) loadYear.append(new Option(`FY${y}`, y));
+    applyAdmPrefill();
+  });
+  loadYear?.addEventListener('change', applyAdmPrefill);
 
   document.getElementById('scenario-form')?.addEventListener('input', recompute);
   modeSelect?.addEventListener('change', () => {
