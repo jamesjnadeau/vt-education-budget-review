@@ -6,9 +6,18 @@ artifacts:
     source_url: https://www.acsdvt.org/district-link/budget-development/fy25budget
     retrieved_date: 2026-08-03
     retrieval_method: email
-    sha256: 8bb3efd5e7fb16cc05db496f4f96a854bc0589dc4dc1b9636029783d955fe43a
-    bytes: 14120413
+    sha256: 3a60b2fe6b1803064b593012bc1f9b5ef8046641cb4d534283d245896118636c
+    bytes: 34529347
     media_type: application/pdf
     retrieved_by: "@jamesjnadeau"
     document_type: budget_book
-    note: null
+    note: >-
+      Re-recorded sha256 and bytes against the genuine FY25 artifact. As first
+      committed in ae6c556, this entry carried sha256
+      8bb3efd5e7fb16cc05db496f4f96a854bc0589dc4dc1b9636029783d955fe43a and bytes
+      14120413 -- both copy-pasted from the sibling fy2024 provenance, which are
+      the true hash and size of ACSD Budget Book FY24.pdf. The FY25 PDF itself
+      (LFS oid 3a60b2fe..., internal title "FY25 Budget Book Master") was never
+      altered: its LFS pointer is byte-identical from ae6c556 through HEAD. Only
+      the recorded hash was wrong, so provenance was corrected to match the
+      unedited source artifact.
