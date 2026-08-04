@@ -190,6 +190,14 @@ unchanged for the ADM pages that already read it.
 
 ### 3b. The resolver (`model/src/adm-resolution.ts`, pure)
 
+The choice is made **per band, not per record**: each of the four bands is
+resolved independently, so a record can end up with some bands from the district
+and others from the state. This uses every district-stated number available and
+falls back to the state only to fill a specific missing band (PreK, most often),
+rather than discarding a district's K–12 counts over one unstated row. The AOE
+fallback matches on the **same fiscal year** as the budget record — never an
+adjacent year.
+
 Given an entity, a fiscal year, the district-stated ADM from that entity's budget
 record, and the AOE statutory-band publication, produce the four bands each as
 `{ value: number | null, source: 'district' | 'aoe' | 'unknown' }`:
