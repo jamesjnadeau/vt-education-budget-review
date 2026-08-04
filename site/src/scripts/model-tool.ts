@@ -75,7 +75,7 @@ export interface ResolvedAdmData {
 // fyNNNN.yaml `inputs:` blocks and the golden fixtures.
 const STATEWIDE_AVERAGE_KEY = 'statewide_average_per_pupil';
 
-interface RawParameterSet {
+export interface RawParameterSet {
   fiscal_year: number;
   status: 'draft' | 'verified' | 'superseded';
   note: string | null;
