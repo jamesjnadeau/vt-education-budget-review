@@ -29,19 +29,15 @@ const expected = coverage.cells.length;
   <div class="notice blocking">
     <strong>What this site can and cannot tell you today</strong>
     <p>
-      The master list of who exists is complete: {counts['su']} supervisory unions,
-      {counts['ud']} unified districts, {counts['school']} schools, and {counts['town']} towns,
-      pulled from the Agency of Education's public data feed with every raw response saved.
+      The master list of who exists is complete: {counts['su']} supervisory unions, {counts['ud']} unified districts, {counts['school']} schools, and {counts['town']} towns, pulled from the Agency of Education's public data feed with every raw response saved.
     </p>
     <p>
-      <strong style="display:inline">No budget documents have been collected yet</strong> —
-      {normalized} of {expected} district-years. The
-      <a href={`${base}/admin/coverage/`}>what-we-have page</a> shows exactly which are missing,
-      and it is public on purpose, so the gaps are easy to see.
+      <strong style="display:inline">No budget documents have been collected yet</strong>, {normalized} of {expected} district-years. 
+       The <a href={`${base}/admin/coverage/`}>what-we-have page</a> shows exactly which are missing, and it is public on purpose, so the gaps are easy to see.
     </p>
     <p>
-      <strong style="display:inline">No legal number has been checked yet</strong> —
-      {unverified} of {totalParams}. Until a person reads a pupil weight or yield straight from the
+      <strong style="display:inline">No legal number has been checked yet</strong>, {unverified} of {totalParams}. 
+      Until a person reads a pupil weight or yield straight from the
       current law, the engine won't do math with it and returns nothing instead of a good-looking
       guess. You will see it stop, with the reason, anywhere a number would otherwise show up.
     </p>
