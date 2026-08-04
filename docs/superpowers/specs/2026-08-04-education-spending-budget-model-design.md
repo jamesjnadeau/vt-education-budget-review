@@ -14,7 +14,7 @@ revenue). Total expenditure and education spending are different numbers with
 confusingly similar names, and capturing the wrong one has been a recurring
 source of error.
 
-This design does two things:
+This design does three things:
 
 1. **Reshapes the budget record** around education spending, district-stated ADM
    by statutory grade band, the existing per-town tax figures, and free-text
@@ -23,6 +23,11 @@ This design does two things:
    given entity and fiscal year, produces the four statutory ADM bands preferring
    the district's own stated figures and falling back to the state's (AOE) count,
    publishes that resolution, and wires it into the `/model` tool as a prefill.
+3. **Compares the statute's arithmetic to what districts printed.** On the SU
+   page, for each year we hold a budget, a table lists member towns' homestead
+   rates as published against the engine's billed-rate calculation — the
+   calculated side declaring which unverified parameter blocks it until the
+   statutory values are countersigned.
 
 The null-accounting sentinel the whole repository is built around is **kept**:
 every null still means "the district did not publish this," never "nobody
@@ -253,6 +258,52 @@ never captured, and neither was district-stated ADM. On migration:
 After migration `npm run validate` is green. Backfilling the real figures from
 the FY23 budget book is a follow-up data task.
 
+## Part 5 — Homestead rate: calculated vs published, on the SU page
+
+The `/model` tool already computes a town's billed homestead rate
+(`billedHomesteadRate` / `townRate` in `model/src/tax.ts`), and the budget record
+now carries each town's *published* stated rate. This part surfaces the two side
+by side on the SU page, for the years we hold budgets, so a reader can see how the
+statute's arithmetic compares to what the district printed.
+
+### 5a. The comparison, built at build time
+
+`tools/src/cli/build-data.ts` emits `site/src/generated/homestead-comparison.json`,
+keyed by SU → fiscal year → town, each carrying:
+
+- **published** — the town's `homestead_rate_stated` from that SU's budget record
+  for the year (or `null` with a not-published/flag note, per the record).
+- **calculated** — the engine's billed homestead rate for that town and year, run
+  through the same billed-rate path the `/model` tool uses: district per-pupil
+  education spending (`education_spending` ÷ resolved weighted membership from
+  Part 3) folded through the spending adjustment, then divided by the town's CLA
+  over the statewide adjustment. When any required input is a null/unverified
+  parameter, this is **not a number but the engine's blocker** — the specific
+  parameter that stopped it — exactly as the `/model` walkthrough renders a
+  blocked step.
+- **difference** — published minus calculated, present only when both are numbers.
+
+The engine run reuses the resolved-ADM dataset (Part 3d) for weighted membership
+and the live fiscal-year parameter set from `parameters.json`. Because those
+statutory parameters are currently null/unverified, **every calculated cell is a
+blocker today**; the column fills in automatically as parameters are verified.
+This is scaffolding built ahead of its inputs, the same posture as the rest of the
+engine — the published column is fully populated now, the calculated column
+declares precisely what it is waiting on.
+
+### 5b. The table on the SU page
+
+`site/src/pages/su/[slug].astro` renders, for each previous year the SU has a
+budget record, a table of its member towns:
+
+| Town | Year | Published rate | Calculated (billed) rate | Difference |
+|---|---|---|---|---|
+
+A calculated cell that is blocked shows the blocking parameter (e.g. "awaiting
+`tax.property_yield`") rather than a number, and the Difference cell is blank. The
+page reads `homestead-comparison.json`; it runs no engine itself. Where the SU has
+no budget records the section is omitted rather than shown empty.
+
 ## Structure and testing
 
 Each surface moves with its tests, all under the existing gates
@@ -274,6 +325,11 @@ Each surface moves with its tests, all under the existing gates
   year, and its absence for a non-mapping year.
 - `model/src/engine.test.ts` — the scenario suite uses `education_spending`.
 - `tools/src/grouping-budgets.test.ts` — resolution reads `education_spending`.
+- `tools/src/cli/*` homestead-comparison builder test — for a town/year with a
+  published rate and unverified parameters, `published` is the stated number and
+  `calculated` is the named blocker; `difference` is absent. A fixture with
+  verified parameters yields a numeric `calculated` and a `difference`, proving
+  the column lights up when inputs arrive.
 
 ## Documentation
 
@@ -300,9 +356,11 @@ Each surface moves with its tests, all under the existing gates
 
 - **Computing education spending from expenditures minus offsets.** We capture the
   published figure; we do not store the offset breakdown or recompute it.
-- **A per-entity modeling page.** The engine consumer added here is a prefill into
-  the existing anonymous `/model` tool, not a new entity-scoped page that runs the
-  engine automatically for a district.
+- **An interactive per-entity modeling tool.** The engine consumers added here are
+  a prefill into the existing anonymous `/model` tool (Part 3e) and a static,
+  build-time homestead comparison table on the SU page (Part 5). Neither is a new
+  interactive what-if scoped to a named district; the `/model` tool stays the one
+  interactive surface.
 - **Backfilling the two migrated records** with real education-spending and ADM
   figures from the source budget book.
 - **A schema `2.0`.** Version `1.0` is edited in place and the two unpublished
@@ -317,6 +375,8 @@ This spec is larger than the earlier slim-model change because it carries a data
 reshape *and* a resolver-plus-prefill feature. The implementation plan will
 sequence it so each stage is independently green: (1) schema + field surfaces +
 tests, (2) record migration, (3) merger/grouping rename, (4) AOE statutory-band
-publication, (5) resolver + cross-check + dataset, (6) `/model` prefill, (7) docs.
-Stages 1–3 stand on their own; stage 4 onward is the ADM-resolution feature and
-can be reviewed as a unit.
+publication, (5) resolver + cross-check + dataset, (6) `/model` prefill,
+(7) SU-page homestead calculated-vs-published table, (8) docs. Stages 1–3 stand on
+their own; stages 4–6 are the ADM-resolution feature; stage 7 is the homestead
+comparison (it depends on stage 5's resolved-ADM dataset). Each can be reviewed as
+a unit.
