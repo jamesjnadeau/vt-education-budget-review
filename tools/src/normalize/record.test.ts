@@ -68,7 +68,14 @@ describe('buildRecord — happy path', () => {
     expect(rec.source).toBe('intake/su-addison-central/fy2023/budget.pdf');
     expect(rec.extracted_by).toBe('@octocat');
     expect(rec.extracted_date).toBe('2026-07-31');
-    expect(rec.revenues.education_fund).toBe(100);
+    expect(rec.education_spending).toBe(100);
+    expect(rec.adm).toEqual({
+      prekindergarten: 100,
+      kindergarten_through_5: 100,
+      grades_6_through_8: 100,
+      grades_9_through_12: 100,
+    });
+    expect(rec.notes).toBeNull();
     expect(rec.tax.towns).toEqual([
       { town: 'town/addison', homestead_rate_stated: 1.52, cla: 0.8734 },
     ]);
@@ -77,33 +84,33 @@ describe('buildRecord — happy path', () => {
 
 describe('buildRecord — the sentinel', () => {
   it('turns n/p into a not_published entry attributed to the author and date', () => {
-    const r = buildRecord(input({ body: body({ 'expenditures.previous_year_actual': 'n/p' }) }));
+    const r = buildRecord(input({ body: body({ 'adm.grades_9_through_12': 'n/p' }) }));
     if (!r.ok) throw new Error('expected ok');
     const rec = r.record as Record<string, any>;
-    expect(rec.expenditures.previous_year_actual).toBeNull();
-    const entry = rec.not_published.find((n: any) => n.path === 'expenditures.previous_year_actual');
+    expect(rec.adm.grades_9_through_12).toBeNull();
+    const entry = rec.not_published.find((n: any) => n.path === 'adm.grades_9_through_12');
     expect(entry).toEqual({
-      path: 'expenditures.previous_year_actual',
+      path: 'adm.grades_9_through_12',
       confirmed_by: '@octocat',
       confirmed_date: '2026-07-31',
     });
   });
 
   it('still validates against the schema and null-accounting with an n/p field', () => {
-    const r = buildRecord(input({ body: body({ 'expenditures.previous_year_actual': 'n/p' }) }));
+    const r = buildRecord(input({ body: body({ 'adm.grades_9_through_12': 'n/p' }) }));
     if (!r.ok) throw new Error('expected ok');
     expect(validateAgainst('budget', r.record)).toEqual([]);
     expect(checkNullAccounting(r.record as BudgetRecord, 'f.yaml')).toEqual([]);
   });
 
   it('rejects an empty accountable field, naming it', () => {
-    const errs = errorsFrom({ body: body({ 'expenditures.previous_year_actual': '' }) });
-    expect(errs.join('\n')).toMatch(/expenditures\.previous_year_actual/);
+    const errs = errorsFrom({ body: body({ education_spending: '' }) });
+    expect(errs.join('\n')).toMatch(/education_spending/);
   });
 
   it('rejects a value that is neither a number nor n/p', () => {
-    const errs = errorsFrom({ body: body({ 'revenues.education_fund': 'a lot' }) });
-    expect(errs.join('\n')).toMatch(/revenues\.education_fund/);
+    const errs = errorsFrom({ body: body({ education_spending: 'a lot' }) });
+    expect(errs.join('\n')).toMatch(/education_spending/);
   });
 });
 
@@ -151,15 +158,25 @@ describe('buildRecord — tax and lines_flagged', () => {
 
   it('parses lines_flagged in the path :: issue format', () => {
     const r = buildRecord(
-      input({ body: body({ lines_flagged: 'expenditures.previous_year_actual :: prior-year column unreadable' }) }),
+      input({ body: body({ lines_flagged: 'education_spending :: education spending line unreadable' }) }),
     );
     if (!r.ok) throw new Error('expected ok');
     expect((r.record as any).lines_flagged).toEqual([
-      { path: 'expenditures.previous_year_actual', issue: 'prior-year column unreadable', resolution: 'pending' },
+      { path: 'education_spending', issue: 'education spending line unreadable', resolution: 'pending' },
     ]);
   });
 
   it('rejects an unparseable lines_flagged line', () => {
     expect(errorsFrom({ body: body({ lines_flagged: 'no separator here' }) }).length).toBeGreaterThan(0);
+  });
+
+  it('reads a notes field through, and defaults it to null when blank', () => {
+    const withNotes = buildRecord(input({ body: body({ notes: 'warned budget; revote scheduled' }) }));
+    if (!withNotes.ok) throw new Error('expected ok');
+    expect((withNotes.record as any).notes).toBe('warned budget; revote scheduled');
+
+    const without = buildRecord(input());
+    if (!without.ok) throw new Error('expected ok');
+    expect((without.record as any).notes).toBeNull();
   });
 });

@@ -26,42 +26,37 @@ describe('schema source-path patterns accept filenames with spaces', () => {
   }
 });
 
-describe('budget schema requires a stated expenditure total', () => {
-  it('lists expenditures.total_stated as required', () => {
-    const schema = JSON.parse(
-      readFileSync(join(PATHS.schemas, 'budget-1.0.schema.json'), 'utf8'),
-    );
-    const required = schema.properties.expenditures.required as string[];
-    expect(required).toContain('total_stated');
-  });
-});
-
-describe('budget schema is slimmed to the essentials', () => {
+describe('budget schema is reshaped around education spending', () => {
   const schema = JSON.parse(
     readFileSync(join(PATHS.schemas, 'budget-1.0.schema.json'), 'utf8'),
   );
 
-  it('requires exactly the essential top-level blocks', () => {
+  it('requires exactly the reshaped top-level blocks', () => {
     expect(new Set(schema.required)).toEqual(
       new Set([
         'schema_version', 'entity', 'fiscal_year', 'status', 'source',
-        'revenues', 'expenditures', 'tax', 'not_published', 'lines_flagged',
+        'education_spending', 'adm', 'tax', 'not_published', 'lines_flagged',
       ]),
     );
   });
 
-  it('has dropped the personnel, enrollment and per_pupil blocks', () => {
-    expect(schema.properties.personnel).toBeUndefined();
-    expect(schema.properties.enrollment).toBeUndefined();
-    expect(schema.properties.per_pupil).toBeUndefined();
+  it('has dropped the revenues and expenditures blocks', () => {
+    expect(schema.properties.revenues).toBeUndefined();
+    expect(schema.properties.expenditures).toBeUndefined();
   });
 
-  it('requires the previous-year actuals nested under revenues and expenditures', () => {
-    expect(new Set(schema.properties.revenues.required)).toEqual(
-      new Set(['education_fund', 'education_fund_previous_year_actual', 'total_stated']),
+  it('carries education_spending and the four statutory ADM bands', () => {
+    expect(schema.properties.education_spending).toBeDefined();
+    expect(new Set(schema.properties.adm.required)).toEqual(
+      new Set([
+        'prekindergarten', 'kindergarten_through_5',
+        'grades_6_through_8', 'grades_9_through_12',
+      ]),
     );
-    expect(new Set(schema.properties.expenditures.required)).toEqual(
-      new Set(['total_stated', 'previous_year_actual']),
-    );
+  });
+
+  it('has an optional, non-required notes field', () => {
+    expect(schema.properties.notes).toBeDefined();
+    expect((schema.required as string[])).not.toContain('notes');
   });
 });

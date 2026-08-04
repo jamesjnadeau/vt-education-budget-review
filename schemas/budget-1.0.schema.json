@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:vt-budget:schema:budget:1.0",
   "title": "Normalized district budget record, schema version 1.0",
-  "description": "One record per district-fiscal-year. Deliberately minimal: the current-year stated revenue and education-fund receipts, the current-year stated expenditure total, the prior-year actuals for the education fund and for total expenditure, and the per-town stated tax figures. A null money value means the source document did not publish that figure; it never means it was not looked for. The validator enforces that guarantee by requiring every null to be accounted for in `not_published` or `lines_flagged`.",
+  "description": "One record per district-fiscal-year. Deliberately minimal: the district's published education spending, its stated average daily membership by statutory grade band, the per-town stated tax figures, and free-text notes. A null value in an accountable field means the source document did not publish that figure; it never means it was not looked for. The validator enforces that guarantee by requiring every such null to be accounted for in `not_published` or `lines_flagged`.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,8 +11,8 @@
     "fiscal_year",
     "status",
     "source",
-    "revenues",
-    "expenditures",
+    "education_spending",
+    "adm",
     "tax",
     "not_published",
     "lines_flagged"
@@ -63,41 +63,21 @@
       "default": null
     },
 
-    "revenues": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "The current-year stated total revenue, the education-fund receipts within it, and the prior year's actual education-fund figure as printed in this document.",
-      "required": ["education_fund", "education_fund_previous_year_actual", "total_stated"],
-      "properties": {
-        "education_fund": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Statewide Education Fund receipts for this fiscal year -- the main revenue line for most Vermont districts."
-        },
-        "education_fund_previous_year_actual": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "The actual (not budgeted) education-fund receipts for the prior fiscal year, as printed in this document's comparison column."
-        },
-        "total_stated": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Total revenue for this fiscal year as printed in the document."
-        }
-      }
+    "education_spending": {
+      "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
+      "description": "The district's published Education Spending figure -- budgeted expenditures net of offsetting revenues (federal grants, categorical aid, non-tax revenue). This is the figure that drives the homestead tax rate. Transcribed as printed; not recomputed here."
     },
 
-    "expenditures": {
+    "adm": {
       "type": "object",
       "additionalProperties": false,
-      "description": "The current-year stated expenditure total and the prior year's actual expenditure total as printed in this document.",
-      "required": ["total_stated", "previous_year_actual"],
+      "description": "District-STATED average daily membership by statutory grade band (16 V.S.A. 4010), as printed in this budget document. Kept separate from the state's AOE count; where they disagree the discrepancy is recorded, never reconciled. A null band was not published by this document.",
+      "required": ["prekindergarten", "kindergarten_through_5", "grades_6_through_8", "grades_9_through_12"],
       "properties": {
-        "total_stated": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "Total expenditure for this fiscal year as printed in the document."
-        },
-        "previous_year_actual": {
-          "$ref": "urn:vt-budget:schema:common:1.0#/$defs/money",
-          "description": "The actual (not budgeted) total expenditure for the prior fiscal year, as printed in this document's comparison column."
-        }
+        "prekindergarten": { "type": ["number", "null"], "minimum": 0 },
+        "kindergarten_through_5": { "type": ["number", "null"], "minimum": 0 },
+        "grades_6_through_8": { "type": ["number", "null"], "minimum": 0 },
+        "grades_9_through_12": { "type": ["number", "null"], "minimum": 0 }
       }
     },
 
@@ -132,9 +112,15 @@
       }
     },
 
+    "notes": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "Free-text context that does not belong in the structured accounting arrays. Never held to null-accounting."
+    },
+
     "not_published": {
       "type": "array",
-      "description": "Dotted paths of fields this source document does not publish, each confirmed absent by a human rather than merely skipped. The validator requires that every null in the record appears here or in lines_flagged. This is what makes a null mean 'the district did not publish it' instead of 'we did not look'.",
+      "description": "Dotted paths of fields this source document does not publish, each confirmed absent by a human rather than merely skipped. The validator requires that every null in an accountable field appears here or in lines_flagged. This is what makes a null mean 'the district did not publish it' instead of 'we did not look'.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -143,7 +129,7 @@
           "path": {
             "type": "string",
             "pattern": "^[a-z_]+(\\.[a-z_0-9]+)*$",
-            "examples": ["expenditures.previous_year_actual", "revenues.education_fund_previous_year_actual"]
+            "examples": ["education_spending", "adm.prekindergarten"]
           },
           "confirmed_by": { "type": "string", "minLength": 1 },
           "confirmed_date": { "type": "string", "format": "date" },

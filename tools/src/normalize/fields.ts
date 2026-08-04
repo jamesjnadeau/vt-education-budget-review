@@ -2,15 +2,15 @@
  * The figure fields of a budget record, and how a form value becomes one.
  *
  * The form labels its inputs with the record's own dotted paths
- * (`revenues.education_fund`), so there is no label-to-path mapping to drift:
+ * (`adm.prekindergarten`), so there is no label-to-path mapping to drift:
  * this table IS the correspondence, and the issue form mirrors it. This table
- * holds the five essential money figures, and every one of them is
- * `accountable`: the validator's null-accounting rule holds each to account,
- * the form demands a number or the `n/p` sentinel for it, and a blank is
- * rejected rather than treated as a legitimate null.
+ * holds education spending and the four statutory ADM bands, and every one of
+ * them is `accountable`: the validator's null-accounting rule holds each to
+ * account, the form demands a number or the `n/p` sentinel for it, and a
+ * blank is rejected rather than treated as a legitimate null.
  */
 
-export type FigureKind = 'money' | 'fte' | 'number' | 'text';
+export type FigureKind = 'money' | 'adm' | 'fte' | 'number' | 'text';
 
 export interface FigureField {
   readonly path: string;
@@ -21,11 +21,11 @@ export interface FigureField {
 export const STATUSES = ['proposed', 'warned', 'approved', 'actual'] as const;
 
 export const FIGURE_FIELDS: readonly FigureField[] = [
-  { path: 'revenues.education_fund', kind: 'money', accountable: true },
-  { path: 'revenues.education_fund_previous_year_actual', kind: 'money', accountable: true },
-  { path: 'revenues.total_stated', kind: 'money', accountable: true },
-  { path: 'expenditures.total_stated', kind: 'money', accountable: true },
-  { path: 'expenditures.previous_year_actual', kind: 'money', accountable: true },
+  { path: 'education_spending', kind: 'money', accountable: true },
+  { path: 'adm.prekindergarten', kind: 'adm', accountable: true },
+  { path: 'adm.kindergarten_through_5', kind: 'adm', accountable: true },
+  { path: 'adm.grades_6_through_8', kind: 'adm', accountable: true },
+  { path: 'adm.grades_9_through_12', kind: 'adm', accountable: true },
 ];
 
 export type FigureParse = { value: number } | { notPublished: true } | { error: string };

@@ -63,8 +63,8 @@ export interface BudgetRecord {
  * listed -- a missing note is not a missing figure.
  */
 const ACCOUNTABLE = [
-  /^revenues\.(education_fund|education_fund_previous_year_actual|total_stated)$/,
-  /^expenditures\.(total_stated|previous_year_actual)$/,
+  /^education_spending$/,
+  /^adm\.(prekindergarten|kindergarten_through_5|grades_6_through_8|grades_9_through_12)$/,
   /^tax\.towns\.\d+\.(homestead_rate_stated|cla)$/,
 ];
 
@@ -95,8 +95,8 @@ export function collectNullPaths(value: unknown, prefix = ''): string[] {
  *
  * This is the rule that makes a null in the warehouse mean "the district did
  * not publish it" rather than "we did not look". Without it, a null
- * `expenditures.previous_year_actual` -- a figure the source may simply not
- * have printed -- would be indistinguishable from one nobody checked.
+ * `education_spending` -- a figure the source may simply not have printed --
+ * would be indistinguishable from one nobody checked.
  */
 export function checkNullAccounting(record: BudgetRecord, file: string): Finding[] {
   const explained = new Set<string>([

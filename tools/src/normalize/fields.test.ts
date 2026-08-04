@@ -42,15 +42,17 @@ describe('setPath', () => {
 });
 
 describe('FIGURE_FIELDS', () => {
-  it('is exactly the five essential money figures, all accountable', () => {
+  it('is exactly education spending and the four statutory ADM bands, all accountable', () => {
     expect(FIGURE_FIELDS.map((f) => f.path)).toEqual([
-      'revenues.education_fund',
-      'revenues.education_fund_previous_year_actual',
-      'revenues.total_stated',
-      'expenditures.total_stated',
-      'expenditures.previous_year_actual',
+      'education_spending',
+      'adm.prekindergarten',
+      'adm.kindergarten_through_5',
+      'adm.grades_6_through_8',
+      'adm.grades_9_through_12',
     ]);
-    expect(FIGURE_FIELDS.every((f) => f.accountable && f.kind === 'money')).toBe(true);
+    expect(FIGURE_FIELDS.every((f) => f.accountable)).toBe(true);
+    expect(FIGURE_FIELDS[0]?.kind).toBe('money');
+    expect(FIGURE_FIELDS.slice(1).every((f) => f.kind === 'adm')).toBe(true);
   });
 });
 

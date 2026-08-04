@@ -15,8 +15,13 @@ function record(over: Partial<BudgetRecord> = {}): BudgetRecord {
     fiscal_year: 2027,
     status: 'proposed',
     source: 'intake/test/fy2027/budget.pdf',
-    revenues: { education_fund: 1000, education_fund_previous_year_actual: 950, total_stated: 1200 },
-    expenditures: { total_stated: 1150, previous_year_actual: 1100 },
+    education_spending: 1_150_000,
+    adm: {
+      prekindergarten: 10,
+      kindergarten_through_5: 100,
+      grades_6_through_8: 50,
+      grades_9_through_12: 50,
+    },
     tax: { towns: [{ town: 'town/test', homestead_rate_stated: 1.5, cla: 0.9 }] },
     not_published: [],
     lines_flagged: [],
@@ -43,33 +48,28 @@ describe('null accounting', () => {
     expect(checkNullAccounting(record(), 'f.yaml')).toHaveLength(0);
   });
 
-  it('rejects an unexplained null in an essential figure', () => {
+  it('rejects an unexplained null in an ADM band', () => {
     const r = record({
-      expenditures: { total_stated: 1150, previous_year_actual: null },
+      adm: { prekindergarten: null, kindergarten_through_5: 100, grades_6_through_8: 50, grades_9_through_12: 50 },
     });
     const findings = checkNullAccounting(r, 'f.yaml');
     expect(findings).toHaveLength(1);
     expect(findings[0]?.severity).toBe('error');
-    expect(findings[0]?.message).toMatch(/expenditures\.previous_year_actual is null/);
-    expect(findings[0]?.message).toMatch(/cannot be distinguished from a field nobody checked/);
+    expect(findings[0]?.message).toMatch(/adm\.prekindergarten is null/);
   });
 
   it('accepts the same null once it is confirmed absent from the source', () => {
     const r = record({
-      expenditures: { total_stated: 1150, previous_year_actual: null },
-      not_published: [
-        { path: 'expenditures.previous_year_actual', confirmed_by: 'jn', confirmed_date: '2026-07-29' },
-      ],
+      adm: { prekindergarten: null, kindergarten_through_5: 100, grades_6_through_8: 50, grades_9_through_12: 50 },
+      not_published: [{ path: 'adm.prekindergarten', confirmed_by: 'jn', confirmed_date: '2026-07-29' }],
     });
     expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
   });
 
   it('accepts a null explained as a flagged line instead', () => {
     const r = record({
-      revenues: { education_fund: 1000, education_fund_previous_year_actual: null, total_stated: 1200 },
-      lines_flagged: [
-        { path: 'revenues.education_fund_previous_year_actual', issue: 'prior-year actual not yet transcribed' },
-      ],
+      education_spending: null,
+      lines_flagged: [{ path: 'education_spending', issue: 'education spending not yet transcribed' }],
     });
     expect(checkNullAccounting(r, 'f.yaml')).toHaveLength(0);
   });

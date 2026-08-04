@@ -65,42 +65,42 @@ body:
     validations:
       required: false
   - type: input
-    id: revenues_education_fund
+    id: education_spending
     attributes:
-      label: "revenues.education_fund"
-      description: This year's education-fund receipts. Whole dollars, or n/p if the document does not publish it.
+      label: "education_spending"
+      description: The district's published Education Spending figure (expenditures net of offsetting revenues). Whole dollars, or n/p if the document does not publish it.
       placeholder: "number or n/p"
     validations:
       required: true
   - type: input
-    id: revenues_education_fund_previous_year_actual
+    id: adm_prekindergarten
     attributes:
-      label: "revenues.education_fund_previous_year_actual"
-      description: Prior year's ACTUAL education-fund receipts (the comparison column). Whole dollars, or n/p.
+      label: "adm.prekindergarten"
+      description: District-stated prekindergarten ADM. A number (pupils, decimals allowed), or n/p.
       placeholder: "number or n/p"
     validations:
       required: true
   - type: input
-    id: revenues_total_stated
+    id: adm_kindergarten_through_5
     attributes:
-      label: "revenues.total_stated"
-      description: This year's total revenue as printed. Whole dollars, or n/p.
+      label: "adm.kindergarten_through_5"
+      description: District-stated K-5 ADM. A number, or n/p.
       placeholder: "number or n/p"
     validations:
       required: true
   - type: input
-    id: expenditures_total_stated
+    id: adm_grades_6_through_8
     attributes:
-      label: "expenditures.total_stated"
-      description: This year's total expenditure as printed. Whole dollars, or n/p.
+      label: "adm.grades_6_through_8"
+      description: District-stated grades 6-8 ADM. A number, or n/p.
       placeholder: "number or n/p"
     validations:
       required: true
   - type: input
-    id: expenditures_previous_year_actual
+    id: adm_grades_9_through_12
     attributes:
-      label: "expenditures.previous_year_actual"
-      description: Prior year's ACTUAL total expenditure (the comparison column). Whole dollars, or n/p.
+      label: "adm.grades_9_through_12"
+      description: District-stated grades 9-12 ADM. A number, or n/p.
       placeholder: "number or n/p"
     validations:
       required: true
@@ -116,12 +116,19 @@ body:
     validations:
       required: true
   - type: textarea
+    id: notes
+    attributes:
+      label: "notes"
+      description: Optional free text — context that doesn't belong in a figure or a flagged line.
+    validations:
+      required: false
+  - type: textarea
     id: lines_flagged
     attributes:
       label: "lines_flagged"
       description: >-
         Optional. Anything that did not fit cleanly, one per line as
-        `path :: what was off` (e.g. `expenditures.previous_year_actual ::
-        prior-year column unreadable`).
+        `path :: what was off` (e.g. `education_spending ::
+        education spending line unreadable`).
     validations:
       required: false

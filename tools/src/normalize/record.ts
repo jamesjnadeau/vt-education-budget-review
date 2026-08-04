@@ -157,6 +157,10 @@ export function buildRecord(inputData: NormalizeInput): NormalizeResult {
   if (!tax.ok) errors.push(...tax.errors);
   else record['tax'] = { towns: tax.towns };
 
+  // --- notes (free text, optional, never accountable) ---------------------
+  const notes = get('notes');
+  record['notes'] = notes && notes.trim() !== '' ? notes.trim() : null;
+
   // --- lines_flagged ------------------------------------------------------
   const flagged = parseLinesFlagged(get('lines_flagged') ?? '');
   if (!flagged.ok) errors.push(...flagged.errors);
