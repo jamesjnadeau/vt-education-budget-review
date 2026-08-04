@@ -92,27 +92,27 @@ entity: su/<slug>                     # registry slug
 fiscal_year: 2027
 status: proposed|warned|approved|actual
 source: intake/<slug>/fy<year>/<file> # the raw artifact this came from
-adopted_date: 2027-03-07   # optional; town-meeting/board vote date
-revenues:
-  education_fund: …                   # this year's education-fund receipts
-  education_fund_previous_year_actual: …  # prior year's ACTUAL, from the comparison column
-  total_stated: …                     # this year's total revenue as printed
-expenditures:
-  total_stated: …                     # this year's total expenditure as printed
-  previous_year_actual: …             # prior year's ACTUAL total expenditure
+education_spending: …                 # the district's published Education Spending line
+adm:                                  # district-STATED ADM by statutory band
+  prekindergarten: …
+  kindergarten_through_5: …
+  grades_6_through_8: …
+  grades_9_through_12: …
 tax:
   towns: [ { town, homestead_rate_stated, cla } ]  # per member town, as stated
-not_published: [ … ]                  # every null accounted for, with who/when
+notes: …                              # optional free text
+not_published: [ … ]                  # every accountable null accounted for, with who/when
 lines_flagged: [ … ]                  # anything that didn't fit cleanly
 ```
  
-Design principles for the schema: **essentials only** (the current-year stated
-revenue and education-fund receipts, the current-year stated expenditure total,
-the prior-year actuals for each, and the per-town stated tax figures — six
-figures, not a chart of accounts), **a null always means "not published"**
-(enforced by the null-accounting rule: every null is listed in `not_published`
-or `lines_flagged`), and **version the schema** so records stay readable as it
-evolves.
+Design principles for the schema: **essentials only** (the district's published
+education spending, its stated ADM by the four statutory grade bands, and the
+per-town stated tax figures — not a chart of accounts), **a null in an
+accountable field always means "not published"** (enforced by the
+null-accounting rule: every such null is listed in `not_published` or
+`lines_flagged`), and **version the schema** so records stay readable as it
+evolves. Education spending is captured as the district's published figure, not
+recomputed from expenditures and offsetting revenues.
 
 **Extraction.** Records are entered through the `budget-normalize` issue form,
 which mirrors these fields one-to-one; a bot validates the submission against
@@ -120,7 +120,7 @@ the schema and opens a pull request adding the warehouse record. Every warehouse
 record links back to its intake artifact; CI rejects any record whose `source`
 does not exist or whose schema validation fails.
  
-**Enrichment joins.** At normalization time, join in AOE-published ADM, weighted membership, staffing data (educator FTEs and salary reporting, where published), and Tax Department CLA and rate data, each with its own provenance — kept as a separate, labeled series, never merged into the district-stated fields. Budget documents are the districts' voice; AOE and Tax data are the state's; the warehouse keeps both and labels which is which.
+**Enrichment joins.** At normalization time, join in AOE-published ADM, weighted membership, staffing data (educator FTEs and salary reporting, where published), and Tax Department CLA and rate data, each with its own provenance — kept as a separate, labeled series, never merged into the district-stated fields. District-stated ADM now lives in the record itself; the AOE series is resolved district-first, with a cross-check that warns on disagreement but never reconciles. Budget documents are the districts' voice; AOE and Tax data are the state's; the warehouse keeps both and labels which is which.
  
 ---
  
@@ -146,11 +146,11 @@ The public face of the system, and the demonstration asset the business plan wan
  
 Pick a starting point (their town, SU, or one of the 20 Act 170 groupings), then compose a scenario: merge these districts, close this school, move its students to that one, adjust assumptions. The tool shows, side by side, current vs. scenario:
  
-- **combined published total expenditure**, with a single explicit, user-visible
+- **combined published education spending**, with a single explicit, user-visible
   consolidation factor (starting at 1.0 — no change) applied to the combined
-  total; the tool models the headline delta off published totals only, because
-  districts do not slice their budgets the same way, and shows movement in both
-  directions with equal weight;
+  total; the tool models the headline delta off published education spending only,
+  because districts do not slice their budgets the same way, and shows movement in
+  both directions with equal weight;
 - membership and **weighted membership**, recomputed for the combined entity;
 - education spending per weighted pupil;
 - **homestead tax rate per member town**, through CLA, under (a) the current yield-based system and (b) a parameterized foundation-formula stub with sensitivity sliders for the parameters the Legislature hasn't set.

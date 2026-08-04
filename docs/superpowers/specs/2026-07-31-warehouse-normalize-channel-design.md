@@ -74,18 +74,17 @@ and the repository rather than trusted — a prefilled field can be edited.
 
 ### Accountable figures — a number or `n/p`
 
-These are exactly the fields the validator's null-accounting rule holds
-accountable. Each must be a number or the literal `n/p`; empty is rejected.
+Each must be a number or the literal `n/p`; empty is rejected.
 
-- **Revenues:** `education_fund`, `education_fund_previous_year_actual`,
-  `total_stated`
-- **Expenditures:** `total_stated`, `previous_year_actual`
+- **Education spending:** `education_spending`
+- **ADM (district-stated), by statutory band:** `adm.prekindergarten`,
+  `adm.kindergarten_through_5`, `adm.grades_6_through_8`, `adm.grades_9_through_12`
 - **Tax:** each member town's `homestead_rate_stated` and `cla`
 
 ### Optional descriptive fields — blank is fine
 
-Identity/metadata only: `source_pages`, `adopted_date`. Every budget figure is
-now accountable, so there are no optional numeric fields.
+`source_pages`, `adopted_date`, and `notes` (free text). Every budget figure is
+accountable; these are not.
 
 ### Tax — a structured textarea
 

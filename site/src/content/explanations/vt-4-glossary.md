@@ -26,6 +26,8 @@ Here are the words, in ABC order. The laws are listed separately at the end, in 
 
 **Education Fund.** The one state pot that pays for all Vermont schools. Property taxes go in. So does some sales tax, some rooms tax, lottery money, and a few other taxes. Every district gets paid out of it.
 
+**Education spending.** The number that actually sets your tax rate. Start with everything a district plans to spend, then subtract the money that comes from somewhere other than the statewide school tax — federal grants, categorical state aid, and other non-tax revenue. What is left is education spending. It is smaller than the total budget, and it is the figure the **yield** and the **excess spending threshold** are measured against. "Total budget" and "education spending" are different numbers, and this is the one that lands on your bill.
+
 **Equalized pupil.** The old name for the weighted student count. You will still hear it. See **weighted student count**.
 
 **Excess spending threshold.** A line above the state average per student. A district that spends over that line gets taxed a second time on the money above it. The line is set as a percentage of the state average, and that percentage is being lowered each year.
