@@ -26,7 +26,7 @@ export interface BudgetInput {
   readonly fiscal_year: number;
   readonly status: string;
   readonly source?: string;
-  readonly expenditures?: { readonly total_stated?: number | null } | null;
+  readonly education_spending?: number | null;
 }
 
 export type Resolution = 'direct' | 'via_su' | 'missing' | 'ambiguous';
@@ -81,7 +81,7 @@ function adapt(record: BudgetInput): DistrictBudget {
   return {
     entity: record.entity,
     fiscal_year: record.fiscal_year,
-    total_stated: record.expenditures?.total_stated ?? null,
+    education_spending: record.education_spending ?? null,
     source: record.source ?? '',
   };
 }

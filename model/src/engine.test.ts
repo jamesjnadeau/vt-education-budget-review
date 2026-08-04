@@ -521,7 +521,7 @@ describe('scenarios present movement in both directions', () => {
   const base: DistrictBudget = {
     entity: 'ud/a',
     fiscal_year: 2027,
-    total_stated: 1_700_000,
+    education_spending: 1_700_000,
     source: 'test fixture',
   };
   const two = [base, { ...base, entity: 'ud/b' }];
@@ -550,7 +550,7 @@ describe('scenarios present movement in both directions', () => {
 
   it('reports the current total as unknown when a district did not publish it', () => {
     const ctx = createContext(syntheticParameters());
-    const missing: DistrictBudget = { ...base, entity: 'ud/c', total_stated: null };
+    const missing: DistrictBudget = { ...base, entity: 'ud/c', education_spending: null };
     const result = runScenario(ctx, {
       name: 'one district published no total',
       districts: [base, missing],

@@ -11,7 +11,7 @@
  * SECOND -- the merger math runs on published totals only. Districts do not
  * slice their budgets the same way, so a line-by-line model would compare
  * figures that are not comparable. The headline delta is a single consolidation
- * factor applied to the combined published total expenditure.
+ * factor applied to the combined published education spending.
  *
  * Every assumption is an explicit, labelled, user-adjustable object carrying its
  * own rationale. Nothing is hidden in a constant.
@@ -33,8 +33,8 @@ export interface Assumption {
 export interface DistrictBudget {
   readonly entity: string;
   readonly fiscal_year: number;
-  /** Total expenditure as published. The figure the merger math runs on. */
-  readonly total_stated: number | null;
+  /** Education spending as published. The figure the merger math runs on. */
+  readonly education_spending: number | null;
   readonly source: string;
 }
 
@@ -54,7 +54,7 @@ export function defaultAssumptions(): Assumption[] {
   return [
     {
       key: 'consolidation_factor',
-      label: 'Consolidation factor applied to combined total expenditure',
+      label: 'Consolidation factor applied to combined published education spending',
       value: 1,
       unit: 'multiplier',
       rationale:
@@ -62,7 +62,7 @@ export function defaultAssumptions(): Assumption[] {
         'user chose and can see, never one the tool assumed for them. A merger can ' +
         'consolidate district administration and some shared services, but how much a ' +
         'real board would consolidate is a political question, not an arithmetic one. ' +
-        'The factor applies to the combined published total because districts do not ' +
+        'The factor applies to the combined published education spending because districts do not ' +
         'slice their budgets the same way, so a line-by-line model would be comparing ' +
         'figures that are not comparable.',
       userAdjustable: true,
@@ -102,12 +102,12 @@ export interface ScenarioResult {
 }
 
 export function runScenario(ctx: EngineContext, spec: ScenarioSpec): ScenarioResult {
-  const currentValue = totalOf(spec.districts, (d) => d.total_stated);
-  const currentTotal = input(ctx, 'Total expenditure, current structure', currentValue, 'usd', {
+  const currentValue = totalOf(spec.districts, (d) => d.education_spending);
+  const currentTotal = input(ctx, 'Combined education spending, current structure', currentValue, 'usd', {
     source: spec.districts.map((d) => d.source).join('; '),
     notes: [
-      'The sum of each district’s published total expenditure. Districts do not ' +
-        'slice their budgets the same way, so only the published totals are summed.',
+      'The sum of each district’s published education spending. Districts do not ' +
+        'slice their budgets the same way, so only the published spending totals are summed.',
     ],
   });
 
@@ -115,8 +115,8 @@ export function runScenario(ctx: EngineContext, spec: ScenarioSpec): ScenarioRes
   const multiplier = input(ctx, assumptionLabel(spec, 'consolidation_factor'), factor, 'multiplier', {
     source: 'scenario assumption',
   });
-  const scenarioTotal = product(ctx, 'Total expenditure, scenario', currentTotal, multiplier, 'usd');
-  const delta = difference(ctx, 'Change in total expenditure', scenarioTotal, currentTotal, 'usd');
+  const scenarioTotal = product(ctx, 'Combined education spending, scenario', currentTotal, multiplier, 'usd');
+  const delta = difference(ctx, 'Change in combined education spending', scenarioTotal, currentTotal, 'usd');
 
   return {
     name: spec.name,
@@ -140,7 +140,7 @@ function buildCaveats(): string[] {
       'systems integration, or the multi-year period in which two structures ' +
       'run in parallel.',
     'The headline delta is a single consolidation factor applied to the combined ' +
-      'published total expenditure. The tool does not model which functions change ' +
+      'published education spending. The tool does not model which functions change ' +
       'or by how much, and it does not separate debt service, construction aid or ' +
       'transportation routing, all of which are out of scope for version 1.',
   ];

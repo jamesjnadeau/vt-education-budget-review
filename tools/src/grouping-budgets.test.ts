@@ -26,7 +26,7 @@ function budget(over: Partial<BudgetInput> & Pick<BudgetInput, 'entity'>): Budge
     fiscal_year: 2024,
     status: 'proposed',
     source: 'test fixture',
-    expenditures: { total_stated: 1_000_000 },
+    education_spending: 1_000_000,
     ...over,
   };
 }
@@ -52,7 +52,7 @@ describe('buildGroupingBudgets', () => {
     const g = buildGroupingBudgets([GROUP(['ud/a-1'])], reg, [budget({ entity: 'ud/a-1' })])[0]!;
     const member = g.members[0]!;
     expect(member.resolution).toBe('direct');
-    expect(member.budget?.total_stated).toBe(1_000_000);
+    expect(member.budget?.education_spending).toBe(1_000_000);
     expect(g.resolved_count).toBe(1);
   });
 
@@ -148,16 +148,16 @@ describe('buildGroupingBudgets', () => {
     expect(g.members[0]!.budget).toBeNull();
   });
 
-  it('adapts total_stated from expenditures (not revenues) and keeps an unpublished total null', () => {
+  it('adapts education_spending and keeps an unpublished figure null', () => {
     const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud' }));
     const g = buildGroupingBudgets(
       [GROUP(['ud/a-1'])],
       reg,
-      [budget({ entity: 'ud/a-1', expenditures: { total_stated: null } })],
+      [budget({ entity: 'ud/a-1', education_spending: null })],
     )[0]!;
     const member = g.members[0]!;
     expect(member.resolution).toBe('direct');
-    expect(member.budget?.total_stated).toBeNull();
+    expect(member.budget?.education_spending).toBeNull();
   });
 
   it('reports member_count, resolved_count and distinct fiscal_years_present', () => {
