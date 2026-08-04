@@ -167,6 +167,16 @@ describe('buildGroupingBudgets', () => {
     expect(g.members[0].budget).toBeNull();
   });
 
+  it('does not attribute an SU budget to a non-district-like member even when the SU has one district-like member', () => {
+    const reg = registryOf(
+      entity({ slug: 'ud/real-1', type: 'ud', supervisory_union: 'su/z' }),
+      entity({ slug: 'school/x', type: 'school', supervisory_union: 'su/z' }),
+    );
+    const [g] = buildGroupingBudgets([GROUP(['school/x'])], reg, [budget({ entity: 'su/z' })]);
+    expect(g.members[0].resolution).toBe('missing');
+    expect(g.members[0].budget).toBeNull();
+  });
+
   it('adapts total_stated from expenditures (not revenues) and keeps an unpublished total null', () => {
     const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud' }));
     const [g] = buildGroupingBudgets(
@@ -333,8 +343,13 @@ export function buildGroupingBudgets(
         };
       }
 
-      const su = registry.get(slug)?.supervisory_union ?? null;
-      if (su) {
+      // via_su only applies when the member is itself a district (spec rule 2).
+      // A non-district-like member (e.g. a school, or a town operated by another
+      // district) must never inherit its SU's budget, or the same SU total could
+      // be attributed to two members of one group and double-counted.
+      const self = registry.get(slug);
+      const su = self?.supervisory_union ?? null;
+      if (su && self && isDistrictLike(self)) {
         const suBudget = pickBudget(byEntity.get(su) ?? []);
         if (suBudget) {
           const districtCount = suDistrictCount.get(su) ?? 0;
@@ -381,7 +396,7 @@ export function buildGroupingBudgets(
 - [ ] **Step 4: Run the tests to verify they pass**
 
 Run: `npx vitest run tools/src/grouping-budgets.test.ts`
-Expected: PASS (10 tests).
+Expected: PASS (11 tests).
 
 - [ ] **Step 5: Typecheck**
 
