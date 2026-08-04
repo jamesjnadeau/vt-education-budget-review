@@ -209,6 +209,19 @@ Each surface moves with its tests, all under the existing gates
 - `docs/superpowers/specs/2026-07-31-warehouse-normalize-channel-design.md` — the
   "Accountable figures" and "Optional descriptive fields" sections are updated
   to the new field list.
+- `site/src/content/explanations/vt-4-glossary.md` — the glossary gains an
+  **Education spending** entry, in ABC order immediately after **Education
+  Fund**, so the term this whole reshape centres on is defined for readers in
+  the same plain-language voice as the rest of the list. Draft text:
+
+  > **Education spending.** The number that actually sets your tax rate. Start
+  > with everything a district plans to spend, then subtract the money that
+  > comes from somewhere other than the statewide school tax — federal grants,
+  > categorical state aid, and other non-tax revenue. What is left is education
+  > spending. It is smaller than the total budget, and it is the figure the
+  > **yield** and the **excess spending threshold** are measured against. "Total
+  > budget" and "education spending" are different numbers, and this is the one
+  > that lands on your bill.
 
 ## Out of scope
 
