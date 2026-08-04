@@ -81,5 +81,15 @@ jobs:
       - name: Parameter status
         run: npm run params -- --stale 400
 
-      - name: Build
-        run: npm run build:data && npm run build:site
+      - name: Build data
+        run: npm run build:data
+
+      - name: Check site types
+        # astro check runs `astro sync` internally to regenerate content types,
+        # then typechecks .astro frontmatter (which tsc --build never sees). It
+        # must follow build:data: the pages import site/src/generated/*.json,
+        # which is gitignored and produced there.
+        run: npm run check --workspace site
+
+      - name: Build site
+        run: npm run build:site
