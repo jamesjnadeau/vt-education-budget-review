@@ -1,4 +1,4 @@
-# Design: reshape the budget record around Education Spending
+# Design: reshape the budget record around Education Spending, and resolve ADM district-first
 
 Status: draft, pending review
 Date: 2026-08-04
@@ -14,56 +14,52 @@ revenue). Total expenditure and education spending are different numbers with
 confusingly similar names, and capturing the wrong one has been a recurring
 source of error.
 
-This design retires the `revenues`/`expenditures` blocks and reshapes the
-budget record around four things a reader of a Vermont budget book can locate
-and that matter for modelling:
+This design does two things:
 
-1. **Education spending** — the single published figure.
-2. **ADM by statutory grade band** — PreK, K–5, 6–8, 9–12.
-3. **Town figures** — per member town, homestead rate and CLA (unchanged).
-4. **Notes** — free text.
+1. **Reshapes the budget record** around education spending, district-stated ADM
+   by statutory grade band, the existing per-town tax figures, and free-text
+   notes — retiring the `revenues`/`expenditures` blocks.
+2. **Makes the engine's ADM district-first.** It builds a resolver that, for a
+   given entity and fiscal year, produces the four statutory ADM bands preferring
+   the district's own stated figures and falling back to the state's (AOE) count,
+   publishes that resolution, and wires it into the `/model` tool as a prefill.
 
-The null-accounting sentinel that the whole repository is built around is
-**kept**: every null still means "the district did not publish this," never
-"nobody looked."
+The null-accounting sentinel the whole repository is built around is **kept**:
+every null still means "the district did not publish this," never "nobody
+looked."
 
 ## The decisions that shape everything else
 
-These were settled in brainstorming and the rest follows from them.
+Settled in brainstorming; the rest follows.
 
 **Education spending is captured, not computed.** Vermont budget books print an
 "Education Spending" line directly. We transcribe that single figure rather than
 storing budgeted expenditures and the three offsetting-revenue categories and
-computing the difference ourselves. This matches "simplify to only these
-fields" and keeps the record to one money figure instead of four. The trade-off
-— we do not store the offset breakdown for an independent recomputation — is
-accepted; the figure the district published is the figure that drives the rate.
+computing the difference. This matches "simplify to only these fields" and keeps
+the record to one money figure. We do not store the offset breakdown; the figure
+the district published is the figure that drives the rate.
 
-**ADM is captured district-stated *and* the AOE data remains the state's
-separate voice.** The record gains four district-stated ADM fields transcribed
-from the budget book. The authoritative AOE ADM dataset (`warehouse/aoe-adm/`)
-stays exactly as it is — the state's voice, kept separate, never reconciled. An
-automated cross-check that rolls AOE town figures up to the entity and compares
-them band-for-band is **out of scope for this spec** and becomes its own
-follow-up; see "Out of scope." The band keys reuse the ADM schema's existing
-`statutory_band` vocabulary verbatim so the two datasets speak the same
-language.
+**ADM is captured district-stated, and the engine prefers it over the state
+count.** The record gains four district-stated ADM fields transcribed from the
+budget book. The authoritative AOE ADM dataset (`warehouse/aoe-adm/`) stays
+exactly as it is — the state's separate voice, never reconciled. A resolver
+prefers the district-stated figure and falls back to the AOE count per band; a
+validator cross-check *warns* where the two disagree but never reconciles them.
+Band keys reuse the ADM schema's `statutory_band` vocabulary verbatim.
 
 **The sentinel stays; `notes` is additive.** `not_published` and
-`lines_flagged` are unchanged. `notes` is a new, optional, free-text field for
-context that does not belong in the structured accounting arrays. It is never
+`lines_flagged` are unchanged. `notes` is a new, optional, free-text field, never
 held to null-accounting.
 
-**Schema stays `1.0`, edited in place.** The only two records are freshly
-authored and unpublished, so we migrate them rather than versioning. This
-follows the precedent set by the earlier slim-model change.
+**Schema stays `1.0`, edited in place.** The two records are freshly authored and
+unpublished, so we migrate them. Follows the earlier slim-model precedent.
 
 **The tax block is unchanged.** Each member town keeps `homestead_rate_stated`,
 the optional `nonhomestead_rate_stated`, and `cla`, with the existing
-null-accounting on the stated rate and CLA. Nothing in this spec touches
-`tools/src/normalize/tax.ts` or the tax textarea.
+null-accounting. This spec does not touch `tools/src/normalize/tax.ts` or the tax
+textarea.
 
-## The new record shape
+## Part 1 — The new record shape
 
 `schemas/budget-1.0.schema.json`, edited in place. Identity and metadata
 (`schema_version`, `entity`, `fiscal_year`, `status`, `source`, `source_pages`,
@@ -123,53 +119,129 @@ accountable.
 
 ### ADM values
 
-ADM is a pupil count, published to two decimals (e.g. `88.56`), not money. It
-is a new figure *kind* but reuses the same parse path: a number (decimals
-allowed, `>= 0`), the `n/p` sentinel, or a rejected blank. `FigureKind` gains an
-`adm` member; `parseFigure` already accepts decimals and needs no change.
+ADM is a pupil count published to two decimals (e.g. `88.56`), not money. It is a
+new figure *kind* but reuses the same parse path: a number (decimals allowed,
+`>= 0`), the `n/p` sentinel, or a rejected blank. `FigureKind` gains an `adm`
+member; `parseFigure` already accepts decimals and needs no change.
 
-## The four surfaces that hold the field list, in agreement
+### The four field surfaces, in agreement
 
-The budget field list is duplicated across four in-sync surfaces plus the
-merger engine. All move together:
+The budget field list is duplicated across four in-sync surfaces; all move
+together:
 
 1. **`schemas/budget-1.0.schema.json`** — the record body above.
-2. **`tools/src/normalize/fields.ts`** — `FIGURE_FIELDS` becomes the five
-   essential figures: `education_spending` (`money`) and the four `adm.*` bands
-   (`adm`), all `accountable: true`. `FigureKind` gains `'adm'`.
+2. **`tools/src/normalize/fields.ts`** — `FIGURE_FIELDS` becomes the five figures:
+   `education_spending` (`money`) and the four `adm.*` bands (`adm`), all
+   `accountable: true`. `FigureKind` gains `'adm'`.
 3. **`tools/src/validate/rules.ts`** — the `ACCOUNTABLE` regex list points at
    `^education_spending$`,
    `^adm\.(prekindergarten|kindergarten_through_5|grades_6_through_8|grades_9_through_12)$`,
    and the existing `^tax\.towns\.\d+\.(homestead_rate_stated|cla)$`.
 4. **`.github/ISSUE_TEMPLATE/budget-normalize.yml`** — the figure inputs become
    `education_spending`, the four `adm.*` bands (each required, number-or-`n/p`),
-   the unchanged tax textarea, a new optional `notes` textarea, and the
-   unchanged `lines_flagged` textarea. Input `label`s equal the dotted paths, as
-   today, because `record.ts` reads the form by label.
+   the unchanged tax textarea, a new optional `notes` textarea, and the unchanged
+   `lines_flagged` textarea. Input `label`s equal the dotted paths, as today,
+   because `record.ts` reads the form by label.
 
 `tools/src/normalize/record.ts` iterates `FIGURE_FIELDS` generically and is not
 edited for the figure change; it gains only the read of the optional `notes`
 textarea into `record.notes`.
 
-## Ripple into the merger engine and site
+## Part 2 — The merger engine and grouping page
 
-`DistrictBudget` in `model/src/scenario.ts` carries the single figure the
-merger math runs on. It is renamed `total_stated` → `education_spending`
-throughout, and the engine's labels and prose change from "total expenditure"
-to "education spending." The headline math is otherwise identical: combined
-`education_spending` × `consolidation_factor` → signed `delta`.
+`DistrictBudget` in `model/src/scenario.ts` carries the single figure the merger
+math runs on. It is renamed `total_stated` → `education_spending` throughout, and
+the engine's labels and prose change from "total expenditure" to "education
+spending." The headline math is otherwise identical: combined `education_spending`
+× `consolidation_factor` → signed `delta`.
 
 `tools/src/grouping-budgets.ts` `adapt()` reads `record.education_spending`
 instead of `record.expenditures?.total_stated`; its `BudgetInput` type follows.
 The `/groupings/<n>/` page (`site/src/pages/groupings/[number].astro`) labels
 follow the same rename.
 
-## Migration of the two existing records
+## Part 3 — District-first ADM resolution
+
+The `/model` engine today is an anonymous what-if calculator: it runs against
+`entity: 'ud/illustrative'` and every ADM band is typed in by the user (the only
+prefill is the statewide average). Nothing runs the engine for a named entity.
+This part adds the data and the prefill so a user can load a real entity's ADM,
+district-preferred, and still override it by typing.
+
+### 3a. AOE ADM by statutory band (publication change)
+
+`tools/src/aoe/adm/publish.ts` today emits, per year, each rolled-up operating
+district's ADM as `values` in the *published-band* column order, plus the band
+headers. It does **not** currently expose the statutory-band mapping, so a
+consumer cannot read AOE ADM by statutory band.
+
+Change: the publication additionally exposes, per year, each district's values
+keyed by statutory band, derived from `bands_as_published[].statutory_band`. A
+year whose bands do not map (`maps_to_statutory_bands: false`, which includes the
+only current record, `adm24`) contributes **no** statutory-band values — the
+fallback is simply unavailable for that year, exactly as the repo already keeps
+things dormant until inputs exist. The existing published-band output is kept
+unchanged for the ADM pages that already read it.
+
+### 3b. The resolver (`model/src/adm-resolution.ts`, pure)
+
+Given an entity, a fiscal year, the district-stated ADM from that entity's budget
+record, and the AOE statutory-band publication, produce the four bands each as
+`{ value: number | null, source: 'district' | 'aoe' | 'unknown' }`:
+
+- **Per band, district first.** If the budget record's `adm.<band>` is non-null,
+  use it with `source: 'district'`.
+- **Else the state count.** Else, if the AOE publication has a statutory-band
+  value for this entity and fiscal year, use it with `source: 'aoe'`.
+- **Else unknown.** Otherwise `value: null, source: 'unknown'` — and the engine's
+  existing null-refusal applies downstream.
+
+**Entity granularity (the SU↔operating-district join).** Budget records are keyed
+by SU (`su/addison-central`); the AOE rollup is keyed by operating district. The
+AOE branch resolves an entity to operating district(s) through the registry: a
+district-like entity (a UD, or a town that runs its own school) uses its own
+rollup row; an SU sums the statutory-band rollups of its member district-like
+entities for that fiscal year. This reuses the same membership logic
+`grouping-budgets.ts` already uses (`isDistrictLike` + `supervisory_union`). The
+resolver is a pure function over already-loaded data and is unit-tested against
+fixtures; it does no IO.
+
+### 3c. Cross-check warning (rides along)
+
+A validator check in `tools/src/validate/rules.ts`: when both a district-stated
+band value **and** an AOE statutory-band value exist for the same entity and
+fiscal year and disagree beyond a small tolerance, emit a **warning** (never an
+error), naming both figures. It never reconciles them. Because the current AOE
+record does not map to statutory bands, this warning is dormant on today's data
+and fires only once a mapping-year AOE report lands — the same posture as the
+rest of the ADM layer.
+
+### 3d. Published resolved-ADM dataset
+
+`tools/src/cli/build-data.ts` emits `site/src/generated/resolved-adm.json`, keyed
+by `entity` then `fiscal_year`, each carrying the four resolved bands
+(`{ value, source }`). Built from the budget records + the AOE publication + the
+registry, at build time, so it is never committed (matching the derived-data
+rule).
+
+### 3e. The `/model` prefill
+
+`site/src/pages/model/index.astro` gains an optional "load a district" control (an
+entity picker and a fiscal-year picker, populated from `resolved-adm.json`).
+`site/src/scripts/model-tool.ts`: on selection, prefill the four ADM band input
+fields from the resolved dataset, and label each field with its source
+(`from the district's budget` / `from the state AOE count` / `not available`).
+The prefill follows the existing statewide-average prefill pattern: a value the
+user has already typed is not overwritten, and every prefilled field remains
+editable, so the tool stays a what-if. When a band resolves to `unknown` the
+field is left blank, and the engine's existing "declines to compute" behavior
+handles it.
+
+## Part 4 — Migration of the two existing records
 
 `warehouse/su-addison-central/fy2023-proposed.yaml` and `fy2024-proposed.yaml`
-were authored under the old shape and hold total *expenditure* (~$41M and
-~$46M) — which is **not** education spending. That figure was never captured,
-and neither was district-stated ADM. So on migration:
+hold total *expenditure* (~$41M and ~$46M) — not education spending, which was
+never captured, and neither was district-stated ADM. On migration:
 
 - `education_spending` and all four `adm.*` bands become `null`, each with a
   `pending` `lines_flagged` entry recording that the figure is not yet
@@ -178,45 +250,46 @@ and neither was district-stated ADM. So on migration:
 - `notes` is `null`.
 - The old `revenues`/`expenditures` blocks are dropped.
 
-After migration `npm run validate` is green. Backfilling the real education
-spending and ADM figures from the FY23 budget book is a follow-up data task.
+After migration `npm run validate` is green. Backfilling the real figures from
+the FY23 budget book is a follow-up data task.
 
 ## Structure and testing
 
 Each surface moves with its tests, all under the existing gates
 (`npm run typecheck`, `npm test`, `npm run validate`):
 
-- `tools/src/validate/schemas.test.ts` — the budget-schema regression guard
-  asserts the new required set, the presence of `education_spending`/`adm`, and
-  the absence of `revenues`/`expenditures`.
-- `tools/src/validate/rules.test.ts` — null-accounting fixtures use the new
-  shape; an unexplained null in `education_spending` or an `adm` band is
-  rejected; the same null with a `not_published` or `lines_flagged` entry is
-  accepted.
+- `tools/src/validate/schemas.test.ts` — regression guard: new required set,
+  `education_spending`/`adm` present, `revenues`/`expenditures` absent.
+- `tools/src/validate/rules.test.ts` — null-accounting on the new shape; the new
+  ADM cross-check warning fires on a mapping-year disagreement fixture and stays
+  silent on a non-mapping year.
 - `tools/src/normalize/fields.test.ts` — `FIGURE_FIELDS` is exactly the five new
   figures, all accountable.
-- `tools/src/normalize/record.test.ts` — a well-formed body produces a record
-  that validates against the slim schema; `n/p` on an `adm` band becomes a
-  `not_published` entry; `notes` is read through.
+- `tools/src/normalize/record.test.ts` — a well-formed body validates against the
+  slim schema; `n/p` on an `adm` band becomes a `not_published` entry; `notes` is
+  read through.
+- `model/src/adm-resolution.test.ts` (new) — district-first, AOE fallback,
+  unknown; the SU-sums-members join; a non-mapping AOE year yields no fallback.
+- `tools/src/aoe/adm/publish.test.ts` — the statutory-band output for a mapping
+  year, and its absence for a non-mapping year.
 - `model/src/engine.test.ts` — the scenario suite uses `education_spending`.
 - `tools/src/grouping-budgets.test.ts` — resolution reads `education_spending`.
 
 ## Documentation
 
-- `PLAN.md` §5 (the field tree and the design-principle/extraction prose) and §7
-  (the merger tool's headline figure) are updated to the new shape and the
-  "education spending" vocabulary.
+- `PLAN.md` §5 (field tree + design-principle/extraction prose) and §7 (the
+  merger tool's headline figure) updated to the new shape and the "education
+  spending" vocabulary; a short note on district-first ADM resolution.
 - `docs/superpowers/specs/2026-07-31-warehouse-normalize-channel-design.md` — the
-  "Accountable figures" and "Optional descriptive fields" sections are updated
-  to the new field list.
+  "Accountable figures" and "Optional descriptive fields" sections updated to the
+  new field list.
 - `site/src/content/explanations/vt-4-glossary.md` — the glossary gains an
-  **Education spending** entry, in ABC order immediately after **Education
-  Fund**, so the term this whole reshape centres on is defined for readers in
-  the same plain-language voice as the rest of the list. Draft text:
+  **Education spending** entry, in ABC order immediately after **Education Fund**,
+  in the same plain-language voice. Draft text:
 
   > **Education spending.** The number that actually sets your tax rate. Start
-  > with everything a district plans to spend, then subtract the money that
-  > comes from somewhere other than the statewide school tax — federal grants,
+  > with everything a district plans to spend, then subtract the money that comes
+  > from somewhere other than the statewide school tax — federal grants,
   > categorical state aid, and other non-tax revenue. What is left is education
   > spending. It is smaller than the total budget, and it is the figure the
   > **yield** and the **excess spending threshold** are measured against. "Total
@@ -225,15 +298,25 @@ Each surface moves with its tests, all under the existing gates
 
 ## Out of scope
 
-- **Computing education spending from expenditures minus offsets.** We capture
-  the published figure; we do not store the offset breakdown or recompute it.
-- **The automated AOE ADM cross-check.** Rolling AOE town figures up to the
-  record's entity and comparing them band-for-band against the district-stated
-  `adm` is a separate follow-up spec. It would be a warning-only check, never a
-  reconciliation, and would be dormant on current AOE data because `adm24` has
-  `maps_to_statutory_bands: false`. The `aggregate.ts` rollup it would reuse
-  already exists.
+- **Computing education spending from expenditures minus offsets.** We capture the
+  published figure; we do not store the offset breakdown or recompute it.
+- **A per-entity modeling page.** The engine consumer added here is a prefill into
+  the existing anonymous `/model` tool, not a new entity-scoped page that runs the
+  engine automatically for a district.
 - **Backfilling the two migrated records** with real education-spending and ADM
   figures from the source budget book.
 - **A schema `2.0`.** Version `1.0` is edited in place and the two unpublished
   records are migrated.
+- **Reconciling district-stated and AOE ADM.** They are surfaced with their
+  sources and cross-checked with a warning; they are never merged into one
+  "true" number.
+
+## A note on size
+
+This spec is larger than the earlier slim-model change because it carries a data
+reshape *and* a resolver-plus-prefill feature. The implementation plan will
+sequence it so each stage is independently green: (1) schema + field surfaces +
+tests, (2) record migration, (3) merger/grouping rename, (4) AOE statutory-band
+publication, (5) resolver + cross-check + dataset, (6) `/model` prefill, (7) docs.
+Stages 1–3 stand on their own; stage 4 onward is the ADM-resolution feature and
+can be reviewed as a unit.
