@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { cfBeaconToken } from '../lib/analytics.ts';
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 
 const { title, description, feedHref } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const beaconToken = cfBeaconToken(import.meta.env);
 const modelingNav = [
   ['/model/', 'What-if tool'],
   ['/su/', 'Supervisory unions'],
@@ -39,6 +41,14 @@ const modelingNav = [
         type="application/rss+xml"
         title="Vermont School Budgets — Explanations"
         href={feedHref}
+      />
+    )}
+    {beaconToken && (
+      <script
+        is:inline
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: beaconToken })}
       />
     )}
   </head>
