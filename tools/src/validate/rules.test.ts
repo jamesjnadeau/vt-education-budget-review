@@ -226,12 +226,18 @@ describe('checkArtifactHashCollisions', () => {
     // The exact FY24-hash-pasted-into-FY25 bug this rule exists to catch.
     const dup = '8'.repeat(64);
     const findings = checkArtifactHashCollisions([
-      ref({ sha256: dup, file: 'ACSD Budget Book FY24.pdf', provenanceFile: 'intake/su-addison-central/fy2024/provenance.yaml' }),
+      // fy2025 ref passed first, fy2024 ref second -- reverse lexicographic
+      // order -- so the deterministic `file` assertion below would fail if
+      // the sort were dropped.
       ref({ sha256: dup, file: 'FY25BudgetBookMasterFinalv1.pdf', provenanceFile: 'intake/su-addison-central/fy2025/provenance.yaml' }),
+      ref({ sha256: dup, file: 'ACSD Budget Book FY24.pdf', provenanceFile: 'intake/su-addison-central/fy2024/provenance.yaml' }),
     ]);
     expect(findings).toHaveLength(1);
     expect(findings[0]?.severity).toBe('error');
     expect(findings[0]?.rule).toBe('artifact-hash-collision');
+    // Deterministic: file is the lexicographically-first provenance path
+    // regardless of input order (fy2025 passed first here).
+    expect(findings[0]?.file).toBe('intake/su-addison-central/fy2024/provenance.yaml');
     // Message names the shared hash and both artifacts so the fix is obvious.
     expect(findings[0]?.message).toContain(dup);
     expect(findings[0]?.message).toContain('ACSD Budget Book FY24.pdf');

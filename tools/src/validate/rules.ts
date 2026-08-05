@@ -362,6 +362,11 @@ export function collectArtifactEntries(
  * Identical bytes under an identical filename are left alone: that is one
  * document legitimately reused (e.g. a combined report committed under the same
  * name across two fiscal-year directories), not a paste.
+ *
+ * Resolve a genuine collision by verifying each artifact and recording its own
+ * true hash; if two entries legitimately reference the very same source
+ * document, give them the same filename so the reuse is explicit rather than
+ * differing names.
  */
 export function checkArtifactHashCollisions(
   entries: readonly ProvenanceEntryRef[],
@@ -378,15 +383,13 @@ export function checkArtifactHashCollisions(
     const distinctNames = new Set(group.map((e) => e.file));
     if (distinctNames.size < 2) continue;
 
-    const members = group
-      .map((e) => `"${e.file}" (${e.provenanceFile})`)
-      .join(', ');
+    const sorted = [...group].sort((a, b) => a.provenanceFile.localeCompare(b.provenanceFile));
+    const members = sorted.map((e) => `"${e.file}" (${e.provenanceFile})`).join(', ');
     findings.push({
       severity: 'error',
       // Report against the lexicographically-first provenance file so the
-      // finding is deterministic; the message names every member.
-      file: [...group].sort((a, b) => a.provenanceFile.localeCompare(b.provenanceFile))[0]!
-        .provenanceFile,
+      // finding is deterministic; the message names every member in the same order.
+      file: sorted[0]!.provenanceFile,
       rule: 'artifact-hash-collision',
       message:
         `sha256 ${sha256} is recorded for more than one artifact: ${members}. ` +
