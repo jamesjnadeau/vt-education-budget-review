@@ -30,6 +30,7 @@ import { readRegistry, readSnapshotIfPresent } from '../registry/store.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 import {
   checkAdmCrossCheck,
+  checkArtifactHashCollisions,
   checkCorrections,
   checkDerivedProvenance,
   checkLandAreaOnly,
@@ -38,10 +39,12 @@ import {
   checkProvenance,
   checkProvenanceDoc,
   checkRegistryRefs,
+  collectArtifactEntries,
   formatFinding,
   summarize,
   type BudgetRecord,
   type Finding,
+  type ProvenanceEntryRef,
   type SnapshotReader,
 } from '../validate/rules.ts';
 import { validateAgainst, type SchemaName } from '../validate/schemas.ts';
@@ -216,6 +219,7 @@ function main(): number {
   }
 
   // --- intake provenance --------------------------------------------------
+  const artifactRefs: ProvenanceEntryRef[] = [];
   for (const file of walkFiles(PATHS.intake, (n) => n === 'provenance.yaml')) {
     counts.provenance++;
     const data = readData(file);
@@ -225,8 +229,13 @@ function main(): number {
       findings.push(
         ...checkProvenanceDoc(data as never, file, dirname(file), { verifyHashes, requireFetched }),
       );
+      artifactRefs.push(...collectArtifactEntries(data as never, rel(file)));
     }
   }
+  // One sha256 recorded against two differently-named artifacts is a
+  // copy-pasted hash. This needs every intake provenance file at once, so it
+  // runs after the walk rather than per file.
+  findings.push(...checkArtifactHashCollisions(artifactRefs));
 
   // --- committed derived products -----------------------------------------
   // These have no source URL, so their provenance answers a different question:
