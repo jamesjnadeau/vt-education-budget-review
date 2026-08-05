@@ -328,6 +328,76 @@ export function checkProvenanceDoc(
   return findings;
 }
 
+export interface ProvenanceEntryRef {
+  readonly sha256: string;
+  readonly file: string;
+  readonly provenanceFile: string;
+}
+
+/**
+ * Flattens one provenance document into a ref per artifact, each tagged with
+ * the provenance file it came from. The CLI accumulates these across every
+ * intake provenance file so `checkArtifactHashCollisions` can see them together.
+ */
+export function collectArtifactEntries(
+  doc: ProvenanceDoc,
+  provenanceFile: string,
+): ProvenanceEntryRef[] {
+  return doc.artifacts.map((a) => ({
+    sha256: a.sha256,
+    file: a.file,
+    provenanceFile,
+  }));
+}
+
+/**
+ * A sha256 identifies bytes. If the same sha256 is recorded for two artifacts
+ * with different filenames, those two entries claim that one set of bytes is
+ * two different source documents -- impossible, and almost always a hash
+ * copy-pasted between sibling provenance entries (the FY24 book's hash landing
+ * in the FY25 entry). `hash-verification` only catches this once the wrong
+ * artifact's real bytes are materialised and differ; this catches the paste at
+ * authoring time, and points straight at the sibling it was copied from.
+ *
+ * Identical bytes under an identical filename are left alone: that is one
+ * document legitimately reused (e.g. a combined report committed under the same
+ * name across two fiscal-year directories), not a paste.
+ */
+export function checkArtifactHashCollisions(
+  entries: readonly ProvenanceEntryRef[],
+): Finding[] {
+  const byHash = new Map<string, ProvenanceEntryRef[]>();
+  for (const entry of entries) {
+    const bucket = byHash.get(entry.sha256);
+    if (bucket) bucket.push(entry);
+    else byHash.set(entry.sha256, [entry]);
+  }
+
+  const findings: Finding[] = [];
+  for (const [sha256, group] of byHash) {
+    const distinctNames = new Set(group.map((e) => e.file));
+    if (distinctNames.size < 2) continue;
+
+    const members = group
+      .map((e) => `"${e.file}" (${e.provenanceFile})`)
+      .join(', ');
+    findings.push({
+      severity: 'error',
+      // Report against the lexicographically-first provenance file so the
+      // finding is deterministic; the message names every member.
+      file: [...group].sort((a, b) => a.provenanceFile.localeCompare(b.provenanceFile))[0]!
+        .provenanceFile,
+      rule: 'artifact-hash-collision',
+      message:
+        `sha256 ${sha256} is recorded for more than one artifact: ${members}. ` +
+        `One set of bytes cannot be two different source documents -- this is almost ` +
+        `always a hash copy-pasted between provenance entries. Verify each artifact and ` +
+        `record its own hash; do not edit the raw artifacts.`,
+    });
+  }
+  return findings;
+}
+
 /**
  * A derived provenance record has to be usable, not merely present.
  *

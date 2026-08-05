@@ -2,10 +2,13 @@ import { describe, expect, it } from 'vitest';
 
 import {
   checkAdmCrossCheck,
+  checkArtifactHashCollisions,
   checkNullAccounting,
   checkRegistryRefs,
+  collectArtifactEntries,
   collectNullPaths,
   type BudgetRecord,
+  type ProvenanceEntryRef,
 } from './rules.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 
@@ -182,5 +185,90 @@ describe('adm cross-check', () => {
     expect(findings).toHaveLength(1);
     expect(findings[0]?.severity).toBe('warning');
     expect(findings[0]?.message).toMatch(/kindergarten_through_5/);
+  });
+});
+
+describe('collectArtifactEntries', () => {
+  it('flattens a provenance doc into one ref per artifact, tagged with its file', () => {
+    const doc = {
+      entity: 'su/addison-central',
+      fiscal_year: 2025,
+      artifacts: [
+        { file: 'a.pdf', sha256: 'a'.repeat(64) },
+        { file: 'b.pdf', sha256: 'b'.repeat(64) },
+      ],
+    } as never;
+    const refs = collectArtifactEntries(doc, 'intake/su-x/fy2025/provenance.yaml');
+    expect(refs).toEqual([
+      { sha256: 'a'.repeat(64), file: 'a.pdf', provenanceFile: 'intake/su-x/fy2025/provenance.yaml' },
+      { sha256: 'b'.repeat(64), file: 'b.pdf', provenanceFile: 'intake/su-x/fy2025/provenance.yaml' },
+    ]);
+  });
+});
+
+describe('checkArtifactHashCollisions', () => {
+  const ref = (over: Partial<ProvenanceEntryRef>): ProvenanceEntryRef => ({
+    sha256: 'a'.repeat(64),
+    file: 'x.pdf',
+    provenanceFile: 'intake/su-x/fy2025/provenance.yaml',
+    ...over,
+  });
+
+  it('passes when every sha256 is unique', () => {
+    const findings = checkArtifactHashCollisions([
+      ref({ sha256: 'a'.repeat(64), file: 'a.pdf' }),
+      ref({ sha256: 'b'.repeat(64), file: 'b.pdf' }),
+    ]);
+    expect(findings).toHaveLength(0);
+  });
+
+  it('errors when one sha256 is claimed by two differently-named artifacts in different files', () => {
+    // The exact FY24-hash-pasted-into-FY25 bug this rule exists to catch.
+    const dup = '8'.repeat(64);
+    const findings = checkArtifactHashCollisions([
+      ref({ sha256: dup, file: 'ACSD Budget Book FY24.pdf', provenanceFile: 'intake/su-addison-central/fy2024/provenance.yaml' }),
+      ref({ sha256: dup, file: 'FY25BudgetBookMasterFinalv1.pdf', provenanceFile: 'intake/su-addison-central/fy2025/provenance.yaml' }),
+    ]);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.severity).toBe('error');
+    expect(findings[0]?.rule).toBe('artifact-hash-collision');
+    // Message names the shared hash and both artifacts so the fix is obvious.
+    expect(findings[0]?.message).toContain(dup);
+    expect(findings[0]?.message).toContain('ACSD Budget Book FY24.pdf');
+    expect(findings[0]?.message).toContain('FY25BudgetBookMasterFinalv1.pdf');
+  });
+
+  it('errors when two artifacts inside the SAME provenance file share a hash', () => {
+    const dup = 'c'.repeat(64);
+    const findings = checkArtifactHashCollisions([
+      ref({ sha256: dup, file: 'one.pdf' }),
+      ref({ sha256: dup, file: 'two.pdf' }),
+    ]);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.severity).toBe('error');
+  });
+
+  it('does NOT flag the same bytes recorded under the same filename (legitimate reuse)', () => {
+    // e.g. one combined annual report committed under identical names across
+    // two fiscal-year dirs. Identical basename => same document, not a paste.
+    const dup = 'd'.repeat(64);
+    const findings = checkArtifactHashCollisions([
+      ref({ sha256: dup, file: 'Annual Report.pdf', provenanceFile: 'intake/su-x/fy2024/provenance.yaml' }),
+      ref({ sha256: dup, file: 'Annual Report.pdf', provenanceFile: 'intake/su-x/fy2025/provenance.yaml' }),
+    ]);
+    expect(findings).toHaveLength(0);
+  });
+
+  it('emits one finding per colliding hash group, not one per member', () => {
+    const dup = 'e'.repeat(64);
+    const findings = checkArtifactHashCollisions([
+      ref({ sha256: dup, file: 'a.pdf' }),
+      ref({ sha256: dup, file: 'b.pdf' }),
+      ref({ sha256: dup, file: 'c.pdf' }),
+    ]);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]?.message).toContain('a.pdf');
+    expect(findings[0]?.message).toContain('b.pdf');
+    expect(findings[0]?.message).toContain('c.pdf');
   });
 });
