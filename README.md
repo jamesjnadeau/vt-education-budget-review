@@ -185,6 +185,15 @@ main entry point does not import.
 - The foundation formula is structural only; its parameters are marked contingent and hold no
   values, because the Legislature has not set them.
 
+## Web analytics
+
+The published site loads [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/),
+which is cookieless and collects no personal data — consistent with the site's "no server, no
+database, no login" design. The beacon is emitted **only** by the production GitHub Pages deploy:
+`site/src/lib/analytics.ts` renders it solely when the build sets `PUBLIC_CF_ANALYTICS=1`, and that
+flag is set exclusively in the merge-to-main `Deploy` workflow. Local development (`npm run dev`),
+local builds, and PR previews never load it.
+
 ## Licence
 
 Code MIT, data and documentation CC-BY-4.0. See [LICENSE](LICENSE) and [LICENSE-DATA](LICENSE-DATA).

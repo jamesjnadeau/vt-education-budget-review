@@ -66,6 +66,10 @@ jobs:
         env:
           SITE_URL: ${{ steps.pages.outputs.origin }}
           SITE_BASE: ${{ steps.pages.outputs.base_path }}
+          # Cloudflare Web Analytics is emitted only when this is '1'. It is set
+          # here alone -- the merge-to-main Pages deploy -- so local dev, local
+          # builds and PR previews never load the beacon.
+          PUBLIC_CF_ANALYTICS: '1'
         run: npm run build:data && npm run build:site
 
       - uses: actions/upload-pages-artifact@v5
