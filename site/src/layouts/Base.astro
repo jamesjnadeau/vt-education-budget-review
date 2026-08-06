@@ -46,7 +46,7 @@ const modelingNav = [
     {beaconToken && (
       <script
         is:inline
-        type="module"
+        defer
         src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon={JSON.stringify({ token: beaconToken })}
       />
