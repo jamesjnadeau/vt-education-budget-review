@@ -198,7 +198,7 @@ Static site generator: **Astro** (islands architecture fits this exactly — ful
  
 Warehouse data is emitted at build time as static JSON under `/data/` — per-SU files plus one compact index for the tool — so the modeling island fetches only what a scenario needs. At Vermont scale (52 SUs, ~119 districts, ~250 towns) the entire dataset is a few megabytes; there is no performance problem to solve.
  
-Hosting: GitHub Pages from the Actions build, custom domain, HTTPS. Everything MIT/CC-BY licensed — open data and open methodology are the moat here, not the liability.
+Hosting: GitHub Pages from the Actions build, custom domain, HTTPS. Everything AGPL-3.0-or-later/CC-BY licensed — open data and open methodology are the moat here, not the liability.
  
 ---
  
