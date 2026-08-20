@@ -1,0 +1,28 @@
+schema_version: "1.0"
+entity: source/sbe
+# Delivered 2026-06-01, inside FY2026. Unlike the AOE working-definitions memo
+# next door in intake/aoe-guidance/, this deck governs no particular school
+# year -- it charts rulemaking due to take effect July 2027.
+fiscal_year: 2026
+artifacts:
+  - file: Small Class Size Committee Presentation 6.1.26.pdf
+    source_url: https://education.vermont.gov/sites/aoe/files/documents/Small%20Class%20Size%20Committee%20Presentation%206.1.26.pdf
+    retrieved_date: "2026-08-20"
+    retrieval_method: manual-download
+    sha256: 823cc1f869d815f0bac275dcf4ca74a2d54803a491f32682bb0e27eb9356d745
+    bytes: 742469
+    media_type: application/pdf
+    retrieved_by: James Nadeau
+    document_type: board_presentation
+    note: >-
+      "Small Class Size Committee: Charge and Work Ahead", Sarah Buxton,
+      General Counsel to the State Board of Education, presented to the Board's
+      Small Class Size Committee on 2026-06-01. Covers implementation of the
+      class size minimums under Act 73 of 2025 as amended by Act 170 of 2026
+      (H.955): the 16 V.S.A. 11(a)(36)-(43) definitions and their prospective
+      repeal, the pause on the three-consecutive-year noncompliance clock, Rule
+      2000 and Rule 2200 rulemaking, and the committee timeline to rules
+      effective July 2027. A summary of enacted law by counsel, not law itself;
+      every legal claim it makes is cited to the acts in
+      docs/act-73-class-size-minimums.md. Downloaded by hand because
+      education.vermont.gov returns HTTP 403 to every non-browser client.

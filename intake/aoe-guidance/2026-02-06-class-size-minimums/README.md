@@ -9,6 +9,13 @@ Read alongside [docs/act-73-class-size-minimums.md](../../../docs/act-73-class-s
 which maps each definition onto the statutory sentence it is interpreting and records where
 the two do not line up.
 
+**The memo has been partly overtaken.** Act 170 of 2026 (H.955), effective 2026-07-01, put
+definitions of "average class size," "class," "content area" and "student" into 16 V.S.A.
+§ 11(a)(36)–(43), and they do not match the memo on every point. The memo remains the only
+account of how AOE intends to measure, and FY2027 budgets were built on it, so it is filed and
+cited as what it is — a February reading. See the SBE committee deck of 2026-06-01 in
+[`intake/sbe/2026-06-01-small-class-size-committee/`](../../sbe/2026-06-01-small-class-size-committee/).
+
 ## What is here
 
 | File | What it is |
