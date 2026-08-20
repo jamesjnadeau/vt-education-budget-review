@@ -196,4 +196,11 @@ local builds, and PR previews never load it.
 
 ## Licence
 
-Code MIT, data and documentation CC-BY-4.0. See [LICENSE](LICENSE) and [LICENSE-DATA](LICENSE-DATA).
+Copyright (C) 2026 James Nadeau.
+
+Code is licensed under the [GNU Affero General Public License v3.0 or later](LICENSE)
+(AGPL-3.0-or-later); data and documentation under CC-BY-4.0. See [LICENSE](LICENSE) and
+[LICENSE-DATA](LICENSE-DATA).
+
+The AGPL's network clause (section 13) applies here: if you run a modified version of this
+code as a network service, you must offer its source to that service's users.
