@@ -182,6 +182,10 @@ main entry point does not import.
   published figures are different claims, and the second is the one that matters.
 - Scenario support covers mergers. School closure with student reassignment is not yet
   implemented.
+- The AOE memo on Act 73's class size minimums is on file with its provenance recorded, but the
+  excluded-courses list it refers to did not come with it, and that list is what decides which
+  courses drop out of the averages. See
+  [docs/act-73-class-size-minimums.md](docs/act-73-class-size-minimums.md).
 - The foundation formula is structural only; its parameters are marked contingent and hold no
   values, because the Legislature has not set them.
 

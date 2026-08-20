@@ -1,0 +1,239 @@
+                                                    LEADERSHIP | SUPPORT | OVERSIGHT
+                                                    (802) 828-1130 | education.vermont.gov
+
+
+
+
+                              MEMORANDUM
+TO:           Superintendents, Business Managers and School Board Members
+FROM:         Zoie Saunders, Secretary
+SUBJECT:      Working Definitions to Meet the Class Size Minimums Required by Act 73,
+              Section 6 for the 2026-2027 School Year
+DATE:         February 6, 2026
+
+
+
+Purpose and Background
+The purpose of this memo is to provide Supervisory Unions and Supervisory Districts
+(SU/SDs) with working definitions, developed in partnership with the field, to address
+commonly asked questions related to the class size minimums required by Act 73,
+Section 6. It is important to clarify that these definitions do not supplant the rule-making
+responsibilities of the State Board of Education, per Act 73, Section 8(a). The Agency
+has developed this document as a response to immediate requests for support and
+clarity from SU/SDs as they develop and finalize budgets and staffing for FY 2027.
+To ensure that these working definitions were responsive to the needs of our partners in
+the field, the AOE worked with Superintendents, Business Managers and Data
+Managers to develop definitions that aligned with existing data collections, particularly
+the End of Year Data Collection (DC04) and the National Center for Education Statistics
+(SCED) course codes (link: SCED Finder | Fast access to school codes).
+The AOE and working group recognized that the timeline for the State Board of
+Education to establish final rules, the FY 27 budget development process and the initial
+year for these requirements (school year 2026-2027) were misaligned in Act 73. In
+developing these working definitions the working group sought to balance the legislative
+intent, “…to transform education in Vermont by leveraging attainable and research-
+based scale to increase equity of opportunity and promote efficiency and affordability,”
+with a multi-year process marked by progress towards the class size requirements
+aligned to annual budget cycles. Finally, the working group acknowledges that some of
+the working definitions for secondary settings may require revision once statewide
+graduation requirements are finalized through State Board of Education rule-making.
+                                                LEADERSHIP | SUPPORT | OVERSIGHT
+                                                (802) 828-1130 | education.vermont.gov
+
+
+
+
+Requirements and Working Definitions
+Calculating class size averages
+Act 73 amends Sec. 6. 16 V.S.A. § 165 (a) (9) to read: The school complies with
+average class size minimum standards; provided, however, that when class size
+minimums apply to content areas, an individual class may be smaller than the minimum
+average. As used in this subdivision, “content area” means a group of courses within a
+specific licensing endorsement area
+Q: How should schools calculate the “average” class size?
+      A: Within a single school, in a single year, take a straight average of all non-
+      exempt courses (as defined by Act 73) in a content area (i.e. # of students
+      enrolled in a content area course DIVIDED by total # of courses in content area)
+      OR, for the lower grades, the total number of students in a grade over the total
+      number of class rooms for that grade.
+Q: How should schools define “content area” when calculating the average class
+size?
+      A: Schools/districts should use SCED codes for standardization of course
+      content areas. Core class categories in SCED include: Math, English, Social
+      Studies, Science, Arts (SCED categories 01, 02, 03, 04, 05). For the purposes of
+      defining content areas in elementary grades, the endorsement area is for the
+      SCED Codes in 2300x codes by grade level.
+Q: How should schools calculate the average class size in a school with multi-age
+classrooms (e.g. 5th and 6th grade, or and K and 1st grade) where the minimums
+are different for the grades included?
+      A: Where there is a multi-age classroom, the class size minimum becomes the
+      lower grade value. For example, in a 1st and 2nd grade multi-age classroom, the
+      class size minimum would be 10 students (the 1st grade minimum).
+Q: Should the age of the student be a factor when calculating class size
+minimums? For example, if an 8th grader is enrolled in algebra at a high school,
+how should that student be counted when calculating average class sizes?
+      A: The age of the student should not be factored into the calculation. In the
+      example above, the 8th grade student counts toward the math core average at
+      the high school.
+
+
+
+
+ Class Size Minimums Memo              Page 2 of 6
+ (February 6, 2026)
+                                                  LEADERSHIP | SUPPORT | OVERSIGHT
+                                                  (802) 828-1130 | education.vermont.gov
+
+
+
+
+Q: Do “related arts” in the SCED codes for core classes include music class, art
+class, languages, health, physical education, SEL/guidance classes, or library
+class? And will these classes be counted in the class size minimums?
+      A: The SCED codes account for these types of classes, but not under the “core”
+      class codes. For example, Music and Arts classes would all be coded under “05 -
+      Music & Art”; Language courses are all coded under SCED code “24 - “World
+      Language”; Library is coded under “22003 – Study Skills”; PE, Health and Safety
+      falls under “08 – Physical Education” Guidance courses would fall under “22999
+      –“Miscellaneous – Other”.
+      The classes will be counted in the class size minimums. There may be a need for
+      AOE and the LEAs to work through Miscellaneous courses to determine if they
+      are exempt. A full list of SCED codes can be found here: SCED Finder | Fast
+      access to school codes.
+
+Exceptions to Class Size Minimum Requirements
+Act 73 amends Sec. 6. 16 V.S.A. § 165 (a) (9) (vi) to read: Prekindergarten,
+kindergarten, career and technical education, flexible pathways, terminal courses,
+advanced placement courses, courses that require specialized equipment, and driver’s
+education classes shall be excluded from the class size minimum requirements in this
+subdivision (9). Small group services for the purpose of providing special education,
+supplemental or targeted academic intervention, or English learner instruction shall also
+be excluded from the class size minimum requirements in this subdivision (9).
+Q: What defines a “terminal course”?
+      A: For the purposes of calculating class size averages, a “terminal course” is the
+      highest level of a content area offered – in a sequence it is the last one in a
+      series. These courses should meet the requirement of being both an advanced
+      course that is the last in a series and a course ‘above’ district graduation
+      requirements.
+      It is important to note that the definition of a “terminal course” will need to be
+      revisited in coordination with the establishment of statewide graduation
+      requirements. The current working definition attempts to capture the high
+      variability in course offerings and structure across districts. It is important that
+      districts document which of their courses meet the working definition of “terminal”
+      for the 2026-2027 school year, with an understanding that there will be some
+      differences between districts.
+
+
+
+
+ Class Size Minimums Memo               Page 3 of 6
+ (February 6, 2026)
+                                                 LEADERSHIP | SUPPORT | OVERSIGHT
+                                                 (802) 828-1130 | education.vermont.gov
+
+
+
+
+Q: Are all honors classes terminal classes?
+      A: No. They are only terminal if they are the last in the sequence and above the
+      district graduation requirements. For example, some schools may offer honors
+      algebra, and that is not the last course in the math sequence.
+Q: Advanced placement (AP) courses are exempt from class size minimum
+requirements. How should schools address classes that combine honors and AP
+students into one class?
+      A: In the case of a combined Honors/AP class – AP students in an honors
+      classroom should be included in the total number of enrolled student count for
+      the purposes of calculating the average class size for that content area.
+Q: Are elective courses included in the class size minimum requirements? How
+are “elective” courses defined for the purpose of class size minimum
+requirements?
+      A: Schools/districts should use SCED codes for standardization of course
+      content areas. Core class categories in SCED include: Math, English, Social
+      Studies, Science, Arts (SCED categories 01, 02, 03, 04, 05).
+Q: Would Advisory classes (homerooms) be exempt, as those are purposefully
+small for the advisors to be able to know all the students?
+      A: Advisory classes are typically coded as 22 or 23 in SCED and are therefore
+      exempt from the class size minimum requirements.
+Q: What constitutes “specialized equipment” for the purposes of which courses
+to include in the calculation of class size minimums?
+      A: The working definition of “specialized equipment” for the purposes of
+      determining which courses are exempt from the calculation of class size
+      minimums is:
+      Highly specialized instructional equipment that:
+         •   Is integral to the course curriculum (hands-on use by students)
+         •   Requires dedicated instructional space or safety protocols
+         •   Is not standard classroom furniture or basic supplies
+         •   Is used only in narrow subject areas rather than general instruction
+      Common examples schools treat as specialized (aligned with CTE and lab-based
+      learning):
+         •   Industrial career technical machines (welders, CNC, automotive lifts)
+
+Class Size Minimums Memo               Page 4 of 6
+(February 6, 2026)
+                                                  LEADERSHIP | SUPPORT | OVERSIGHT
+                                                  (802) 828-1130 | education.vermont.gov
+
+
+
+
+         •   Advanced tech fabrication tools (3D printers, laser cutters)
+         •   Commercial kitchens, culinary equipment
+         •   Media production gear (digital editing suites, broadcasting equipment)
+         •   Art kilns or ceramics wheels
+      These are types of equipment that support specialized curriculum, safety
+      requirements, and certified instructional use, and thus would reasonably fall
+      under exemptions. It is important that districts document which of their courses
+      meet the working definition of having “specialized equipment” for the 2026-2027
+      school year, with an understanding that there will be some differences between
+      districts, but there is a reasonable effort to meet the guidelines outlined above.
+Q: Which courses fall into the Flexible Pathways category? How is “Flexible
+Pathways” defined for the purpose of calculating class size minimums?
+      A: The Agency has signaled that there are updates that will be required regarding
+      flexible pathways in its recommendations for statewide graduation requirements
+      to bring Vermont into compliance with federal requirements under the Every
+      Child Succeeds Act (ESEA). In EQS flexible pathways are defined as courses
+      which include, “…but not limited to career technical education, virtual learning,
+      work-based learning, service learning, internships, apprenticeships, community
+      research, civic and community engagement, dual enrollment, and early college.
+      Learning must occur under the supervision of an appropriately licensed
+      educator.” There is a list of SCED codes that are used for CTE, which can be
+      found in the SCED codes (SCED Finder | Fast access to school codes). In
+      addition, there is a list of the “excluded courses” in the attached file.
+
+Compliance with Class Size Minimums
+Q: What is the criteria for compliance? How will schools/districts be held
+accountable for meeting class size minimums?
+      A: Act 73, Sections 6(b-c) outline a multi-year process for accountability that
+      includes annual data collections by the AOE; the development of a corrective
+      action plan, coupled with technical assistance and support from the AOE for
+      districts that are not in compliance with the class size minimum requirements;
+      actions that the AOE may recommend to the State Board of Education; and the
+      responsibilities of the State Board to ensure that education quality standards are
+      met.
+      The AOE, in coordination with the class size working group and the State Board
+      of Education, will publish guidance on the data collection, reporting, and
+
+ Class Size Minimums Memo               Page 5 of 6
+ (February 6, 2026)
+                                                 LEADERSHIP | SUPPORT | OVERSIGHT
+                                                 (802) 828-1130 | education.vermont.gov
+
+
+
+
+      accountability framework once the State Board has completed rule-making as
+      required in Section 8(a) of Act 73.
+Q: When will the AOE be collecting class size minimum data?
+      A: It is the intention of the Agency to collect this data through its annual End of
+      Year data collection (DC04) which takes place at the end of each school year.
+      Therefore, the first collection of class size minimums will take place in spring
+      2027 and will be reported in fall 2027. However, to support the development of
+      FY 2028 budgets, the AOE intends to provide ‘baseline’ class size averages from
+      the 2025-2026 school year to districts in fall of 2026 based on the working
+      definitions outlined in this memo.
+
+
+
+
+Class Size Minimums Memo                Page 6 of 6
+(February 6, 2026)
+
