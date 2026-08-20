@@ -2,7 +2,7 @@
   "name": "@vt-budget/model",
   "version": "0.1.0",
   "description": "Vermont education funding formula engine. Every calculation is a narratable, citation-carrying node.",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
