@@ -16,6 +16,7 @@
       "Bash(git rm:*)",
       "Bash(git mv:*)",
       "Bash(git tag:*)",
+      "Bash(git fetch:*)",
       "Bash(git config --local:*)",
       "Bash(git lfs install:*)",
       "Bash(git lfs track:*)",
@@ -67,16 +68,21 @@
       "Read",
       "Glob",
       "Grep",
-      "Edit(/home/jamesn/Code/vt-budget-pipeline/**)",
-      "Write(/home/jamesn/Code/vt-budget-pipeline/**)",
+      "Edit(/**)",
       "WebFetch(domain:legislature.vermont.gov)",
       "WebFetch(domain:law.justia.com)",
-      "Bash(node extract.mjs https://legislature.vermont.gov/statutes/section/16/133/04001 https://legislature.vermont.gov/statutes/section/32/135/05401 https://legislature.vermont.gov/statutes/section/32/135/05402)",
       "WebFetch(domain:datacollection.education.vermont.gov)"
     ],
-    "deny": [
+    "ask": [
       "Bash(git push:*)",
-      "Bash(git remote:*)",
+      "Bash(git remote add:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git remote rename:*)",
+      "Bash(git remote remove:*)",
+      "Bash(git remote rm:*)",
+      "Bash(git remote prune:*)"
+    ],
+    "deny": [
       "Bash(git reset --hard:*)",
       "Bash(git clean:*)",
       "Bash(rm -rf:*)",
@@ -85,8 +91,10 @@
       "Bash(wget:*)",
       "Bash(npm publish:*)",
       "Bash(npm login:*)",
-      "Read(./.env)",
-      "Read(./.env.*)"
+      "Read(/**/.env)",
+      "Read(/**/.env.*)",
+      "Edit(/**/.env)",
+      "Edit(/**/.env.*)"
     ]
   },
   "worktree": {
