@@ -1,8 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "worktree": {
-    "baseRef": "head"
-  },
   "permissions": {
     "allow": [
       "Bash(git init:*)",
@@ -91,5 +88,19 @@
       "Read(./.env)",
       "Read(./.env.*)"
     ]
+  },
+  "worktree": {
+    "baseRef": "head"
+  },
+  "extraKnownMarketplaces": {
+    "kicad-happy": {
+      "source": {
+        "source": "github",
+        "repo": "aklofas/kicad-happy"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "kicad-happy@kicad-happy": true
   }
 }
