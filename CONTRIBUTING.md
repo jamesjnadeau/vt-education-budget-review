@@ -116,6 +116,19 @@ npm run typecheck
 
 All three must pass. CI runs the same commands.
 
+If you changed anything the site renders, also run the accessibility check. It needs a
+built site, which is why it is not part of `npm run validate`:
+
+```bash
+npm run build:data && npm run build:site
+npm run a11y
+```
+
+It fails on any WCAG 2.0 A/AA failure, which is the standard Section 508 adopts for web
+content. Read [docs/accessibility.md](docs/accessibility.md) before trusting a clean
+run — contrast in particular is structurally not checked there, and the things a
+machine cannot check are most of the things that matter.
+
 A few conventions that are load-bearing rather than stylistic:
 
 - **Never add a `savings` field**, or any framing that presumes which direction a result should

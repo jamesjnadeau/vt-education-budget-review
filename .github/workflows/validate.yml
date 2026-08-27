@@ -93,3 +93,12 @@ jobs:
 
       - name: Build site
         run: npm run build:site
+
+      - name: Check Section 508 compliance
+        # Runs against site/dist -- the HTML that actually ships -- so it must
+        # follow build:site. Section 508 adopts WCAG 2.0 A and AA by reference
+        # for web content, and a failure of one of those rules fails this step.
+        # WCAG 2.1 findings are printed and do not block; see
+        # docs/accessibility.md for that split and for what no machine can
+        # check.
+        run: npm run a11y

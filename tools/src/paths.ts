@@ -24,6 +24,8 @@ export const PATHS = {
   goldens: join(REPO_ROOT, 'model', 'goldens'),
   build: join(REPO_ROOT, 'build'),
   siteData: join(REPO_ROOT, 'site', 'public', 'data'),
+  /** Built site output. Produced by `npm run build:site`; not committed. */
+  siteDist: join(REPO_ROOT, 'site', 'dist'),
   siteGenerated: join(REPO_ROOT, 'site', 'src', 'generated'),
 } as const;
 

@@ -30,13 +30,17 @@
     "params": "tsx tools/src/cli/params.ts",
     "build:data": "tsx tools/src/cli/build-data.ts",
     "build:site": "npm run build --workspace site",
+    "a11y": "tsx tools/src/cli/a11y.ts",
     "build": "npm run validate && npm run build:data && npm run build:site",
     "dev": "npm run build:data && npm run dev --workspace site",
     "statute:sync": "tsx tools/src/cli/statute-sync.ts",
     "vt:fetch": "tsx tools/src/cli/vt-fetch.ts"
   },
   "devDependencies": {
+    "@types/jsdom": "^30.0.0",
     "@types/node": "^26.1.2",
+    "axe-core": "^4.13.0",
+    "jsdom": "^30.0.1",
     "tsx": "^4.23.1",
     "typescript": "6.0.3",
     "vitest": "^4.1.10"
