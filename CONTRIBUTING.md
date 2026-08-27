@@ -5,7 +5,7 @@ someone reading a statute carefully.
 
 ## Sending in a budget document
 
-The [coverage dashboard](https://example.invalid/admin/coverage/) shows every gap. Each missing
+The [coverage dashboard](https://vermont-school-budgets.org/admin/coverage/) shows every gap. Each missing
 cell opens a short issue form, already filled in with the supervisory union and fiscal year.
 Drag the PDF or spreadsheet into it, answer where it came from, and submit. No local checkout,
 no git, no `git-lfs` — just a GitHub login and the file.
