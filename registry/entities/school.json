@@ -4,8 +4,8 @@
   "synced_from": {
     "api": "https://datacollection.education.vermont.gov",
     "endpoint": "/api/lists/publicSchools",
-    "last_synced": "2026-08-01",
-    "snapshot": "registry/raw/2026-08-01"
+    "last_synced": "2026-09-01",
+    "snapshot": "registry/raw/2026-09-01"
   },
   "records": [
     {
@@ -846,7 +846,7 @@
     },
     {
       "slug": "school/bellows-free-academy-middle-school",
-      "name": "Bellows Free Academy Middle School ",
+      "name": "Bellows Free Academy Middle School (Fairfax)",
       "type": "school",
       "aoe_org_id": "PS425",
       "aoe_server_id": 1668,
