@@ -182,6 +182,12 @@ main entry point does not import.
   published figures are different claims, and the second is the one that matters.
 - Scenario support covers mergers. School closure with student reassignment is not yet
   implemented.
+- Class size minimums are documented but not modelled. The AOE working-definitions memo and the
+  State Board committee deck are on file with provenance, and Act 170 of 2026 has since put the
+  counting definitions into 16 V.S.A. § 11 with a repeal date tied to rules that do not exist
+  yet. Still missing: the excluded-courses list the memo refers to, which is what decides which
+  courses drop out of the averages. See
+  [docs/act-73-class-size-minimums.md](docs/act-73-class-size-minimums.md).
 - The foundation formula is structural only; its parameters are marked contingent and hold no
   values, because the Legislature has not set them.
 

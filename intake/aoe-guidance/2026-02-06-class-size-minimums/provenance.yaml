@@ -1,0 +1,28 @@
+schema_version: "1.0"
+entity: source/aoe-guidance
+# The 2026-2027 school year the memo governs, and the FY2027 budgets districts
+# built against it -- not the calendar year it was issued in.
+fiscal_year: 2027
+artifacts:
+  - file: edu-sbe-class-size-min-working-definitions-memo.pdf
+    # AOE's /documents/ short link, confirmed by the person who downloaded it.
+    # It redirects to the file under /sites/aoe/files/documents/; record the
+    # link AOE publishes, not the storage path it happens to resolve to today.
+    source_url: https://education.vermont.gov/documents/edu-sbe-class-size-min-working-definitions-memo
+    retrieved_date: "2026-08-20"
+    retrieval_method: manual-download
+    sha256: b10058ecaa251188a5fb3395e29b733fd305998ae5fb29da6df5fa04730cca73
+    bytes: 251073
+    media_type: application/pdf
+    retrieved_by: James Nadeau
+    document_type: aoe_report
+    note: >-
+      Memo of 2026-02-06 from Secretary Zoie Saunders to superintendents,
+      business managers and school board members, giving working definitions
+      for the class size minimums in 16 V.S.A. 165(a)(9) as amended by Act 73
+      of 2025, Sec. 6, for the 2026-2027 school year. Guidance, not rule: the
+      memo states that it does not supplant the State Board's rulemaking under
+      Act 73, Sec. 8(a). Downloaded by hand because education.vermont.gov
+      returns HTTP 403 to every non-browser client -- npm run vt:fetch against
+      this URL was refused. Page 5 refers to an attached list of excluded
+      courses that did not accompany the file; see README.md.
