@@ -1,0 +1,37 @@
+# Netlify deploy configuration.
+#
+# This runs alongside the GitHub Pages deploy (.github/workflows/deploy.yml);
+# it does not replace it. Netlify builds from its own fresh clone, so the full
+# pipeline (validate -> build:data -> build:site) runs here too -- nothing
+# reaches the public site without passing validation immediately beforehand,
+# same as the Pages workflow.
+#
+# One-time Netlify site setup (UI, not this file): point the site at this
+# repo, and add www.vermont-school-budgets.org as the primary custom domain.
+
+[build]
+  command = "npm run build"
+  publish = "site/dist"
+
+[build.environment]
+  # engines.node in package.json requires >=22.
+  NODE_VERSION = "22"
+  # The intake corpus is stored in Git LFS. Validation hash-checks artifact
+  # bytes, so Netlify must fetch real LFS content, not pointers.
+  GIT_LFS_ENABLED = "true"
+
+# SITE_BASE is deliberately unset everywhere on Netlify: the site is served
+# from the domain root, so Astro's default base of '/' is correct. (On GitHub
+# Pages the workflow sets it via actions/configure-pages instead.)
+
+[context.production.environment]
+  # Astro uses SITE_URL for canonical URLs, the sitemap, and rss.xml.
+  SITE_URL = "https://www.vermont-school-budgets.org"
+  # Cloudflare Web Analytics beacon is emitted only when this is '1'. Set for
+  # production alone -- deploy previews and branch deploys never load it,
+  # mirroring the GitHub Pages workflow.
+  PUBLIC_CF_ANALYTICS = "1"
+
+# Deploy previews and branch deploys leave SITE_URL unset; astro.config.mjs
+# falls back to a placeholder, which only affects absolute URLs in
+# sitemap/canonical tags -- fine for previews.
