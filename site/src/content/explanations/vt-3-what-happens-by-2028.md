@@ -52,9 +52,11 @@ That is it. No town is forced into anything. But no town gets to skip the conver
 
 Notice how much of this happens before you get a vote. The report is written a year and a half before the ballot. If you want to shape the numbers, the time is 2027, not 2028.
 
-The law also suggested 20 groupings of districts as starting points. The guides can change them. The target is neighboring districts that add up to at least 2,000 students. Grade schools stay local. Middle and high schools get shared.
+The law also suggested 20 groupings of districts as starting points. The target is neighboring districts that add up to at least 2,000 students. Grade schools stay local. Middle and high schools get shared.
 
-Find your grouping early. It tells you who you are about to be in a long conversation with.
+The guides can change those groupings, and in September 2026 they did. Thirteen districts asked to be moved. The guides said yes, and redrew the map into 18 groups instead of 20. They have not published which districts are in which new group. So the 20 groups in the law are still the best list anyone can point to, and we know it is wrong in at least one place.
+
+Find your grouping early. It tells you who you are about to be in a long conversation with. Then ask your school board which group they were actually assigned to, because the two may not match.
 
 ---
 

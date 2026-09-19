@@ -39,9 +39,15 @@ values in from memory or a secondary mirror, they stay null. Vermont's education
 were amended by Act 127 of 2022, Act 73 of 2025 and Act 170 of 2026, so a recalled weight is
 quite likely to be a repealed one. See [docs/parameter-verification.md](docs/parameter-verification.md).
 
-**No Act 170 groupings are transcribed**, for the same reason. Inventing twenty groupings of
-district names would put a fabrication in the single place a reader most depends on being told
-the truth.
+**The Act 170 groupings we hold are the law's, and the law's are no longer the ones in use.**
+All twenty are transcribed from the enacted text and checked against it. But the act lets the
+merger-study facilitators redraw them, and on 2026-09-18 the Vermont Learning Collaborative did:
+119 districts into 18 committees, after 13 districts asked to move. The new committee rosters
+have not been published, and reporting names one of the thirteen moves. So the site shows the
+law's groups and says on every grouping page that the groups have since been redrawn and we
+cannot see how — rather than letting a reader conclude they know which room they will be sitting
+in. See [`registry/groupings.yaml`](registry/groupings.yaml) and
+[`intake/vlc-act170/`](intake/vlc-act170/).
 
 **No school can be screened as small or sparse.** Every threshold in Act 73 Sec. 37 is null and
 unverified, so the two statutory screens return nothing for all 438 schools — independently of
