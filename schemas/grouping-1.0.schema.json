@@ -27,6 +27,51 @@
       "enum": ["draft", "verified", "superseded"],
       "description": "`verified` means every grouping's membership has been read off the act text by a human. Until then the tool must not present these as authoritative."
     },
+    "reassignment": {
+      "type": ["object", "null"],
+      "description": "What the facilitators have done to the act's groupings since it passed. Act 170 lets the merger-study facilitators change the groupings, and they have: the Vermont Learning Collaborative announced a different set of committees on 2026-09-18. The act text does not change when that happens, so the two are kept apart -- `groupings` above stays a transcription of the law, and this records what is now operative on the ground. Absent or null means no change has been announced.",
+      "additionalProperties": false,
+      "required": ["by", "status", "as_of", "roster_published", "sources", "known_changes"],
+      "properties": {
+        "by": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Who regrouped the districts -- the facilitating body, not the Legislature."
+        },
+        "status": {
+          "enum": ["announced_provisional", "final"],
+          "description": "`announced_provisional` means the new committees are out for comment and can still move. Only `final` may be presented as the answer to \"which districts am I grouped with?\"."
+        },
+        "as_of": { "type": "string", "format": "date" },
+        "committee_count": { "type": ["integer", "null"], "minimum": 1, "default": null },
+        "district_count": { "type": ["integer", "null"], "minimum": 1, "default": null },
+        "requests_granted": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "How many districts asked to be moved and were.",
+          "default": null
+        },
+        "comment_deadline": { "type": ["string", "null"], "format": "date", "default": null },
+        "finalize_target": { "type": ["string", "null"], "format": "date", "default": null },
+        "first_meeting_deadline": { "type": ["string", "null"], "format": "date", "default": null },
+        "roster_published": {
+          "type": "boolean",
+          "description": "True only once the full committee-by-committee membership has been obtained and transcribed here. While it is false, the new committees are known to exist and their membership is NOT known -- which the site has to say plainly, rather than showing the act's groupings as though they still held."
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Where the change is reported. News reporting is enough to record that the groupings moved; it is not enough to set roster_published.",
+          "items": { "$ref": "#/$defs/reassignment_source" }
+        },
+        "known_changes": {
+          "type": "array",
+          "description": "Every single-district move there is a source for. This is not the whole change -- see roster_published. An empty array with roster_published false means we know the groupings moved and know none of the specifics.",
+          "items": { "$ref": "#/$defs/known_change" }
+        },
+        "note": { "type": ["string", "null"], "default": null }
+      }
+    },
     "groupings": {
       "type": "array",
       "description": "Empty is a valid and honest state. It means the act text has not been transcribed yet -- which is very different from the act containing no groupings.",
@@ -67,6 +112,67 @@
           },
           "note": { "type": ["string", "null"], "default": null }
         }
+      }
+    }
+  },
+  "$defs": {
+    "reassignment_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publisher", "title", "url", "published_date", "retrieved_date", "retrieved_by"],
+      "description": "A published report of the regrouping. Deliberately not the statute citation type: this is journalism or an agency press release, not law, and must not be dressed up as a statute.",
+      "properties": {
+        "publisher": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "published_date": { "type": "string", "format": "date" },
+        "retrieved_date": { "type": "string", "format": "date" },
+        "retrieved_by": { "type": "string", "minLength": 1 },
+        "quote": {
+          "type": ["string", "null"],
+          "description": "A short passage carrying the fact being recorded, so the claim can be checked without refetching.",
+          "default": null
+        },
+        "note": { "type": ["string", "null"], "default": null }
+      }
+    },
+    "known_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["district", "from_grouping", "to_grouping", "to_grouping_basis", "verified"],
+      "properties": {
+        "district": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+        "district_name_as_written": {
+          "type": ["string", "null"],
+          "description": "The district's name as the source writes it.",
+          "default": null
+        },
+        "from_grouping": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "The act grouping number the district was in before the move. Null when the source does not say."
+        },
+        "to_grouping": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "The act grouping number the district moved into, where one can be identified. The new committees are not publicly numbered, so this is the act's number for the group the reporting describes -- not a committee number. Null when it cannot be identified."
+        },
+        "to_grouping_as_reported": {
+          "type": ["string", "null"],
+          "description": "How the source describes where the district went, before any mapping to an act grouping number.",
+          "default": null
+        },
+        "to_grouping_basis": {
+          "enum": ["published", "inferred", "unknown"],
+          "description": "`published` means the source gives the committee outright. `inferred` means we matched the source's description to an act grouping ourselves, and the match is a judgement that can be wrong."
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "True only when a human has confirmed the move against the facilitators' own list, not against reporting about it."
+        },
+        "verified_date": { "type": ["string", "null"], "format": "date", "default": null },
+        "verified_by": { "type": ["string", "null"], "default": null },
+        "note": { "type": ["string", "null"], "default": null }
       }
     }
   }

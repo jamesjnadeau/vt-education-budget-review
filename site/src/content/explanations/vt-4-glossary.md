@@ -36,7 +36,7 @@ Here are the words, in ABC order. The laws are listed separately at the end, in 
 
 **Grand list.** The total value of all the land and buildings in a town. A big grand list means a town can raise a lot of money at a low tax rate.
 
-**Grouping.** One of the 20 sets of neighboring districts that the 2026 law suggested as starting points for merger studies. The state's guides can change them.
+**Grouping.** One of the 20 sets of neighboring districts that the 2026 law suggested as starting points for merger studies. The state's guides can change them, and in September 2026 they did: 18 groups now, not 20. The new lists have not been made public.
 
 **Homestead.** The house you live in. It gets its own tax rate, and that rate depends on what your district spends.
 

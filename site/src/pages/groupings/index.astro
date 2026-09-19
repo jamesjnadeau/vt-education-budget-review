@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import groupings from '../../generated/groupings.json';
+import { longDate, unseenChangeCount, type Reassignment } from '../../lib/groupings.ts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -15,8 +16,16 @@ interface Grouping {
 const doc = groupings as {
   status: string;
   act: { name: string; citation: { statute: string; verified: boolean }; text_url: string | null };
+  reassignment?: Reassignment | null;
   groupings: Grouping[];
 };
+
+// The groups below are the law's. The state's guides have since redrawn them,
+// and we hold only one of the moves -- so this page has to lead with that, not
+// bury it. See site/src/lib/groupings.ts.
+const moved = doc.reassignment ?? null;
+const unseen = unseenChangeCount(moved);
+const source = moved?.sources?.[0] ?? null;
 ---
 
 <Base title="Act 170 groupings — Vermont School Budgets">
@@ -25,7 +34,72 @@ const doc = groupings as {
     The groups of school districts named in {doc.act?.name ?? 'Act 170'}. These are the starting
     what-ifs in the tool. For most people, the real question is not "what if we merged with
     someone?" but "what happens under the group the Legislature already put us in?"
+    {moved && <span> The law let the state's guides move districts between groups. They have.
+    Read the warning below before you use this list.</span>}
   </p>
+
+  {moved && !moved.roster_published && (
+    <div class="notice blocking">
+      <strong>These groups have changed. We do not have the new list.</strong>
+      <p>
+        On {longDate(moved.as_of)} the {moved.by} — the group the state hired to run the merger
+        talks — put Vermont's {moved.district_count ?? 'roughly 119'} school districts into
+        <strong> {moved.committee_count ?? 'fewer'} groups</strong>, not the {doc.groupings.length} the
+        law printed. {moved.requests_granted ?? 'Some'} districts had asked to move, and got their
+        way. The law always allowed this.
+      </p>
+      <p>
+        <strong>They have not published which districts are in which new group.</strong> We know
+        about {moved.known_changes.length} of the {moved.requests_granted ?? 'granted'} moves, from
+        news reports. {unseen !== null && unseen > 0 && (
+          <span>That leaves {unseen} moves we cannot see.</span>
+        )}
+      </p>
+      <p>
+        So the groups below are still the law's groups, exactly as it wrote them. For many
+        districts that is still the right answer. For at least one it is not, and we cannot tell
+        you which of the rest changed. If a group's page says nothing about a change, that means
+        we have no report about it — not that nothing happened.
+      </p>
+      {moved.known_changes.length > 0 && (
+        <>
+          <p>What we do know:</p>
+          <ul>
+            {moved.known_changes.map((c) => (
+              <li>
+                <strong>{c.district_name_as_written ?? c.district}</strong> moved
+                {c.from_grouping !== null && (
+                  <span> out of <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a></span>
+                )}
+                {c.to_grouping_as_reported && <span> and in {c.to_grouping_as_reported}</span>}
+                {c.to_grouping !== null && c.to_grouping_basis === 'inferred' && (
+                  <span> — which looks like <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>, though the guides have not numbered the new groups, so that match is our reading and could be wrong</span>
+                )}.
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {moved.status === 'announced_provisional' && (
+        <p>
+          The guides called the new groups a starting point, not a decision. School board leaders
+          could send comments until {longDate(moved.comment_deadline)}, and the plan was to settle
+          the groups on {longDate(moved.finalize_target)}.
+          {moved.first_meeting_deadline && (
+            <span> Each group has to hold its first meeting by {longDate(moved.first_meeting_deadline)}.</span>
+          )}
+        </p>
+      )}
+      {source && (
+        <p style="font-size:.9rem">
+          Where this comes from: <a href={source.url}>{source.publisher}, "{source.title}"</a>,
+          {' '}{longDate(source.published_date)}. That is a news report about the guides'
+          announcement, not the announcement itself. Nobody here has checked it against the guides'
+          own list, because we have not been able to get one.
+        </p>
+      )}
+    </div>
+  )}
 
   {
     doc.groupings.length === 0 ? (

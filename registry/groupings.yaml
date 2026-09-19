@@ -118,6 +118,105 @@ act:
     verified_by: James Nadeau
 
 # ---------------------------------------------------------------------------
+# WHAT HAS HAPPENED TO THESE GROUPINGS SINCE THE ACT PASSED
+#
+# The act's groupings were never meant to be the last word: Act 170 lets the
+# merger-study facilitators change them. On 2026-09-18 they did. The Vermont
+# Learning Collaborative -- the agency the state hired to run the merger study
+# process -- announced that the state's 119 districts are now sorted into 18
+# committees rather than the act's 20, after 13 districts asked to be moved.
+#
+# THE ACT TEXT BELOW IS UNCHANGED, AND THAT IS DELIBERATE. `groupings` is a
+# transcription of the law, verified line by line against the enacted PDF. It
+# does not become wrong when a facilitator moves a district; it stops being the
+# whole story. So the new assignments are recorded here, beside it, instead of
+# being edited into it. Editing them in would destroy the one thing about this
+# file that is checkable -- that it says what the act says -- and would do it
+# while we hold only one of the thirteen moves.
+#
+# WHAT WE HAVE, AND WHAT WE DO NOT
+#
+# We have the fact of the change and one named move: Harwood Union UUSD out of
+# the Barre/Montpelier group and in with Mount Mansfield UUSD. That is it. The
+# Vermont Learning Collaborative's own committee-by-committee list has not been
+# obtained -- the press release announcing it is not reachable from here, no
+# state page carries the rosters, and the reporting names only the one district.
+# The facilitators declined to say which 13 districts asked to move.
+#
+# So `roster_published` is false. While it is false, no page may show an act
+# grouping as the answer to "who am I studying a merger with?" without saying
+# that the groups have since been redrawn and we do not yet hold the new list.
+# Twelve moves we cannot see are twelve chances to tell a reader with total
+# confidence that they are in a room they are not in.
+#
+# TO FINISH THIS
+#
+#   1. Get the Vermont Learning Collaborative's committee list -- ask them
+#      directly (54 Main St., Suite 200, Windsor VT; 802-428-6789) or watch for
+#      an AOE posting. Land it in intake/vlc-act170/ with a provenance record,
+#      the way any other source document is landed.
+#   2. Record each committee's membership, and set `roster_published: true`
+#      only once the whole list is in -- not once most of it is.
+#   3. The groups were provisional when announced: comment closed 2026-09-23
+#      and the facilitators aimed to finalize on 2026-09-25. Get the final list,
+#      not the draft, and set `status: final` when it is the final one.
+# ---------------------------------------------------------------------------
+reassignment:
+  by: "Vermont Learning Collaborative"
+  status: announced_provisional
+  as_of: 2026-09-18
+  committee_count: 18
+  district_count: 119
+  requests_granted: 13
+  comment_deadline: 2026-09-23
+  finalize_target: 2026-09-25
+  first_meeting_deadline: 2026-10-15
+  roster_published: false
+  note: >-
+    Announced as a starting point, not a final decision: school board leaders
+    could comment through 2026-09-23, with the groups to be settled on
+    2026-09-25. Committees must hold a first meeting by 2026-10-15 and report
+    recommendations by September 2027; any merger goes to voters on Town Meeting
+    Day 2028. The Vermont Learning Collaborative press release that carries the
+    full committee list has not been obtained -- see intake/vlc-act170/.
+  sources:
+    - publisher: VTDigger
+      title: "School districts assigned to new merger discussion groups"
+      url: https://vtdigger.org/2026/09/18/school-districts-assigned-to-new-merger-discussion-groups/
+      published_date: 2026-09-18
+      retrieved_date: 2026-09-19
+      retrieved_by: "automated fetch; not read by a person"
+      quote: >-
+        Harwood Union Unified School District "requested a committee
+        reassignment because it was originally grouped with schools in the Barre
+        and Montpelier area"; "instead, the district was more interested in
+        merger conversations with Mount Mansfield Unified Union School
+        District."
+      note: >-
+        Reporting on a Vermont Learning Collaborative press release, not the
+        release itself. It gives the counts (119 districts, 18 committees, 13
+        reassignment requests granted) and this one district by name. It does
+        not print the committee rosters, and lead facilitator Dave Younce
+        declined to name the 13 districts that asked to move.
+  known_changes:
+    - district: ud/harwood-60
+      district_name_as_written: "Harwood Union Unified School District"
+      from_grouping: 20
+      to_grouping: 13
+      to_grouping_as_reported: "with Mount Mansfield Unified Union School District"
+      to_grouping_basis: inferred
+      verified: false
+      note: >-
+        `to_grouping: 13` is our inference, not the facilitators' label. The
+        source says Harwood goes in with Mount Mansfield UUSD, and act group 13
+        is the group Mount Mansfield is in (with Champlain Valley SD). Whether
+        the new committee is act group 13 plus Harwood, or some larger regrouping
+        that also took other districts, is not stated anywhere we can read. The
+        new committees are not publicly numbered at all, and there are 18 of them
+        against the act's 20, so act numbers and committee numbers should not be
+        assumed to line up.
+
+# ---------------------------------------------------------------------------
 # DRAFT mapping -- filled in from act.citation.quote, NOT yet verified against
 # the act PDF. Every `verified` is false and the file `status` stays `draft`.
 #
