@@ -136,12 +136,21 @@ act:
 #
 # WHAT WE HAVE, AND WHAT WE DO NOT
 #
-# We have the fact of the change and one named move: Harwood Union UUSD out of
-# the Barre/Montpelier group and in with Mount Mansfield UUSD. That is it. The
-# Vermont Learning Collaborative's own committee-by-committee list has not been
-# obtained -- the press release announcing it is not reachable from here, no
-# state page carries the rosters, and the reporting names only the one district.
-# The facilitators declined to say which 13 districts asked to move.
+# We have the fact of the change and two named moves: Harwood Union UUSD out of
+# the Barre/Montpelier group and in with Mount Mansfield and Champlain Valley,
+# and Windham School District out of group 6 and in with the group that includes
+# Londonderry (the second one pieced together from a law firm's newsletter, see
+# its note). That is it. The Vermont Learning Collaborative's own
+# committee-by-committee list has not been obtained -- the press release
+# announcing it is not reachable from here, no state page carries the rosters,
+# and the reporting names only these districts. The facilitators declined to say
+# which 13 districts asked to move.
+#
+# And the 13 are not the whole change. The facilitators also moved districts on
+# their own to keep groups near the act's ~2,000-student target
+# (`additional_adjustments: true`), and nobody has said how many. So the number
+# of moves we cannot see is AT LEAST thirteen minus what we hold, not exactly
+# that.
 #
 # So `roster_published` is false. While it is false, no page may show an act
 # grouping as the answer to "who am I studying a merger with?" without saying
@@ -172,6 +181,7 @@ reassignment:
   finalize_target: 2026-09-25
   first_meeting_deadline: 2026-10-15
   roster_published: false
+  additional_adjustments: true
   note: >-
     Announced as a starting point, not a final decision: school board leaders
     could comment through 2026-09-23, with the groups to be settled on
@@ -179,6 +189,8 @@ reassignment:
     recommendations by September 2027; any merger goes to voters on Town Meeting
     Day 2028. The Vermont Learning Collaborative press release that carries the
     full committee list has not been obtained -- see intake/vlc-act170/.
+    As of 2026-09-27 we have seen no report that the groups were in fact
+    settled on 2026-09-25, so `status` stays provisional.
   sources:
     - publisher: VTDigger
       title: "School districts assigned to new merger discussion groups"
@@ -198,23 +210,81 @@ reassignment:
         reassignment requests granted) and this one district by name. It does
         not print the committee rosters, and lead facilitator Dave Younce
         declined to name the 13 districts that asked to move.
+    - publisher: Downs Rachlin Martin
+      title: "Vermont School Consolidation: Progress Update 09.14.2026"
+      url: https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-14-2026/
+      published_date: 2026-09-14
+      retrieved_date: 2026-09-27
+      retrieved_by: "automated fetch; not read by a person"
+      quote: >-
+        Harwood "voted unanimously on September 9 to ask to leave its assigned
+        Central Vermont merger group and instead study merger with Champlain
+        Valley and Mount Mansfield." Windham School District asked "to leave its
+        assigned merger group and instead join the group containing
+        Londonderry." Younce "had already received 11 requests."
+      note: >-
+        A law firm's client newsletter, written four days BEFORE the new
+        groups were announced. It records what districts asked for, not what
+        they got; read it with the 09.21 update below, which says every request
+        was granted. It also says Readsboro was pursuing "a grouping that
+        preserves high-school choice" without naming a destination, so
+        Readsboro is not recorded as a move.
+    - publisher: Downs Rachlin Martin
+      title: "Vermont School Consolidation: Progress Update 09.21.2026"
+      url: https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-21-2026/
+      published_date: 2026-09-21
+      retrieved_date: 2026-09-27
+      retrieved_by: "automated fetch; not read by a person"
+      quote: >-
+        "Thirteen districts requested reassignment, and the facilitators
+        granted those requests while also making additional adjustments needed
+        to keep groups at or near Act 170's approximately 2,000-student
+        threshold." On Harwood: "The revised assignments accommodate that
+        request."
+      note: >-
+        The authority for `additional_adjustments: true`. The thirteen are not
+        the whole change: the facilitators also moved districts nobody asked to
+        move, and no source says how many or which. So `requests_granted` minus
+        `known_changes` is a floor on what we cannot see, not a count.
+        Also reports that Act 170 requires committee representation
+        proportional to enrollment without saying how, with two models in play
+        (several members per district by enrollment, or one member per district
+        with enrollment-weighted votes).
   known_changes:
     - district: ud/harwood-60
       district_name_as_written: "Harwood Union Unified School District"
       from_grouping: 20
       to_grouping: 13
-      to_grouping_as_reported: "with Mount Mansfield Unified Union School District"
+      to_grouping_as_reported: "with Mount Mansfield and Champlain Valley"
       to_grouping_basis: inferred
       verified: false
       note: >-
-        `to_grouping: 13` is our inference, not the facilitators' label. The
-        source says Harwood goes in with Mount Mansfield UUSD, and act group 13
-        is the group Mount Mansfield is in (with Champlain Valley SD). Whether
+        `to_grouping: 13` is our inference, not the facilitators' label. VTDigger
+        says Harwood goes in with Mount Mansfield UUSD; Downs Rachlin Martin
+        says it asked to study merger with Champlain Valley AND Mount Mansfield,
+        and that the new groups "accommodate that request". Those two districts
+        are exactly act group 13, so the match is a strong one. Whether
         the new committee is act group 13 plus Harwood, or some larger regrouping
         that also took other districts, is not stated anywhere we can read. The
         new committees are not publicly numbered at all, and there are 18 of them
         against the act's 20, so act numbers and committee numbers should not be
         assumed to line up.
+    - district: town/windham
+      district_name_as_written: "Windham School District"
+      from_grouping: 6
+      to_grouping: 3
+      to_grouping_as_reported: "with the group that includes Londonderry"
+      to_grouping_basis: inferred
+      verified: false
+      note: >-
+        Two inferences, both ours. (1) That the move happened: DRM reported
+        Windham's request on 2026-09-14, and on 2026-09-21 reported that all
+        thirteen requests were granted; no source says in so many words that
+        Windham moved. (2) That it went to act group 3: Londonderry is a member
+        town of Taconic and Green Regional School District
+        (ud/taconic-and-green-regional-63), which the act puts in group 3. If
+        the facilitators also redrew group 3, "the group that includes
+        Londonderry" may not look much like act group 3 any more.
 
 # ---------------------------------------------------------------------------
 # DRAFT mapping -- filled in from act.citation.quote, NOT yet verified against

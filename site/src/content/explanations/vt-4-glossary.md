@@ -22,7 +22,7 @@ Here are the words, in ABC order. The laws are listed separately at the end, in 
 
 **CLA (Common Level of Appraisal).** A correction the state applies because town property values are out of date. If your town's values are years behind, the CLA adjusts your tax rate to make up the gap. When home prices climb fast, the CLA pushes your rate up even though your school budget did not change. This is the most confusing line on a Vermont tax bill.
 
-**Construction aid.** State money toward building or fixing a school. Under the 2026 law, a district that merges can get up to 75 percent covered. A district that does not tops out at 30 percent.
+**Construction aid.** State money toward building or fixing a school. Under the 2026 law, a district that merges can get up to 75 percent covered. A district that does not tops out at 30 percent. Lawmakers have not yet set aside the money to pay for this.
 
 **Education Fund.** The one state pot that pays for all Vermont schools. Property taxes go in. So does some sales tax, some rooms tax, lottery money, and a few other taxes. Every district gets paid out of it.
 

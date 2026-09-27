@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   changesTouching,
   unseenChangeCount,
+  unseenIsFloor,
+  settleDatePassedUnconfirmed,
   longDate,
   type Reassignment,
   type KnownChange,
@@ -69,6 +71,48 @@ describe('unseenChangeCount', () => {
         reassignment({ requests_granted: 1, known_changes: [change(20, 13), change(5, 6)] }),
       ),
     ).toBe(0);
+  });
+});
+
+describe('unseenIsFloor', () => {
+  // The facilitators moved districts nobody asked to move, and did not say how
+  // many. When that is on the record, "12 moves we cannot see" would be a
+  // confident undercount; pages have to say "at least 12".
+  it('is true when the facilitators made moves beyond the granted requests', () => {
+    expect(unseenIsFloor(reassignment({ additional_adjustments: true }))).toBe(true);
+  });
+
+  it('is false when no source reports extra moves', () => {
+    expect(unseenIsFloor(reassignment({ additional_adjustments: false }))).toBe(false);
+    expect(unseenIsFloor(reassignment({ additional_adjustments: null }))).toBe(false);
+    expect(unseenIsFloor(reassignment())).toBe(false);
+  });
+
+  it('is false with no reassignment at all', () => {
+    expect(unseenIsFloor(null)).toBe(false);
+  });
+});
+
+describe('settleDatePassedUnconfirmed', () => {
+  // "They aimed to settle the groups on September 25" reads as done once the
+  // date is past. Until a source says they did, pages have to say we have not
+  // seen it happen.
+  it('is true once the target date is past and the groups are still provisional', () => {
+    expect(settleDatePassedUnconfirmed(reassignment(), '2026-09-27')).toBe(true);
+  });
+
+  it('is false on or before the target date', () => {
+    expect(settleDatePassedUnconfirmed(reassignment(), '2026-09-25')).toBe(false);
+    expect(settleDatePassedUnconfirmed(reassignment(), '2026-09-20')).toBe(false);
+  });
+
+  it('is false once the groups are recorded as final', () => {
+    expect(settleDatePassedUnconfirmed(reassignment({ status: 'final' }), '2026-09-27')).toBe(false);
+  });
+
+  it('is false with no target date or no reassignment', () => {
+    expect(settleDatePassedUnconfirmed(reassignment({ finalize_target: null }), '2026-09-27')).toBe(false);
+    expect(settleDatePassedUnconfirmed(null, '2026-09-27')).toBe(false);
   });
 });
 

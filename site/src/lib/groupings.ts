@@ -13,7 +13,7 @@
  *   1. While `roster_published` is false we do not have the new committee
  *      lists, so a page may never present an act group as the answer to "who
  *      am I studying a merger with?" without saying the groups were redrawn.
- *   2. We hold one of the thirteen moves. A group with no known change is not
+ *   2. We hold a couple of the thirteen moves. A group with no known change is not
  *      a group that did not change -- it is a group we cannot see. Pages say
  *      that, rather than staying quiet and letting the silence read as "yours
  *      is fine".
@@ -52,6 +52,7 @@ export interface Reassignment {
   finalize_target: string | null;
   first_meeting_deadline: string | null;
   roster_published: boolean;
+  additional_adjustments?: boolean | null;
   sources: ReassignmentSource[];
   known_changes: KnownChange[];
   note?: string | null;
@@ -77,6 +78,33 @@ export function changesTouching(
 export function unseenChangeCount(reassignment: Reassignment | null | undefined): number | null {
   if (!reassignment || reassignment.requests_granted === null) return null;
   return Math.max(0, reassignment.requests_granted - reassignment.known_changes.length);
+}
+
+/**
+ * Whether `unseenChangeCount` is a floor rather than a count. The thirteen
+ * granted requests are not every move: the facilitators also moved districts
+ * on their own to balance the groups, and did not say how many. When a source
+ * says so, pages say "at least N" -- an exact-looking number there would be a
+ * confident undercount.
+ */
+export function unseenIsFloor(reassignment: Reassignment | null | undefined): boolean {
+  return reassignment?.additional_adjustments === true;
+}
+
+/**
+ * Whether the day the facilitators meant to settle the groups is behind us
+ * while we still hold them as provisional. A page built after that day must
+ * not leave "they aimed to settle them on ..." standing alone, or it reads as
+ * though they did. `today` is a plain ISO date, passed in so builds and tests
+ * agree on what "now" is.
+ */
+export function settleDatePassedUnconfirmed(
+  reassignment: Reassignment | null | undefined,
+  today: string,
+): boolean {
+  if (!reassignment || reassignment.status !== 'announced_provisional') return false;
+  if (!reassignment.finalize_target) return false;
+  return reassignment.finalize_target < today;
 }
 
 /** "September 18, 2026" from "2026-09-18". Dates here are plain ISO dates. */

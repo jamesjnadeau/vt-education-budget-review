@@ -54,7 +54,9 @@ Notice how much of this happens before you get a vote. The report is written a y
 
 The law also suggested 20 groupings of districts as starting points. The target is neighboring districts that add up to at least 2,000 students. Grade schools stay local. Middle and high schools get shared.
 
-The guides can change those groupings, and in September 2026 they did. Thirteen districts asked to be moved. The guides said yes, and redrew the map into 18 groups instead of 20. They have not published which districts are in which new group. So the 20 groups in the law are still the best list anyone can point to, and we know it is wrong in at least one place.
+The guides can change those groupings, and in September 2026 they did. Thirteen districts asked to be moved. The guides said yes to all of them. They also moved some other districts on their own, to keep each group near 2,000 students. The map now has 18 groups instead of 20. The guides have not published which districts are in which new group. So the 20 groups in the law are still the best list anyone can point to, and we know it is wrong in at least two places.
+
+How much say each district gets inside its group is not settled yet either. The law says bigger districts should get a bigger voice, but not how. One idea is more seats for bigger districts. Another is one seat each, with bigger districts' votes counting for more. If your district is small, ask which one your group picked.
 
 Find your grouping early. It tells you who you are about to be in a long conversation with. Then ask your school board which group they were actually assigned to, because the two may not match.
 
@@ -69,6 +71,8 @@ Act 170's real power is not legal. It is financial.
 Think about what that gap means. On a $30 million school project, 75 percent is $22.5 million from the state. Thirty percent is $9 million. The difference is $13.5 million, and it lands on local taxpayers.
 
 If your town has an old, tired school building, that number is probably the single biggest thing on your 2028 ballot, whatever else gets argued about.
+
+One big catch. The law promises this help, but lawmakers have not yet set aside any money to pay for it. As of September 2026, no one has picked where the money will come from. The state advisory board working on school building aid has also said it does not have the experts or the resources to do all the work it was given. And the rules for which projects get paid first are not due until March 1, 2028. That is less than a week before towns vote. So when someone quotes you the 75 percent, ask where the money is coming from.
 
 **Old debt.** A merged district can get 75 percent of its existing debt payments covered.
 
@@ -176,4 +180,6 @@ Act 170 as enacted:
 The Agency of Education's page tracking the process:
 <https://education.vermont.gov/schools/school-governance/education-transformation>
 
-Dates and dollar figures come from the act itself. Check the current session before relying on any of them, because the 2027 Legislature can change these terms before committees report back, and probably will.
+What has happened since the law passed comes from other places. The regrouping, the committee voting question and the missing building money come from public updates by the law firm Downs Rachlin Martin, [September 14](https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-14-2026/) and [September 21, 2026](https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-21-2026/), and from [VTDigger, September 18, 2026](https://vtdigger.org/2026/09/18/school-districts-assigned-to-new-merger-discussion-groups/). What the building aid board said is in the [State Board of Education's draft minutes for September 16, 2026](https://education.vermont.gov/sites/aoe/files/documents/edu-sbe-draft-minutes-09-16-2026.pdf).
+
+Other dates and dollar figures come from the act itself. Check the current session before relying on any of them, because the 2027 Legislature can change these terms before committees report back, and probably will.

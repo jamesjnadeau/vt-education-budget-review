@@ -34,6 +34,19 @@ retrieval date and method, the SHA-256 and who fetched it — the pattern to cop
 [`intake/aoe-adm/fy2024/provenance.yaml`](../aoe-adm/fy2024/provenance.yaml) — then transcribe
 the committees into `registry/groupings.yaml` and set `reassignment.roster_published: true`.
 
+## Leads, as of 2026-09-27
+
+- **The list exists and went to reporters.** VTDigger's 2026-09-18 story says four districts
+  "appear to be in Franklin County, based on the list of new committees" — so the reporter had
+  the list. It just was not printed. Asking VTDigger (Charlotte Oliver) is a second route.
+- **The Caledonian Record may have printed it.** Its story "Vermont Learning Collaborative
+  Announces Preliminary Merger Study Groupings" is behind a paywall (HTTP 402 to an automated
+  fetch). A person with a subscription should read it:
+  <https://www.caledonianrecord.com/news/local/vermont-learning-collaborative-announces-preliminary-merger-study-groupings/article_ce4d86d3-12ae-56c9-96cd-78b77b7d8b73.html>
+- **It was meant to be final by 2026-09-25.** No report yet says it was. Committees must meet by
+  2026-10-15, so first-meeting agendas posted by supervisory unions will start naming who is in
+  each room. Those are primary sources for single committees even before the full list lands.
+
 ## What we have instead, and what it is worth
 
 One news report:
@@ -46,6 +59,20 @@ at all — and those are recorded from it. It is not a roster. It names **one** 
 moves: Harwood Union UUSD out of the Barre/Montpelier group, in with Mount Mansfield UUSD.
 Younce declined to say which thirteen districts asked to move.
 
+Two law firm newsletters from Downs Rachlin Martin add a little:
+
+> "Vermont School Consolidation: Progress Update 09.14.2026" and "… 09.21.2026".
+> <https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-14-2026/>
+> <https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-21-2026/>
+
+The first, written before the announcement, names what three districts asked for: Harwood (to
+study with Champlain Valley and Mount Mansfield — exactly act group 13), Windham (to join "the
+group containing Londonderry") and Readsboro (a group that keeps high-school choice, no
+destination named). The second says all thirteen requests were granted **and that the
+facilitators made further moves of their own** to keep groups near 2,000 students. That is how
+Windham got into `known_changes`, and why `additional_adjustments` is true: thirteen is a floor
+on the number of moves, not the number.
+
 ## Why the missing twelve matter more than they look
 
 A grouping page answers "which districts am I about to spend a year studying a merger with?" We
@@ -55,5 +82,5 @@ before the announcement, and it is worse than it looks: a page that quietly kept
 act's group would be confidently wrong for twelve districts we cannot name.
 
 So `reassignment.roster_published` stays **false**, every grouping page carries the warning, and
-`known_changes` holds exactly the one move that has a source. Landing the VLC's list is what
+`known_changes` holds exactly the moves that have a source — two, as of 2026-09-27. Landing the VLC's list is what
 lifts that — not deleting the warning.
