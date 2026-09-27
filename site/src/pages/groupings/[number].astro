@@ -4,7 +4,7 @@ import groupingsDoc from '../../generated/groupings.json';
 import groupingBudgets from '../../generated/grouping-budgets.json';
 import { createContext, runScenario, defaultAssumptions, formatValue } from '@vt-budget/model';
 import type { DistrictBudget } from '@vt-budget/model';
-import { changesTouching, longDate, unseenChangeCount, type Reassignment } from '../../lib/groupings.ts';
+import { changesTouching, longDate, settleDatePassedUnconfirmed, unseenChangeCount, unseenIsFloor, type Reassignment } from '../../lib/groupings.ts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -91,7 +91,9 @@ const touching = changesTouching(moved, grouping.number);
 const unseen = unseenChangeCount(moved);
 const movedOut = touching.filter((c) => c.from_grouping === grouping.number);
 const movedIn = touching.filter((c) => c.to_grouping === grouping.number);
-const movedSource = moved?.sources?.[0] ?? null;
+const unseenFloor = unseenIsFloor(moved);
+const movedSources = moved?.sources ?? [];
+const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOString().slice(0, 10));
 
 const gaps = budgets.members.filter((m) => !m.budget || m.budget.education_spending === null);
 const mixedYears = budgets.fiscal_years_present.length > 1;
@@ -122,7 +124,8 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
         On {longDate(moved.as_of)} the {moved.by}, which runs the merger talks for the state, put
         Vermont's districts into {moved.committee_count ?? 'fewer'} groups instead of the law's
         {' '}{doc.groupings.length}. {moved.requests_granted ?? 'Several'} districts had asked to move.
-        The law lets them do this. They have not published the new lists.
+        {unseenFloor && <span> The guides moved some others too, to keep groups near 2,000 students.</span>}
+        {' '}The law lets them do this. They have not published the new lists.
       </p>
       {movedOut.map((c) => (
         <p>
@@ -154,9 +157,16 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
           We have no report of a district moving in or out of this group. That is not the same as
           nothing happening.
           {unseen !== null && unseen > 0 && (
-            <span> {unseen} of the moves have not been made public, and any of them could be here.</span>
+            <span> {unseenFloor ? 'At least ' : ''}{unseen} of the moves have not been made public,
+            and any of them could be here.</span>
           )}
           {' '}Treat this page as the law's group, not as a roster of who will be in the room.
+        </p>
+      )}
+      {(movedOut.length > 0 || movedIn.length > 0) && unseen !== null && unseen > 0 && (
+        <p>
+          That may not be the only change. {unseenFloor ? 'At least ' : ''}{unseen} other moves have
+          not been made public, and some of them could be here too.
         </p>
       )}
       {moved.status === 'announced_provisional' && (
@@ -164,13 +174,20 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
           The new groups were a starting point, not a decision: comments were open until
           {' '}{longDate(moved.comment_deadline)} and the guides aimed to settle them on
           {' '}{longDate(moved.finalize_target)}.
+          {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
         </p>
       )}
-      {movedSource && (
+      {movedSources.length > 0 && (
         <p style="font-size:.9rem">
-          Where this comes from: <a href={movedSource.url}>{movedSource.publisher}, "{movedSource.title}"</a>,
-          {' '}{longDate(movedSource.published_date)} — a news report about the announcement, not the
-          announcement itself. <a href={`${base}/groupings/`}>More on what changed</a>.
+          Where this comes from:{' '}
+          {movedSources.map((src, i) => (
+            <>
+              {i > 0 && '; '}
+              <a href={src.url}>{src.publisher}, "{src.title}"</a>, {longDate(src.published_date)}
+            </>
+          ))}
+          {' '}— reports about the announcement, not the announcement itself.
+          {' '}<a href={`${base}/groupings/`}>More on what changed</a>.
         </p>
       )}
     </div>

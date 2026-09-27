@@ -299,6 +299,14 @@ main {
   padding-bottom: 36px;
   border-bottom: 1px solid var(--footer-border);
 }
+/* The columns' minimums add up to ~480px, wider than a phone, and the fixed
+   first column means auto-fit can never drop below two. Stack them instead. */
+@media (max-width: 640px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
 .footer-brand-title {
   margin: 0 0 10px;
   font-family: var(--serif);
@@ -411,7 +419,9 @@ main {
 .notice > :last-child {
   margin-bottom: 0;
 }
-.notice strong {
+/* Only the box's title. A <strong> inside a paragraph is emphasis and has to
+   stay in the sentence, or "It is not in the tables" reads as three lines. */
+.notice > strong {
   display: block;
   margin-bottom: 0.25rem;
   color: var(--text);

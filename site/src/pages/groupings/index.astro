@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import groupings from '../../generated/groupings.json';
-import { longDate, unseenChangeCount, type Reassignment } from '../../lib/groupings.ts';
+import { longDate, settleDatePassedUnconfirmed, unseenChangeCount, unseenIsFloor, type Reassignment } from '../../lib/groupings.ts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -21,11 +21,15 @@ const doc = groupings as {
 };
 
 // The groups below are the law's. The state's guides have since redrawn them,
-// and we hold only one of the moves -- so this page has to lead with that, not
-// bury it. See site/src/lib/groupings.ts.
+// and we hold only a couple of the moves -- so this page has to lead with that,
+// not bury it. See site/src/lib/groupings.ts.
 const moved = doc.reassignment ?? null;
 const unseen = unseenChangeCount(moved);
-const source = moved?.sources?.[0] ?? null;
+const unseenFloor = unseenIsFloor(moved);
+const sources = moved?.sources ?? [];
+const knownCount = moved?.known_changes.length ?? 0;
+const knownWord = knownCount === 1 ? 'one' : knownCount === 2 ? 'two' : String(knownCount);
+const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOString().slice(0, 10));
 ---
 
 <Base title="Act 170 groupings — Vermont School Budgets">
@@ -47,17 +51,21 @@ const source = moved?.sources?.[0] ?? null;
         <strong> {moved.committee_count ?? 'fewer'} groups</strong>, not the {doc.groupings.length} the
         law printed. {moved.requests_granted ?? 'Some'} districts had asked to move, and got their
         way. The law always allowed this.
+        {unseenFloor && (
+          <span> The guides also moved some other districts that did not ask, to keep each group
+          near 2,000 students. They have not said how many.</span>
+        )}
       </p>
       <p>
         <strong>They have not published which districts are in which new group.</strong> We know
-        about {moved.known_changes.length} of the {moved.requests_granted ?? 'granted'} moves, from
-        news reports. {unseen !== null && unseen > 0 && (
-          <span>That leaves {unseen} moves we cannot see.</span>
+        about {knownCount} of the {moved.requests_granted ?? 'granted'} moves that districts asked
+        for, from news reports. {unseen !== null && unseen > 0 && (
+          <span>That leaves {unseenFloor ? 'at least ' : ''}{unseen} moves we cannot see.</span>
         )}
       </p>
       <p>
         So the groups below are still the law's groups, exactly as it wrote them. For many
-        districts that is still the right answer. For at least one it is not, and we cannot tell
+        districts that is still the right answer. For at least {knownWord} it is not, and we cannot tell
         you which of the rest changed. If a group's page says nothing about a change, that means
         we have no report about it — not that nothing happened.
       </p>
@@ -85,18 +93,28 @@ const source = moved?.sources?.[0] ?? null;
           The guides called the new groups a starting point, not a decision. School board leaders
           could send comments until {longDate(moved.comment_deadline)}, and the plan was to settle
           the groups on {longDate(moved.finalize_target)}.
+          {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
           {moved.first_meeting_deadline && (
             <span> Each group has to hold its first meeting by {longDate(moved.first_meeting_deadline)}.</span>
           )}
         </p>
       )}
-      {source && (
-        <p style="font-size:.9rem">
-          Where this comes from: <a href={source.url}>{source.publisher}, "{source.title}"</a>,
-          {' '}{longDate(source.published_date)}. That is a news report about the guides'
-          announcement, not the announcement itself. Nobody here has checked it against the guides'
-          own list, because we have not been able to get one.
-        </p>
+      {sources.length > 0 && (
+        <div style="font-size:.9rem">
+          <p>Where this comes from:</p>
+          <ul>
+            {sources.map((s) => (
+              <li>
+                <a href={s.url}>{s.publisher}, "{s.title}"</a>, {longDate(s.published_date)}
+              </li>
+            ))}
+          </ul>
+          <p>
+            These are reports about the guides' announcement, not the announcement itself. Nobody
+            here has checked them against the guides' own list, because we have not been able to
+            get one.
+          </p>
+        </div>
       )}
     </div>
   )}

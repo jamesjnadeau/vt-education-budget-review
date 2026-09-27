@@ -54,6 +54,11 @@
         "comment_deadline": { "type": ["string", "null"], "format": "date", "default": null },
         "finalize_target": { "type": ["string", "null"], "format": "date", "default": null },
         "first_meeting_deadline": { "type": ["string", "null"], "format": "date", "default": null },
+        "additional_adjustments": {
+          "type": ["boolean", "null"],
+          "description": "True when a source says the facilitators moved districts beyond the requests they granted -- moves nobody asked for, made to balance the groups. Their number is not known, so while this is true `requests_granted` is a floor on the total number of moves, not a count. Null when no source says either way.",
+          "default": null
+        },
         "roster_published": {
           "type": "boolean",
           "description": "True only once the full committee-by-committee membership has been obtained and transcribed here. While it is false, the new committees are known to exist and their membership is NOT known -- which the site has to say plainly, rather than showing the act's groupings as though they still held."
