@@ -1,0 +1,2072 @@
+[
+  {
+    "ServerId": 1093,
+    "Name": "BARRE CITY",
+    "OrgId": "T011",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U097",
+    "OperatedBy": "SU061"
+  },
+  {
+    "ServerId": 1094,
+    "Name": "BRANDON",
+    "OrgId": "T026",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U053",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1095,
+    "Name": "BRATTLEBORO",
+    "OrgId": "T027",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U096",
+    "OperatedBy": "SU048"
+  },
+  {
+    "ServerId": 1096,
+    "Name": "BROOKFIELD",
+    "OrgId": "T032",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U059",
+    "OperatedBy": "SU028"
+  },
+  {
+    "ServerId": 1097,
+    "Name": "BROWNINGTON",
+    "OrgId": "T034",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U093",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1098,
+    "Name": "CALAIS",
+    "OrgId": "T039",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U092",
+    "OperatedBy": "SU032"
+  },
+  {
+    "ServerId": 1099,
+    "Name": "EAST MONTPELIER",
+    "OrgId": "T065",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U092",
+    "OperatedBy": "SU032"
+  },
+  {
+    "ServerId": 1100,
+    "Name": "IRASBURG",
+    "OrgId": "T102",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U093",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1101,
+    "Name": "JAMAICA",
+    "OrgId": "T104",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U072B",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1102,
+    "Name": "JOHNSON",
+    "OrgId": "T107",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U058B",
+    "OperatedBy": "SU025"
+  },
+  {
+    "ServerId": 1103,
+    "Name": "MIDDLESEX",
+    "OrgId": "T124",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U092",
+    "OperatedBy": "SU032"
+  },
+  {
+    "ServerId": 1104,
+    "Name": "ORWELL",
+    "OrgId": "T148",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U062",
+    "OperatedBy": "SU004"
+  },
+  {
+    "ServerId": 1105,
+    "Name": "PITTSFORD",
+    "OrgId": "T154",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U053",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1106,
+    "Name": "STANNARD",
+    "OrgId": "T195",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "SU035",
+    "OperatedBy": "SU035"
+  },
+  {
+    "ServerId": 1107,
+    "Name": "TROY",
+    "OrgId": "T209",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1108,
+    "Name": "WAITSFIELD",
+    "OrgId": "T217",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U060",
+    "OperatedBy": "SU042"
+  },
+  {
+    "ServerId": 1110,
+    "Name": "MT HOLLY",
+    "OrgId": "T133",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U083",
+    "OperatedBy": "SU063"
+  },
+  {
+    "ServerId": 1111,
+    "Name": "RANDOLPH",
+    "OrgId": "T162",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U059",
+    "OperatedBy": "SU028"
+  },
+  {
+    "ServerId": 1125,
+    "Name": "CHELSEA",
+    "OrgId": "T046",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U082",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1126,
+    "Name": "DOVER",
+    "OrgId": "T060",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U073",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1127,
+    "Name": "FAIRFAX",
+    "OrgId": "T071",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU022"
+  },
+  {
+    "ServerId": 1128,
+    "Name": "FAIRLEE",
+    "OrgId": "T074",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U146",
+    "OperatedBy": "SU064"
+  },
+  {
+    "ServerId": 1129,
+    "Name": "HARTLAND",
+    "OrgId": "T094",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU052"
+  },
+  {
+    "ServerId": 1130,
+    "Name": "IRA",
+    "OrgId": "T101",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1131,
+    "Name": "MARSHFIELD",
+    "OrgId": "T121",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U033",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1132,
+    "Name": "PITTSFIELD",
+    "OrgId": "T153",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1133,
+    "Name": "POULTNEY",
+    "OrgId": "T158",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U070",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1134,
+    "Name": "ROXBURY",
+    "OrgId": "T170",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U071",
+    "OperatedBy": "SU069"
+  },
+  {
+    "ServerId": 1135,
+    "Name": "RUTLAND CITY",
+    "OrgId": "T173",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU040"
+  },
+  {
+    "ServerId": 1136,
+    "Name": "ST JOHNSBURY",
+    "OrgId": "T179",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU011"
+  },
+  {
+    "ServerId": 1137,
+    "Name": "STAMFORD",
+    "OrgId": "T194",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1138,
+    "Name": "WEST RUTLAND",
+    "OrgId": "T237",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U070",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1139,
+    "Name": "WOLCOTT",
+    "OrgId": "T250",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU035"
+  },
+  {
+    "ServerId": 1147,
+    "Name": "BRIGHTON",
+    "OrgId": "T030",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1148,
+    "Name": "CASTLETON",
+    "OrgId": "T042",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U062",
+    "OperatedBy": "SU004"
+  },
+  {
+    "ServerId": 1149,
+    "Name": "DERBY",
+    "OrgId": "T058",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1150,
+    "Name": "FERRISBURGH",
+    "OrgId": "T076",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U054",
+    "OperatedBy": "SU002"
+  },
+  {
+    "ServerId": 1151,
+    "Name": "LANDGROVE",
+    "OrgId": "T109",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1152,
+    "Name": "LEICESTER",
+    "OrgId": "T110",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U053",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1153,
+    "Name": "MT TABOR",
+    "OrgId": "T134",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1154,
+    "Name": "NEWPORT CITY",
+    "OrgId": "T139",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1155,
+    "Name": "NEWPORT TOWN",
+    "OrgId": "T140",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1156,
+    "Name": "RUPERT",
+    "OrgId": "T172",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U084",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1157,
+    "Name": "WALLINGFORD",
+    "OrgId": "T219",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U052",
+    "OperatedBy": "SU033"
+  },
+  {
+    "ServerId": 1158,
+    "Name": "WARREN",
+    "OrgId": "T222",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U060",
+    "OperatedBy": "SU042"
+  },
+  {
+    "ServerId": 1159,
+    "Name": "WESTMINSTER",
+    "OrgId": "T234",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU047"
+  },
+  {
+    "ServerId": 1166,
+    "Name": "ARLINGTON",
+    "OrgId": "T005",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1167,
+    "Name": "BURKE",
+    "OrgId": "T036",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1168,
+    "Name": "DORSET",
+    "OrgId": "T059",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1169,
+    "Name": "ELMORE",
+    "OrgId": "T067",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U090",
+    "OperatedBy": "SU026"
+  },
+  {
+    "ServerId": 1170,
+    "Name": "ENOSBURGH",
+    "OrgId": "T068",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U088",
+    "OperatedBy": "SU020"
+  },
+  {
+    "ServerId": 1171,
+    "Name": "GEORGIA",
+    "OrgId": "T079",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU022"
+  },
+  {
+    "ServerId": 1172,
+    "Name": "LEMINGTON",
+    "OrgId": "T111",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1173,
+    "Name": "MONTPELIER",
+    "OrgId": "T129",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U071",
+    "OperatedBy": "SU069"
+  },
+  {
+    "ServerId": 1174,
+    "Name": "MORRISTOWN",
+    "OrgId": "T132",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U090",
+    "OperatedBy": "SU026"
+  },
+  {
+    "ServerId": 1175,
+    "Name": "RUTLAND TOWN",
+    "OrgId": "T174",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1176,
+    "Name": "SHARON",
+    "OrgId": "T184",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1177,
+    "Name": "SOUTH HERO",
+    "OrgId": "T192",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU024"
+  },
+  {
+    "ServerId": 1178,
+    "Name": "SPRINGFIELD",
+    "OrgId": "T193",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU056"
+  },
+  {
+    "ServerId": 1179,
+    "Name": "VICTORY",
+    "OrgId": "T216",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1180,
+    "Name": "WEST WINDSOR",
+    "OrgId": "T238",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U086",
+    "OperatedBy": "SU052"
+  },
+  {
+    "ServerId": 1181,
+    "Name": "WINHALL",
+    "OrgId": "T248",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1182,
+    "Name": "BUELS GORE",
+    "OrgId": "T255",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU012"
+  },
+  {
+    "ServerId": 1187,
+    "Name": "ORFORD NH",
+    "OrgId": "T999",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU064"
+  },
+  {
+    "ServerId": 1188,
+    "Name": "AVERYS GORE",
+    "OrgId": "T257",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1189,
+    "Name": "WARNERS GRANT",
+    "OrgId": "T262",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1190,
+    "Name": "WARRENS GRANT",
+    "OrgId": "T263",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1196,
+    "Name": "BARTON ID",
+    "OrgId": "T013",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U093",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1197,
+    "Name": "BENNINGTON ID",
+    "OrgId": "T015",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U087",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1198,
+    "Name": "BOLTON",
+    "OrgId": "T022",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U401",
+    "OperatedBy": "SU012"
+  },
+  {
+    "ServerId": 1199,
+    "Name": "BROOKLINE",
+    "OrgId": "T033",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U072B",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1200,
+    "Name": "CHESTER",
+    "OrgId": "T047",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U077",
+    "OperatedBy": "SU063"
+  },
+  {
+    "ServerId": 1201,
+    "Name": "CORNWALL",
+    "OrgId": "T053",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1202,
+    "Name": "GLOVER",
+    "OrgId": "T080",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U093",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1203,
+    "Name": "JERICHO",
+    "OrgId": "T106",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U401",
+    "OperatedBy": "SU012"
+  },
+  {
+    "ServerId": 1204,
+    "Name": "LONDONDERRY",
+    "OrgId": "T113",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1205,
+    "Name": "NEWFANE",
+    "OrgId": "T137",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U072B",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1206,
+    "Name": "NORTH BENNINGTON",
+    "OrgId": "T141",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U014",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1207,
+    "Name": "PERU",
+    "OrgId": "T152",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1208,
+    "Name": "POWNAL",
+    "OrgId": "T159",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U087",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1209,
+    "Name": "SALISBURY",
+    "OrgId": "T180",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1210,
+    "Name": "TOWNSHEND",
+    "OrgId": "T208",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U072B",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1211,
+    "Name": "VERNON",
+    "OrgId": "T214",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU048"
+  },
+  {
+    "ServerId": 1212,
+    "Name": "WESTON",
+    "OrgId": "T236",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1213,
+    "Name": "WEYBRIDGE",
+    "OrgId": "T239",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1214,
+    "Name": "NORWICH",
+    "OrgId": "T145",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U145",
+    "OperatedBy": "SU055"
+  },
+  {
+    "ServerId": 1215,
+    "Name": "ATHENS",
+    "OrgId": "T006",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U095",
+    "OperatedBy": "SU047"
+  },
+  {
+    "ServerId": 1230,
+    "Name": "BAKERSFIELD",
+    "OrgId": "T007",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U085",
+    "OperatedBy": "SU020"
+  },
+  {
+    "ServerId": 1231,
+    "Name": "EAST HAVEN",
+    "OrgId": "T064",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1232,
+    "Name": "FAIRFIELD",
+    "OrgId": "T072",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU023"
+  },
+  {
+    "ServerId": 1233,
+    "Name": "GRANBY",
+    "OrgId": "T083",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1234,
+    "Name": "MANCHESTER",
+    "OrgId": "T119",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1235,
+    "Name": "MARLBORO",
+    "OrgId": "T120",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1236,
+    "Name": "NORTON",
+    "OrgId": "T144",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1237,
+    "Name": "PEACHAM",
+    "OrgId": "T151",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1238,
+    "Name": "PLAINFIELD",
+    "OrgId": "T155",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U033",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1239,
+    "Name": "RICHFORD",
+    "OrgId": "T165",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U088",
+    "OperatedBy": "SU020"
+  },
+  {
+    "ServerId": 1240,
+    "Name": "SHELDON",
+    "OrgId": "T187",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U085",
+    "OperatedBy": "SU020"
+  },
+  {
+    "ServerId": 1241,
+    "Name": "TINMOUTH",
+    "OrgId": "T206",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U052",
+    "OperatedBy": "SU033"
+  },
+  {
+    "ServerId": 1242,
+    "Name": "VERSHIRE",
+    "OrgId": "T215",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U146",
+    "OperatedBy": "SU064"
+  },
+  {
+    "ServerId": 1243,
+    "Name": "WEST FAIRLEE",
+    "OrgId": "T230",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U146",
+    "OperatedBy": "SU064"
+  },
+  {
+    "ServerId": 1245,
+    "Name": "FERDINAND",
+    "OrgId": "T258",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1248,
+    "Name": "AVERILL",
+    "OrgId": "T256",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1253,
+    "Name": "BARRE TOWN",
+    "OrgId": "T012",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U097",
+    "OperatedBy": "SU061"
+  },
+  {
+    "ServerId": 1254,
+    "Name": "BELVIDERE",
+    "OrgId": "T014",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U058B",
+    "OperatedBy": "SU025"
+  },
+  {
+    "ServerId": 1255,
+    "Name": "BRADFORD ID",
+    "OrgId": "T023",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U091",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1256,
+    "Name": "BRAINTREE",
+    "OrgId": "T024",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U059",
+    "OperatedBy": "SU028"
+  },
+  {
+    "ServerId": 1257,
+    "Name": "CHARLESTON",
+    "OrgId": "T044",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1258,
+    "Name": "CHITTENDEN",
+    "OrgId": "T048",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U049",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1259,
+    "Name": "EDEN",
+    "OrgId": "T066",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U058B",
+    "OperatedBy": "SU025"
+  },
+  {
+    "ServerId": 1260,
+    "Name": "GREENSBORO",
+    "OrgId": "T086",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U094",
+    "OperatedBy": "SU035"
+  },
+  {
+    "ServerId": 1261,
+    "Name": "HOLLAND",
+    "OrgId": "T097",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1262,
+    "Name": "HYDE PARK",
+    "OrgId": "T100",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U058B",
+    "OperatedBy": "SU025"
+  },
+  {
+    "ServerId": 1263,
+    "Name": "LUDLOW",
+    "OrgId": "T115",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U083",
+    "OperatedBy": "SU063"
+  },
+  {
+    "ServerId": 1264,
+    "Name": "POMFRET",
+    "OrgId": "T157",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1265,
+    "Name": "READING",
+    "OrgId": "T163",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1266,
+    "Name": "SHAFTSBURY",
+    "OrgId": "T183",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U087",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1267,
+    "Name": "KILLINGTON",
+    "OrgId": "T188",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1268,
+    "Name": "SUDBURY",
+    "OrgId": "T201",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U053",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1269,
+    "Name": "SWANTON",
+    "OrgId": "T204",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U089",
+    "OperatedBy": "SU021"
+  },
+  {
+    "ServerId": 1270,
+    "Name": "WATERVILLE",
+    "OrgId": "T226",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U058B",
+    "OperatedBy": "SU025"
+  },
+  {
+    "ServerId": 1271,
+    "Name": "WESTFIELD",
+    "OrgId": "T231",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1272,
+    "Name": "WESTFORD",
+    "OrgId": "T232",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U051",
+    "OperatedBy": "SU065"
+  },
+  {
+    "ServerId": 1273,
+    "Name": "WOODBURY",
+    "OrgId": "T251",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U094",
+    "OperatedBy": "SU035"
+  },
+  {
+    "ServerId": 1274,
+    "Name": "WOODFORD",
+    "OrgId": "T252",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U087",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1276,
+    "Name": "PAWLET",
+    "OrgId": "T150",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U084",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1285,
+    "Name": "CONCORD",
+    "OrgId": "T051",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1286,
+    "Name": "DANVILLE",
+    "OrgId": "T057",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1287,
+    "Name": "KIRBY",
+    "OrgId": "T108",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1288,
+    "Name": "ORANGE",
+    "OrgId": "T146",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U067",
+    "OperatedBy": "SU068"
+  },
+  {
+    "ServerId": 1289,
+    "Name": "SUNDERLAND",
+    "OrgId": "T202",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1290,
+    "Name": "WELLS RIVER",
+    "OrgId": "T229",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U021",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1299,
+    "Name": "BARNARD",
+    "OrgId": "T009",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1300,
+    "Name": "BERLIN",
+    "OrgId": "T019",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U092",
+    "OperatedBy": "SU032"
+  },
+  {
+    "ServerId": 1301,
+    "Name": "CHARLOTTE",
+    "OrgId": "T045",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U056",
+    "OperatedBy": "SU014"
+  },
+  {
+    "ServerId": 1302,
+    "Name": "CLARENDON",
+    "OrgId": "T049",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U052",
+    "OperatedBy": "SU033"
+  },
+  {
+    "ServerId": 1303,
+    "Name": "ESSEX TOWN",
+    "OrgId": "T070",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U051",
+    "OperatedBy": "SU065"
+  },
+  {
+    "ServerId": 1304,
+    "Name": "HUBBARDTON",
+    "OrgId": "T098",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U062",
+    "OperatedBy": "SU004"
+  },
+  {
+    "ServerId": 1305,
+    "Name": "LOWELL",
+    "OrgId": "T114",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1306,
+    "Name": "MORETOWN",
+    "OrgId": "T130",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U060",
+    "OperatedBy": "SU042"
+  },
+  {
+    "ServerId": 1307,
+    "Name": "PANTON",
+    "OrgId": "T149",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U054",
+    "OperatedBy": "SU002"
+  },
+  {
+    "ServerId": 1308,
+    "Name": "ROCKINGHAM",
+    "OrgId": "T169",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U027",
+    "OperatedBy": "SU047"
+  },
+  {
+    "ServerId": 1310,
+    "Name": "NEW HAVEN",
+    "OrgId": "T138",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U061",
+    "OperatedBy": "SU001"
+  },
+  {
+    "ServerId": 1326,
+    "Name": "GRANVILLE",
+    "OrgId": "T085",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U080",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1327,
+    "Name": "HARTFORD",
+    "OrgId": "T093",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU054"
+  },
+  {
+    "ServerId": 1328,
+    "Name": "PROCTOR",
+    "OrgId": "T160",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U070",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1329,
+    "Name": "ROYALTON",
+    "OrgId": "T171",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U079",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1330,
+    "Name": "ST ALBANS TOWN",
+    "OrgId": "T177",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U057",
+    "OperatedBy": "SU023"
+  },
+  {
+    "ServerId": 1331,
+    "Name": "STRAFFORD",
+    "OrgId": "T199",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1332,
+    "Name": "STRATTON",
+    "OrgId": "T200",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1333,
+    "Name": "WARDSBORO",
+    "OrgId": "T221",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U073",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1334,
+    "Name": "WEATHERSFIELD",
+    "OrgId": "T227",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU052"
+  },
+  {
+    "ServerId": 1335,
+    "Name": "WINOOSKI",
+    "OrgId": "T249",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU017"
+  },
+  {
+    "ServerId": 1338,
+    "Name": "SOMERSET",
+    "OrgId": "T261",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1344,
+    "Name": "ANDOVER",
+    "OrgId": "T004",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U077",
+    "OperatedBy": "SU063"
+  },
+  {
+    "ServerId": 1345,
+    "Name": "CAMBRIDGE",
+    "OrgId": "T040",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U058B",
+    "OperatedBy": "SU025"
+  },
+  {
+    "ServerId": 1346,
+    "Name": "FAIR HAVEN",
+    "OrgId": "T073",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U062",
+    "OperatedBy": "SU004"
+  },
+  {
+    "ServerId": 1347,
+    "Name": "GRAFTON",
+    "OrgId": "T082",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U095",
+    "OperatedBy": "SU047"
+  },
+  {
+    "ServerId": 1348,
+    "Name": "HIGHGATE",
+    "OrgId": "T095",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U089",
+    "OperatedBy": "SU021"
+  },
+  {
+    "ServerId": 1349,
+    "Name": "JAY",
+    "OrgId": "T105",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1350,
+    "Name": "NEWBURY",
+    "OrgId": "T136",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U091",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1351,
+    "Name": "RIPTON",
+    "OrgId": "T167",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1352,
+    "Name": "SHELBURNE",
+    "OrgId": "T186",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U056",
+    "OperatedBy": "SU014"
+  },
+  {
+    "ServerId": 1353,
+    "Name": "SHOREHAM",
+    "OrgId": "T189",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1354,
+    "Name": "SHREWSBURY",
+    "OrgId": "T190",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U052",
+    "OperatedBy": "SU033"
+  },
+  {
+    "ServerId": 1355,
+    "Name": "UNDERHILL TOWN",
+    "OrgId": "T212",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U401",
+    "OperatedBy": "SU012"
+  },
+  {
+    "ServerId": 1356,
+    "Name": "VERGENNES",
+    "OrgId": "T213",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U054",
+    "OperatedBy": "SU002"
+  },
+  {
+    "ServerId": 1357,
+    "Name": "WATERBURY",
+    "OrgId": "T224",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U060",
+    "OperatedBy": "SU042"
+  },
+  {
+    "ServerId": 1358,
+    "Name": "WOODSTOCK",
+    "OrgId": "T253",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1370,
+    "Name": "BARNET",
+    "OrgId": "T010",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U078",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1371,
+    "Name": "BLOOMFIELD",
+    "OrgId": "T021",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1372,
+    "Name": "CANAAN",
+    "OrgId": "T041",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1373,
+    "Name": "CORINTH",
+    "OrgId": "T052",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U036",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1374,
+    "Name": "CRAFTSBURY",
+    "OrgId": "T055",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU035"
+  },
+  {
+    "ServerId": 1375,
+    "Name": "GROTON",
+    "OrgId": "T087",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U021",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1376,
+    "Name": "STOCKBRIDGE",
+    "OrgId": "T197",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U081",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1377,
+    "Name": "STOWE",
+    "OrgId": "T198",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU026"
+  },
+  {
+    "ServerId": 1378,
+    "Name": "WHITINGHAM",
+    "OrgId": "T242",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U075",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1379,
+    "Name": "WINDSOR",
+    "OrgId": "T247",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U086",
+    "OperatedBy": "SU052"
+  },
+  {
+    "ServerId": 1384,
+    "Name": "ALBANY",
+    "OrgId": "T002",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U093",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1385,
+    "Name": "BRIDPORT",
+    "OrgId": "T029",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1386,
+    "Name": "CAVENDISH",
+    "OrgId": "T043",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U077",
+    "OperatedBy": "SU063"
+  },
+  {
+    "ServerId": 1387,
+    "Name": "DANBY",
+    "OrgId": "T056",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U063",
+    "OperatedBy": "SU006"
+  },
+  {
+    "ServerId": 1388,
+    "Name": "HARDWICK",
+    "OrgId": "T092",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U094",
+    "OperatedBy": "SU035"
+  },
+  {
+    "ServerId": 1389,
+    "Name": "LINCOLN",
+    "OrgId": "T112",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU070"
+  },
+  {
+    "ServerId": 1390,
+    "Name": "MONKTON",
+    "OrgId": "T127",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U061",
+    "OperatedBy": "SU001"
+  },
+  {
+    "ServerId": 1391,
+    "Name": "ORLEANS ID",
+    "OrgId": "T147",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U093",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1392,
+    "Name": "RICHMOND",
+    "OrgId": "T166",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U401",
+    "OperatedBy": "SU012"
+  },
+  {
+    "ServerId": 1393,
+    "Name": "WEST HAVEN",
+    "OrgId": "T233",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U062",
+    "OperatedBy": "SU004"
+  },
+  {
+    "ServerId": 1394,
+    "Name": "WESTMORE",
+    "OrgId": "T235",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U024",
+    "OperatedBy": "SU034"
+  },
+  {
+    "ServerId": 1395,
+    "Name": "WHITING",
+    "OrgId": "T241",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U053",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1396,
+    "Name": "WINDHAM",
+    "OrgId": "T246",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U072B",
+    "OperatedBy": "SU046"
+  },
+  {
+    "ServerId": 1397,
+    "Name": "WORCESTER",
+    "OrgId": "T254",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U092",
+    "OperatedBy": "SU032"
+  },
+  {
+    "ServerId": 1410,
+    "Name": "BALTIMORE",
+    "OrgId": "T008",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U077",
+    "OperatedBy": "SU063"
+  },
+  {
+    "ServerId": 1411,
+    "Name": "BERKSHIRE",
+    "OrgId": "T018",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U085",
+    "OperatedBy": "SU020"
+  },
+  {
+    "ServerId": 1412,
+    "Name": "BRUNSWICK",
+    "OrgId": "T035",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1413,
+    "Name": "CABOT",
+    "OrgId": "T038",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1414,
+    "Name": "COLCHESTER",
+    "OrgId": "T050",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU007"
+  },
+  {
+    "ServerId": 1415,
+    "Name": "GRAND ISLE",
+    "OrgId": "T084",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U066",
+    "OperatedBy": "SU024"
+  },
+  {
+    "ServerId": 1416,
+    "Name": "GUILDHALL",
+    "OrgId": "T088",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1417,
+    "Name": "HANCOCK",
+    "OrgId": "T091",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U080",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1418,
+    "Name": "ISLE LAMOTTE",
+    "OrgId": "T103",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U066",
+    "OperatedBy": "SU024"
+  },
+  {
+    "ServerId": 1419,
+    "Name": "LYNDON",
+    "OrgId": "T117",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1420,
+    "Name": "MAIDSTONE",
+    "OrgId": "T118",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U065",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1421,
+    "Name": "MILTON",
+    "OrgId": "T126",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU010"
+  },
+  {
+    "ServerId": 1422,
+    "Name": "NORTH HERO",
+    "OrgId": "T143",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U066",
+    "OperatedBy": "SU024"
+  },
+  {
+    "ServerId": 1423,
+    "Name": "PLYMOUTH",
+    "OrgId": "T156",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1424,
+    "Name": "ROCHESTER",
+    "OrgId": "T168",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U081",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1425,
+    "Name": "RYEGATE",
+    "OrgId": "T175",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U021",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1426,
+    "Name": "SANDGATE",
+    "OrgId": "T181",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1427,
+    "Name": "TUNBRIDGE",
+    "OrgId": "T210",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U082",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1428,
+    "Name": "WALDEN",
+    "OrgId": "T218",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U078",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1429,
+    "Name": "WASHINGTON",
+    "OrgId": "T223",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U067",
+    "OperatedBy": "SU068"
+  },
+  {
+    "ServerId": 1430,
+    "Name": "WATERFORD",
+    "OrgId": "T225",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U078",
+    "OperatedBy": "SU009"
+  },
+  {
+    "ServerId": 1431,
+    "Name": "WELLS",
+    "OrgId": "T228",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U069",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1432,
+    "Name": "WILMINGTON",
+    "OrgId": "T245",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U075",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1442,
+    "Name": "ADDISON",
+    "OrgId": "T001",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U054",
+    "OperatedBy": "SU002"
+  },
+  {
+    "ServerId": 1443,
+    "Name": "BENSON",
+    "OrgId": "T017",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U062",
+    "OperatedBy": "SU004"
+  },
+  {
+    "ServerId": 1444,
+    "Name": "BRISTOL",
+    "OrgId": "T031",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U061",
+    "OperatedBy": "SU001"
+  },
+  {
+    "ServerId": 1445,
+    "Name": "DUMMERSTON",
+    "OrgId": "T061",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U096",
+    "OperatedBy": "SU048"
+  },
+  {
+    "ServerId": 1446,
+    "Name": "DUXBURY",
+    "OrgId": "T063",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U060",
+    "OperatedBy": "SU042"
+  },
+  {
+    "ServerId": 1447,
+    "Name": "FAYSTON",
+    "OrgId": "T075",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U060",
+    "OperatedBy": "SU042"
+  },
+  {
+    "ServerId": 1448,
+    "Name": "FRANKLIN",
+    "OrgId": "T078",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U089",
+    "OperatedBy": "SU021"
+  },
+  {
+    "ServerId": 1449,
+    "Name": "GOSHEN",
+    "OrgId": "T081",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U053",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1450,
+    "Name": "GUILFORD",
+    "OrgId": "T089",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U096",
+    "OperatedBy": "SU048"
+  },
+  {
+    "ServerId": 1451,
+    "Name": "HINESBURG",
+    "OrgId": "T096",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U056",
+    "OperatedBy": "SU014"
+  },
+  {
+    "ServerId": 1452,
+    "Name": "HUNTINGTON",
+    "OrgId": "T099",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U401",
+    "OperatedBy": "SU012"
+  },
+  {
+    "ServerId": 1453,
+    "Name": "MENDON",
+    "OrgId": "T122",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U049",
+    "OperatedBy": "SU036"
+  },
+  {
+    "ServerId": 1454,
+    "Name": "MORGAN",
+    "OrgId": "T131",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U022B",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1455,
+    "Name": "PUTNEY",
+    "OrgId": "T161",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U096",
+    "OperatedBy": "SU048"
+  },
+  {
+    "ServerId": 1456,
+    "Name": "STARKSBORO",
+    "OrgId": "T196",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U061",
+    "OperatedBy": "SU001"
+  },
+  {
+    "ServerId": 1457,
+    "Name": "WALTHAM",
+    "OrgId": "T220",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U054",
+    "OperatedBy": "SU002"
+  },
+  {
+    "ServerId": 1458,
+    "Name": "WILLISTON",
+    "OrgId": "T244",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U056",
+    "OperatedBy": "SU014"
+  },
+  {
+    "ServerId": 1459,
+    "Name": "MIDDLEBURY",
+    "OrgId": "T123",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U055",
+    "OperatedBy": "SU003"
+  },
+  {
+    "ServerId": 1460,
+    "Name": "BRIDGEWATER",
+    "OrgId": "T028",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U076",
+    "OperatedBy": "SU051"
+  },
+  {
+    "ServerId": 1468,
+    "Name": "ALBURGH",
+    "OrgId": "T003",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU024"
+  },
+  {
+    "ServerId": 1469,
+    "Name": "BETHEL",
+    "OrgId": "T020",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U079",
+    "OperatedBy": "SU030"
+  },
+  {
+    "ServerId": 1470,
+    "Name": "BURLINGTON",
+    "OrgId": "T037",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU015"
+  },
+  {
+    "ServerId": 1471,
+    "Name": "COVENTRY",
+    "OrgId": "T054",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU031"
+  },
+  {
+    "ServerId": 1472,
+    "Name": "FLETCHER",
+    "OrgId": "T077",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU022"
+  },
+  {
+    "ServerId": 1473,
+    "Name": "HALIFAX",
+    "OrgId": "T090",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U074",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1474,
+    "Name": "LUNENBURG",
+    "OrgId": "T116",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1475,
+    "Name": "MIDDLETOWN SPRINGS",
+    "OrgId": "T125",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U069",
+    "OperatedBy": "SU066"
+  },
+  {
+    "ServerId": 1476,
+    "Name": "MONTGOMERY",
+    "OrgId": "T128",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U085",
+    "OperatedBy": "SU020"
+  },
+  {
+    "ServerId": 1477,
+    "Name": "NEWARK",
+    "OrgId": "T135",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1478,
+    "Name": "NORTHFIELD",
+    "OrgId": "T142",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U068",
+    "OperatedBy": "SU068"
+  },
+  {
+    "ServerId": 1479,
+    "Name": "READSBORO",
+    "OrgId": "T164",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1480,
+    "Name": "ST ALBANS CITY",
+    "OrgId": "T176",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U057",
+    "OperatedBy": "SU023"
+  },
+  {
+    "ServerId": 1481,
+    "Name": "ST GEORGE",
+    "OrgId": "T178",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U056",
+    "OperatedBy": "SU014"
+  },
+  {
+    "ServerId": 1482,
+    "Name": "SEARSBURG",
+    "OrgId": "T182",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU049"
+  },
+  {
+    "ServerId": 1483,
+    "Name": "SHEFFIELD",
+    "OrgId": "T185",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1484,
+    "Name": "SOUTH BURLINGTON",
+    "OrgId": "T191",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU016"
+  },
+  {
+    "ServerId": 1485,
+    "Name": "THETFORD",
+    "OrgId": "T205",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1486,
+    "Name": "TOPSHAM",
+    "OrgId": "T207",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U036",
+    "OperatedBy": "SU027"
+  },
+  {
+    "ServerId": 1487,
+    "Name": "WHEELOCK",
+    "OrgId": "T240",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1488,
+    "Name": "WILLIAMSTOWN",
+    "OrgId": "T243",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U068",
+    "OperatedBy": "SU068"
+  },
+  {
+    "ServerId": 1489,
+    "Name": "SUTTON",
+    "OrgId": "T203",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U064",
+    "OperatedBy": "SU067"
+  },
+  {
+    "ServerId": 1493,
+    "Name": "GLASTENBURY",
+    "OrgId": "T259",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU005"
+  },
+  {
+    "ServerId": 1495,
+    "Name": "LEWIS",
+    "OrgId": "T260",
+    "OrgType": "Towns/City (T)",
+    "OperatedBy": "SU019"
+  },
+  {
+    "ServerId": 1609,
+    "Name": "UNKNOWN",
+    "OrgId": "T000",
+    "OrgType": "Towns/City (T)"
+  },
+  {
+    "ServerId": 1614,
+    "Name": "ESSEX JUNCTION",
+    "OrgId": "T069",
+    "OrgType": "Towns/City (T)",
+    "ParentOrg": "U051",
+    "OperatedBy": "SU065"
+  },
+  {
+    "ServerId": 1616,
+    "Name": "Other State -Massachusetts",
+    "OrgId": "901",
+    "OrgType": "Towns/City (T)"
+  },
+  {
+    "ServerId": 1617,
+    "Name": "Other State -New Hampshire",
+    "OrgId": "902",
+    "OrgType": "Towns/City (T)"
+  },
+  {
+    "ServerId": 1618,
+    "Name": "Other State -New York",
+    "OrgId": "903",
+    "OrgType": "Towns/City (T)"
+  },
+  {
+    "ServerId": 1619,
+    "Name": "Other Country -Quebec, Canada",
+    "OrgId": "904",
+    "OrgType": "Towns/City (T)"
+  },
+  {
+    "ServerId": 1620,
+    "Name": "Other Out of State",
+    "OrgId": "905",
+    "OrgType": "Towns/City (T)"
+  },
+  {
+    "ServerId": 1621,
+    "Name": "Other Out of Country",
+    "OrgId": "906",
+    "OrgType": "Towns/City (T)"
+  }
+]
