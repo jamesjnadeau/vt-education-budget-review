@@ -1,0 +1,490 @@
+[
+  {
+    "ServerId": 1500,
+    "Name": "Addison Northwest Unified Union School District #54",
+    "OrgId": "U054",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU002",
+    "EdFi_ID": 10540
+  },
+  {
+    "ServerId": 1501,
+    "Name": "Addison Central Unified Union School District #55",
+    "OrgId": "U055",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU003",
+    "EdFi_ID": 10550
+  },
+  {
+    "ServerId": 1502,
+    "Name": "Echo Valley Community Union School District #67",
+    "OrgId": "U067",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU068",
+    "EdFi_ID": 10670
+  },
+  {
+    "ServerId": 1503,
+    "Name": "Enosburgh-Richford Unified Union School District #88",
+    "OrgId": "U088",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU020",
+    "EdFi_ID": 10880
+  },
+  {
+    "ServerId": 1504,
+    "Name": "Maple Run Unified Union School District #57",
+    "OrgId": "U057",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU023",
+    "EdFi_ID": 10570
+  },
+  {
+    "ServerId": 1505,
+    "Name": "Harwood Unified Union School District #60",
+    "OrgId": "U060",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU042",
+    "EdFi_ID": 10600
+  },
+  {
+    "ServerId": 1506,
+    "Name": "Slate Valley Unified Union School District #62",
+    "OrgId": "U062",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU004",
+    "EdFi_ID": 10620
+  },
+  {
+    "ServerId": 1507,
+    "Name": "Mount Mansfield Unified Union School District #401",
+    "OrgId": "U401",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU012",
+    "EdFi_ID": 14010
+  },
+  {
+    "ServerId": 1508,
+    "Name": "Barstow Unified Union School District #49",
+    "OrgId": "U049",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU036",
+    "EdFi_ID": 10490
+  },
+  {
+    "ServerId": 1509,
+    "Name": "Mettawee School District #84",
+    "OrgId": "U084",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU006",
+    "EdFi_ID": 10840
+  },
+  {
+    "ServerId": 1510,
+    "Name": "Granville Hancock Unified School District",
+    "OrgId": "U080",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU030",
+    "EdFi_ID": 10800
+  },
+  {
+    "ServerId": 1511,
+    "Name": "Waits River Union High District #36",
+    "OrgId": "U036",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU027",
+    "EdFi_ID": 10360
+  },
+  {
+    "ServerId": 1512,
+    "Name": "Wells Spring Unified Union School District #69",
+    "OrgId": "U069",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU066",
+    "EdFi_ID": 10690
+  },
+  {
+    "ServerId": 1513,
+    "Name": "Montpelier Roxbury Unified Union School District #71",
+    "OrgId": "U071",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU069",
+    "EdFi_ID": 10710
+  },
+  {
+    "ServerId": 1515,
+    "Name": "Oxbow Unified Union School District #91",
+    "OrgId": "U091",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU027",
+    "EdFi_ID": 10910
+  },
+  {
+    "ServerId": 1516,
+    "Name": "Lake Region Union Elementary Middle School District",
+    "OrgId": "U093",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU034",
+    "EdFi_ID": 10930
+  },
+  {
+    "ServerId": 1517,
+    "Name": "Windham Southeast Unified Union School District #96",
+    "OrgId": "U096",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU048",
+    "EdFi_ID": 10960
+  },
+  {
+    "ServerId": 1518,
+    "Name": "Rochester Stockbridge Unified School District #81",
+    "OrgId": "U081",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU030",
+    "EdFi_ID": 10810
+  },
+  {
+    "ServerId": 1519,
+    "Name": "Blue Mountain Union School District #21",
+    "OrgId": "U021",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU027",
+    "EdFi_ID": 10210
+  },
+  {
+    "ServerId": 1520,
+    "Name": "Champlain Valley Unified Union School District #56",
+    "OrgId": "U056",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU014",
+    "EdFi_ID": 10560
+  },
+  {
+    "ServerId": 1521,
+    "Name": "Mt. Abraham Unified School District #61",
+    "OrgId": "U061",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU001",
+    "EdFi_ID": 10610
+  },
+  {
+    "ServerId": 1522,
+    "Name": "Green Mountain Unified School District #77",
+    "OrgId": "U077",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU063",
+    "EdFi_ID": 10770
+  },
+  {
+    "ServerId": 1523,
+    "Name": "Southwest Vermont Union Elementary School District #87",
+    "OrgId": "U087",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU005",
+    "EdFi_ID": 10870
+  },
+  {
+    "ServerId": 1524,
+    "Name": "Barre Unified Union School District #97",
+    "OrgId": "U097",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU061",
+    "EdFi_ID": 10970
+  },
+  {
+    "ServerId": 1525,
+    "Name": "Ludlow Mt. Holly Unified Union School District #83",
+    "OrgId": "U083",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU063",
+    "EdFi_ID": 10830
+  },
+  {
+    "ServerId": 1526,
+    "Name": "Orange Southwest Unified Union School District #59",
+    "OrgId": "U059",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU028",
+    "EdFi_ID": 10590
+  },
+  {
+    "ServerId": 1527,
+    "Name": "Northern Mountain Valley Unified Union School District #85",
+    "OrgId": "U085",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU020",
+    "EdFi_ID": 10850
+  },
+  {
+    "ServerId": 1528,
+    "Name": "Paine Mountain Union School District #68",
+    "OrgId": "U068",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU068",
+    "EdFi_ID": 10680
+  },
+  {
+    "ServerId": 1529,
+    "Name": "Washington Central Unified Union School District #92",
+    "OrgId": "U092",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU032",
+    "EdFi_ID": 10920
+  },
+  {
+    "ServerId": 1530,
+    "Name": "Caledonia Cooperative Unified School District #78",
+    "OrgId": "U078",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU009",
+    "EdFi_ID": 10780
+  },
+  {
+    "ServerId": 1531,
+    "Name": "White River Unified School District #79",
+    "OrgId": "U079",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU030",
+    "EdFi_ID": 10790
+  },
+  {
+    "ServerId": 1532,
+    "Name": "First Branch Unified School District #82",
+    "OrgId": "U082",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU030",
+    "EdFi_ID": 10820
+  },
+  {
+    "ServerId": 1533,
+    "Name": "Otter Valley Unified Union School District #53",
+    "OrgId": "U053",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU036",
+    "EdFi_ID": 10530
+  },
+  {
+    "ServerId": 1534,
+    "Name": "Twinfield Union School District #33",
+    "OrgId": "U033",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU009",
+    "EdFi_ID": 10330
+  },
+  {
+    "ServerId": 1535,
+    "Name": "Essex Westford Educational Community Unified Union SD #51",
+    "OrgId": "U051",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU065",
+    "EdFi_ID": 10510
+  },
+  {
+    "ServerId": 1536,
+    "Name": "Taconic and Green Regional School District #63",
+    "OrgId": "U063",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU006",
+    "EdFi_ID": 10630
+  },
+  {
+    "ServerId": 1537,
+    "Name": "Quarry Valley Unified Union School District #70",
+    "OrgId": "U070",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU066",
+    "EdFi_ID": 10700
+  },
+  {
+    "ServerId": 1538,
+    "Name": "River Valleys Unified School District #73",
+    "OrgId": "U073",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU046",
+    "EdFi_ID": 10730
+  },
+  {
+    "ServerId": 1539,
+    "Name": "Twin Valley Unified School District #75",
+    "OrgId": "U075",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU049",
+    "EdFi_ID": 10750
+  },
+  {
+    "ServerId": 1540,
+    "Name": "Elmore-Morristown Unified Union School District #90",
+    "OrgId": "U090",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU026",
+    "EdFi_ID": 10900
+  },
+  {
+    "ServerId": 1541,
+    "Name": "Mountain View Union Elementary School District #94",
+    "OrgId": "U094",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU035",
+    "EdFi_ID": 10940
+  },
+  {
+    "ServerId": 1542,
+    "Name": "Athens Grafton School District",
+    "OrgId": "U095",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU047",
+    "EdFi_ID": 10950
+  },
+  {
+    "ServerId": 1543,
+    "Name": "Mount Ascutney School District #86",
+    "OrgId": "U086",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU052",
+    "EdFi_ID": 10860
+  },
+  {
+    "ServerId": 1544,
+    "Name": "Mountain Views  School District",
+    "OrgId": "U076",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU051",
+    "EdFi_ID": 10760
+  },
+  {
+    "ServerId": 1545,
+    "Name": "Kingdom East Unified Union School District #64",
+    "OrgId": "U064",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU067",
+    "EdFi_ID": 10640
+  },
+  {
+    "ServerId": 1546,
+    "Name": "Northeast Kingdom Choice School District",
+    "OrgId": "U065",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU019",
+    "EdFi_ID": 10650
+  },
+  {
+    "ServerId": 1547,
+    "Name": "Champlain Islands Unified Union School District #66",
+    "OrgId": "U066",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU024",
+    "EdFi_ID": 10660
+  },
+  {
+    "ServerId": 1548,
+    "Name": "Missisquoi Valley School District #89",
+    "OrgId": "U089",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU021",
+    "EdFi_ID": 10890
+  },
+  {
+    "ServerId": 1549,
+    "Name": "Mill River Unified Union School District #52",
+    "OrgId": "U052",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU033",
+    "EdFi_ID": 10520
+  },
+  {
+    "ServerId": 1550,
+    "Name": "Mount Anthony Union High School District #14",
+    "OrgId": "U014",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU005",
+    "EdFi_ID": 10140
+  },
+  {
+    "ServerId": 1555,
+    "Name": "North Country Union Junior High School District",
+    "OrgId": "U022A",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU031",
+    "EdFi_ID": 10221
+  },
+  {
+    "ServerId": 1560,
+    "Name": "North Country Union High School District",
+    "OrgId": "U022B",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU031",
+    "EdFi_ID": 10222
+  },
+  {
+    "ServerId": 1571,
+    "Name": "Lake Region Union High School District #24",
+    "OrgId": "U024",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU034",
+    "EdFi_ID": 10240
+  },
+  {
+    "ServerId": 1578,
+    "Name": "Hazen Union High School District #26",
+    "OrgId": "U026",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU035",
+    "EdFi_ID": 10260
+  },
+  {
+    "ServerId": 1581,
+    "Name": "Bellows Falls Union High School District #27",
+    "OrgId": "U027",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU047",
+    "EdFi_ID": 10270
+  },
+  {
+    "ServerId": 1585,
+    "Name": "Lamoille North Modified Union School District #058A",
+    "OrgId": "U058A",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU025",
+    "EdFi_ID": 10581
+  },
+  {
+    "ServerId": 1590,
+    "Name": "Lamoille North Modified Union School District #058B",
+    "OrgId": "U058B",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU025",
+    "EdFi_ID": 10582
+  },
+  {
+    "ServerId": 1596,
+    "Name": "West River Valley Union Education District #72A",
+    "OrgId": "U072A",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU046",
+    "EdFi_ID": 10721
+  },
+  {
+    "ServerId": 1600,
+    "Name": "West River Valley Union Education District #72B",
+    "OrgId": "U072B",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU046",
+    "EdFi_ID": 10722
+  },
+  {
+    "ServerId": 1605,
+    "Name": "Dresden Interstate Union School",
+    "OrgId": "U145",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU055",
+    "EdFi_ID": 11450
+  },
+  {
+    "ServerId": 1606,
+    "Name": "Rivendell Interstate School District",
+    "OrgId": "U146",
+    "OrgType": "Unified District (U)",
+    "ParentOrg": "SU064",
+    "EdFi_ID": 11460
+  }
+]
