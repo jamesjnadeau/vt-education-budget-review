@@ -95,6 +95,20 @@ student achievement results, school cellphone and device policy, and federal nut
 benefit administration. Each exclusion is recorded in the run's verification bullet
 rather than silently dropped.
 
+## Git usage for scheduled runs
+
+The scheduled session starts with this repository **already checked out** in the primary
+working directory (`/home/user/vt-education-budget-review`). Do not re-clone it: a fresh
+`git clone` into `~/vt-repo` can be denied by the sandbox, and it is unnecessary. Work in the
+existing checkout:
+
+1. `cd` into the checkout and confirm with `git status` that `news-log/` is present (if it is
+   missing, stop and report rather than starting a new log).
+2. Read every file in `news-log/` before searching.
+3. Write the new `news-log/YYYY-MM-DD.md`, then `git checkout -b news-log/YYYY-MM-DD`, commit,
+   and `git push -u origin news-log/YYYY-MM-DD`.
+4. Open the pull request with the GitHub MCP tool (`create_pull_request`); `gh` is not installed.
+
 ## History
 
 The log ran in a Google Doc titled "Vermont Education Funding Watch Log" from
