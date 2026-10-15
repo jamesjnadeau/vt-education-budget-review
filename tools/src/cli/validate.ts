@@ -297,6 +297,12 @@ function main(): number {
       continue;
     }
 
+    if (relative.startsWith('warehouse/aoe-adm-subgroups/')) {
+      findings.push(...schemaFindings('adm-subgroups', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
     if (relative.startsWith('warehouse/census/')) {
       findings.push(...schemaFindings('census-town', data, file));
       findings.push(...checkRegistryRefs(data, file, registry));

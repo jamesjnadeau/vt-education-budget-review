@@ -1,0 +1,357 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:adm-subgroups:1.0",
+  "title": "AOE average daily membership by town of residence with subgroups, one school year",
+  "description": "A transcription of one school year from the AOE records-request extract that sums ADM by town of residence in the four Act 127 grade bands plus English learners and free-or-reduced-lunch eligibility. AOE applied FERPA suppression before release, so a cell is either a number or a bound. The bound is recorded exactly as the disclosure code implies and is never tightened by arithmetic: constraints between cells (a complement bound, a pair that must sum to the row) are written down so a reader can see them, and deliberately never solved.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "method",
+    "school_year",
+    "count_year",
+    "fiscal_year",
+    "preliminary",
+    "preliminary_note",
+    "grain",
+    "min_n",
+    "suppression_rules",
+    "towns",
+    "unresolved_rows",
+    "not_published",
+    "extracted_by",
+    "extracted_date"
+  ],
+  "$defs": {
+    "bound_cell": {
+      "description": "A suppressed cell. `kind` names the entry in suppression_rules that explains why. Bounds are on headcount, not on the fractional ADM the cell would have held, because the suppression query counts student rows.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["suppressed"],
+      "properties": {
+        "suppressed": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "low", "high", "exclusive_low", "basis", "floor_confirmed"],
+              "properties": {
+                "kind": { "const": "primary" },
+                "low": { "const": 0 },
+                "high": { "const": 10 },
+                "exclusive_low": { "const": true },
+                "basis": { "const": "headcount" },
+                "floor_confirmed": {
+                  "const": true,
+                  "description": "The cell is non-empty: the query withholds only cells with at least one student, and empty cells print as 0."
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind"],
+              "properties": {
+                "kind": { "const": "complement" },
+                "note": { "type": "string" }
+              },
+              "description": "Withheld because the students NOT in the subgroup number fewer than 11. No band is published: the implied lower bound depends on the row total, which was not delivered, and would not be exploited if it had been."
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "low", "high", "exclusive_low", "basis", "pair"],
+              "properties": {
+                "kind": { "const": "pair_member" },
+                "low": { "const": 0 },
+                "high": { "type": "null" },
+                "exclusive_low": { "const": true },
+                "basis": { "const": "headcount" },
+                "pair": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Index into this town's suppression_pairs."
+                }
+              },
+              "description": "One of exactly two withheld grade bands in a published row. The file cannot say whether both are small cells or one is small and the other was withheld only to stop subtraction, so the only honest bound on each is 'at least one student'."
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "low", "high", "exclusive_low", "basis"],
+              "properties": {
+                "kind": { "const": "reporting_floor" },
+                "low": { "const": 0 },
+                "high": { "const": 10 },
+                "exclusive_low": { "const": false },
+                "basis": { "const": "headcount" }
+              },
+              "description": "Every cell of a row whose total population is under the reporting floor. A cell may be empty, so the low end is inclusive."
+            }
+          ]
+        }
+      }
+    },
+    "cell": {
+      "oneOf": [
+        { "type": "number", "minimum": 0, "description": "Published, including a real zero." },
+        { "$ref": "#/$defs/bound_cell" }
+      ]
+    },
+    "measure_cell": {
+      "description": "ELL or NSLELG. Null only where the measure is listed in not_published for this year.",
+      "oneOf": [{ "$ref": "#/$defs/cell" }, { "type": "null" }]
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "source"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The rule verbatim from the extract's Information Sheet."
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Where the rule is defined in code, with its threshold."
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "source": {
+      "type": "string",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$",
+      "description": "The hashed artifact this was transcribed from."
+    },
+    "method": {
+      "type": "string",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$",
+      "description": "The suppression query whose rule numbering the disclosure codes follow."
+    },
+    "school_year": { "type": "string", "pattern": "^SY[0-9]{2}$" },
+    "count_year": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{4}$",
+      "description": "The school year pupils were counted."
+    },
+    "fiscal_year": {
+      "type": "integer",
+      "minimum": 2015,
+      "maximum": 2100,
+      "description": "The determination year, two years ahead of count_year, matching the aoe-adm records."
+    },
+    "preliminary": {
+      "type": "boolean",
+      "description": "True where the year has not been confirmed final. Set from evidence recorded in preliminary_note, never from the calendar."
+    },
+    "preliminary_note": { "type": ["string", "null"] },
+    "grain": { "const": "town" },
+    "min_n": {
+      "const": 11,
+      "description": "The suppression threshold the extract was produced under. Recorded here, per source, rather than as a constant in code."
+    },
+    "suppression_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reporting_floor", "primary", "complement", "pair_member"],
+      "properties": {
+        "reporting_floor": { "$ref": "#/$defs/rule" },
+        "primary": { "$ref": "#/$defs/rule" },
+        "complement": { "$ref": "#/$defs/rule" },
+        "pair_member": { "$ref": "#/$defs/rule" }
+      }
+    },
+    "towns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity",
+          "aoe_org_id",
+          "town_class",
+          "row_status",
+          "total",
+          "bands",
+          "ell",
+          "nslelg",
+          "suppression_pairs",
+          "as_published"
+        ],
+        "properties": {
+          "entity": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+          "aoe_org_id": { "type": "string", "minLength": 1 },
+          "town_class": {
+            "enum": [
+              "union_district_member",
+              "own_district",
+              "no_operating_district",
+              "out_of_state_member",
+              "residency_bucket"
+            ]
+          },
+          "row_status": { "enum": ["published", "below_reporting_floor"] },
+          "total": {
+            "description": "No total column was delivered. Null for a published row. For a below-floor row, the bound the floor itself implies: the row exists, so at least one student, and fewer than 11.",
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["low", "high", "exclusive_low", "basis"],
+                "properties": {
+                  "low": { "const": 0 },
+                  "high": { "const": 10 },
+                  "exclusive_low": { "const": true },
+                  "basis": { "const": "headcount" }
+                }
+              }
+            ]
+          },
+          "bands": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prekindergarten",
+              "kindergarten_through_5",
+              "grades_6_through_8",
+              "grades_9_through_12"
+            ],
+            "properties": {
+              "prekindergarten": { "$ref": "#/$defs/cell" },
+              "kindergarten_through_5": { "$ref": "#/$defs/cell" },
+              "grades_6_through_8": { "$ref": "#/$defs/cell" },
+              "grades_9_through_12": { "$ref": "#/$defs/cell" }
+            }
+          },
+          "ell": { "$ref": "#/$defs/measure_cell" },
+          "nslelg": { "$ref": "#/$defs/measure_cell" },
+          "suppression_pairs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["members", "one_of", "sum_equals", "note"],
+              "properties": {
+                "members": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "enum": [
+                      "prekindergarten",
+                      "kindergarten_through_5",
+                      "grades_6_through_8",
+                      "grades_9_through_12"
+                    ]
+                  }
+                },
+                "one_of": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["both_small", "small_and_survivor"],
+                  "properties": {
+                    "both_small": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["low", "high", "exclusive_low", "basis"],
+                      "properties": {
+                        "low": { "const": 0 },
+                        "high": { "const": 10 },
+                        "exclusive_low": { "const": true },
+                        "basis": { "const": "headcount" }
+                      }
+                    },
+                    "small_and_survivor": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["small", "survivor"],
+                      "properties": {
+                        "small": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": ["low", "high", "exclusive_low", "basis"],
+                          "properties": {
+                            "low": { "const": 0 },
+                            "high": { "const": 10 },
+                            "exclusive_low": { "const": true },
+                            "basis": { "const": "headcount" }
+                          }
+                        },
+                        "survivor": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": ["low", "high", "exclusive_low", "basis"],
+                          "properties": {
+                            "low": { "const": 10 },
+                            "high": { "type": "null" },
+                            "exclusive_low": { "const": true },
+                            "basis": { "const": "headcount" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "sum_equals": {
+                  "type": "null",
+                  "description": "Would be the row total minus the published bands. No total was delivered, so there is nothing to record, and nothing to exploit."
+                },
+                "note": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          "as_published": {
+            "description": "The disclosure columns verbatim, for auditing the transcription. Never rendered.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ell_disclosure", "nslelg_disclosure", "bands_suppressed"],
+            "properties": {
+              "ell_disclosure": { "type": "string", "minLength": 1 },
+              "nslelg_disclosure": { "type": "string", "minLength": 1 },
+              "bands_suppressed": { "type": "integer", "minimum": 0, "maximum": 4 }
+            }
+          }
+        }
+      }
+    },
+    "unresolved_rows": {
+      "type": "array",
+      "description": "Rows whose ADMTDIST matches no registry record. Kept verbatim so the transcription is complete, published nowhere.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["aoe_org_id", "entity", "row_status", "note"],
+        "properties": {
+          "aoe_org_id": { "type": "string", "minLength": 1 },
+          "entity": { "type": "null" },
+          "row_status": { "enum": ["published", "below_reporting_floor"] },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "not_published": {
+      "type": "array",
+      "description": "Measures this year does not usably carry, confirmed by a person against the artifact. A null must always mean 'the source did not publish this' and never 'we did not look'.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "confirmed_by", "confirmed_date", "note"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "confirmed_by": { "type": "string", "minLength": 1 },
+          "confirmed_date": { "type": "string", "format": "date" },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "extracted_by": { "type": "string", "minLength": 1 },
+    "extracted_date": { "type": "string", "format": "date" }
+  }
+}

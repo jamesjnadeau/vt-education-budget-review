@@ -1,0 +1,48 @@
+schema_version: "1.0"
+entity: source/aoe-adm-subgroups
+fiscal_year: 2026
+artifacts:
+  - file: ADM_Sums_by_ADMTDIST_Across_Years.xlsx
+    source_url: null
+    retrieved_date: "2026-10-15"
+    retrieval_method: email
+    sha256: f69447bd62203e3007d0709e4c0939053adaeadc410e2ac67b1fca1c54410d94
+    bytes: 59915
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: James Nadeau
+    document_type: spreadsheet
+    note: >-
+      Records-request extract prepared by the Agency of Education (Anika Miner)
+      and delivered by email in answer to James Nadeau's 2026-09-11 request, so
+      there is no public URL. Average Daily Membership summed by town of
+      residence (ADMTDIST) for SY24, SY25 and SY26 (count years 2023-24,
+      2024-25 and 2025-26), in the four Act 127 grade bands (PreK, K-5, 6-8,
+      9-12) plus English learners (ELL) and free-or-reduced-lunch eligible
+      (NSLELG), with per-row disclosure codes and a count of suppressed bands.
+      Two sheets: "Information Sheet" (AOE's explanatory notes) and
+      "ADM_Sums_by_ADMTDIST_Across_Yea" (the data). The request asked for an
+      adm_total column and supervisory-union grain; neither was delivered, so
+      no row total is available to bound suppressed cells against. The SY24 ELL
+      column is marked not_collected on every row, and the ten published SY24
+      NSLELG values are within two percent of the band-sum total, which is the
+      ADMFPSTAT defect AOE described; SY24 ELL and NSLELG are therefore not
+      imported. SY26 figures are preliminary (counts divided by 220 days of
+      a still-running year, visible in the value denominators) and may change.
+  - file: adm_ferpa_suppressed_lea.sql
+    source_url: null
+    retrieved_date: "2026-10-15"
+    retrieval_method: email
+    sha256: e998babb0e36be7c9b89d1ea0354080f812c0e1c91c0f0659fb981c2634dfe7d
+    bytes: 9598
+    media_type: application/sql
+    retrieved_by: James Nadeau
+    document_type: other
+    note: >-
+      The suppression query sent to AOE with the 2026-09-11 request, kept beside
+      the extract because the delivered disclosure codes follow its rule
+      numbering (rule 1 reporting floor, rule 2 primary small cell, rule 3
+      complement, rule 4 single-survivor pair) with min_n = 11. AOE applied it
+      at town grain rather than the LEA grain it was written for, and did not
+      honour the NULL it asked for on not-collected ELL (SY24 carries zeros
+      with a not_collected code instead). This is the method citation for the
+      warehouse records, not a source of data.

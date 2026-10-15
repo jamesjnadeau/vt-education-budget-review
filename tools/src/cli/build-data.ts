@@ -24,6 +24,8 @@ import { parse as parseYaml } from 'yaml';
 import { parseParameterSet, resolveAdm, unverifiedParameters, type BandValues } from '@vt-budget/model';
 import { aoeBandsFor } from '../adm-lookup.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
+import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
+import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
 import { buildHomesteadComparison } from '../homestead-comparison.ts';
@@ -59,6 +61,7 @@ function readBudgets(): BudgetRecord[] {
       const path = rel(file);
       return (
         !path.startsWith('warehouse/aoe-adm/') &&
+        !path.startsWith('warehouse/aoe-adm-subgroups/') &&
         !path.startsWith('warehouse/census/') &&
         !path.startsWith('warehouse/small-sparse/')
       );
@@ -154,6 +157,20 @@ function main(): number {
     admRecords.length > 0 ? buildAdmPublication(admRecords, registry, today.toISOString()) : null;
   if (admPublication) {
     writeJson(join(PATHS.siteGenerated, 'adm.json'), admPublication);
+  }
+
+  // --- AOE ADM by town of residence, with subgroups -------------------------
+  // Town grain only; never rolled up. The "no students live here" rows for
+  // registry towns absent from a year are derived here against the current
+  // registry, so the warehouse stays a transcription of what AOE delivered.
+  const subgroupRecords = walkFiles(join(PATHS.warehouse, 'aoe-adm-subgroups'), (n) =>
+    /^town-sy\d{2}\.yaml$/.test(n),
+  ).map((file) => parseYaml(readFileSync(file, 'utf8')) as SubgroupYearRecord);
+  if (subgroupRecords.length > 0) {
+    writeJson(
+      join(PATHS.siteGenerated, 'adm-subgroups.json'),
+      buildSubgroupPublication(subgroupRecords, registry, today.toISOString()),
+    );
   }
 
   // --- resolved ADM (district-first, AOE fallback), per entity+year --------
@@ -264,6 +281,7 @@ function main(): number {
 
   console.log(`Wrote site data:`);
   console.log(`  ${registry.size} registry entities`);
+  console.log(`  ${subgroupRecords.length} town-of-residence subgroup year(s)`);
   console.log(`  ${sus.length} active supervisory union files`);
   console.log(`  ${budgets.length} budget record(s)`);
   console.log(`  coverage: ${JSON.stringify(coverage.totals)}`);

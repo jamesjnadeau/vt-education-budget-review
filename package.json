@@ -22,6 +22,7 @@
     "validate": "tsx tools/src/cli/validate.ts",
     "coverage": "tsx tools/src/cli/coverage.ts",
     "adm:import": "tsx tools/src/cli/adm-import.ts",
+    "adm:subgroups": "tsx tools/src/cli/adm-subgroups-import.ts",
     "census:import": "tsx tools/src/cli/census-import.ts",
     "school:municipality": "tsx tools/src/cli/school-municipality.ts",
     "collect": "tsx tools/src/cli/collect.ts",

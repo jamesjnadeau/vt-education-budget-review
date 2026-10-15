@@ -7,6 +7,7 @@ import { describe, expect, it, vi, type Mock } from 'vitest';
 // artifact and must see the real library, not a stub.
 vi.mock('read-excel-file/node', () => ({
   default: vi.fn(),
+  readSheet: vi.fn(),
 }));
 
 import readXlsxFile from 'read-excel-file/node';

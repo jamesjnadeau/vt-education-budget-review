@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import registry from '../../generated/registry.json';
+import subgroups from '../../generated/adm-subgroups.json';
 import { slugTail, titleCase } from '../../lib/display';
 
 interface Entity {
@@ -36,6 +37,66 @@ const district = entities.find((e) => e.slug === town.operated_by) ?? null;
 const siblings = entities.filter(
   (e) => e.type === 'town' && e.operated_by === town.operated_by && e.slug !== town.slug,
 );
+
+// --- Students who live here ------------------------------------------------
+// Town-of-residence ADM from the AOE records-request extract, with the small
+// cells AOE withheld shown as the bound they imply and nothing tighter.
+type Cell =
+  | { value: number }
+  | { status: 'suppressed'; low?: number; high?: number | null; exclusive_low?: boolean }
+  | { status: 'not_published' };
+type TownYear =
+  | { row: 'published' | 'below_reporting_floor'; bands: Record<string, Cell>; ell: Cell; nslelg: Cell }
+  | { row: 'not_applicable'; reason: 'no_resident_students' | 'entity_closed' };
+interface Year {
+  school_year: string;
+  count_year: string;
+  fiscal_year: number;
+  preliminary: boolean;
+  not_published: { path: string; note: string }[];
+}
+
+const years = subgroups.years as Year[];
+const byYear = ((subgroups.towns as Record<string, Record<string, TownYear>>)[town.slug] ?? {}) as Record<
+  string,
+  TownYear
+>;
+const hasResidents = years.some((y) => byYear[y.school_year] !== undefined);
+/** Years with a delivered row for this town; the table is only worth drawing for these. */
+const shownYears = years.filter((y) => {
+  const t = byYear[y.school_year];
+  return t !== undefined && t.row !== 'not_applicable';
+});
+const belowFloorYears = years.filter((y) => byYear[y.school_year]?.row === 'below_reporting_floor');
+
+const ROWS: { label: string; pick: (t: Extract<TownYear, { row: 'published' | 'below_reporting_floor' }>) => Cell }[] = [
+  { label: 'Preschool', pick: (t) => t.bands.prekindergarten },
+  { label: 'Kindergarten to grade 5', pick: (t) => t.bands.kindergarten_through_5 },
+  { label: 'Grades 6 to 8', pick: (t) => t.bands.grades_6_through_8 },
+  { label: 'Grades 9 to 12', pick: (t) => t.bands.grades_9_through_12 },
+  { label: 'English learners', pick: (t) => t.ell },
+  { label: 'Can get free or reduced-price lunch', pick: (t) => t.nslelg },
+];
+
+function count(n: number): string {
+  return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+}
+/** Plain words for a withheld cell's bound, or null when the source gives none. */
+function bound(c: Extract<Cell, { status: 'suppressed' }>): string | null {
+  if (c.low === undefined) return null;
+  const from = c.exclusive_low ? c.low + 1 : c.low;
+  if (c.high === null || c.high === undefined) return `at least ${from} student${from === 1 ? '' : 's'}`;
+  return `${from} to ${c.high} students`;
+}
+
+const notApplicable = years.filter((y) => byYear[y.school_year]?.row === 'not_applicable');
+const closed = notApplicable.some((y) => (byYear[y.school_year] as { reason?: string }).reason === 'entity_closed');
+const anyHidden = years.some((y) => {
+  const t = byYear[y.school_year];
+  return t !== undefined && t.row !== 'not_applicable' && ROWS.some((r) => 'status' in r.pick(t) && r.pick(t).status === 'suppressed');
+});
+const preliminaryYears = shownYears.filter((y) => y.preliminary);
+const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
 ---
 
 <Base title={`${titleCase(town.name)} — Vermont School Budgets`}>
@@ -53,6 +114,106 @@ const siblings = entities.filter(
     <dt>School district</dt>
     <dd>{district ? titleCase(district.name) : '—'}</dd>
   </dl>
+
+  {
+    hasResidents && (
+      <>
+        <h2>Students who live here</h2>
+        <p>
+          Each year the state counts the public school students who live in {titleCase(town.name)}.
+          The count follows the student, not the school. So it includes students who go to school
+          in another town, and it leaves out students who come here from somewhere else.
+          {shownYears.length > 0 &&
+            ' A student who was enrolled for part of the year counts as part of one, which is why some numbers have decimals.'}
+        </p>
+        {shownYears.length > 0 && (
+        <div class="scroll-x">
+          <table class="residents">
+            <thead>
+              <tr>
+                <th scope="col">Students</th>
+                {years.map((y) => (
+                  <th scope="col" class="numeric">
+                    {y.count_year}
+                    {y.preliminary && <span class="muted"> (may change)</span>}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ROWS.map((r) => (
+                <tr>
+                  <th scope="row">{r.label}</th>
+                  {years.map((y) => {
+                    const t = byYear[y.school_year];
+                    if (t === undefined || t.row === 'not_applicable') return <td class="numeric">—</td>;
+                    const c = r.pick(t);
+                    if ('value' in c) return <td class="numeric">{count(c.value)}</td>;
+                    if (c.status === 'not_published') {
+                      return (
+                        <td class="numeric">
+                          <span class="tag not-computable">not usable</span>
+                        </td>
+                      );
+                    }
+                    const b = bound(c);
+                    return (
+                      <td class="numeric">
+                        <span class="tag suppressed">hidden</span>
+                        {b && <div class="muted">{b}</div>}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        )}
+        {belowFloorYears.length > 0 && (
+          <p>
+            Fewer than 11 students lived in {titleCase(town.name)} in{' '}
+            {belowFloorYears.map((y) => y.count_year).join(' and ')}, so the state hid every number
+            for {belowFloorYears.length === 1 ? 'that year' : 'those years'}.
+          </p>
+        )}
+        {anyHidden && (
+          <p>
+            <strong>Hidden</strong> means the state did not give us that number, to protect student
+            privacy. The state hides any count under 11. It also hides some bigger counts, so that
+            nobody can work out a hidden one by subtracting. Where the rules let us say how big a
+            hidden number is, we say so under it.
+          </p>
+        )}
+        {preliminaryYears.map((y) => (
+          <p>
+            The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
+            they are final and had not heard back when this page was built.
+          </p>
+        ))}
+        {unusableYears.map((y) => (
+          <p>
+            For {y.count_year}, the state's English learner and lunch counts were{' '}
+            <strong>not usable</strong>, so we do not show them. The state did not collect the
+            English learner flag that year, and it has said its lunch flag was set for nearly every
+            student by mistake.
+          </p>
+        ))}
+        {notApplicable.length > 0 && !closed && (
+          <p>
+            No students were counted as living in {titleCase(town.name)} in{' '}
+            {notApplicable.map((y) => y.count_year).join(', ')}.
+          </p>
+        )}
+        {closed && (
+          <p>
+            This record closed in {town.effective_to?.slice(0, 4)} and no students are counted
+            under it. Its students are counted with the town they live in.
+          </p>
+        )}
+      </>
+    )
+  }
 
   <h2>Homestead tax rate</h2>
   <div class="notice blocking">
