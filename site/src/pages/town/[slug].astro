@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import registry from '../../generated/registry.json';
 import subgroups from '../../generated/adm-subgroups.json';
 import { slugTail, titleCase } from '../../lib/display';
+import { ROWS, bound, count, type TownYear, type Year } from '../../lib/residents';
 
 interface Entity {
   slug: string;
@@ -41,21 +42,6 @@ const siblings = entities.filter(
 // --- Students who live here ------------------------------------------------
 // Town-of-residence ADM from the AOE records-request extract, with the small
 // cells AOE withheld shown as the bound they imply and nothing tighter.
-type Cell =
-  | { value: number }
-  | { status: 'suppressed'; low?: number; high?: number | null; exclusive_low?: boolean }
-  | { status: 'not_published' };
-type TownYear =
-  | { row: 'published' | 'below_reporting_floor'; bands: Record<string, Cell>; ell: Cell; nslelg: Cell }
-  | { row: 'not_applicable'; reason: 'no_resident_students' | 'entity_closed' };
-interface Year {
-  school_year: string;
-  count_year: string;
-  fiscal_year: number;
-  preliminary: boolean;
-  not_published: { path: string; note: string }[];
-}
-
 const years = subgroups.years as Year[];
 const byYear = ((subgroups.towns as Record<string, Record<string, TownYear>>)[town.slug] ?? {}) as Record<
   string,
@@ -68,26 +54,6 @@ const shownYears = years.filter((y) => {
   return t !== undefined && t.row !== 'not_applicable';
 });
 const belowFloorYears = years.filter((y) => byYear[y.school_year]?.row === 'below_reporting_floor');
-
-const ROWS: { label: string; pick: (t: Extract<TownYear, { row: 'published' | 'below_reporting_floor' }>) => Cell }[] = [
-  { label: 'Preschool', pick: (t) => t.bands.prekindergarten },
-  { label: 'Kindergarten to grade 5', pick: (t) => t.bands.kindergarten_through_5 },
-  { label: 'Grades 6 to 8', pick: (t) => t.bands.grades_6_through_8 },
-  { label: 'Grades 9 to 12', pick: (t) => t.bands.grades_9_through_12 },
-  { label: 'English learners', pick: (t) => t.ell },
-  { label: 'Can get free or reduced-price lunch', pick: (t) => t.nslelg },
-];
-
-function count(n: number): string {
-  return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
-}
-/** Plain words for a withheld cell's bound, or null when the source gives none. */
-function bound(c: Extract<Cell, { status: 'suppressed' }>): string | null {
-  if (c.low === undefined) return null;
-  const from = c.exclusive_low ? c.low + 1 : c.low;
-  if (c.high === null || c.high === undefined) return `at least ${from} student${from === 1 ? '' : 's'}`;
-  return `${from} to ${c.high} students`;
-}
 
 const notApplicable = years.filter((y) => byYear[y.school_year]?.row === 'not_applicable');
 const closed = notApplicable.some((y) => (byYear[y.school_year] as { reason?: string }).reason === 'entity_closed');

@@ -5,7 +5,9 @@ import coverage from '../../generated/coverage.json';
 import adm from '../../generated/adm.json';
 import parameters from '../../generated/parameters.json';
 import homesteadComparison from '../../generated/homestead-comparison.json';
+import subgroups from '../../generated/adm-subgroups.json';
 import { slugTail, titleCase } from '../../lib/display';
+import { ROWS, count, sumCells, type Sum, type TownYear, type Year } from '../../lib/residents';
 
 interface AdmGapEntry {
   input: string;
@@ -62,6 +64,73 @@ for (const town of towns) {
   const list = byDistrict.get(town.operated_by) ?? [];
   list.push(town);
   byDistrict.set(town.operated_by, list);
+}
+
+// --- Students who live here ------------------------------------------------
+// The town-of-residence counts, added up across this SU's member towns. The
+// generated file stays town grain; the sum is made here, on every build, and
+// says only what the withheld town cells allow (see lib/residents.ts).
+interface Resident {
+  town: Entity;
+  byYear: Record<string, TownYear>;
+}
+const years = subgroups.years as Year[];
+const residentTowns: Resident[] = towns
+  .filter((t) => !t.reporting_only)
+  .map((t) => ({
+    town: t,
+    byYear: ((subgroups.towns as Record<string, Record<string, TownYear>>)[t.slug] ?? {}) as Record<
+      string,
+      TownYear
+    >,
+  }));
+const hasResidents = residentTowns.some((r) => years.some((y) => r.byYear[y.school_year] !== undefined));
+
+/** The delivered rows for a year, one per member town that had resident students. */
+function deliveredFor(y: Year) {
+  return residentTowns
+    .map((r) => r.byYear[y.school_year])
+    .filter((t): t is Extract<TownYear, { row: 'published' | 'below_reporting_floor' }> =>
+      t !== undefined && t.row !== 'not_applicable',
+    );
+}
+/** Years in which at least one member town had a delivered row. */
+const shownYears = years.filter((y) => deliveredFor(y).length > 0);
+/** Years every member town shows as having no resident students. */
+const emptyYears = years.filter(
+  (y) => deliveredFor(y).length === 0 && residentTowns.some((r) => r.byYear[y.school_year] !== undefined),
+);
+
+const sums: Record<string, Record<string, Sum>> = {};
+for (const y of years) {
+  const delivered = deliveredFor(y);
+  sums[y.school_year] = {};
+  for (const r of ROWS) {
+    sums[y.school_year][r.label] = sumCells(delivered.map((t) => r.pick(t)));
+  }
+}
+const anyRange = years.some((y) => ROWS.some((r) => sums[y.school_year][r.label].kind === 'range'));
+const anyUnbounded = years.some((y) =>
+  ROWS.some((r) => {
+    const s = sums[y.school_year][r.label];
+    return s.kind === 'range' && s.high === null;
+  }),
+);
+/** Member towns with at least one hidden cell in any shown year, for the reader to follow up. */
+const hiddenTowns = residentTowns.filter((r) =>
+  shownYears.some((y) => {
+    const t = r.byYear[y.school_year];
+    return t !== undefined && t.row !== 'not_applicable' && ROWS.some((row) => 'status' in row.pick(t) && row.pick(t).status === 'suppressed');
+  }),
+);
+const preliminaryYears = shownYears.filter((y) => y.preliminary);
+const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
+
+function sumText(s: Sum): string {
+  if (s.kind === 'exact') return count(s.value);
+  if (s.kind !== 'range') return '—';
+  if (s.high === null) return `at least ${count(s.low)}`;
+  return `${count(s.low)} to ${count(s.high)}`;
 }
 
 // --- What the baseline figures are waiting on ---------------------------------
@@ -130,6 +199,107 @@ const homesteadRows = Object.entries(homesteadYears)
       </>
     )}
   </dl>
+
+  {
+    hasResidents && (
+      <>
+        <h2>Students who live here</h2>
+        <p>
+          Each year the state counts the public school students who live in each town. This table
+          adds up those counts for the {residentTowns.length} towns in {titleCase(su.name)}. The
+          count follows the student, not the school. So it includes students who go to school
+          somewhere else, and it leaves out students who come here from another supervisory union.
+          {shownYears.length > 0 &&
+            ' A student who was enrolled for part of the year counts as part of one, which is why some numbers have decimals.'}
+          {' '}Each town's own page shows its share.
+        </p>
+        {shownYears.length > 0 && (
+          <div class="scroll-x">
+            <table class="residents">
+              <thead>
+                <tr>
+                  <th scope="col">Students</th>
+                  {years.map((y) => (
+                    <th scope="col" class="numeric">
+                      {y.count_year}
+                      {y.preliminary && <span class="muted"> (may change)</span>}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {ROWS.map((r) => (
+                  <tr>
+                    <th scope="row">{r.label}</th>
+                    {years.map((y) => {
+                      const s = sums[y.school_year][r.label];
+                      if (s.kind === 'not_usable') {
+                        return (
+                          <td class="numeric">
+                            <span class="tag not-computable">not usable</span>
+                          </td>
+                        );
+                      }
+                      if (s.kind === 'range') {
+                        return (
+                          <td class="numeric">
+                            {sumText(s)}
+                            <div class="muted">
+                              {s.hidden} town{s.hidden === 1 ? '' : 's'} hidden
+                            </div>
+                          </td>
+                        );
+                      }
+                      return <td class="numeric">{sumText(s)}</td>;
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {anyRange && (
+          <p>
+            Some cells show a <strong>range</strong> instead of one number. That is because the
+            state hid the count for one or more towns, to protect student privacy. The state hides
+            any count under 11. It also hides some bigger counts, so that nobody can work out a
+            hidden one by subtracting. We add the hidden towns' numbers to the sum as the smallest
+            and largest values the rules allow, so the real number is somewhere in the range.
+            {anyUnbounded &&
+              ' Where the rules do not say how big a hidden number could be, we can only say "at least".'}
+          </p>
+        )}
+        {hiddenTowns.length > 0 && (
+          <p>
+            Towns with hidden numbers:{' '}
+            {hiddenTowns.map((r, i) => (
+              <>{i > 0 && ', '}<a href={`${base}/town/${slugTail(r.town.slug)}/`}>{titleCase(r.town.name)}</a></>
+            ))}.
+          </p>
+        )}
+        {preliminaryYears.map((y) => (
+          <p>
+            The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
+            they are final and had not heard back when this page was built.
+          </p>
+        ))}
+        {unusableYears.map((y) => (
+          <p>
+            For {y.count_year}, the state's English learner and lunch counts were{' '}
+            <strong>not usable</strong>, so we do not show them. The state did not collect the
+            English learner flag that year, and it has said its lunch flag was set for nearly every
+            student by mistake.
+          </p>
+        ))}
+        {emptyYears.length > 0 && (
+          <p>
+            No students were counted as living in any of these towns in{' '}
+            {emptyYears.map((y) => y.count_year).join(', ')}.
+          </p>
+        )}
+      </>
+    )
+  }
 
   <h2>Budget documents</h2>
   {
