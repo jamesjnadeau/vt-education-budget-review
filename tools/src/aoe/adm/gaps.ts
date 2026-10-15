@@ -59,7 +59,10 @@ const ENTRIES: readonly GapEntry[] = [
     note:
       'No AOE resident-district report publishes a prekindergarten column at all. The ' +
       'value is null, never zero, and the absence is confirmed against the artifact. ' +
-      'Separately, (d)(1)(A) exists in two versions -- negative 0.54 until the Act 73 ' +
+      'A records-request extract (intake/aoe-adm-subgroups) carries a prekindergarten ' +
+      'band at TOWN grain, partly withheld under FERPA rules; it was never delivered at ' +
+      'district grain and does not supply this input. Separately, (d)(1)(A) exists in ' +
+      'two versions -- negative 0.54 until the Act 73 ' +
       'contingency is met, repealed in the version effective July 1 2026 if it is -- so ' +
       'even a published count would not currently yield a usable weight.',
   },
@@ -76,13 +79,22 @@ const ENTRIES: readonly GapEntry[] = [
     input: 'poverty_185_fpl',
     statute: '16 V.S.A. § 4010(b)(1)(E), weighted under (d)(2)',
     supplied: false,
-    note: 'Not in this report. A separate AOE source with its own provenance.',
+    note:
+      'Not in this report. A records-request extract (intake/aoe-adm-subgroups) carries ' +
+      'a free-or-reduced-lunch eligibility count at TOWN grain for SY25 and SY26, partly ' +
+      'withheld under FERPA rules; its SY24 column is a known AOE defect and is not ' +
+      'imported. Town grain with withheld cells cannot be rolled up to a district ' +
+      'weight, so this input stays unsupplied.',
   },
   {
     input: 'english_learners',
     statute: '16 V.S.A. § 4010(b)(1)(F), weighted under (d)(3)',
     supplied: false,
-    note: 'Not in this report. A separate AOE source with its own provenance.',
+    note:
+      'Not in this report. A records-request extract (intake/aoe-adm-subgroups) carries ' +
+      'an English-learner count at TOWN grain for SY25 and SY26, partly withheld under ' +
+      'FERPA rules; SY24 was not collected. Town grain with withheld cells cannot be ' +
+      'rolled up to a district weight, so this input stays unsupplied.',
   },
   {
     input: 'persons_per_square_mile',

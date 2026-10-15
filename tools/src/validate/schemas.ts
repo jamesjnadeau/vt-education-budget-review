@@ -31,6 +31,7 @@ export type SchemaName =
   | 'parameters'
   | 'grouping'
   | 'adm'
+  | 'adm-subgroups'
   | 'aoe-source'
   | 'small-sparse'
   | 'census-town'
@@ -45,6 +46,7 @@ const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   parameters: 'urn:vt-budget:schema:parameters:1.0',
   grouping: 'urn:vt-budget:schema:grouping:1.0',
   adm: 'urn:vt-budget:schema:adm:1.0',
+  'adm-subgroups': 'urn:vt-budget:schema:adm-subgroups:1.0',
   'aoe-source': 'urn:vt-budget:schema:aoe-source:1.0',
   'small-sparse': 'urn:vt-budget:schema:small-sparse:1.0',
   'census-town': 'urn:vt-budget:schema:census-town:1.0',

@@ -492,6 +492,19 @@ th {
   border-color: var(--accent);
   color: var(--accent);
 }
+/* A cell AOE withheld to protect student privacy. A correct, final answer
+   from the source, so it takes the absent grey rather than a failure colour. */
+.tag.suppressed {
+  border-color: var(--state-absent);
+  color: var(--state-absent);
+}
+/* A town-year with no row at all: nobody lived there, or the entity had
+   closed. Nothing is missing, so it reads like `not-computable`. */
+.tag.not-applicable {
+  border-color: var(--border);
+  color: var(--text-muted);
+  background: var(--surface);
+}
 .tag.estimated {
   border-color: var(--accent);
   color: var(--accent);
@@ -793,4 +806,16 @@ button:hover {
   font-size: 0.9rem;
   color: var(--text-muted);
   word-break: break-all;
+}
+
+/* ---- Students who live here (town pages) ---------------------------- */
+.residents td.numeric {
+  white-space: nowrap;
+}
+.residents .tag {
+  white-space: normal;
+}
+.residents .muted {
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }

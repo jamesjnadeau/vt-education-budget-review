@@ -12,7 +12,7 @@
  * one-file change.
  */
 
-import readXlsxFile from 'read-excel-file/node';
+import readXlsxFile, { readSheet } from 'read-excel-file/node';
 
 export type Cell = string | number | null;
 
@@ -48,6 +48,28 @@ export async function readSheetRows(absolutePath: string): Promise<Cell[][]> {
     );
   }
   const rows = (sheets[0]?.data ?? []) as Cell[][];
+  return rows.map((row) => {
+    let end = row.length;
+    while (end > 0 && (row[end - 1] === null || row[end - 1] === '')) end--;
+    return row.slice(0, end);
+  });
+}
+
+/**
+ * Every row of one named sheet of a multi-sheet workbook.
+ *
+ * The guard above exists because reading "the first sheet" of a workbook that
+ * has several is a guess. Naming the sheet is not a guess: the caller is saying
+ * which tab holds the data, and the library throws if no tab has that name. The
+ * AOE records-request extracts ship an "Information Sheet" ahead of the data
+ * tab, which is exactly the layout the guard refuses, so this is how they are
+ * read. Trailing empty cells are trimmed the same way.
+ */
+export async function readNamedSheetRows(
+  absolutePath: string,
+  sheetName: string,
+): Promise<Cell[][]> {
+  const rows = (await readSheet(absolutePath, sheetName)) as Cell[][];
   return rows.map((row) => {
     let end = row.length;
     while (end > 0 && (row[end - 1] === null || row[end - 1] === '')) end--;
