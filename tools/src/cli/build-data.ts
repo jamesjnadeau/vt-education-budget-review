@@ -160,7 +160,9 @@ function main(): number {
   }
 
   // --- AOE ADM by town of residence, with subgroups -------------------------
-  // Town grain only; never rolled up. The "no students live here" rows for
+  // Town grain only; never rolled up here. The supervisory union pages add
+  // member towns together at render time (site/src/lib/residents.ts), as a
+  // range when any town cell is withheld. The "no students live here" rows for
   // registry towns absent from a year are derived here against the current
   // registry, so the warehouse stays a transcription of what AOE delivered.
   const subgroupRecords = walkFiles(join(PATHS.warehouse, 'aoe-adm-subgroups'), (n) =>
