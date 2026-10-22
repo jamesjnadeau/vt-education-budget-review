@@ -5,11 +5,11 @@
 # Full-corpus `git lfs pull` bills for every byte at HEAD on every run; at full
 # coverage that exhausts the free bandwidth tier before the first merge of the
 # month. Only artifacts that changed can have a new hash to verify, so those are
-# the only large ones worth the bytes -- the per-SU budget PDFs. But a handful of
-# small AOE/reference source artifacts under intake/ are golden-test fixtures and
-# build inputs; those are fetched every run so the tests actually run rather than
-# tripping over an unfetched pointer. The monthly lfs-audit workflow re-verifies
-# the whole store separately.
+# the only large ones worth the bytes -- the per-SU budget PDFs. But the small
+# AOE/reference source artifacts under intake/ are real-artifact test fixtures
+# and build inputs; those are fetched every run so the tests actually run rather
+# than tripping over an unfetched pointer. The monthly lfs-audit workflow
+# re-verifies the whole store separately.
 #
 # This operates on git refs and paths only -- never on issue or PR body text --
 # so there is nothing attacker-controlled to interpolate.
@@ -40,10 +40,26 @@ fi
 CHANGED="$(git diff --name-only --diff-filter=d "$RANGE" -- 'intake/**' \
   | grep -iE '\.(pdf|xlsx|xls|doc|docx|zip)$' || true)"
 
-# Small reference/source fixtures the golden tests and the data build read.
-# Always fetched (tiny), so their tests run instead of skipping. Directory
-# prefixes match everything beneath them, gitignore-style.
-git lfs pull --include="intake/aoe-adm,intake/census,intake/sbe"
+# Source fixtures the real-artifact tests and the data build read. Always
+# fetched, so those tests run instead of failing on a pointer. Every spreadsheet
+# under intake/ is one of these: AOE delivers its extracts as small .xlsx files
+# (hundreds of KB in total), while the large artifacts are the budget PDFs, which
+# the glob leaves to the changed-set fetch below. Matching by extension rather
+# than by directory means a new AOE source directory (aoe-adm-subgroups,
+# aoe-edspend, ...) is covered the day its first test lands, instead of turning
+# main red until someone remembers this list. Directory prefixes match
+# everything beneath them, gitignore-style.
+FIXTURES="intake/**/*.xlsx,intake/census,intake/sbe"
+git lfs pull --include="$FIXTURES"
+
+# A fixture still sitting as a pointer after the pull would surface later as an
+# opaque "Doesn't look like an .xlsx file" from a test. Say what happened here.
+while IFS= read -r f; do
+  if head -c 40 "$f" | grep -q '^version https://git-lfs.github.com/spec/'; then
+    echo "::error file=$f::LFS fixture is still a pointer after 'git lfs pull --include=$FIXTURES'"
+    exit 1
+  fi
+done < <(git ls-files -- 'intake/**/*.xlsx')
 
 if [ -n "$CHANGED" ]; then
   echo "Changed LFS artifacts:"
