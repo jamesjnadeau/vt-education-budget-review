@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:edspend:1.0",
+  "title": "AOE education spending, pupils, and education tax rates, one fiscal year",
+  "description": "A transcription of one fiscal-year tab of the AOE education-spending workbook released under a records request. Each tab lists every town with its homestead and non-homestead education tax rates, every school district with its pupils and education spending, and which union districts each town belongs to. Figures are transcribed as stated: where a stated figure disagrees with the rest of its row, the disagreement is listed in `discrepancies` and nothing is corrected.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "sheet",
+    "fiscal_year",
+    "pupil_measure",
+    "pupil_measure_as_published",
+    "rates_status",
+    "rates_label_as_published",
+    "banner",
+    "statewide_total",
+    "towns",
+    "districts",
+    "discrepancies",
+    "unresolved_rows",
+    "extracted_by",
+    "extracted_date"
+  ],
+  "$defs": {
+    "entity_or_null": {
+      "description": "The registry slug the AOE ID resolves to, or null when it resolves to none (the row is then also listed in unresolved_rows).",
+      "oneOf": [
+        { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+        { "type": "null" }
+      ]
+    },
+    "su_ref": {
+      "type": "string",
+      "pattern": "^su/[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "aoe_org_id": { "type": "string", "pattern": "^[TU][0-9]{3}[A-Z]?$" },
+    "figure": { "type": "number", "minimum": 0, "description": "A non-negative figure as printed: pupils to two places, dollars to the cent." },
+    "rate": {
+      "description": "An education tax rate in dollars per $100 of equalized value -- the actual rate, after the common level of appraisal. Null where AOE printed text instead of a number; rates_as_published then holds that text.",
+      "oneOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }]
+    }
+  },
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "source": {
+      "type": "string",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$",
+      "description": "The hashed artifact this was transcribed from. One workbook carries several fiscal years, so several records cite the same source."
+    },
+    "sheet": { "type": "string", "pattern": "^FY[0-9]{2}$" },
+    "fiscal_year": { "type": "integer", "minimum": 2015, "maximum": 2100 },
+    "pupil_measure": {
+      "enum": ["equalized_pupils", "long_term_weighted_adm"],
+      "description": "What the pupils column counts. Act 127 replaced equalized pupils with long-term weighted ADM from FY2025, so per-pupil spending is not comparable across that change."
+    },
+    "pupil_measure_as_published": { "enum": ["EqPup", "LTWADM"] },
+    "rates_status": {
+      "enum": ["official", "unofficial"],
+      "description": "Official where the tab labels the rates as the Division of Property Valuation and Review's; unofficial where it labels them as AOE's own calculation."
+    },
+    "rates_label_as_published": { "enum": ["PV&R Official Rates", "AOE Unofficial rates"] },
+    "banner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["this_file", "source_file", "last_saved_by", "last_saved_date"],
+      "description": "The tab's own banner: the internal AOE workbook it was printed from and its last save.",
+      "properties": {
+        "this_file": { "type": "string" },
+        "source_file": { "type": "string" },
+        "last_saved_by": { "type": "string" },
+        "last_saved_date": { "type": "string", "format": "date" }
+      }
+    },
+    "statewide_total": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pupils", "education_spending", "spending_per_pupil", "source_row"],
+      "properties": {
+        "pupils": { "$ref": "#/$defs/figure" },
+        "education_spending": { "$ref": "#/$defs/figure" },
+        "spending_per_pupil": { "$ref": "#/$defs/figure" },
+        "source_row": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "towns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity",
+          "aoe_org_id",
+          "name_as_published",
+          "county",
+          "su",
+          "su_number",
+          "homestead_rate",
+          "nonhomestead_rate",
+          "rates_as_published",
+          "union_districts",
+          "source_row"
+        ],
+        "properties": {
+          "entity": { "$ref": "#/$defs/entity_or_null" },
+          "aoe_org_id": { "$ref": "#/$defs/aoe_org_id" },
+          "name_as_published": { "type": "string", "minLength": 1 },
+          "county": { "type": "string" },
+          "su": { "$ref": "#/$defs/su_ref" },
+          "su_number": { "type": "integer", "minimum": 1 },
+          "homestead_rate": { "$ref": "#/$defs/rate" },
+          "nonhomestead_rate": { "$ref": "#/$defs/rate" },
+          "rates_as_published": { "type": ["string", "null"] },
+          "union_districts": {
+            "type": "array",
+            "description": "The union districts this town's membership rows place it in. Empty for a town in no union.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["entity", "aoe_org_id", "name_as_published", "source_row"],
+              "properties": {
+                "entity": { "$ref": "#/$defs/entity_or_null" },
+                "aoe_org_id": { "$ref": "#/$defs/aoe_org_id" },
+                "name_as_published": { "type": "string", "minLength": 1 },
+                "source_row": { "type": "integer", "minimum": 1 }
+              }
+            }
+          },
+          "source_row": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "districts": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Every district row with pupils or spending that year. A town that runs its own district is the town entity; a union district is its ud/ entity.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity",
+          "aoe_org_id",
+          "district_type",
+          "name_as_published",
+          "county",
+          "su",
+          "su_number",
+          "pupils",
+          "education_spending",
+          "spending_per_pupil",
+          "source_row"
+        ],
+        "properties": {
+          "entity": { "$ref": "#/$defs/entity_or_null" },
+          "aoe_org_id": { "$ref": "#/$defs/aoe_org_id" },
+          "district_type": { "enum": ["town", "union"] },
+          "name_as_published": { "type": "string", "minLength": 1 },
+          "county": { "type": "string" },
+          "su": { "$ref": "#/$defs/su_ref" },
+          "su_number": { "type": "integer", "minimum": 1 },
+          "pupils": { "$ref": "#/$defs/figure" },
+          "education_spending": { "$ref": "#/$defs/figure" },
+          "spending_per_pupil": { "$ref": "#/$defs/figure" },
+          "source_row": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "discrepancies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "entity",
+          "aoe_org_id",
+          "source_row",
+          "stated",
+          "recomputed_spending_per_pupil",
+          "note"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "per_pupil_not_spending_over_pupils",
+              "spending_without_pupils",
+              "pupils_without_spending"
+            ]
+          },
+          "entity": { "$ref": "#/$defs/entity_or_null" },
+          "aoe_org_id": { "$ref": "#/$defs/aoe_org_id" },
+          "source_row": { "type": "integer", "minimum": 1 },
+          "stated": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pupils", "education_spending", "spending_per_pupil"],
+            "properties": {
+              "pupils": { "$ref": "#/$defs/figure" },
+              "education_spending": { "$ref": "#/$defs/figure" },
+              "spending_per_pupil": { "$ref": "#/$defs/figure" }
+            }
+          },
+          "recomputed_spending_per_pupil": { "type": ["number", "null"] },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "unresolved_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["aoe_org_id", "name_as_published", "row_type", "source_row", "note"],
+        "properties": {
+          "aoe_org_id": { "$ref": "#/$defs/aoe_org_id" },
+          "name_as_published": { "type": "string" },
+          "row_type": { "enum": ["town", "town_in_union", "union_district"] },
+          "source_row": { "type": "integer", "minimum": 1 },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "extracted_by": { "type": "string", "minLength": 1 },
+    "extracted_date": { "type": "string", "format": "date" }
+  }
+}

@@ -1,0 +1,41 @@
+schema_version: "1.0"
+entity: source/aoe-edspend
+fiscal_year: 2026
+artifacts:
+  - file: EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx
+    source_url: null
+    retrieved_date: "2026-10-22"
+    retrieval_method: foia
+    sha256: 8c9576a0929ae0652106823dc1c6ccbbd9d9ddc868a5db665fa85b1fab202978
+    bytes: 280592
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: James Nadeau
+    document_type: spreadsheet
+    note: >-
+      Released by the Agency of Education in answer to public records request
+      AOE Data Request #853, so there is no public URL. The retrieved date is
+      the day the file was saved locally. Four tabs, FY23 to FY26, one fiscal
+      year each in the same layout. Each lists every town (GovID T-code) with
+      its supervisory union, county, and homestead and non-homestead education
+      tax rates; every school district (a town-operated district under its
+      T-code, a union district under its U-code) with pupils, education
+      spending and spending per pupil; a membership row for each town in each
+      union district it belongs to; and a Z999 statewide total. The pupils
+      column is equalized pupils (EqPup) in FY23 and FY24 and long-term
+      weighted ADM (LTWADM) in FY25 and FY26, so per-pupil figures are not
+      comparable across that break. The rates are the actual rates after the
+      common level of appraisal; no CLA column is included. FY23 to FY25 rates
+      are labelled "PV&R Official Rates"; FY26 rates are labelled "AOE
+      Unofficial rates". Each tab's banner names the internal AOE workbook it
+      was printed from (FY23Fin v06.xlsm, FY24Fin v17 abatement payments
+      Wolcott.xlsx, FY25FIN v16.xlsx, FY26FIN v08.xlsx) and its last save in
+      October 2026. Formulas link to those external workbooks, so only the
+      cached values are read. Every tab ties out: district rows sum to the
+      statewide row, and the "N =" counts above each column match the rows.
+      Column B is headed LEAID but holds names. Known quirks: North Bennington
+      ID (T141) prints "NA" for both rates every year; FY23 Somerset (T261)
+      shows $31,000 spending with zero pupils; FY26 Ferdinand (T258) and
+      Somerset show pupils with zero spending; FY25 Canaan (T041) and Northeast
+      Kingdom Choice USD (U065) show a per-pupil figure that is not spending
+      divided by pupils. These are recorded as discrepancies in the warehouse
+      records and not corrected.

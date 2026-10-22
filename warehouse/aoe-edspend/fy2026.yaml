@@ -1,0 +1,5201 @@
+# AOE education spending, pupils, and education tax rates, FY2026
+# (LTWADM pupils, unofficial rates).
+#
+# Transcribed from tab FY26 of intake/aoe-edspend/fy2026/EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx
+# by npm run edspend:import. Do not hand-edit: re-run the import instead, so the
+# record always matches the hashed artifact.
+#
+# Rates are actual rates, after the common level of appraisal. Figures are as
+# stated; where one disagrees with the rest of its row it is listed under
+# discrepancies and left as AOE printed it.
+schema_version: "1.0"
+source: intake/aoe-edspend/fy2026/EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx
+sheet: FY26
+fiscal_year: 2026
+pupil_measure: long_term_weighted_adm
+pupil_measure_as_published: LTWADM
+rates_status: unofficial
+rates_label_as_published: AOE Unofficial rates
+banner:
+  this_file: FY26FIN v08.xlsx
+  source_file: FY26FIN v03.xlsx
+  last_saved_by: BradJames
+  last_saved_date: 2026-10-16
+statewide_total:
+  pupils: 142564.12
+  education_spending: 1988482210
+  spending_per_pupil: 13947.99
+  source_row: 575
+towns:
+  - entity: town/bristol
+    aoe_org_id: T031
+    name_as_published: Bristol
+    county: Addison
+    su: su/mt-abraham
+    su_number: 1
+    homestead_rate: 1.8984
+    nonhomestead_rate: 1.9126
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mt-abraham-61
+        aoe_org_id: U061
+        name_as_published: Mt. Abraham USD
+        source_row: 21
+    source_row: 17
+  - entity: town/monkton
+    aoe_org_id: T127
+    name_as_published: Monkton
+    county: Addison
+    su: su/mt-abraham
+    su_number: 1
+    homestead_rate: 1.1275
+    nonhomestead_rate: 1.1359
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mt-abraham-61
+        aoe_org_id: U061
+        name_as_published: Mt. Abraham USD
+        source_row: 22
+    source_row: 18
+  - entity: town/new-haven
+    aoe_org_id: T138
+    name_as_published: New Haven
+    county: Addison
+    su: su/mt-abraham
+    su_number: 1
+    homestead_rate: 1.8234
+    nonhomestead_rate: 1.8371
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mt-abraham-61
+        aoe_org_id: U061
+        name_as_published: Mt. Abraham USD
+        source_row: 23
+    source_row: 19
+  - entity: town/starksboro
+    aoe_org_id: T196
+    name_as_published: Starksboro
+    county: Addison
+    su: su/mt-abraham
+    su_number: 1
+    homestead_rate: 1.0985
+    nonhomestead_rate: 1.1068
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mt-abraham-61
+        aoe_org_id: U061
+        name_as_published: Mt. Abraham USD
+        source_row: 24
+    source_row: 20
+  - entity: town/addison
+    aoe_org_id: T001
+    name_as_published: Addison
+    county: Addison
+    su: su/addison-northwest
+    su_number: 2
+    homestead_rate: 1.8916
+    nonhomestead_rate: 1.8505
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-northwest-54
+        aoe_org_id: U054
+        name_as_published: Addison NW USD
+        source_row: 31
+    source_row: 26
+  - entity: town/ferrisburgh
+    aoe_org_id: T076
+    name_as_published: Ferrisburgh
+    county: Addison
+    su: su/addison-northwest
+    su_number: 2
+    homestead_rate: 2.0139
+    nonhomestead_rate: 1.9702
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-northwest-54
+        aoe_org_id: U054
+        name_as_published: Addison NW USD
+        source_row: 32
+    source_row: 27
+  - entity: town/panton
+    aoe_org_id: T149
+    name_as_published: Panton
+    county: Addison
+    su: su/addison-northwest
+    su_number: 2
+    homestead_rate: 1.1922
+    nonhomestead_rate: 1.1664
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-northwest-54
+        aoe_org_id: U054
+        name_as_published: Addison NW USD
+        source_row: 33
+    source_row: 28
+  - entity: town/vergennes
+    aoe_org_id: T213
+    name_as_published: Vergennes
+    county: Addison
+    su: su/addison-northwest
+    su_number: 2
+    homestead_rate: 1.1046
+    nonhomestead_rate: 1.0806
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-northwest-54
+        aoe_org_id: U054
+        name_as_published: Addison NW USD
+        source_row: 34
+    source_row: 29
+  - entity: town/waltham
+    aoe_org_id: T220
+    name_as_published: Waltham
+    county: Addison
+    su: su/addison-northwest
+    su_number: 2
+    homestead_rate: 1.1436
+    nonhomestead_rate: 1.1188
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-northwest-54
+        aoe_org_id: U054
+        name_as_published: Addison NW USD
+        source_row: 35
+    source_row: 30
+  - entity: town/bridport
+    aoe_org_id: T029
+    name_as_published: Bridport
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 1.08
+    nonhomestead_rate: 1.142
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 44
+    source_row: 37
+  - entity: town/cornwall
+    aoe_org_id: T053
+    name_as_published: Cornwall
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 1.0639
+    nonhomestead_rate: 1.1251
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 45
+    source_row: 38
+  - entity: town/middlebury
+    aoe_org_id: T123
+    name_as_published: Middlebury ID
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 1.6412
+    nonhomestead_rate: 1.7355
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 46
+    source_row: 39
+  - entity: town/ripton
+    aoe_org_id: T167
+    name_as_published: Ripton
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 0.9868
+    nonhomestead_rate: 1.0435
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 47
+    source_row: 40
+  - entity: town/salisbury
+    aoe_org_id: T180
+    name_as_published: Salisbury
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 1.1912
+    nonhomestead_rate: 1.2596
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 48
+    source_row: 41
+  - entity: town/shoreham
+    aoe_org_id: T189
+    name_as_published: Shoreham
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 1.0863
+    nonhomestead_rate: 1.1487
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 49
+    source_row: 42
+  - entity: town/weybridge
+    aoe_org_id: T239
+    name_as_published: Weybridge
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    homestead_rate: 1.1196
+    nonhomestead_rate: 1.184
+    rates_as_published: null
+    union_districts:
+      - entity: ud/addison-central-55
+        aoe_org_id: U055
+        name_as_published: Addison Central USD
+        source_row: 50
+    source_row: 43
+  - entity: town/benson
+    aoe_org_id: T017
+    name_as_published: Benson
+    county: Rutland
+    su: su/slate-valley
+    su_number: 4
+    homestead_rate: 1.5161
+    nonhomestead_rate: 1.9191
+    rates_as_published: null
+    union_districts:
+      - entity: ud/slate-valley-62
+        aoe_org_id: U062
+        name_as_published: Slate Valley UUSD
+        source_row: 58
+    source_row: 52
+  - entity: town/castleton
+    aoe_org_id: T042
+    name_as_published: Castleton
+    county: Rutland
+    su: su/slate-valley
+    su_number: 4
+    homestead_rate: 0.9589
+    nonhomestead_rate: 1.2138
+    rates_as_published: null
+    union_districts:
+      - entity: ud/slate-valley-62
+        aoe_org_id: U062
+        name_as_published: Slate Valley UUSD
+        source_row: 59
+    source_row: 53
+  - entity: town/fair-haven
+    aoe_org_id: T073
+    name_as_published: Fair Haven
+    county: Rutland
+    su: su/slate-valley
+    su_number: 4
+    homestead_rate: 1.2289
+    nonhomestead_rate: 1.5555
+    rates_as_published: null
+    union_districts:
+      - entity: ud/slate-valley-62
+        aoe_org_id: U062
+        name_as_published: Slate Valley UUSD
+        source_row: 60
+    source_row: 54
+  - entity: town/hubbardton
+    aoe_org_id: T098
+    name_as_published: Hubbardton
+    county: Rutland
+    su: su/slate-valley
+    su_number: 4
+    homestead_rate: 1.6145
+    nonhomestead_rate: 2.0437
+    rates_as_published: null
+    union_districts:
+      - entity: ud/slate-valley-62
+        aoe_org_id: U062
+        name_as_published: Slate Valley UUSD
+        source_row: 61
+    source_row: 55
+  - entity: town/orwell
+    aoe_org_id: T148
+    name_as_published: Orwell
+    county: Addison
+    su: su/slate-valley
+    su_number: 4
+    homestead_rate: 0.932
+    nonhomestead_rate: 1.1797
+    rates_as_published: null
+    union_districts:
+      - entity: ud/slate-valley-62
+        aoe_org_id: U062
+        name_as_published: Slate Valley UUSD
+        source_row: 62
+    source_row: 56
+  - entity: town/west-haven
+    aoe_org_id: T233
+    name_as_published: West Haven
+    county: Rutland
+    su: su/slate-valley
+    su_number: 4
+    homestead_rate: 1.2877
+    nonhomestead_rate: 1.63
+    rates_as_published: null
+    union_districts:
+      - entity: ud/slate-valley-62
+        aoe_org_id: U062
+        name_as_published: Slate Valley UUSD
+        source_row: 63
+    source_row: 57
+  - entity: town/arlington
+    aoe_org_id: T005
+    name_as_published: Arlington
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.6222
+    nonhomestead_rate: 1.7697
+    rates_as_published: null
+    union_districts: []
+    source_row: 65
+  - entity: town/bennington-id
+    aoe_org_id: T015
+    name_as_published: Bennington ID
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.5068
+    nonhomestead_rate: 1.909
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-anthony-union-high-14
+        aoe_org_id: U014
+        name_as_published: Mt. Anthony UHSD
+        source_row: 73
+      - entity: ud/southwest-vermont-union-elementary-87
+        aoe_org_id: U087
+        name_as_published: Southwest Vermont UESD
+        source_row: 79
+    source_row: 66
+  - entity: town/north-bennington
+    aoe_org_id: T141
+    name_as_published: North Bennington ID
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: null
+    nonhomestead_rate: null
+    rates_as_published: NA
+    union_districts:
+      - entity: ud/mount-anthony-union-high-14
+        aoe_org_id: U014
+        name_as_published: Mt. Anthony UHSD
+        source_row: 74
+    source_row: 67
+  - entity: town/pownal
+    aoe_org_id: T159
+    name_as_published: Pownal
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.3945
+    nonhomestead_rate: 1.7388
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-anthony-union-high-14
+        aoe_org_id: U014
+        name_as_published: Mt. Anthony UHSD
+        source_row: 75
+      - entity: ud/southwest-vermont-union-elementary-87
+        aoe_org_id: U087
+        name_as_published: Southwest Vermont UESD
+        source_row: 80
+    source_row: 68
+  - entity: town/sandgate
+    aoe_org_id: T181
+    name_as_published: Sandgate
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.0234
+    nonhomestead_rate: 1.5333
+    rates_as_published: null
+    union_districts: []
+    source_row: 69
+  - entity: town/shaftsbury
+    aoe_org_id: T183
+    name_as_published: Shaftsbury
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.3607
+    nonhomestead_rate: 1.7136
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-anthony-union-high-14
+        aoe_org_id: U014
+        name_as_published: Mt. Anthony UHSD
+        source_row: 76
+      - entity: ud/southwest-vermont-union-elementary-87
+        aoe_org_id: U087
+        name_as_published: Southwest Vermont UESD
+        source_row: 81
+    source_row: 70
+  - entity: town/woodford
+    aoe_org_id: T252
+    name_as_published: Woodford
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.3323
+    nonhomestead_rate: 1.6639
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-anthony-union-high-14
+        aoe_org_id: U014
+        name_as_published: Mt. Anthony UHSD
+        source_row: 77
+      - entity: ud/southwest-vermont-union-elementary-87
+        aoe_org_id: U087
+        name_as_published: Southwest Vermont UESD
+        source_row: 82
+    source_row: 71
+  - entity: town/glastenbury
+    aoe_org_id: T259
+    name_as_published: Glastenbury
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    homestead_rate: 1.2297
+    nonhomestead_rate: 2.0942
+    rates_as_published: null
+    union_districts: []
+    source_row: 72
+  - entity: town/danby
+    aoe_org_id: T056
+    name_as_published: Danby
+    county: Rutland
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.0032
+    nonhomestead_rate: 1.1936
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 96
+    source_row: 84
+  - entity: town/dorset
+    aoe_org_id: T059
+    name_as_published: Dorset
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 0.9239
+    nonhomestead_rate: 1.0993
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 97
+    source_row: 85
+  - entity: town/landgrove
+    aoe_org_id: T109
+    name_as_published: Landgrove
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.3612
+    nonhomestead_rate: 1.6196
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 98
+    source_row: 86
+  - entity: town/londonderry
+    aoe_org_id: T113
+    name_as_published: Londonderry
+    county: Windham
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.6532
+    nonhomestead_rate: 1.967
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 99
+    source_row: 87
+  - entity: town/manchester
+    aoe_org_id: T119
+    name_as_published: Manchester
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.0832
+    nonhomestead_rate: 1.2888
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 100
+    source_row: 88
+  - entity: town/mt-tabor
+    aoe_org_id: T134
+    name_as_published: Mt. Tabor
+    county: Rutland
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.3535
+    nonhomestead_rate: 1.6104
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 101
+    source_row: 89
+  - entity: town/pawlet
+    aoe_org_id: T150
+    name_as_published: Pawlet
+    county: Rutland
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.6429
+    nonhomestead_rate: 1.8401
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mettawee-84
+        aoe_org_id: U084
+        name_as_published: Mettawee School District
+        source_row: 106
+    source_row: 90
+  - entity: town/peru
+    aoe_org_id: T152
+    name_as_published: Peru
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.7491
+    nonhomestead_rate: 2.0811
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 102
+    source_row: 91
+  - entity: town/rupert
+    aoe_org_id: T172
+    name_as_published: Rupert
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.7071
+    nonhomestead_rate: 1.912
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mettawee-84
+        aoe_org_id: U084
+        name_as_published: Mettawee School District
+        source_row: 107
+    source_row: 92
+  - entity: town/sunderland
+    aoe_org_id: T202
+    name_as_published: Sunderland
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.6495
+    nonhomestead_rate: 1.9627
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 103
+    source_row: 93
+  - entity: town/weston
+    aoe_org_id: T236
+    name_as_published: Weston
+    county: Windsor
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 0.9739
+    nonhomestead_rate: 1.1588
+    rates_as_published: null
+    union_districts:
+      - entity: ud/taconic-and-green-regional-63
+        aoe_org_id: U063
+        name_as_published: Taconic & Green Regional USD
+        source_row: 104
+    source_row: 94
+  - entity: town/winhall
+    aoe_org_id: T248
+    name_as_published: Winhall
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    homestead_rate: 1.837
+    nonhomestead_rate: 2.0909
+    rates_as_published: null
+    union_districts: []
+    source_row: 95
+  - entity: town/colchester
+    aoe_org_id: T050
+    name_as_published: Colchester
+    county: Chittenden
+    su: su/colchester
+    su_number: 7
+    homestead_rate: 1.8634
+    nonhomestead_rate: 2.0019
+    rates_as_published: null
+    union_districts: []
+    source_row: 109
+  - entity: town/barnet
+    aoe_org_id: T010
+    name_as_published: Barnet
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.81
+    nonhomestead_rate: 1.7406
+    rates_as_published: null
+    union_districts:
+      - entity: ud/caledonia-cooperative-78
+        aoe_org_id: U078
+        name_as_published: Caledonia Cooperative UUSD
+        source_row: 121
+    source_row: 110
+  - entity: town/cabot
+    aoe_org_id: T038
+    name_as_published: Cabot
+    county: Washington
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.2611
+    nonhomestead_rate: 1.2889
+    rates_as_published: null
+    union_districts: []
+    source_row: 111
+  - entity: town/danville
+    aoe_org_id: T057
+    name_as_published: Danville
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.7369
+    nonhomestead_rate: 1.689
+    rates_as_published: null
+    union_districts: []
+    source_row: 112
+  - entity: town/marshfield
+    aoe_org_id: T121
+    name_as_published: Marshfield
+    county: Washington
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.5658
+    nonhomestead_rate: 1.6594
+    rates_as_published: null
+    union_districts:
+      - entity: ud/twinfield-33
+        aoe_org_id: U033
+        name_as_published: Twinfield USD
+        source_row: 118
+    source_row: 113
+  - entity: town/peacham
+    aoe_org_id: T151
+    name_as_published: Peacham
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.9342
+    nonhomestead_rate: 1.779
+    rates_as_published: null
+    union_districts: []
+    source_row: 114
+  - entity: town/plainfield
+    aoe_org_id: T155
+    name_as_published: Plainfield
+    county: Washington
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 0.9868
+    nonhomestead_rate: 1.0457
+    rates_as_published: null
+    union_districts:
+      - entity: ud/twinfield-33
+        aoe_org_id: U033
+        name_as_published: Twinfield USD
+        source_row: 119
+    source_row: 115
+  - entity: town/walden
+    aoe_org_id: T218
+    name_as_published: Walden
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.6074
+    nonhomestead_rate: 1.5458
+    rates_as_published: null
+    union_districts:
+      - entity: ud/caledonia-cooperative-78
+        aoe_org_id: U078
+        name_as_published: Caledonia Cooperative UUSD
+        source_row: 122
+    source_row: 116
+  - entity: town/waterford
+    aoe_org_id: T225
+    name_as_published: Waterford
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    homestead_rate: 1.1812
+    nonhomestead_rate: 1.1359
+    rates_as_published: null
+    union_districts:
+      - entity: ud/caledonia-cooperative-78
+        aoe_org_id: U078
+        name_as_published: Caledonia Cooperative UUSD
+        source_row: 123
+    source_row: 117
+  - entity: town/milton
+    aoe_org_id: T126
+    name_as_published: Milton
+    county: Chittenden
+    su: su/milton
+    su_number: 10
+    homestead_rate: 1.2462
+    nonhomestead_rate: 1.3927
+    rates_as_published: null
+    union_districts: []
+    source_row: 125
+  - entity: town/st-johnsbury
+    aoe_org_id: T179
+    name_as_published: St. Johnsbury
+    county: Caledonia
+    su: su/saint-johnsbury
+    su_number: 11
+    homestead_rate: 1.0631
+    nonhomestead_rate: 1.1733
+    rates_as_published: null
+    union_districts: []
+    source_row: 126
+  - entity: town/bolton
+    aoe_org_id: T022
+    name_as_published: Bolton
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    homestead_rate: 1.2242
+    nonhomestead_rate: 1.3652
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-mansfield-401
+        aoe_org_id: U401
+        name_as_published: Mt. Mansfield UUSD
+        source_row: 133
+    source_row: 127
+  - entity: town/huntington
+    aoe_org_id: T099
+    name_as_published: Huntington
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    homestead_rate: 1.0007
+    nonhomestead_rate: 1.116
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-mansfield-401
+        aoe_org_id: U401
+        name_as_published: Mt. Mansfield UUSD
+        source_row: 134
+    source_row: 128
+  - entity: town/jericho
+    aoe_org_id: T106
+    name_as_published: Jericho
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    homestead_rate: 1.6992
+    nonhomestead_rate: 1.895
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-mansfield-401
+        aoe_org_id: U401
+        name_as_published: Mt. Mansfield UUSD
+        source_row: 135
+    source_row: 129
+  - entity: town/richmond
+    aoe_org_id: T166
+    name_as_published: Richmond
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    homestead_rate: 1.1903
+    nonhomestead_rate: 1.3274
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-mansfield-401
+        aoe_org_id: U401
+        name_as_published: Mt. Mansfield UUSD
+        source_row: 136
+    source_row: 130
+  - entity: town/underhill-town
+    aoe_org_id: T212
+    name_as_published: Underhill Town
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    homestead_rate: 1.313
+    nonhomestead_rate: 1.4642
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-mansfield-401
+        aoe_org_id: U401
+        name_as_published: Mt. Mansfield UUSD
+        source_row: 137
+    source_row: 131
+  - entity: town/buels-gore
+    aoe_org_id: T255
+    name_as_published: Buels Gore
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    homestead_rate: 0.7146
+    nonhomestead_rate: 1.217
+    rates_as_published: null
+    union_districts: []
+    source_row: 132
+  - entity: town/charlotte
+    aoe_org_id: T045
+    name_as_published: Charlotte
+    county: Chittenden
+    su: su/champlain-valley
+    su_number: 14
+    homestead_rate: 1.2572
+    nonhomestead_rate: 1.3222
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-valley-56
+        aoe_org_id: U056
+        name_as_published: Champlain Valley USD
+        source_row: 144
+    source_row: 139
+  - entity: town/hinesburg
+    aoe_org_id: T096
+    name_as_published: Hinesburg
+    county: Chittenden
+    su: su/champlain-valley
+    su_number: 14
+    homestead_rate: 1.0207
+    nonhomestead_rate: 1.0734
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-valley-56
+        aoe_org_id: U056
+        name_as_published: Champlain Valley USD
+        source_row: 145
+    source_row: 140
+  - entity: town/st-george
+    aoe_org_id: T178
+    name_as_published: St. George
+    county: Chittenden
+    su: su/champlain-valley
+    su_number: 14
+    homestead_rate: 1.8018
+    nonhomestead_rate: 1.895
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-valley-56
+        aoe_org_id: U056
+        name_as_published: Champlain Valley USD
+        source_row: 146
+    source_row: 141
+  - entity: town/shelburne
+    aoe_org_id: T186
+    name_as_published: Shelburne
+    county: Chittenden
+    su: su/champlain-valley
+    su_number: 14
+    homestead_rate: 1.8777
+    nonhomestead_rate: 1.9747
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-valley-56
+        aoe_org_id: U056
+        name_as_published: Champlain Valley USD
+        source_row: 147
+    source_row: 142
+  - entity: town/williston
+    aoe_org_id: T244
+    name_as_published: Williston
+    county: Chittenden
+    su: su/champlain-valley
+    su_number: 14
+    homestead_rate: 1.8632
+    nonhomestead_rate: 1.9595
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-valley-56
+        aoe_org_id: U056
+        name_as_published: Champlain Valley USD
+        source_row: 148
+    source_row: 143
+  - entity: town/burlington
+    aoe_org_id: T037
+    name_as_published: Burlington
+    county: Chittenden
+    su: su/burlington
+    su_number: 15
+    homestead_rate: 1.5264
+    nonhomestead_rate: 1.5072
+    rates_as_published: null
+    union_districts: []
+    source_row: 150
+  - entity: town/south-burlington
+    aoe_org_id: T191
+    name_as_published: South Burlington
+    county: Chittenden
+    su: su/south-burlington
+    su_number: 16
+    homestead_rate: 1.5713
+    nonhomestead_rate: 1.6552
+    rates_as_published: null
+    union_districts: []
+    source_row: 151
+  - entity: town/winooski
+    aoe_org_id: T249
+    name_as_published: Winooski ID
+    county: Chittenden
+    su: su/winooski
+    su_number: 17
+    homestead_rate: 1.2403
+    nonhomestead_rate: 1.1901
+    rates_as_published: null
+    union_districts: []
+    source_row: 152
+  - entity: town/bloomfield
+    aoe_org_id: T021
+    name_as_published: Bloomfield
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.1123
+    nonhomestead_rate: 1.1505
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 170
+    source_row: 153
+  - entity: town/brunswick
+    aoe_org_id: T035
+    name_as_published: Brunswick
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.2133
+    nonhomestead_rate: 1.255
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 171
+    source_row: 154
+  - entity: town/canaan
+    aoe_org_id: T041
+    name_as_published: Canaan
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.6809
+    nonhomestead_rate: 1.387
+    rates_as_published: null
+    union_districts: []
+    source_row: 155
+  - entity: town/east-haven
+    aoe_org_id: T064
+    name_as_published: East Haven
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.63
+    nonhomestead_rate: 1.686
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 172
+    source_row: 156
+  - entity: town/granby
+    aoe_org_id: T083
+    name_as_published: Granby
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.6615
+    nonhomestead_rate: 1.7185
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 173
+    source_row: 157
+  - entity: town/guildhall
+    aoe_org_id: T088
+    name_as_published: Guildhall
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.2528
+    nonhomestead_rate: 1.2957
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 174
+    source_row: 158
+  - entity: town/kirby
+    aoe_org_id: T108
+    name_as_published: Kirby
+    county: Caledonia
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.162
+    nonhomestead_rate: 1.2019
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 175
+    source_row: 159
+  - entity: town/lemington
+    aoe_org_id: T111
+    name_as_published: Lemington
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.6651
+    nonhomestead_rate: 1.7223
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 176
+    source_row: 160
+  - entity: town/maidstone
+    aoe_org_id: T118
+    name_as_published: Maidstone
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.1451
+    nonhomestead_rate: 1.1844
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 177
+    source_row: 161
+  - entity: town/norton
+    aoe_org_id: T144
+    name_as_published: Norton
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.3989
+    nonhomestead_rate: 1.4469
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 178
+    source_row: 162
+  - entity: town/victory
+    aoe_org_id: T216
+    name_as_published: Victory
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 1.8129
+    nonhomestead_rate: 1.8751
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northeast-kingdom-choice
+        aoe_org_id: U065
+        name_as_published: Northeast Kingdom Choice USD
+        source_row: 179
+    source_row: 163
+  - entity: town/averill
+    aoe_org_id: T256
+    name_as_published: Averill
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 0.7288
+    nonhomestead_rate: 1.2411
+    rates_as_published: null
+    union_districts: []
+    source_row: 164
+  - entity: town/averys-gore
+    aoe_org_id: T257
+    name_as_published: Avery's Gore
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 0.7288
+    nonhomestead_rate: 1.2411
+    rates_as_published: null
+    union_districts: []
+    source_row: 165
+  - entity: town/ferdinand
+    aoe_org_id: T258
+    name_as_published: Ferdinand
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 0.7288
+    nonhomestead_rate: 1.2411
+    rates_as_published: null
+    union_districts: []
+    source_row: 166
+  - entity: town/lewis
+    aoe_org_id: T260
+    name_as_published: Lewis
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 0.7288
+    nonhomestead_rate: 1.2411
+    rates_as_published: null
+    union_districts: []
+    source_row: 167
+  - entity: town/warners-grant
+    aoe_org_id: T262
+    name_as_published: Warner's Grant
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 0.7288
+    nonhomestead_rate: 1.2411
+    rates_as_published: null
+    union_districts: []
+    source_row: 168
+  - entity: town/warrens-grant
+    aoe_org_id: T263
+    name_as_published: Warren Gore
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    homestead_rate: 0.7288
+    nonhomestead_rate: 1.2411
+    rates_as_published: null
+    union_districts: []
+    source_row: 169
+  - entity: town/bakersfield
+    aoe_org_id: T007
+    name_as_published: Bakersfield
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    homestead_rate: 1.4363
+    nonhomestead_rate: 1.7943
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northern-mountain-valley-85
+        aoe_org_id: U085
+        name_as_published: Northern Mountain Valley UUSD
+        source_row: 187
+    source_row: 181
+  - entity: town/berkshire
+    aoe_org_id: T018
+    name_as_published: Berkshire
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    homestead_rate: 1.4717
+    nonhomestead_rate: 1.8385
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northern-mountain-valley-85
+        aoe_org_id: U085
+        name_as_published: Northern Mountain Valley UUSD
+        source_row: 188
+    source_row: 182
+  - entity: town/enosburgh
+    aoe_org_id: T068
+    name_as_published: Enosburgh
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    homestead_rate: 1.4225
+    nonhomestead_rate: 1.8694
+    rates_as_published: null
+    union_districts:
+      - entity: ud/enosburgh-richford-88
+        aoe_org_id: U088
+        name_as_published: Enosburgh-Richford UUSD
+        source_row: 192
+    source_row: 183
+  - entity: town/montgomery
+    aoe_org_id: T128
+    name_as_published: Montgomery
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    homestead_rate: 1.5442
+    nonhomestead_rate: 1.9291
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northern-mountain-valley-85
+        aoe_org_id: U085
+        name_as_published: Northern Mountain Valley UUSD
+        source_row: 189
+    source_row: 184
+  - entity: town/richford
+    aoe_org_id: T165
+    name_as_published: Richford
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    homestead_rate: 0.964
+    nonhomestead_rate: 1.2668
+    rates_as_published: null
+    union_districts:
+      - entity: ud/enosburgh-richford-88
+        aoe_org_id: U088
+        name_as_published: Enosburgh-Richford UUSD
+        source_row: 193
+    source_row: 185
+  - entity: town/sheldon
+    aoe_org_id: T187
+    name_as_published: Sheldon
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    homestead_rate: 1.417
+    nonhomestead_rate: 1.7703
+    rates_as_published: null
+    union_districts:
+      - entity: ud/northern-mountain-valley-85
+        aoe_org_id: U085
+        name_as_published: Northern Mountain Valley UUSD
+        source_row: 190
+    source_row: 186
+  - entity: town/franklin
+    aoe_org_id: T078
+    name_as_published: Franklin
+    county: Franklin
+    su: su/missisquoi-valley
+    su_number: 21
+    homestead_rate: 1.573
+    nonhomestead_rate: 1.8891
+    rates_as_published: null
+    union_districts:
+      - entity: ud/missisquoi-valley-89
+        aoe_org_id: U089
+        name_as_published: Missisquois Valley School District
+        source_row: 198
+    source_row: 195
+  - entity: town/highgate
+    aoe_org_id: T095
+    name_as_published: Highgate
+    county: Franklin
+    su: su/missisquoi-valley
+    su_number: 21
+    homestead_rate: 1.4017
+    nonhomestead_rate: 1.6833
+    rates_as_published: null
+    union_districts:
+      - entity: ud/missisquoi-valley-89
+        aoe_org_id: U089
+        name_as_published: Missisquois Valley School District
+        source_row: 199
+    source_row: 196
+  - entity: town/swanton
+    aoe_org_id: T204
+    name_as_published: Swanton
+    county: Franklin
+    su: su/missisquoi-valley
+    su_number: 21
+    homestead_rate: 1.4679
+    nonhomestead_rate: 1.7628
+    rates_as_published: null
+    union_districts:
+      - entity: ud/missisquoi-valley-89
+        aoe_org_id: U089
+        name_as_published: Missisquois Valley School District
+        source_row: 200
+    source_row: 197
+  - entity: town/fairfax
+    aoe_org_id: T071
+    name_as_published: Fairfax
+    county: Franklin
+    su: su/franklin-west
+    su_number: 22
+    homestead_rate: 1.2837
+    nonhomestead_rate: 1.4255
+    rates_as_published: null
+    union_districts: []
+    source_row: 202
+  - entity: town/fletcher
+    aoe_org_id: T077
+    name_as_published: Fletcher
+    county: Franklin
+    su: su/franklin-west
+    su_number: 22
+    homestead_rate: 1.0874
+    nonhomestead_rate: 1.2939
+    rates_as_published: null
+    union_districts: []
+    source_row: 203
+  - entity: town/georgia
+    aoe_org_id: T079
+    name_as_published: Georgia
+    county: Franklin
+    su: su/franklin-west
+    su_number: 22
+    homestead_rate: 1.7917
+    nonhomestead_rate: 1.9302
+    rates_as_published: null
+    union_districts: []
+    source_row: 204
+  - entity: town/fairfield
+    aoe_org_id: T072
+    name_as_published: Fairfield
+    county: Franklin
+    su: su/maple-run
+    su_number: 23
+    homestead_rate: 1.239
+    nonhomestead_rate: 1.2322
+    rates_as_published: null
+    union_districts:
+      - entity: ud/maple-run-57
+        aoe_org_id: U057
+        name_as_published: Maple Run USD
+        source_row: 208
+    source_row: 205
+  - entity: town/st-albans-city
+    aoe_org_id: T176
+    name_as_published: St. Albans City
+    county: Franklin
+    su: su/maple-run
+    su_number: 23
+    homestead_rate: 1.2435
+    nonhomestead_rate: 1.2367
+    rates_as_published: null
+    union_districts:
+      - entity: ud/maple-run-57
+        aoe_org_id: U057
+        name_as_published: Maple Run USD
+        source_row: 209
+    source_row: 206
+  - entity: town/st-albans-town
+    aoe_org_id: T177
+    name_as_published: St. Albans Town
+    county: Franklin
+    su: su/maple-run
+    su_number: 23
+    homestead_rate: 1.8502
+    nonhomestead_rate: 1.8401
+    rates_as_published: null
+    union_districts:
+      - entity: ud/maple-run-57
+        aoe_org_id: U057
+        name_as_published: Maple Run USD
+        source_row: 210
+    source_row: 207
+  - entity: town/alburgh
+    aoe_org_id: T003
+    name_as_published: Alburgh
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    homestead_rate: 1.731
+    nonhomestead_rate: 1.9339
+    rates_as_published: null
+    union_districts: []
+    source_row: 212
+  - entity: town/grand-isle
+    aoe_org_id: T084
+    name_as_published: Grand Isle
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    homestead_rate: 1.9138
+    nonhomestead_rate: 1.9032
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-islands-66
+        aoe_org_id: U066
+        name_as_published: Champlain Islands UUSD
+        source_row: 217
+    source_row: 213
+  - entity: town/isle-lamotte
+    aoe_org_id: T103
+    name_as_published: Isle La Motte
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    homestead_rate: 1.9952
+    nonhomestead_rate: 1.9842
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-islands-66
+        aoe_org_id: U066
+        name_as_published: Champlain Islands UUSD
+        source_row: 218
+    source_row: 214
+  - entity: town/north-hero
+    aoe_org_id: T143
+    name_as_published: North Hero
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    homestead_rate: 1.9789
+    nonhomestead_rate: 1.9679
+    rates_as_published: null
+    union_districts:
+      - entity: ud/champlain-islands-66
+        aoe_org_id: U066
+        name_as_published: Champlain Islands UUSD
+        source_row: 219
+    source_row: 215
+  - entity: town/south-hero
+    aoe_org_id: T192
+    name_as_published: South Hero
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    homestead_rate: 2.1839
+    nonhomestead_rate: 2.1338
+    rates_as_published: null
+    union_districts: []
+    source_row: 216
+  - entity: town/belvidere
+    aoe_org_id: T014
+    name_as_published: Belvidere
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    homestead_rate: 1.4701
+    nonhomestead_rate: 1.625
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lamoille-north-modified-a-058
+        aoe_org_id: U058A
+        name_as_published: Lamoille North MUSD A
+        source_row: 227
+      - entity: ud/lamoille-north-modified-b-058
+        aoe_org_id: U058B
+        name_as_published: Lamoille North MUSD B
+        source_row: 233
+    source_row: 221
+  - entity: town/cambridge
+    aoe_org_id: T040
+    name_as_published: Cambridge
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    homestead_rate: 1.778
+    nonhomestead_rate: 1.9867
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lamoille-north-modified-b-058
+        aoe_org_id: U058B
+        name_as_published: Lamoille North MUSD B
+        source_row: 234
+    source_row: 222
+  - entity: town/eden
+    aoe_org_id: T066
+    name_as_published: Eden
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    homestead_rate: 1.7458
+    nonhomestead_rate: 1.9297
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lamoille-north-modified-a-058
+        aoe_org_id: U058A
+        name_as_published: Lamoille North MUSD A
+        source_row: 228
+      - entity: ud/lamoille-north-modified-b-058
+        aoe_org_id: U058B
+        name_as_published: Lamoille North MUSD B
+        source_row: 235
+    source_row: 223
+  - entity: town/hyde-park
+    aoe_org_id: T100
+    name_as_published: Hyde Park
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    homestead_rate: 1.9172
+    nonhomestead_rate: 2.1192
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lamoille-north-modified-a-058
+        aoe_org_id: U058A
+        name_as_published: Lamoille North MUSD A
+        source_row: 229
+      - entity: ud/lamoille-north-modified-b-058
+        aoe_org_id: U058B
+        name_as_published: Lamoille North MUSD B
+        source_row: 236
+    source_row: 224
+  - entity: town/johnson
+    aoe_org_id: T107
+    name_as_published: Johnson
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    homestead_rate: 1.6211
+    nonhomestead_rate: 1.7919
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lamoille-north-modified-a-058
+        aoe_org_id: U058A
+        name_as_published: Lamoille North MUSD A
+        source_row: 230
+      - entity: ud/lamoille-north-modified-b-058
+        aoe_org_id: U058B
+        name_as_published: Lamoille North MUSD B
+        source_row: 237
+    source_row: 225
+  - entity: town/waterville
+    aoe_org_id: T226
+    name_as_published: Waterville
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    homestead_rate: 1.2502
+    nonhomestead_rate: 1.3819
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lamoille-north-modified-a-058
+        aoe_org_id: U058A
+        name_as_published: Lamoille North MUSD A
+        source_row: 231
+      - entity: ud/lamoille-north-modified-b-058
+        aoe_org_id: U058B
+        name_as_published: Lamoille North MUSD B
+        source_row: 238
+    source_row: 226
+  - entity: town/elmore
+    aoe_org_id: T067
+    name_as_published: Elmore
+    county: Lamoille
+    su: su/lamoille-south
+    su_number: 26
+    homestead_rate: 0.9626
+    nonhomestead_rate: 1.1617
+    rates_as_published: null
+    union_districts:
+      - entity: ud/elmore-morristown-90
+        aoe_org_id: U090
+        name_as_published: Elmore-Morristown UUSD
+        source_row: 243
+    source_row: 240
+  - entity: town/morristown
+    aoe_org_id: T132
+    name_as_published: Morristown
+    county: Lamoille
+    su: su/lamoille-south
+    su_number: 26
+    homestead_rate: 1.0506
+    nonhomestead_rate: 1.268
+    rates_as_published: null
+    union_districts:
+      - entity: ud/elmore-morristown-90
+        aoe_org_id: U090
+        name_as_published: Elmore-Morristown UUSD
+        source_row: 244
+    source_row: 241
+  - entity: town/stowe
+    aoe_org_id: T198
+    name_as_published: Stowe
+    county: Lamoille
+    su: su/lamoille-south
+    su_number: 26
+    homestead_rate: 1.1428
+    nonhomestead_rate: 1.1651
+    rates_as_published: null
+    union_districts: []
+    source_row: 242
+  - entity: town/bradford-id
+    aoe_org_id: T023
+    name_as_published: Bradford ID
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.7515
+    nonhomestead_rate: 1.9376
+    rates_as_published: null
+    union_districts:
+      - entity: ud/oxbow-91
+        aoe_org_id: U091
+        name_as_published: Oxbow UUSD
+        source_row: 261
+    source_row: 246
+  - entity: town/corinth
+    aoe_org_id: T052
+    name_as_published: Corinth
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.3102
+    nonhomestead_rate: 1.7365
+    rates_as_published: null
+    union_districts:
+      - entity: ud/waits-river-union-high-district-36
+        aoe_org_id: U036
+        name_as_published: Waits River Valley School District
+        source_row: 258
+    source_row: 247
+  - entity: town/groton
+    aoe_org_id: T087
+    name_as_published: Groton
+    county: Caledonia
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.7497
+    nonhomestead_rate: 1.9215
+    rates_as_published: null
+    union_districts:
+      - entity: ud/blue-mountain-21
+        aoe_org_id: U021
+        name_as_published: Blue Mountain USD
+        source_row: 254
+    source_row: 248
+  - entity: town/newbury
+    aoe_org_id: T136
+    name_as_published: Newbury
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.6866
+    nonhomestead_rate: 1.8659
+    rates_as_published: null
+    union_districts:
+      - entity: ud/oxbow-91
+        aoe_org_id: U091
+        name_as_published: Oxbow UUSD
+        source_row: 262
+    source_row: 249
+  - entity: town/ryegate
+    aoe_org_id: T175
+    name_as_published: Ryegate
+    county: Caledonia
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.5204
+    nonhomestead_rate: 1.6696
+    rates_as_published: null
+    union_districts:
+      - entity: ud/blue-mountain-21
+        aoe_org_id: U021
+        name_as_published: Blue Mountain USD
+        source_row: 255
+    source_row: 250
+  - entity: town/thetford
+    aoe_org_id: T205
+    name_as_published: Thetford
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 2.2684
+    nonhomestead_rate: 1.9376
+    rates_as_published: null
+    union_districts: []
+    source_row: 251
+  - entity: town/topsham
+    aoe_org_id: T207
+    name_as_published: Topsham
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.3682
+    nonhomestead_rate: 1.8134
+    rates_as_published: null
+    union_districts:
+      - entity: ud/waits-river-union-high-district-36
+        aoe_org_id: U036
+        name_as_published: Waits River Valley School District
+        source_row: 259
+    source_row: 252
+  - entity: town/wells-river
+    aoe_org_id: T229
+    name_as_published: Wells River
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    homestead_rate: 1.639
+    nonhomestead_rate: 1.7998
+    rates_as_published: null
+    union_districts:
+      - entity: ud/blue-mountain-21
+        aoe_org_id: U021
+        name_as_published: Blue Mountain USD
+        source_row: 256
+    source_row: 253
+  - entity: town/braintree
+    aoe_org_id: T024
+    name_as_published: Braintree
+    county: Orange
+    su: su/orange-southwest
+    su_number: 28
+    homestead_rate: 1.9254
+    nonhomestead_rate: 1.7917
+    rates_as_published: null
+    union_districts:
+      - entity: ud/orange-southwest-59
+        aoe_org_id: U059
+        name_as_published: Orange Southwest USD
+        source_row: 267
+    source_row: 264
+  - entity: town/brookfield
+    aoe_org_id: T032
+    name_as_published: Brookfield
+    county: Orange
+    su: su/orange-southwest
+    su_number: 28
+    homestead_rate: 1.5723
+    nonhomestead_rate: 1.4631
+    rates_as_published: null
+    union_districts:
+      - entity: ud/orange-southwest-59
+        aoe_org_id: U059
+        name_as_published: Orange Southwest USD
+        source_row: 268
+    source_row: 265
+  - entity: town/randolph
+    aoe_org_id: T162
+    name_as_published: Randolph
+    county: Orange
+    su: su/orange-southwest
+    su_number: 28
+    homestead_rate: 1.2842
+    nonhomestead_rate: 1.195
+    rates_as_published: null
+    union_districts:
+      - entity: ud/orange-southwest-59
+        aoe_org_id: U059
+        name_as_published: Orange Southwest USD
+        source_row: 269
+    source_row: 266
+  - entity: town/bethel
+    aoe_org_id: T020
+    name_as_published: Bethel
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 0.9423
+    nonhomestead_rate: 1.1259
+    rates_as_published: null
+    union_districts:
+      - entity: ud/white-river-79
+        aoe_org_id: U079
+        name_as_published: White River Unified District
+        source_row: 281
+    source_row: 271
+  - entity: town/chelsea
+    aoe_org_id: T046
+    name_as_published: Chelsea
+    county: Orange
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.8357
+    nonhomestead_rate: 2.0862
+    rates_as_published: null
+    union_districts:
+      - entity: ud/first-branch-82
+        aoe_org_id: U082
+        name_as_published: First Branch USD
+        source_row: 290
+    source_row: 272
+  - entity: town/granville
+    aoe_org_id: T085
+    name_as_published: Granville
+    county: Addison
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.6908
+    nonhomestead_rate: 2.1155
+    rates_as_published: null
+    union_districts:
+      - entity: ud/granville-hancock
+        aoe_org_id: U080
+        name_as_published: Granville-Hancock Unified District
+        source_row: 284
+    source_row: 273
+  - entity: town/hancock
+    aoe_org_id: T091
+    name_as_published: Hancock
+    county: Addison
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.6824
+    nonhomestead_rate: 2.1051
+    rates_as_published: null
+    union_districts:
+      - entity: ud/granville-hancock
+        aoe_org_id: U080
+        name_as_published: Granville-Hancock Unified District
+        source_row: 285
+    source_row: 274
+  - entity: town/rochester
+    aoe_org_id: T168
+    name_as_published: Rochester
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.8235
+    nonhomestead_rate: 2.1603
+    rates_as_published: null
+    union_districts:
+      - entity: ud/rochester-stockbridge-81
+        aoe_org_id: U081
+        name_as_published: Rochester-Stockbridge USD
+        source_row: 287
+    source_row: 275
+  - entity: town/royalton
+    aoe_org_id: T171
+    name_as_published: Royalton
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.4353
+    nonhomestead_rate: 1.715
+    rates_as_published: null
+    union_districts:
+      - entity: ud/white-river-79
+        aoe_org_id: U079
+        name_as_published: White River Unified District
+        source_row: 282
+    source_row: 276
+  - entity: town/sharon
+    aoe_org_id: T184
+    name_as_published: Sharon
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.6095
+    nonhomestead_rate: 1.8561
+    rates_as_published: null
+    union_districts: []
+    source_row: 277
+  - entity: town/stockbridge
+    aoe_org_id: T197
+    name_as_published: Stockbridge
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.8679
+    nonhomestead_rate: 2.2128
+    rates_as_published: null
+    union_districts:
+      - entity: ud/rochester-stockbridge-81
+        aoe_org_id: U081
+        name_as_published: Rochester-Stockbridge USD
+        source_row: 288
+    source_row: 278
+  - entity: town/strafford
+    aoe_org_id: T199
+    name_as_published: Strafford
+    county: Orange
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.6322
+    nonhomestead_rate: 1.7274
+    rates_as_published: null
+    union_districts: []
+    source_row: 279
+  - entity: town/tunbridge
+    aoe_org_id: T210
+    name_as_published: Tunbridge
+    county: Orange
+    su: su/white-river-valley
+    su_number: 30
+    homestead_rate: 1.6661
+    nonhomestead_rate: 1.8935
+    rates_as_published: null
+    union_districts:
+      - entity: ud/first-branch-82
+        aoe_org_id: U082
+        name_as_published: First Branch USD
+        source_row: 291
+    source_row: 280
+  - entity: town/brighton
+    aoe_org_id: T030
+    name_as_published: Brighton
+    county: Essex
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.0038
+    nonhomestead_rate: 1.1995
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 312
+    source_row: 293
+  - entity: town/charleston
+    aoe_org_id: T044
+    name_as_published: Charleston
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.5714
+    nonhomestead_rate: 1.6949
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 313
+    source_row: 294
+  - entity: town/coventry
+    aoe_org_id: T054
+    name_as_published: Coventry
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.6396
+    nonhomestead_rate: 1.6544
+    rates_as_published: null
+    union_districts: []
+    source_row: 295
+  - entity: town/derby
+    aoe_org_id: T058
+    name_as_published: Derby
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.4881
+    nonhomestead_rate: 1.8294
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-junior-high
+        aoe_org_id: U022A
+        name_as_published: North Country Jr UHSD
+        source_row: 305
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 314
+    source_row: 296
+  - entity: town/holland
+    aoe_org_id: T097
+    name_as_published: Holland
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.6439
+    nonhomestead_rate: 2.1694
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-junior-high
+        aoe_org_id: U022A
+        name_as_published: North Country Jr UHSD
+        source_row: 306
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 315
+    source_row: 297
+  - entity: town/jay
+    aoe_org_id: T105
+    name_as_published: Jay
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.8294
+    nonhomestead_rate: 1.6587
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-junior-high
+        aoe_org_id: U022A
+        name_as_published: North Country Jr UHSD
+        source_row: 307
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 316
+    source_row: 298
+  - entity: town/lowell
+    aoe_org_id: T114
+    name_as_published: Lowell
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 0.981
+    nonhomestead_rate: 1.1222
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 317
+    source_row: 299
+  - entity: town/morgan
+    aoe_org_id: T131
+    name_as_published: Morgan
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 0.7805
+    nonhomestead_rate: 1.0943
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-junior-high
+        aoe_org_id: U022A
+        name_as_published: North Country Jr UHSD
+        source_row: 308
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 318
+    source_row: 300
+  - entity: town/newport-city
+    aoe_org_id: T139
+    name_as_published: Newport City
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.7753
+    nonhomestead_rate: 1.8706
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-junior-high
+        aoe_org_id: U022A
+        name_as_published: North Country Jr UHSD
+        source_row: 309
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 319
+    source_row: 301
+  - entity: town/newport-town
+    aoe_org_id: T140
+    name_as_published: Newport Town
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.5216
+    nonhomestead_rate: 1.687
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 320
+    source_row: 302
+  - entity: town/troy
+    aoe_org_id: T209
+    name_as_published: Troy
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.0329
+    nonhomestead_rate: 1.2404
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 321
+    source_row: 303
+  - entity: town/westfield
+    aoe_org_id: T231
+    name_as_published: Westfield
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    homestead_rate: 1.9171
+    nonhomestead_rate: 1.9812
+    rates_as_published: null
+    union_districts:
+      - entity: ud/north-country-union-junior-high
+        aoe_org_id: U022A
+        name_as_published: North Country Jr UHSD
+        source_row: 310
+      - entity: ud/north-country-union-high
+        aoe_org_id: U022B
+        name_as_published: North Country Sr UHSD
+        source_row: 322
+    source_row: 304
+  - entity: town/berlin
+    aoe_org_id: T019
+    name_as_published: Berlin
+    county: Washington
+    su: su/washington-central
+    su_number: 32
+    homestead_rate: 1.9079
+    nonhomestead_rate: 1.8288
+    rates_as_published: null
+    union_districts:
+      - entity: ud/washington-central-92
+        aoe_org_id: U092
+        name_as_published: Washington Central UUSD
+        source_row: 329
+    source_row: 324
+  - entity: town/calais
+    aoe_org_id: T039
+    name_as_published: Calais
+    county: Washington
+    su: su/washington-central
+    su_number: 32
+    homestead_rate: 2.051
+    nonhomestead_rate: 1.9661
+    rates_as_published: null
+    union_districts:
+      - entity: ud/washington-central-92
+        aoe_org_id: U092
+        name_as_published: Washington Central UUSD
+        source_row: 330
+    source_row: 325
+  - entity: town/east-montpelier
+    aoe_org_id: T065
+    name_as_published: East Montpelier
+    county: Washington
+    su: su/washington-central
+    su_number: 32
+    homestead_rate: 2.0872
+    nonhomestead_rate: 2.0007
+    rates_as_published: null
+    union_districts:
+      - entity: ud/washington-central-92
+        aoe_org_id: U092
+        name_as_published: Washington Central UUSD
+        source_row: 331
+    source_row: 326
+  - entity: town/middlesex
+    aoe_org_id: T124
+    name_as_published: Middlesex
+    county: Washington
+    su: su/washington-central
+    su_number: 32
+    homestead_rate: 1.9679
+    nonhomestead_rate: 1.8864
+    rates_as_published: null
+    union_districts:
+      - entity: ud/washington-central-92
+        aoe_org_id: U092
+        name_as_published: Washington Central UUSD
+        source_row: 332
+    source_row: 327
+  - entity: town/worcester
+    aoe_org_id: T254
+    name_as_published: Worcester
+    county: Washington
+    su: su/washington-central
+    su_number: 32
+    homestead_rate: 1.2483
+    nonhomestead_rate: 1.1966
+    rates_as_published: null
+    union_districts:
+      - entity: ud/washington-central-92
+        aoe_org_id: U092
+        name_as_published: Washington Central UUSD
+        source_row: 333
+    source_row: 328
+  - entity: town/clarendon
+    aoe_org_id: T049
+    name_as_published: Clarendon
+    county: Rutland
+    su: su/mill-river-unified-union
+    su_number: 33
+    homestead_rate: 1.6698
+    nonhomestead_rate: 1.8006
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mill-river-52
+        aoe_org_id: U052
+        name_as_published: Mill River UUSD
+        source_row: 339
+    source_row: 335
+  - entity: town/shrewsbury
+    aoe_org_id: T190
+    name_as_published: Shrewsbury
+    county: Rutland
+    su: su/mill-river-unified-union
+    su_number: 33
+    homestead_rate: 1.6764
+    nonhomestead_rate: 1.8077
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mill-river-52
+        aoe_org_id: U052
+        name_as_published: Mill River UUSD
+        source_row: 340
+    source_row: 336
+  - entity: town/tinmouth
+    aoe_org_id: T206
+    name_as_published: Tinmouth
+    county: Rutland
+    su: su/mill-river-unified-union
+    su_number: 33
+    homestead_rate: 1.1435
+    nonhomestead_rate: 1.2331
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mill-river-52
+        aoe_org_id: U052
+        name_as_published: Mill River UUSD
+        source_row: 341
+    source_row: 337
+  - entity: town/wallingford
+    aoe_org_id: T219
+    name_as_published: Wallingford
+    county: Rutland
+    su: su/mill-river-unified-union
+    su_number: 33
+    homestead_rate: 1.6996
+    nonhomestead_rate: 1.8328
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mill-river-52
+        aoe_org_id: U052
+        name_as_published: Mill River UUSD
+        source_row: 342
+    source_row: 338
+  - entity: town/albany
+    aoe_org_id: T002
+    name_as_published: Albany
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.4052
+    nonhomestead_rate: 1.558
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 351
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 359
+    source_row: 344
+  - entity: town/barton-id
+    aoe_org_id: T013
+    name_as_published: Barton ID
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.7681
+    nonhomestead_rate: 1.9645
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 352
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 360
+    source_row: 345
+  - entity: town/brownington
+    aoe_org_id: T034
+    name_as_published: Brownington
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.5876
+    nonhomestead_rate: 1.7609
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 353
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 361
+    source_row: 346
+  - entity: town/glover
+    aoe_org_id: T080
+    name_as_published: Glover
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.5585
+    nonhomestead_rate: 1.7279
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 354
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 362
+    source_row: 347
+  - entity: town/irasburg
+    aoe_org_id: T102
+    name_as_published: Irasburg
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.012
+    nonhomestead_rate: 1.1202
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 355
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 363
+    source_row: 348
+  - entity: town/orleans-id
+    aoe_org_id: T147
+    name_as_published: Orleans ID
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.7512
+    nonhomestead_rate: 1.9496
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 356
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 364
+    source_row: 349
+  - entity: town/westmore
+    aoe_org_id: T235
+    name_as_published: Westmore
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    homestead_rate: 1.6466
+    nonhomestead_rate: 1.8421
+    rates_as_published: null
+    union_districts:
+      - entity: ud/lake-region-union-high-24
+        aoe_org_id: U024
+        name_as_published: Lake Region UHSD
+        source_row: 357
+      - entity: ud/lake-region-union-elementary-middle
+        aoe_org_id: U093
+        name_as_published: Lake Region Union Elementary-Middle School District
+        source_row: 365
+    source_row: 350
+  - entity: town/craftsbury
+    aoe_org_id: T055
+    name_as_published: Craftsbury
+    county: Orleans
+    su: su/orleans-southwest
+    su_number: 35
+    homestead_rate: 2.0529
+    nonhomestead_rate: 1.8926
+    rates_as_published: null
+    union_districts: []
+    source_row: 367
+  - entity: town/greensboro
+    aoe_org_id: T086
+    name_as_published: Greensboro
+    county: Orleans
+    su: su/orleans-southwest
+    su_number: 35
+    homestead_rate: 2.021
+    nonhomestead_rate: 1.9452
+    rates_as_published: null
+    union_districts:
+      - entity: ud/hazen-union-high-26
+        aoe_org_id: U026
+        name_as_published: Hazen UHSD
+        source_row: 373
+      - entity: ud/mountain-view-union-elementary-94
+        aoe_org_id: U094
+        name_as_published: Orleans Southwest UESD
+        source_row: 377
+    source_row: 368
+  - entity: town/hardwick
+    aoe_org_id: T092
+    name_as_published: Hardwick
+    county: Caledonia
+    su: su/orleans-southwest
+    su_number: 35
+    homestead_rate: 1.2463
+    nonhomestead_rate: 1.1943
+    rates_as_published: null
+    union_districts:
+      - entity: ud/hazen-union-high-26
+        aoe_org_id: U026
+        name_as_published: Hazen UHSD
+        source_row: 374
+      - entity: ud/mountain-view-union-elementary-94
+        aoe_org_id: U094
+        name_as_published: Orleans Southwest UESD
+        source_row: 378
+    source_row: 369
+  - entity: town/stannard
+    aoe_org_id: T195
+    name_as_published: Stannard
+    county: Caledonia
+    su: su/orleans-southwest
+    su_number: 35
+    homestead_rate: 1.1097
+    nonhomestead_rate: 1.0387
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-view-union-elementary-94
+        aoe_org_id: U094
+        name_as_published: Orleans Southwest UESD
+        source_row: 379
+    source_row: 370
+  - entity: town/wolcott
+    aoe_org_id: T250
+    name_as_published: Wolcott
+    county: Lamoille
+    su: su/orleans-southwest
+    su_number: 35
+    homestead_rate: 1.6753
+    nonhomestead_rate: 1.8328
+    rates_as_published: null
+    union_districts: []
+    source_row: 371
+  - entity: town/woodbury
+    aoe_org_id: T251
+    name_as_published: Woodbury
+    county: Washington
+    su: su/orleans-southwest
+    su_number: 35
+    homestead_rate: 2.023
+    nonhomestead_rate: 1.9324
+    rates_as_published: null
+    union_districts:
+      - entity: ud/hazen-union-high-26
+        aoe_org_id: U026
+        name_as_published: Hazen UHSD
+        source_row: 375
+      - entity: ud/mountain-view-union-elementary-94
+        aoe_org_id: U094
+        name_as_published: Orleans Southwest UESD
+        source_row: 380
+    source_row: 372
+  - entity: town/brandon
+    aoe_org_id: T026
+    name_as_published: Brandon
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.6824
+    nonhomestead_rate: 1.8224
+    rates_as_published: null
+    union_districts:
+      - entity: ud/otter-valley-53
+        aoe_org_id: U053
+        name_as_published: Otter Valley UUSD
+        source_row: 393
+    source_row: 382
+  - entity: town/chittenden
+    aoe_org_id: T048
+    name_as_published: Chittenden
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.826
+    nonhomestead_rate: 1.8778
+    rates_as_published: null
+    union_districts:
+      - entity: ud/barstow-49
+        aoe_org_id: U049
+        name_as_published: Barstow UUSD
+        source_row: 390
+    source_row: 383
+  - entity: town/goshen
+    aoe_org_id: T081
+    name_as_published: Goshen
+    county: Addison
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.0019
+    nonhomestead_rate: 1.0853
+    rates_as_published: null
+    union_districts:
+      - entity: ud/otter-valley-53
+        aoe_org_id: U053
+        name_as_published: Otter Valley UUSD
+        source_row: 394
+    source_row: 384
+  - entity: town/leicester
+    aoe_org_id: T110
+    name_as_published: Leicester
+    county: Addison
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.9262
+    nonhomestead_rate: 2.0865
+    rates_as_published: null
+    union_districts:
+      - entity: ud/otter-valley-53
+        aoe_org_id: U053
+        name_as_published: Otter Valley UUSD
+        source_row: 395
+    source_row: 385
+  - entity: town/mendon
+    aoe_org_id: T122
+    name_as_published: Mendon
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.551
+    nonhomestead_rate: 1.595
+    rates_as_published: null
+    union_districts:
+      - entity: ud/barstow-49
+        aoe_org_id: U049
+        name_as_published: Barstow UUSD
+        source_row: 391
+    source_row: 386
+  - entity: town/pittsford
+    aoe_org_id: T154
+    name_as_published: Pittsford
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.8048
+    nonhomestead_rate: 1.955
+    rates_as_published: null
+    union_districts:
+      - entity: ud/otter-valley-53
+        aoe_org_id: U053
+        name_as_published: Otter Valley UUSD
+        source_row: 396
+    source_row: 387
+  - entity: town/sudbury
+    aoe_org_id: T201
+    name_as_published: Sudbury
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.5866
+    nonhomestead_rate: 1.7186
+    rates_as_published: null
+    union_districts:
+      - entity: ud/otter-valley-53
+        aoe_org_id: U053
+        name_as_published: Otter Valley UUSD
+        source_row: 397
+    source_row: 388
+  - entity: town/whiting
+    aoe_org_id: T241
+    name_as_published: Whiting
+    county: Addison
+    su: su/rutland-northeast
+    su_number: 36
+    homestead_rate: 1.5658
+    nonhomestead_rate: 1.696
+    rates_as_published: null
+    union_districts:
+      - entity: ud/otter-valley-53
+        aoe_org_id: U053
+        name_as_published: Otter Valley UUSD
+        source_row: 398
+    source_row: 389
+  - entity: town/rutland-city
+    aoe_org_id: T173
+    name_as_published: Rutland City
+    county: Rutland
+    su: su/rutland-city
+    su_number: 40
+    homestead_rate: 1.6058
+    nonhomestead_rate: 1.9273
+    rates_as_published: null
+    union_districts: []
+    source_row: 400
+  - entity: town/duxbury
+    aoe_org_id: T063
+    name_as_published: Duxbury
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    homestead_rate: 1.925
+    nonhomestead_rate: 1.9267
+    rates_as_published: null
+    union_districts:
+      - entity: ud/harwood-60
+        aoe_org_id: U060
+        name_as_published: Harwood UUSD
+        source_row: 407
+    source_row: 401
+  - entity: town/fayston
+    aoe_org_id: T075
+    name_as_published: Fayston
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    homestead_rate: 2.2471
+    nonhomestead_rate: 2.2491
+    rates_as_published: null
+    union_districts:
+      - entity: ud/harwood-60
+        aoe_org_id: U060
+        name_as_published: Harwood UUSD
+        source_row: 408
+    source_row: 402
+  - entity: town/moretown
+    aoe_org_id: T130
+    name_as_published: Moretown
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    homestead_rate: 1.1867
+    nonhomestead_rate: 1.1878
+    rates_as_published: null
+    union_districts:
+      - entity: ud/harwood-60
+        aoe_org_id: U060
+        name_as_published: Harwood UUSD
+        source_row: 409
+    source_row: 403
+  - entity: town/waitsfield
+    aoe_org_id: T217
+    name_as_published: Waitsfield
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    homestead_rate: 2.1484
+    nonhomestead_rate: 2.1503
+    rates_as_published: null
+    union_districts:
+      - entity: ud/harwood-60
+        aoe_org_id: U060
+        name_as_published: Harwood UUSD
+        source_row: 410
+    source_row: 404
+  - entity: town/warren
+    aoe_org_id: T222
+    name_as_published: Warren
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    homestead_rate: 2.3482
+    nonhomestead_rate: 2.3503
+    rates_as_published: null
+    union_districts:
+      - entity: ud/harwood-60
+        aoe_org_id: U060
+        name_as_published: Harwood UUSD
+        source_row: 411
+    source_row: 405
+  - entity: town/waterbury
+    aoe_org_id: T224
+    name_as_published: Waterbury
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    homestead_rate: 2.1744
+    nonhomestead_rate: 2.1764
+    rates_as_published: null
+    union_districts:
+      - entity: ud/harwood-60
+        aoe_org_id: U060
+        name_as_published: Harwood UUSD
+        source_row: 412
+    source_row: 406
+  - entity: town/brookline
+    aoe_org_id: T033
+    name_as_published: Brookline
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 1.1086
+    nonhomestead_rate: 1.0125
+    rates_as_published: null
+    union_districts:
+      - entity: ud/west-river-valley-union-education-district-a-72
+        aoe_org_id: U072A
+        name_as_published: West River Modified Union Education District A
+        source_row: 423
+      - entity: ud/west-river-valley-union-education-district-b-72
+        aoe_org_id: U072B
+        name_as_published: West River Modified Union Education District B
+        source_row: 428
+    source_row: 414
+  - entity: town/dover
+    aoe_org_id: T060
+    name_as_published: Dover
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 2.1692
+    nonhomestead_rate: 1.997
+    rates_as_published: null
+    union_districts:
+      - entity: ud/river-valleys-73
+        aoe_org_id: U073
+        name_as_published: River Valleys USD
+        source_row: 434
+    source_row: 415
+  - entity: town/jamaica
+    aoe_org_id: T104
+    name_as_published: Jamaica
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 2.3827
+    nonhomestead_rate: 2.1761
+    rates_as_published: null
+    union_districts:
+      - entity: ud/west-river-valley-union-education-district-a-72
+        aoe_org_id: U072A
+        name_as_published: West River Modified Union Education District A
+        source_row: 424
+      - entity: ud/west-river-valley-union-education-district-b-72
+        aoe_org_id: U072B
+        name_as_published: West River Modified Union Education District B
+        source_row: 429
+    source_row: 416
+  - entity: town/marlboro
+    aoe_org_id: T120
+    name_as_published: Marlboro
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 1.889
+    nonhomestead_rate: 1.6475
+    rates_as_published: null
+    union_districts: []
+    source_row: 417
+  - entity: town/newfane
+    aoe_org_id: T137
+    name_as_published: Newfane
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 2.112
+    nonhomestead_rate: 1.9289
+    rates_as_published: null
+    union_districts:
+      - entity: ud/west-river-valley-union-education-district-a-72
+        aoe_org_id: U072A
+        name_as_published: West River Modified Union Education District A
+        source_row: 425
+      - entity: ud/west-river-valley-union-education-district-b-72
+        aoe_org_id: U072B
+        name_as_published: West River Modified Union Education District B
+        source_row: 430
+    source_row: 418
+  - entity: town/stratton
+    aoe_org_id: T200
+    name_as_published: Stratton
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 0.9223
+    nonhomestead_rate: 1.3186
+    rates_as_published: null
+    union_districts: []
+    source_row: 419
+  - entity: town/townshend
+    aoe_org_id: T208
+    name_as_published: Townshend
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 2.0299
+    nonhomestead_rate: 1.8539
+    rates_as_published: null
+    union_districts:
+      - entity: ud/west-river-valley-union-education-district-a-72
+        aoe_org_id: U072A
+        name_as_published: West River Modified Union Education District A
+        source_row: 426
+      - entity: ud/west-river-valley-union-education-district-b-72
+        aoe_org_id: U072B
+        name_as_published: West River Modified Union Education District B
+        source_row: 431
+    source_row: 420
+  - entity: town/wardsboro
+    aoe_org_id: T221
+    name_as_published: Wardsboro
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 1.4663
+    nonhomestead_rate: 1.3499
+    rates_as_published: null
+    union_districts:
+      - entity: ud/river-valleys-73
+        aoe_org_id: U073
+        name_as_published: River Valleys USD
+        source_row: 435
+    source_row: 421
+  - entity: town/windham
+    aoe_org_id: T246
+    name_as_published: Windham
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    homestead_rate: 1.2208
+    nonhomestead_rate: 1.2082
+    rates_as_published: null
+    union_districts:
+      - entity: ud/west-river-valley-union-education-district-b-72
+        aoe_org_id: U072B
+        name_as_published: West River Modified Union Education District B
+        source_row: 432
+    source_row: 422
+  - entity: town/athens
+    aoe_org_id: T006
+    name_as_published: Athens
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    homestead_rate: 1.4966
+    nonhomestead_rate: 1.6866
+    rates_as_published: null
+    union_districts:
+      - entity: ud/bellows-falls-union-high-27
+        aoe_org_id: U027
+        name_as_published: Bellows Falls UHSD
+        source_row: 441
+      - entity: ud/athens-grafton
+        aoe_org_id: U095
+        name_as_published: Athens Grafton UESD
+        source_row: 446
+    source_row: 437
+  - entity: town/grafton
+    aoe_org_id: T082
+    name_as_published: Grafton
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    homestead_rate: 1.5198
+    nonhomestead_rate: 1.7135
+    rates_as_published: null
+    union_districts:
+      - entity: ud/bellows-falls-union-high-27
+        aoe_org_id: U027
+        name_as_published: Bellows Falls UHSD
+        source_row: 442
+      - entity: ud/athens-grafton
+        aoe_org_id: U095
+        name_as_published: Athens Grafton UESD
+        source_row: 447
+    source_row: 438
+  - entity: town/rockingham
+    aoe_org_id: T169
+    name_as_published: Rockingham
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    homestead_rate: 1.0485
+    nonhomestead_rate: 1.1995
+    rates_as_published: null
+    union_districts:
+      - entity: ud/bellows-falls-union-high-27
+        aoe_org_id: U027
+        name_as_published: Bellows Falls UHSD
+        source_row: 443
+    source_row: 439
+  - entity: town/westminster
+    aoe_org_id: T234
+    name_as_published: Westminster
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    homestead_rate: 1.7479
+    nonhomestead_rate: 1.8015
+    rates_as_published: null
+    union_districts:
+      - entity: ud/bellows-falls-union-high-27
+        aoe_org_id: U027
+        name_as_published: Bellows Falls UHSD
+        source_row: 444
+    source_row: 440
+  - entity: town/brattleboro
+    aoe_org_id: T027
+    name_as_published: Brattleboro
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    homestead_rate: 1.8991
+    nonhomestead_rate: 1.7539
+    rates_as_published: null
+    union_districts:
+      - entity: ud/windham-southeast-96
+        aoe_org_id: U096
+        name_as_published: Windham Southeast School District
+        source_row: 454
+    source_row: 449
+  - entity: town/dummerston
+    aoe_org_id: T061
+    name_as_published: Dummerston
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    homestead_rate: 1.8932
+    nonhomestead_rate: 1.7485
+    rates_as_published: null
+    union_districts:
+      - entity: ud/windham-southeast-96
+        aoe_org_id: U096
+        name_as_published: Windham Southeast School District
+        source_row: 455
+    source_row: 450
+  - entity: town/guilford
+    aoe_org_id: T089
+    name_as_published: Guilford
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    homestead_rate: 1.4713
+    nonhomestead_rate: 1.3588
+    rates_as_published: null
+    union_districts:
+      - entity: ud/windham-southeast-96
+        aoe_org_id: U096
+        name_as_published: Windham Southeast School District
+        source_row: 456
+    source_row: 451
+  - entity: town/putney
+    aoe_org_id: T161
+    name_as_published: Putney
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    homestead_rate: 1.3401
+    nonhomestead_rate: 1.2376
+    rates_as_published: null
+    union_districts:
+      - entity: ud/windham-southeast-96
+        aoe_org_id: U096
+        name_as_published: Windham Southeast School District
+        source_row: 457
+    source_row: 452
+  - entity: town/vernon
+    aoe_org_id: T214
+    name_as_published: Vernon
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    homestead_rate: 1.4146
+    nonhomestead_rate: 1.3913
+    rates_as_published: null
+    union_districts: []
+    source_row: 453
+  - entity: town/halifax
+    aoe_org_id: T090
+    name_as_published: Halifax
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 1.5129
+    nonhomestead_rate: 1.7378
+    rates_as_published: null
+    union_districts: []
+    source_row: 459
+  - entity: town/readsboro
+    aoe_org_id: T164
+    name_as_published: Readsboro
+    county: Bennington
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 1.5808
+    nonhomestead_rate: 1.6362
+    rates_as_published: null
+    union_districts: []
+    source_row: 460
+  - entity: town/searsburg
+    aoe_org_id: T182
+    name_as_published: Searsburg
+    county: Bennington
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 1.1641
+    nonhomestead_rate: 1.3129
+    rates_as_published: null
+    union_districts: []
+    source_row: 461
+  - entity: town/stamford
+    aoe_org_id: T194
+    name_as_published: Stamford
+    county: Bennington
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 0.9666
+    nonhomestead_rate: 1.1761
+    rates_as_published: null
+    union_districts: []
+    source_row: 462
+  - entity: town/whitingham
+    aoe_org_id: T242
+    name_as_published: Whitingham
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 1.1001
+    nonhomestead_rate: 1.1293
+    rates_as_published: null
+    union_districts:
+      - entity: ud/twin-valley-75
+        aoe_org_id: U075
+        name_as_published: Twin Valley USD
+        source_row: 466
+    source_row: 463
+  - entity: town/wilmington
+    aoe_org_id: T245
+    name_as_published: Wilmington
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 1.3136
+    nonhomestead_rate: 1.3485
+    rates_as_published: null
+    union_districts:
+      - entity: ud/twin-valley-75
+        aoe_org_id: U075
+        name_as_published: Twin Valley USD
+        source_row: 467
+    source_row: 464
+  - entity: town/somerset
+    aoe_org_id: T261
+    name_as_published: Somerset
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    homestead_rate: 0.751
+    nonhomestead_rate: 1.279
+    rates_as_published: null
+    union_districts: []
+    source_row: 465
+  - entity: town/barnard
+    aoe_org_id: T009
+    name_as_published: Barnard
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 1.5399
+    nonhomestead_rate: 1.2526
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 477
+    source_row: 469
+  - entity: town/bridgewater
+    aoe_org_id: T028
+    name_as_published: Bridgewater
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 1.4149
+    nonhomestead_rate: 1.1508
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 478
+    source_row: 470
+  - entity: town/pittsfield
+    aoe_org_id: T153
+    name_as_published: Pittsfield
+    county: Rutland
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 1.0607
+    nonhomestead_rate: 1.6266
+    rates_as_published: null
+    union_districts: []
+    source_row: 471
+  - entity: town/plymouth
+    aoe_org_id: T156
+    name_as_published: Plymouth
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 3.1045
+    nonhomestead_rate: 2.5252
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 479
+    source_row: 472
+  - entity: town/pomfret
+    aoe_org_id: T157
+    name_as_published: Pomfret
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 1.6512
+    nonhomestead_rate: 1.3431
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 480
+    source_row: 473
+  - entity: town/reading
+    aoe_org_id: T163
+    name_as_published: Reading
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 1.5495
+    nonhomestead_rate: 1.2604
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 481
+    source_row: 474
+  - entity: town/killington
+    aoe_org_id: T188
+    name_as_published: Killington
+    county: Rutland
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 3.3008
+    nonhomestead_rate: 2.6848
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 482
+    source_row: 475
+  - entity: town/woodstock
+    aoe_org_id: T253
+    name_as_published: Woodstock
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    homestead_rate: 2.6671
+    nonhomestead_rate: 2.1694
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mountain-views
+        aoe_org_id: U076
+        name_as_published: Mountain Views School District
+        source_row: 483
+    source_row: 476
+  - entity: town/hartland
+    aoe_org_id: T094
+    name_as_published: Hartland
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    homestead_rate: 2.4324
+    nonhomestead_rate: 1.9126
+    rates_as_published: null
+    union_districts: []
+    source_row: 485
+  - entity: town/weathersfield
+    aoe_org_id: T227
+    name_as_published: Weathersfield
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    homestead_rate: 1.9807
+    nonhomestead_rate: 1.9043
+    rates_as_published: null
+    union_districts: []
+    source_row: 486
+  - entity: town/west-windsor
+    aoe_org_id: T238
+    name_as_published: West Windsor
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    homestead_rate: 1.1486
+    nonhomestead_rate: 1.1406
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-ascutney-86
+        aoe_org_id: U086
+        name_as_published: Mount Ascutney School District
+        source_row: 489
+    source_row: 487
+  - entity: town/windsor
+    aoe_org_id: T247
+    name_as_published: Windsor
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    homestead_rate: 1.2038
+    nonhomestead_rate: 1.1953
+    rates_as_published: null
+    union_districts:
+      - entity: ud/mount-ascutney-86
+        aoe_org_id: U086
+        name_as_published: Mount Ascutney School District
+        source_row: 490
+    source_row: 488
+  - entity: town/hartford
+    aoe_org_id: T093
+    name_as_published: Hartford
+    county: Windsor
+    su: su/hartford
+    su_number: 54
+    homestead_rate: 1.259
+    nonhomestead_rate: 1.1916
+    rates_as_published: null
+    union_districts: []
+    source_row: 492
+  - entity: town/norwich
+    aoe_org_id: T145
+    name_as_published: Norwich
+    county: Windsor
+    su: su/school-administrative-unit-70
+    su_number: 55
+    homestead_rate: 1.4095
+    nonhomestead_rate: 1.2513
+    rates_as_published: null
+    union_districts: []
+    source_row: 493
+  - entity: town/springfield
+    aoe_org_id: T193
+    name_as_published: Springfield
+    county: Windsor
+    su: su/springfield
+    su_number: 56
+    homestead_rate: 1.5339
+    nonhomestead_rate: 1.6153
+    rates_as_published: null
+    union_districts: []
+    source_row: 494
+  - entity: town/barre-city
+    aoe_org_id: T011
+    name_as_published: Barre City
+    county: Washington
+    su: su/barre
+    su_number: 61
+    homestead_rate: 1.3933
+    nonhomestead_rate: 1.8224
+    rates_as_published: null
+    union_districts:
+      - entity: ud/barre-97
+        aoe_org_id: U097
+        name_as_published: Barre UUSD
+        source_row: 497
+    source_row: 495
+  - entity: town/barre-town
+    aoe_org_id: T012
+    name_as_published: Barre Town
+    county: Washington
+    su: su/barre
+    su_number: 61
+    homestead_rate: 1.1999
+    nonhomestead_rate: 1.5694
+    rates_as_published: null
+    union_districts:
+      - entity: ud/barre-97
+        aoe_org_id: U097
+        name_as_published: Barre UUSD
+        source_row: 498
+    source_row: 496
+  - entity: town/andover
+    aoe_org_id: T004
+    name_as_published: Andover
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    homestead_rate: 1.0357
+    nonhomestead_rate: 1.0382
+    rates_as_published: null
+    union_districts:
+      - entity: ud/green-mountain-77
+        aoe_org_id: U077
+        name_as_published: Green Mountain USD
+        source_row: 506
+    source_row: 500
+  - entity: town/baltimore
+    aoe_org_id: T008
+    name_as_published: Baltimore
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    homestead_rate: 1.2812
+    nonhomestead_rate: 1.2842
+    rates_as_published: null
+    union_districts:
+      - entity: ud/green-mountain-77
+        aoe_org_id: U077
+        name_as_published: Green Mountain USD
+        source_row: 507
+    source_row: 501
+  - entity: town/cavendish
+    aoe_org_id: T043
+    name_as_published: Cavendish
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    homestead_rate: 1.9797
+    nonhomestead_rate: 1.9844
+    rates_as_published: null
+    union_districts:
+      - entity: ud/green-mountain-77
+        aoe_org_id: U077
+        name_as_published: Green Mountain USD
+        source_row: 508
+    source_row: 502
+  - entity: town/chester
+    aoe_org_id: T047
+    name_as_published: Chester
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    homestead_rate: 1.8621
+    nonhomestead_rate: 1.8665
+    rates_as_published: null
+    union_districts:
+      - entity: ud/green-mountain-77
+        aoe_org_id: U077
+        name_as_published: Green Mountain USD
+        source_row: 509
+    source_row: 503
+  - entity: town/ludlow
+    aoe_org_id: T115
+    name_as_published: Ludlow
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    homestead_rate: 1.9835
+    nonhomestead_rate: 1.8461
+    rates_as_published: null
+    union_districts:
+      - entity: ud/ludlow-mt-holly-83
+        aoe_org_id: U083
+        name_as_published: Ludlow-Mt. Holly UUSD
+        source_row: 511
+    source_row: 504
+  - entity: town/mt-holly
+    aoe_org_id: T133
+    name_as_published: Mt. Holly
+    county: Rutland
+    su: su/two-rivers
+    su_number: 63
+    homestead_rate: 2.0028
+    nonhomestead_rate: 1.8641
+    rates_as_published: null
+    union_districts:
+      - entity: ud/ludlow-mt-holly-83
+        aoe_org_id: U083
+        name_as_published: Ludlow-Mt. Holly UUSD
+        source_row: 512
+    source_row: 505
+  - entity: town/fairlee
+    aoe_org_id: T074
+    name_as_published: Fairlee
+    county: Orange
+    su: su/rivendell-interstate
+    su_number: 64
+    homestead_rate: 1.2489
+    nonhomestead_rate: 1.2614
+    rates_as_published: null
+    union_districts:
+      - entity: ud/rivendell-interstate
+        aoe_org_id: U146
+        name_as_published: Rivendell Interstate School District
+        source_row: 517
+    source_row: 514
+  - entity: town/vershire
+    aoe_org_id: T215
+    name_as_published: Vershire
+    county: Orange
+    su: su/rivendell-interstate
+    su_number: 64
+    homestead_rate: 1.2695
+    nonhomestead_rate: 1.2822
+    rates_as_published: null
+    union_districts:
+      - entity: ud/rivendell-interstate
+        aoe_org_id: U146
+        name_as_published: Rivendell Interstate School District
+        source_row: 518
+    source_row: 515
+  - entity: town/west-fairlee
+    aoe_org_id: T230
+    name_as_published: West Fairlee
+    county: Orange
+    su: su/rivendell-interstate
+    su_number: 64
+    homestead_rate: 1.7096
+    nonhomestead_rate: 1.7267
+    rates_as_published: null
+    union_districts:
+      - entity: ud/rivendell-interstate
+        aoe_org_id: U146
+        name_as_published: Rivendell Interstate School District
+        source_row: 519
+    source_row: 516
+  - entity: town/essex-junction
+    aoe_org_id: T069
+    name_as_published: Essex Junction
+    county: Chittenden
+    su: su/essex-westford
+    su_number: 65
+    homestead_rate: 2.0194
+    nonhomestead_rate: 2.2376
+    rates_as_published: null
+    union_districts:
+      - entity: ud/essex-westford-educational-community-unified-union-sd-51
+        aoe_org_id: U051
+        name_as_published: Essex-Westford ECUUSD
+        source_row: 524
+    source_row: 521
+  - entity: town/essex-town
+    aoe_org_id: T070
+    name_as_published: Essex Town
+    county: Chittenden
+    su: su/essex-westford
+    su_number: 65
+    homestead_rate: 2.0229
+    nonhomestead_rate: 2.2414
+    rates_as_published: null
+    union_districts:
+      - entity: ud/essex-westford-educational-community-unified-union-sd-51
+        aoe_org_id: U051
+        name_as_published: Essex-Westford ECUUSD
+        source_row: 525
+    source_row: 522
+  - entity: town/westford
+    aoe_org_id: T232
+    name_as_published: Westford
+    county: Chittenden
+    su: su/essex-westford
+    su_number: 65
+    homestead_rate: 1.0038
+    nonhomestead_rate: 1.1122
+    rates_as_published: null
+    union_districts:
+      - entity: ud/essex-westford-educational-community-unified-union-sd-51
+        aoe_org_id: U051
+        name_as_published: Essex-Westford ECUUSD
+        source_row: 526
+    source_row: 523
+  - entity: town/ira
+    aoe_org_id: T101
+    name_as_published: Ira
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.1724
+    nonhomestead_rate: 1.7998
+    rates_as_published: null
+    union_districts: []
+    source_row: 528
+  - entity: town/middletown-springs
+    aoe_org_id: T125
+    name_as_published: Middletown Springs
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.5422
+    nonhomestead_rate: 1.7611
+    rates_as_published: null
+    union_districts:
+      - entity: ud/wells-spring-69
+        aoe_org_id: U069
+        name_as_published: Wells Spring Unified Union District
+        source_row: 535
+    source_row: 529
+  - entity: town/poultney
+    aoe_org_id: T158
+    name_as_published: Poultney
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.3521
+    nonhomestead_rate: 1.8146
+    rates_as_published: null
+    union_districts:
+      - entity: ud/quarry-valley-70
+        aoe_org_id: U070
+        name_as_published: Quarry Valley UUSD
+        source_row: 538
+    source_row: 530
+  - entity: town/proctor
+    aoe_org_id: T160
+    name_as_published: Proctor
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.2736
+    nonhomestead_rate: 1.7093
+    rates_as_published: null
+    union_districts:
+      - entity: ud/quarry-valley-70
+        aoe_org_id: U070
+        name_as_published: Quarry Valley UUSD
+        source_row: 539
+    source_row: 531
+  - entity: town/rutland-town
+    aoe_org_id: T174
+    name_as_published: Rutland Town
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.376
+    nonhomestead_rate: 1.6902
+    rates_as_published: null
+    union_districts: []
+    source_row: 532
+  - entity: town/wells
+    aoe_org_id: T228
+    name_as_published: Wells
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.128
+    nonhomestead_rate: 1.2881
+    rates_as_published: null
+    union_districts:
+      - entity: ud/wells-spring-69
+        aoe_org_id: U069
+        name_as_published: Wells Spring Unified Union District
+        source_row: 536
+    source_row: 533
+  - entity: town/west-rutland
+    aoe_org_id: T237
+    name_as_published: West Rutland
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    homestead_rate: 1.2912
+    nonhomestead_rate: 1.733
+    rates_as_published: null
+    union_districts:
+      - entity: ud/quarry-valley-70
+        aoe_org_id: U070
+        name_as_published: Quarry Valley UUSD
+        source_row: 540
+    source_row: 534
+  - entity: town/burke
+    aoe_org_id: T036
+    name_as_published: Burke
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.267
+    nonhomestead_rate: 1.3472
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 550
+    source_row: 542
+  - entity: town/concord
+    aoe_org_id: T051
+    name_as_published: Concord
+    county: Essex
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.1939
+    nonhomestead_rate: 1.2695
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 551
+    source_row: 543
+  - entity: town/lunenburg
+    aoe_org_id: T116
+    name_as_published: Lunenburg
+    county: Essex
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.1424
+    nonhomestead_rate: 1.2148
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 552
+    source_row: 544
+  - entity: town/lyndon
+    aoe_org_id: T117
+    name_as_published: Lyndon
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.7456
+    nonhomestead_rate: 1.8561
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 553
+    source_row: 545
+  - entity: town/newark
+    aoe_org_id: T135
+    name_as_published: Newark
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.6021
+    nonhomestead_rate: 1.7035
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 554
+    source_row: 546
+  - entity: town/sheffield
+    aoe_org_id: T185
+    name_as_published: Sheffield
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.6578
+    nonhomestead_rate: 1.7628
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 555
+    source_row: 547
+  - entity: town/sutton
+    aoe_org_id: T203
+    name_as_published: Sutton
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.4996
+    nonhomestead_rate: 1.5946
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 556
+    source_row: 548
+  - entity: town/wheelock
+    aoe_org_id: T240
+    name_as_published: Wheelock
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    homestead_rate: 1.7554
+    nonhomestead_rate: 1.8665
+    rates_as_published: null
+    union_districts:
+      - entity: ud/kingdom-east-64
+        aoe_org_id: U064
+        name_as_published: Kingdom East USD
+        source_row: 557
+    source_row: 549
+  - entity: town/northfield
+    aoe_org_id: T142
+    name_as_published: Northfield
+    county: Washington
+    su: su/central-vermont
+    su_number: 68
+    homestead_rate: 1.8779
+    nonhomestead_rate: 2.0279
+    rates_as_published: null
+    union_districts:
+      - entity: ud/paine-mountain-68
+        aoe_org_id: U068
+        name_as_published: Paine Mountain School District
+        source_row: 566
+    source_row: 559
+  - entity: town/orange
+    aoe_org_id: T146
+    name_as_published: Orange
+    county: Orange
+    su: su/central-vermont
+    su_number: 68
+    homestead_rate: 1.3401
+    nonhomestead_rate: 1.6835
+    rates_as_published: null
+    union_districts:
+      - entity: ud/echo-valley-community-67
+        aoe_org_id: U067
+        name_as_published: Echo Valley Community School District
+        source_row: 563
+    source_row: 560
+  - entity: town/washington
+    aoe_org_id: T223
+    name_as_published: Washington
+    county: Orange
+    su: su/central-vermont
+    su_number: 68
+    homestead_rate: 1.4208
+    nonhomestead_rate: 1.7849
+    rates_as_published: null
+    union_districts:
+      - entity: ud/echo-valley-community-67
+        aoe_org_id: U067
+        name_as_published: Echo Valley Community School District
+        source_row: 564
+    source_row: 561
+  - entity: town/williamstown
+    aoe_org_id: T243
+    name_as_published: Williamstown
+    county: Orange
+    su: su/central-vermont
+    su_number: 68
+    homestead_rate: 1.5744
+    nonhomestead_rate: 1.7001
+    rates_as_published: null
+    union_districts:
+      - entity: ud/paine-mountain-68
+        aoe_org_id: U068
+        name_as_published: Paine Mountain School District
+        source_row: 567
+    source_row: 562
+  - entity: town/montpelier
+    aoe_org_id: T129
+    name_as_published: Montpelier
+    county: Washington
+    su: su/montpelier-roxbury
+    su_number: 69
+    homestead_rate: 1.2609
+    nonhomestead_rate: 1.3334
+    rates_as_published: null
+    union_districts:
+      - entity: ud/montpelier-roxbury-71
+        aoe_org_id: U071
+        name_as_published: Montpelier Roxbury School District
+        source_row: 571
+    source_row: 569
+  - entity: town/roxbury
+    aoe_org_id: T170
+    name_as_published: Roxbury
+    county: Washington
+    su: su/montpelier-roxbury
+    su_number: 69
+    homestead_rate: 1.295
+    nonhomestead_rate: 1.3694
+    rates_as_published: null
+    union_districts:
+      - entity: ud/montpelier-roxbury-71
+        aoe_org_id: U071
+        name_as_published: Montpelier Roxbury School District
+        source_row: 572
+    source_row: 570
+  - entity: town/lincoln
+    aoe_org_id: T112
+    name_as_published: Lincoln
+    county: Addison
+    su: su/lincoln
+    su_number: 70
+    homestead_rate: 1.0519
+    nonhomestead_rate: 1.1607
+    rates_as_published: null
+    union_districts: []
+    source_row: 574
+districts:
+  - entity: ud/mt-abraham-61
+    aoe_org_id: U061
+    district_type: union
+    name_as_published: Mt. Abraham USD
+    county: Addison
+    su: su/mt-abraham
+    su_number: 1
+    pupils: 1938.61
+    education_spending: 28534233
+    spending_per_pupil: 14718.91
+    source_row: 25
+  - entity: ud/addison-northwest-54
+    aoe_org_id: U054
+    district_type: union
+    name_as_published: Addison NW USD
+    county: Addison
+    su: su/addison-northwest
+    su_number: 2
+    pupils: 1525.58
+    education_spending: 23116750
+    spending_per_pupil: 15152.76
+    source_row: 36
+  - entity: ud/addison-central-55
+    aoe_org_id: U055
+    district_type: union
+    name_as_published: Addison Central USD
+    county: Addison
+    su: su/addison-central
+    su_number: 3
+    pupils: 2743.2
+    education_spending: 41372610
+    spending_per_pupil: 15081.88
+    source_row: 51
+  - entity: ud/slate-valley-62
+    aoe_org_id: U062
+    district_type: union
+    name_as_published: Slate Valley UUSD
+    county: Rutland
+    su: su/slate-valley
+    su_number: 4
+    pupils: 2341.66
+    education_spending: 27080580
+    spending_per_pupil: 11564.69
+    source_row: 64
+  - entity: town/arlington
+    aoe_org_id: T005
+    district_type: town
+    name_as_published: Arlington
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    pupils: 635.53
+    education_spending: 8527491
+    spending_per_pupil: 13417.92
+    source_row: 65
+  - entity: town/north-bennington
+    aoe_org_id: T141
+    district_type: town
+    name_as_published: North Bennington ID
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    pupils: 235.52
+    education_spending: 3104311
+    spending_per_pupil: 13180.67
+    source_row: 67
+  - entity: town/sandgate
+    aoe_org_id: T181
+    district_type: town
+    name_as_published: Sandgate
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    pupils: 127.46
+    education_spending: 1245463
+    spending_per_pupil: 9771.4
+    source_row: 69
+  - entity: ud/mount-anthony-union-high-14
+    aoe_org_id: U014
+    district_type: union
+    name_as_published: Mt. Anthony UHSD
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    pupils: 2935.85
+    education_spending: 31948964
+    spending_per_pupil: 10882.36
+    source_row: 78
+  - entity: ud/southwest-vermont-union-elementary-87
+    aoe_org_id: U087
+    district_type: union
+    name_as_published: Southwest Vermont UESD
+    county: Bennington
+    su: su/southwest-vermont
+    su_number: 5
+    pupils: 2333.23
+    education_spending: 28976880
+    spending_per_pupil: 12419.21
+    source_row: 83
+  - entity: town/winhall
+    aoe_org_id: T248
+    district_type: town
+    name_as_published: Winhall
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    pupils: 327.67
+    education_spending: 4619781
+    spending_per_pupil: 14098.88
+    source_row: 95
+  - entity: ud/taconic-and-green-regional-63
+    aoe_org_id: U063
+    district_type: union
+    name_as_published: Taconic & Green Regional USD
+    county: Bennington
+    su: su/bennington-rutland
+    su_number: 6
+    pupils: 2902.53
+    education_spending: 36809483
+    spending_per_pupil: 12681.86
+    source_row: 105
+  - entity: ud/mettawee-84
+    aoe_org_id: U084
+    district_type: union
+    name_as_published: Mettawee School District
+    county: Rutland
+    su: su/bennington-rutland
+    su_number: 6
+    pupils: 502.9
+    education_spending: 6620380
+    spending_per_pupil: 13164.41
+    source_row: 108
+  - entity: town/colchester
+    aoe_org_id: T050
+    district_type: town
+    name_as_published: Colchester
+    county: Chittenden
+    su: su/colchester
+    su_number: 7
+    pupils: 3653.26
+    education_spending: 52542808
+    spending_per_pupil: 14382.44
+    source_row: 109
+  - entity: town/cabot
+    aoe_org_id: T038
+    district_type: town
+    name_as_published: Cabot
+    county: Washington
+    su: su/caledonia-central
+    su_number: 9
+    pupils: 312.75
+    education_spending: 4479739
+    spending_per_pupil: 14323.71
+    source_row: 111
+  - entity: town/danville
+    aoe_org_id: T057
+    district_type: town
+    name_as_published: Danville
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    pupils: 517.96
+    education_spending: 7797467
+    spending_per_pupil: 15054.19
+    source_row: 112
+  - entity: town/peacham
+    aoe_org_id: T151
+    district_type: town
+    name_as_published: Peacham
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    pupils: 174.81
+    education_spending: 2782362
+    spending_per_pupil: 15916.49
+    source_row: 114
+  - entity: ud/twinfield-33
+    aoe_org_id: U033
+    district_type: union
+    name_as_published: Twinfield USD
+    county: Washington
+    su: su/caledonia-central
+    su_number: 9
+    pupils: 596.48
+    education_spending: 8239777
+    spending_per_pupil: 13814
+    source_row: 120
+  - entity: ud/caledonia-cooperative-78
+    aoe_org_id: U078
+    district_type: union
+    name_as_published: Caledonia Cooperative UUSD
+    county: Caledonia
+    su: su/caledonia-central
+    su_number: 9
+    pupils: 1043.74
+    education_spending: 15888706
+    spending_per_pupil: 15222.86
+    source_row: 124
+  - entity: town/milton
+    aoe_org_id: T126
+    district_type: town
+    name_as_published: Milton
+    county: Chittenden
+    su: su/milton
+    su_number: 10
+    pupils: 2417.47
+    education_spending: 33266933
+    spending_per_pupil: 13761.05
+    source_row: 125
+  - entity: town/st-johnsbury
+    aoe_org_id: T179
+    district_type: town
+    name_as_published: St. Johnsbury
+    county: Caledonia
+    su: su/saint-johnsbury
+    su_number: 11
+    pupils: 1869
+    education_spending: 24967147
+    spending_per_pupil: 13358.56
+    source_row: 126
+  - entity: town/buels-gore
+    aoe_org_id: T255
+    district_type: town
+    name_as_published: Buels Gore
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    pupils: 5.23
+    education_spending: 82549
+    spending_per_pupil: 15783.75
+    source_row: 132
+  - entity: ud/mount-mansfield-401
+    aoe_org_id: U401
+    district_type: union
+    name_as_published: Mt. Mansfield UUSD
+    county: Chittenden
+    su: su/mount-mansfield
+    su_number: 12
+    pupils: 3515.25
+    education_spending: 50496414
+    spending_per_pupil: 14364.96
+    source_row: 138
+  - entity: ud/champlain-valley-56
+    aoe_org_id: U056
+    district_type: union
+    name_as_published: Champlain Valley USD
+    county: Chittenden
+    su: su/champlain-valley
+    su_number: 14
+    pupils: 5683.51
+    education_spending: 88294084
+    spending_per_pupil: 15535.13
+    source_row: 149
+  - entity: town/burlington
+    aoe_org_id: T037
+    district_type: town
+    name_as_published: Burlington
+    county: Chittenden
+    su: su/burlington
+    su_number: 15
+    pupils: 6972.03
+    education_spending: 103360823
+    spending_per_pupil: 14825.07
+    source_row: 150
+  - entity: town/south-burlington
+    aoe_org_id: T191
+    district_type: town
+    name_as_published: South Burlington
+    county: Chittenden
+    su: su/south-burlington
+    su_number: 16
+    pupils: 4063.19
+    education_spending: 58770072
+    spending_per_pupil: 14464.02
+    source_row: 151
+  - entity: town/winooski
+    aoe_org_id: T249
+    district_type: town
+    name_as_published: Winooski ID
+    county: Chittenden
+    su: su/winooski
+    su_number: 17
+    pupils: 2005.63
+    education_spending: 30597445
+    spending_per_pupil: 15255.78
+    source_row: 152
+  - entity: town/canaan
+    aoe_org_id: T041
+    district_type: town
+    name_as_published: Canaan
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    pupils: 258.37
+    education_spending: 4382554
+    spending_per_pupil: 16962.32
+    source_row: 155
+  - entity: town/ferdinand
+    aoe_org_id: T258
+    district_type: town
+    name_as_published: Ferdinand
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    pupils: 1.54
+    education_spending: 0
+    spending_per_pupil: 0
+    source_row: 166
+  - entity: ud/northeast-kingdom-choice
+    aoe_org_id: U065
+    district_type: union
+    name_as_published: Northeast Kingdom Choice USD
+    county: Essex
+    su: su/essex-north
+    su_number: 19
+    pupils: 539.03
+    education_spending: 7629243
+    spending_per_pupil: 14153.65
+    source_row: 180
+  - entity: ud/northern-mountain-valley-85
+    aoe_org_id: U085
+    district_type: union
+    name_as_published: Northern Mountain Valley UUSD
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    pupils: 2061.22
+    education_spending: 24153776
+    spending_per_pupil: 11718.19
+    source_row: 191
+  - entity: ud/enosburgh-richford-88
+    aoe_org_id: U088
+    district_type: union
+    name_as_published: Enosburgh-Richford UUSD
+    county: Franklin
+    su: su/franklin-northeast
+    su_number: 20
+    pupils: 1642.87
+    education_spending: 18300146
+    spending_per_pupil: 11139.13
+    source_row: 194
+  - entity: ud/missisquoi-valley-89
+    aoe_org_id: U089
+    district_type: union
+    name_as_published: Missisquois Valley School District
+    county: Franklin
+    su: su/missisquoi-valley
+    su_number: 21
+    pupils: 3255.49
+    education_spending: 39683045
+    spending_per_pupil: 12189.58
+    source_row: 201
+  - entity: town/fairfax
+    aoe_org_id: T071
+    district_type: town
+    name_as_published: Fairfax
+    county: Franklin
+    su: su/franklin-west
+    su_number: 22
+    pupils: 1231.45
+    education_spending: 17874638
+    spending_per_pupil: 14515.11
+    source_row: 202
+  - entity: town/fletcher
+    aoe_org_id: T077
+    district_type: town
+    name_as_published: Fletcher
+    county: Franklin
+    su: su/franklin-west
+    su_number: 22
+    pupils: 354.22
+    education_spending: 4357957
+    spending_per_pupil: 12302.97
+    source_row: 203
+  - entity: town/georgia
+    aoe_org_id: T079
+    district_type: town
+    name_as_published: Georgia
+    county: Franklin
+    su: su/franklin-west
+    su_number: 22
+    pupils: 1200.54
+    education_spending: 17799256
+    spending_per_pupil: 14826.04
+    source_row: 204
+  - entity: ud/maple-run-57
+    aoe_org_id: U057
+    district_type: union
+    name_as_published: Maple Run USD
+    county: Franklin
+    su: su/maple-run
+    su_number: 23
+    pupils: 3915.92
+    education_spending: 58751223
+    spending_per_pupil: 15003.17
+    source_row: 211
+  - entity: town/alburgh
+    aoe_org_id: T003
+    district_type: town
+    name_as_published: Alburgh
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    pupils: 553.17
+    education_spending: 7248323
+    spending_per_pupil: 13103.25
+    source_row: 212
+  - entity: town/south-hero
+    aoe_org_id: T192
+    district_type: town
+    name_as_published: South Hero
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    pupils: 339.68
+    education_spending: 5314295
+    spending_per_pupil: 15645
+    source_row: 216
+  - entity: ud/champlain-islands-66
+    aoe_org_id: U066
+    district_type: union
+    name_as_published: Champlain Islands UUSD
+    county: Grand Isle
+    su: su/grand-isle
+    su_number: 24
+    pupils: 699.69
+    education_spending: 10696720
+    spending_per_pupil: 15287.8
+    source_row: 220
+  - entity: town/cambridge
+    aoe_org_id: T040
+    district_type: town
+    name_as_published: Cambridge
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    pupils: 500.74
+    education_spending: 6926499
+    spending_per_pupil: 13832.53
+    source_row: 222
+  - entity: ud/lamoille-north-modified-a-058
+    aoe_org_id: U058A
+    district_type: union
+    name_as_published: Lamoille North MUSD A
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    pupils: 1106.72
+    education_spending: 15789682
+    spending_per_pupil: 14267.1
+    source_row: 232
+  - entity: ud/lamoille-north-modified-b-058
+    aoe_org_id: U058B
+    district_type: union
+    name_as_published: Lamoille North MUSD B
+    county: Lamoille
+    su: su/lamoille-north
+    su_number: 25
+    pupils: 1586.58
+    education_spending: 19452670
+    spending_per_pupil: 12260.76
+    source_row: 239
+  - entity: town/stowe
+    aoe_org_id: T198
+    district_type: town
+    name_as_published: Stowe
+    county: Lamoille
+    su: su/lamoille-south
+    su_number: 26
+    pupils: 1101.75
+    education_spending: 16976196
+    spending_per_pupil: 15408.39
+    source_row: 242
+  - entity: ud/elmore-morristown-90
+    aoe_org_id: U090
+    district_type: union
+    name_as_published: Elmore-Morristown UUSD
+    county: Lamoille
+    su: su/lamoille-south
+    su_number: 26
+    pupils: 1383.25
+    education_spending: 16778678
+    spending_per_pupil: 12129.9
+    source_row: 245
+  - entity: town/thetford
+    aoe_org_id: T205
+    district_type: town
+    name_as_published: Thetford
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    pupils: 566.72
+    education_spending: 9800193
+    spending_per_pupil: 17292.83
+    source_row: 251
+  - entity: ud/blue-mountain-21
+    aoe_org_id: U021
+    district_type: union
+    name_as_published: Blue Mountain USD
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    pupils: 811.84
+    education_spending: 10822015
+    spending_per_pupil: 13330.23
+    source_row: 257
+  - entity: ud/waits-river-union-high-district-36
+    aoe_org_id: U036
+    district_type: union
+    name_as_published: Waits River Valley School District
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    pupils: 787.19
+    education_spending: 8694232
+    spending_per_pupil: 11044.64
+    source_row: 260
+  - entity: ud/oxbow-91
+    aoe_org_id: U091
+    district_type: union
+    name_as_published: Oxbow UUSD
+    county: Orange
+    su: su/orange-east
+    su_number: 27
+    pupils: 1236.76
+    education_spending: 16365424
+    spending_per_pupil: 13232.5
+    source_row: 263
+  - entity: ud/orange-southwest-59
+    aoe_org_id: U059
+    district_type: union
+    name_as_published: Orange Southwest USD
+    county: Orange
+    su: su/orange-southwest
+    su_number: 28
+    pupils: 1384.21
+    education_spending: 21775142
+    spending_per_pupil: 15731.1
+    source_row: 270
+  - entity: town/sharon
+    aoe_org_id: T184
+    district_type: town
+    name_as_published: Sharon
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    pupils: 511.63
+    education_spending: 6591139
+    spending_per_pupil: 12882.63
+    source_row: 277
+  - entity: town/strafford
+    aoe_org_id: T199
+    district_type: town
+    name_as_published: Strafford
+    county: Orange
+    su: su/white-river-valley
+    su_number: 30
+    pupils: 301.14
+    education_spending: 4279353
+    spending_per_pupil: 14210.51
+    source_row: 279
+  - entity: ud/white-river-79
+    aoe_org_id: U079
+    district_type: union
+    name_as_published: White River Unified District
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    pupils: 1117.56
+    education_spending: 13692476
+    spending_per_pupil: 12252.12
+    source_row: 283
+  - entity: ud/granville-hancock
+    aoe_org_id: U080
+    district_type: union
+    name_as_published: Granville-Hancock Unified District
+    county: Addison
+    su: su/white-river-valley
+    su_number: 30
+    pupils: 192.43
+    education_spending: 2269611
+    spending_per_pupil: 11794.48
+    source_row: 286
+  - entity: ud/rochester-stockbridge-81
+    aoe_org_id: U081
+    district_type: union
+    name_as_published: Rochester-Stockbridge USD
+    county: Windsor
+    su: su/white-river-valley
+    su_number: 30
+    pupils: 363.57
+    education_spending: 4492634
+    spending_per_pupil: 12357
+    source_row: 289
+  - entity: ud/first-branch-82
+    aoe_org_id: U082
+    district_type: union
+    name_as_published: First Branch USD
+    county: Orange
+    su: su/white-river-valley
+    su_number: 30
+    pupils: 675.77
+    education_spending: 8704725
+    spending_per_pupil: 12881.19
+    source_row: 292
+  - entity: town/brighton
+    aoe_org_id: T030
+    district_type: town
+    name_as_published: Brighton
+    county: Essex
+    su: su/north-country
+    su_number: 31
+    pupils: 252.42
+    education_spending: 3037800
+    spending_per_pupil: 12034.7
+    source_row: 293
+  - entity: town/charleston
+    aoe_org_id: T044
+    district_type: town
+    name_as_published: Charleston
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 228.32
+    education_spending: 3153178
+    spending_per_pupil: 13810.35
+    source_row: 294
+  - entity: town/coventry
+    aoe_org_id: T054
+    district_type: town
+    name_as_published: Coventry
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 337.14
+    education_spending: 4891216
+    spending_per_pupil: 14507.97
+    source_row: 295
+  - entity: town/derby
+    aoe_org_id: T058
+    district_type: town
+    name_as_published: Derby
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 632.15
+    education_spending: 6856592
+    spending_per_pupil: 10846.46
+    source_row: 296
+  - entity: town/holland
+    aoe_org_id: T097
+    district_type: town
+    name_as_published: Holland
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 108.43
+    education_spending: 1062609
+    spending_per_pupil: 9799.95
+    source_row: 297
+  - entity: town/jay
+    aoe_org_id: T105
+    district_type: town
+    name_as_published: Jay
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 73.1
+    education_spending: 1251726
+    spending_per_pupil: 17123.47
+    source_row: 298
+  - entity: town/lowell
+    aoe_org_id: T114
+    district_type: town
+    name_as_published: Lowell
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 177.39
+    education_spending: 2271505
+    spending_per_pupil: 12805.15
+    source_row: 299
+  - entity: town/morgan
+    aoe_org_id: T131
+    district_type: town
+    name_as_published: Morgan
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 77.71
+    education_spending: 709499
+    spending_per_pupil: 9130.09
+    source_row: 300
+  - entity: town/newport-city
+    aoe_org_id: T139
+    district_type: town
+    name_as_published: Newport City
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 573.5
+    education_spending: 8483746
+    spending_per_pupil: 14792.93
+    source_row: 301
+  - entity: town/newport-town
+    aoe_org_id: T140
+    district_type: town
+    name_as_published: Newport Town
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 291.95
+    education_spending: 3907163
+    spending_per_pupil: 13382.99
+    source_row: 302
+  - entity: town/troy
+    aoe_org_id: T209
+    district_type: town
+    name_as_published: Troy
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 382.2
+    education_spending: 4565578
+    spending_per_pupil: 11945.52
+    source_row: 303
+  - entity: town/westfield
+    aoe_org_id: T231
+    district_type: town
+    name_as_published: Westfield
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 61.84
+    education_spending: 932099
+    spending_per_pupil: 15072.75
+    source_row: 304
+  - entity: ud/north-country-union-junior-high
+    aoe_org_id: U022A
+    district_type: union
+    name_as_published: North Country Jr UHSD
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 466.78
+    education_spending: 6246800
+    spending_per_pupil: 13382.75
+    source_row: 311
+  - entity: ud/north-country-union-high
+    aoe_org_id: U022B
+    district_type: union
+    name_as_published: North Country Sr UHSD
+    county: Orleans
+    su: su/north-country
+    su_number: 31
+    pupils: 1444.18
+    education_spending: 18445900
+    spending_per_pupil: 12772.58
+    source_row: 323
+  - entity: ud/washington-central-92
+    aoe_org_id: U092
+    district_type: union
+    name_as_published: Washington Central UUSD
+    county: Washington
+    su: su/washington-central
+    su_number: 32
+    pupils: 2370.68
+    education_spending: 36203852
+    spending_per_pupil: 15271.51
+    source_row: 334
+  - entity: ud/mill-river-52
+    aoe_org_id: U052
+    district_type: union
+    name_as_published: Mill River UUSD
+    county: Rutland
+    su: su/mill-river-unified-union
+    su_number: 33
+    pupils: 1273.42
+    education_spending: 17287875
+    spending_per_pupil: 13575.94
+    source_row: 343
+  - entity: ud/lake-region-union-high-24
+    aoe_org_id: U024
+    district_type: union
+    name_as_published: Lake Region UHSD
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    pupils: 682.59
+    education_spending: 9300116
+    spending_per_pupil: 13624.75
+    source_row: 358
+  - entity: ud/lake-region-union-elementary-middle
+    aoe_org_id: U093
+    district_type: union
+    name_as_published: Lake Region Union Elementary-Middle School District
+    county: Orleans
+    su: su/orleans-central
+    su_number: 34
+    pupils: 1295.12
+    education_spending: 16781202
+    spending_per_pupil: 12957.26
+    source_row: 366
+  - entity: town/craftsbury
+    aoe_org_id: T055
+    district_type: town
+    name_as_published: Craftsbury
+    county: Orleans
+    su: su/orleans-southwest
+    su_number: 35
+    pupils: 331.86
+    education_spending: 5269535
+    spending_per_pupil: 15878.79
+    source_row: 367
+  - entity: town/stannard
+    aoe_org_id: T195
+    district_type: town
+    name_as_published: Stannard
+    county: Caledonia
+    su: su/orleans-southwest
+    su_number: 35
+    pupils: 14.17
+    education_spending: 223184
+    spending_per_pupil: 15750.46
+    source_row: 370
+  - entity: town/wolcott
+    aoe_org_id: T250
+    district_type: town
+    name_as_published: Wolcott
+    county: Lamoille
+    su: su/orleans-southwest
+    su_number: 35
+    pupils: 442.91
+    education_spending: 5926711
+    spending_per_pupil: 13381.3
+    source_row: 371
+  - entity: ud/hazen-union-high-26
+    aoe_org_id: U026
+    district_type: union
+    name_as_published: Hazen UHSD
+    county: Caledonia
+    su: su/orleans-southwest
+    su_number: 35
+    pupils: 544.4
+    education_spending: 8158555
+    spending_per_pupil: 14986.32
+    source_row: 376
+  - entity: ud/mountain-view-union-elementary-94
+    aoe_org_id: U094
+    district_type: union
+    name_as_published: Orleans Southwest UESD
+    county: Orleans
+    su: su/orleans-southwest
+    su_number: 35
+    pupils: 542.84
+    education_spending: 8458750
+    spending_per_pupil: 15582.4
+    source_row: 381
+  - entity: ud/barstow-49
+    aoe_org_id: U049
+    district_type: union
+    name_as_published: Barstow UUSD
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    pupils: 433.67
+    education_spending: 6173236
+    spending_per_pupil: 14234.87
+    source_row: 392
+  - entity: ud/otter-valley-53
+    aoe_org_id: U053
+    district_type: union
+    name_as_published: Otter Valley UUSD
+    county: Rutland
+    su: su/rutland-northeast
+    su_number: 36
+    pupils: 2030.42
+    education_spending: 27440152
+    spending_per_pupil: 13514.52
+    source_row: 399
+  - entity: town/rutland-city
+    aoe_org_id: T173
+    district_type: town
+    name_as_published: Rutland City
+    county: Rutland
+    su: su/rutland-city
+    su_number: 40
+    pupils: 3554.77
+    education_spending: 43356000
+    spending_per_pupil: 12196.57
+    source_row: 400
+  - entity: ud/harwood-60
+    aoe_org_id: U060
+    district_type: union
+    name_as_published: Harwood UUSD
+    county: Washington
+    su: su/harwood-unified-union
+    su_number: 42
+    pupils: 2659.72
+    education_spending: 41188115
+    spending_per_pupil: 15485.88
+    source_row: 413
+  - entity: town/marlboro
+    aoe_org_id: T120
+    district_type: town
+    name_as_published: Marlboro
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    pupils: 219.73
+    education_spending: 3593846
+    spending_per_pupil: 16355.74
+    source_row: 417
+  - entity: town/stratton
+    aoe_org_id: T200
+    district_type: town
+    name_as_published: Stratton
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    pupils: 64.1
+    education_spending: 741743
+    spending_per_pupil: 11571.65
+    source_row: 419
+  - entity: town/windham
+    aoe_org_id: T246
+    district_type: town
+    name_as_published: Windham
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    pupils: 30.61
+    education_spending: 432130
+    spending_per_pupil: 14117.28
+    source_row: 422
+  - entity: ud/west-river-valley-union-education-district-a-72
+    aoe_org_id: U072A
+    district_type: union
+    name_as_published: West River Modified Union Education District A
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    pupils: 411.39
+    education_spending: 6622912
+    spending_per_pupil: 16098.86
+    source_row: 427
+  - entity: ud/west-river-valley-union-education-district-b-72
+    aoe_org_id: U072B
+    district_type: union
+    name_as_published: West River Modified Union Education District B
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    pupils: 429.16
+    education_spending: 6849304
+    spending_per_pupil: 15959.79
+    source_row: 433
+  - entity: ud/river-valleys-73
+    aoe_org_id: U073
+    district_type: union
+    name_as_published: River Valleys USD
+    county: Windham
+    su: su/windham-central
+    su_number: 46
+    pupils: 402.3
+    education_spending: 6397169
+    spending_per_pupil: 15901.49
+    source_row: 436
+  - entity: town/rockingham
+    aoe_org_id: T169
+    district_type: town
+    name_as_published: Rockingham
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    pupils: 770.57
+    education_spending: 9889089
+    spending_per_pupil: 12833.47
+    source_row: 439
+  - entity: town/westminster
+    aoe_org_id: T234
+    district_type: town
+    name_as_published: Westminster
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    pupils: 346.85
+    education_spending: 5208124
+    spending_per_pupil: 15015.49
+    source_row: 440
+  - entity: ud/bellows-falls-union-high-27
+    aoe_org_id: U027
+    district_type: union
+    name_as_published: Bellows Falls UHSD
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    pupils: 653.77
+    education_spending: 8317622
+    spending_per_pupil: 12722.55
+    source_row: 445
+  - entity: ud/athens-grafton
+    aoe_org_id: U095
+    district_type: union
+    name_as_published: Athens Grafton UESD
+    county: Windham
+    su: su/windham-northeast
+    su_number: 47
+    pupils: 105.15
+    education_spending: 1382325
+    spending_per_pupil: 13146.22
+    source_row: 448
+  - entity: town/vernon
+    aoe_org_id: T214
+    district_type: town
+    name_as_published: Vernon
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    pupils: 457.21
+    education_spending: 7198025
+    spending_per_pupil: 15743.37
+    source_row: 453
+  - entity: ud/windham-southeast-96
+    aoe_org_id: U096
+    district_type: union
+    name_as_published: Windham Southeast School District
+    county: Windham
+    su: su/windham-southeast
+    su_number: 48
+    pupils: 3807
+    education_spending: 60345162
+    spending_per_pupil: 15851.11
+    source_row: 458
+  - entity: town/halifax
+    aoe_org_id: T090
+    district_type: town
+    name_as_published: Halifax
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    pupils: 178.49
+    education_spending: 2274705
+    spending_per_pupil: 12744.16
+    source_row: 459
+  - entity: town/readsboro
+    aoe_org_id: T164
+    district_type: town
+    name_as_published: Readsboro
+    county: Bennington
+    su: su/windham-southwest
+    su_number: 49
+    pupils: 118.43
+    education_spending: 1674935
+    spending_per_pupil: 14142.83
+    source_row: 460
+  - entity: town/searsburg
+    aoe_org_id: T182
+    district_type: town
+    name_as_published: Searsburg
+    county: Bennington
+    su: su/windham-southwest
+    su_number: 49
+    pupils: 46.53
+    education_spending: 603930
+    spending_per_pupil: 12979.37
+    source_row: 461
+  - entity: town/stamford
+    aoe_org_id: T194
+    district_type: town
+    name_as_published: Stamford
+    county: Bennington
+    su: su/windham-southwest
+    su_number: 49
+    pupils: 187.71
+    education_spending: 2258291
+    spending_per_pupil: 12030.74
+    source_row: 462
+  - entity: town/somerset
+    aoe_org_id: T261
+    district_type: town
+    name_as_published: Somerset
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    pupils: 1.15
+    education_spending: 0
+    spending_per_pupil: 0
+    source_row: 465
+  - entity: ud/twin-valley-75
+    aoe_org_id: U075
+    district_type: union
+    name_as_published: Twin Valley USD
+    county: Windham
+    su: su/windham-southwest
+    su_number: 49
+    pupils: 686.27
+    education_spending: 9786619
+    spending_per_pupil: 14260.6
+    source_row: 468
+  - entity: town/pittsfield
+    aoe_org_id: T153
+    district_type: town
+    name_as_published: Pittsfield
+    county: Rutland
+    su: su/mountain-views
+    su_number: 51
+    pupils: 72.07
+    education_spending: 742539
+    spending_per_pupil: 10303.02
+    source_row: 471
+  - entity: ud/mountain-views
+    aoe_org_id: U076
+    district_type: union
+    name_as_published: Mountain Views School District
+    county: Windsor
+    su: su/mountain-views
+    su_number: 51
+    pupils: 1465.41
+    education_spending: 25427881
+    spending_per_pupil: 17352.06
+    source_row: 484
+  - entity: town/hartland
+    aoe_org_id: T094
+    district_type: town
+    name_as_published: Hartland
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    pupils: 641.19
+    education_spending: 11225926
+    spending_per_pupil: 17507.96
+    source_row: 485
+  - entity: town/weathersfield
+    aoe_org_id: T227
+    district_type: town
+    name_as_published: Weathersfield
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    pupils: 566.36
+    education_spending: 8891228
+    spending_per_pupil: 15698.9
+    source_row: 486
+  - entity: ud/mount-ascutney-86
+    aoe_org_id: U086
+    district_type: union
+    name_as_published: Mount Ascutney School District
+    county: Windsor
+    su: su/windsor-southeast
+    su_number: 52
+    pupils: 924.11
+    education_spending: 14147919
+    spending_per_pupil: 15309.78
+    source_row: 491
+  - entity: town/hartford
+    aoe_org_id: T093
+    district_type: town
+    name_as_published: Hartford
+    county: Windsor
+    su: su/hartford
+    su_number: 54
+    pupils: 2152.34
+    education_spending: 34513512
+    spending_per_pupil: 16035.34
+    source_row: 492
+  - entity: town/norwich
+    aoe_org_id: T145
+    district_type: town
+    name_as_published: Norwich
+    county: Windsor
+    su: su/school-administrative-unit-70
+    su_number: 55
+    pupils: 816.35
+    education_spending: 14935099
+    spending_per_pupil: 18294.97
+    source_row: 493
+  - entity: town/springfield
+    aoe_org_id: T193
+    district_type: town
+    name_as_published: Springfield
+    county: Windsor
+    su: su/springfield
+    su_number: 56
+    pupils: 2257.4
+    education_spending: 31380696
+    spending_per_pupil: 13901.26
+    source_row: 494
+  - entity: ud/barre-97
+    aoe_org_id: U097
+    district_type: union
+    name_as_published: Barre UUSD
+    county: Washington
+    su: su/barre
+    su_number: 61
+    pupils: 3767.88
+    education_spending: 43239188
+    spending_per_pupil: 11475.73
+    source_row: 499
+  - entity: ud/green-mountain-77
+    aoe_org_id: U077
+    district_type: union
+    name_as_published: Green Mountain USD
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    pupils: 1184.09
+    education_spending: 17293122
+    spending_per_pupil: 14604.57
+    source_row: 510
+  - entity: ud/ludlow-mt-holly-83
+    aoe_org_id: U083
+    district_type: union
+    name_as_published: Ludlow-Mt. Holly UUSD
+    county: Windsor
+    su: su/two-rivers
+    su_number: 63
+    pupils: 624.84
+    education_spending: 9828315
+    spending_per_pupil: 15729.33
+    source_row: 513
+  - entity: ud/rivendell-interstate
+    aoe_org_id: U146
+    district_type: union
+    name_as_published: Rivendell Interstate School District
+    county: Orange
+    su: su/rivendell-interstate
+    su_number: 64
+    pupils: 551.18
+    education_spending: 7989100
+    spending_per_pupil: 14494.54
+    source_row: 520
+  - entity: ud/essex-westford-educational-community-unified-union-sd-51
+    aoe_org_id: U051
+    district_type: union
+    name_as_published: Essex-Westford ECUUSD
+    county: Chittenden
+    su: su/essex-westford
+    su_number: 65
+    pupils: 5441.46
+    education_spending: 76570171
+    spending_per_pupil: 14071.62
+    source_row: 527
+  - entity: town/ira
+    aoe_org_id: T101
+    district_type: town
+    name_as_published: Ira
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    pupils: 82.45
+    education_spending: 786223
+    spending_per_pupil: 9535.76
+    source_row: 528
+  - entity: town/rutland-town
+    aoe_org_id: T174
+    district_type: town
+    name_as_published: Rutland Town
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    pupils: 794.96
+    education_spending: 10759251
+    spending_per_pupil: 13534.33
+    source_row: 532
+  - entity: ud/wells-spring-69
+    aoe_org_id: U069
+    district_type: union
+    name_as_published: Wells Spring Unified Union District
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    pupils: 477.66
+    education_spending: 6123018
+    spending_per_pupil: 12818.78
+    source_row: 537
+  - entity: ud/quarry-valley-70
+    aoe_org_id: U070
+    district_type: union
+    name_as_published: Quarry Valley UUSD
+    county: Rutland
+    su: su/greater-rutland-county
+    su_number: 66
+    pupils: 1724.09
+    education_spending: 19293983
+    spending_per_pupil: 11190.82
+    source_row: 541
+  - entity: ud/kingdom-east-64
+    aoe_org_id: U064
+    district_type: union
+    name_as_published: Kingdom East USD
+    county: Caledonia
+    su: su/kingdom-east
+    su_number: 67
+    pupils: 3255.81
+    education_spending: 44824278
+    spending_per_pupil: 13767.47
+    source_row: 558
+  - entity: ud/echo-valley-community-67
+    aoe_org_id: U067
+    district_type: union
+    name_as_published: Echo Valley Community School District
+    county: Orange
+    su: su/central-vermont
+    su_number: 68
+    pupils: 584.31
+    education_spending: 6808871
+    spending_per_pupil: 11652.84
+    source_row: 565
+  - entity: ud/paine-mountain-68
+    aoe_org_id: U068
+    district_type: union
+    name_as_published: Paine Mountain School District
+    county: Washington
+    su: su/central-vermont
+    su_number: 68
+    pupils: 1715.12
+    education_spending: 23251106
+    spending_per_pupil: 13556.55
+    source_row: 568
+  - entity: ud/montpelier-roxbury-71
+    aoe_org_id: U071
+    district_type: union
+    name_as_published: Montpelier Roxbury School District
+    county: Washington
+    su: su/montpelier-roxbury
+    su_number: 69
+    pupils: 1873.76
+    education_spending: 27725667
+    spending_per_pupil: 14796.81
+    source_row: 573
+  - entity: town/lincoln
+    aoe_org_id: T112
+    district_type: town
+    name_as_published: Lincoln
+    county: Addison
+    su: su/lincoln
+    su_number: 70
+    pupils: 330.08
+    education_spending: 4441395
+    spending_per_pupil: 13455.51
+    source_row: 574
+discrepancies:
+  - kind: pupils_without_spending
+    entity: town/ferdinand
+    aoe_org_id: T258
+    source_row: 166
+    stated:
+      pupils: 1.54
+      education_spending: 0
+      spending_per_pupil: 0
+    recomputed_spending_per_pupil: 0
+    note: Pupils are stated with zero education spending.
+  - kind: pupils_without_spending
+    entity: town/somerset
+    aoe_org_id: T261
+    source_row: 465
+    stated:
+      pupils: 1.15
+      education_spending: 0
+      spending_per_pupil: 0
+    recomputed_spending_per_pupil: 0
+    note: Pupils are stated with zero education spending.
+unresolved_rows: []
+extracted_by: James Nadeau
+extracted_date: 2026-10-22

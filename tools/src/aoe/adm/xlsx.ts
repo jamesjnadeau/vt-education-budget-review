@@ -48,11 +48,7 @@ export async function readSheetRows(absolutePath: string): Promise<Cell[][]> {
     );
   }
   const rows = (sheets[0]?.data ?? []) as Cell[][];
-  return rows.map((row) => {
-    let end = row.length;
-    while (end > 0 && (row[end - 1] === null || row[end - 1] === '')) end--;
-    return row.slice(0, end);
-  });
+  return rows.map(trimRow);
 }
 
 /**
@@ -70,9 +66,26 @@ export async function readNamedSheetRows(
   sheetName: string,
 ): Promise<Cell[][]> {
   const rows = (await readSheet(absolutePath, sheetName)) as Cell[][];
-  return rows.map((row) => {
-    let end = row.length;
-    while (end > 0 && (row[end - 1] === null || row[end - 1] === '')) end--;
-    return row.slice(0, end);
-  });
+  return rows.map(trimRow);
+}
+
+/**
+ * Every sheet of a workbook, in tab order, with its name.
+ *
+ * For workbooks where every tab is data in the same layout -- the AOE
+ * education-spending workbook carries one fiscal year per tab -- so the caller
+ * needs the names to know which tabs arrived, and to refuse one it does not
+ * expect rather than skip it.
+ */
+export async function readAllSheetRows(
+  absolutePath: string,
+): Promise<{ name: string; rows: Cell[][] }[]> {
+  const sheets = await readXlsxFile(absolutePath);
+  return sheets.map((s) => ({ name: s.sheet, rows: (s.data as Cell[][]).map(trimRow) }));
+}
+
+function trimRow(row: Cell[]): Cell[] {
+  let end = row.length;
+  while (end > 0 && (row[end - 1] === null || row[end - 1] === '')) end--;
+  return row.slice(0, end);
 }
