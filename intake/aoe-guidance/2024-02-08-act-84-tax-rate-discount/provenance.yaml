@@ -1,0 +1,24 @@
+schema_version: "1.0"
+entity: source/aoe-guidance
+# The worksheet's figure of record is the FY2025 discount; the FY2026-FY2029
+# columns are the phase-out applied to it.
+fiscal_year: 2025
+artifacts:
+  - file: W~Nicole Lee~Y25 to FY29 Act 127 Tax Rate Discount by District~2-8-2024.pdf
+    source_url: https://legislature.vermont.gov/Documents/2024/WorkGroups/House%20Ways%20and%20Means/Bills/H.850/W~Nicole%20Lee~Y25%20to%20FY29%20Act%20127%20Tax%20Rate%20Discount%20by%20District~2-8-2024.pdf
+    retrieved_date: "2026-10-22"
+    retrieval_method: http-fetch
+    sha256: 2a13e7305f5ac5eb9e13eddee8e49571a701d8453243304af8bc710515844018
+    bytes: 626716
+    media_type: application/pdf
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: aoe_report
+    note: >-
+      Agency of Education, School Finance: per-district FY2025-FY2029 Act 127
+      tax rate discount, filed with House Ways and Means as testimony on H.850
+      (which became Act 84) on 2024-02-08 by Nicole Lee. It is the only
+      published per-district list of the FY2025 decrease the model found; the
+      model takes its FY2025 column as an input, never as law. Its FY2026-FY2029
+      columns predate Act 183 Sec. 16 and are NOT divided by the statewide
+      adjustment. An earlier version dated 2-6-2024 also exists on the same
+      committee page. The .txt beside it is pdftotext -layout output.

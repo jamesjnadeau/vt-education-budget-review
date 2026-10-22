@@ -58,14 +58,20 @@ LFS pointers in this container (`git lfs pull` fixes them, CI fetches them); `np
 
 ## Open findings, in the order they block things
 
-1. **The Act 127 / Act 183 tax-rate transition is unmodelled.** A step-by-step plan for an
-   agent with access to the State sites is in [`docs/act-127-transition-plan.md`](docs/act-127-transition-plan.md). Until it is, the engine is
-   right for about half of Vermont's districts and silently high for the rest, so no FY2026
-   rate should be published. Steps: fetch the text of Act 127 of 2022 Sec. 7 (and whichever
-   section of Act 183 of 2024 rewrote it) with `npm run vt:fetch`, snapshot it under
-   `model/statute/`, add the parameters with citations, implement in `model/src/tax.ts`, and
-   watch the Addison Central fixture turn green. Do not write the rule from memory; the whole
-   point of the fixture is that memory was wrong once already (see finding 3).
+1. **Review the Act 127 transition (implemented 2026-10-22, uncommitted).** The rule is
+   2024 Acts No. 84, Sec. 3, amended by Act 183, Secs. 16–17, not Act 127 itself; snapshots are
+   in `model/statute/2026-10-22/`. The parameters `tax.transition.phase_out_share` and
+   `tax.transition.rate_floor` are in fy2025–fy2027 with citations. Addison Central now passes
+   (its `known_disagreement` is gone) and three more transition fixtures were added. The
+   engine reproduces 86 of 97 matchable FY2026 district rates, up from 51. A person should
+   decide:
+   - **Rounding.** The FY2026 decrease is rounded to three places. That is what reproduces
+     86 of 97 districts; the literal reading of the amended text reproduces only 57. It is a
+     Tax Department convention, not statute. Confirm it with the Department before
+     countersigning.
+   - **Sec. 3(e).** Income percentage is not adjusted for the decrease.
+   - **11 residual districts.** Listed with likely causes in
+     [docs/act-127-transition.md](docs/act-127-transition.md). None has a fixture.
 2. **Countersign FY2026 and set it `status: verified`.** Every FY2026 parameter is verified
    against a snapshot or published table, and the publication gate is now satisfied by two
    passing fixtures. A person reads `model/statute/2026-07-29/` against `fy2026.yaml`, then
@@ -77,6 +83,8 @@ LFS pointers in this container (`git lfs pull` fixes them, CI fetches them); `np
    table's State Rate column, so those two are fine.
 4. **Billed-rate rounding.** The Department divides by CLA ÷ SA rounded to four places. The
    engine divides unrounded. The fixtures tolerate one unit in the fourth place and say why.
+   Two billed rates miss by slightly more and are left out of their fixtures with a comment:
+   Williston (Champlain Valley) and Colchester.
    Decide whether the engine should round the way the Department does (then the fixtures can
    tighten to exact), or stay as the statute reads.
 5. **No membership fixture.** Both passing fixtures start from AOE's published weighted ADM.

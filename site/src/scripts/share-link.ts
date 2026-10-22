@@ -52,6 +52,7 @@ export const SHARE_FIELDS: readonly ShareField[] = [
   { id: 'cla', param: 'cla' },
   { id: 'capital-reserve', param: 'capital_reserve' },
   { id: 'bond-exclusion', param: 'bond_exclusion' },
+  { id: 'act84-decrease', param: 'act84_decrease' },
   { id: 'statewide-avg', param: 'statewide_avg' },
 ];
 

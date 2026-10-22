@@ -34,6 +34,14 @@ inputs:
   # is well below the threshold, so this fixture does not exercise it; see
   # town-marlboro-fy2026.yaml for one that does.
   statewide_average_per_pupil: 13497
+  # Not on AOE's Act 84 worksheet, which lists only eligible districts, so no
+  # transition decrease (2024 Acts No. 84, Sec. 3(f)).
+  act84_transition:
+    fy2025_rate_decrease: 0
+    source: >-
+      not listed in AOE "FY25 to FY29 Act 127 Tax Rate Discount by District",
+      2024-02-08, which lists only districts eligible for a discount
+      (intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/)
   towns:
     - { town: town/benson, cla: 0.6421 }
     - { town: town/castleton, cla: 1.0152 }

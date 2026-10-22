@@ -69,6 +69,17 @@ claim about the world, the same standard the parameter files hold themselves to.
 - [ ] **Locate the remaining schools in a municipality** (277 of 438).
   [`derived/school-municipality/`](../derived/school-municipality/), `npm run school:municipality`.
 
+- [ ] **Act 84 transition decrease per district.** FY2027 is the 60 percent year of the
+  Act 127 tax-rate transition (2024 Acts No. 84, Sec. 3(c)(2), as amended by 2024 Acts No. 183,
+  Sec. 16); `tax.transition.phase_out_share` is 0.6 in
+  [`fy2027.yaml`](../model/parameters/fy2027.yaml). Each district's FY2025 decrease comes from
+  AOE's worksheet in
+  [`intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/`](../intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/);
+  a district not listed is 0. For a district formed, merged or withdrawn since February 2024,
+  apply Sec. 3(g) to its predecessors' rows by hand and record the reasoning. Without this input
+  the engine reports the district rate as not computable. See
+  [`docs/act-127-transition.md`](act-127-transition.md).
+
 ## Scenario-modeling inputs — the tool's headline feature
 
 - [x] **Transcribe the Act 170 district groupings.** All twenty are in

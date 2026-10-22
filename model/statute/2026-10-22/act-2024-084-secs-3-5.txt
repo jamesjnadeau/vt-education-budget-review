@@ -1,0 +1,147 @@
+CITATION: 2024 Acts and Resolves No. 84 (H.850), Secs. 3 and 5
+SOURCE:   https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT084/ACT084%20As%20Enacted.pdf
+RETRIEVED:2026-10-22T20:49:23Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly, extracted from the
+as-enacted PDF with pdftotext (sha256 fdc00ad6c0504fb133b66399894f68cd5cdb2c53a4f9c1591b4d58de2082d64e, kept in
+intake/vt-legislature/2024-acts/). Only the sections named above are excerpted;
+the line ranges are of the full extraction beside the PDF. pdftotext does not
+keep underlining or strikethrough, so in an amending section the inserted and
+deleted words are not marked -- read the PDF for that. This file is the
+provenance record for every parameter citing these sections. Do not edit it.
+----------------------------------------------------------------------------
+
+[lines 1-10]
+No. 84                                                                   Page 1 of 4
+2024
+
+No. 84. An act relating to transitioning education financing to the new
+system for pupil weighting.
+
+                                     (H.850)
+
+It is hereby enacted by the General Assembly of the State of Vermont:
+
+[lines 35-148: Sec. 3]
+Sec. 3. TAX RATE TRANSITION; FISCAL YEARS 2025–2029
+
+   (a) For each school district, the Secretary of Education shall:
+
+        (1) calculate the long-term weighted average daily membership for
+
+fiscal year 2025 using the funding formula in effect for fiscal year 2024 while
+
+accounting for the differences in how pupil weights and average daily
+
+membership were identified and determined between fiscal years 2024 and
+
+2025;
+                                                                     VT LEG #374947 v.1
+No. 84                                                                  Page 2 of 4
+2024
+
+      (2) calculate the district’s percentage share of total long-term weighted
+
+average daily membership by dividing the result from subdivision (1) of this
+
+subsection by the sum of results for all districts from subdivision (1) of this
+
+subsection;
+
+      (3) calculate the long-term weighted average daily membership for
+
+fiscal year 2025 using the funding formula created by 2022 Acts and Resolves
+
+No. 127; and
+
+      (4) calculate the district’s percentage share of total long-term weighted
+
+average daily membership for fiscal year 2025 by dividing the result from
+
+subdivision (3) of this subsection by the sum of results for all districts from
+
+subdivision (3) of this subsection.
+
+   (b) For each school district, the Secretary shall calculate the relative
+
+percent decrease or increase starting from the percentage determined under
+
+subdivision (a)(2) of this section and compared to the percentage determined
+
+under subdivision (a)(4) of this section.
+
+   (c) Notwithstanding 16 V.S.A. chapter 133, 32 V.S.A. chapter 135, or any
+
+other provision of law to the contrary, a school district shall receive a decrease
+
+to its homestead property tax rate in fiscal year 2025 equal to $0.01 for every
+
+relative percent decrease calculated under subsection (b) of this section,
+
+rounded to the nearest whole cent. The tax rate decrease shall phase out in the
+
+following manner:
+
+
+
+
+                                                                    VT LEG #374947 v.1
+No. 84                                                                   Page 3 of 4
+2024
+
+      (1) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2026 equal to 80 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+      (2) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2027 equal to 60 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+      (3) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2028 equal to 40 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+      (4) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2029 equal to 20 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+   (d) Notwithstanding subsection (c) of this section, 16 V.S.A. chapter 133,
+
+32 V.S.A. chapter 135, or any other provision of law to the contrary, if a tax
+
+rate decrease under this section would cause a district to have a homestead
+
+property tax rate of less than $1.00, the rate shall instead be $1.00.
+
+   (e) Notwithstanding 32 V.S.A. chapters 135 and 154, or any other
+
+provision of law to the contrary, a school district’s income percentage shall be
+
+calculated according to the decrease under this section.
+
+   (f) A district with a relative percent increase, as determined by the
+
+calculations in subsections (a) and (b) of this section, shall not receive a
+
+decrease in homestead property tax rate under this section.
+
+                                                                    VT LEG #374947 v.1
+No. 84                                                                    Page 4 of 4
+2024
+
+[lines 185-190: Sec. 5]
+Sec. 5. EFFECTIVE DATE
+
+   This act shall take effect on passage.
+
+Date Governor signed bill: February 22, 2024
+

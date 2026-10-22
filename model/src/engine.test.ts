@@ -645,3 +645,92 @@ describe('parameter file parsing', () => {
     expect(() => parseParameterSet(minimal({ contingent: true, value: 15000 }))).toThrow(/false precision/);
   });
 });
+
+describe('the Act 84 transition decrease', () => {
+  // Synthetic: yield 10,000, statewide average 10,000, so a per pupil spend of
+  // 15,000 gives excess 3,200 and an equalized rate of 1.82 before the step.
+  const town = { town: 'town/test', cla: 0.8, cla_source: 'test' };
+  const at = (overrides: Record<string, number> = {}) =>
+    createContext(syntheticParameters({ transition: true, overrides }));
+
+  it('subtracts the phased share of the FY2025 decrease, after excess spending', () => {
+    const c = at();
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000, {}, { fy2025RateDecrease: 0.13, source: 'test' });
+
+    // 0.13 x 0.8 = 0.104, over a statewide adjustment of 1.
+    expect(result.transitionDecrease?.value).toBeCloseTo(0.104, 10);
+    expect(result.equalizedRate.value).toBeCloseTo(1.82 - 0.104, 10);
+    expect(result.billedRate.value).toBeCloseTo((1.82 - 0.104) / 0.8, 10);
+    expect(result.billedRate.status).toBe('ok');
+  });
+
+  it('divides by the statewide adjustment and rounds to three places', () => {
+    // 0.104 / 0.7236 = 0.14373..., published as 0.144.
+    const c = at({ 'tax.statewide_adjustment': 0.7236 });
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000, {}, { fy2025RateDecrease: 0.13 });
+
+    expect(result.transitionDecrease?.value).toBe(0.144);
+    expect(result.equalizedRate.value).toBeCloseTo(1.82 - 0.144, 10);
+  });
+
+  it('is a no-op for a district given 0', () => {
+    const c = at();
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000, {}, { fy2025RateDecrease: 0 });
+
+    expect(result.transitionDecrease?.value).toBe(0);
+    expect(result.equalizedRate.value).toBeCloseTo(1.82, 10);
+  });
+
+  it('never takes the rate below $1.00 (Sec. 3(d))', () => {
+    // 1.05 - 0.2 x 0.8 = 0.89, floored to 1.
+    const c = at();
+    const perPupil = input(c, 'Per pupil education spending', 10_500, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000, {}, { fy2025RateDecrease: 0.2 });
+
+    expect(result.equalizedRate.value).toBe(1);
+  });
+
+  it('applies after the floor of one on the spending adjustment', () => {
+    // A low spender's adjustment is floored at 1 first; the decrease then cannot
+    // take it lower, so the result is the $1.00 floor, not 0.5 - 0.04.
+    const c = at();
+    const perPupil = input(c, 'Per pupil education spending', 5_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000, {}, { fy2025RateDecrease: 0.05 });
+
+    expect(result.spendingAdjustment.value).toBe(1);
+    expect(result.equalizedRate.value).toBe(1);
+  });
+
+  it('is not computable when the decrease is not supplied in a transition year', () => {
+    const c = at();
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000);
+
+    expect(result.equalizedRate.value).toBeNull();
+    expect(result.billedRate.status).toBe('not_computable');
+    expect(result.billedRate.explanation).toMatch(/Act 84 decrease was not supplied/);
+  });
+
+  it('is skipped entirely in a year without the transition parameters', () => {
+    const c = createContext(syntheticParameters());
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000);
+
+    expect(result.transitionDecrease).toBeNull();
+    expect(result.equalizedRate.value).toBeCloseTo(1.82, 10);
+    expect(result.billedRate.status).toBe('ok');
+  });
+
+  it('refuses to compute from an unverified phase-out share', () => {
+    const c = createContext(
+      syntheticParameters({ transition: true, unverified: ['tax.transition.phase_out_share'] }),
+    );
+    const perPupil = input(c, 'Per pupil education spending', 15_000, 'usd_per_pupil');
+    const result = townRate(c, perPupil, town, 10_000, {}, { fy2025RateDecrease: 0.13 });
+
+    expect(result.billedRate.status).toBe('unverified');
+  });
+});

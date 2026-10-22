@@ -1,0 +1,58 @@
+# Colchester, FY2026: a town school district in the Act 84 transition.
+#
+# What the State published: $14,382.44 per weighted pupil (AOE) and a district
+# rate of 1.5852 (Tax Department). 32 V.S.A. § 5401(13)(A) alone gives
+# 14,382.44 / 8,596 = 1.6732. The difference is the Act 127 tax rate transition,
+# 2024 Acts No. 84, Sec. 3, as amended by 2024 Acts No. 183, Sec. 16:
+#
+#   FY2025 decrease (AOE worksheet, 8 percent relative decrease)      $0.08
+#   FY2026 share, Sec. 3(c)(1)                                  x 0.80 = 0.064
+#   divided by the FY2026 statewide adjustment 0.7236                  = 0.0884
+#   rounded to three places (Tax Department convention, not statute)   = 0.088
+#   1.673155 - 0.088                                                   = 1.5852
+#
+# The one transition fixture that is a town district rather than a union, so
+# a single town carries the whole rate. See docs/act-127-transition.md.
+#
+# Spending and pupils: warehouse/aoe-edspend/fy2026.yaml, district row 109.
+# CLA and rates: intake/tax-rates/fy2026/FY26EdTaxRates_081825.xlsx.
+entity: town/colchester
+fiscal_year: 2026
+
+source:
+  publisher: Vermont Agency of Education and Vermont Department of Taxes
+  document: >-
+    AOE EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx, tab FY26 (Data Request #853;
+    warehouse/aoe-edspend/fy2026.yaml); Department of Taxes "FY2026 Education
+    Property Tax Rates", FY26EdTaxRates_081825.xlsx dated 2025-08-18
+    (intake/tax-rates/fy2026/)
+  url: https://tax.vermont.gov/document/fy2026-education-property-tax-rates
+  retrieved: "2026-10-22"
+  retrieved_by: Claude Code session, for James Nadeau
+
+inputs:
+  weighted_membership_published: 3653.26
+  education_spending: 52542808
+  statewide_average_per_pupil: 13497
+  act84_transition:
+    fy2025_rate_decrease: 0.08
+    source: >-
+      AOE "FY25 to FY29 Act 127 Tax Rate Discount by District", 2024-02-08, row
+      "07 Colchester", FY25 column
+      (intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/)
+  towns:
+    - { town: town/colchester, cla: 0.6156 }
+
+expected:
+  per_weighted_pupil: 14382.44
+  # The Tax Department's figures, after the Act 84 decrease.
+  equalized_homestead_rate: 1.5852
+  # No town rate. Published 1.8634 = 1.5852 / 0.8507, CLA / SA rounded to four
+  # places; the engine divides by the unrounded 0.850746 and gets 1.86325, 1.5
+  # units off in the fourth place. That is the billed-rate rounding question
+  # still open in handoff.md (item 4), not the transition, so this fixture
+  # checks the district rate only.
+  town_rates: []
+
+tolerance:
+  rates: 0.0001

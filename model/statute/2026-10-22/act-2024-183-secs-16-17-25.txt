@@ -1,0 +1,137 @@
+CITATION: 2024 Acts and Resolves No. 183 (H.887), Secs. 16, 17 and 25
+SOURCE:   https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT183/ACT183%20As%20Enacted.pdf
+RETRIEVED:2026-10-22T20:49:06Z
+HTTP:     200
+
+Verbatim text as published by the Vermont General Assembly, extracted from the
+as-enacted PDF with pdftotext (sha256 55d7a992ee1fbccdb0af4b8abbabaa1ef07bb315ef8a42610c3fb759bb83e26a, kept in
+intake/vt-legislature/2024-acts/). Only the sections named above are excerpted;
+the line ranges are of the full extraction beside the PDF. pdftotext does not
+keep underlining or strikethrough, so in an amending section the inserted and
+deleted words are not marked -- read the PDF for that. This file is the
+provenance record for every parameter citing these sections. Do not edit it.
+----------------------------------------------------------------------------
+
+[lines 1-10]
+No. 183                                                              Page 1 of 39
+2024
+
+No. 183. An act relating to homestead property tax yields, nonhomestead
+rates, and policy changes to education finance and taxation.
+
+                                     (H.887)
+
+It is hereby enacted by the General Assembly of the State of Vermont:
+
+[lines 1242-1313: Secs. 16-17]
+                         * * * Act 84 Amendments * * *
+
+Sec. 16. 2024 Acts and Resolves No. 84, Sec. 3(c) is amended to read:
+
+   (c) Notwithstanding 16 V.S.A. chapter 133, 32 V.S.A. chapter 135, or any
+
+other provision of law to the contrary, a school district shall receive a decrease
+
+to its homestead property tax rate in fiscal year 2025 equal to $0.01 for every
+
+                                                                    VT LEG #377895 v.1
+No. 183                                                             Page 27 of 39
+2024
+
+relative percent decrease calculated under subsection (b) of this section divided
+
+by the statewide adjustment, rounded to the nearest whole cent. The tax rate
+
+decrease shall phase out in the following manner:
+
+      (1) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2026 equal to 80 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+      (2) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2027 equal to 60 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+      (3) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2028 equal to 40 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+      (4) A district shall receive a decrease to its homestead property tax rate
+
+in fiscal year 2029 equal to 20 percent of the rate decrease it received under
+
+subsection (b) of this section.
+
+Sec. 17. 2024 Acts and Resolves No. 84, Sec. 3(g) is added to read:
+
+   (g)(1) In the event that a district with an equalized homestead property tax
+
+rate that was decreased by this section merges with another district or districts,
+
+the combined district shall receive the greatest decrease under the section
+
+available to any of the merged districts.
+
+      (2) In the event that a district withdraws from a district with an
+
+equalized homestead property tax rate that was decreased by this section, the
+
+                                                                   VT LEG #377895 v.1
+No. 183                                                             Page 28 of 39
+2024
+
+withdrawing district shall not receive any decrease under this section and the
+
+remaining district shall continue to have the same decrease in its equalized
+
+homestead property tax rate. If a district is instead dissolved, there shall be no
+
+decreased equalized homestead property tax rate for the resulting districts.
+
+                     * * * Excess Education Spending * * *
+
+[lines 1838-1875: Sec. 25]
+                                                                 VT LEG #377895 v.1
+No. 183                                                             Page 39 of 39
+2024
+
+                              * * * Effective Dates * * *
+
+Sec. 25. EFFECTIVE DATES
+
+   (a) This section and the following sections shall take effect on passage:
+
+        (1) Sec. 2 (property tax rates and yields);
+
+        (2) Sec. 13 (State outreach; statewide adjustments); and
+
+        (3) Sec. 17 (Act 84 application to district mergers, withdrawals, and
+
+dissolutions).
+
+   (b) Secs. 13a–16 (CLA effect on tax rates and statewide adjustment) and
+
+19 (repeal of excess spending suspension) shall take effect July 1, 2025.
+
+   (c) Sec. 9 (16 V.S.A. § 563; powers of school boards; form of vote) shall
+
+take effect July 1, 2024, provided, however, that 16 V.S.A. § 563(11)(D) shall
+
+not apply to ballots used for fiscal year 2025 budgets.
+
+   (d) Sec. 5 (32 V.S.A. chapter 225, subchapter 4) shall take effect August 1,
+
+2024.
+
+   (e) All other sections shall take effect on July 1, 2024.
+
+Became law by the June 17, 2024 legislative override of Governor’s veto.
+
+
+

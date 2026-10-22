@@ -2,8 +2,8 @@
 
 Fixtures that check the engine against figures the State of Vermont has already published.
 
-**Two fixtures reproduce the Tax Department's FY2026 rates. One records a disagreement the
-engine cannot yet close.** Each is listed below with what it proves and what it does not.
+**Six fixtures reproduce the Tax Department's FY2026 rates. Four of them are Act 84
+transition districts.** Each is listed below with what it proves and what it does not.
 
 ## Why these matter more than the unit tests
 
@@ -26,25 +26,29 @@ verified while no fixture in this directory passes.
 |---|---|---|---|
 | `ud-slate-valley-62-fy2026.yaml` | Six-town union district, CLAs from 0.60 to 1.04, one town reappraised | Per-pupil spending, the § 5401(13)(A) spending adjustment, the § 5402(a)(2) equalized rate, and six § 5402(b)(1) billed rates from one district rate, using the FY2026 property yield and statewide adjustment | Anything about weighted membership |
 | `town-marlboro-fy2026.yaml` | Single-town district $429 per pupil **over** the excess spending threshold | The § 5401(12) excess spending rule, the reimplemented Act 183 base ($13,497 × 1.18), and that the overage goes into the numerator | Same |
-| `ud-addison-central-55-fy2026.yaml` | Seven-town union district, **known disagreement** | That the engine is wrong here, and by how much: the published district rate is 1.6105; the engine gives 1.7545. See the file for the statewide pattern and the likely rule | — |
+| `ud-addison-central-55-fy2026.yaml` | Seven-town union district with an Act 84 transition decrease of $0.13 | The transition (2024 Acts No. 84, Sec. 3, as amended by Act 183, Sec. 16): 80 percent, divided by the statewide adjustment, rounded to three places, off the equalized rate, then seven billed rates | That the three-place rounding is statute (it is the Department's convention) |
+| `ud-champlain-valley-56-fy2026.yaml` | Five-town union district, decrease $0.17 | The same, for a larger decrease, with four billed rates | Williston's billed rate, left out (CLA ÷ SA rounding) |
+| `ud-mt-abraham-61-fy2026.yaml` | Four-town union district, decrease $0.02 | The same, for a small decrease, with four billed rates | — |
+| `town-colchester-fy2026.yaml` | Single-town district, decrease $0.08 | The same, for a town district | Its billed rate, left out (CLA ÷ SA rounding) |
 
-Both passing fixtures take AOE's published long-term weighted ADM as an input
+Slate Valley and Marlboro are not on AOE's worksheet and carry an explicit decrease of 0 with
+that as the source.
+
+All six fixtures take AOE's published long-term weighted ADM as an input
 (`weighted_membership_published`) rather than recomputing it from raw ADM. They therefore test
 the tax chain from the State's pupil count onward and say nothing about the membership engine.
 A membership fixture needs AOE's weighted long-term membership report with its grade-band
 inputs, which is not yet on file.
 
-### What the first run found
+### What the joins found
 
 Joining AOE's FY2026 spending workbook with the Tax Department's FY2026 rate table, town by
-town, the engine's chain reproduces the Tax Department's district rate to four places for 50
-of the 97 districts that match one-to-one. For the other 47 the published rate is **lower**
-than the chain gives, by an amount that differs district by district and is never in the other
-direction. That is the shape of a transition rule, and Act 127 of 2022's tax-rate transition
-as rewritten by Act 183 of 2024 is the place to read. It is not modelled from memory: the
-session-law text has to be fetched, snapshotted under `../statute/`, cited, and then
-implemented. Until then the engine is right for roughly half of Vermont's districts and
-silently high for the rest.
+town, the plain chain reproduced the district rate to four places for 51 of the 97 districts
+that match one-to-one. For 42 of the rest the published rate was lower. That was the Act 127
+tax-rate transition. It has since been read from 2024 Acts No. 84 and No. 183, snapshotted
+under `../statute/2026-10-22/`, and implemented. With each district's FY2025 decrease taken from
+AOE's worksheet, 86 of 97 now reproduce. The 11 that do not are listed with likely causes in
+[`../../docs/act-127-transition.md`](../../docs/act-127-transition.md).
 
 Two smaller findings from the same join, both already acted on:
 
@@ -88,6 +92,11 @@ inputs:
   # small_schools: []
   education_spending: 0
   statewide_average_per_pupil: 0      # the Secretary's determination, for excess spending
+  # FY2026-FY2029: the district's FY2025 Act 84 decrease, from AOE's worksheet
+  # (0 with that as the source when the district is not listed). Required in those years.
+  act84_transition:
+    fy2025_rate_decrease: 0
+    source: "which worksheet row"
   towns:
     - { town: town/example, cla: 0.0 }
 
@@ -135,8 +144,9 @@ tolerance:
 
 ## Failures worth expecting
 
-- **Tax-rate transition.** The open one, above. Any district the Act 127 transition touches
-  will come in low against the plain § 5401(13)(A) chain.
+- **Tax-rate transition.** Modelled, but a district formed, merged or withdrawn since AOE's
+  February 2024 worksheet needs its decrease worked out under Act 84, Sec. 3(g), by hand. Get
+  that wrong and the fixture comes in high or low by the decrease.
 - **Averaging window.** Whether long-term membership averages two years or three, and which
   years, moves every downstream figure.
 - **Weight stacking.** Whether a pupil can attract several additional weights at once, and

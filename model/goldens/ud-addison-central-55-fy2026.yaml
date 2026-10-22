@@ -1,28 +1,19 @@
-# Addison Central Unified School District, FY2026 -- a KNOWN DISAGREEMENT.
-#
-# The engine does not reproduce this district's rate, and the reason is a rule
-# the engine does not yet model, not a wrong number. Kept as a fixture so the
-# gap is a test the suite reports, not a sentence in a document.
+# Addison Central Unified School District, FY2026: an Act 84 transition district.
 #
 # What the State published: $15,081.88 per weighted pupil (AOE) and a district
-# rate of 1.6105 (Tax Department). What 32 V.S.A. § 5401(13)(A) gives from that
-# spending figure: 15,081.88 / 8,596 = 1.7545, which is what the engine returns.
-# The published rate implies $13,844 per pupil, 8.2 percent below AOE's figure.
+# rate of 1.6105 (Tax Department). 32 V.S.A. § 5401(13)(A) alone gives
+# 15,081.88 / 8,596 = 1.7545. The difference is the Act 127 tax rate transition,
+# 2024 Acts No. 84, Sec. 3, as amended by 2024 Acts No. 183, Sec. 16:
 #
-# The same pattern holds statewide. Joining the two sources for FY2026, the
-# engine's chain reproduces the Tax Department's district rate to four places
-# for 50 of the 97 districts that can be matched one-to-one, and in every other
-# case the published rate is LOWER than the chain gives, by an amount that
-# differs district by district (Mt. Abraham 1.3%, South Burlington 3.9%,
-# Colchester 5.3%, Addison Central 8.2%). A one-sided, district-specific
-# reduction in the first years after Act 127 of 2022 replaced equalized pupils
-# with weighted ADM is the shape of a tax-rate transition rule, and Act 127's
-# transition provisions as rewritten by Act 183 of 2024 are the place to look.
-# The rule is not read into the engine from memory; the session-law text has
-# to be fetched, snapshotted under model/statute/, and cited like every other
-# parameter. Until then the engine is right for roughly half the state's
-# districts and silently high for the rest, which is why no FY2026 rate is
-# published on the site yet.
+#   FY2025 decrease (AOE worksheet, 13 percent relative decrease)     $0.13
+#   FY2026 share, Sec. 3(c)(1)                                  x 0.80 = 0.104
+#   divided by the FY2026 statewide adjustment 0.7236                  = 0.1437
+#   rounded to three places (Tax Department convention, not statute)   = 0.144
+#   1.754523 - 0.144                                                   = 1.6105
+#
+# This fixture was a known disagreement until the transition was read from the
+# session law (model/statute/2026-10-22/) and implemented. See
+# docs/act-127-transition.md.
 #
 # Spending and pupils: warehouse/aoe-edspend/fy2026.yaml, district row 51,
 # town rows 37-43. CLA and rates: intake/tax-rates/fy2026/FY26EdTaxRates_081825.xlsx.
@@ -44,6 +35,12 @@ inputs:
   weighted_membership_published: 2743.2
   education_spending: 41372610
   statewide_average_per_pupil: 13497
+  act84_transition:
+    fy2025_rate_decrease: 0.13
+    source: >-
+      AOE "FY25 to FY29 Act 127 Tax Rate Discount by District", 2024-02-08, row
+      "03 Addison Central USD", FY25 column
+      (intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/)
   towns:
     - { town: town/bridport, cla: 1.0790 }
     - { town: town/cornwall, cla: 1.0953 }
@@ -56,8 +53,7 @@ inputs:
 expected:
   # AOE's own division; this one the engine does reproduce.
   per_weighted_pupil: 15081.88
-  # The Tax Department's figures. The engine returns 1.7545 for the district
-  # rate and correspondingly high billed rates.
+  # The Tax Department's figures, after the Act 84 decrease.
   equalized_homestead_rate: 1.6105
   town_rates:
     - { town: town/bridport, billed_rate: 1.0800 }
@@ -70,13 +66,3 @@ expected:
 
 tolerance:
   rates: 0.0001
-
-known_disagreement:
-  reason: >-
-    The published district rate (1.6105) is below the § 5401(13)(A) result from
-    AOE's published per-pupil spending (1.7545). Forty-seven of 97 matchable
-    FY2026 districts show the same one-sided, district-specific reduction; 50
-    match exactly. Consistent with a tax-rate transition rule from Act 127 of
-    2022 as amended by Act 183 of 2024 that the engine does not model. Delete
-    this block once that rule is read from the session law, snapshotted, cited,
-    and implemented, and the rate assertions pass.

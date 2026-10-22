@@ -18,9 +18,9 @@ The pipeline is built, tested and running end to end. What it lacks is inputs.
 | Collector configs | **52**, one per active supervisory union; 19 source URLs currently dead |
 | Budget documents collected | **3** (Addison Central FY2023–FY2025), none yet extracted to a spending figure |
 | Warehouse records | **14**: AOE education spending and tax rates FY2023–FY2026, ADM-24, Act 127 subgroups by town for three years, Census land area, three Addison Central drafts |
-| Statutory parameters verified | **69 of 101** against statute snapshots or published tables, none countersigned by a person; FY2026 is 23 of 23 |
+| Statutory parameters verified | **75 of 107** against statute snapshots or published tables, none countersigned by a person; FY2026 is 25 of 25 |
 | Act 170 groupings transcribed | **20 of 20**, verified against the act; the facilitators' 2026-09-18 redrawing is not on file |
-| Golden fixtures reproducing a state figure | **2** (Slate Valley, Marlboro, FY2026 rates), plus **1 known disagreement** (Addison Central) |
+| Golden fixtures reproducing a state figure | **6** FY2026 rates: Slate Valley, Marlboro, and four Act 84 transition districts (Addison Central, Champlain Valley, Mt. Abraham, Colchester) |
 | Small/sparse boundary fixtures | **8**, hand-computed against hypothesis thresholds |
 | Schools located in a municipality | **269 of 430** |
 | Vermont towns with Census land area | **252 of 256** county subdivisions |
@@ -40,9 +40,10 @@ or a secondary mirror, they stay null. Vermont's education funding statutes were
 Act 127 of 2022, Act 73 of 2025 and Act 170 of 2026, so a recalled weight is quite likely to be
 a repealed one. See [docs/parameter-verification.md](docs/parameter-verification.md). The
 golden fixtures are the check on all of this: the engine reproduces the Tax Department's
-published FY2026 rates for the districts the Act 127 transition does not touch, and the
-fixture for one it does touch is kept as a recorded disagreement. See
-[`model/goldens/`](model/goldens/README.md).
+published FY2026 district rates for 86 of the 97 districts that match one-to-one, including
+the Act 127 tax-rate transition read from Act 84 and Act 183 of 2024. Six fixtures pin that
+down. See [`model/goldens/`](model/goldens/README.md) and
+[docs/act-127-transition.md](docs/act-127-transition.md).
 
 **The Act 170 groupings we hold are the law's, and the law's are no longer the ones in use.**
 All twenty are transcribed from the enacted text and checked against it. But the act lets the
@@ -190,12 +191,12 @@ main entry point does not import.
   statute snapshot or a published State table by automation, and the golden fixtures now
   reproduce the Tax Department's FY2026 rates from them, but a person has still to read the
   snapshots against the files and set `status: verified`.
-- **The engine does not model the Act 127 tax-rate transition.** Against the Tax Department's
-  FY2026 table it reproduces the district rate exactly for 50 of 97 matchable districts; for
-  the other 47 the published rate is lower, district by district, in the way a transition rule
-  would make it. The rule has to be read from Act 127 of 2022 as amended by Act 183 of 2024,
-  snapshotted and cited before it is implemented. See
-  [`model/goldens/ud-addison-central-55-fy2026.yaml`](model/goldens/ud-addison-central-55-fy2026.yaml).
+- **The Act 127 tax-rate transition is modelled, with three loose ends.** The engine applies
+  the decrease of 2024 Acts No. 84, Sec. 3, as amended by Act 183, and reproduces 86 of 97
+  matchable FY2026 district rates (51 before). The loose ends: the three-place rounding of the
+  decrease is the Tax Department's convention, not statute; the income percentage of Sec. 3(e)
+  is not adjusted; and 11 districts still differ, for reasons listed but not modelled. See
+  [docs/act-127-transition.md](docs/act-127-transition.md).
 - No golden fixture yet checks weighted membership itself. The two passing fixtures take AOE's
   published long-term weighted ADM as an input; a membership fixture needs AOE's weighted
   membership report with its grade-band inputs.
