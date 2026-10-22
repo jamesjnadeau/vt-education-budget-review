@@ -1,0 +1,31 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2026
+artifacts:
+  - file: FY26EdTaxRates_081825.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/FY26EdTaxRates_081825.xlsx
+    retrieved_date: "2026-10-22"
+    retrieval_method: http-fetch
+    sha256: 6deef53442385b0a1d2a0882f40f357dcc32c6226bfd0fc100b393dfa598ddd6
+    bytes: 33216
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (automated fetch), for James Nadeau"
+    document_type: tax_department_report
+    note: >-
+      Vermont Department of Taxes, "FY2026 Education Property Tax Rates", the
+      document page https://tax.vermont.gov/document/fy2026-education-property-tax-rates
+      dated Monday, August 18, 2025. One sheet, "August 18", 260 town rows. Columns:
+      School Code, Town, CLA, SA, CLA ÷ SA, 2025 Reappraisal, District Rate,
+      Homestead Rate, State Rate, Nonhomestead Rate. "District Rate" is the
+      equalized homestead rate before the CLA step; "Homestead Rate" and
+      "Nonhomestead Rate" are the rates billed, per $100 of assessed value. SA
+      (the statewide adjustment, 32 V.S.A. § 5401(17)) is 0.7236 on every row;
+      State Rate (the nonhomestead rate before the CLA step) is 1.703 on every
+      row. Footnotes on the sheet: rates are per $100 of assessed value; "A"
+      marks pending reappraisal results; "B" marks missing education spending
+      data. Every published Homestead Rate equals District Rate divided by the
+      CLA ÷ SA column as printed (rounded to four places) -- dividing by the
+      unrounded quotient reproduces only 150 of 260 rows to the fourth place.
+      This is the CLA source for the FY2026 golden fixtures in model/goldens/ and
+      the published source for tax.statewide_adjustment in
+      model/parameters/fy2026.yaml.

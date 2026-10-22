@@ -1,0 +1,65 @@
+# Slate Valley Unified Union School District, FY2026.
+#
+# A six-town union district whose towns' common levels of appraisal span 0.60
+# to 1.04, one of them (Castleton) freshly reappraised. The engine must turn
+# AOE's published spending and pupil count into the Tax Department's published
+# district rate, then into six different billed rates from that one figure.
+#
+# Spending and pupils are the Agency of Education's, from the workbook released
+# under Data Request #853 and transcribed in warehouse/aoe-edspend/fy2026.yaml
+# (district row 64, town rows 52-57). CLAs and rates are the Department of
+# Taxes', from intake/tax-rates/fy2026/FY26EdTaxRates_081825.xlsx. The two
+# agencies agree on every billed homestead rate below to the fourth place.
+entity: ud/slate-valley-62
+fiscal_year: 2026
+
+source:
+  publisher: Vermont Agency of Education and Vermont Department of Taxes
+  document: >-
+    AOE EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx, tab FY26 (Data Request #853;
+    warehouse/aoe-edspend/fy2026.yaml); Department of Taxes "FY2026 Education
+    Property Tax Rates", FY26EdTaxRates_081825.xlsx dated 2025-08-18
+    (intake/tax-rates/fy2026/)
+  url: https://tax.vermont.gov/document/fy2026-education-property-tax-rates
+  retrieved: "2026-10-22"
+  retrieved_by: Claude Code session, for James Nadeau
+
+inputs:
+  # Long-term weighted ADM as AOE publishes it. Taking the State's own pupil
+  # count means this fixture tests the tax chain, not the membership engine.
+  weighted_membership_published: 2341.66
+  education_spending: 27080580
+  # The Secretary's FY2026 determination, as entered in the `inputs:` block of
+  # model/parameters/fy2026.yaml (FY2026 threshold $15,926 / 1.18). Slate Valley
+  # is well below the threshold, so this fixture does not exercise it; see
+  # town-marlboro-fy2026.yaml for one that does.
+  statewide_average_per_pupil: 13497
+  towns:
+    - { town: town/benson, cla: 0.6421 }
+    - { town: town/castleton, cla: 1.0152 }
+    - { town: town/fair-haven, cla: 0.7922 }
+    - { town: town/hubbardton, cla: 0.6030 }
+    - { town: town/orwell, cla: 1.0446 }
+    - { town: town/west-haven, cla: 0.7560 }
+
+expected:
+  # AOE's "Spending per Pupil" column.
+  per_weighted_pupil: 11564.69
+  # The Tax Department's "District Rate" column: the § 5402(a)(2) rate before
+  # the CLA step. Identical for every town in the district.
+  equalized_homestead_rate: 1.3454
+  # The Tax Department's "Homestead Rate" column; AOE prints the same figures.
+  town_rates:
+    - { town: town/benson, billed_rate: 1.5161 }
+    - { town: town/castleton, billed_rate: 0.9589 }
+    - { town: town/fair-haven, billed_rate: 1.2289 }
+    - { town: town/hubbardton, billed_rate: 1.6145 }
+    - { town: town/orwell, billed_rate: 0.9320 }
+    - { town: town/west-haven, billed_rate: 1.2877 }
+
+tolerance:
+  # Rates are published to four places. The Department rounds CLA ÷ SA to four
+  # places before dividing (its printed "CLA ÷ SA" column), and the engine does
+  # not, which can move the last printed digit by one. One unit in the fourth
+  # place is therefore agreement; anything more is a finding.
+  rates: 0.0001
