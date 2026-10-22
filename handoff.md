@@ -58,7 +58,8 @@ LFS pointers in this container (`git lfs pull` fixes them, CI fetches them); `np
 
 ## Open findings, in the order they block things
 
-1. **The Act 127 / Act 183 tax-rate transition is unmodelled.** Until it is, the engine is
+1. **The Act 127 / Act 183 tax-rate transition is unmodelled.** A step-by-step plan for an
+   agent with access to the State sites is in [`docs/act-127-transition-plan.md`](docs/act-127-transition-plan.md). Until it is, the engine is
    right for about half of Vermont's districts and silently high for the rest, so no FY2026
    rate should be published. Steps: fetch the text of Act 127 of 2022 Sec. 7 (and whichever
    section of Act 183 of 2024 rewrote it) with `npm run vt:fetch`, snapshot it under
