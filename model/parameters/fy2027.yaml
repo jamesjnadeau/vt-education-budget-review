@@ -526,6 +526,51 @@ parameters:
       verified_date: null
       verified_by: null
 
+  # --- Act 127 tax rate transition (2024 Acts No. 84, Sec. 3) -----------------
+  # Uncodified session law, so the citation is the act. The per-district FY2025
+  # decrease it multiplies is an engine input, not a parameter: it is a figure
+  # the Agency of Education computed once, district by district.
+
+  tax.transition.phase_out_share:
+    value: 0.6
+    unit: ratio
+    description: share of a district's fiscal year 2025 Act 84 homestead rate decrease that applies in FY2027
+    applies_to: school districts with a relative percent decrease in share of long-term weighted membership under Act 84 Sec. 3(b)
+    citation:
+      statute: "2024 Acts and Resolves No. 84, Sec. 3(c)"
+      session_law: "2024 Acts and Resolves No. 183, Sec. 16, eff. July 1, 2025 (Sec. 25(b))"
+      source_url: "https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT183/ACT183%20As%20Enacted.pdf"
+      quote: >-
+        a school district shall receive a decrease to its homestead property tax
+        rate in fiscal year 2025 equal to $0.01 for every relative percent decrease
+        calculated under subsection (b) of this section divided by the statewide
+        adjustment, rounded to the nearest whole cent. The tax rate decrease shall phase out in the
+        following manner: ... (2) A district shall receive a decrease to its
+        homestead property tax rate in fiscal year 2027 equal to 60 percent of the
+        rate decrease it received under subsection (b) of this section.
+      verified: true
+      verified_date: "2026-10-22"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshots in model/statute/2026-10-22/act-2024-084-secs-3-5.txt and act-2024-183-secs-16-17-25.txt; awaiting human countersignature"
+
+  tax.transition.rate_floor:
+    value: 1
+    unit: rate_per_100
+    description: lowest homestead property tax rate an Act 84 decrease may produce
+    applies_to: school districts receiving an Act 84 Sec. 3 decrease
+    citation:
+      statute: "2024 Acts and Resolves No. 84, Sec. 3(d)"
+      session_law: null
+      source_url: "https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT084/ACT084%20As%20Enacted.pdf"
+      quote: >-
+        Notwithstanding subsection (c) of this section, 16 V.S.A. chapter 133,
+        32 V.S.A. chapter 135, or any other provision of law to the contrary, if a
+        tax rate decrease under this section would cause a district to have a
+        homestead property tax rate of less than $1.00, the rate shall instead be
+        $1.00.
+      verified: true
+      verified_date: "2026-10-22"
+      verified_by: "automated retrieval from legislature.vermont.gov; snapshots in model/statute/2026-10-22/act-2024-084-secs-3-5.txt and act-2024-183-secs-16-17-25.txt; awaiting human countersignature"
+
 
   # --- Foundation formula (contingent on Act 73) ----------------------------
 

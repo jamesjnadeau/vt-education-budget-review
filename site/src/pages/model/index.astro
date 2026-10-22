@@ -229,6 +229,30 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       </div>
     </fieldset>
 
+    <!-- The Act 84 transition decrease (2024 Acts No. 84, Sec. 3, as amended by
+         Act 183 Secs. 16-17). It applies FY2025 through FY2029 to districts whose
+         share of long-term weighted membership fell under Act 127. The FY2025
+         figure is a one-time Agency of Education calculation, so it is entered,
+         not computed. Blank is "not supplied", and a year with the transition
+         then shows the rate as not computable rather than guessing; 0 means the
+         district is not on the Agency's list. Years without the transition ignore
+         the field. See transitionRate in model/src/tax.ts and
+         docs/act-127-transition.md. -->
+    <fieldset class="field-group">
+      <legend>Act 84 transition decrease (FY2025–FY2029)</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="act84-decrease">The district's fiscal year 2025 Act 84 rate decrease ($ per $100)</label>
+          <input id="act84-decrease" type="number" min="0" step="0.01" value="" />
+          <p class="field-help">
+            From the Agency of Education's Act 84 tax rate discount worksheet (13 cents is 0.13).
+            Enter 0 if the district is not listed there. The model applies the year's phased-out
+            share, divided by the statewide adjustment, and never takes the rate below $1.00.
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
     <!-- Every other field on this form is a figure the user is supposing about
          their own district, so an illustrative default is honest. This one is a
          state-determined statutory input: the statewide average district per

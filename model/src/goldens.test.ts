@@ -63,6 +63,12 @@ interface Golden {
     /** Optional Act 183 adjustments to the excess spending comparison. */
     capital_reserve_five_plus_years?: number | null;
     bond_exclusion_pre_july_2024?: number | null;
+    /**
+     * The district's FY2025 Act 84 decrease (2024 Acts No. 84, Sec. 3), from
+     * AOE's worksheet. Required for a fiscal year whose parameter file carries
+     * the transition: 0, with a source, for a district the worksheet omits.
+     */
+    act84_transition?: { fy2025_rate_decrease: number; source: string };
     towns: Array<{ town: string; cla: number }>;
   };
   expected: {
@@ -278,6 +284,12 @@ describe.runIf(files.length > 0)('engine reproduces published state figures', ()
               bondExclusionPreJuly2024: golden.inputs.bond_exclusion_pre_july_2024 ?? null,
               weightedMembership: membershipTotal,
             },
+            golden.inputs.act84_transition
+              ? {
+                  fy2025RateDecrease: golden.inputs.act84_transition.fy2025_rate_decrease,
+                  source: golden.inputs.act84_transition.source,
+                }
+              : {},
           );
         return { ctx, membershipTotal, perPupil, rateFor };
       };

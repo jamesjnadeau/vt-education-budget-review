@@ -59,6 +59,12 @@ export interface SyntheticOptions {
   readonly unverified?: readonly string[];
   readonly nulled?: readonly string[];
   readonly overrides?: Readonly<Record<string, number | boolean | string | null>>;
+  /**
+   * Adds the Act 84 transition parameters (phase-out share 0.8, rate floor 1),
+   * as a year from FY2025 through FY2029 would have them. Off by default, so the
+   * rest of the suite runs the chain without the transition step.
+   */
+  readonly transition?: boolean;
 }
 
 export function syntheticParameters(options: SyntheticOptions = {}): ParameterSet {
@@ -144,6 +150,13 @@ export function syntheticParameters(options: SyntheticOptions = {}): ParameterSe
       },
     ),
   ];
+
+  if (options.transition) {
+    entries.push(
+      p('tax.transition.phase_out_share', 0.8, 'ratio', 'the Act 84 phase-out share'),
+      p('tax.transition.rate_floor', 1, 'rate_per_100', 'the Act 84 rate floor'),
+    );
+  }
 
   const parameters = new Map<string, Parameter>();
   for (const [key, param] of entries) {

@@ -1,0 +1,61 @@
+# Mt. Abraham Unified School District, FY2026: an Act 84 transition district.
+#
+# What the State published: $14,718.91 per weighted pupil (AOE) and a district
+# rate of 1.6903 (Tax Department). 32 V.S.A. § 5401(13)(A) alone gives
+# 14,718.91 / 8,596 = 1.7123. The difference is the Act 127 tax rate transition,
+# 2024 Acts No. 84, Sec. 3, as amended by 2024 Acts No. 183, Sec. 16:
+#
+#   FY2025 decrease (AOE worksheet, 2 percent relative decrease)      $0.02
+#   FY2026 share, Sec. 3(c)(1)                                  x 0.80 = 0.016
+#   divided by the FY2026 statewide adjustment 0.7236                  = 0.0221
+#   rounded to three places (Tax Department convention, not statute)   = 0.022
+#   1.712297 - 0.022                                                   = 1.6903
+#
+# The smallest decrease on the worksheet, so it checks that small decreases
+# are applied rather than lost to rounding. Lincoln left the district before
+# FY2026 and is not a member. See docs/act-127-transition.md.
+#
+# Spending and pupils: warehouse/aoe-edspend/fy2026.yaml, district row 25,
+# town rows 17-20. CLA and rates: intake/tax-rates/fy2026/FY26EdTaxRates_081825.xlsx.
+entity: ud/mt-abraham-61
+fiscal_year: 2026
+
+source:
+  publisher: Vermont Agency of Education and Vermont Department of Taxes
+  document: >-
+    AOE EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx, tab FY26 (Data Request #853;
+    warehouse/aoe-edspend/fy2026.yaml); Department of Taxes "FY2026 Education
+    Property Tax Rates", FY26EdTaxRates_081825.xlsx dated 2025-08-18
+    (intake/tax-rates/fy2026/)
+  url: https://tax.vermont.gov/document/fy2026-education-property-tax-rates
+  retrieved: "2026-10-22"
+  retrieved_by: Claude Code session, for James Nadeau
+
+inputs:
+  weighted_membership_published: 1938.61
+  education_spending: 28534233
+  statewide_average_per_pupil: 13497
+  act84_transition:
+    fy2025_rate_decrease: 0.02
+    source: >-
+      AOE "FY25 to FY29 Act 127 Tax Rate Discount by District", 2024-02-08, row
+      "01 Mt. Abraham USD", FY25 column
+      (intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/)
+  towns:
+    - { town: town/bristol, cla: 0.6443 }
+    - { town: town/monkton, cla: 1.0848 }
+    - { town: town/new-haven, cla: 0.6708 }
+    - { town: town/starksboro, cla: 1.1134 }
+
+expected:
+  per_weighted_pupil: 14718.91
+  # The Tax Department's figures, after the Act 84 decrease.
+  equalized_homestead_rate: 1.6903
+  town_rates:
+    - { town: town/bristol, billed_rate: 1.8984 }
+    - { town: town/monkton, billed_rate: 1.1275 }
+    - { town: town/new-haven, billed_rate: 1.8234 }
+    - { town: town/starksboro, billed_rate: 1.0985 }
+
+tolerance:
+  rates: 0.0001

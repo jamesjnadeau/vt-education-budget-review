@@ -1,0 +1,37 @@
+schema_version: "1.0"
+entity: source/vt-legislature
+# The first fiscal year either act changes: Act 84 Sec. 3 sets the FY2025
+# homestead rate decrease and its FY2026-FY2029 phase-out.
+fiscal_year: 2025
+artifacts:
+  - file: ACT084 As Enacted.pdf
+    source_url: https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT084/ACT084%20As%20Enacted.pdf
+    retrieved_date: "2026-10-22"
+    retrieval_method: http-fetch
+    sha256: fdc00ad6c0504fb133b66399894f68cd5cdb2c53a4f9c1591b4d58de2082d64e
+    bytes: 76987
+    media_type: application/pdf
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: other
+    note: >-
+      2024 Acts and Resolves No. 84 (H.850 of 2024), as enacted. Sec. 3 is the
+      Act 127 tax rate transition for fiscal years 2025-2029: a homestead rate
+      decrease of $0.01 per relative percent decrease in a district's share of
+      long-term weighted membership, phased out over FY2026-FY2029, floored at
+      $1.00. The .txt beside it is pdftotext output, kept for grepping; the PDF
+      is the record. Verbatim excerpts in model/statute/2026-10-22/.
+  - file: ACT183 As Enacted.pdf
+    source_url: https://legislature.vermont.gov/Documents/2024/Docs/ACTS/ACT183/ACT183%20As%20Enacted.pdf
+    retrieved_date: "2026-10-22"
+    retrieval_method: http-fetch
+    sha256: 55d7a992ee1fbccdb0af4b8abbabaa1ef07bb315ef8a42610c3fb759bb83e26a
+    bytes: 176513
+    media_type: application/pdf
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: other
+    note: >-
+      2024 Acts and Resolves No. 183 (H.887 of 2024), as enacted by veto
+      override. Sec. 16 amends Act 84 Sec. 3(c) so the decrease is divided by
+      the statewide adjustment; Sec. 25(b) makes that amendment effective
+      July 1, 2025, i.e. from FY2026. Sec. 17 adds Act 84 Sec. 3(g) on mergers,
+      withdrawals and dissolutions. The .txt beside it is pdftotext output.

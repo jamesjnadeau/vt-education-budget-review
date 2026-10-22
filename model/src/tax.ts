@@ -11,7 +11,7 @@
  *   § 5402(b)(1)   billed rate = that rate, divided by
  *                    (the municipality's CLA / the statewide adjustment)
  *
- * Three details here are easy to miss and each changes the answer:
+ * Four details here are easy to miss and each changes the answer:
  *
  * 1. THE ADJUSTMENT HAS A FLOOR OF ONE. A district spending below the yield does
  *    not get a rate below $1.00; it gets $1.00. Modelling this as a plain
@@ -25,6 +25,14 @@
  * 3. THE BILLED RATE DIVIDES BY CLA OVER THE STATEWIDE ADJUSTMENT, not by the
  *    CLA alone. Dividing by CLA by itself is the common shorthand and it is
  *    wrong by exactly the statewide adjustment factor.
+ *
+ * 4. SOME DISTRICTS GET AN ACT 84 TRANSITION DECREASE, FY2025 THROUGH FY2029.
+ *    2024 Acts No. 84, Sec. 3, as amended by 2024 Acts No. 183, Secs. 16-17,
+ *    lowers the equalized rate of a district whose share of long-term weighted
+ *    membership fell under Act 127, by a phased-out share of its FY2025
+ *    decrease divided by the statewide adjustment, floored at $1.00. Snapshots:
+ *    model/statute/2026-10-22/act-2024-084-secs-3-5.txt and
+ *    act-2024-183-secs-16-17-25.txt. See docs/act-127-transition.md.
  */
 
 import {
@@ -33,6 +41,7 @@ import {
   formatValue,
   greaterOf,
   input,
+  notComputable,
   parameterNode,
   product,
   quotient,
@@ -50,8 +59,28 @@ export interface TownTaxInput {
 export interface TownRateResult {
   readonly town: string;
   readonly spendingAdjustment: CalcNode;
+  /** The equalized rate after any Act 84 transition decrease -- the rate the district is taxed at. */
   readonly equalizedRate: CalcNode;
+  /** The Act 84 decrease, per $100 of equalized value; null when the year has no transition. */
+  readonly transitionDecrease: CalcNode | null;
   readonly billedRate: CalcNode;
+}
+
+/**
+ * The district's Act 84 transition figure (2024 Acts No. 84, Sec. 3).
+ *
+ * The FY2025 decrease is $0.01 for every relative percent decrease in the
+ * district's share of long-term weighted membership (Sec. 3(b)-(c)). That
+ * percentage is a one-time Agency of Education calculation against FY2024
+ * membership, not a rule, so the engine takes the resulting decrease as an
+ * input. Absent (undefined/null) in a year the transition applies means
+ * "not supplied" and the rate is not computable; 0 means the district gets no
+ * decrease (it is not on the Agency's list of eligible districts).
+ */
+export interface TransitionInput {
+  /** The district's FY2025 homestead rate decrease, in dollars per $100 (0.13 for 13 cents). */
+  readonly fy2025RateDecrease?: number | null;
+  readonly source?: string;
 }
 
 /**
@@ -283,20 +312,104 @@ export function billedHomesteadRate(
   );
 }
 
+/**
+ * 2024 Acts No. 84, Sec. 3(c)-(d), as amended by 2024 Acts No. 183, Sec. 16:
+ * the transition decrease, and the equalized rate after it.
+ *
+ * Applied to the equalized rate -- after excess spending and after the floor of
+ * one on the spending adjustment -- because Sec. 3(c) decreases the district's
+ * "homestead property tax rate", which § 5402(a)(2) defines as $1.00 times the
+ * spending adjustment. The $1.00 floor is Sec. 3(d).
+ *
+ * Returns null when the parameter set has no transition (FY2030 onward, or a
+ * synthetic set without it), so those years run the chain unchanged.
+ */
+export function transitionRate(
+  ctx: EngineContext,
+  equalizedRate: CalcNode,
+  transition: TransitionInput,
+): { decrease: CalcNode; rate: CalcNode } | null {
+  if (!ctx.parameters.parameters.has('tax.transition.phase_out_share')) return null;
+
+  const supplied = transition.fy2025RateDecrease;
+  const fy2025 =
+    supplied === undefined || supplied === null
+      ? notComputable(
+          ctx,
+          'Fiscal year 2025 Act 84 homestead rate decrease',
+          'rate_per_100',
+          'requires_certification',
+          'The district’s fiscal year 2025 Act 84 decrease was not supplied. It comes from the ' +
+            'Agency of Education’s Act 84 tax rate discount worksheet; a district not listed there ' +
+            'receives none, which is entered as 0.',
+        )
+      : input(ctx, 'Fiscal year 2025 Act 84 homestead rate decrease', supplied, 'rate_per_100', {
+          source: transition.source ?? 'figures entered by you in this form',
+        });
+
+  const phased = product(
+    ctx,
+    'Act 84 decrease phased in for this year',
+    fy2025,
+    parameterNode(ctx, 'tax.transition.phase_out_share', 'ratio'),
+    'rate_per_100',
+  );
+  const statewide = parameterNode(ctx, 'tax.statewide_adjustment', 'ratio');
+  const decrease = derive(ctx, {
+    op: 'quotient',
+    label: 'Act 84 transition decrease to the equalized homestead rate',
+    unit: 'rate_per_100',
+    inputs: [phased, statewide],
+    // Rounded to three decimal places. This is NOT in the statute: it is the
+    // convention the Department of Taxes' FY2026 rate table follows, observed by
+    // reproducing that table. Sec. 3(c) rounds only the FY2025 decrease.
+    compute: ([a, b]) => Math.round(((a as number) / (b as number)) * 1000) / 1000,
+    explain: (value) =>
+      value === 0
+        ? 'This district receives no Act 84 transition decrease.'
+        : `The phased-in decrease divided by the statewide adjustment is ` +
+          `${formatValue(value, 'rate_per_100')}, which is subtracted from the equalized rate.`,
+    notes: [
+      'Sec. 3(c) as amended by Act 183 divides the decrease by the statewide adjustment from ' +
+        'fiscal year 2026 on. The result is rounded to three decimal places, matching the ' +
+        'Department of Taxes’ published rates; that rounding is an observed convention, not statute.',
+    ],
+  });
+  const reduced = difference(
+    ctx,
+    'Equalized homestead rate less the Act 84 decrease',
+    equalizedRate,
+    decrease,
+    'rate_per_100',
+  );
+  const rate = greaterOf(
+    ctx,
+    'Equalized homestead education tax rate after the Act 84 transition',
+    reduced,
+    parameterNode(ctx, 'tax.transition.rate_floor', 'rate_per_100'),
+    'rate_per_100',
+  );
+  return { decrease, rate };
+}
+
 export function townRate(
   ctx: EngineContext,
   perPupilSpending: CalcNode,
   town: TownTaxInput,
   statewideAveragePerPupil: number | null,
   adjustments: ExcessSpendingAdjustments = {},
+  transition: TransitionInput = {},
 ): TownRateResult {
   const excess = excessSpending(ctx, perPupilSpending, statewideAveragePerPupil, adjustments);
   const adjustment = spendingAdjustment(ctx, perPupilSpending, excess);
-  const equalizedRate = equalizedHomesteadRate(ctx, adjustment);
+  const beforeTransition = equalizedHomesteadRate(ctx, adjustment);
+  const transitioned = transitionRate(ctx, beforeTransition, transition);
+  const equalizedRate = transitioned?.rate ?? beforeTransition;
   return {
     town: town.town,
     spendingAdjustment: adjustment,
     equalizedRate,
+    transitionDecrease: transitioned?.decrease ?? null,
     billedRate: billedHomesteadRate(ctx, equalizedRate, town),
   };
 }

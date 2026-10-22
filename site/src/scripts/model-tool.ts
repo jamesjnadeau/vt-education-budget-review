@@ -743,6 +743,10 @@ export function initModelTool(
         bondExclusionPreJuly2024: numberField('bond-exclusion'),
         weightedMembership: membership.total,
       },
+      // The Act 84 transition decrease. Read only in years whose parameter file
+      // carries the transition; blank there is "not supplied", which makes the
+      // rate not computable rather than silently assuming no decrease.
+      { fy2025RateDecrease: numberField('act84-decrease'), source: 'figure entered by you in this form' },
     );
 
     renderWalkthrough(rate.billedRate, walkthrough);
