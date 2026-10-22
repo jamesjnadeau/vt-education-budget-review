@@ -303,6 +303,12 @@ function main(): number {
       continue;
     }
 
+    if (relative.startsWith('warehouse/aoe-edspend/')) {
+      findings.push(...schemaFindings('edspend', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
     if (relative.startsWith('warehouse/census/')) {
       findings.push(...schemaFindings('census-town', data, file));
       findings.push(...checkRegistryRefs(data, file, registry));
