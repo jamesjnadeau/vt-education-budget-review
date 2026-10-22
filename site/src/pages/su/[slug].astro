@@ -30,6 +30,7 @@ interface Entity {
   member_towns: string[];
   grades: string[];
   website: string | null;
+  reporting_only?: boolean;
 }
 
 export function getStaticPaths() {
@@ -120,7 +121,11 @@ const anyUnbounded = years.some((y) =>
 const hiddenTowns = residentTowns.filter((r) =>
   shownYears.some((y) => {
     const t = r.byYear[y.school_year];
-    return t !== undefined && t.row !== 'not_applicable' && ROWS.some((row) => 'status' in row.pick(t) && row.pick(t).status === 'suppressed');
+    if (t === undefined || t.row === 'not_applicable') return false;
+    return ROWS.some((row) => {
+      const c = row.pick(t);
+      return 'status' in c && c.status === 'suppressed';
+    });
   }),
 );
 const preliminaryYears = shownYears.filter((y) => y.preliminary);

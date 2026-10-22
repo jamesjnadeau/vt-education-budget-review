@@ -59,7 +59,11 @@ const notApplicable = years.filter((y) => byYear[y.school_year]?.row === 'not_ap
 const closed = notApplicable.some((y) => (byYear[y.school_year] as { reason?: string }).reason === 'entity_closed');
 const anyHidden = years.some((y) => {
   const t = byYear[y.school_year];
-  return t !== undefined && t.row !== 'not_applicable' && ROWS.some((r) => 'status' in r.pick(t) && r.pick(t).status === 'suppressed');
+  if (t === undefined || t.row === 'not_applicable') return false;
+  return ROWS.some((r) => {
+    const c = r.pick(t);
+    return 'status' in c && c.status === 'suppressed';
+  });
 });
 const preliminaryYears = shownYears.filter((y) => y.preliminary);
 const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
