@@ -1,0 +1,43 @@
+# Marlboro, FY2026: a town school district above the excess spending threshold.
+#
+# Marlboro's $16,355.74 per weighted pupil is $429.28 over the FY2026 threshold
+# of $15,926.46 (the Secretary's $13,497 statewide average x 1.18). Under
+# 32 V.S.A. § 5401(13)(A) that overage is added to the numerator of the spending
+# adjustment, so the district rate is (16,355.74 + 429.28) / 8,596 = 1.9527
+# rather than 16,355.74 / 8,596 = 1.9027. The Tax Department published 1.9527.
+# This is the only district the engine reproduces exactly that is over the
+# threshold, which makes it the one fixture that checks the excess spending
+# rule, the reimplemented Act 183 base, and the FY2026 property yield together.
+#
+# Spending and pupils: warehouse/aoe-edspend/fy2026.yaml, district row 417.
+# CLA and rates: intake/tax-rates/fy2026/FY26EdTaxRates_081825.xlsx.
+entity: town/marlboro
+fiscal_year: 2026
+
+source:
+  publisher: Vermont Agency of Education and Vermont Department of Taxes
+  document: >-
+    AOE EdSpend_LTWADM_FY26_FY25_FY24_FY23.xlsx, tab FY26 (Data Request #853;
+    warehouse/aoe-edspend/fy2026.yaml); Department of Taxes "FY2026 Education
+    Property Tax Rates", FY26EdTaxRates_081825.xlsx dated 2025-08-18
+    (intake/tax-rates/fy2026/)
+  url: https://tax.vermont.gov/document/fy2026-education-property-tax-rates
+  retrieved: "2026-10-22"
+  retrieved_by: Claude Code session, for James Nadeau
+
+inputs:
+  weighted_membership_published: 219.73
+  education_spending: 3593846
+  # As entered in the `inputs:` block of model/parameters/fy2026.yaml.
+  statewide_average_per_pupil: 13497
+  towns:
+    - { town: town/marlboro, cla: 0.7480 }
+
+expected:
+  per_weighted_pupil: 16355.74
+  equalized_homestead_rate: 1.9527
+  town_rates:
+    - { town: town/marlboro, billed_rate: 1.8890 }
+
+tolerance:
+  rates: 0.0001

@@ -476,19 +476,26 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: 0.703
+    value: 0.7236
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
     citation:
       statute: "32 V.S.A. § 5401(17)"
       session_law: null
-      source_url: "https://tax.vermont.gov/bs/property-owners/property-tax-bill/current-use#:~:text=The%20town%E2%80%99s%20Common,0.7033%20%3D%201.3093."
+      source_url: "https://tax.vermont.gov/document/fy2026-education-property-tax-rates"
       quote: >-
         "Statewide adjustment" means the ratio of the aggregate education property
         tax grand list of all municipalities to the aggregate value of the equalized
-        education property tax grand list of all municipalities. Published annually
-        by the Department of Taxes; the FY2026 figure has not been transcribed here.
+        education property tax grand list of all municipalities. The FY2026 figure
+        is the "SA" column of the Department of Taxes' FY2026 Education Property Tax
+        Rates table dated 2025-08-18, 0.7236 on every one of its 260 town rows;
+        the table is on file at intake/tax-rates/fy2026/FY26EdTaxRates_081825.xlsx.
+        Corrected 2026-10-22 from 0.703, which was taken from a worked example on
+        the Department's current-use page and is the FY2027 figure (the FY2027
+        table prints SA 70.33%). With 0.7236 the engine reproduces the published
+        billed homestead rate for every town of every district whose district
+        rate it reproduces -- see model/goldens/.
       verified: true
-      verified_date: "2026-08-02"
-      verified_by: James Nadeau
+      verified_date: "2026-10-22"
+      verified_by: "corrected by Claude Code session from the Department of Taxes FY2026 rate table; awaiting human countersignature"

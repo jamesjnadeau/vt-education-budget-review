@@ -71,12 +71,11 @@ claim about the world, the same standard the parameter files hold themselves to.
 
 ## Scenario-modeling inputs — the tool's headline feature
 
-- [ ] **Transcribe the Act 170 district groupings.** [`registry/groupings.yaml`](../registry/groupings.yaml)
-  is empty. The ~20 groupings are the default merge/close scenarios the modeling tool is
-  built around. Record each grouping's number, slug, name, and member district names
-  exactly as the act writes them; map each to a registry slug; put anything unmappable in
-  `unmapped_members` rather than dropping it; set `verified: true` per grouping. `npm run
-  validate` checks every slug against the registry.
+- [x] **Transcribe the Act 170 district groupings.** All twenty are in
+  [`registry/groupings.yaml`](../registry/groupings.yaml), each member mapped to a registry
+  slug and verified against the act. Still open, and not a transcription task: the merger-study
+  facilitators redrew the groups on 2026-09-18 into 18 committees, and the committee rosters
+  are not published. See [`intake/vlc-act170/`](../intake/vlc-act170/).
 
 - [ ] **Small/sparse statutory values** — every statutory value in
   [`model/parameters/fy2030-small-sparse.yaml`](../model/parameters/fy2030-small-sparse.yaml)

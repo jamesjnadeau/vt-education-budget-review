@@ -14,30 +14,35 @@ The pipeline is built, tested and running end to end. What it lacks is inputs.
 
 | | |
 |---|---|
-| Entity registry | **867 entities**, synced from the AOE Public Data API, raw responses archived |
-| Collector configs | **54**, one per active supervisory union |
-| Budget documents collected | **0** |
-| Warehouse records | **0** |
-| Statutory parameters verified | **56 of 98**, none of them countersigned by a person |
-| Act 170 groupings transcribed | **0** |
-| Golden fixtures reproducing a state figure | **0** |
+| Entity registry | **865 entities**, synced monthly from the AOE Public Data API, raw responses archived |
+| Collector configs | **52**, one per active supervisory union; 19 source URLs currently dead |
+| Budget documents collected | **3** (Addison Central FY2023–FY2025), none yet extracted to a spending figure |
+| Warehouse records | **14**: AOE education spending and tax rates FY2023–FY2026, ADM-24, Act 127 subgroups by town for three years, Census land area, three Addison Central drafts |
+| Statutory parameters verified | **69 of 101** against statute snapshots or published tables, none countersigned by a person; FY2026 is 23 of 23 |
+| Act 170 groupings transcribed | **20 of 20**, verified against the act; the facilitators' 2026-09-18 redrawing is not on file |
+| Golden fixtures reproducing a state figure | **2** (Slate Valley, Marlboro, FY2026 rates), plus **1 known disagreement** (Addison Central) |
 | Small/sparse boundary fixtures | **8**, hand-computed against hypothesis thresholds |
-| Schools located in a municipality | **277 of 438** |
+| Schools located in a municipality | **269 of 430** |
 | Vermont towns with Census land area | **252 of 256** county subdivisions |
-| Site pages built | **325** |
-| Tests | **282 passing** |
+| Site pages built | **348** |
+| Tests | **692 passing**, 8 expected failures, 13 skipped |
 
 Three of those gaps are load-bearing and deliberate.
 
-**No statutory parameter is verified by a person.** The values that carry citations were read
-from statute text snapshotted verbatim in `model/statute/`, but the retrieval and transcription
-were automated and nobody has yet put their name to them — which is why every parameter file is
-still `status: draft`. Everything the snapshot does not cover is `null` with `verified: false`,
-including the whole small and sparse layer: `legislature.vermont.gov` serves an incomplete TLS
-chain to automated clients and `education.vermont.gov` returns 403 to them. Rather than fill
-values in from memory or a secondary mirror, they stay null. Vermont's education funding statutes
-were amended by Act 127 of 2022, Act 73 of 2025 and Act 170 of 2026, so a recalled weight is
-quite likely to be a repealed one. See [docs/parameter-verification.md](docs/parameter-verification.md).
+**No statutory parameter is countersigned by a person.** The values that carry citations were
+read from statute text snapshotted verbatim in `model/statute/`, or from a published State
+table on file in `intake/`, but the retrieval and transcription were automated and nobody has
+yet put their name to them — which is why every parameter file is still `status: draft`.
+Everything the snapshots do not cover is `null` with `verified: false`, including the whole
+small and sparse layer: `legislature.vermont.gov` serves an incomplete TLS chain to automated
+clients and `education.vermont.gov` returns 403 to them. Rather than fill values in from memory
+or a secondary mirror, they stay null. Vermont's education funding statutes were amended by
+Act 127 of 2022, Act 73 of 2025 and Act 170 of 2026, so a recalled weight is quite likely to be
+a repealed one. See [docs/parameter-verification.md](docs/parameter-verification.md). The
+golden fixtures are the check on all of this: the engine reproduces the Tax Department's
+published FY2026 rates for the districts the Act 127 transition does not touch, and the
+fixture for one it does touch is kept as a recorded disagreement. See
+[`model/goldens/`](model/goldens/README.md).
 
 **The Act 170 groupings we hold are the law's, and the law's are no longer the ones in use.**
 All twenty are transcribed from the enacted text and checked against it. But the act lets the
@@ -178,14 +183,23 @@ main entry point does not import.
 
 ## Known gaps
 
-- No budget documents collected. The coverage dashboard shows all 324 expected district-years as
-  missing, which is accurate.
-- No statutory parameter verified; the calculation's *structure* needs verifying alongside its
-  values, since correct numbers in a wrong structure produce confident wrong answers.
-- Act 170 groupings not transcribed.
-- No golden fixtures. A test gate prevents any parameter file from claiming verified status
-  while `model/goldens/` is empty — checking citations by eye and reproducing the state's
-  published figures are different claims, and the second is the one that matters.
+- Three budget documents collected (Addison Central, FY2023–FY2025), none yet extracted to a
+  spending figure. The coverage dashboard shows every other expected district-year as missing,
+  which is accurate.
+- No statutory parameter countersigned by a person. Every FY2026 value is verified against a
+  statute snapshot or a published State table by automation, and the golden fixtures now
+  reproduce the Tax Department's FY2026 rates from them, but a person has still to read the
+  snapshots against the files and set `status: verified`.
+- **The engine does not model the Act 127 tax-rate transition.** Against the Tax Department's
+  FY2026 table it reproduces the district rate exactly for 50 of 97 matchable districts; for
+  the other 47 the published rate is lower, district by district, in the way a transition rule
+  would make it. The rule has to be read from Act 127 of 2022 as amended by Act 183 of 2024,
+  snapshotted and cited before it is implemented. See
+  [`model/goldens/ud-addison-central-55-fy2026.yaml`](model/goldens/ud-addison-central-55-fy2026.yaml).
+- No golden fixture yet checks weighted membership itself. The two passing fixtures take AOE's
+  published long-term weighted ADM as an input; a membership fixture needs AOE's weighted
+  membership report with its grade-band inputs.
+- The Act 170 groupings on file are the law's; the facilitators' redrawn committees are not.
 - Scenario support covers mergers. School closure with student reassignment is not yet
   implemented.
 - Class size minimums are documented but not modelled. The AOE working-definitions memo and the
@@ -196,6 +210,7 @@ main entry point does not import.
   [docs/act-73-class-size-minimums.md](docs/act-73-class-size-minimums.md).
 - The foundation formula is structural only; its parameters are marked contingent and hold no
   values, because the Legislature has not set them.
+- `npm run coverage` points at a CLI file that does not exist.
 
 ## Web analytics
 
