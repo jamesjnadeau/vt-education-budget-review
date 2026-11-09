@@ -6,8 +6,8 @@ sources:
     kind: other
     document_pattern: null
     link_selector: null
-    last_checked: 2026-10-05
-    last_status: null
+    last_checked: 2026-11-09
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
