@@ -46,6 +46,7 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       <p class="field-note">
         Prefills the grade counts below from a district's stated budget, filling any gap with the
         state's AOE count. Each field is labelled with its source, and you can edit any of them.
+        Picking a year also switches “Which numbers to use” above to that year.
       </p>
       <div class="field">
         <label for="load-entity">District or supervisory union</label>
@@ -55,6 +56,7 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
         <label for="load-year">Budget year</label>
         <select id="load-year"><option value="">— none —</option></select>
       </div>
+      <p class="field-note" id="load-status" role="status" aria-live="polite"></p>
     </fieldset>
 
     <h2>How many students</h2>
