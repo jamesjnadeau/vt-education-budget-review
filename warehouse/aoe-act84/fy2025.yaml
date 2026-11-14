@@ -1,0 +1,338 @@
+# AOE Act 84 transition decrease, FY2025: the amount off each listed district's
+# homestead tax rate, per $100 of equalized value, before Act 84 Sec. 3 phases it out.
+#
+# Transcribed from intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/W~Nicole Lee~Y25 to FY29 Act 127 Tax Rate Discount by District~2-8-2024.txt
+# (pdftotext -layout output of the hashed PDF beside it) by npm run act84:import.
+# Only the FY2025 column is read: the later columns predate Act 183 and are not
+# divided by the statewide adjustment. A district the worksheet does not list
+# has a decrease of 0. Rows are joined to the registry by the district names in
+# warehouse/aoe-edspend/fy2024.yaml.
+#
+# Do not hand-edit: re-run the import instead, so the record always matches the
+# hashed artifact.
+schema_version: "1.0"
+source: intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/W~Nicole Lee~Y25 to FY29
+  Act 127 Tax Rate Discount by District~2-8-2024.pdf
+source_text: intake/aoe-guidance/2024-02-08-act-84-tax-rate-discount/W~Nicole Lee~Y25 to
+  FY29 Act 127 Tax Rate Discount by District~2-8-2024.txt
+fiscal_year: 2025
+names_from: warehouse/aoe-edspend/fy2024.yaml
+unlisted_decrease: 0
+total:
+  pre_act127_ltw_adm: 43781.32
+  source_line: 62
+districts:
+  - entity: ud/addison-central-55
+    aoe_org_id: U055
+    name_as_published: Addison Central USD
+    su: "03"
+    county: Addison
+    pre_act127_ltw_adm: 1771.32
+    fy2025_decrease: 0.13
+    source_line: 23
+  - entity: ud/addison-northwest-54
+    aoe_org_id: U054
+    name_as_published: Addison NW USD
+    su: "02"
+    county: Addison
+    pre_act127_ltw_adm: 964.28
+    fy2025_decrease: 0.02
+    source_line: 24
+  - entity: ud/granville-hancock
+    aoe_org_id: U080
+    name_as_published: Granville-Hancock USD
+    su: "30"
+    county: Addison
+    pre_act127_ltw_adm: 96.8
+    fy2025_decrease: 0.01
+    source_line: 25
+  - entity: town/lincoln
+    aoe_org_id: T112
+    name_as_published: Lincoln
+    su: "70"
+    county: Addison
+    pre_act127_ltw_adm: 189.6
+    fy2025_decrease: 0.02
+    source_line: 26
+  - entity: ud/mt-abraham-61
+    aoe_org_id: U061
+    name_as_published: Mt. Abraham USD
+    su: "01"
+    county: Addison
+    pre_act127_ltw_adm: 1248.72
+    fy2025_decrease: 0.02
+    source_line: 27
+  - entity: town/north-bennington
+    aoe_org_id: T141
+    name_as_published: North Bennington ID
+    su: "05"
+    county: Bennington
+    pre_act127_ltw_adm: 166
+    fy2025_decrease: 0.17
+    source_line: 28
+  - entity: ud/taconic-and-green-regional-63
+    aoe_org_id: U063
+    name_as_published: Taconic & Green Regional USD
+    su: "06"
+    county: Bennington
+    pre_act127_ltw_adm: 1727.32
+    fy2025_decrease: 0.04
+    source_line: 29
+  - entity: town/winhall
+    aoe_org_id: T248
+    name_as_published: Winhall
+    su: "06"
+    county: Bennington
+    pre_act127_ltw_adm: 226.21
+    fy2025_decrease: 0.13
+    source_line: 30
+  - entity: town/st-johnsbury
+    aoe_org_id: T179
+    name_as_published: St. Johnsbury
+    su: "11"
+    county: Caledonia
+    pre_act127_ltw_adm: 1161.76
+    fy2025_decrease: 0.01
+    source_line: 31
+  - entity: ud/champlain-valley-56
+    aoe_org_id: U056
+    name_as_published: Champlain Valley USD
+    su: "14"
+    county: Chittenden
+    pre_act127_ltw_adm: 4265.41
+    fy2025_decrease: 0.17
+    source_line: 32
+  - entity: town/colchester
+    aoe_org_id: T050
+    name_as_published: Colchester
+    su: "07"
+    county: Chittenden
+    pre_act127_ltw_adm: 2419.53
+    fy2025_decrease: 0.08
+    source_line: 33
+  - entity: ud/essex-westford-educational-community-unified-union-sd-51
+    aoe_org_id: U051
+    name_as_published: Essex-Westford EC USD
+    su: "65"
+    county: Chittenden
+    pre_act127_ltw_adm: 3801.98
+    fy2025_decrease: 0.09
+    source_line: 34
+  - entity: town/milton
+    aoe_org_id: T126
+    name_as_published: Milton
+    su: "10"
+    county: Chittenden
+    pre_act127_ltw_adm: 1553.46
+    fy2025_decrease: 0.07
+    source_line: 35
+  - entity: ud/mount-mansfield-401
+    aoe_org_id: U401
+    name_as_published: Mt. Mansfield UUSD
+    su: "12"
+    county: Chittenden
+    pre_act127_ltw_adm: 2601.84
+    fy2025_decrease: 0.13
+    source_line: 36
+  - entity: town/south-burlington
+    aoe_org_id: T191
+    name_as_published: South Burlington
+    su: "16"
+    county: Chittenden
+    pre_act127_ltw_adm: 2699.94
+    fy2025_decrease: 0.06
+    source_line: 37
+  - entity: town/fairfax
+    aoe_org_id: T071
+    name_as_published: Fairfax
+    su: "22"
+    county: Franklin
+    pre_act127_ltw_adm: 934.94
+    fy2025_decrease: 0.14
+    source_line: 38
+  - entity: town/georgia
+    aoe_org_id: T079
+    name_as_published: Georgia
+    su: "22"
+    county: Franklin
+    pre_act127_ltw_adm: 889.88
+    fy2025_decrease: 0.13
+    source_line: 39
+  - entity: ud/maple-run-57
+    aoe_org_id: U057
+    name_as_published: Maple Run USD
+    su: "23"
+    county: Franklin
+    pre_act127_ltw_adm: 2547.89
+    fy2025_decrease: 0.03
+    source_line: 40
+  - entity: ud/champlain-islands-66
+    aoe_org_id: U066
+    name_as_published: Champlain Islands UUSD
+    su: "24"
+    county: Grand Isle
+    pre_act127_ltw_adm: 431.75
+    fy2025_decrease: 0.06
+    source_line: 41
+  - entity: town/south-hero
+    aoe_org_id: T192
+    name_as_published: South Hero
+    su: "24"
+    county: Grand Isle
+    pre_act127_ltw_adm: 213.89
+    fy2025_decrease: 0.07
+    source_line: 42
+  - entity: town/stowe
+    aoe_org_id: T198
+    name_as_published: Stowe
+    su: "26"
+    county: Lamoille
+    pre_act127_ltw_adm: 766.48
+    fy2025_decrease: 0.11
+    source_line: 43
+  - entity: town/strafford
+    aoe_org_id: T199
+    name_as_published: Strafford
+    su: "30"
+    county: Orange
+    pre_act127_ltw_adm: 182.96
+    fy2025_decrease: 0.04
+    source_line: 44
+  - entity: town/thetford
+    aoe_org_id: T205
+    name_as_published: Thetford
+    su: "27"
+    county: Orange
+    pre_act127_ltw_adm: 392.4
+    fy2025_decrease: 0.16
+    source_line: 45
+  - entity: ud/mettawee-84
+    aoe_org_id: U084
+    name_as_published: Mettawee School District
+    su: "06"
+    county: Rutland
+    pre_act127_ltw_adm: 308.79
+    fy2025_decrease: 0.01
+    source_line: 46
+  - entity: town/pittsfield
+    aoe_org_id: T153
+    name_as_published: Pittsfield
+    su: "51"
+    county: Rutland
+    pre_act127_ltw_adm: 49.93
+    fy2025_decrease: 0.08
+    source_line: 47
+  - entity: ud/quarry-valley-70
+    aoe_org_id: U070
+    name_as_published: Quarry Valley USD
+    su: "66"
+    county: Rutland
+    pre_act127_ltw_adm: 1090.45
+    fy2025_decrease: 0.03
+    source_line: 48
+  - entity: town/rutland-town
+    aoe_org_id: T174
+    name_as_published: Rutland Town
+    su: "66"
+    county: Rutland
+    pre_act127_ltw_adm: 569.84
+    fy2025_decrease: 0.17
+    source_line: 49
+  - entity: ud/barre-97
+    aoe_org_id: U097
+    name_as_published: Barre USD
+    su: "61"
+    county: Washington
+    pre_act127_ltw_adm: 2358.51
+    fy2025_decrease: 0.03
+    source_line: 50
+  - entity: ud/harwood-60
+    aoe_org_id: U060
+    name_as_published: Harwood USD
+    su: "42"
+    county: Washington
+    pre_act127_ltw_adm: 1799.32
+    fy2025_decrease: 0.09
+    source_line: 51
+  - entity: ud/montpelier-roxbury-71
+    aoe_org_id: U071
+    name_as_published: Montpelier-Roxbury USD
+    su: "69"
+    county: Washington
+    pre_act127_ltw_adm: 1263.11
+    fy2025_decrease: 0.1
+    source_line: 52
+  - entity: town/stratton
+    aoe_org_id: T200
+    name_as_published: Stratton
+    su: "46"
+    county: Windham
+    pre_act127_ltw_adm: 53.15
+    fy2025_decrease: 0.14
+    source_line: 53
+  - entity: town/vernon
+    aoe_org_id: T214
+    name_as_published: Vernon
+    su: "48"
+    county: Windham
+    pre_act127_ltw_adm: 338.48
+    fy2025_decrease: 0.09
+    source_line: 54
+  - entity: town/hartford
+    aoe_org_id: T093
+    name_as_published: Hartford
+    su: "54"
+    county: Windsor
+    pre_act127_ltw_adm: 1388.69
+    fy2025_decrease: 0.06
+    source_line: 55
+  - entity: town/hartland
+    aoe_org_id: T094
+    name_as_published: Hartland
+    su: "52"
+    county: Windsor
+    pre_act127_ltw_adm: 428.8
+    fy2025_decrease: 0.05
+    source_line: 56
+  - entity: ud/mount-ascutney-86
+    aoe_org_id: U086
+    name_as_published: Mount Ascutney USD
+    su: "52"
+    county: Windsor
+    pre_act127_ltw_adm: 613.55
+    fy2025_decrease: 0.06
+    source_line: 57
+  - entity: town/norwich
+    aoe_org_id: T145
+    name_as_published: Norwich
+    su: "55"
+    county: Windsor
+    pre_act127_ltw_adm: 630.39
+    fy2025_decrease: 0.19
+    source_line: 58
+  - entity: town/sharon
+    aoe_org_id: T184
+    name_as_published: Sharon
+    su: "30"
+    county: Windsor
+    pre_act127_ltw_adm: 305.93
+    fy2025_decrease: 0.02
+    source_line: 59
+  - entity: town/weathersfield
+    aoe_org_id: T227
+    name_as_published: Weathersfield
+    su: "52"
+    county: Windsor
+    pre_act127_ltw_adm: 383.67
+    fy2025_decrease: 0.05
+    source_line: 60
+  - entity: ud/mountain-views
+    aoe_org_id: U076
+    name_as_published: Windsor Central UUSD
+    su: "51"
+    county: Windsor
+    pre_act127_ltw_adm: 944.35
+    fy2025_decrease: 0.01
+    source_line: 61
+extracted_by: Claude Code session (npm run vt:fetch), for James Nadeau
+extracted_date: 2026-11-14

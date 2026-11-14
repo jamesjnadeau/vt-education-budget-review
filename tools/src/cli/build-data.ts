@@ -65,6 +65,7 @@ function readBudgets(): BudgetRecord[] {
         !path.startsWith('warehouse/aoe-adm/') &&
         !path.startsWith('warehouse/aoe-adm-subgroups/') &&
         !path.startsWith('warehouse/aoe-edspend/') &&
+        !path.startsWith('warehouse/aoe-act84/') &&
         !path.startsWith('warehouse/census/') &&
         !path.startsWith('warehouse/small-sparse/')
       );

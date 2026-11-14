@@ -309,6 +309,12 @@ function main(): number {
       continue;
     }
 
+    if (relative.startsWith('warehouse/aoe-act84/')) {
+      findings.push(...schemaFindings('act84', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
     if (relative.startsWith('warehouse/census/')) {
       findings.push(...schemaFindings('census-town', data, file));
       findings.push(...checkRegistryRefs(data, file, registry));

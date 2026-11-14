@@ -33,6 +33,7 @@ export type SchemaName =
   | 'adm'
   | 'adm-subgroups'
   | 'edspend'
+  | 'act84'
   | 'aoe-source'
   | 'small-sparse'
   | 'census-town'
@@ -49,6 +50,7 @@ const SCHEMA_IDS: Readonly<Record<SchemaName, string>> = {
   adm: 'urn:vt-budget:schema:adm:1.0',
   'adm-subgroups': 'urn:vt-budget:schema:adm-subgroups:1.0',
   edspend: 'urn:vt-budget:schema:edspend:1.0',
+  act84: 'urn:vt-budget:schema:act84:1.0',
   'aoe-source': 'urn:vt-budget:schema:aoe-source:1.0',
   'small-sparse': 'urn:vt-budget:schema:small-sparse:1.0',
   'census-town': 'urn:vt-budget:schema:census-town:1.0',
