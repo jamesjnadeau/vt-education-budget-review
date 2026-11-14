@@ -22,17 +22,19 @@ import { join } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { act84Prefill } from '../act84-prefill.ts';
 import { buildHomesteadAdm } from '../adm-lookup.ts';
 import { buildPrefillAdm, type PrefillBudget } from '../adm-town-sums.ts';
 import { edspendEntities, prefillSpending, type EdspendRecord } from '../edspend-prefill.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
+import type { Act84Record } from '../aoe/act84/record.ts';
 import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
 import { buildHomesteadComparison } from '../homestead-comparison.ts';
 import { walkFiles } from '../fs-walk.ts';
-import { PATHS, rel } from '../paths.ts';
+import { PATHS, REPO_ROOT, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
 import {
   buildSmallSparse,
@@ -218,10 +220,22 @@ function main(): number {
       .filter(([, years]) => Object.keys(years).length > 0),
   );
   const prefillSlugs = [...new Set([...Object.keys(prefillAdm), ...Object.keys(prefillSpendingRows)])].sort();
+  // The FY2025 Act 84 decrease: the worksheet's figure for a listed district,
+  // 0 for any other district AOE listed in the worksheet's year, and nothing
+  // for a supervisory union.
+  const act84Record = parseYaml(
+    readFileSync(join(PATHS.warehouse, 'aoe-act84', 'fy2025.yaml'), 'utf8'),
+  ) as Act84Record;
+  const act84Districts = (
+    parseYaml(readFileSync(join(REPO_ROOT, act84Record.names_from), 'utf8')) as EdspendRecord
+  ).districts
+    .map((d) => d.entity)
+    .filter((e): e is string => e !== null);
   writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
     generated: today.toISOString(),
     entities: prefillAdm,
     spending: prefillSpendingRows,
+    act84: act84Prefill(act84Record, act84Districts, prefillSlugs),
     labels: Object.fromEntries(
       prefillSlugs.map((slug) => {
         const e = registry.get(slug);
