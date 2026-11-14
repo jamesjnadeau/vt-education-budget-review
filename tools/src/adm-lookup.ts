@@ -9,11 +9,11 @@
  * "unavailable, not zero" posture the rest of the ADM layer takes.
  */
 
-import type { BandValues } from '@vt-budget/model';
-import { STATUTORY_BANDS } from '@vt-budget/model';
+import type { BandValues, ResolvedAdm } from '@vt-budget/model';
+import { resolveAdm, STATUTORY_BANDS } from '@vt-budget/model';
 import type { RegistryEntity } from './registry/types.ts';
 
-interface AdmPublicationLike {
+export interface AdmPublicationLike {
   readonly years: ReadonlyArray<{
     readonly fiscal_year: number;
     readonly maps_to_statutory_bands: boolean;
@@ -61,4 +61,27 @@ export function aoeBandsFor(
     }
   }
   return rows.length > 0 ? sumBands(rows) : null;
+}
+
+/**
+ * The resolved ADM the homestead comparison reads: budget years only, district
+ * first, the aoe-adm rollup behind it. Deliberately separate from the model
+ * form's prefill (buildPrefillAdm in adm-town-sums.ts), so no
+ * town-of-residence sum and none of the prefill's extra years reach the
+ * published rate comparison.
+ */
+export function buildHomesteadAdm(
+  budgets: ReadonlyArray<{ readonly entity: string; readonly fiscal_year: number; readonly adm?: BandValues | null }>,
+  publication: AdmPublicationLike | null,
+  registry: ReadonlyMap<string, RegistryEntity>,
+): Record<string, Record<string, ResolvedAdm>> {
+  const out: Record<string, Record<string, ResolvedAdm>> = {};
+  if (!publication) return out;
+  for (const budget of budgets) {
+    const adm = budget.adm ?? null;
+    const aoe = aoeBandsFor(budget.entity, budget.fiscal_year, publication, registry);
+    if (!adm && !aoe) continue;
+    (out[budget.entity] ??= {})[String(budget.fiscal_year)] = resolveAdm(adm, aoe);
+  }
+  return out;
 }

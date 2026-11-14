@@ -27,3 +27,25 @@ describe('resolveAdm', () => {
     expect(r.prekindergarten).toEqual({ value: null, source: 'unknown' });
   });
 });
+
+describe('resolveAdm with withheld and preliminary state bands', () => {
+  const none = { prekindergarten: null, kindergarten_through_5: null, grades_6_through_8: null, grades_9_through_12: null };
+
+  it('marks a band withheld when the district is silent and the state count is withheld', () => {
+    const r = resolveAdm(null, { ...none, kindergarten_through_5: 677.27 }, { withheld: new Set(['prekindergarten']) });
+    expect(r.prekindergarten).toEqual({ value: null, source: 'withheld' });
+    expect(r.kindergarten_through_5).toEqual({ value: 677.27, source: 'aoe' });
+    expect(r.grades_6_through_8).toEqual({ value: null, source: 'unknown' });
+  });
+
+  it('lets a district figure beat a withheld state band', () => {
+    const r = resolveAdm({ ...none, prekindergarten: 12 }, none, { withheld: new Set(['prekindergarten']) });
+    expect(r.prekindergarten).toEqual({ value: 12, source: 'district' });
+  });
+
+  it('tags state figures from a preliminary year, and only those', () => {
+    const r = resolveAdm({ ...none, prekindergarten: 3 }, { ...none, prekindergarten: 4, kindergarten_through_5: 9 }, { preliminary: true });
+    expect(r.prekindergarten).toEqual({ value: 3, source: 'district' });
+    expect(r.kindergarten_through_5).toEqual({ value: 9, source: 'aoe', preliminary: true });
+  });
+});

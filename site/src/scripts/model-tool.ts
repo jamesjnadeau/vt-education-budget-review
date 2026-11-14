@@ -45,6 +45,7 @@ import {
   type Unit,
 } from '@vt-budget/model';
 
+import { bandFill, planAdmPrefill, type PrefillPair, type PrefillRange } from './adm-prefill.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
@@ -62,7 +63,12 @@ import { studentSummarySections } from './student-summary.ts';
 // `liveParameters` below. `ResolvedAdmData` mirrors that pattern.
 export interface ResolvedAdmBand {
   value: number | null;
-  source: 'district' | 'aoe' | 'unknown';
+  source: 'district' | 'aoe' | 'withheld' | 'unknown';
+  preliminary?: true;
+  /** On a withheld band: the range the published bounds allow. Never used as a value. */
+  range?: PrefillRange;
+  /** On a withheld band: towns whose cell is one of a hidden pair. */
+  pairs?: readonly PrefillPair[];
 }
 
 export interface ResolvedAdmData {
@@ -808,11 +814,7 @@ export function initModelTool(
   const entities = resolvedAdmData.entities ?? {};
   const loadEntity = document.getElementById('load-entity') as HTMLSelectElement | null;
   const loadYear = document.getElementById('load-year') as HTMLSelectElement | null;
-  const SOURCE_TEXT: Record<string, string> = {
-    district: 'from the district’s budget',
-    aoe: 'from the state AOE count',
-    unknown: 'not available',
-  };
+  const loadStatus = document.getElementById('load-status');
   const BAND_FIELD: Record<string, string> = {
     prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
   };
@@ -822,42 +824,54 @@ export function initModelTool(
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
 
-  // A missing entity/year row (no budget or AOE record for that exact year --
-  // most often the earlier of the two ADM years) is not a "leave it alone"
-  // signal; it means every band in that row is exactly as unresolved as an
-  // explicit source:'unknown' band, so it is folded into the same branch below
-  // rather than left to fall through to a stale value or a blank note.
-  const fillBandRow = (band: Record<string, ResolvedAdmBand> | undefined, slot: '1' | '2'): void => {
+  // A missing entity/year row (most often the earlier of the two ADM years)
+  // reads as "not available", the same as an explicit unknown band; see
+  // bandFill in adm-prefill.ts.
+  const fillBandRow = (row: Record<string, ResolvedAdmBand> | undefined, slot: '1' | '2'): void => {
     for (const [key, prefix] of Object.entries(BAND_FIELD)) {
       const id = `${prefix}-${slot}`;
       const field = document.getElementById(id) as HTMLInputElement | null;
       const note = document.querySelector<HTMLElement>(`[data-adm-source="${id}"]`);
+      const rangeLine = document.querySelector<HTMLElement>(`[data-adm-range="${id}"]`);
+      const pairLine = document.querySelector<HTMLElement>(`[data-adm-pair="${id}"]`);
       if (!field) continue;
       // A field the user has actually typed into is never touched -- neither
       // its value nor its source note -- so a prefill can never overwrite, or
       // even relabel, something the user entered themselves.
       if (userEditedAdm.has(id)) continue;
-      const resolved = band?.[key];
-      if (resolved && resolved.value !== null) {
-        field.value = String(resolved.value);
-        if (note) note.textContent = SOURCE_TEXT[resolved.source] ?? '';
-      } else {
-        // No value on file -- either the band is explicitly unknown, or the
-        // whole row (band) is missing for this entity/year. Both read as "not
-        // available" and leave the field blank, so the note never claims a
-        // source for a value that isn't there.
-        field.value = '';
-        if (note) note.textContent = SOURCE_TEXT.unknown ?? '';
+      const fill = bandFill(row?.[key]);
+      field.value = fill.value;
+      if (note) note.textContent = fill.note;
+      if (rangeLine) {
+        rangeLine.textContent = fill.range ?? '';
+        rangeLine.hidden = fill.range === null;
+      }
+      if (pairLine) {
+        pairLine.textContent = fill.pair ?? '';
+        pairLine.hidden = fill.pair === null;
       }
     }
   };
 
+  // The slot labels and the engine's ADM years follow the mode selector, so a
+  // picked budget year first moves the selector to that year's parameter set.
+  // With no parameter set for the year, nothing is filled (see planAdmPrefill).
   const applyAdmPrefill = (): void => {
     const entity = loadEntity?.value ?? '';
-    const year = loadYear?.value ?? '';
-    if (!entity || !year || !entities[entity]?.[year]) return;
-    fillBandRow(entities[entity]?.[String(Number(year) - 1)], '1');
-    fillBandRow(entities[entity]?.[year], '2');
+    const plan = planAdmPrefill(
+      entity,
+      loadYear?.value ?? '',
+      entities[entity],
+      sets.map((s) => s.fiscal_year),
+    );
+    if (loadStatus) loadStatus.textContent = plan.kind === 'no-parameters' ? plan.message : '';
+    if (plan.kind !== 'fill') return;
+    if (modeSelect && modeSelect.value !== plan.mode) {
+      modeSelect.value = plan.mode;
+      applyStatewidePrefill();
+    }
+    fillBandRow(plan.earlier, '1');
+    fillBandRow(plan.later, '2');
     recompute();
   };
 

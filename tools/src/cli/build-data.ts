@@ -21,8 +21,9 @@ import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
-import { parseParameterSet, resolveAdm, unverifiedParameters, type BandValues } from '@vt-budget/model';
-import { aoeBandsFor } from '../adm-lookup.ts';
+import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { buildHomesteadAdm } from '../adm-lookup.ts';
+import { buildPrefillAdm, type PrefillBudget } from '../adm-town-sums.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
@@ -168,29 +169,32 @@ function main(): number {
   const subgroupRecords = walkFiles(join(PATHS.warehouse, 'aoe-adm-subgroups'), (n) =>
     /^town-sy\d{2}\.yaml$/.test(n),
   ).map((file) => parseYaml(readFileSync(file, 'utf8')) as SubgroupYearRecord);
-  if (subgroupRecords.length > 0) {
-    writeJson(
-      join(PATHS.siteGenerated, 'adm-subgroups.json'),
-      buildSubgroupPublication(subgroupRecords, registry, today.toISOString()),
-    );
+  const subgroupPublication =
+    subgroupRecords.length > 0
+      ? buildSubgroupPublication(subgroupRecords, registry, today.toISOString())
+      : null;
+  if (subgroupPublication) {
+    writeJson(join(PATHS.siteGenerated, 'adm-subgroups.json'), subgroupPublication);
   }
 
-  // --- resolved ADM (district-first, AOE fallback), per entity+year --------
-  // Also handed to the homestead builder below, so it is kept in a Record
-  // rather than written and forgotten.
-  const resolvedAdmByEntity: Record<string, Record<string, ReturnType<typeof resolveAdm>>> = {};
-  if (admPublication) {
-    for (const budget of budgets) {
-      const adm = (budget as { adm?: BandValues | null }).adm ?? null;
-      const aoe = aoeBandsFor(budget.entity, budget.fiscal_year, admPublication, registry);
-      if (!adm && !aoe) continue;
-      (resolvedAdmByEntity[budget.entity] ??= {})[String(budget.fiscal_year)] = resolveAdm(adm, aoe);
-    }
-    writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
-      generated: today.toISOString(),
-      entities: resolvedAdmByEntity,
-    });
-  }
+  // --- resolved ADM for the homestead comparison ---------------------------
+  // Kept exactly as it was before the town-sum prefill: the budget years only,
+  // district first, the old aoe-adm rollup behind it. No town-of-residence sum
+  // reaches the published rate comparison.
+  const homesteadAdmByEntity = buildHomesteadAdm(
+    budgets as unknown as PrefillBudget[],
+    admPublication,
+    registry,
+  );
+
+  // --- resolved ADM for the model form's prefill --------------------------
+  // District first per band, then the exact town-of-residence sums (withheld
+  // where any town cell is), over the budget years and the publication's
+  // years. Always written: the model page imports it.
+  writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
+    generated: today.toISOString(),
+    entities: buildPrefillAdm(budgets as unknown as PrefillBudget[], subgroupPublication, registry),
+  });
 
   let smallSparseCounts: Record<string, number> | null = null;
 
@@ -231,7 +235,7 @@ function main(): number {
     buildHomesteadComparison(
       sus,
       budgets as unknown as Parameters<typeof buildHomesteadComparison>[1],
-      resolvedAdmByEntity,
+      homesteadAdmByEntity,
       parsedParameterSets,
       today.toISOString(),
     ),

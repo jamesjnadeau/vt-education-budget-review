@@ -46,6 +46,7 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       <p class="field-note">
         Prefills the grade counts below from a district's stated budget, filling any gap with the
         state's AOE count. Each field is labelled with its source, and you can edit any of them.
+        Picking a year also switches “Which numbers to use” above to that year.
       </p>
       <div class="field">
         <label for="load-entity">District or supervisory union</label>
@@ -55,6 +56,7 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
         <label for="load-year">Budget year</label>
         <select id="load-year"><option value="">— none —</option></select>
       </div>
+      <p class="field-note" id="load-status" role="status" aria-live="polite"></p>
     </fieldset>
 
     <h2>How many students</h2>
@@ -74,21 +76,29 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
           <label for="prek-1"><span data-adm-slot="0">FY2025</span> prekindergarten</label>
           <input id="prek-1" type="number" min="0" step="0.01" value="10" />
           <small class="adm-source" data-adm-source="prek-1"></small>
+          <small class="adm-range" data-adm-range="prek-1" hidden></small>
+          <small class="adm-pair" data-adm-pair="prek-1" hidden></small>
         </div>
         <div class="field">
           <label for="k5-1"><span data-adm-slot="0">FY2025</span> kindergarten through grade 5</label>
           <input id="k5-1" type="number" min="0" step="0.01" value="100" />
           <small class="adm-source" data-adm-source="k5-1"></small>
+          <small class="adm-range" data-adm-range="k5-1" hidden></small>
+          <small class="adm-pair" data-adm-pair="k5-1" hidden></small>
         </div>
         <div class="field">
           <label for="g68-1"><span data-adm-slot="0">FY2025</span> grades 6 through 8</label>
           <input id="g68-1" type="number" min="0" step="0.01" value="50" />
           <small class="adm-source" data-adm-source="g68-1"></small>
+          <small class="adm-range" data-adm-range="g68-1" hidden></small>
+          <small class="adm-pair" data-adm-pair="g68-1" hidden></small>
         </div>
         <div class="field">
           <label for="g912-1"><span data-adm-slot="0">FY2025</span> grades 9 through 12</label>
           <input id="g912-1" type="number" min="0" step="0.01" value="50" />
           <small class="adm-source" data-adm-source="g912-1"></small>
+          <small class="adm-range" data-adm-range="g912-1" hidden></small>
+          <small class="adm-pair" data-adm-pair="g912-1" hidden></small>
         </div>
       </div>
       <p class="fieldset-total" id="fy2025-total" aria-live="polite"></p>
@@ -100,21 +110,29 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
           <label for="prek-2"><span data-adm-slot="1">FY2026</span> prekindergarten</label>
           <input id="prek-2" type="number" min="0" step="0.01" value="20" />
           <small class="adm-source" data-adm-source="prek-2"></small>
+          <small class="adm-range" data-adm-range="prek-2" hidden></small>
+          <small class="adm-pair" data-adm-pair="prek-2" hidden></small>
         </div>
         <div class="field">
           <label for="k5-2"><span data-adm-slot="1">FY2026</span> kindergarten through grade 5</label>
           <input id="k5-2" type="number" min="0" step="0.01" value="200" />
           <small class="adm-source" data-adm-source="k5-2"></small>
+          <small class="adm-range" data-adm-range="k5-2" hidden></small>
+          <small class="adm-pair" data-adm-pair="k5-2" hidden></small>
         </div>
         <div class="field">
           <label for="g68-2"><span data-adm-slot="1">FY2026</span> grades 6 through 8</label>
           <input id="g68-2" type="number" min="0" step="0.01" value="100" />
           <small class="adm-source" data-adm-source="g68-2"></small>
+          <small class="adm-range" data-adm-range="g68-2" hidden></small>
+          <small class="adm-pair" data-adm-pair="g68-2" hidden></small>
         </div>
         <div class="field">
           <label for="g912-2"><span data-adm-slot="1">FY2026</span> grades 9 through 12</label>
           <input id="g912-2" type="number" min="0" step="0.01" value="100" />
           <small class="adm-source" data-adm-source="g912-2"></small>
+          <small class="adm-range" data-adm-range="g912-2" hidden></small>
+          <small class="adm-pair" data-adm-pair="g912-2" hidden></small>
         </div>
       </div>
       <p class="fieldset-total" id="fy2026-total" aria-live="polite"></p>
