@@ -1,0 +1,1995 @@
+[
+  {
+    "ServerId": 58,
+    "Name": "BURR AND BURTON ACADEMY",
+    "OrgId": "PA002",
+    "OrgType": "Private Academy (PA)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "ParentOrg": "PA002"
+  },
+  {
+    "ServerId": 59,
+    "Name": "LYNDON INSTITUTE",
+    "OrgId": "PA003",
+    "OrgType": "Private Academy (PA)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "ParentOrg": "PA003"
+  },
+  {
+    "ServerId": 60,
+    "Name": "ST JOHNSBURY ACADEMY",
+    "OrgId": "PA004",
+    "OrgType": "Private Academy (PA)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "ParentOrg": "PA004"
+  },
+  {
+    "ServerId": 61,
+    "Name": "THETFORD ACADEMY",
+    "OrgId": "PA005",
+    "OrgType": "Private Academy (PA)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "ParentOrg": "PA005"
+  },
+  {
+    "ServerId": 65,
+    "Name": "ORFORD SCHOOLS",
+    "OrgId": "PI003",
+    "OrgType": "NH Public School (PI)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "ParentOrg": "SU055"
+  },
+  {
+    "ServerId": 66,
+    "Name": "Rivendell Academy",
+    "OrgId": "PI004",
+    "OrgType": "NH Public School (PI)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "AW"
+    ],
+    "ParentOrg": "SU064",
+    "OperatedBy": "U146"
+  },
+  {
+    "ServerId": 1109,
+    "Name": "DAVIS COMMUNITY SCHOOL",
+    "OrgId": "IS278",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1113,
+    "Name": "TWELVE TRIBES COMMUNITY CHURCH SCH",
+    "OrgId": "IS099",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11"
+    ]
+  },
+  {
+    "ServerId": 1114,
+    "Name": "ST PAULS ELEMENTARY SCHOOL",
+    "OrgId": "IS077",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1115,
+    "Name": "CHRIST THE KING (BURLINGTON)",
+    "OrgId": "IS015",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1116,
+    "Name": "PRIORITY PLACEMENTS INC",
+    "OrgId": "IS281",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1117,
+    "Name": "THE GRAMMAR SCHOOL",
+    "OrgId": "IS029",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1118,
+    "Name": "GREENWOOD SCHOOL",
+    "OrgId": "IS033",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1119,
+    "Name": "HILLTOP MONTESSORI SCHOOL",
+    "OrgId": "IS035",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1120,
+    "Name": "LONG TRAIL SCHOOL",
+    "OrgId": "IS044",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1121,
+    "Name": "MID VERMONT CHRISTIAN SCH",
+    "OrgId": "IS049",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1123,
+    "Name": "COMMUNITY SCHOOLHOUSE",
+    "OrgId": "IS165",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1124,
+    "Name": "EXPEDITIONARY SCHOOL AT BLACK RIVER",
+    "OrgId": "IS283",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1141,
+    "Name": "PACEM SCHOOL",
+    "OrgId": "IS252",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1143,
+    "Name": "LIBERTY HIGH SCHOOL DIPLOMA PROGRAM",
+    "OrgId": "IS212",
+    "OrgType": "Distance Learning (IS)",
+    "Grades": [
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1144,
+    "Name": "BERNICE A RAY SCHOOL",
+    "OrgId": "PI005",
+    "OrgType": "NH Public School (PI)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1145,
+    "Name": "DISCOVERY ROOTS",
+    "OrgId": "IS286",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1160,
+    "Name": "BAIRD CENTER",
+    "OrgId": "IS003",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1161,
+    "Name": "CHRIST COVENANT SCHOOL",
+    "OrgId": "IS014",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1162,
+    "Name": "ROCK POINT SCHOOL",
+    "OrgId": "IS066",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1163,
+    "Name": "ST FRANCIS XAVIER SCHOOL",
+    "OrgId": "IS073",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1164,
+    "Name": "GRACE CHRISTIAN SCHOOL (BENN)",
+    "OrgId": "IS133",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1185,
+    "Name": "MONTESSORI SCHOOL OF CENTRAL VT",
+    "OrgId": "IS190",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1186,
+    "Name": "VERMONT DAY SCHOOL",
+    "OrgId": "IS261",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1193,
+    "Name": "BROWNINGTON PAROCHIAL SCHOOL",
+    "OrgId": "IS273",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1216,
+    "Name": "POTTERS HOUSE",
+    "OrgId": "IS120",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1217,
+    "Name": "BROOKHAVEN LEARNING CENTER",
+    "OrgId": "IS009",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  {
+    "ServerId": 1218,
+    "Name": "LAKE CHAMPLAIN WALDORF",
+    "OrgId": "IS041",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1219,
+    "Name": "MATER CHRISTI SCHOOL",
+    "OrgId": "IS047",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1220,
+    "Name": "MT SCHOOL OF MILTON ACADEMY",
+    "OrgId": "IS052",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "11"
+    ]
+  },
+  {
+    "ServerId": 1221,
+    "Name": "RED CEDAR SCHOOL",
+    "OrgId": "IS063",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1222,
+    "Name": "UPPER VALLEY WALDORF SCHOOL",
+    "OrgId": "IS083",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1223,
+    "Name": "ORCHARD VALLEY WALDORF SCHOOL",
+    "OrgId": "IS109",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1224,
+    "Name": "UNITED CHRISTIAN ACADEMY",
+    "OrgId": "IS122",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1225,
+    "Name": "SHARON ACADEMY THE",
+    "OrgId": "IS126",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1226,
+    "Name": "ARK PRESCHOOL/KINDERGARTEN",
+    "OrgId": "IS132",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1228,
+    "Name": "THADDEUS STEVENS SCHOOL",
+    "OrgId": "IS160",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1229,
+    "Name": "HANOVER HIGH SCHOOL",
+    "OrgId": "PI001",
+    "OrgType": "NH Public School (PI)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1246,
+    "Name": "BELLCATE SCHOOL",
+    "OrgId": "IS219",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1247,
+    "Name": "TRUE NORTH EVOLUTION",
+    "OrgId": "IS229",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1250,
+    "Name": "NEW ENGLAND SCHOOL FOR GIRLS",
+    "OrgId": "IS270",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1275,
+    "Name": "TWO ROADS ACADEMY",
+    "OrgId": "IS276",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "K",
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "ServerId": 1277,
+    "Name": "MT ST JOSEPH ACADEMY",
+    "OrgId": "IS053",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1278,
+    "Name": "MAPLEHILL COMMUNITY SCHOOL",
+    "OrgId": "IS095",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "5",
+      "6",
+      "4"
+    ]
+  },
+  {
+    "ServerId": 1280,
+    "Name": "KURN HATTIN HOMES",
+    "OrgId": "IS040",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1283,
+    "Name": "MOUNTAIN SCHOOL AT WINHALL THE",
+    "OrgId": "IS144",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1284,
+    "Name": "OKEMO MOUNTAIN SCHOOL",
+    "OrgId": "IS164",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1291,
+    "Name": "NORTH BRANCH SCHOOL THE",
+    "OrgId": "IS187",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  {
+    "ServerId": 1292,
+    "Name": "THE ARLINGTON SCHOOL",
+    "OrgId": "IS170",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1293,
+    "Name": "FOUNDATIONS",
+    "OrgId": "IS264",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1295,
+    "Name": "NEW SCHOOL OF MONTPELIER",
+    "OrgId": "IS218",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1296,
+    "Name": "VERMONT COMMONS SCHOOL",
+    "OrgId": "IS136",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1309,
+    "Name": "THE MILL SCHOOL",
+    "OrgId": "IS279",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1311,
+    "Name": "TWELVE TRIBES COMMUNITY CHURCH SCH",
+    "OrgId": "IS020",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11"
+    ]
+  },
+  {
+    "ServerId": 1312,
+    "Name": "KINDLE FARM",
+    "OrgId": "IS131",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1313,
+    "Name": "BRIDGE SCHOOL INC",
+    "OrgId": "IS008",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1314,
+    "Name": "CHRIST THE KING SCHOOL (RUTLAND)",
+    "OrgId": "IS016",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1315,
+    "Name": "HILAND HALL SCHOOL",
+    "OrgId": "IS034",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1316,
+    "Name": "KILLINGTON MOUNTAIN SCHOOL",
+    "OrgId": "IS038",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1317,
+    "Name": "NEIGHBORHOOD SCHOOLHOUSE",
+    "OrgId": "IS054",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1"
+    ]
+  },
+  {
+    "ServerId": 1318,
+    "Name": "RICE MEMORIAL HIGH SCHOOL",
+    "OrgId": "IS064",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1319,
+    "Name": "SOUTHSHIRE COMMUNITY SCHOOL",
+    "OrgId": "IS071",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1320,
+    "Name": "ST MICHAELS CATHOLIC SCHOOL",
+    "OrgId": "IS072",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1321,
+    "Name": "WEBSTERVILLE CHRISTIAN ACADEMY",
+    "OrgId": "IS090",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1322,
+    "Name": "MT MANSFIELD ACADEMY",
+    "OrgId": "IS124",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1323,
+    "Name": "MAPLE STREET SCHOOL",
+    "OrgId": "IS145",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1324,
+    "Name": "ALL SAINTS CATHOLIC ACADEMY",
+    "OrgId": "IS152",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1325,
+    "Name": "JEAN GARVIN SCHOOL",
+    "OrgId": "IS154",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1336,
+    "Name": "WOLCOTT MENNONITE",
+    "OrgId": "IS201",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1337,
+    "Name": "GREEN MT MENNONITE SCHOOL",
+    "OrgId": "IS225",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1339,
+    "Name": "ST MONICA-ST MICHAELS SCHOOL",
+    "OrgId": "IS230",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1340,
+    "Name": "RED FOX COMMUNITY SCHOOL",
+    "OrgId": "IS272",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1360,
+    "Name": "BURKE MOUNTAIN ACADEMY",
+    "OrgId": "IS011",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1361,
+    "Name": "EAST MEADOW SCHOOL",
+    "OrgId": "IS262",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1362,
+    "Name": "GREEN MT VALLEY SCHOOL",
+    "OrgId": "IS031",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1363,
+    "Name": "LARAWAY SCHOOL",
+    "OrgId": "IS042",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1364,
+    "Name": "THE SCHOOLHOUSE LEARNING CENTER INC",
+    "OrgId": "IS070",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1365,
+    "Name": "OPEN FIELDS SCHOOL",
+    "OrgId": "IS101",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1366,
+    "Name": "CALEDONIA CHRISTIAN SCHOOL",
+    "OrgId": "IS112",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1367,
+    "Name": "GOOD SHEPHERD CATHOLIC SCHOOL",
+    "OrgId": "IS153",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1368,
+    "Name": "MANCHESTER VILLAGE SCHOOL",
+    "OrgId": "IS162",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1381,
+    "Name": "EAST BURKE SCHOOL",
+    "OrgId": "IS203",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1382,
+    "Name": "SUGARWOOD SCHOOL",
+    "OrgId": "IS227",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2"
+    ]
+  },
+  {
+    "ServerId": 1398,
+    "Name": "FRANCES C RICHMOND SCHOOL",
+    "OrgId": "PI002",
+    "OrgType": "NH Public School (PI)",
+    "Grades": [
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1399,
+    "Name": "TWELVE TRIBES COMMUNITY CHURCH SCH",
+    "OrgId": "IS103",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11"
+    ]
+  },
+  {
+    "ServerId": 1400,
+    "Name": "EAST VALLEY ACADEMY/CHALLENGER",
+    "OrgId": "IS178",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1401,
+    "Name": "CHAMPLAIN VALLEY CHR SCHOOL ",
+    "OrgId": "IS013",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1402,
+    "Name": "ELEVATION CHRISTIAN ACADEMY",
+    "OrgId": "IS021",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1403,
+    "Name": "RIVERSIDE SCHOOL THE",
+    "OrgId": "IS065",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1404,
+    "Name": "SACRED HEART ST FRANCIS DE SALES",
+    "OrgId": "IS067",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1405,
+    "Name": "STRATTON MOUNTAIN SCHOOL",
+    "OrgId": "IS078",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1406,
+    "Name": "TRINITY BAPTIST SCHOOL",
+    "OrgId": "IS080",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1407,
+    "Name": "VERMONT ACADEMY",
+    "OrgId": "IS085",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1408,
+    "Name": "SHELDON ACADEMY AKA VAC",
+    "OrgId": "IS086",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1409,
+    "Name": "CORNERSTONE SCHOOL",
+    "OrgId": "IS156",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1433,
+    "Name": "OAK MEADOW SCHOOL",
+    "OrgId": "IS184",
+    "OrgType": "Distance Learning (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1435,
+    "Name": "THE VILLAGE SCHOOL OF NORTH BENNINGTON",
+    "OrgId": "IS254",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1437,
+    "Name": "CHOICE ACADEMY",
+    "OrgId": "IS221",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1461,
+    "Name": "FAY HONEY KNOPP MEMORIAL SCH",
+    "OrgId": "IS248",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1462,
+    "Name": "PUTNEY SCHOOL",
+    "OrgId": "IS062",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1463,
+    "Name": "RUTLAND AREA CHRISTIAN SCHOOL",
+    "OrgId": "IS106",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1464,
+    "Name": "SPRINGBROOK FARM SCHOOL",
+    "OrgId": "IS107",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "4",
+      "5",
+      "6"
+    ]
+  },
+  {
+    "ServerId": 1466,
+    "Name": "SOAR LEARNING CENTER",
+    "OrgId": "IS167",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1467,
+    "Name": "COMMUNITY HIGH SCHOOL OF VT",
+    "OrgId": "IS900",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1492,
+    "Name": "TURNING POINTS SCHOOL",
+    "OrgId": "IS259",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1496,
+    "Name": "BARN SCHOOL (THE)",
+    "OrgId": "IS268",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "ServerId": 1497,
+    "Name": "TAMIM ACADEMY OF VT",
+    "OrgId": "IS284",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1611,
+    "Name": "GREEN MOUNTAIN MONTESSORI SCHOOL",
+    "OrgId": "IS247",
+    "OrgType": "Approved Ind. Kindergarten (IS)",
+    "Grades": [
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1612,
+    "Name": "SAXON HILL SCHOOL INC",
+    "OrgId": "IS069",
+    "OrgType": "Approved Ind. Kindergarten (IS)",
+    "Grades": [
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1613,
+    "Name": "MARY JOHNSON CHILDRENS CENTER",
+    "OrgId": "IS046",
+    "OrgType": "Approved Ind. Kindergarten (IS)",
+    "Grades": [
+      "K"
+    ]
+  },
+  {
+    "ServerId": 1627,
+    "Name": "VERMONT FARM AND FOREST SCHOOL",
+    "OrgId": "IS290",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1628,
+    "Name": "GREEN MOUNTAIN COMMUNITY SCHOOL",
+    "OrgId": "IS291",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1630,
+    "Name": "NEW HOPE CHRISTIAN SCHOOL",
+    "OrgId": "IS293",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1634,
+    "Name": "Test",
+    "OrgId": "Test",
+    "OrgType": "Distance Learning (IS)",
+    "Grades": null
+  },
+  {
+    "ServerId": 1639,
+    "Name": "BRIGHTALITY",
+    "OrgId": "IS295",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1646,
+    "Name": "Lamoille Valley Farm and Forest",
+    "OrgId": "IS296",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "ServerId": 1647,
+    "Name": "Connected Circles",
+    "OrgId": "IS297",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "ServerId": 1648,
+    "Name": "POND BROOK PROJECT",
+    "OrgId": "IS298",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  {
+    "ServerId": 1659,
+    "Name": "Approved Out of State School",
+    "OrgId": "AOOS",
+    "OrgType": "Independent School (IS)",
+    "Grades": [
+      "PK",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "EE",
+      "K",
+      "AW"
+    ]
+  },
+  {
+    "ServerId": 1660,
+    "Name": "Stoney Ridge Parochial School",
+    "OrgId": "IS300",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "ServerId": 1661,
+    "Name": "Immersion Montessori School",
+    "OrgId": "IS301",
+    "OrgType": "Recognized School (IS)",
+    "Grades": [
+      "K",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  }
+]
