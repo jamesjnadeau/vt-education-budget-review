@@ -24,6 +24,7 @@ import { parse as parseYaml } from 'yaml';
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { buildHomesteadAdm } from '../adm-lookup.ts';
 import { buildPrefillAdm, type PrefillBudget } from '../adm-town-sums.ts';
+import { edspendEntities, prefillSpending, type EdspendRecord } from '../edspend-prefill.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
@@ -63,6 +64,7 @@ function readBudgets(): BudgetRecord[] {
       return (
         !path.startsWith('warehouse/aoe-adm/') &&
         !path.startsWith('warehouse/aoe-adm-subgroups/') &&
+        !path.startsWith('warehouse/aoe-edspend/') &&
         !path.startsWith('warehouse/census/') &&
         !path.startsWith('warehouse/small-sparse/')
       );
@@ -187,13 +189,44 @@ function main(): number {
     registry,
   );
 
-  // --- resolved ADM for the model form's prefill --------------------------
+  // --- resolved ADM and spending for the model form's prefill -------------
   // District first per band, then the exact town-of-residence sums (withheld
   // where any town cell is), over the budget years and the publication's
-  // years. Always written: the model page imports it.
+  // years. The entities are those with a budget record plus every district
+  // AOE's EdSpend records list in those years; EdSpend also gives each
+  // district's education spending. Always written: the model page imports it.
+  const edspendRecords = walkFiles(join(PATHS.warehouse, 'aoe-edspend'), (n) => /^fy\d{4}\.yaml$/.test(n)).map(
+    (file) => parseYaml(readFileSync(file, 'utf8')) as EdspendRecord,
+  );
+  const prefillYears = subgroupPublication?.years.map((y) => y.fiscal_year) ?? [];
+  const prefillAdm = buildPrefillAdm(
+    budgets as unknown as PrefillBudget[],
+    subgroupPublication,
+    registry,
+    edspendEntities(edspendRecords, prefillYears),
+  );
+  // Spending only for the years the form can load. A district whose grade
+  // counts cannot be summed (a town that runs some grades and tuitions or
+  // sends the rest) is still listed, for its spending.
+  const prefillSpendingRows = Object.fromEntries(
+    Object.entries(prefillSpending(edspendRecords))
+      .map(([slug, years]) => [
+        slug,
+        Object.fromEntries(Object.entries(years).filter(([fy]) => prefillYears.includes(Number(fy)))),
+      ] as const)
+      .filter(([, years]) => Object.keys(years).length > 0),
+  );
+  const prefillSlugs = [...new Set([...Object.keys(prefillAdm), ...Object.keys(prefillSpendingRows)])].sort();
   writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
     generated: today.toISOString(),
-    entities: buildPrefillAdm(budgets as unknown as PrefillBudget[], subgroupPublication, registry),
+    entities: prefillAdm,
+    spending: prefillSpendingRows,
+    labels: Object.fromEntries(
+      prefillSlugs.map((slug) => {
+        const e = registry.get(slug);
+        return [slug, { name: e?.name ?? slug, type: e?.type ?? slug.split('/')[0] }];
+      }),
+    ),
   });
 
   let smallSparseCounts: Record<string, number> | null = null;

@@ -17,12 +17,17 @@
  *   that year's parameter set before anything is filled, and when no parameter
  *   set exists for the year the prefill fills nothing and says so.
  *
+ * - The education spending field, from AOE's EdSpend figure for the district
+ *   and year (Data Request #853). A year with no figure leaves the field blank
+ *   and says so, so a previous pick's spending never stays behind.
+ * - Which districts the picker offers, grouped by kind.
+ *
  * Pure by design: the island reads the DOM, calls these, and writes the DOM back.
  */
 
-/** What the published bounds allow for a withheld band, in ADM. */
 import { titleCase } from '../lib/display.ts';
 
+/** What the published bounds allow for a withheld band, in ADM. */
 export interface PrefillRange {
   readonly low: number;
   /** The true count is above `low`, not equal to it (a hidden cell holds at least one pupil). */
@@ -124,6 +129,60 @@ export function bandFill(band: PrefillBand | undefined): BandFill {
   return { value: '', note: SOURCE_NOTE.unknown, range: null, pair: null };
 }
 
+/** AOE's education spending for one district and year. */
+export interface PrefillSpending {
+  readonly value: number;
+  readonly pupils: number;
+  readonly pupil_measure: string;
+}
+
+const PUPIL_MEASURE_NAME: Readonly<Record<string, string>> = {
+  long_term_weighted_adm: 'long-term weighted pupils',
+  equalized_pupils: 'equalized pupils',
+};
+
+/** The spending field's text and the note under it. */
+export function spendingFill(spending: PrefillSpending | undefined): { value: string; note: string } {
+  if (!spending) return { value: '', note: 'not available from AOE for this year; field left blank' };
+  const pupils = spending.pupils.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  return {
+    value: String(spending.value),
+    note: `from the state AOE figure (${pupils} ${PUPIL_MEASURE_NAME[spending.pupil_measure] ?? spending.pupil_measure})`,
+  };
+}
+
+export interface EntityLabel {
+  readonly name: string;
+  readonly type: string;
+}
+
+const GROUP_ORDER: ReadonlyArray<readonly [string, string]> = [
+  ['ud', 'Union school districts'],
+  ['town', 'Town school districts'],
+  ['su', 'Supervisory unions with a budget on file'],
+];
+
+/** The picker's option groups: each kind in a fixed order, names sorted within it. */
+export function pickerGroups(
+  slugs: ReadonlyArray<string>,
+  labels: Readonly<Record<string, EntityLabel>>,
+): Array<{ label: string; options: Array<{ value: string; text: string }> }> {
+  const known = new Set(GROUP_ORDER.map(([t]) => t));
+  const typeOf = (slug: string): string => {
+    const t = labels[slug]?.type ?? slug.split('/')[0] ?? '';
+    return known.has(t) ? t : 'other';
+  };
+  return [...GROUP_ORDER, ['other', 'Other'] as const]
+    .map(([type, label]) => ({
+      label,
+      options: slugs
+        .filter((slug) => typeOf(slug) === type)
+        .map((slug) => ({ value: slug, text: titleCase(labels[slug]?.name ?? slug) }))
+        .sort((a, b) => a.text.localeCompare(b.text)),
+    }))
+    .filter((g) => g.options.length > 0);
+}
+
 export type PrefillPlan =
   /** Nothing picked, or no row for the pick: leave the form alone, say nothing. */
   | { readonly kind: 'none' }
@@ -135,6 +194,7 @@ export type PrefillPlan =
       readonly mode: string;
       readonly earlier: PrefillRow | undefined;
       readonly later: PrefillRow | undefined;
+      readonly spending: PrefillSpending | undefined;
     };
 
 /**
@@ -144,20 +204,22 @@ export type PrefillPlan =
  * @param year            the picked fiscal year as the picker's value, or ''
  * @param rows            the entity's prefill rows, keyed by fiscal year
  * @param parameterYears  the fiscal years that have a live parameter set
+ * @param spending        the entity's AOE spending, keyed by fiscal year
  */
 export function planAdmPrefill(
   entity: string,
   year: string,
   rows: Readonly<Record<string, PrefillRow>> | undefined,
   parameterYears: readonly number[],
+  spending?: Readonly<Record<string, PrefillSpending>>,
 ): PrefillPlan {
-  if (!entity || !year || !rows?.[year]) return { kind: 'none' };
+  if (!entity || !year || !(rows?.[year] || spending?.[year])) return { kind: 'none' };
   const fy = Number(year);
   if (!parameterYears.includes(fy)) {
     return {
       kind: 'no-parameters',
-      message: `“Which numbers to use” has no FY${fy} option yet, so the grade counts were left as they are.`,
+      message: `“Which numbers to use” has no FY${fy} option yet, so the grade counts and spending were left as they are.`,
     };
   }
-  return { kind: 'fill', mode: String(fy), earlier: rows[String(fy - 1)], later: rows[year] };
+  return { kind: 'fill', mode: String(fy), earlier: rows?.[String(fy - 1)], later: rows?.[year], spending: spending?.[year] };
 }

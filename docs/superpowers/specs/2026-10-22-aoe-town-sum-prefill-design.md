@@ -46,7 +46,7 @@ the towns' cells allow it.
     published towns gives back the withheld town value exactly. That breaks
     the privacy rule in the 2026-09-04 spec.
 - No ELL or NSLELG prefill. The form has no fields for them.
-- No change to which entities the picker lists (see Open question).
+- No change to which entities the picker lists in this build (widened later; see the last section).
 
 ## Constraints
 
@@ -245,13 +245,27 @@ also needs to say:
   - a missing town-year failing the build;
   - the FY2025 earlier-slot row existing without an FY2025 budget.
 
-## Open question
+## Widening the picker (added 2026-11-14 at the user's request)
 
-The picker lists only entities with a budget record, which today is
-`su/addison-central` alone. With this source, every SU and district could be
-prefilled.
+The picker used to list only entities with a budget record, which is
+`su/addison-central` alone. It now also lists every school district that
+AOE's EdSpend records (Data Request #853, `warehouse/aoe-edspend/`) report in
+one of the grade-count years, FY2025–FY2027. That adds 60 union districts and
+62 town school districts, grouped by kind.
 
-Widening the picker is outside the fallback as requested, so this build keeps
-the picker as it is. If it is widened later, one registry gap needs settling
-first: `town/halifax` is a member of `ud/southern-valley` but has no
-`supervisory_union`.
+- **Grade counts** come from the town sums above. A union district sums its
+  `member_towns`. A town district sums only itself, and only when it runs all
+  its grades. For a town that runs some grades and sends the rest to a union
+  (an `operated_by` town, such as Brighton), the town's residents span grades
+  its district does not serve. So its bands are left as not available rather
+  than over-counted.
+- **Education spending** fills the form's spending field from AOE's stated
+  figure for that district and year, with a note naming the pupil count AOE
+  gives beside it. A stated $0 (AOE's "pupils without spending" rows) is not
+  used. A year with no figure (FY2027 so far) leaves the field blank and says
+  so.
+- SUs are still listed only with a budget record. EdSpend is district-grain.
+  So the Halifax gap (`town/halifax` has no `supervisory_union`) does not
+  affect the picker.
+- The homestead comparison is unchanged and still reads district figures
+  only.
