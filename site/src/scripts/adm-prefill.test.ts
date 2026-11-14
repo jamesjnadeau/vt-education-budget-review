@@ -5,19 +5,20 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { bandFill, planAdmPrefill, rangeText, SOURCE_NOTE, type PrefillRow } from './adm-prefill.ts';
+import { bandFill, pairText, planAdmPrefill, rangeText, SOURCE_NOTE, type PrefillRow } from './adm-prefill.ts';
 
 describe('bandFill', () => {
   it('fills a district figure', () => {
-    expect(bandFill({ value: 120, source: 'district' })).toEqual({ value: '120', note: SOURCE_NOTE.district, range: null });
+    expect(bandFill({ value: 120, source: 'district' })).toEqual({ value: '120', note: SOURCE_NOTE.district, range: null, pair: null });
   });
 
   it('fills a state AOE figure, marking a preliminary year', () => {
-    expect(bandFill({ value: 708, source: 'aoe' })).toEqual({ value: '708', note: SOURCE_NOTE.aoe, range: null });
+    expect(bandFill({ value: 708, source: 'aoe' })).toEqual({ value: '708', note: SOURCE_NOTE.aoe, range: null, pair: null });
     expect(bandFill({ value: 634.66, source: 'aoe', preliminary: true })).toEqual({
       value: '634.66',
       note: 'from the state AOE count (preliminary)',
       range: null,
+      pair: null,
     });
   });
 
@@ -26,6 +27,7 @@ describe('bandFill', () => {
       value: '',
       note: 'hidden to protect student privacy; field left blank',
       range: null,
+      pair: null,
     });
   });
 
@@ -36,8 +38,8 @@ describe('bandFill', () => {
   });
 
   it('reads an unknown or missing band as not available', () => {
-    expect(bandFill({ value: null, source: 'unknown' })).toEqual({ value: '', note: 'not available', range: null });
-    expect(bandFill(undefined)).toEqual({ value: '', note: 'not available', range: null });
+    expect(bandFill({ value: null, source: 'unknown' })).toEqual({ value: '', note: 'not available', range: null, pair: null });
+    expect(bandFill(undefined)).toEqual({ value: '', note: 'not available', range: null, pair: null });
   });
 });
 
@@ -47,6 +49,25 @@ describe('rangeText', () => {
     expect(rangeText({ low: 1203.6, low_exclusive: true, high: null })).toBe(
       'Estimated range: more than 1,203.6 ADM (no upper limit is published for a hidden town)',
     );
+  });
+});
+
+describe('pairText', () => {
+  it('names the town and the paired band, one sentence per town', () => {
+    const fill = bandFill({
+      value: null,
+      source: 'withheld',
+      pairs: [{ town: 'RIPTON', with: 'grades_6_through_8' }],
+    });
+    expect(fill.pair).toBe(
+      'In Ripton this band is hidden together with grades 6 through 8: at least one of the two has 1 to 10 students, and the other may be larger.',
+    );
+    expect(
+      pairText([
+        { town: 'Ripton', with: 'prekindergarten' },
+        { town: 'Weybridge', with: 'grades_9_through_12' },
+      ]),
+    ).toMatch(/^In Ripton .* In Weybridge this band is hidden together with grades 9 through 12: /);
   });
 });
 

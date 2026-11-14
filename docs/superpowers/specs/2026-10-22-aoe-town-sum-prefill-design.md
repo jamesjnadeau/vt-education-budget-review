@@ -174,6 +174,14 @@ Under a withheld field, a second line gives the range in ADM (added
   hidden town)" when one does not, which is the case for every hidden cell in
   Addison Central (Ripton and Weybridge are pair members).
 
+Where a contributing town's cell is one of a hidden pair, a third line names
+the town and the other band, and says what the pair rule allows: "In Ripton
+this band is hidden together with grades 6 through 8: at least one of the two
+has 1 to 10 students, and the other may be larger." The pair is read from the
+published bounds alone: a published row with exactly two cells open above.
+Either both cells are small, or one is small and the other is any size, so
+the line does not claim the other one has 11 or more.
+
 The field stays blank either way.
 
 A field the user has typed in is never touched (unchanged).

@@ -42,7 +42,7 @@ function pub(towns: Record<string, Record<string, unknown>>, preliminary = false
 const registry = reg([
   { slug: 'su/x', type: 'su' },
   { slug: 'ud/one', type: 'ud', supervisory_union: 'su/x', member_towns: ['town/a', 'town/b'] },
-  { slug: 'town/a', type: 'town', supervisory_union: 'su/x', operated_by: 'ud/one' },
+  { slug: 'town/a', name: 'A', type: 'town', supervisory_union: 'su/x', operated_by: 'ud/one' },
   { slug: 'town/b', type: 'town', supervisory_union: 'su/x', operated_by: 'ud/one' },
   { slug: 'town/c', type: 'town', supervisory_union: 'su/x' },
   { slug: 'town/unknown', type: 'town', supervisory_union: 'su/x', reporting_only: true },
@@ -70,6 +70,7 @@ describe('townBandSums', () => {
       values: bands(1, 10.5, 5, 4),
       withheld: [],
       ranges: {},
+      pairs: {},
     });
   });
 
@@ -80,6 +81,7 @@ describe('townBandSums', () => {
       values: bands(null, 30.25, 11, 7),
       withheld: ['prekindergarten'],
       ranges: { prekindergarten: { low: 3, low_exclusive: false, high: 12 } },
+      pairs: {},
     });
   });
 
@@ -93,6 +95,24 @@ describe('townBandSums', () => {
     const y = townBandSums('ud/one', pub(t), registry).get(2027);
     expect(y?.ranges.prekindergarten).toEqual({ low: 2, low_exclusive: true, high: null });
     expect(y?.ranges.kindergarten_through_5).toEqual({ low: 20.25, low_exclusive: false, high: null });
+  });
+
+  it('records a hidden pair (two cells open above in one published row) against both bands', () => {
+    const pairMember = { status: 'suppressed' as const, low: 0, high: null, exclusive_low: true };
+    const t = {
+      'town/a': { ...towns['town/a'], SY26: published(bands(pairMember, v(10), pairMember, v(4))) },
+      'town/b': towns['town/b'],
+    };
+    const y = townBandSums('ud/one', pub(t), registry).get(2027);
+    expect(y?.pairs).toEqual({
+      prekindergarten: [{ town: 'A', with: 'grades_6_through_8' }],
+      grades_6_through_8: [{ town: 'A', with: 'prekindergarten' }],
+    });
+  });
+
+  it('records no pair for a lone open-above cell or for primary cells', () => {
+    const t = { ...towns, 'town/a': { ...towns['town/a'], SY26: published(bands(hidden, v(10), hidden, v(4))) } };
+    expect(townBandSums('ud/one', pub(t), registry).get(2027)?.pairs).toEqual({});
   });
 
   it('gives no range when another contributing cell was not published for the year', () => {
@@ -139,6 +159,14 @@ describe('townBandSums against the warehouse: Addison Central', () => {
   );
   const realPub = buildSubgroupPublication(records, realRegistry, 'x');
   const sums = townBandSums('su/addison-central', realPub, realRegistry);
+
+  // Names are kept as the registry has them (AOE's capitals); the form cases them.
+  it('pairs Ripton preschool with grades 6–8 in FY2025 and FY2026', () => {
+    for (const fy of [2025, 2026]) {
+      expect(sums.get(fy)?.pairs.prekindergarten).toEqual([{ town: 'RIPTON', with: 'grades_6_through_8' }]);
+      expect(sums.get(fy)?.pairs.grades_6_through_8).toEqual([{ town: 'RIPTON', with: 'prekindergarten' }]);
+    }
+  });
 
   it('withholds preschool and 6–8 and sums K–5 and 9–12 for FY2025 and FY2026', () => {
     for (const fy of [2025, 2026]) {

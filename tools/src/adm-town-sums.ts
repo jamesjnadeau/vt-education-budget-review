@@ -13,7 +13,9 @@
  * bounds allow, the same range the SU page already shows
  * (site/src/lib/residents.ts `sumCells`): each hidden cell adds only the bound
  * AOE's rules give it on its own, and a cell with no top leaves the range open
- * above. Nothing here solves a bound or narrows one from a total.
+ * above. Where a town's cell is one of a hidden pair, the form says so: at
+ * least one of the two has 1 to 10 students. Nothing here solves a bound or
+ * narrows one from a total.
  * (`sumBands` in adm-lookup.ts skips nulls and so yields partial sums; it must
  * not be used here.)
  */
@@ -42,6 +44,17 @@ export interface BandRange {
   readonly high: number | null;
 }
 
+/**
+ * A town whose cell in this band is hidden together with one other band.
+ * Read from the published bounds alone: a published row with exactly two
+ * cells bounded below and open above is the pair rule's output. At least one
+ * of the two holds 1 to 10 students; the extract does not say which.
+ */
+export interface BandPair {
+  readonly town: string;
+  readonly with: StatutoryBand;
+}
+
 export interface TownYearSum {
   readonly preliminary: boolean;
   /** Exact sums. null where the band is withheld or not usable. */
@@ -50,10 +63,12 @@ export interface TownYearSum {
   readonly withheld: StatutoryBand[];
   /** The range for each withheld band, unless a contributing cell is not published. */
   readonly ranges: Partial<Record<StatutoryBand, BandRange>>;
+  /** For each withheld band, the towns whose cell is one of a hidden pair. */
+  readonly pairs: Partial<Record<StatutoryBand, BandPair[]>>;
 }
 
 /** A prefill band: the resolved band, plus its range when it is withheld. */
-export type PrefillBand = ResolvedBand & { readonly range?: BandRange };
+export type PrefillBand = ResolvedBand & { readonly range?: BandRange; readonly pairs?: BandPair[] };
 export type PrefillAdm = Record<StatutoryBand, PrefillBand>;
 
 /**
@@ -91,6 +106,9 @@ function addToRange(r: RangeState, cell: PublishedCell): RangeState {
   };
 }
 
+const isPairMember = (cell: PublishedCell): boolean =>
+  'status' in cell && cell.status === 'suppressed' && cell.low !== undefined && cell.high === null;
+
 const round2 = (n: number): number => Number(n.toFixed(2));
 
 function addCell(state: BandState, cell: PublishedCell): BandState {
@@ -110,6 +128,7 @@ export function townBandSums(
   const out = new Map<number, TownYearSum>();
   const towns = townsFor(entity, registry);
   if (towns.length === 0) return out;
+  const townName = (slug: string): string => registry.get(slug)?.name ?? slug;
 
   for (const year of publication.years) {
     const states = Object.fromEntries(
@@ -118,6 +137,7 @@ export function townBandSums(
     const ranges = Object.fromEntries(
       STATUTORY_BANDS.map((b) => [b, { low: 0, low_exclusive: false, high: 0 } as RangeState]),
     ) as Record<StatutoryBand, RangeState>;
+    const pairs: Partial<Record<StatutoryBand, BandPair[]>> = {};
 
     for (const town of towns) {
       const row = publication.towns[town]?.[year.school_year];
@@ -129,6 +149,12 @@ export function townBandSums(
         );
       }
       if (row.row === 'not_applicable') continue; // an exact 0
+      const paired = row.row === 'published' ? STATUTORY_BANDS.filter((b) => isPairMember(row.bands[b])) : [];
+      if (paired.length === 2) {
+        const [a, b] = paired as [StatutoryBand, StatutoryBand];
+        (pairs[a] ??= []).push({ town: townName(town), with: b });
+        (pairs[b] ??= []).push({ town: townName(town), with: a });
+      }
       for (const band of STATUTORY_BANDS) {
         ranges[band] = addToRange(ranges[band], row.bands[band]);
         states[band] =
@@ -151,7 +177,7 @@ export function townBandSums(
         bandRanges[band] = { low: round2(r.low), low_exclusive: r.low_exclusive, high: r.high === null ? null : round2(r.high) };
       }
     }
-    out.set(year.fiscal_year, { preliminary: year.preliminary, values, withheld, ranges: bandRanges });
+    out.set(year.fiscal_year, { preliminary: year.preliminary, values, withheld, ranges: bandRanges, pairs });
   }
   return out;
 }
@@ -198,8 +224,10 @@ export function buildPrefillAdm(
       });
       const row = { ...resolved } as PrefillAdm;
       for (const band of STATUTORY_BANDS) {
+        if (row[band].source !== 'withheld') continue;
         const range = sum?.ranges[band];
-        if (row[band].source === 'withheld' && range) row[band] = { ...row[band], range };
+        const bandPairs = sum?.pairs[band];
+        row[band] = { ...row[band], ...(range ? { range } : {}), ...(bandPairs ? { pairs: bandPairs } : {}) };
       }
       (out[entity] ??= {})[String(fy)] = row;
     }

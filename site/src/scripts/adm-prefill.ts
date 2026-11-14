@@ -8,6 +8,9 @@
  *   A withheld band is left blank. Under it, the range the published bounds
  *   allow, worked out at build time from each hidden town cell's own bound
  *   (the same range the SU page shows); the field is never filled from it.
+ *   Where a town's cell is one of a hidden pair, a further line says which
+ *   band it is paired with and that at least one of the two has 1 to 10
+ *   students.
  * - Keeping the two year controls in step. The prefill fills its slots from
  *   the budget-year picker, but the slot labels and the engine's ADM years come
  *   from the parameter-mode selector. So a picked year moves the selector to
@@ -18,6 +21,8 @@
  */
 
 /** What the published bounds allow for a withheld band, in ADM. */
+import { titleCase } from '../lib/display.ts';
+
 export interface PrefillRange {
   readonly low: number;
   /** The true count is above `low`, not equal to it (a hidden cell holds at least one pupil). */
@@ -31,7 +36,21 @@ export interface PrefillBand {
   readonly source: 'district' | 'aoe' | 'withheld' | 'unknown';
   readonly preliminary?: true;
   readonly range?: PrefillRange;
+  readonly pairs?: ReadonlyArray<PrefillPair>;
 }
+
+/** A town whose cell in this band is hidden together with one other band. */
+export interface PrefillPair {
+  readonly town: string;
+  readonly with: string;
+}
+
+const BAND_NAME: Readonly<Record<string, string>> = {
+  prekindergarten: 'prekindergarten',
+  kindergarten_through_5: 'kindergarten through grade 5',
+  grades_6_through_8: 'grades 6 through 8',
+  grades_9_through_12: 'grades 9 through 12',
+};
 
 export type PrefillRow = Readonly<Record<string, PrefillBand>>;
 
@@ -40,6 +59,7 @@ export interface BandFill {
   readonly value: string;
   readonly note: string;
   readonly range: string | null;
+  readonly pair: string | null;
 }
 
 const adm = (n: number): string => n.toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -63,24 +83,45 @@ export const SOURCE_NOTE = {
 } as const;
 
 /**
+ * The pair line under a withheld field, one sentence per town, e.g. "In
+ * Ripton this band is hidden together with grades 6 through 8: at least one
+ * of the two has 1 to 10 students, and the other may be larger."
+ */
+export function pairText(pairs: ReadonlyArray<PrefillPair>): string {
+  return pairs
+    .map(
+      (p) =>
+        `In ${titleCase(p.town)} this band is hidden together with ${BAND_NAME[p.with] ?? p.with}: ` +
+        'at least one of the two has 1 to 10 students, and the other may be larger.',
+    )
+    .join(' ');
+}
+
+/**
  * A band's field text and note. A missing band (no row for the year) reads as
  * not available, the same as an explicit unknown, so a note never claims a
  * source for a value that is not there.
  */
 export function bandFill(band: PrefillBand | undefined): BandFill {
   if (band?.source === 'withheld') {
-    return { value: '', note: SOURCE_NOTE.withheld, range: band.range ? rangeText(band.range) : null };
+    return {
+      value: '',
+      note: SOURCE_NOTE.withheld,
+      range: band.range ? rangeText(band.range) : null,
+      pair: band.pairs?.length ? pairText(band.pairs) : null,
+    };
   }
-  if (!band || band.value === null) return { value: '', note: SOURCE_NOTE.unknown, range: null };
-  if (band.source === 'district') return { value: String(band.value), note: SOURCE_NOTE.district, range: null };
+  if (!band || band.value === null) return { value: '', note: SOURCE_NOTE.unknown, range: null, pair: null };
+  if (band.source === 'district') return { value: String(band.value), note: SOURCE_NOTE.district, range: null, pair: null };
   if (band.source === 'aoe') {
     return {
       value: String(band.value),
       note: band.preliminary ? SOURCE_NOTE.aoePreliminary : SOURCE_NOTE.aoe,
       range: null,
+      pair: null,
     };
   }
-  return { value: '', note: SOURCE_NOTE.unknown, range: null };
+  return { value: '', note: SOURCE_NOTE.unknown, range: null, pair: null };
 }
 
 export type PrefillPlan =

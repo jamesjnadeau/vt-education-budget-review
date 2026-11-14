@@ -45,7 +45,7 @@ import {
   type Unit,
 } from '@vt-budget/model';
 
-import { bandFill, planAdmPrefill, type PrefillRange } from './adm-prefill.ts';
+import { bandFill, planAdmPrefill, type PrefillPair, type PrefillRange } from './adm-prefill.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
@@ -67,6 +67,8 @@ export interface ResolvedAdmBand {
   preliminary?: true;
   /** On a withheld band: the range the published bounds allow. Never used as a value. */
   range?: PrefillRange;
+  /** On a withheld band: towns whose cell is one of a hidden pair. */
+  pairs?: readonly PrefillPair[];
 }
 
 export interface ResolvedAdmData {
@@ -831,6 +833,7 @@ export function initModelTool(
       const field = document.getElementById(id) as HTMLInputElement | null;
       const note = document.querySelector<HTMLElement>(`[data-adm-source="${id}"]`);
       const rangeLine = document.querySelector<HTMLElement>(`[data-adm-range="${id}"]`);
+      const pairLine = document.querySelector<HTMLElement>(`[data-adm-pair="${id}"]`);
       if (!field) continue;
       // A field the user has actually typed into is never touched -- neither
       // its value nor its source note -- so a prefill can never overwrite, or
@@ -842,6 +845,10 @@ export function initModelTool(
       if (rangeLine) {
         rangeLine.textContent = fill.range ?? '';
         rangeLine.hidden = fill.range === null;
+      }
+      if (pairLine) {
+        pairLine.textContent = fill.pair ?? '';
+        pairLine.hidden = fill.pair === null;
       }
     }
   };
