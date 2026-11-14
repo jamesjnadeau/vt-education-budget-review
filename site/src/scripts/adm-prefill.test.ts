@@ -6,6 +6,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  act84Fill,
   bandFill,
   pairText,
   pickerGroups,
@@ -153,5 +154,35 @@ describe('pickerGroups', () => {
       { value: 'town/alburgh', text: 'Alburgh' },
       { value: 'town/stowe', text: 'Stowe' },
     ]);
+  });
+});
+
+describe('act84Fill', () => {
+  it('fills a listed district with its figure', () => {
+    expect(act84Fill({ value: 0.09, listed_as: 'Harwood USD' }, true, 2026)).toEqual({
+      value: '0.09',
+      note: 'from the state AOE worksheet (listed as Harwood USD)',
+    });
+  });
+
+  it('fills an unlisted district with 0', () => {
+    expect(act84Fill({ value: 0, listed_as: null }, true, 2026)).toEqual({
+      value: '0',
+      note: 'not on the state AOE worksheet, so 0',
+    });
+  });
+
+  it('clears the field for a pick with no figure', () => {
+    expect(act84Fill(undefined, true, 2026)).toEqual({
+      value: '',
+      note: 'no AOE figure for this pick; field left blank',
+    });
+  });
+
+  it('clears the field when the year has no transition', () => {
+    expect(act84Fill({ value: 0.09, listed_as: 'Harwood USD' }, false, 2030)).toEqual({
+      value: '',
+      note: 'does not apply in FY2030',
+    });
   });
 });

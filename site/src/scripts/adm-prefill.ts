@@ -20,6 +20,11 @@
  * - The education spending field, from AOE's EdSpend figure for the district
  *   and year (Data Request #853). A year with no figure leaves the field blank
  *   and says so, so a previous pick's spending never stays behind.
+ * - The FY2025 Act 84 decrease, from AOE's Act 84 worksheet
+ *   (docs/superpowers/specs/2026-11-14-act84-decrease-prefill-design.md): the
+ *   worksheet's figure for a listed district, 0 for an unlisted one, and a
+ *   blank field for a pick with no figure (a supervisory union) or a year whose
+ *   parameter set has no transition.
  * - Which districts the picker offers, grouped by kind.
  *
  * Pure by design: the island reads the DOM, calls these, and writes the DOM back.
@@ -149,6 +154,24 @@ export function spendingFill(spending: PrefillSpending | undefined): { value: st
     value: String(spending.value),
     note: `from the state AOE figure (${pupils} ${PUPIL_MEASURE_NAME[spending.pupil_measure] ?? spending.pupil_measure})`,
   };
+}
+
+/** One district's FY2025 Act 84 decrease; `listed_as` is null when the worksheet does not list it. */
+export interface Act84Entry {
+  readonly value: number;
+  readonly listed_as: string | null;
+}
+
+/** The Act 84 decrease field's text and the note under it. */
+export function act84Fill(
+  entry: Act84Entry | undefined,
+  transitionApplies: boolean,
+  fy: number,
+): { value: string; note: string } {
+  if (!transitionApplies) return { value: '', note: `does not apply in FY${fy}` };
+  if (!entry) return { value: '', note: 'no AOE figure for this pick; field left blank' };
+  if (entry.listed_as === null) return { value: String(entry.value), note: 'not on the state AOE worksheet, so 0' };
+  return { value: String(entry.value), note: `from the state AOE worksheet (listed as ${entry.listed_as})` };
 }
 
 export interface EntityLabel {

@@ -46,10 +46,12 @@ import {
 } from '@vt-budget/model';
 
 import {
+  act84Fill,
   bandFill,
   pickerGroups,
   planAdmPrefill,
   spendingFill,
+  type Act84Entry,
   type EntityLabel,
   type PrefillPair,
   type PrefillRange,
@@ -85,6 +87,8 @@ export interface ResolvedAdmData {
   entities: Record<string, Record<string, Record<string, ResolvedAdmBand>>>;
   /** AOE EdSpend education spending, per district and fiscal year. */
   spending?: Record<string, Record<string, PrefillSpending>>;
+  /** The FY2025 Act 84 decrease from AOE's worksheet, per district. */
+  act84?: Record<string, Act84Entry>;
   /** Registry name and type for every entity the picker lists. */
   labels?: Record<string, EntityLabel>;
 }
@@ -833,7 +837,7 @@ export function initModelTool(
   };
   const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
   const userEditedAdm = new Set<string>();
-  for (const id of [...admFieldIds, 'spending']) {
+  for (const id of [...admFieldIds, 'spending', 'act84-decrease']) {
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
   const spendingByEntity = resolvedAdmData.spending ?? {};
@@ -845,6 +849,22 @@ export function initModelTool(
     const note = document.querySelector<HTMLElement>('[data-spending-source]');
     if (!field || userEditedAdm.has('spending')) return;
     const fill = spendingFill(spending);
+    field.value = fill.value;
+    if (note) note.textContent = fill.note;
+  };
+
+  // The Act 84 decrease, like the spending field: a value the user typed is
+  // kept. The field is cleared for a year whose parameter set has no
+  // transition, so a figure never stays behind where it does not apply.
+  const fillAct84 = (entry: Act84Entry | undefined, mode: string): void => {
+    const field = document.getElementById('act84-decrease') as HTMLInputElement | null;
+    const note = document.querySelector<HTMLElement>('[data-act84-source]');
+    if (!field || userEditedAdm.has('act84-decrease')) return;
+    const transitionApplies =
+      sets
+        .find((s) => s.fiscal_year === Number(mode))
+        ?.parameters.some((p) => p.key === 'tax.transition.phase_out_share') ?? false;
+    const fill = act84Fill(entry, transitionApplies, Number(mode));
     field.value = fill.value;
     if (note) note.textContent = fill.note;
   };
@@ -899,6 +919,7 @@ export function initModelTool(
     fillBandRow(plan.earlier, '1');
     fillBandRow(plan.later, '2');
     fillSpending(plan.spending);
+    fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
     recompute();
   };
 

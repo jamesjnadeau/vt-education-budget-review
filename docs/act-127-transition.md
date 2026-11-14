@@ -140,7 +140,7 @@ Windsor Central UUSD) do not join one-to-one and are not counted. The remaining 
 | Norwich | 2.4038 | 1.9183 | Decrease 0.19 accounts for 0.21. The rest is consistent with a bond or other exclusion from excess spending; § 5401(12) exclusions are not entered. |
 | Hartford | 1.8781 | 1.7994 | Decrease 0.06 accounts for 0.066 of 0.0787. Same likely cause as Norwich. |
 | West River Modified Union Education District B | 1.8605 | 1.7207 | Not on the worksheet; the district postdates it. Possibly a Sec. 3(g) merger successor. |
-| Mountain Views School District | 2.1845 | 2.0936 | Not on the worksheet; a successor district. Possibly Sec. 3(g). |
+| Mountain Views School District | 2.1845 | 2.0936 | The worksheet lists it as Windsor Central UUSD (AOE code U076), with 0.01. That accounts for about 0.011 of the 0.0909 gap; the rest is unexplained. Possibly Sec. 3(g). |
 | North Country Sr UHSD | 1.4859 | 1.4251 | Not on the worksheet under this name. Possibly Sec. 3(g). |
 | Canaan | 2.0938 | 2.0638 | Not on the worksheet; 0.03 lower. Unexplained. |
 | Orleans Southwest UESD | 1.8128 | 1.8195 | Published **above** the chain. Not a transition effect. |
