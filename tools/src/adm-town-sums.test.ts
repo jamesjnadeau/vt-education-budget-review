@@ -198,6 +198,12 @@ describe('buildPrefillAdm', () => {
     expect(out['ud/one']!['2027']!.kindergarten_through_5).toEqual({ value: 30, source: 'aoe', preliminary: true });
   });
 
+  it('gives an extra entity with no budget record rows from the town sums alone', () => {
+    const out = buildPrefillAdm([], pub(towns, true), registry, ['ud/one']);
+    expect(Object.keys(out['ud/one']!)).toEqual(['2025', '2027']);
+    expect(out['ud/one']!['2025']!.kindergarten_through_5).toEqual({ value: 20, source: 'aoe' });
+  });
+
   it('marks a withheld band withheld when the district is silent', () => {
     const out = buildPrefillAdm([{ entity: 'ud/one', fiscal_year: 2027 }], pub(towns), registry);
     expect(out['ud/one']!['2027']!.prekindergarten).toEqual({

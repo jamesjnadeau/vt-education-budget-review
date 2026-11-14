@@ -5,7 +5,16 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { bandFill, pairText, planAdmPrefill, rangeText, SOURCE_NOTE, type PrefillRow } from './adm-prefill.ts';
+import {
+  bandFill,
+  pairText,
+  pickerGroups,
+  planAdmPrefill,
+  rangeText,
+  SOURCE_NOTE,
+  spendingFill,
+  type PrefillRow,
+} from './adm-prefill.ts';
 
 describe('bandFill', () => {
   it('fills a district figure', () => {
@@ -81,6 +90,18 @@ describe('planAdmPrefill', () => {
       mode: '2026',
       earlier: rows['2025'],
       later: rows['2026'],
+      spending: undefined,
+    });
+  });
+
+  it('fills spending for the picked year, even for a district with no grade-count rows', () => {
+    const spending = { '2026': { value: 3_037_800, pupils: 252.42, pupil_measure: 'long_term_weighted_adm' } };
+    expect(planAdmPrefill('town/brighton', '2026', undefined, [2027, 2026], spending)).toEqual({
+      kind: 'fill',
+      mode: '2026',
+      earlier: undefined,
+      later: undefined,
+      spending: spending['2026'],
     });
   });
 
@@ -98,6 +119,39 @@ describe('planAdmPrefill', () => {
 
   it('leaves the earlier slot undefined when the year before has no row', () => {
     const plan = planAdmPrefill('su/addison-central', '2025', rows, [2025]);
-    expect(plan).toEqual({ kind: 'fill', mode: '2025', earlier: undefined, later: rows['2025'] });
+    expect(plan).toEqual({ kind: 'fill', mode: '2025', earlier: undefined, later: rows['2025'], spending: undefined });
+  });
+});
+
+describe('spendingFill', () => {
+  it('fills the AOE figure and names the pupil measure', () => {
+    expect(spendingFill({ value: 41_372_610, pupils: 2743.2, pupil_measure: 'long_term_weighted_adm' })).toEqual({
+      value: '41372610',
+      note: 'from the state AOE figure (2,743.2 long-term weighted pupils)',
+    });
+  });
+
+  it('blanks the field and says so when the year has no figure', () => {
+    expect(spendingFill(undefined)).toEqual({ value: '', note: 'not available from AOE for this year; field left blank' });
+  });
+});
+
+describe('pickerGroups', () => {
+  it('groups by kind in a fixed order, with title-cased names sorted within each', () => {
+    const groups = pickerGroups(['town/stowe', 'su/addison-central', 'ud/b', 'town/alburgh'], {
+      'town/stowe': { name: 'STOWE', type: 'town' },
+      'town/alburgh': { name: 'ALBURGH', type: 'town' },
+      'ud/b': { name: 'Mt. Abraham Unified School District #61', type: 'ud' },
+      'su/addison-central': { name: 'Addison Central Supervisory District', type: 'su' },
+    });
+    expect(groups.map((g) => g.label)).toEqual([
+      'Union school districts',
+      'Town school districts',
+      'Supervisory unions with a budget on file',
+    ]);
+    expect(groups[1]!.options).toEqual([
+      { value: 'town/alburgh', text: 'Alburgh' },
+      { value: 'town/stowe', text: 'Stowe' },
+    ]);
   });
 });

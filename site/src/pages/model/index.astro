@@ -45,7 +45,8 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       <legend>Load a district (optional)</legend>
       <p class="field-note">
         Prefills the grade counts below from a district's stated budget, filling any gap with the
-        state's AOE count. Each field is labelled with its source, and you can edit any of them.
+        state's AOE count, and the education spending from the state's AOE figure. Each field is
+        labelled with its source, and you can edit any of them.
         Picking a year also switches “Which numbers to use” above to that year.
       </p>
       <div class="field">
@@ -212,6 +213,7 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       <div class="field">
         <label for="spending">Education spending ($)</label>
         <input id="spending" type="number" min="0" step="1000" value="3370000" />
+        <small class="adm-source" data-spending-source></small>
       </div>
       <div class="field">
         <label for="cla">Common level of appraisal (how close town values are to real sale prices)</label>

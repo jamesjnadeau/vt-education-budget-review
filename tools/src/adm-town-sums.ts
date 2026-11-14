@@ -190,8 +190,9 @@ export interface PrefillBudget {
 
 /**
  * The model form's prefill rows: district figures first, then the exact town
- * sums, per entity and fiscal year. Entities are those with a budget record;
- * years are the union of the entity's budget years and the publication's
+ * sums, per entity and fiscal year. Entities are those with a budget record,
+ * plus `alsoEntities` (the districts AOE's EdSpend records list), which get
+ * town sums only; years are the union of the entity's budget years and the publication's
  * years, so the earlier slot of a two-year average has a row even without a
  * budget for it.
  *
@@ -202,8 +203,10 @@ export function buildPrefillAdm(
   budgets: ReadonlyArray<PrefillBudget>,
   publication: SubgroupPublication | null,
   registry: ReadonlyMap<string, RegistryEntity>,
+  alsoEntities: ReadonlyArray<string> = [],
 ): Record<string, Record<string, PrefillAdm>> {
   const byEntity = new Map<string, Map<number, BandValues | null>>();
+  for (const entity of alsoEntities) byEntity.set(entity, new Map());
   for (const b of budgets) {
     const years = byEntity.get(b.entity) ?? new Map<number, BandValues | null>();
     years.set(b.fiscal_year, b.adm ?? null);

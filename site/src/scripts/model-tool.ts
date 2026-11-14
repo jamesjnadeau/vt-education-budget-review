@@ -45,7 +45,16 @@ import {
   type Unit,
 } from '@vt-budget/model';
 
-import { bandFill, planAdmPrefill, type PrefillPair, type PrefillRange } from './adm-prefill.ts';
+import {
+  bandFill,
+  pickerGroups,
+  planAdmPrefill,
+  spendingFill,
+  type EntityLabel,
+  type PrefillPair,
+  type PrefillRange,
+  type PrefillSpending,
+} from './adm-prefill.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
@@ -74,6 +83,10 @@ export interface ResolvedAdmBand {
 export interface ResolvedAdmData {
   generated?: string;
   entities: Record<string, Record<string, Record<string, ResolvedAdmBand>>>;
+  /** AOE EdSpend education spending, per district and fiscal year. */
+  spending?: Record<string, Record<string, PrefillSpending>>;
+  /** Registry name and type for every entity the picker lists. */
+  labels?: Record<string, EntityLabel>;
 }
 
 // The input key carrying the Secretary of Education's statewide average
@@ -820,9 +833,21 @@ export function initModelTool(
   };
   const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
   const userEditedAdm = new Set<string>();
-  for (const id of admFieldIds) {
+  for (const id of [...admFieldIds, 'spending']) {
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
+  const spendingByEntity = resolvedAdmData.spending ?? {};
+  const labels = resolvedAdmData.labels ?? {};
+
+  // The spending field, like the grade counts: a value the user typed is kept.
+  const fillSpending = (spending: PrefillSpending | undefined): void => {
+    const field = document.getElementById('spending') as HTMLInputElement | null;
+    const note = document.querySelector<HTMLElement>('[data-spending-source]');
+    if (!field || userEditedAdm.has('spending')) return;
+    const fill = spendingFill(spending);
+    field.value = fill.value;
+    if (note) note.textContent = fill.note;
+  };
 
   // A missing entity/year row (most often the earlier of the two ADM years)
   // reads as "not available", the same as an explicit unknown band; see
@@ -863,6 +888,7 @@ export function initModelTool(
       loadYear?.value ?? '',
       entities[entity],
       sets.map((s) => s.fiscal_year),
+      spendingByEntity[entity],
     );
     if (loadStatus) loadStatus.textContent = plan.kind === 'no-parameters' ? plan.message : '';
     if (plan.kind !== 'fill') return;
@@ -872,19 +898,27 @@ export function initModelTool(
     }
     fillBandRow(plan.earlier, '1');
     fillBandRow(plan.later, '2');
+    fillSpending(plan.spending);
     recompute();
   };
 
-  // Populate the entity options (sorted), and the year options for the chosen entity.
-  for (const slug of Object.keys(entities).sort()) {
-    const opt = document.createElement('option');
-    opt.value = slug; opt.textContent = slug;
-    loadEntity?.append(opt);
+  // Populate the entity options, grouped by kind, and the year options for
+  // the chosen entity: any year with grade counts or spending.
+  const slugs = [...new Set([...Object.keys(entities), ...Object.keys(spendingByEntity)])];
+  for (const group of pickerGroups(slugs, labels)) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = group.label;
+    for (const o of group.options) optgroup.append(new Option(o.text, o.value));
+    loadEntity?.append(optgroup);
   }
   loadEntity?.addEventListener('change', () => {
     if (!loadYear) return;
     loadYear.replaceChildren(new Option('— none —', ''));
-    for (const y of Object.keys(entities[loadEntity.value] ?? {}).sort()) loadYear.append(new Option(`FY${y}`, y));
+    const years = new Set([
+      ...Object.keys(entities[loadEntity.value] ?? {}),
+      ...Object.keys(spendingByEntity[loadEntity.value] ?? {}),
+    ]);
+    for (const y of [...years].sort()) loadYear.append(new Option(`FY${y}`, y));
     applyAdmPrefill();
   });
   loadYear?.addEventListener('change', applyAdmPrefill);
