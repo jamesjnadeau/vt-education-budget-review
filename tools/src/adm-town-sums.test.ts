@@ -69,12 +69,40 @@ describe('townBandSums', () => {
       preliminary: false,
       values: bands(1, 10.5, 5, 4),
       withheld: [],
+      ranges: {},
     });
   });
 
-  it('withholds a band when any contributing cell is withheld, with no value or bound', () => {
+  it('withholds a band when any contributing cell is withheld, with no value, and ranges it from the cell bound', () => {
     const y = townBandSums('ud/one', pub(towns, true), registry).get(2027);
-    expect(y).toEqual({ preliminary: true, values: bands(null, 30.25, 11, 7), withheld: ['prekindergarten'] });
+    expect(y).toEqual({
+      preliminary: true,
+      values: bands(null, 30.25, 11, 7),
+      withheld: ['prekindergarten'],
+      ranges: { prekindergarten: { low: 3, low_exclusive: false, high: 12 } },
+    });
+  });
+
+  it('opens the range above for a cell with no top, and gives no range for a cell with no bound at all', () => {
+    const pairMember = { status: 'suppressed' as const, low: 0, high: null, exclusive_low: true };
+    const complement = { status: 'suppressed' as const };
+    const t = {
+      'town/a': { ...towns['town/a'], SY26: published(bands(pairMember, complement, v(5), v(4))) },
+      'town/b': towns['town/b'],
+    };
+    const y = townBandSums('ud/one', pub(t), registry).get(2027);
+    expect(y?.ranges.prekindergarten).toEqual({ low: 2, low_exclusive: true, high: null });
+    expect(y?.ranges.kindergarten_through_5).toEqual({ low: 20.25, low_exclusive: false, high: null });
+  });
+
+  it('gives no range when another contributing cell was not published for the year', () => {
+    const t = {
+      'town/a': towns['town/a'],
+      'town/b': { ...towns['town/b'], SY26: published(bands({ status: 'not_published' }, v(1), v(1), v(1))) },
+    };
+    const y = townBandSums('ud/one', pub(t), registry).get(2027);
+    expect(y?.withheld).toEqual(['prekindergarten']);
+    expect(y?.ranges).toEqual({});
   });
 
   it('withholds every band of a below_reporting_floor row', () => {
@@ -144,7 +172,17 @@ describe('buildPrefillAdm', () => {
 
   it('marks a withheld band withheld when the district is silent', () => {
     const out = buildPrefillAdm([{ entity: 'ud/one', fiscal_year: 2027 }], pub(towns), registry);
-    expect(out['ud/one']!['2027']!.prekindergarten).toEqual({ value: null, source: 'withheld' });
+    expect(out['ud/one']!['2027']!.prekindergarten).toEqual({
+      value: null,
+      source: 'withheld',
+      range: { low: 3, low_exclusive: false, high: 12 },
+    });
+  });
+
+  it('drops the range when the district states the band', () => {
+    const adm = { prekindergarten: 9, kindergarten_through_5: null, grades_6_through_8: null, grades_9_through_12: null };
+    const out = buildPrefillAdm([{ entity: 'ud/one', fiscal_year: 2027, adm }], pub(towns), registry);
+    expect(out['ud/one']!['2027']!.prekindergarten).toEqual({ value: 9, source: 'district' });
   });
 
   it('keeps entities without a budget out', () => {

@@ -30,9 +30,10 @@ the towns' cells allow it.
 
 ## Non-goals
 
-- **No ranges in the form** (approach B). A band with a withheld town is not
-  turned into "at least N" or "N to M". The engine could carry a range only
-  with finite bounds, and pair members have no top.
+- **No range as a value** (approach B). A band with a withheld town is never
+  filled from a range, and the engine gets no range input. The engine could
+  carry a range only with finite bounds, and pair members have no top. (A
+  range is shown as text under the blank field; see "What the form shows".)
 - **No SU-grain file.** `ADM_Sums_by_SU_Across_Years.csv` (delivered
   2026-09-04, never imported) is not used. Checked against summed town
   cells:
@@ -49,9 +50,11 @@ the towns' cells allow it.
 
 ## Constraints
 
-- **Privacy:** a withheld cell's bound is never used to fill, narrow or
-  suggest a value. A sum is published only when it is exact, and an exact sum
-  of published cells reveals nothing new.
+- **Privacy:** a withheld cell's bound is never used to fill or narrow a
+  value. A field is filled only from an exact sum, and an exact sum of
+  published cells reveals nothing new. The range line under a withheld field
+  adds each hidden cell's own published bound, exactly as the SU page's
+  `sumCells` does, and is never narrowed from a total.
 - **Never present a partial sum as a total.** `sumBands` in
   `tools/src/adm-lookup.ts` skips nulls, so it produces a partial sum. It must
   not be reused for this.
@@ -102,7 +105,11 @@ missing row means the registry and the publication disagree.
   decimal places like the rest of the ADM layer.
 - Any cell is withheld (`primary`, `pair_member`, `reporting_floor`, or a
   whole row `below_reporting_floor`): the band is **withheld**. It carries no
-  value, no bound and no count of hidden towns.
+  value and no count of hidden towns. It does carry a `range` (added
+  2026-11-14 at the user's request): published cells add their value, each
+  hidden cell adds its own published bound, a cell with no top (a pair
+  member) or no bound leaves the range open above, and a `not_published`
+  cell drops the range.
 - No contributing towns at all: no AOE figure for that band (`unknown`, as
   today).
 
@@ -157,6 +164,17 @@ Each field's source note:
 | `aoe`, preliminary | from the state AOE count (preliminary) |
 | `withheld` | hidden to protect student privacy; field left blank |
 | `unknown` | not available (unchanged) |
+
+Under a withheld field, a second line gives the range in ADM (added
+2026-11-14 at the user's request):
+
+- "Estimated range: more than 12, up to 32 ADM" when every hidden cell has a
+  top;
+- "Estimated range: more than 12 ADM (no upper limit is published for a
+  hidden town)" when one does not, which is the case for every hidden cell in
+  Addison Central (Ripton and Weybridge are pair members).
+
+The field stays blank either way.
 
 A field the user has typed in is never touched (unchanged).
 

@@ -6,17 +6,21 @@
  * own budget gives no band figure. See
  * docs/superpowers/specs/2026-10-22-aoe-town-sum-prefill-design.md.
  *
- * Only exact sums are produced. A band is a number only when every
+ * Only exact sums fill a field. A band is a number only when every
  * contributing town cell is published, or the town has no resident students
- * (an exact 0). If any contributing cell is withheld, the band is reported as
- * withheld and carries no value, no bound and no count of hidden towns: a
- * withheld cell's bound is never used to fill, narrow or suggest a value.
+ * (an exact 0). If any contributing cell is withheld, the band is withheld and
+ * the field stays blank. Beside it the form shows the range the published
+ * bounds allow, the same range the SU page already shows
+ * (site/src/lib/residents.ts `sumCells`): each hidden cell adds only the bound
+ * AOE's rules give it on its own, and a cell with no top leaves the range open
+ * above. Nothing here solves a bound or narrows one from a total.
  * (`sumBands` in adm-lookup.ts skips nulls and so yields partial sums; it must
  * not be used here.)
  */
 
 import {
   resolveAdm,
+  type ResolvedBand,
   STATUTORY_BANDS,
   type BandValues,
   type ResolvedAdm,
@@ -26,13 +30,31 @@ import {
 import type { PublishedCell, SubgroupPublication } from './aoe/adm-subgroups/publish.ts';
 import type { RegistryEntity } from './registry/types.ts';
 
+/**
+ * What the published bounds allow for a withheld band, in ADM. `low` is
+ * exclusive when any hidden cell's floor is (a hidden cell holds at least one
+ * pupil, which can be under one ADM). `high` is null when a hidden cell has no
+ * top (a pair member) or no bound at all.
+ */
+export interface BandRange {
+  readonly low: number;
+  readonly low_exclusive: boolean;
+  readonly high: number | null;
+}
+
 export interface TownYearSum {
   readonly preliminary: boolean;
   /** Exact sums. null where the band is withheld or not usable. */
   readonly values: BandValues;
   /** Bands with a withheld contributing cell, in statutory order. */
   readonly withheld: StatutoryBand[];
+  /** The range for each withheld band, unless a contributing cell is not published. */
+  readonly ranges: Partial<Record<StatutoryBand, BandRange>>;
 }
+
+/** A prefill band: the resolved band, plus its range when it is withheld. */
+export type PrefillBand = ResolvedBand & { readonly range?: BandRange };
+export type PrefillAdm = Record<StatutoryBand, PrefillBand>;
 
 /**
  * The towns whose residents make up an entity: an SU's towns (excluding
@@ -54,6 +76,22 @@ export function townsFor(entity: string, registry: ReadonlyMap<string, RegistryE
 }
 
 type BandState = { kind: 'exact'; value: number } | { kind: 'withheld' } | { kind: 'not_usable' };
+
+type RangeState = { low: number; low_exclusive: boolean; high: number | null } | 'not_usable';
+
+function addToRange(r: RangeState, cell: PublishedCell): RangeState {
+  if (r === 'not_usable') return r;
+  if ('value' in cell) return { ...r, low: r.low + cell.value, high: r.high === null ? null : r.high + cell.value };
+  if (cell.status === 'not_published') return 'not_usable';
+  if (cell.low === undefined) return { ...r, high: null }; // no bound at all
+  return {
+    low: r.low + cell.low,
+    low_exclusive: r.low_exclusive || cell.exclusive_low === true,
+    high: r.high === null || cell.high === null || cell.high === undefined ? null : r.high + cell.high,
+  };
+}
+
+const round2 = (n: number): number => Number(n.toFixed(2));
 
 function addCell(state: BandState, cell: PublishedCell): BandState {
   if (state.kind === 'withheld') return state;
@@ -77,6 +115,9 @@ export function townBandSums(
     const states = Object.fromEntries(
       STATUTORY_BANDS.map((b) => [b, { kind: 'exact', value: 0 } as BandState]),
     ) as Record<StatutoryBand, BandState>;
+    const ranges = Object.fromEntries(
+      STATUTORY_BANDS.map((b) => [b, { low: 0, low_exclusive: false, high: 0 } as RangeState]),
+    ) as Record<StatutoryBand, RangeState>;
 
     for (const town of towns) {
       const row = publication.towns[town]?.[year.school_year];
@@ -89,6 +130,7 @@ export function townBandSums(
       }
       if (row.row === 'not_applicable') continue; // an exact 0
       for (const band of STATUTORY_BANDS) {
+        ranges[band] = addToRange(ranges[band], row.bands[band]);
         states[band] =
           row.row === 'below_reporting_floor'
             ? { kind: 'withheld' }
@@ -98,12 +140,18 @@ export function townBandSums(
 
     const values = {} as Record<StatutoryBand, number | null>;
     const withheld: StatutoryBand[] = [];
+    const bandRanges: Partial<Record<StatutoryBand, BandRange>> = {};
     for (const band of STATUTORY_BANDS) {
       const s = states[band];
-      values[band] = s.kind === 'exact' ? Number(s.value.toFixed(2)) : null;
-      if (s.kind === 'withheld') withheld.push(band);
+      values[band] = s.kind === 'exact' ? round2(s.value) : null;
+      if (s.kind !== 'withheld') continue;
+      withheld.push(band);
+      const r = ranges[band];
+      if (r !== 'not_usable') {
+        bandRanges[band] = { low: round2(r.low), low_exclusive: r.low_exclusive, high: r.high === null ? null : round2(r.high) };
+      }
     }
-    out.set(year.fiscal_year, { preliminary: year.preliminary, values, withheld });
+    out.set(year.fiscal_year, { preliminary: year.preliminary, values, withheld, ranges: bandRanges });
   }
   return out;
 }
@@ -128,7 +176,7 @@ export function buildPrefillAdm(
   budgets: ReadonlyArray<PrefillBudget>,
   publication: SubgroupPublication | null,
   registry: ReadonlyMap<string, RegistryEntity>,
-): Record<string, Record<string, ResolvedAdm>> {
+): Record<string, Record<string, PrefillAdm>> {
   const byEntity = new Map<string, Map<number, BandValues | null>>();
   for (const b of budgets) {
     const years = byEntity.get(b.entity) ?? new Map<number, BandValues | null>();
@@ -136,7 +184,7 @@ export function buildPrefillAdm(
     byEntity.set(b.entity, years);
   }
 
-  const out: Record<string, Record<string, ResolvedAdm>> = {};
+  const out: Record<string, Record<string, PrefillAdm>> = {};
   for (const [entity, districtByYear] of [...byEntity].sort(([a], [b]) => a.localeCompare(b))) {
     const sums = publication ? townBandSums(entity, publication, registry) : new Map<number, TownYearSum>();
     const years = [...new Set([...districtByYear.keys(), ...sums.keys()])].sort((a, b) => a - b);
@@ -144,10 +192,16 @@ export function buildPrefillAdm(
       const district = districtByYear.get(fy) ?? null;
       const sum = sums.get(fy);
       if (!district && !sum) continue;
-      (out[entity] ??= {})[String(fy)] = resolveAdm(district, sum?.values ?? null, {
+      const resolved: ResolvedAdm = resolveAdm(district, sum?.values ?? null, {
         withheld: sum?.withheld ?? [],
         preliminary: sum?.preliminary ?? false,
       });
+      const row = { ...resolved } as PrefillAdm;
+      for (const band of STATUTORY_BANDS) {
+        const range = sum?.ranges[band];
+        if (row[band].source === 'withheld' && range) row[band] = { ...row[band], range };
+      }
+      (out[entity] ??= {})[String(fy)] = row;
     }
   }
   return out;

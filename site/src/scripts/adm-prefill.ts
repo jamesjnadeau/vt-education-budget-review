@@ -5,7 +5,9 @@
  *
  * - Each band's source note: district, the state AOE count (marked preliminary
  *   for a preliminary year), withheld for student privacy, or not available.
- *   A withheld band is left blank and carries no hint of a value.
+ *   A withheld band is left blank. Under it, the range the published bounds
+ *   allow, worked out at build time from each hidden town cell's own bound
+ *   (the same range the SU page shows); the field is never filled from it.
  * - Keeping the two year controls in step. The prefill fills its slots from
  *   the budget-year picker, but the slot labels and the engine's ADM years come
  *   from the parameter-mode selector. So a picked year moves the selector to
@@ -15,18 +17,41 @@
  * Pure by design: the island reads the DOM, calls these, and writes the DOM back.
  */
 
+/** What the published bounds allow for a withheld band, in ADM. */
+export interface PrefillRange {
+  readonly low: number;
+  /** The true count is above `low`, not equal to it (a hidden cell holds at least one pupil). */
+  readonly low_exclusive: boolean;
+  /** null when a hidden town's cell has no published top. */
+  readonly high: number | null;
+}
+
 export interface PrefillBand {
   readonly value: number | null;
   readonly source: 'district' | 'aoe' | 'withheld' | 'unknown';
   readonly preliminary?: true;
+  readonly range?: PrefillRange;
 }
 
 export type PrefillRow = Readonly<Record<string, PrefillBand>>;
 
-/** What one field becomes: its text, and the note shown under it. */
+/** What one field becomes: its text, the note under it, and a range line for a withheld band. */
 export interface BandFill {
   readonly value: string;
   readonly note: string;
+  readonly range: string | null;
+}
+
+const adm = (n: number): string => n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+/**
+ * The range line under a withheld field, e.g. "Estimated range: more than 12,
+ * up to 32 ADM". With no published top it says so instead of giving an upper end.
+ */
+export function rangeText(range: PrefillRange): string {
+  const from = `${range.low_exclusive ? 'more than' : 'at least'} ${adm(range.low)}`;
+  if (range.high === null) return `Estimated range: ${from} ADM (no upper limit is published for a hidden town)`;
+  return `Estimated range: ${from}, up to ${adm(range.high)} ADM`;
 }
 
 export const SOURCE_NOTE = {
@@ -43,16 +68,19 @@ export const SOURCE_NOTE = {
  * source for a value that is not there.
  */
 export function bandFill(band: PrefillBand | undefined): BandFill {
-  if (band?.source === 'withheld') return { value: '', note: SOURCE_NOTE.withheld };
-  if (!band || band.value === null) return { value: '', note: SOURCE_NOTE.unknown };
-  if (band.source === 'district') return { value: String(band.value), note: SOURCE_NOTE.district };
+  if (band?.source === 'withheld') {
+    return { value: '', note: SOURCE_NOTE.withheld, range: band.range ? rangeText(band.range) : null };
+  }
+  if (!band || band.value === null) return { value: '', note: SOURCE_NOTE.unknown, range: null };
+  if (band.source === 'district') return { value: String(band.value), note: SOURCE_NOTE.district, range: null };
   if (band.source === 'aoe') {
     return {
       value: String(band.value),
       note: band.preliminary ? SOURCE_NOTE.aoePreliminary : SOURCE_NOTE.aoe,
+      range: null,
     };
   }
-  return { value: '', note: SOURCE_NOTE.unknown };
+  return { value: '', note: SOURCE_NOTE.unknown, range: null };
 }
 
 export type PrefillPlan =

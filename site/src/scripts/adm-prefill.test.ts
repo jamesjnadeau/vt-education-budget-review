@@ -5,18 +5,19 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { bandFill, planAdmPrefill, SOURCE_NOTE, type PrefillRow } from './adm-prefill.ts';
+import { bandFill, planAdmPrefill, rangeText, SOURCE_NOTE, type PrefillRow } from './adm-prefill.ts';
 
 describe('bandFill', () => {
   it('fills a district figure', () => {
-    expect(bandFill({ value: 120, source: 'district' })).toEqual({ value: '120', note: SOURCE_NOTE.district });
+    expect(bandFill({ value: 120, source: 'district' })).toEqual({ value: '120', note: SOURCE_NOTE.district, range: null });
   });
 
   it('fills a state AOE figure, marking a preliminary year', () => {
-    expect(bandFill({ value: 708, source: 'aoe' })).toEqual({ value: '708', note: SOURCE_NOTE.aoe });
+    expect(bandFill({ value: 708, source: 'aoe' })).toEqual({ value: '708', note: SOURCE_NOTE.aoe, range: null });
     expect(bandFill({ value: 634.66, source: 'aoe', preliminary: true })).toEqual({
       value: '634.66',
       note: 'from the state AOE count (preliminary)',
+      range: null,
     });
   });
 
@@ -24,12 +25,28 @@ describe('bandFill', () => {
     expect(bandFill({ value: null, source: 'withheld' })).toEqual({
       value: '',
       note: 'hidden to protect student privacy; field left blank',
+      range: null,
     });
   });
 
+  it('adds a range line under a withheld band that carries one, and still leaves it blank', () => {
+    const fill = bandFill({ value: null, source: 'withheld', range: { low: 12.5, low_exclusive: true, high: 32.5 } });
+    expect(fill.value).toBe('');
+    expect(fill.range).toBe('Estimated range: more than 12.5, up to 32.5 ADM');
+  });
+
   it('reads an unknown or missing band as not available', () => {
-    expect(bandFill({ value: null, source: 'unknown' })).toEqual({ value: '', note: 'not available' });
-    expect(bandFill(undefined)).toEqual({ value: '', note: 'not available' });
+    expect(bandFill({ value: null, source: 'unknown' })).toEqual({ value: '', note: 'not available', range: null });
+    expect(bandFill(undefined)).toEqual({ value: '', note: 'not available', range: null });
+  });
+});
+
+describe('rangeText', () => {
+  it('says "at least" for an inclusive floor and names a missing top', () => {
+    expect(rangeText({ low: 4, low_exclusive: false, high: 14 })).toBe('Estimated range: at least 4, up to 14 ADM');
+    expect(rangeText({ low: 1203.6, low_exclusive: true, high: null })).toBe(
+      'Estimated range: more than 1,203.6 ADM (no upper limit is published for a hidden town)',
+    );
   });
 });
 
