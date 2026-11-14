@@ -264,9 +264,10 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
         <div class="field">
           <label for="act84-decrease">The district's fiscal year 2025 Act 84 rate decrease ($ per $100)</label>
           <input id="act84-decrease" type="number" min="0" step="0.01" value="" />
+          <small class="adm-source" data-act84-source></small>
           <p class="field-help">
             From the Agency of Education's Act 84 tax rate discount worksheet (13 cents is 0.13).
-            Enter 0 if the district is not listed there. The model applies the year's phased-out
+            Loading a district above fills this in. Enter 0 if the district is not listed there. The model applies the year's phased-out
             share, divided by the statewide adjustment, and never takes the rate below $1.00.
           </p>
         </div>

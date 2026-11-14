@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:act84:1.0",
+  "title": "AOE Act 84 transition decrease, FY2025",
+  "description": "A transcription of the FY2025 column of AOE's 2024-02-08 Act 84 tax rate discount worksheet: the per-district decrease to the homestead tax rate that Act 84 Sec. 3 (as amended by Act 183) phases out. Only the FY2025 column is read. A district the worksheet does not list takes unlisted_decrease. Each row is joined to the registry by the district's name in the FY2024 EdSpend record named in names_from.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "source_text",
+    "fiscal_year",
+    "names_from",
+    "unlisted_decrease",
+    "total",
+    "districts",
+    "extracted_by",
+    "extracted_date"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "source": {
+      "type": "string",
+      "pattern": "^intake/aoe-guidance/[^/]+/[^/]+\\.pdf$",
+      "description": "The hashed PDF the figures come from."
+    },
+    "source_text": {
+      "type": "string",
+      "pattern": "^intake/aoe-guidance/[^/]+/[^/]+\\.txt$",
+      "description": "The pdftotext -layout output beside the PDF, which the import reads."
+    },
+    "fiscal_year": { "const": 2025 },
+    "names_from": {
+      "type": "string",
+      "pattern": "^warehouse/aoe-edspend/fy[0-9]{4}\\.yaml$",
+      "description": "The EdSpend record whose district names the rows were joined by."
+    },
+    "unlisted_decrease": {
+      "const": 0,
+      "description": "The decrease for a district the worksheet does not list."
+    },
+    "total": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pre_act127_ltw_adm", "source_line"],
+      "properties": {
+        "pre_act127_ltw_adm": { "type": "number", "minimum": 0 },
+        "source_line": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "districts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity",
+          "aoe_org_id",
+          "name_as_published",
+          "su",
+          "county",
+          "pre_act127_ltw_adm",
+          "fy2025_decrease",
+          "source_line"
+        ],
+        "properties": {
+          "entity": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+          "aoe_org_id": { "type": "string", "pattern": "^[TU][0-9]{3}[A-Z]?$" },
+          "name_as_published": { "type": "string", "minLength": 1 },
+          "su": { "type": "string", "pattern": "^[0-9]{2}$" },
+          "county": { "type": "string", "minLength": 1 },
+          "pre_act127_ltw_adm": { "type": "number", "minimum": 0 },
+          "fy2025_decrease": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Dollars off the homestead tax rate per $100 of equalized value, FY2025."
+          },
+          "source_line": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "extracted_by": { "type": "string", "minLength": 1 },
+    "extracted_date": { "type": "string", "format": "date" }
+  }
+}
