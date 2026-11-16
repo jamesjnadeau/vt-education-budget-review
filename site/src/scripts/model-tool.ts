@@ -37,6 +37,7 @@ import {
   toSteps,
   townRate,
   type Blocker,
+  type AdmYear,
   type CalcNode,
   type MembershipResult,
   type Parameter,
@@ -56,9 +57,10 @@ import {
   type PrefillPair,
   type PrefillRange,
   type PrefillSpending,
+  type Suggestion,
 } from './adm-prefill.ts';
 import { enteredYearTotal } from './entered-total.ts';
-import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
+import { SHARE_FIELDS, decodeEstimated, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
 import { studentSummarySections } from './student-summary.ts';
 
@@ -281,6 +283,15 @@ const STATUS_CLASS: Record<CalcNode['status'], string> = {
   estimated: 'estimated',
 };
 
+// An estimate from a "use suggestion" checkbox gets its own wording, so the
+// reader can tell it from an estimate the engine made from a parameter range.
+function statusLabel(node: CalcNode): string {
+  if (node.status === 'estimated' && !node.blockers.some((b) => b.kind === 'estimated_parameter')) {
+    return 'estimated (from suggestion)';
+  }
+  return STATUS_LABEL[node.status];
+}
+
 function el(tag: string, className?: string, text?: string): HTMLElement {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -315,7 +326,7 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
     const disclosure = el('details', 'step-disclosure');
     const head = el('summary', 'step-head');
     head.append(el('span', 'step-label', node.label));
-    head.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
+    head.append(el('span', `tag ${STATUS_CLASS[node.status]}`, statusLabel(node)));
     head.append(el('span', 'step-value', formatValue(node.value, node.unit)));
     const stepBand = formatRange(node.range, node.unit);
     if (stepBand) head.append(el('span', 'step-range', `range ${stepBand}`));
@@ -390,6 +401,7 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
   box.append(el('strong', undefined, `${root.blockers.length} thing(s) stand between this scenario and a number`));
 
   const estimated = root.blockers.filter((b) => b.kind === 'estimated_parameter');
+  const suggested = root.blockers.filter((b) => b.kind === 'estimated_input');
   const contingent = root.blockers.filter((b) => b.kind === 'contingent_parameter');
   const unverified = root.blockers.filter((b) => b.kind === 'unverified_parameter');
   const missing = root.blockers.filter((b) => b.kind === 'missing_input');
@@ -406,6 +418,23 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     );
     const ul = el('ul');
     for (const b of estimated) ul.append(blockerItem(b, byKey));
+    box.append(ul);
+  }
+
+  if (suggested.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${suggested.length} figure(s) were filled in from a suggestion, not a reported number. The math still runs, but the answer is an estimate.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of suggested) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${b.detail}`));
+      ul.append(li);
+    }
     box.append(ul);
   }
 
@@ -542,7 +571,7 @@ function renderStudentSummary(membership: MembershipResult, container: HTMLEleme
       dl.append(el('dt', undefined, row.label));
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(row.node.value, row.node.unit) + ' '));
-      dd.append(el('span', `tag ${STATUS_CLASS[row.node.status]}`, STATUS_LABEL[row.node.status]));
+      dd.append(el('span', `tag ${STATUS_CLASS[row.node.status]}`, statusLabel(row.node)));
       const factBand = formatRange(row.node.range, row.node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
@@ -655,6 +684,22 @@ export function initModelTool(
         : `Total entered: ${formatValue(total, 'pupils')} students`;
   };
 
+  // Fields filled from a "use suggestion" checkbox (or marked so in a shared
+  // link), each with how its value was worked out. The engine labels them as
+  // estimates; typing in the field or unticking the box removes the mark.
+  const estimates = new Map<string, string>();
+  const BAND_FIELD: Record<string, string> = {
+    prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
+  };
+  const bandEstimates = (slot: '1' | '2'): NonNullable<AdmYear['estimates']> => {
+    const out: Record<string, string> = {};
+    for (const [band, prefix] of Object.entries(BAND_FIELD)) {
+      const estimate = estimates.get(`${prefix}-${slot}`);
+      if (estimate !== undefined) out[band] = estimate;
+    }
+    return out;
+  };
+
   const recompute = (): void => {
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
@@ -713,6 +758,7 @@ export function initModelTool(
           kindergarten_through_5: numberField('k5-1'),
           grades_6_through_8: numberField('g68-1'),
           grades_9_through_12: numberField('g912-1'),
+          estimates: bandEstimates('1'),
         },
         {
           fiscal_year: laterYear,
@@ -720,6 +766,7 @@ export function initModelTool(
           kindergarten_through_5: numberField('k5-2'),
           grades_6_through_8: numberField('g68-2'),
           grades_9_through_12: numberField('g912-2'),
+          estimates: bandEstimates('2'),
         },
       ],
       state_placed_fte: numberField('state-placed'),
@@ -740,8 +787,10 @@ export function initModelTool(
 
     if (studentSummary) renderStudentSummary(membership, studentSummary);
 
+    const spendingEstimate = estimates.get('spending');
     const spending = input(ctx, 'Education spending', numberField('spending'), 'usd', {
       source: 'figures entered by you in this form',
+      ...(spendingEstimate !== undefined ? { estimate: spendingEstimate } : {}),
     });
     const perPupil = perWeightedPupil(ctx, spending, membership.total);
     const rate = townRate(
@@ -788,7 +837,7 @@ export function initModelTool(
       dl.append(el('dt', undefined, label));
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(node.value, node.unit) + ' '));
-      dd.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
+      dd.append(el('span', `tag ${STATUS_CLASS[node.status]}`, statusLabel(node)));
       const factBand = formatRange(node.range, node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
@@ -832,25 +881,72 @@ export function initModelTool(
   const loadEntity = document.getElementById('load-entity') as HTMLSelectElement | null;
   const loadYear = document.getElementById('load-year') as HTMLSelectElement | null;
   const loadStatus = document.getElementById('load-status');
-  const BAND_FIELD: Record<string, string> = {
-    prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
-  };
   const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
   const userEditedAdm = new Set<string>();
   for (const id of [...admFieldIds, 'spending', 'act84-decrease']) {
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
+
+  // The "use suggestion" checkbox under a field that has a suggestion but no
+  // figure. Ticking it fills the field with the suggested value and marks it
+  // as an estimate; unticking it blanks the field again. Typing a number of
+  // your own unticks it, since the field then holds your figure.
+  const suggestions = new Map<string, Suggestion>();
+  const suggestionBox = (id: string): HTMLLabelElement | null =>
+    document.querySelector<HTMLLabelElement>(`[data-use-suggestion="${id}"]`);
+  const setSuggestion = (id: string, use: Suggestion | undefined): void => {
+    estimates.delete(id);
+    if (use) suggestions.set(id, use);
+    else suggestions.delete(id);
+    const box = suggestionBox(id);
+    if (!box) return;
+    box.hidden = !use;
+    const check = box.querySelector('input');
+    if (check) check.checked = false;
+    const text = box.querySelector('span');
+    if (text) text.textContent = use?.label ?? '';
+  };
+  for (const id of [...admFieldIds, 'spending']) {
+    const field = document.getElementById(id) as HTMLInputElement | null;
+    const check = suggestionBox(id)?.querySelector('input');
+    if (!field || !check) continue;
+    check.addEventListener('change', () => {
+      const use = suggestions.get(id);
+      if (check.checked && use) {
+        field.value = String(use.value);
+        estimates.set(id, use.estimate);
+      } else {
+        field.value = '';
+        estimates.delete(id);
+      }
+      recompute();
+    });
+    field.addEventListener('input', () => {
+      estimates.delete(id);
+      check.checked = false;
+    });
+  }
   const spendingByEntity = resolvedAdmData.spending ?? {};
   const labels = resolvedAdmData.labels ?? {};
 
   // The spending field, like the grade counts: a value the user typed is kept.
-  const fillSpending = (spending: PrefillSpending | undefined): void => {
+  const fillSpending = (
+    spending: PrefillSpending | undefined,
+    history: Record<string, PrefillSpending> | undefined,
+    fy: number,
+  ): void => {
     const field = document.getElementById('spending') as HTMLInputElement | null;
     const note = document.querySelector<HTMLElement>('[data-spending-source]');
+    const suggestionLine = document.querySelector<HTMLElement>('[data-spending-suggestion]');
     if (!field || userEditedAdm.has('spending')) return;
-    const fill = spendingFill(spending);
+    const fill = spendingFill(spending, history, fy);
     field.value = fill.value;
+    setSuggestion('spending', fill.use);
     if (note) note.textContent = fill.note;
+    if (suggestionLine) {
+      suggestionLine.textContent = fill.suggestion ?? '';
+      suggestionLine.hidden = fill.suggestion === null;
+    }
   };
 
   // The Act 84 decrease, like the spending field: a value the user typed is
@@ -886,6 +982,7 @@ export function initModelTool(
       if (userEditedAdm.has(id)) continue;
       const fill = bandFill(row?.[key]);
       field.value = fill.value;
+      setSuggestion(id, fill.use);
       if (note) note.textContent = fill.note;
       if (rangeLine) {
         rangeLine.textContent = fill.range ?? '';
@@ -918,7 +1015,7 @@ export function initModelTool(
     }
     fillBandRow(plan.earlier, '1');
     fillBandRow(plan.later, '2');
-    fillSpending(plan.spending);
+    fillSpending(plan.spending, plan.spendingHistory, Number(plan.mode));
     fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
     recompute();
   };
@@ -958,7 +1055,7 @@ export function initModelTool(
   const shareStatus = document.getElementById('share-status');
   shareButton?.addEventListener('click', () => {
     const base = window.location.origin + window.location.pathname;
-    const url = shareUrl(base, readScenario());
+    const url = shareUrl(base, readScenario(), new Set(estimates.keys()));
     const clipboard = navigator.clipboard;
     if (clipboard) {
       clipboard.writeText(url).then(
@@ -980,6 +1077,11 @@ export function initModelTool(
   // counts as user-entered and the prefill leaves it alone). Fields the link
   // omits keep their HTML defaults.
   applyScenario(decodeScenario(window.location.search));
+  // A field the link marks as an estimate stays one. The link does not say how
+  // the value was worked out, only that it was a suggestion.
+  for (const id of decodeEstimated(window.location.search)) {
+    estimates.set(id, 'a suggestion carried in the shared link');
+  }
 
   applyStatewidePrefill();
   recompute();

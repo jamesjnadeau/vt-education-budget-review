@@ -18,6 +18,9 @@
  *     params, hand edits, or params from a later version.
  *   - Param names are readable and hand-editable, and decoupled from the DOM ids
  *     so a future id rename need not break existing links (update the registry).
+ *   - A field filled from a "use suggestion" checkbox is an estimate, not a
+ *     reported figure. The `est` param lists those fields by param name, so a
+ *     shared link keeps them labeled as estimates.
  */
 
 /** A form field's value, keyed by its DOM element id. */
@@ -60,13 +63,34 @@ export const SHARE_FIELDS: readonly ShareField[] = [
  * Encode a scenario into a query string (no leading '?'), one param per
  * non-empty field, in SHARE_FIELDS order. URLSearchParams handles escaping.
  */
-export function encodeScenario(scenario: Scenario): string {
+export function encodeScenario(scenario: Scenario, estimated: ReadonlySet<string> = new Set()): string {
   const params = new URLSearchParams();
+  const estimatedParams: string[] = [];
   for (const { id, param } of SHARE_FIELDS) {
     const value = scenario[id];
-    if (value !== undefined && value.trim() !== '') params.set(param, value);
+    if (value === undefined || value.trim() === '') continue;
+    params.set(param, value);
+    if (estimated.has(id)) estimatedParams.push(param);
   }
+  if (estimatedParams.length > 0) params.set(ESTIMATED_PARAM, estimatedParams.join(','));
   return params.toString();
+}
+
+/** The query key listing the fields that hold an estimate rather than a reported figure. */
+export const ESTIMATED_PARAM = 'est';
+
+/**
+ * The DOM ids a query string marks as estimates, in SHARE_FIELDS order. Only
+ * fields the query also carries a value for count; unknown names are dropped.
+ */
+export function decodeEstimated(query: string): Set<string> {
+  const params = new URLSearchParams(query);
+  const names = new Set((params.get(ESTIMATED_PARAM) ?? '').split(',').map((n) => n.trim()));
+  const ids = new Set<string>();
+  for (const { id, param } of SHARE_FIELDS) {
+    if (names.has(param) && (params.get(param) ?? '').trim() !== '') ids.add(id);
+  }
+  return ids;
 }
 
 /**
@@ -84,7 +108,7 @@ export function decodeScenario(query: string): Scenario {
 }
 
 /** Build a full shareable URL from a base (origin + pathname) and a scenario. */
-export function shareUrl(base: string, scenario: Scenario): string {
-  const query = encodeScenario(scenario);
+export function shareUrl(base: string, scenario: Scenario, estimated?: ReadonlySet<string>): string {
+  const query = encodeScenario(scenario, estimated);
   return query === '' ? base : `${base}?${query}`;
 }

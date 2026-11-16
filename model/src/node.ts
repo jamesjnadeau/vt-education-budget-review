@@ -130,13 +130,15 @@ function statusFromBlockers(blockers: readonly Blocker[]): NodeStatus {
   if (blockers.some((b) => b.kind === 'unverified_parameter')) return 'unverified';
   if (blockers.some((b) => b.kind === 'missing_input')) return 'missing_input';
   if (blockers.some((b) => b.kind === 'contingent_parameter')) return 'contingent';
-  if (blockers.some((b) => b.kind === 'estimated_parameter')) return 'estimated';
+  if (blockers.some((b) => b.kind === 'estimated_parameter' || b.kind === 'estimated_input')) return 'estimated';
   return 'ok';
 }
 
-/** A contingent or estimated parameter does not prevent a value -- it qualifies it. */
+/** A contingent or estimated parameter, or an estimated input, does not prevent a value -- it qualifies it. */
 function blocksValue(blockers: readonly Blocker[]): boolean {
-  return blockers.some((b) => b.kind !== 'contingent_parameter' && b.kind !== 'estimated_parameter');
+  return blockers.some(
+    (b) => b.kind !== 'contingent_parameter' && b.kind !== 'estimated_parameter' && b.kind !== 'estimated_input',
+  );
 }
 
 function dedupeBlockers(blockers: readonly Blocker[]): Blocker[] {
@@ -340,6 +342,12 @@ export interface InputOptions {
   readonly notes?: readonly string[];
   /** Where this datum came from -- a warehouse record, an AOE report, a user's scenario setting. */
   readonly source?: string;
+  /**
+   * Set when the value is an estimate rather than a reported figure: how it was
+   * worked out, as a clause, e.g. "the middle of the published range". The node
+   * computes as normal but is labeled `estimated`, like a range-estimated parameter.
+   */
+  readonly estimate?: string | undefined;
 }
 
 /** A datum from the warehouse, an enrichment join, or the user's scenario. */
@@ -350,6 +358,7 @@ export function input(
   unit: Unit,
   options: InputOptions = {},
 ): CalcNode {
+  const estimate = value !== null && options.estimate ? options.estimate : null;
   const blockers: Blocker[] =
     value === null
       ? [
@@ -359,8 +368,11 @@ export function input(
             detail: `${label} was not published in the source document.`,
           },
         ]
-      : [];
+      : estimate
+        ? [{ kind: 'estimated_input', ref: label, detail: `${label} is an estimate: ${estimate}.` }]
+        : [];
   const src = options.source ? ` Source: ${options.source}.` : '';
+  const est = estimate ? ` This is an estimate, not a reported figure: ${estimate}.` : '';
   return {
     id: ctx.nextId(),
     op: 'input',
@@ -372,8 +384,8 @@ export function input(
     explanation:
       value === null
         ? `${label} is not available. The source document does not publish it, and the engine does not estimate values it was not given.`
-        : `${label} is ${formatValue(value, unit)}${unitNoun(unit) ? ' ' + unitNoun(unit) : ''}.${src}`,
-    status: value === null ? 'missing_input' : 'ok',
+        : `${label} is ${formatValue(value, unit)}${unitNoun(unit) ? ' ' + unitNoun(unit) : ''}.${src}${est}`,
+    status: value === null ? 'missing_input' : estimate ? 'estimated' : 'ok',
     blockers,
     notes: options.notes ?? [],
     range: null,

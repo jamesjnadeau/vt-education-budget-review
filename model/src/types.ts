@@ -121,7 +121,8 @@ export interface ParameterSet {
  *
  * `estimated` is likewise not a blank: a parameter with a stated range but no
  * published figure computes from the range's central value and is labeled as an
- * estimate, so a reader never mistakes it for the settled number.
+ * estimate, so a reader never mistakes it for the settled number. An input the
+ * user filled from a suggestion (`estimated_input`) is labeled the same way.
  */
 export type NodeStatus =
   | 'ok'
@@ -139,7 +140,8 @@ export interface Blocker {
     | 'contingent_parameter'
     | 'undetermined_determination'
     | 'not_computable'
-    | 'estimated_parameter';
+    | 'estimated_parameter'
+    | 'estimated_input';
   readonly ref: string;
   readonly detail: string;
 }

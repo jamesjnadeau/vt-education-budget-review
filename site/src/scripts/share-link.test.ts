@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   SHARE_FIELDS,
+  decodeEstimated,
   decodeScenario,
   encodeScenario,
   shareUrl,
@@ -115,5 +116,26 @@ describe('shareUrl', () => {
 
   it('returns the bare base url when the scenario is empty', () => {
     expect(shareUrl('https://example.org/model', {})).toBe('https://example.org/model');
+  });
+});
+
+describe('estimated fields', () => {
+  it('lists fields filled from a suggestion in the est param, only when they carry a value', () => {
+    const query = encodeScenario({ 'g68-2': '22.5', spending: '28719000' }, new Set(['spending', 'g68-2', 'prek-1']));
+    expect(query).toBe('g68_2=22.5&spending=28719000&est=g68_2%2Cspending');
+  });
+
+  it('decodes the est param back to DOM ids, dropping unknown names and fields with no value', () => {
+    expect(decodeEstimated('?g68_2=22.5&spending=1&est=g68_2,spending,prek1,bogus')).toEqual(new Set(['g68-2', 'spending']));
+    expect(decodeEstimated('spending=1')).toEqual(new Set());
+  });
+
+  it('leaves the est param out of the scenario itself', () => {
+    expect(decodeScenario('spending=1&est=spending')).toEqual({ spending: '1' });
+  });
+
+  it('round-trips through shareUrl', () => {
+    const url = shareUrl('https://example.org/model', { spending: '5' }, new Set(['spending']));
+    expect(decodeEstimated(new URL(url).search)).toEqual(new Set(['spending']));
   });
 });

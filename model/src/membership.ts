@@ -61,6 +61,8 @@ export interface AdmYear {
   readonly kindergarten_through_5: number | null;
   readonly grades_6_through_8: number | null;
   readonly grades_9_through_12: number | null;
+  /** Bands whose count is an estimate rather than a reported figure, with how it was worked out. */
+  readonly estimates?: Readonly<Partial<Record<Band, string>>>;
 }
 
 export interface SmallSchool {
@@ -147,6 +149,7 @@ function bandLongTermMembership(ctx: EngineContext, data: MembershipInput, band:
   const years = selected.map((y) =>
     input(ctx, `FY${y.fiscal_year} average daily membership, ${label}`, y[band], 'pupils', {
       source: data.source,
+      estimate: y.estimates?.[band],
     }),
   );
 

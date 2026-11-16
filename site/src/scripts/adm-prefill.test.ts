@@ -14,6 +14,7 @@ import {
   rangeText,
   SOURCE_NOTE,
   spendingFill,
+  spendingSuggestion,
   type PrefillRow,
 } from './adm-prefill.ts';
 
@@ -45,6 +46,21 @@ describe('bandFill', () => {
     const fill = bandFill({ value: null, source: 'withheld', range: { low: 12.5, low_exclusive: true, high: 32.5 } });
     expect(fill.value).toBe('');
     expect(fill.range).toBe('Estimated range: more than 12.5, up to 32.5 ADM');
+  });
+
+  it('offers the middle of a range with both ends as a suggestion', () => {
+    const fill = bandFill({ value: null, source: 'withheld', range: { low: 12.5, low_exclusive: true, high: 32.5 } });
+    expect(fill.use).toEqual({
+      value: 22.5,
+      label: 'Use the middle of the range (22.5 ADM)',
+      estimate:
+        'the middle of the published range (more than 12.5, up to 32.5), because the real count is hidden to protect student privacy',
+    });
+  });
+
+  it('offers no suggestion for a range with no published top, or a withheld band with no range', () => {
+    expect(bandFill({ value: null, source: 'withheld', range: { low: 1203.6, low_exclusive: true, high: null } }).use).toBeUndefined();
+    expect(bandFill({ value: null, source: 'withheld' }).use).toBeUndefined();
   });
 
   it('reads an unknown or missing band as not available', () => {
@@ -92,6 +108,7 @@ describe('planAdmPrefill', () => {
       earlier: rows['2025'],
       later: rows['2026'],
       spending: undefined,
+      spendingHistory: undefined,
     });
   });
 
@@ -103,6 +120,7 @@ describe('planAdmPrefill', () => {
       earlier: undefined,
       later: undefined,
       spending: spending['2026'],
+      spendingHistory: spending,
     });
   });
 
@@ -120,7 +138,7 @@ describe('planAdmPrefill', () => {
 
   it('leaves the earlier slot undefined when the year before has no row', () => {
     const plan = planAdmPrefill('su/addison-central', '2025', rows, [2025]);
-    expect(plan).toEqual({ kind: 'fill', mode: '2025', earlier: undefined, later: rows['2025'], spending: undefined });
+    expect(plan).toEqual({ kind: 'fill', mode: '2025', earlier: undefined, later: rows['2025'], spending: undefined, spendingHistory: undefined });
   });
 });
 
@@ -129,11 +147,62 @@ describe('spendingFill', () => {
     expect(spendingFill({ value: 41_372_610, pupils: 2743.2, pupil_measure: 'long_term_weighted_adm' })).toEqual({
       value: '41372610',
       note: 'from the state AOE figure (2,743.2 long-term weighted pupils)',
+      suggestion: null,
     });
   });
 
   it('blanks the field and says so when the year has no figure', () => {
-    expect(spendingFill(undefined)).toEqual({ value: '', note: 'not available from AOE for this year; field left blank' });
+    expect(spendingFill(undefined)).toEqual({
+      value: '',
+      note: 'not available from AOE for this year; field left blank',
+      suggestion: null,
+    });
+  });
+
+  const fig = (value: number) => ({ value, pupils: 100, pupil_measure: 'long_term_weighted_adm' });
+
+  it('suggests at least last year and the growth estimate when the year has no figure, without filling the field', () => {
+    const history = { '2025': fig(28_351_015), '2026': fig(28_534_233) };
+    expect(spendingFill(undefined, history, 2027)).toEqual({
+      value: '',
+      note: 'not available from AOE for this year; field left blank',
+      suggestion:
+        'Suggestion: at least $28,534,233, the FY2026 amount. If it grows like it did from FY2025 to FY2026, about $28,719,000.',
+      use: {
+        value: 28_719_000,
+        label: 'Use the suggestion ($28,719,000)',
+        estimate:
+          'the FY2026 AOE amount, grown at the same rate as from FY2025 to FY2026, because AOE has no figure for FY2027 yet',
+      },
+    });
+  });
+
+  it('suggests only the floor when there is one earlier year or spending fell', () => {
+    expect(spendingSuggestion({ '2026': fig(3_037_800) }, 2027)).toEqual({
+      line: 'Suggestion: at least $3,037,800, the FY2026 amount.',
+      use: {
+        value: 3_037_800,
+        label: 'Use the suggestion ($3,037,800)',
+        estimate: 'the FY2026 AOE amount, because AOE has no figure for FY2027 yet',
+      },
+    });
+    expect(spendingSuggestion({ '2025': fig(5_000_000), '2026': fig(4_800_000) }, 2027)?.line).toBe(
+      'Suggestion: at least $4,800,000, the FY2026 amount.',
+    );
+    expect(spendingSuggestion({ '2025': fig(5_000_000), '2026': fig(4_800_000) }, 2027)?.use.value).toBe(4_800_000);
+  });
+
+  it('uses the most recent earlier year when the year before is missing, and ignores later years', () => {
+    const history = { '2024': fig(1_000_000), '2025': fig(1_100_000), '2029': fig(9_000_000) };
+    expect(spendingSuggestion(history, 2027)?.line).toBe(
+      'Suggestion: at least $1,100,000, the FY2025 amount. If it grows like it did from FY2024 to FY2025, about $1,331,000.',
+    );
+    expect(spendingSuggestion(history, 2027)?.use.value).toBe(1_331_000);
+  });
+
+  it('gives no suggestion with no earlier year', () => {
+    expect(spendingSuggestion(undefined, 2027)).toBeNull();
+    expect(spendingSuggestion({ '2028': fig(1) }, 2027)).toBeNull();
   });
 });
 
