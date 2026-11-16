@@ -51,7 +51,7 @@
  * the answer genuinely is not known.
  */
 
-import { applyWeight, greaterOf, input, mean, parameterNode, quotient, sum } from './node.ts';
+import { applyWeight, greaterOf, input, mean, parameterNode, quotient, sum, type InputEstimate } from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
 /** Average daily membership by grade band, EXCLUDING State-placed students. */
@@ -62,7 +62,7 @@ export interface AdmYear {
   readonly grades_6_through_8: number | null;
   readonly grades_9_through_12: number | null;
   /** Bands whose count is an estimate rather than a reported figure, with how it was worked out. */
-  readonly estimates?: Readonly<Partial<Record<Band, string>>>;
+  readonly estimates?: Readonly<Partial<Record<Band, string | InputEstimate>>>;
 }
 
 export interface SmallSchool {

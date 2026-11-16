@@ -122,7 +122,9 @@ export interface ParameterSet {
  * `estimated` is likewise not a blank: a parameter with a stated range but no
  * published figure computes from the range's central value and is labeled as an
  * estimate, so a reader never mistakes it for the settled number. An input the
- * user filled from a suggestion (`estimated_input`) is labeled the same way.
+ * user filled from a suggestion (`estimated_input`) is labeled the same way,
+ * and so is one filled with the lowest value a range allows
+ * (`lower_limit_input`), whose real value may be higher.
  */
 export type NodeStatus =
   | 'ok'
@@ -141,7 +143,8 @@ export interface Blocker {
     | 'undetermined_determination'
     | 'not_computable'
     | 'estimated_parameter'
-    | 'estimated_input';
+    | 'estimated_input'
+    | 'lower_limit_input';
   readonly ref: string;
   readonly detail: string;
 }

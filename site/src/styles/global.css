@@ -510,6 +510,13 @@ th {
   color: var(--accent);
   border-style: dashed;
 }
+/* Built on a range's lower limit: the real figure may be higher, so it warns
+   in the amber used for figures still needing work, dashed like an estimate. */
+.tag.lower-limit {
+  border-color: var(--state-intake);
+  color: var(--state-intake);
+  border-style: dashed;
+}
 .step-range,
 .fact-range {
   color: var(--text-muted);

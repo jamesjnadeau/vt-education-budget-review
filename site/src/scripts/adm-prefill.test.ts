@@ -58,8 +58,17 @@ describe('bandFill', () => {
     });
   });
 
-  it('offers no suggestion for a range with no published top, or a withheld band with no range', () => {
-    expect(bandFill({ value: null, source: 'withheld', range: { low: 1203.6, low_exclusive: true, high: null } }).use).toBeUndefined();
+  it('offers the lower limit for a range with no published top, marked as one', () => {
+    expect(bandFill({ value: null, source: 'withheld', range: { low: 1203.6, low_exclusive: true, high: null } }).use).toEqual({
+      value: 1203.6,
+      label: 'Use the lower limit (1,203.6 ADM)',
+      estimate:
+        'the bottom of the published range (more than 1,203.6, with no top published), because the real count is hidden to protect student privacy',
+      lowerLimit: true,
+    });
+  });
+
+  it('offers no suggestion for a withheld band with no range', () => {
     expect(bandFill({ value: null, source: 'withheld' }).use).toBeUndefined();
   });
 
@@ -177,19 +186,23 @@ describe('spendingFill', () => {
     });
   });
 
-  it('suggests only the floor when there is one earlier year or spending fell', () => {
+  it('suggests only the floor, as a lower limit, when there is one earlier year or spending fell', () => {
     expect(spendingSuggestion({ '2026': fig(3_037_800) }, 2027)).toEqual({
       line: 'Suggestion: at least $3,037,800, the FY2026 amount.',
       use: {
         value: 3_037_800,
-        label: 'Use the suggestion ($3,037,800)',
+        label: 'Use the lower limit ($3,037,800)',
         estimate: 'the FY2026 AOE amount, because AOE has no figure for FY2027 yet',
+        lowerLimit: true,
       },
     });
     expect(spendingSuggestion({ '2025': fig(5_000_000), '2026': fig(4_800_000) }, 2027)?.line).toBe(
       'Suggestion: at least $4,800,000, the FY2026 amount.',
     );
-    expect(spendingSuggestion({ '2025': fig(5_000_000), '2026': fig(4_800_000) }, 2027)?.use.value).toBe(4_800_000);
+    expect(spendingSuggestion({ '2025': fig(5_000_000), '2026': fig(4_800_000) }, 2027)?.use).toMatchObject({
+      value: 4_800_000,
+      lowerLimit: true,
+    });
   });
 
   it('uses the most recent earlier year when the year before is missing, and ignores later years', () => {

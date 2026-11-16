@@ -10,6 +10,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  LOWER_LIMIT_PARAM,
   SHARE_FIELDS,
   decodeEstimated,
   decodeScenario,
@@ -132,6 +133,13 @@ describe('estimated fields', () => {
 
   it('leaves the est param out of the scenario itself', () => {
     expect(decodeScenario('spending=1&est=spending')).toEqual({ spending: '1' });
+  });
+
+  it('lists lower-limit fields in est_low instead of est', () => {
+    const query = encodeScenario({ 'g912-2': '1203.6', spending: '5' }, new Set(['g912-2', 'spending']), new Set(['g912-2']));
+    expect(query).toBe('g912_2=1203.6&spending=5&est=spending&est_low=g912_2');
+    expect(decodeEstimated(query)).toEqual(new Set(['spending']));
+    expect(decodeEstimated(query, LOWER_LIMIT_PARAM)).toEqual(new Set(['g912-2']));
   });
 
   it('round-trips through shareUrl', () => {

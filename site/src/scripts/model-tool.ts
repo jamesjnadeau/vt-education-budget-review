@@ -38,6 +38,7 @@ import {
   townRate,
   type Blocker,
   type AdmYear,
+  type InputEstimate,
   type CalcNode,
   type MembershipResult,
   type Parameter,
@@ -60,7 +61,14 @@ import {
   type Suggestion,
 } from './adm-prefill.ts';
 import { enteredYearTotal } from './entered-total.ts';
-import { SHARE_FIELDS, decodeEstimated, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
+import {
+  LOWER_LIMIT_PARAM,
+  SHARE_FIELDS,
+  decodeEstimated,
+  decodeScenario,
+  shareUrl,
+  type Scenario,
+} from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
 import { studentSummarySections } from './student-summary.ts';
 
@@ -285,11 +293,19 @@ const STATUS_CLASS: Record<CalcNode['status'], string> = {
 
 // An estimate from a "use suggestion" checkbox gets its own wording, so the
 // reader can tell it from an estimate the engine made from a parameter range.
+// A figure built on a range's lower limit gets a warning of its own, which
+// wins over both: the real number may be well away from it.
 function statusLabel(node: CalcNode): string {
-  if (node.status === 'estimated' && !node.blockers.some((b) => b.kind === 'estimated_parameter')) {
-    return 'estimated (from suggestion)';
+  if (node.status === 'estimated') {
+    if (node.blockers.some((b) => b.kind === 'lower_limit_input')) return 'lower limit estimate';
+    if (!node.blockers.some((b) => b.kind === 'estimated_parameter')) return 'estimated (from suggestion)';
   }
   return STATUS_LABEL[node.status];
+}
+
+function statusClass(node: CalcNode): string {
+  if (node.status === 'estimated' && node.blockers.some((b) => b.kind === 'lower_limit_input')) return 'lower-limit';
+  return STATUS_CLASS[node.status];
 }
 
 function el(tag: string, className?: string, text?: string): HTMLElement {
@@ -326,7 +342,7 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
     const disclosure = el('details', 'step-disclosure');
     const head = el('summary', 'step-head');
     head.append(el('span', 'step-label', node.label));
-    head.append(el('span', `tag ${STATUS_CLASS[node.status]}`, statusLabel(node)));
+    head.append(el('span', `tag ${statusClass(node)}`, statusLabel(node)));
     head.append(el('span', 'step-value', formatValue(node.value, node.unit)));
     const stepBand = formatRange(node.range, node.unit);
     if (stepBand) head.append(el('span', 'step-range', `range ${stepBand}`));
@@ -402,6 +418,7 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
 
   const estimated = root.blockers.filter((b) => b.kind === 'estimated_parameter');
   const suggested = root.blockers.filter((b) => b.kind === 'estimated_input');
+  const lowerLimits = root.blockers.filter((b) => b.kind === 'lower_limit_input');
   const contingent = root.blockers.filter((b) => b.kind === 'contingent_parameter');
   const unverified = root.blockers.filter((b) => b.kind === 'unverified_parameter');
   const missing = root.blockers.filter((b) => b.kind === 'missing_input');
@@ -418,6 +435,23 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     );
     const ul = el('ul');
     for (const b of estimated) ul.append(blockerItem(b, byKey));
+    box.append(ul);
+  }
+
+  if (lowerLimits.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${lowerLimits.length} figure(s) use the lowest count the range allows. The real count may be higher, so any answer built on it could be off.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of lowerLimits) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${b.detail}`));
+      ul.append(li);
+    }
     box.append(ul);
   }
 
@@ -571,7 +605,7 @@ function renderStudentSummary(membership: MembershipResult, container: HTMLEleme
       dl.append(el('dt', undefined, row.label));
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(row.node.value, row.node.unit) + ' '));
-      dd.append(el('span', `tag ${STATUS_CLASS[row.node.status]}`, statusLabel(row.node)));
+      dd.append(el('span', `tag ${statusClass(row.node)}`, statusLabel(row.node)));
       const factBand = formatRange(row.node.range, row.node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
@@ -687,12 +721,12 @@ export function initModelTool(
   // Fields filled from a "use suggestion" checkbox (or marked so in a shared
   // link), each with how its value was worked out. The engine labels them as
   // estimates; typing in the field or unticking the box removes the mark.
-  const estimates = new Map<string, string>();
+  const estimates = new Map<string, InputEstimate>();
   const BAND_FIELD: Record<string, string> = {
     prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
   };
   const bandEstimates = (slot: '1' | '2'): NonNullable<AdmYear['estimates']> => {
-    const out: Record<string, string> = {};
+    const out: Record<string, InputEstimate> = {};
     for (const [band, prefix] of Object.entries(BAND_FIELD)) {
       const estimate = estimates.get(`${prefix}-${slot}`);
       if (estimate !== undefined) out[band] = estimate;
@@ -837,7 +871,7 @@ export function initModelTool(
       dl.append(el('dt', undefined, label));
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(node.value, node.unit) + ' '));
-      dd.append(el('span', `tag ${STATUS_CLASS[node.status]}`, statusLabel(node)));
+      dd.append(el('span', `tag ${statusClass(node)}`, statusLabel(node)));
       const factBand = formatRange(node.range, node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
@@ -914,7 +948,7 @@ export function initModelTool(
       const use = suggestions.get(id);
       if (check.checked && use) {
         field.value = String(use.value);
-        estimates.set(id, use.estimate);
+        estimates.set(id, use.lowerLimit ? { how: use.estimate, lowerLimit: true } : { how: use.estimate });
       } else {
         field.value = '';
         estimates.delete(id);
@@ -1055,7 +1089,8 @@ export function initModelTool(
   const shareStatus = document.getElementById('share-status');
   shareButton?.addEventListener('click', () => {
     const base = window.location.origin + window.location.pathname;
-    const url = shareUrl(base, readScenario(), new Set(estimates.keys()));
+    const lowerLimitIds = new Set([...estimates].filter(([, e]) => e.lowerLimit).map(([id]) => id));
+    const url = shareUrl(base, readScenario(), new Set(estimates.keys()), lowerLimitIds);
     const clipboard = navigator.clipboard;
     if (clipboard) {
       clipboard.writeText(url).then(
@@ -1080,7 +1115,10 @@ export function initModelTool(
   // A field the link marks as an estimate stays one. The link does not say how
   // the value was worked out, only that it was a suggestion.
   for (const id of decodeEstimated(window.location.search)) {
-    estimates.set(id, 'a suggestion carried in the shared link');
+    estimates.set(id, { how: 'a suggestion carried in the shared link' });
+  }
+  for (const id of decodeEstimated(window.location.search, LOWER_LIMIT_PARAM)) {
+    estimates.set(id, { how: 'a lower limit carried in the shared link', lowerLimit: true });
   }
 
   applyStatewidePrefill();

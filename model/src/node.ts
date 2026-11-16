@@ -130,15 +130,21 @@ function statusFromBlockers(blockers: readonly Blocker[]): NodeStatus {
   if (blockers.some((b) => b.kind === 'unverified_parameter')) return 'unverified';
   if (blockers.some((b) => b.kind === 'missing_input')) return 'missing_input';
   if (blockers.some((b) => b.kind === 'contingent_parameter')) return 'contingent';
-  if (blockers.some((b) => b.kind === 'estimated_parameter' || b.kind === 'estimated_input')) return 'estimated';
+  if (blockers.some((b) => b.kind === 'estimated_parameter' || b.kind === 'estimated_input' || b.kind === 'lower_limit_input')) {
+    return 'estimated';
+  }
   return 'ok';
 }
 
 /** A contingent or estimated parameter, or an estimated input, does not prevent a value -- it qualifies it. */
+const QUALIFYING_KINDS: ReadonlySet<Blocker['kind']> = new Set([
+  'contingent_parameter',
+  'estimated_parameter',
+  'estimated_input',
+  'lower_limit_input',
+]);
 function blocksValue(blockers: readonly Blocker[]): boolean {
-  return blockers.some(
-    (b) => b.kind !== 'contingent_parameter' && b.kind !== 'estimated_parameter' && b.kind !== 'estimated_input',
-  );
+  return blockers.some((b) => !QUALIFYING_KINDS.has(b.kind));
 }
 
 function dedupeBlockers(blockers: readonly Blocker[]): Blocker[] {
@@ -347,7 +353,15 @@ export interface InputOptions {
    * worked out, as a clause, e.g. "the middle of the published range". The node
    * computes as normal but is labeled `estimated`, like a range-estimated parameter.
    */
-  readonly estimate?: string | undefined;
+  readonly estimate?: string | InputEstimate | undefined;
+}
+
+/** An estimate on an input, when more than how it was worked out needs saying. */
+export interface InputEstimate {
+  /** How the value was worked out, as a clause. */
+  readonly how: string;
+  /** The value is the lowest a range allows; the real value may be higher. */
+  readonly lowerLimit?: boolean;
 }
 
 /** A datum from the warehouse, an enrichment join, or the user's scenario. */
@@ -358,7 +372,9 @@ export function input(
   unit: Unit,
   options: InputOptions = {},
 ): CalcNode {
-  const estimate = value !== null && options.estimate ? options.estimate : null;
+  const given = typeof options.estimate === 'string' ? { how: options.estimate } : options.estimate;
+  const estimate = value !== null && given?.how ? given.how : null;
+  const lowerLimit = estimate !== null && given?.lowerLimit === true;
   const blockers: Blocker[] =
     value === null
       ? [
@@ -368,11 +384,23 @@ export function input(
             detail: `${label} was not published in the source document.`,
           },
         ]
-      : estimate
-        ? [{ kind: 'estimated_input', ref: label, detail: `${label} is an estimate: ${estimate}.` }]
-        : [];
+      : lowerLimit
+        ? [
+            {
+              kind: 'lower_limit_input',
+              ref: label,
+              detail: `${label} is a lower limit, so the real number may be higher: ${estimate}.`,
+            },
+          ]
+        : estimate
+          ? [{ kind: 'estimated_input', ref: label, detail: `${label} is an estimate: ${estimate}.` }]
+          : [];
   const src = options.source ? ` Source: ${options.source}.` : '';
-  const est = estimate ? ` This is an estimate, not a reported figure: ${estimate}.` : '';
+  const est = lowerLimit
+    ? ` This is a lower limit, not a reported figure, so the real number may be higher: ${estimate}.`
+    : estimate
+      ? ` This is an estimate, not a reported figure: ${estimate}.`
+      : '';
   return {
     id: ctx.nextId(),
     op: 'input',

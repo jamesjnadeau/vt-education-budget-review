@@ -20,7 +20,8 @@
  *     so a future id rename need not break existing links (update the registry).
  *   - A field filled from a "use suggestion" checkbox is an estimate, not a
  *     reported figure. The `est` param lists those fields by param name, so a
- *     shared link keeps them labeled as estimates.
+ *     shared link keeps them labeled as estimates. A field filled with a
+ *     range's lower limit is listed in `est_low` instead.
  */
 
 /** A form field's value, keyed by its DOM element id. */
@@ -63,29 +64,39 @@ export const SHARE_FIELDS: readonly ShareField[] = [
  * Encode a scenario into a query string (no leading '?'), one param per
  * non-empty field, in SHARE_FIELDS order. URLSearchParams handles escaping.
  */
-export function encodeScenario(scenario: Scenario, estimated: ReadonlySet<string> = new Set()): string {
+export function encodeScenario(
+  scenario: Scenario,
+  estimated: ReadonlySet<string> = new Set(),
+  lowerLimits: ReadonlySet<string> = new Set(),
+): string {
   const params = new URLSearchParams();
   const estimatedParams: string[] = [];
+  const lowerLimitParams: string[] = [];
   for (const { id, param } of SHARE_FIELDS) {
     const value = scenario[id];
     if (value === undefined || value.trim() === '') continue;
     params.set(param, value);
-    if (estimated.has(id)) estimatedParams.push(param);
+    if (lowerLimits.has(id)) lowerLimitParams.push(param);
+    else if (estimated.has(id)) estimatedParams.push(param);
   }
   if (estimatedParams.length > 0) params.set(ESTIMATED_PARAM, estimatedParams.join(','));
+  if (lowerLimitParams.length > 0) params.set(LOWER_LIMIT_PARAM, lowerLimitParams.join(','));
   return params.toString();
 }
 
 /** The query key listing the fields that hold an estimate rather than a reported figure. */
 export const ESTIMATED_PARAM = 'est';
+/** The query key listing the fields that hold a range's lower limit. */
+export const LOWER_LIMIT_PARAM = 'est_low';
 
 /**
- * The DOM ids a query string marks as estimates, in SHARE_FIELDS order. Only
- * fields the query also carries a value for count; unknown names are dropped.
+ * The DOM ids a query string marks as estimates (or, with LOWER_LIMIT_PARAM,
+ * as lower limits), in SHARE_FIELDS order. Only fields the query also carries
+ * a value for count; unknown names are dropped.
  */
-export function decodeEstimated(query: string): Set<string> {
+export function decodeEstimated(query: string, key: string = ESTIMATED_PARAM): Set<string> {
   const params = new URLSearchParams(query);
-  const names = new Set((params.get(ESTIMATED_PARAM) ?? '').split(',').map((n) => n.trim()));
+  const names = new Set((params.get(key) ?? '').split(',').map((n) => n.trim()));
   const ids = new Set<string>();
   for (const { id, param } of SHARE_FIELDS) {
     if (names.has(param) && (params.get(param) ?? '').trim() !== '') ids.add(id);
@@ -108,7 +119,12 @@ export function decodeScenario(query: string): Scenario {
 }
 
 /** Build a full shareable URL from a base (origin + pathname) and a scenario. */
-export function shareUrl(base: string, scenario: Scenario, estimated?: ReadonlySet<string>): string {
-  const query = encodeScenario(scenario, estimated);
+export function shareUrl(
+  base: string,
+  scenario: Scenario,
+  estimated?: ReadonlySet<string>,
+  lowerLimits?: ReadonlySet<string>,
+): string {
+  const query = encodeScenario(scenario, estimated, lowerLimits);
   return query === '' ? base : `${base}?${query}`;
 }

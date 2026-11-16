@@ -60,4 +60,23 @@ describe('estimated input', () => {
     const refs = result.longTermMembership.blockers.filter((b) => b.kind === 'estimated_input').map((b) => b.ref);
     expect(refs).toEqual(['FY2026 average daily membership, grades six through eight']);
   });
+
+  it('marks a lower-limit input with its own blocker, still estimated and still computing', () => {
+    const ctx = createContext(syntheticParameters());
+    const node = input(ctx, 'Grades 9-12', 1203.6, 'pupils', {
+      estimate: { how: 'the bottom of the published range', lowerLimit: true },
+    });
+    expect(node.value).toBe(1203.6);
+    expect(node.status).toBe('estimated');
+    expect(node.blockers).toEqual([
+      {
+        kind: 'lower_limit_input',
+        ref: 'Grades 9-12',
+        detail: 'Grades 9-12 is a lower limit, so the real number may be higher: the bottom of the published range.',
+      },
+    ]);
+    const total = sum(ctx, 'Total', [node, input(ctx, 'B', 3, 'pupils')], 'pupils');
+    expect(total.value).toBeCloseTo(1206.6);
+    expect(total.blockers.map((b) => b.kind)).toEqual(['lower_limit_input']);
+  });
 });

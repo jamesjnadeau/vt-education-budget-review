@@ -78,6 +78,8 @@ export interface Suggestion {
   readonly label: string;
   /** How the value was worked out, as a clause for the walkthrough. */
   readonly estimate: string;
+  /** The value is the lowest the range allows; the real count may be higher. */
+  readonly lowerLimit?: true;
 }
 
 /**
@@ -106,10 +108,20 @@ export function rangeText(range: PrefillRange): string {
 
 /**
  * The suggestion for a withheld band: the middle of the published range. A
- * range with no published top has no middle, so it offers none.
+ * range with no published top has no middle, so it offers its bottom instead,
+ * marked as a lower limit: the real count may be higher.
  */
-export function rangeSuggestion(range: PrefillRange): Suggestion | null {
-  if (range.high === null) return null;
+export function rangeSuggestion(range: PrefillRange): Suggestion {
+  if (range.high === null) {
+    return {
+      value: range.low,
+      label: `Use the lower limit (${adm(range.low)} ADM)`,
+      estimate:
+        `the bottom of the published range (${range.low_exclusive ? 'more than' : 'at least'} ${adm(range.low)}, ` +
+        `with no top published), because the real count is hidden to protect student privacy`,
+      lowerLimit: true,
+    };
+  }
   const value = Math.round(((range.low + range.high) / 2) * 100) / 100;
   return {
     value,
@@ -191,8 +203,9 @@ const usd = (n: number): string => `$${Math.round(n).toLocaleString('en-US')}`;
  * figures. Spending is expected to be at least the most recent earlier year's
  * amount. When the two most recent earlier years show growth, it also says
  * what that growth would give, rounded to the nearest thousand dollars, and
- * that is the value offered; otherwise the earlier year's amount is. The field
- * is only filled from it if the reader ticks "use suggestion".
+ * that is the value offered; otherwise the earlier year's amount is, marked as
+ * a lower limit since spending may well be higher. The field is only filled
+ * from it if the reader ticks the box.
  */
 export function spendingSuggestion(
   history: Readonly<Record<string, PrefillSpending>> | undefined,
@@ -209,8 +222,9 @@ export function spendingSuggestion(
   let line = `Suggestion: at least ${usd(lastValue)}, the FY${last} amount.`;
   let use: Suggestion = {
     value: lastValue,
-    label: `Use the suggestion (${usd(lastValue)})`,
+    label: `Use the lower limit (${usd(lastValue)})`,
     estimate: `the FY${last} AOE amount, ${why}`,
+    lowerLimit: true,
   };
   if (before !== undefined) {
     const beforeValue = history[String(before)]!.value;
