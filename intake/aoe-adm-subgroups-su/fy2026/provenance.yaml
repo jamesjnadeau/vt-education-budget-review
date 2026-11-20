@@ -1,0 +1,27 @@
+schema_version: "1.0"
+entity: source/aoe-adm-subgroups-su
+fiscal_year: 2026
+artifacts:
+  - file: ADM_Sums_by_SU_Across_Years.csv
+    source_url: null
+    retrieved_date: "2026-09-04"
+    retrieval_method: email
+    sha256: 29394b1e742fce33b9ec20dc49d2ea90ccf30fae304c9d701663fa03c62d088c
+    bytes: 15156
+    media_type: text/csv
+    retrieved_by: James Nadeau
+    document_type: spreadsheet
+    note: >-
+      Records-request extract from the Agency of Education, public data request
+      #840, delivered by email in September 2026, so there is no public URL.
+      Average Daily Membership summed by supervisory union (52 SUs) for SY24,
+      SY25 and SY26 in the four Act 127 grade bands plus English learners (ELL)
+      and free-or-reduced-lunch eligible (NSLELG), with per-row disclosure codes
+      and a count of suppressed bands. Retrieved date is the file's modification
+      time as saved by the recipient; the exact day of delivery was not
+      recorded. No Information Sheet, query or other documentation came with
+      it, so the counting basis (resident SU, attending SU or responsible SU) is
+      NOT confirmed by AOE. SY24 values equal the sum of member towns' ADM by
+      residence in the town extract; SY25 and SY26 do not, mostly in grades 9-12
+      and in both directions, so they are not a sum of town-of-residence rows.
+      The suppression rules are assumed to be those of the town extract.

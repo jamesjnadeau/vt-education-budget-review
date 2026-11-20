@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vt-budget:schema:adm-subgroups-su:1.0",
+  "title": "AOE average daily membership by supervisory union with subgroups, one school year",
+  "description": "A transcription of one school year from the AOE records-request extract (request #840) that sums ADM by supervisory union in the four Act 127 grade bands plus English learners and free-or-reduced-lunch eligibility. Kept apart from the town-of-residence records on purpose: the counting basis of the SU figures is NOT confirmed by AOE. SY24 equals the sum of member towns' resident ADM; SY25 and SY26 do not, so an SU row must never be rebuilt by summing towns, nor towns by splitting an SU. Cells use the same bound vocabulary as the town schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source",
+    "method",
+    "school_year",
+    "count_year",
+    "fiscal_year",
+    "preliminary",
+    "preliminary_note",
+    "grain",
+    "min_n",
+    "basis",
+    "suppression_rules",
+    "sus",
+    "unresolved_rows",
+    "not_published",
+    "extracted_by",
+    "extracted_date"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "source": { "type": "string", "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$" },
+    "method": {
+      "type": "string",
+      "pattern": "^intake/[a-z0-9-]+/fy[0-9]{4}/[^/]+$",
+      "description": "The town extract's suppression query. No query came with the SU file; its disclosure codes are assumed to follow the same one."
+    },
+    "school_year": { "type": "string", "pattern": "^SY[0-9]{2}$" },
+    "count_year": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{4}$" },
+    "fiscal_year": { "type": "integer", "minimum": 2015, "maximum": 2100 },
+    "preliminary": { "type": "boolean" },
+    "preliminary_note": { "type": ["string", "null"] },
+    "grain": { "const": "su" },
+    "min_n": { "const": 11 },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confirmed", "observed_against_town_sums", "note"],
+      "description": "What the SU counts are a count OF. Unconfirmed until AOE answers.",
+      "properties": {
+        "confirmed": { "const": false },
+        "observed_against_town_sums": {
+          "enum": ["equals_town_residence_sums", "differs_from_town_residence_sums"],
+          "description": "Our own comparison with the town-of-residence records, not an AOE statement."
+        },
+        "note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "suppression_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["applicability", "reporting_floor", "primary", "complement", "pair_member"],
+      "properties": {
+        "applicability": {
+          "const": "assumed_from_town_extract",
+          "description": "No Information Sheet came with the SU file, so the town extract's rules are assumed to apply."
+        },
+        "reporting_floor": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/$defs/rule" },
+        "primary": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/$defs/rule" },
+        "complement": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/$defs/rule" },
+        "pair_member": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/$defs/rule" }
+      }
+    },
+    "sus": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity",
+          "aoe_org_id",
+          "row_status",
+          "total",
+          "bands",
+          "ell",
+          "nslelg",
+          "suppression_pairs",
+          "as_published"
+        ],
+        "properties": {
+          "entity": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" },
+          "aoe_org_id": { "type": "string", "minLength": 1 },
+          "row_status": { "enum": ["published", "below_reporting_floor"] },
+          "total": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/properties/towns/items/properties/total" },
+          "bands": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/properties/towns/items/properties/bands" },
+          "ell": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/$defs/measure_cell" },
+          "nslelg": { "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/$defs/measure_cell" },
+          "suppression_pairs": {
+            "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/properties/towns/items/properties/suppression_pairs"
+          },
+          "as_published": {
+            "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/properties/towns/items/properties/as_published"
+          }
+        }
+      }
+    },
+    "unresolved_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["aoe_org_id", "entity", "row_status", "note"],
+        "properties": {
+          "aoe_org_id": { "type": "string", "minLength": 1 },
+          "entity": { "type": "null" },
+          "row_status": { "enum": ["published", "below_reporting_floor"] },
+          "note": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "not_published": {
+      "$ref": "urn:vt-budget:schema:adm-subgroups:1.0#/properties/not_published"
+    },
+    "extracted_by": { "type": "string", "minLength": 1 },
+    "extracted_date": { "type": "string", "format": "date" }
+  }
+}
