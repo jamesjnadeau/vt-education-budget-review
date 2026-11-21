@@ -365,6 +365,88 @@ describe('the combiner', () => {
     expect(row(result, 'town/a').notComputable).toBeNull();
   });
 
+  it('a town two members both list is treated as taxed by more than one district', () => {
+    // town_districts says nothing about town/shared, but ud/a and ud/b both list it.
+    const a = member('ud/a', k5Only('ud/a', 100), 1_000_000, [['town/a', 1], ['town/shared', 0.9]]);
+    const b = member('ud/b', k5Only('ud/b', 200), 2_400_000, [['town/b', 1], ['town/shared', 0.9]]);
+    const result = runCombiner(syntheticParameters(), [a, b], OPTIONS);
+
+    expect(result.towns.map((r) => r.town)).toEqual(['town/a', 'town/shared', 'town/b']);
+    const shared = row(result, 'town/shared');
+    expect(shared.notComputable).toContain('blends more than one district');
+    expect(shared.notComputable).toContain('ud/a');
+    expect(shared.notComputable).toContain('ud/b');
+    expect(shared.today).toBeNull();
+    expect(shared.pooled).toBeNull();
+    expect(shared.delta).toBeNull();
+    expect(shared.direction).toBeNull();
+    expect(row(result, 'town/a').notComputable).toBeNull();
+    expect(row(result, 'town/b').notComputable).toBeNull();
+  });
+
+  describe('small schools', () => {
+    // The synthetic small-school density ceiling is 55 persons per square mile,
+    // and the weight for a school under 100 pupils is 0.2.
+    const withSchool = (m: CombinerMember, enrollment: number | null, density: number, name = 'Hilltop School') =>
+      ({
+        ...m,
+        membership: {
+          ...m.membership,
+          persons_per_square_mile: density,
+          small_schools: [{ name, average_two_year_enrollment: enrollment }],
+        },
+      }) satisfies CombinerMember;
+
+    it('a named school with a blank enrollment blocks the pool and names the school', () => {
+      const b = withSchool(B(), null, 40);
+      const result = runCombiner(syntheticParameters(), [A(), b], {
+        ...OPTIONS,
+        pooled_persons_per_square_mile: 40,
+      });
+
+      expect(result.pooled.membership.total.value).toBeNull();
+      expect(result.pooled.perPupil.value).toBeNull();
+      const refs = collectBlockers(result.pooled.membership.total).map((b) => b.ref);
+      expect(refs).toContain('Hilltop School average two-year enrollment');
+      expect(result.pooled.reasons.join(' ')).toMatch(/ud\/b.*Hilltop School/);
+      for (const r of result.towns) {
+        expect(r.pooled).toBeNull();
+        expect(r.delta).toBeNull();
+        expect(r.notComputable).toMatch(/The pooled rate cannot be worked out: .*ud\/b.*Hilltop School/);
+      }
+      // ud/b alone is also under the ceiling, so its own rate today is blocked
+      // the same way. ud/a has no school and still computes today.
+      expect(row(result, 'town/b').today).toBeNull();
+      expect(row(result, 'town/b').notComputable).toMatch(/Today’s rate cannot be worked out: .*Hilltop School/);
+      expect(row(result, 'town/a').today).not.toBeNull();
+    });
+
+    it('a school with its enrollment still computes, and a blank only matters under the ceiling', () => {
+      // 80 pupils is under 100, so the school adds 80 × 0.2 = 16 weighted pupils.
+      const plain = runCombiner(syntheticParameters(), [A(), B()], { ...OPTIONS, pooled_persons_per_square_mile: 40 });
+      const result = runCombiner(syntheticParameters(), [A(), withSchool(B(), 80, 40)], {
+        ...OPTIONS,
+        pooled_persons_per_square_mile: 40,
+      });
+      expect(plain.pooled.membership.total.value).not.toBeNull();
+      expect(result.pooled.membership.total.value).toBeCloseTo((plain.pooled.membership.total.value as number) + 16, 9);
+      expect(result.towns.every((r) => r.notComputable === null)).toBe(true);
+
+      // Above the ceiling no small school weight applies, so a blank enrollment changes nothing.
+      const over = runCombiner(syntheticParameters(), [A(), withSchool(B(), null, 120)], OPTIONS);
+      const baseline = runCombiner(syntheticParameters(), [A(), B()], OPTIONS);
+      expect(over.pooled.membership.total.value).toBe(baseline.pooled.membership.total.value);
+      expect(over.towns.every((r) => r.notComputable === null)).toBe(true);
+
+      // A school with no name is no school, as on /model: it is dropped, not a blocker.
+      const unnamed = runCombiner(syntheticParameters(), [A(), withSchool(B(), null, 40, ' ')], {
+        ...OPTIONS,
+        pooled_persons_per_square_mile: 40,
+      });
+      expect(unnamed.pooled.membership.total.value).toBe(plain.pooled.membership.total.value);
+    });
+  });
+
   it('blank sparsity: a blank pooled density blocks the pool and is named', () => {
     const result = runCombiner(syntheticParameters(), [A(), B()], {
       ...OPTIONS,

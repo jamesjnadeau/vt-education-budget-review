@@ -6,7 +6,8 @@
  * never from the published rate. The engine and the Department of Taxes do not
  * agree for every district, so comparing a published "today" with a computed
  * "pooled" would mix that disagreement into the pooling effect. Holding both
- * sides to one chain means the change shown is the pooling alone.
+ * sides to one chain means the change shown comes from pooling and the
+ * assumptions listed with it, not from that disagreement.
  *
  * The rules this file keeps:
  *
@@ -27,11 +28,12 @@ import {
   type AdmYear,
   type MembershipInput,
   type MembershipResult,
+  type SmallSchool,
 } from './membership.ts';
-import { collectBlockers, createContext, input, product, sum } from './node.ts';
+import { collectBlockers, createContext, input, product, relabel, sum } from './node.ts';
 import { defaultAssumptions, type Assumption } from './scenario.ts';
 import { townRate, type ExcessSpendingAdjustments, type TownRateResult, type TownTaxInput } from './tax.ts';
-import type { Blocker, CalcNode, ParameterSet } from './types.ts';
+import type { Blocker, CalcNode, EngineContext, ParameterSet } from './types.ts';
 
 export interface CombinerMember {
   /** The taxing district's slug, `ud/...` or `town/...`. Every blank is named by it. */
@@ -75,14 +77,15 @@ export interface CombinerOptions {
   /**
    * Every district that taxes each town, keyed by town slug. A town with more
    * than one is not computed: its rate blends those districts' rates, which
-   * this engine does not model yet.
+   * this engine does not model yet. A town that more than one member lists in
+   * its `towns` is treated the same way, even if it is missing here.
    */
   readonly town_districts: Readonly<Record<string, readonly string[]>>;
 }
 
 export interface CombinerTownRow {
   readonly town: string;
-  /** The member district that taxes this town today. */
+  /** The member district that taxes this town today (the first to list it, where several do). */
   readonly district: string;
   readonly cla: number | null;
   /** The member's own rate for this town through the engine; null when it cannot be worked out. */
@@ -220,20 +223,33 @@ export function runCombiner(
     );
   }
 
-  const pooledMembership = combineMembership(
+  // Every member's named schools stay schools of the pooled district.
+  const pooledSchools = members.flatMap((m) =>
+    namedSchools(m.membership.small_schools).map((school) => ({ entity: m.entity, school, source: m.membership.source })),
+  );
+  const pooledBlankSchools = smallSchoolWeightMayApply(params, opts.pooled_persons_per_square_mile)
+    ? pooledSchools.filter(({ school }) => school.average_two_year_enrollment === null)
+    : [];
+  for (const { entity, school } of pooledBlankSchools) poolReasons.push(blankSchoolReason(entity, school));
+
+  const pooledMembership = blockBlankSmallSchools(
     ctx,
-    members.map((m) => ({
-      ...m.membership,
-      entity: m.entity,
-      adm_years: allYears.map((y) => m.membership.adm_years.find((a) => a.fiscal_year === y) ?? blankYear(y)),
-    })),
-    {
-      entity: 'pool',
-      persons_per_square_mile: opts.pooled_persons_per_square_mile,
-      small_schools: members.flatMap((m) => m.membership.small_schools),
-      ...counts,
-      prior_year_weighted_membership: pooledPrior,
-    },
+    combineMembership(
+      ctx,
+      members.map((m) => ({
+        ...m.membership,
+        entity: m.entity,
+        adm_years: allYears.map((y) => m.membership.adm_years.find((a) => a.fiscal_year === y) ?? blankYear(y)),
+      })),
+      {
+        entity: 'pool',
+        persons_per_square_mile: opts.pooled_persons_per_square_mile,
+        small_schools: pooledSchools.map(({ school }) => school),
+        ...counts,
+        prior_year_weighted_membership: pooledPrior,
+      },
+    ),
+    pooledBlankSchools,
   );
 
   // --- Spending --------------------------------------------------------------
@@ -259,7 +275,12 @@ export function runCombiner(
 
   // --- Each member alone, today ---------------------------------------------
   const memberResults: CombinerMemberResult[] = members.map((m, i) => {
-    const membership = computeWeightedMembership(ctx, { ...m.membership, entity: m.entity });
+    const ownSchools = namedSchools(m.membership.small_schools);
+    const membership = blockBlankSmallSchools(
+      ctx,
+      computeWeightedMembership(ctx, { ...m.membership, entity: m.entity, small_schools: ownSchools }),
+      ownBlankSchools(params, m).map((school) => ({ school, source: m.membership.source })),
+    );
     const spending = spendingNodes[i] as CalcNode;
     const perPupil = perPupilEducationSpending(ctx, spending, membership.total);
     const named = [...memberMembershipReasons(params, m, holdHarmless)];
@@ -279,6 +300,16 @@ export function runCombiner(
   const rows: CombinerTownRow[] = [];
   const multiDistrictTowns: string[] = [];
   const seen = new Set<string>();
+  // Which members list each town. Two members listing one town means it is
+  // taxed by both today, so its rate blends them, whatever town_districts says.
+  const listedBy = new Map<string, string[]>();
+  for (const m of members) {
+    for (const t of m.towns) {
+      const by = listedBy.get(t.town) ?? [];
+      if (!by.includes(m.entity)) by.push(m.entity);
+      listedBy.set(t.town, by);
+    }
+  }
 
   members.forEach((m, i) => {
     const member = memberResults[i] as CombinerMemberResult;
@@ -286,7 +317,7 @@ export function runCombiner(
       if (seen.has(town.town)) continue; // one row per town
       seen.add(town.town);
 
-      const servedBy = opts.town_districts[town.town] ?? [];
+      const servedBy = [...new Set([...(opts.town_districts[town.town] ?? []), ...(listedBy.get(town.town) ?? [])])];
       if (servedBy.length > 1) {
         multiDistrictTowns.push(town.town);
         rows.push({
@@ -406,10 +437,72 @@ function memberMembershipReasons(params: ParameterSet, m: CombinerMember, holdHa
         `small school weights cannot be worked out.`,
     );
   }
+  for (const school of ownBlankSchools(params, m)) out.push(blankSchoolReason(m.entity, school));
   if (holdHarmless && (m.membership.prior_year_weighted_membership ?? null) === null) {
     out.push(priorYearReason(m.entity));
   }
   return out;
+}
+
+/** A school with no name is no school, as on `/model`: it is dropped, not weighted. */
+function namedSchools(schools: readonly SmallSchool[]): SmallSchool[] {
+  return schools.filter((s) => s.name.trim() !== '');
+}
+
+/**
+ * Whether a district's density is at or under the § 4010(d)(5) ceiling, so a
+ * small school weight could apply. False where the density or the ceiling is
+ * unknown: `membership.ts` already blocks the total on that blank.
+ */
+function smallSchoolWeightMayApply(params: ParameterSet, density: number | null): boolean {
+  const ceiling = params.parameters.get('weights.small_school.density_ceiling')?.value;
+  return typeof ceiling === 'number' && density !== null && density <= ceiling;
+}
+
+function ownBlankSchools(params: ParameterSet, m: CombinerMember): SmallSchool[] {
+  if (!smallSchoolWeightMayApply(params, m.membership.persons_per_square_mile)) return [];
+  return namedSchools(m.membership.small_schools).filter((s) => s.average_two_year_enrollment === null);
+}
+
+/**
+ * Closes a silent zero. `membership.ts` skips a small school whose average
+ * two-year enrollment is blank: it adds no weight and no blocker, so the school
+ * quietly counts for nothing. Where the weight could apply, each such school is
+ * added to the total here as a blank weight instead, which blocks the total and
+ * names the school. `/model` and `combineMembership` keep their own behaviour.
+ */
+function blockBlankSmallSchools(
+  ctx: EngineContext,
+  membership: MembershipResult,
+  blank: ReadonlyArray<{ readonly school: SmallSchool; readonly source: string }>,
+): MembershipResult {
+  if (blank.length === 0) return membership;
+  const weights = blank.map(({ school, source }) =>
+    relabel(
+      ctx,
+      `Additional weighting for the small school ${school.name}`,
+      input(ctx, `${school.name} average two-year enrollment`, null, 'pupils', { source }),
+      'pupils',
+    ),
+  );
+  const demographic = [...membership.demographicWeightIncrements, ...weights];
+  const increments = [...membership.increments, ...weights];
+  return {
+    ...membership,
+    increments,
+    demographicWeightIncrements: demographic,
+    demographicWeightTotal: sum(ctx, membership.demographicWeightTotal.label, demographic, 'pupils'),
+    allWeightsTotal: sum(ctx, membership.allWeightsTotal.label, increments, 'pupils'),
+    beforeHoldHarmless: sum(ctx, membership.beforeHoldHarmless.label, [membership.beforeHoldHarmless, ...weights], 'pupils'),
+    total: sum(ctx, membership.total.label, [membership.total, ...weights], 'pupils'),
+  };
+}
+
+function blankSchoolReason(entity: string, school: SmallSchool): string {
+  return (
+    `${entity}: the small school ${school.name} has no average two-year enrollment, so its ` +
+    `small school weight cannot be worked out.`
+  );
 }
 
 function priorYearReason(entity: string): string {
@@ -479,7 +572,7 @@ function caveats(args: {
   const out = [
     'This engine’s rates can differ from the rates the Department of Taxes published for some ' +
       'districts. Both sides of every comparison here, today and pooled, come from this engine, ' +
-      'so the change shown is the effect of pooling alone. The published rate is shown for ' +
+      'so the change shown comes from pooling and the assumptions listed. The published rate is shown for ' +
       'reference, not as the starting point.',
     'Spending is held at the members’ combined published education spending times the ' +
       'consolidation factor. It is not a forecast of what a pooled board would budget.',
