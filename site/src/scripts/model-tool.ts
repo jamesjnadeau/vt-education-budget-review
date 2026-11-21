@@ -127,7 +127,7 @@ export interface RawParameterSet {
 
 // The published statewide-average figure on a set, or null when the year's
 // determination is not yet on file (its `inputs` value is null, or absent).
-function publishedStatewideAverage(set: RawParameterSet | undefined): number | null {
+export function publishedStatewideAverage(set: RawParameterSet | undefined): number | null {
   const entry = set?.inputs?.find((i) => i.key === STATEWIDE_AVERAGE_KEY);
   return entry?.value ?? null;
 }
@@ -139,7 +139,7 @@ function publishedStatewideAverage(set: RawParameterSet | undefined): number | n
 // parameters.json. A set with no file recorded is kept rather than dropped.
 const MAIN_FORMULA_FILE = /(?:^|\/)fy\d{4}\.yaml$/;
 
-function liveSets(sets: RawParameterSet[]): RawParameterSet[] {
+export function liveSets(sets: RawParameterSet[]): RawParameterSet[] {
   return sets
     .filter((s) => s.file === undefined || MAIN_FORMULA_FILE.test(s.file))
     .sort((a, b) => b.fiscal_year - a.fiscal_year);
@@ -159,7 +159,7 @@ function liveLabel(set: RawParameterSet): string {
   return `Live — FY${set.fiscal_year} (${detail})`;
 }
 
-function toParameterSet(raw: RawParameterSet): ParameterSet {
+export function toParameterSet(raw: RawParameterSet): ParameterSet {
   return {
     fiscal_year: raw.fiscal_year,
     status: raw.status,
@@ -295,7 +295,7 @@ const STATUS_CLASS: Record<CalcNode['status'], string> = {
 // reader can tell it from an estimate the engine made from a parameter range.
 // A figure built on a range's lower limit gets a warning of its own, which
 // wins over both: the real number may be well away from it.
-function statusLabel(node: CalcNode): string {
+export function statusLabel(node: CalcNode): string {
   if (node.status === 'estimated') {
     if (node.blockers.some((b) => b.kind === 'lower_limit_input')) return 'lower limit estimate';
     if (!node.blockers.some((b) => b.kind === 'estimated_parameter')) return 'estimated (from suggestion)';
@@ -303,7 +303,7 @@ function statusLabel(node: CalcNode): string {
   return STATUS_LABEL[node.status];
 }
 
-function statusClass(node: CalcNode): string {
+export function statusClass(node: CalcNode): string {
   if (node.status === 'estimated' && node.blockers.some((b) => b.kind === 'lower_limit_input')) return 'lower-limit';
   return STATUS_CLASS[node.status];
 }
@@ -328,7 +328,7 @@ function setAdmYearLabels(earlierYear: number, laterYear: number): void {
   }
 }
 
-function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
+export function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   const list = el('ol', 'walkthrough');
 

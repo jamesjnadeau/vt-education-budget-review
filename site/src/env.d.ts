@@ -10,12 +10,15 @@
 // `include: ["src/**/*.ts"]` also matches `.d.ts`). The two Window members
 // below are intentionally optional, so this augmentation is purely additive
 // and can't affect assignability elsewhere in the composite `.ts` program.
+import type { CombinerData } from './scripts/combiner-view';
 import type { RawParameterSet, ResolvedAdmData } from './scripts/model-tool';
 
 declare global {
   interface Window {
     __VT_PARAMETERS__?: RawParameterSet[];
     __VT_RESOLVED_ADM__?: ResolvedAdmData;
+    // The combiner page's district, town and grouping data (combiner.json).
+    __VT_COMBINER__?: CombinerData;
   }
 }
 
