@@ -25,6 +25,7 @@
     "adm:subgroups": "tsx tools/src/cli/adm-subgroups-import.ts",
     "adm:subgroups-su": "tsx tools/src/cli/adm-subgroups-su-import.ts",
     "edspend:import": "tsx tools/src/cli/edspend-import.ts",
+    "tax-rates:import": "tsx tools/src/cli/tax-rates-import.ts",
     "act84:import": "tsx tools/src/cli/act84-import.ts",
     "census:import": "tsx tools/src/cli/census-import.ts",
     "school:municipality": "tsx tools/src/cli/school-municipality.ts",
