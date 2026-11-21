@@ -16,6 +16,7 @@ const NON_BUDGET_DIRS = [
   'aoe-edspend',
   'census',
   'small-sparse',
+  'tax-rates',
 ] as const;
 
 /** `path` is repo-relative with forward slashes, as `rel()` returns it. */

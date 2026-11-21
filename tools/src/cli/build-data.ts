@@ -31,6 +31,7 @@ import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import type { Act84Record } from '../aoe/act84/record.ts';
 import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
+import { buildCombinerData, type CombinerInputs } from '../combiner-data.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
 import { buildHomesteadComparison } from '../homestead-comparison.ts';
@@ -234,6 +235,34 @@ function main(): number {
       }),
     ),
   });
+
+  // --- combiner: per-district pooling inputs, per-town CLA ------------------
+  // FY2026 only: the Tax Department's per-town CLA table is imported for that
+  // year. Without it there is nothing to pool against, so no file is written.
+  const taxRatesPath = join(PATHS.warehouse, 'tax-rates', 'fy2026.yaml');
+  const edspend2026 = edspendRecords.find((r) => r.fiscal_year === 2026) as
+    | (EdspendRecord & { towns?: CombinerInputs['edspendTowns'] })
+    | undefined;
+  if (existsSync(taxRatesPath) && edspend2026) {
+    const taxRates = parseYaml(readFileSync(taxRatesPath, 'utf8')) as { towns: CombinerInputs['taxRates'] };
+    writeJson(
+      join(PATHS.siteGenerated, 'combiner.json'),
+      buildCombinerData({
+        registry: [...registry.values()],
+        resolved: {
+          entities: prefillAdm as unknown as CombinerInputs['resolved']['entities'],
+          spending: prefillSpendingRows,
+          act84: act84Prefill(act84Record, act84Districts, prefillSlugs),
+          labels: Object.fromEntries(
+            prefillSlugs.map((slug) => [slug, { name: registry.get(slug)?.name ?? slug }]),
+          ),
+        },
+        groupings: groupingList,
+        taxRates: taxRates.towns,
+        edspendTowns: edspend2026.towns ?? [],
+      }),
+    );
+  }
 
   let smallSparseCounts: Record<string, number> | null = null;
 
