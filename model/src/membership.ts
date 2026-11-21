@@ -472,6 +472,17 @@ export function combineMembership(
     readonly persons_per_square_mile: number | null;
     /** Schools survive a merger unless a closure scenario removes them. */
     readonly small_schools: readonly SmallSchool[];
+    /**
+     * Combined counts to use instead of the parts' sum. Leave one out to sum
+     * the parts (null if any part is null); a value given here, null included,
+     * is used as given. A caller that supplies one is responsible for labelling
+     * where it came from.
+     */
+    readonly state_placed_fte?: number | null;
+    readonly poverty_185_fpl?: number | null;
+    readonly english_learners?: number | null;
+    /** The combined district's previous-year weighted membership, for § 4010(e). */
+    readonly prior_year_weighted_membership?: number | null;
   },
 ): MembershipResult {
   const years = new Map<number, AdmYear>();
@@ -494,14 +505,23 @@ export function combineMembership(
     }
   }
 
+  const summed = (pick: (p: MembershipInput) => number | null): number | null =>
+    parts.reduce<number | null>((acc, p) => addNullable(acc, pick(p)), 0);
+
   return computeWeightedMembership(ctx, {
     entity: combined.entity,
     adm_years: [...years.values()].sort((a, b) => a.fiscal_year - b.fiscal_year),
-    state_placed_fte: parts.reduce<number | null>((acc, p) => addNullable(acc, p.state_placed_fte), 0),
-    poverty_185_fpl: parts.reduce<number | null>((acc, p) => addNullable(acc, p.poverty_185_fpl), 0),
-    english_learners: parts.reduce<number | null>((acc, p) => addNullable(acc, p.english_learners), 0),
+    state_placed_fte:
+      combined.state_placed_fte !== undefined ? combined.state_placed_fte : summed((p) => p.state_placed_fte),
+    poverty_185_fpl:
+      combined.poverty_185_fpl !== undefined ? combined.poverty_185_fpl : summed((p) => p.poverty_185_fpl),
+    english_learners:
+      combined.english_learners !== undefined ? combined.english_learners : summed((p) => p.english_learners),
     persons_per_square_mile: combined.persons_per_square_mile,
     small_schools: combined.small_schools,
+    ...(combined.prior_year_weighted_membership !== undefined
+      ? { prior_year_weighted_membership: combined.prior_year_weighted_membership }
+      : {}),
     source: `combined from ${parts.map((p) => p.entity).join(', ')}`,
   });
 }
