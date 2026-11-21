@@ -328,6 +328,15 @@ function main(): number {
       continue;
     }
 
+    if (relative.startsWith('warehouse/tax-rates/')) {
+      // The Tax Department's per-town rate and CLA table, written by
+      // `npm run tax-rates:import`. It is not a budget record and has no schema
+      // of its own yet; build-data reads it outside the budget list too.
+      // Validating it as a budget would report every budget field as missing
+      // from a file that never claimed to be one.
+      continue;
+    }
+
     if (relative.startsWith('warehouse/small-sparse/')) {
       // gaps.yaml describes what the layer needs and does not have. It is not a
       // record of a school, so validating it as one would report every field a
