@@ -12,12 +12,12 @@ const combinerData = JSON.stringify(combiner);
 
 <Base
   title="Combine districts — Vermont School Budgets"
-  description="Pick two or more Vermont school districts, pool them into one, and see each town's home tax rate today and if combined, with every step of the math shown."
+  description="Pick two or more Vermont school districts, pool them into one, and see each town's home tax rate if they were combined, with every step of the math shown."
 >
   <h1>Combine districts</h1>
   <p class="lede">
-    Pick two or more school districts and treat them as one. See each town's home tax rate today
-    and if they were combined, with every step of the math shown. To change one district's
+    Pick two or more school districts and treat them as one. See what each town's home tax rate
+    would be if they were combined, with every step of the math shown. To change one district's
     numbers instead, use the <a href={`${base}/model/`}>What-if tool</a>.
   </p>
 
@@ -37,19 +37,25 @@ const combinerData = JSON.stringify(combiner);
   <div class="notice">
     <strong>Read this before you use the numbers</strong>
     <p>
+      For now, this page shows one thing: each town's rate if the districts were combined. It
+      cannot show the rate today, or the change, yet. The State does not publish each district's own
+      population density. It also does not publish each district's own count of state-placed
+      students, students from lower-income homes, or English learners. The math for “rate today”
+      needs them. So “rate today” and “change” say “not worked out.” Nothing is guessed.
+    </p>
+    <p>
+      The “if combined” rate is what this tool shows. To see it, enter those figures for all the
+      districts together, in the boxes below.
+    </p>
+    <p>
       This page's math does not match the rate the State published for every district. For 47 of
       the 97 districts that serve a single town, the published rate is lower than the one this math
-      gives. So compare “today” with “if combined” here. Both are worked out the same way. The
-      published rate is shown only for reference.
+      gives. So do not compare the “if combined” rate with the published rate. The published rate is
+      shown only for reference.
     </p>
     <p>
       The law's numbers this page uses for FY2026 were checked against the text of the law. A
       person has not yet signed off on that check.
-    </p>
-    <p>
-      The State does not publish each district's own population density, or its own counts of
-      state-placed students, students from lower-income homes, and English learners. Without them,
-      “rate today” cannot be worked out yet, so it says “not worked out.” Nothing is guessed.
     </p>
   </div>
 
@@ -141,7 +147,9 @@ const combinerData = JSON.stringify(combiner);
         <div class="field">
           <label for="combiner-density">Population density, people per square mile</label>
           <input id="combiner-density" type="number" min="0" step="any" />
-          <small class="field-help">For the combined district.</small>
+          <small class="field-help">
+            How spread out people are (the law calls this sparsity), for the combined district.
+          </small>
         </div>
         <div class="field">
           <label for="combiner-state-placed">State-placed students</label>
@@ -212,7 +220,8 @@ const combinerData = JSON.stringify(combiner);
   </div>
 
   <h2>Result</h2>
-  <div id="combiner-result" aria-live="polite"></div>
+  <p id="combiner-result-status" class="field-help" role="status"></p>
+  <div id="combiner-result"></div>
 
   <h2>What this tool will not do</h2>
   <p>

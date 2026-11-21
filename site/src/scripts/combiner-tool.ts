@@ -11,7 +11,7 @@
  * The rules it keeps:
  *   - No colour says good or bad. A change is a signed number and the words
  *     "goes up", "goes down" or "no change", the same way in both directions.
- *   - Nothing is ranked or called a saving.
+ *   - Nothing is ranked or called good or bad.
  *   - A blank is named, never filled in. A district that cannot be combined is
  *     disabled in the picker with its reason; one that arrives anyway (from a
  *     grouping or a link) is named in the result instead of being run.
@@ -27,6 +27,7 @@ import {
   plainText,
   planCombiner,
   rateText,
+  resultStatus,
   type CombinerData,
   type CombinerDistrict,
 } from './combiner-view.ts';
@@ -169,9 +170,12 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       const label = key === '' ? 'Not part of a supervisory union' : (data.sus[key]?.label ?? key);
       box.append(el('summary', undefined, `${label} (${ready.length} of ${districts.length} can be combined)`));
 
-      const addAll = el('button', 'combiner-add-su', 'Add every district in this SU');
+      // The spoken name starts with the words on the button, then says which
+      // supervisory union, so the 53 buttons are told apart.
+      const visible = key === '' ? 'Add every district in this list' : 'Add every district in this supervisory union';
+      const addAll = el('button', 'combiner-add-su', visible);
       addAll.type = 'button';
-      addAll.setAttribute('aria-label', `Add every district in ${label}`);
+      addAll.setAttribute('aria-label', `${visible}: ${label}`);
       addAll.disabled = ready.length === 0;
       addAll.addEventListener('click', () => {
         for (const d of ready) if (!picked.includes(d.entity)) picked.push(d.entity);
@@ -309,23 +313,35 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     renderResult();
   }
 
+  // The result is rebuilt on every keystroke, so it is not a live region. This
+  // one line is, and it changes only when the counts it gives change.
+  const resultStatusLine = byId<HTMLElement>('combiner-result-status');
+  function announce(text: string): void {
+    if (resultStatusLine && resultStatusLine.textContent !== text) resultStatusLine.textContent = text;
+  }
+
   function renderResult(): void {
     if (!result) return;
     result.replaceChildren();
     if (!params) {
-      result.append(notice(`This page has no numbers for FY${data.fiscal_year}, so it cannot work anything out.`, [], true));
+      const missing = `This page has no numbers for FY${data.fiscal_year}, so it cannot work anything out.`;
+      result.append(notice(missing, [], true));
+      announce(missing);
       return;
     }
     const plan = planCombiner(readState(), data);
     if (plan.kind === 'too_few') {
       result.append(el('p', 'combiner-message', plan.message));
+      announce(resultStatus(plan, null));
       return;
     }
     if (plan.kind === 'blocked' || plan.kind === 'input') {
       result.append(notice(plan.message, plan.items, true));
+      announce(resultStatus(plan, null));
       return;
     }
     const outcome = runCombiner(params, plan.members, plan.options);
+    announce(resultStatus(plan, outcome));
     renderSummary(outcome, result);
     renderTowns(outcome, result);
     renderRegister(outcome, result);
@@ -442,7 +458,8 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       el(
         'p',
         undefined,
-        'The homestead education tax rate, in dollars for each $100 of home value. “Today” and “if combined” are ' +
+        'This is the homestead education tax rate. A homestead is the home where you live. The rate is in dollars ' +
+          'for each $100 of home value. “Today” and “if combined” are ' +
           'both worked out by this page the same way, so the change comes only from combining. The rate the ' +
           'State published is shown for reference. It is not part of the change.',
       ),
@@ -578,11 +595,21 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     if (next) avgInput.value = next.field;
   }
 
-  form.addEventListener('input', update);
+  // The district checkboxes and the grouping select sit inside the form, and
+  // each handles its own events. A checkbox click fires `input` before
+  // `change`. If the form's listener ran update() on that `input`, update()
+  // would set the box back to the old pick before the checkbox's own handler
+  // read it, and the click would be undone. So these two listeners skip them.
+  const handledElsewhere = (event: Event): boolean => {
+    const target = event.target;
+    if (target === groupingSelect) return true;
+    return target instanceof Element && target.closest('#combiner-picker') !== null;
+  };
+  form.addEventListener('input', (event) => {
+    if (!handledElsewhere(event)) update();
+  });
   form.addEventListener('change', (event) => {
-    // The grouping select and checkboxes handle themselves; this catches the rest.
-    if (event.target === groupingSelect) return;
-    update();
+    if (!handledElsewhere(event)) update();
   });
   form.addEventListener('submit', (event) => event.preventDefault());
 

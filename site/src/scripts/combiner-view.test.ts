@@ -16,6 +16,7 @@ import {
   nameOf,
   plainText,
   planCombiner,
+  resultStatus,
   type CombinerData,
   type CombinerDistrict,
 } from './combiner-view.ts';
@@ -233,6 +234,36 @@ describe('changeText', () => {
       expect(row.direction).toBe('none');
       expect(changeText(row)).toBe('no change');
     }
+  });
+});
+
+describe('resultStatus', () => {
+  // One short line for the role="status" region. The result itself is rebuilt on
+  // every keystroke and is not live, so this line is all a screen reader hears.
+  it('says what is missing when nothing is worked out', () => {
+    expect(resultStatus(planCombiner(choices({ districts: ['town/alpha'] }), DATA), null)).toBe(MIN_DISTRICTS_MESSAGE);
+    expect(resultStatus(planCombiner(choices({ districts: ['town/alpha', 'ud/withheld-2'] }), DATA), null)).toBe(
+      'Not worked out. Some districts you picked can’t be combined yet.',
+    );
+    expect(resultStatus(planCombiner(choices({ factor: '' }), DATA), null)).toBe(
+      'Not worked out. Some boxes need fixing first.',
+    );
+  });
+
+  it('counts districts, towns, and the towns whose combined rate was worked out', () => {
+    const plan = planCombiner(choices(), DATA);
+    if (plan.kind !== 'ready') throw new Error('expected a ready plan');
+    const result = runCombiner(exampleParameters(), plan.members, plan.options);
+    expect(resultStatus(plan, result)).toBe('2 districts, 3 towns. Rate if combined worked out for 0 of 3 towns.');
+  });
+
+  it('stays the same while a number is typed, so it is not read out on every keystroke', () => {
+    const run = (factor: string) => {
+      const plan = planCombiner(choices({ factor }), DATA);
+      if (plan.kind !== 'ready') throw new Error('expected a ready plan');
+      return resultStatus(plan, runCombiner(exampleParameters(), plan.members, plan.options));
+    };
+    expect(run('1')).toBe(run('1.05'));
   });
 });
 

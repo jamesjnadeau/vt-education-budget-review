@@ -282,8 +282,26 @@ export function rateText(result: TownRateResult | null): string {
 }
 
 /**
- * The signed change in plain words. No colour, no "savings": up and down are
- * said the same way.
+ * One short line for the page's role="status" region, said in place of the
+ * whole result. It counts things and does not repeat any rate, so it stays the
+ * same while a number is typed and is not read out on every keystroke.
+ */
+export function resultStatus(plan: CombinerPlan, result: Pick<CombinerResult, 'members' | 'towns'> | null): string {
+  if (plan.kind === 'too_few') return plan.message;
+  if (plan.kind === 'blocked') return 'Not worked out. Some districts you picked can’t be combined yet.';
+  if (plan.kind === 'input' || result === null) return 'Not worked out. Some boxes need fixing first.';
+  const count = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+  const towns = result.towns.length;
+  const worked = result.towns.filter((row) => row.pooled !== null && row.pooled.billedRate.value !== null).length;
+  return (
+    `${count(result.members.length, 'district')}, ${count(towns, 'town')}. ` +
+    `Rate if combined worked out for ${worked} of ${count(towns, 'town')}.`
+  );
+}
+
+/**
+ * The signed change in plain words. No colour and no word that calls a change
+ * good or bad: up and down are said the same way.
  */
 export function changeText(row: Pick<CombinerTownRow, 'delta' | 'direction'>): string {
   if (row.direction === null || row.delta === null) return 'not worked out';
