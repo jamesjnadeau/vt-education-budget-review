@@ -19,8 +19,18 @@
 
 import { formatValue, runCombiner, type CalcNode, type CombinerResult, type CombinerTownRow } from '@vt-budget/model';
 
-import { SUPPORTED_YEARS, decodeCombiner, shareCombinerUrl, type CombinerShareState } from './combiner-share.ts';
 import {
+  SUPPORTED_YEARS,
+  decodeCombiner,
+  linkFigureNote,
+  shareCombinerUrl,
+  unknownDistrictNote,
+  type CombinerShareState,
+  type LinkNote,
+} from './combiner-share.ts';
+import {
+  admScale,
+  admScaleText,
   blockerList,
   changeText,
   nameOf,
@@ -89,6 +99,15 @@ function notice(title: string, items: readonly string[], blocking: boolean): HTM
   const box = el('div', blocking ? 'notice blocking' : 'notice');
   box.append(el('strong', undefined, title));
   if (items.length > 0) box.append(list(items));
+  return box;
+}
+
+/** A notice about a link, with its lead sentence between the title and the list. */
+function linkNotice(note: LinkNote, blocking: boolean): HTMLElement {
+  const box = el('div', blocking ? 'notice blocking' : 'notice');
+  box.append(el('strong', undefined, note.title));
+  if (note.lead !== '') box.append(el('p', undefined, note.lead));
+  if (note.items.length > 0) box.append(list(note.items));
   return box;
 }
 
@@ -203,6 +222,8 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
         input.id = id;
         input.value = d.entity;
         input.disabled = d.blockers.length > 0;
+        const reasonId = `${id}-reason`;
+        if (input.disabled) input.setAttribute('aria-describedby', reasonId);
         input.addEventListener('change', () => {
           if (input.checked) {
             if (!picked.includes(d.entity)) picked.push(d.entity);
@@ -217,7 +238,9 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
         li.append(input, lab);
         if (d.blockers.length > 0) {
           li.classList.add('combiner-blocked');
-          li.append(el('p', 'field-help', `Can’t be combined yet: ${d.blockers.join(' ')}`));
+          const reason = el('p', 'field-help', `Can’t be combined yet: ${d.blockers.join(' ')}`);
+          reason.id = reasonId;
+          li.append(reason);
         }
         ul.append(li);
       }
@@ -228,6 +251,7 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
 
   // --- The picked list, with a way to take each one out --------------------
   const pickedList = byId<HTMLElement>('combiner-picked');
+  const pickedHeading = byId<HTMLElement>('combiner-picked-heading');
   function renderPicked(): void {
     if (!pickedList) return;
     pickedList.replaceChildren();
@@ -236,7 +260,7 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       return;
     }
     const ol = el('ol', 'combiner-picked-list');
-    for (const slug of picked) {
+    picked.forEach((slug, index) => {
       const li = el('li');
       li.append(el('span', undefined, nameOf(slug, data)));
       const remove = el('button', 'combiner-remove', 'Take out');
@@ -245,13 +269,20 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       remove.addEventListener('click', () => {
         picked = picked.filter((p) => p !== slug);
         update();
+        // The list was rebuilt, so the pressed button is gone. Keep focus in
+        // the list: on the next Take out button, or the one before it, or on
+        // the list's heading once the list is empty.
+        const buttons = pickedList.querySelectorAll<HTMLButtonElement>('button.combiner-remove');
+        const next = buttons[Math.min(index, buttons.length - 1)];
+        if (next) next.focus();
+        else pickedHeading?.focus();
       });
       li.append(document.createTextNode(' '), remove);
       const d = data.districts[slug];
       if (!d) li.append(el('p', 'field-help', 'This district is not in the data this page was built with.'));
       else if (d.blockers.length > 0) li.append(el('p', 'field-help', `Can’t be combined yet: ${d.blockers.join(' ')}`));
       ol.append(li);
-    }
+    });
     pickedList.append(ol);
   }
 
@@ -306,10 +337,12 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
   const parameterSet = live.find((s) => s.fiscal_year === data.fiscal_year);
   const params = parameterSet ? toParameterSet(parameterSet) : null;
 
+  const admScaleLine = byId<HTMLElement>('combiner-adm-scale');
   function update(): void {
     for (const [slug, box] of checkboxes) box.checked = picked.includes(slug);
     renderPicked();
     renderSchoolIn();
+    if (admScaleLine) admScaleLine.textContent = admScaleText(admScale(picked, data));
     renderResult();
   }
 
@@ -358,7 +391,20 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     };
     fact('Districts', String(outcome.members.length));
     fact('Towns', String(outcome.towns.length));
-    fact('Students (average daily membership)', valueWithStatus(outcome.pooled.membership.longTermMembership));
+    const scale = admScale(
+      outcome.members.map((m) => m.entity),
+      data,
+    );
+    fact(
+      `Students, FY${data.fiscal_year} (average daily membership, as published)`,
+      scale === null
+        ? 'none on file'
+        : `${scale.complete ? '' : 'at least '}${Math.round(scale.students).toLocaleString('en-US')}`,
+    );
+    fact(
+      'Students counted for the rate (two-year average, plus state-placed students)',
+      valueWithStatus(outcome.pooled.membership.longTermMembership),
+    );
     fact('Weighted students', valueWithStatus(outcome.pooled.membership.total));
     fact('Education spending', valueWithStatus(outcome.pooled.spending));
     fact('Spending per weighted student', valueWithStatus(outcome.pooled.perPupil));
@@ -377,7 +423,7 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     const head = el('tr');
     for (const [text, numeric] of [
       ['District', false],
-      ['Students', true],
+      ['Students counted for the rate', true],
       ['Weighted students', true],
       ['Spending per weighted student', true],
     ] as const) {
@@ -421,11 +467,10 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     container.append(math);
   }
 
-  function rowMath(row: CombinerTownRow, holder: HTMLElement): void {
-    const sides: Array<[string, CombinerTownRow['pooled']]> = [
-      ['Rate if combined', row.pooled],
-      [`Rate today, as part of ${nameOf(row.district, data)}`, row.today],
-    ];
+  /** The math under one town's row. The rate today is shown only when some town has one. */
+  function rowMath(row: CombinerTownRow, holder: HTMLElement, anyToday: boolean): void {
+    const sides: Array<[string, CombinerTownRow['pooled']]> = [['Rate if combined', row.pooled]];
+    if (anyToday) sides.push([`Rate today, as part of ${nameOf(row.district, data)}`, row.today]);
     for (const [title, side] of sides) {
       holder.append(el('h4', undefined, title));
       if (side === null) {
@@ -436,6 +481,18 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       plainWalkthrough(side.billedRate, tree);
       holder.append(tree);
     }
+    const published = data.towns[row.town]?.published_homestead_rate ?? null;
+    holder.append(el('h4', undefined, 'Published rate (not comparable)'));
+    holder.append(
+      el(
+        'p',
+        undefined,
+        published === null
+          ? 'The State’s published rate for this town is not on file.'
+          : `The State published ${formatValue(published, 'rate_per_100')} for ${nameOf(row.town, data)}. ` +
+              'It cannot be compared with the rate above, which rests on the figures entered on this page.',
+      ),
+    );
   }
 
   /**
@@ -454,65 +511,82 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
 
   function renderTowns(outcome: CombinerResult, container: HTMLElement): void {
     container.append(el('h3', undefined, 'Each town’s home tax rate'));
+    // In this build no member has its own population density, so no town has a
+    // rate today and there is no change to show. The columns for them appear
+    // only when some town has one, and only then is the change explained.
+    const anyToday = outcome.towns.some((r) => r.today !== null);
     container.append(
       el(
         'p',
         undefined,
         'This is the homestead education tax rate. A homestead is the home where you live. The rate is in dollars ' +
-          'for each $100 of home value. “Today” and “if combined” are ' +
-          'both worked out by this page the same way, so the change comes only from combining. The rate the ' +
-          'State published is shown for reference. It is not part of the change.',
+          'for each $100 of home value. ' +
+          (anyToday
+            ? 'Where a town has both, “today” and “if combined” are worked out by this page the same way, so ' +
+              'the change comes from combining and the assumptions listed.'
+            : 'The rate today is not worked out for any of these towns, so no change is shown.'),
+      ),
+    );
+    container.append(
+      el(
+        'p',
+        'combiner-rate-warning',
+        'These rates rest on the figures entered above for the combined district. Small changes in those ' +
+          'figures move the rate a lot. They cannot be compared with the rate the State published.',
       ),
     );
     const wrap = el('div', 'scroll-x');
     const table = el('table', 'combiner-towns');
     const head = el('tr');
-    for (const [text, numeric] of [
+    const columns: Array<readonly [string, boolean]> = [
       ['Town', false],
       ['District today', false],
-      ['Rate today', true],
+      ...(anyToday ? ([['Rate today', true]] as const) : []),
       ['Rate if combined', true],
-      ['Change', false],
+      ...(anyToday ? ([['Change', false]] as const) : []),
       ['Common level of appraisal', true],
-      ['Published rate (for reference)', true],
-    ] as const) {
+    ];
+    for (const [text, numeric] of columns) {
       const th = el('th', numeric ? 'numeric' : undefined, text);
       th.scope = 'col';
       head.append(th);
     }
     table.appendChild(el('thead')).append(head);
     const body = el('tbody');
+    // The reason can run to a dozen sentences, so it folds; it is never dropped.
+    const why = (text: string): HTMLElement => {
+      const fold = el('details', 'combiner-why');
+      fold.append(el('summary', undefined, 'Why'));
+      fold.append(el('p', 'field-help', plainText(text, data)));
+      return fold;
+    };
     for (const row of outcome.towns) {
       const tr = el('tr');
       const town = el('th', undefined, nameOf(row.town, data));
       town.scope = 'row';
       tr.append(town);
       tr.append(el('td', undefined, nameOf(row.district, data)));
-      tr.append(el('td', 'numeric', rateText(row.today)));
-      tr.append(el('td', 'numeric', rateText(row.pooled)));
-      const change = el('td', 'combiner-change', changeText(row));
-      if (row.direction === null && row.notComputable) {
-        // The reason can run to a dozen sentences, so it folds; it is never dropped.
-        const why = el('details', 'combiner-why');
-        why.append(el('summary', undefined, 'Why'));
-        why.append(el('p', 'field-help', plainText(row.notComputable, data)));
-        change.append(why);
+      if (anyToday) tr.append(el('td', 'numeric', rateText(row.today)));
+      const pooledCell = el('td', 'numeric', rateText(row.pooled));
+      if (!anyToday && row.pooled === null && row.notComputable) pooledCell.append(why(row.notComputable));
+      tr.append(pooledCell);
+      if (anyToday) {
+        const change = el('td', 'combiner-change', changeText(row));
+        if (row.direction === null && row.notComputable) change.append(why(row.notComputable));
+        tr.append(change);
       }
-      tr.append(change);
       tr.append(el('td', 'numeric', row.cla === null ? 'none on file' : formatValue(row.cla, 'ratio')));
-      const published = data.towns[row.town]?.published_homestead_rate ?? null;
-      tr.append(el('td', 'numeric', published === null ? 'none on file' : formatValue(published, 'rate_per_100')));
       body.append(tr);
 
       const mathRow = el('tr', 'combiner-math-row');
       const cell = el('td');
-      cell.colSpan = 7;
+      cell.colSpan = columns.length;
       const details = el('details', 'combiner-math');
       details.append(el('summary', undefined, `Show the math for ${nameOf(row.town, data)}`));
       const holder = el('div');
       details.append(holder);
       details.addEventListener('toggle', () => {
-        if (details.open && holder.childElementCount === 0) rowMath(row, holder);
+        if (details.open && holder.childElementCount === 0) rowMath(row, holder, anyToday);
       });
       cell.append(details);
       mathRow.append(cell);
@@ -543,8 +617,8 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
         el(
           'p',
           undefined,
-          'These figures are blank, so the numbers that need them are not worked out. Nothing was guessed. ' +
-            'A line that names one district blocks that district’s rate today.',
+          'These figures are blank, so the numbers that need them are not worked out. The page does not ' +
+            'fill them in. A line that names one district blocks that district’s rate today.',
         ),
       );
       container.append(list(missing, 'combiner-blockers'));
@@ -568,15 +642,10 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     const decoded = decodeCombiner(location.search, knownSlugs);
     applyState(decoded.state);
     if (linkNotes) {
-      if (decoded.unknown.length > 0) {
-        linkNotes.append(
-          notice(
-            'This link names districts this page does not know. They were left out:',
-            decoded.unknown,
-            true,
-          ),
-        );
-      }
+      const unknown = unknownDistrictNote(decoded.unknown);
+      if (unknown) linkNotes.append(linkNotice(unknown, true));
+      const figures = linkFigureNote(decoded.state, publishedStatewideAverage(parameterSet));
+      if (figures) linkNotes.append(linkNotice(figures, false));
       if (decoded.ignoredYear !== null) {
         linkNotes.append(
           notice(

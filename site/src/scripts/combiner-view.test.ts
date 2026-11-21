@@ -10,6 +10,8 @@ import { runCombiner, type CombinerMember, type CombinerTownRow } from '@vt-budg
 import type { CombinerShareState } from './combiner-share.ts';
 import {
   MIN_DISTRICTS_MESSAGE,
+  admScale,
+  admScaleText,
   admYearsFor,
   blockerList,
   changeText,
@@ -274,9 +276,55 @@ describe('names', () => {
     expect(nameOf('ud/nope', DATA)).toBe('ud/nope');
   });
 
+  it('title-cases a town label the State wrote in capitals, keeping a state code', () => {
+    const shouting: CombinerData = {
+      ...DATA,
+      towns: {
+        ...DATA.towns,
+        'town/underhill-town': { label: 'UNDERHILL TOWN', cla: 1, cla_source: 'test', published_homestead_rate: null, districts: [] },
+        'town/orford-nh': { label: 'ORFORD NH', cla: null, cla_source: null, published_homestead_rate: null, districts: [] },
+      },
+    };
+    expect(nameOf('town/underhill-town', shouting)).toBe('Underhill Town');
+    expect(nameOf('town/orford-nh', shouting)).toBe('Orford NH');
+    expect(plainText('town/underhill-town: the common level of appraisal is not on file.', shouting)).toBe(
+      'Underhill Town: the common level of appraisal is not on file.',
+    );
+  });
+
   it('rewrites slugs inside a sentence', () => {
     expect(plainText('not computable yet: rate blends more than one district (town/alpha, ud/beta-1)', DATA)).toBe(
       'not computable yet: rate blends more than one district (Alpha, Beta Unified Union School District #1)',
     );
+  });
+});
+
+describe('the published student count, for scale', () => {
+  it('sums every band for the page year, with no state-placed students and no averaging', () => {
+    // Each fixture district has 10 + 100 + 50 + 40 = 200 pupils in FY2026.
+    const scale = admScale(['town/alpha', 'ud/beta-1'], DATA);
+    expect(scale).toEqual({ students: 400, year: 2026, complete: true });
+    expect(admScaleText(scale)).toBe(
+      'For scale: the districts you picked have about 400 students in all (average daily membership, FY2026, as published).',
+    );
+  });
+
+  it('says "at least" when a band is withheld, and asks for districts when none are picked', () => {
+    const data: CombinerData = {
+      ...DATA,
+      districts: {
+        ...DATA.districts,
+        'ud/beta-1': district('ud/beta-1', 'Beta', ['town/beta'], {
+          adm_years: [{ year: 2026, bands: { prekindergarten: band(null), kindergarten_through_5: band(1200) } }],
+        }),
+      },
+    };
+    const scale = admScale(['town/alpha', 'ud/beta-1'], data);
+    expect(scale).toEqual({ students: 1400, year: 2026, complete: false });
+    expect(admScaleText(scale)).toMatch(/at least 1,400 students/);
+    expect(admScaleText(scale)).toMatch(/not published/);
+    expect(admScale([], DATA)).toBeNull();
+    expect(admScale(['ud/nope'], DATA)).toBeNull();
+    expect(admScaleText(null)).toMatch(/^Pick districts/);
   });
 });

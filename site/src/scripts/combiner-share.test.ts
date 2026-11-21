@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
-import { decodeCombiner, encodeCombiner, shareCombinerUrl, type CombinerShareState } from './combiner-share.ts';
+import {
+  decodeCombiner,
+  encodeCombiner,
+  linkFigureNote,
+  shareCombinerUrl,
+  unknownDistrictNote,
+  type CombinerShareState,
+} from './combiner-share.ts';
 
 const KNOWN = new Set(['town/burlington', 'town/winooski', 'town/south-burlington', 'ud/maple-run-57']);
 
@@ -97,5 +104,76 @@ describe('combiner share link', () => {
       'https://example.org/combiner/?y=2026',
     );
     expect(shareCombinerUrl('https://example.org/combiner/', BASE)).toMatch(/^https:\/\/example\.org\/combiner\/\?y=2026&d=/);
+  });
+});
+
+describe('the note about figures a link filled in', () => {
+  const PUBLISHED = 13_497;
+  const note = (query: string) => linkFigureNote(decodeCombiner(query, KNOWN).state, PUBLISHED);
+
+  it('lists each figure the link filled and says it came from whoever made the link', () => {
+    const got = note('y=2026&d=town/burlington,town/winooski&factor=0.95&act84=0.05&density=60&state_placed=2&poverty=200&el=5');
+    expect(got?.items).toEqual([
+      'Spending factor: 0.95.',
+      'Pooled Act 84 decrease: 0.05 dollars per $100.',
+      'Population density: 60 people per square mile.',
+      'State-placed students: 2.',
+      'Students from lower-income homes: 200.',
+      'English learners: 5.',
+    ]);
+    expect(got?.lead).toMatch(/whoever made the link/);
+    expect(got?.lead).toMatch(/not from the State/);
+  });
+
+  it('flags a statewide average that differs from the published one, and skips one that matches', () => {
+    expect(note('d=town/burlington&avg=14000')?.items).toEqual([
+      'Statewide average spending per weighted student: $14,000. This is not the State’s published figure, which is $13,497.',
+    ]);
+    expect(note('d=town/burlington&avg=13497')).toBeNull();
+    expect(linkFigureNote(decodeCombiner('avg=14000', KNOWN).state, null)?.items).toEqual([
+      'Statewide average spending per weighted student: $14,000.',
+    ]);
+  });
+
+  it('says nothing for a link that only carries districts and the page’s own starting values', () => {
+    expect(note('y=2026&d=town/burlington,town/winooski&factor=1&act84=0')).toBeNull();
+    expect(note('')).toBeNull();
+  });
+
+  it('names a small school and its enrollment, and cuts long text short', () => {
+    const got = note(`school=${'x'.repeat(200)}&enrollment=80`);
+    expect(got?.items).toContain('A small school’s average enrollment: 80.');
+    const school = got?.items.find((i) => i.startsWith('A small school:')) ?? '';
+    expect(school.length).toBeLessThan(60);
+    expect(school).toMatch(/…\.$/);
+  });
+});
+
+describe('the note about districts a link names that the page does not know', () => {
+  it('is null when every district is known', () => {
+    expect(unknownDistrictNote([])).toBeNull();
+  });
+
+  it('names one or a few in full', () => {
+    expect(unknownDistrictNote(['ud/nope'])).toEqual({
+      title: 'This link names a district this page does not know. It was left out.',
+      lead: '',
+      items: ['ud/nope'],
+    });
+    expect(unknownDistrictNote(['a', 'b', 'c'])?.items).toEqual(['a', 'b', 'c']);
+  });
+
+  it('gives a count and at most three names, each cut short', () => {
+    const many = Array.from({ length: 50 }, (_, i) => `ud/${'z'.repeat(100)}-${i}`);
+    const got = unknownDistrictNote(many);
+    expect(got?.title).toBe('This link names 50 districts this page does not know. They were left out.');
+    expect(got?.items).toHaveLength(3);
+    for (const name of got?.items ?? []) expect(name.length).toBeLessThanOrEqual(40);
+    expect(got?.lead).toBe('The first 3 are below, and 47 more are not shown.');
+  });
+
+  it('works on a decoded link', () => {
+    const decoded = decodeCombiner('d=town/burlington,ud/one,ud/two,ud/three,ud/four', KNOWN);
+    expect(unknownDistrictNote(decoded.unknown)?.lead).toBe('The first 3 are below, and 1 more is not shown.');
   });
 });

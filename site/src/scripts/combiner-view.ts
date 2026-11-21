@@ -242,18 +242,77 @@ export function planCombiner(state: CombinerShareState, data: CombinerData): Com
 // ---------------------------------------------------------------------------
 
 function titleCase(text: string): string {
-  return text.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase());
+  return (
+    text
+      .toLowerCase()
+      .replace(/\b[a-z]/g, (c) => c.toUpperCase())
+      // A trailing state code ("ORFORD NH") stays in capitals.
+      .replace(/ (Nh|Ny|Ma)$/, (code) => code.toUpperCase())
+  );
+}
+
+/** A label as a reader expects it: all-capital labels from the State are title-cased. */
+function readable(label: string): string {
+  return label === label.toUpperCase() ? titleCase(label) : label;
 }
 
 /** A name a reader knows for a district or town slug; the slug itself when it is unknown. */
 export function nameOf(slug: string, data: CombinerData): string {
   if (slug.startsWith('town/')) {
     const town = data.towns[slug]?.label;
-    if (town) return town;
+    if (town) return readable(town);
   }
   const label = data.districts[slug]?.label;
   if (!label) return slug;
-  return label === label.toUpperCase() ? titleCase(label) : label;
+  return readable(label);
+}
+
+/** The picked districts' published student count for the page's year, for scale. */
+export interface AdmScale {
+  /** The sum of every published grade-band count, FY`year`. */
+  students: number;
+  year: number;
+  /** False when some counts were withheld or missing, so the sum is a floor. */
+  complete: boolean;
+}
+
+/**
+ * The picked districts' published average daily membership for the page's
+ * year, summed across all grade bands. It is the plain count, not the
+ * two-year average the rate uses, and it adds no state-placed students. A band
+ * the State withheld is left out and marks the sum incomplete. Null when no
+ * picked district has a published count for the year.
+ */
+export function admScale(slugs: readonly string[], data: CombinerData): AdmScale | null {
+  let students = 0;
+  let complete = true;
+  let any = false;
+  for (const slug of slugs) {
+    const year = data.districts[slug]?.adm_years?.find((y) => y.year === data.fiscal_year);
+    if (!year) {
+      complete = false;
+      continue;
+    }
+    for (const key of BAND_KEYS) {
+      const value = year.bands[key]?.value ?? null;
+      if (value === null) complete = false;
+      else {
+        students += value;
+        any = true;
+      }
+    }
+  }
+  return any ? { students, year: data.fiscal_year, complete } : null;
+}
+
+/** The scale line, in plain words: about how many students the picked districts have. */
+export function admScaleText(scale: AdmScale | null): string {
+  if (scale === null) return 'Pick districts to see how many students they have, for scale.';
+  const n = Math.round(scale.students).toLocaleString('en-US');
+  const what = `(average daily membership, FY${scale.year}, as published)`;
+  return scale.complete
+    ? `For scale: the districts you picked have about ${n} students in all ${what}.`
+    : `For scale: the districts you picked have at least ${n} students in all ${what}. Some of their counts were not published, so the real number is higher.`;
 }
 
 const slugPatterns = new WeakMap<CombinerData, RegExp | null>();

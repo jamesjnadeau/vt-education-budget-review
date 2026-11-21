@@ -296,6 +296,9 @@ describe('the combiner', () => {
       const assumption = result.assumptions.find((a) => a.key === 'pooled_inputs.poverty_185_fpl');
       expect(assumption?.value).toBe(30);
       expect(assumption?.rationale).toContain('ud/b');
+      // A shared link can fill this figure, so the label does not say who entered it.
+      expect(assumption?.label).toMatch(/entered on this page, not published/);
+      expect(assumption?.label).not.toMatch(/by you/);
       // ud/b's own rate today still needs its own published count.
       const b = row(result, 'town/b');
       expect(b.today).toBeNull();
@@ -490,6 +493,33 @@ describe('the combiner', () => {
     expect(result.caveats.some((c) => /differ/.test(c) && /published/.test(c))).toBe(true);
     // 3,400,000 x 0.9 = 3,060,000.
     expect(result.pooled.spending.value).toBeCloseTo(3_060_000, 6);
+    // Every row here has a rate today, so the caveat explains the change.
+    expect(result.towns.every((r) => r.today !== null)).toBe(true);
+    expect(result.caveats[0]).toMatch(/the change shown comes from pooling/);
+  });
+
+  it('does not claim a change comes from pooling when no row has a rate today', () => {
+    // Members without their own density cannot be weighted, so no rate today
+    // is worked out (as in the real build). The pooled side still computes.
+    const noDensity = (entity: string, pupils: number, spending: number, town: string) =>
+      member(entity, { ...k5Only(entity, pupils), persons_per_square_mile: null }, spending, [[town, 1]]);
+    const result = runCombiner(syntheticParameters(), [noDensity('ud/a', 100, 1_000_000, 'town/a'), noDensity('ud/b', 200, 2_400_000, 'town/b')], OPTIONS);
+
+    expect(result.towns.every((r) => r.today === null)).toBe(true);
+    expect(result.towns.every((r) => r.pooled !== null)).toBe(true);
+    const joined = result.caveats.join(' ');
+    expect(joined).not.toMatch(/comes from pooling/);
+    expect(joined).not.toMatch(/Both sides/);
+    expect(result.caveats[0]).toMatch(/No rate today was worked out/);
+    expect(result.caveats[0]).toMatch(/cannot be compared with the published rates/);
+  });
+
+  it('says a missing common level of appraisal is not on file', () => {
+    const noCla = member('ud/a', k5Only('ud/a', 100), 1_000_000, [['town/a', null]]);
+    const result = runCombiner(syntheticParameters(), [noCla, B()], OPTIONS);
+    const why = row(result, 'town/a').notComputable ?? '';
+    expect(why).toMatch(/common level of appraisal is not on file/);
+    expect(why).not.toMatch(/appraisal was not published/);
   });
 
   it('golden: two artificial Slate Valley members pool to the published FY2026 rates', () => {

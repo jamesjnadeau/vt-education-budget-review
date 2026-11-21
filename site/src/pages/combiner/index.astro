@@ -40,18 +40,20 @@ const combinerData = JSON.stringify(combiner);
       For now, this page shows one thing: each town's rate if the districts were combined. It
       cannot show the rate today, or the change, yet. The State does not publish each district's own
       population density. It also does not publish each district's own count of state-placed
-      students, students from lower-income homes, or English learners. The math for “rate today”
-      needs them. So “rate today” and “change” say “not worked out.” Nothing is guessed.
+      students, students from lower-income homes, or English learners. The math for the rate today
+      needs them, so this page does not show the rate today or the change. It will not fill those
+      figures in for you.
     </p>
     <p>
       The “if combined” rate is what this tool shows. To see it, enter those figures for all the
-      districts together, in the boxes below.
+      districts together, in the boxes below. What you enter is your own estimate, and the result
+      depends heavily on it.
     </p>
     <p>
       This page's math does not match the rate the State published for every district. For 47 of
       the 97 districts that serve a single town, the published rate is lower than the one this math
-      gives. So do not compare the “if combined” rate with the published rate. The published rate is
-      shown only for reference.
+      gives. So do not compare the “if combined” rate with the published rate. The table does not
+      show the published rate beside it for that reason.
     </p>
     <p>
       The law's numbers this page uses for FY2026 were checked against the text of the law. A
@@ -96,7 +98,7 @@ const combinerData = JSON.stringify(combiner);
       </p>
       <p id="combiner-grouping-status" class="field-help" role="status" aria-live="polite"></p>
 
-      <h3 class="combiner-subhead">Your districts</h3>
+      <h3 id="combiner-picked-heading" class="combiner-subhead" tabindex="-1">Your districts</h3>
       <div id="combiner-picked"></div>
 
       <h3 class="combiner-subhead">Add districts, by supervisory union</h3>
@@ -141,8 +143,13 @@ const combinerData = JSON.stringify(combiner);
       <legend>Figures the State does not publish</legend>
       <p class="field-help">
         Each of these changes how students are counted. Leave a box blank and the result names it
-        as missing. The page will not fill it in for you.
+        as missing. The page will not fill it in for you. What you enter is your own estimate, and
+        the result depends heavily on it.
       </p>
+      <p class="field-help">
+        The three student boxes take a number of students, not a percent.
+      </p>
+      <p id="combiner-adm-scale" class="field-help"></p>
       <div class="controls">
         <div class="field">
           <label for="combiner-density">Population density, people per square mile</label>
@@ -152,27 +159,28 @@ const combinerData = JSON.stringify(combiner);
           </small>
         </div>
         <div class="field">
-          <label for="combiner-state-placed">State-placed students</label>
+          <label for="combiner-state-placed">State-placed students, a number of students</label>
           <input id="combiner-state-placed" type="number" min="0" step="any" />
           <small class="field-help">
-            No published per-district figure. Enter the total for all the districts together, or
-            leave blank.
+            No published per-district figure. Enter the total number for all the districts
+            together, not a percent, or leave blank.
           </small>
         </div>
         <div class="field">
-          <label for="combiner-poverty">Students from lower-income homes</label>
+          <label for="combiner-poverty">Students from lower-income homes, a number of students</label>
           <input id="combiner-poverty" type="number" min="0" step="any" />
           <small class="field-help">
             Students at or below 185% of the federal poverty level. No published per-district
-            figure. Enter the total for all the districts together, or leave blank.
+            figure. Enter the total number for all the districts together, not a percent, or leave
+            blank.
           </small>
         </div>
         <div class="field">
-          <label for="combiner-el">English learners</label>
+          <label for="combiner-el">English learners, a number of students</label>
           <input id="combiner-el" type="number" min="0" step="any" />
           <small class="field-help">
-            No published per-district figure. Enter the total for all the districts together, or
-            leave blank.
+            No published per-district figure. Enter the total number for all the districts
+            together, not a percent, or leave blank.
           </small>
         </div>
       </div>
@@ -190,7 +198,7 @@ const combinerData = JSON.stringify(combiner);
           <input id="combiner-school" type="text" />
         </div>
         <div class="field">
-          <label for="combiner-enrollment">Average enrollment over two years</label>
+          <label for="combiner-enrollment">Average enrollment over two years, a number of students</label>
           <input id="combiner-enrollment" type="number" min="0" step="any" />
         </div>
         <div class="field">
@@ -227,7 +235,8 @@ const combinerData = JSON.stringify(combiner);
   <p>
     It does not rank groupings, score them, or call any result a “saving.” A rate that goes up and
     a rate that goes down are shown the same way, with a plus or minus sign and plain words. It
-    does not pick a “best” grouping. It does not guess a number that was not published.
+    does not pick a “best” grouping. It will not fill in a figure the State does not publish. Any
+    such figure on this page was entered by a person, and the result depends heavily on it.
   </p>
 </Base>
 
@@ -235,6 +244,9 @@ const combinerData = JSON.stringify(combiner);
   .combiner-subhead {
     font-size: 1rem;
     margin: 1.5rem 0 0.5rem;
+  }
+  .combiner-rate-warning {
+    font-weight: 600;
   }
   .combiner-picker details.combiner-su {
     border-top: 1px solid var(--border);

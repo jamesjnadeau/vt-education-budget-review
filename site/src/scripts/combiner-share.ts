@@ -132,6 +132,95 @@ export function decodeCombiner(
   return { state, unknown, ignoredYear };
 }
 
+/** A notice the page shows about a link: a title, a lead sentence, and a list. */
+export interface LinkNote {
+  title: string;
+  lead: string;
+  items: string[];
+}
+
+/** Each figure a link can fill, how to say it, and the value the page starts from. */
+const LINK_FIGURES: readonly { key: TextField; name: string; unit?: string; start?: number }[] = [
+  { key: 'factor', name: 'Spending factor', start: 1 },
+  { key: 'act84', name: 'Pooled Act 84 decrease', unit: 'dollars per $100', start: 0 },
+  { key: 'density', name: 'Population density', unit: 'people per square mile' },
+  { key: 'statePlaced', name: 'State-placed students' },
+  { key: 'poverty', name: 'Students from lower-income homes' },
+  { key: 'el', name: 'English learners' },
+  { key: 'enrollment', name: 'A small school’s average enrollment' },
+];
+
+/**
+ * A note naming every figure a link filled in that the page would not have
+ * filled on its own, so the visitor knows those numbers came from whoever made
+ * the link and not from the State. A spending factor of 1 and an Act 84
+ * decrease of 0 are where the page starts, so they are not listed. A statewide
+ * average equal to the published one is not listed; one that differs is, and
+ * says so. Null when the link filled nothing of the kind.
+ */
+export function linkFigureNote(state: CombinerShareState, publishedAverage: number | null): LinkNote | null {
+  const items: string[] = [];
+  for (const { key, name, unit, start } of LINK_FIGURES) {
+    const value = state[key].trim();
+    if (value === '') continue;
+    if (start !== undefined && Number(value) === start) continue;
+    items.push(`${name}: ${clip(value)}${unit ? ` ${unit}` : ''}.`);
+  }
+  const school = state.school.trim();
+  if (school !== '') items.push(`A small school: ${clip(school)}.`);
+  const avg = state.avg.trim();
+  if (avg !== '') {
+    const said = Number.isFinite(Number(avg)) ? dollars(Number(avg)) : clip(avg);
+    if (publishedAverage === null) {
+      items.push(`Statewide average spending per weighted student: ${said}.`);
+    } else if (Number(avg) !== publishedAverage) {
+      items.push(
+        `Statewide average spending per weighted student: ${said}. This is not the State’s ` +
+          `published figure, which is ${dollars(publishedAverage)}.`,
+      );
+    }
+  }
+  if (items.length === 0) return null;
+  return {
+    title: 'This link filled in some figures',
+    lead:
+      'These came from whoever made the link, not from the State. They are estimates, and the ' +
+      'result depends heavily on them. Check them, or change them, before you rely on the result.',
+    items,
+  };
+}
+
+const MAX_NAMED = 3;
+const MAX_NAME_LENGTH = 40;
+
+function clip(text: string): string {
+  return text.length <= MAX_NAME_LENGTH ? text : `${text.slice(0, MAX_NAME_LENGTH - 1)}…`;
+}
+
+function dollars(n: number): string {
+  return `$${n.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
+}
+
+/**
+ * A note for the district slugs a link named that this page does not know: a
+ * count, then at most three of them, each cut short, so a long or hand-made
+ * link cannot fill the page. Null when there are none.
+ */
+export function unknownDistrictNote(unknown: readonly string[]): LinkNote | null {
+  if (unknown.length === 0) return null;
+  const n = unknown.length;
+  const named = unknown.slice(0, MAX_NAMED).map(clip);
+  const more = n - named.length;
+  return {
+    title:
+      n === 1
+        ? 'This link names a district this page does not know. It was left out.'
+        : `This link names ${n} districts this page does not know. They were left out.`,
+    lead: more > 0 ? `The first ${named.length} are below, and ${more} more ${more === 1 ? 'is' : 'are'} not shown.` : '',
+    items: named,
+  };
+}
+
 /** A full shareable URL from a base (origin + pathname). */
 export function shareCombinerUrl(base: string, s: CombinerShareInput): string {
   const query = encodeCombiner(s);

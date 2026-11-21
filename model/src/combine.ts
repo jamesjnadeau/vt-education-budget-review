@@ -194,12 +194,12 @@ export function runCombiner(
       enteredCounts.push(what);
       assumptions.push({
         key: `pooled_inputs.${key}`,
-        label: `Pooled ${what}, entered by you`,
+        label: `Pooled ${what}, entered on this page, not published`,
         value: entered,
         unit,
         rationale:
           `${listed(missing)} did not publish a count of ${what}, so the pooled count cannot be ` +
-          `summed from the members. This figure was entered by you and is used for the pooled ` +
+          `summed from the members. This figure was entered on this page, not published, and is used for the pooled ` +
           `district only. Each member’s rate today still needs its own published count, so it is ` +
           `not worked out for ${listed(missing)}. Where every member publishes a count, their sum is ` +
           `used and an entry here is ignored.`,
@@ -266,7 +266,7 @@ export function runCombiner(
     'Pooled education spending',
     sum(ctx, 'Combined published education spending', spendingNodes, 'usd'),
     input(ctx, 'Consolidation factor', opts.consolidation_factor, 'multiplier', {
-      source: 'an assumption you set; 1.0 is no change',
+      source: 'an assumption set on this page; 1.0 is no change',
     }),
     'usd',
   );
@@ -343,11 +343,11 @@ export function runCombiner(
       );
       const pooled = townRate(ctx, pooledPerPupil, town, opts.statewide_average_per_pupil, pooledAdjustments, {
         fy2025RateDecrease: opts.pooled_act84_decrease,
-        source: 'an assumption you set for the pooled district',
+        source: 'an assumption set on this page for the pooled district',
       });
 
       const townReasons = [...averageReason];
-      if (town.cla === null) townReasons.push(`${town.town}: the common level of appraisal was not published.`);
+      if (town.cla === null) townReasons.push(`${town.town}: the common level of appraisal is not on file.`);
       const todayNamed = [...member.reasons, ...townReasons];
       if (transitionYear && m.act84_decrease === null) {
         todayNamed.push(`${m.entity}: the FY2025 Act 84 homestead rate decrease was not supplied.`);
@@ -395,7 +395,13 @@ export function runCombiner(
     members: memberResults,
     towns: rows,
     assumptions,
-    caveats: caveats({ transitionYear, enteredCounts, multiDistrictTowns, adjustments: opts.adjustments }),
+    caveats: caveats({
+      transitionYear,
+      enteredCounts,
+      multiDistrictTowns,
+      adjustments: opts.adjustments,
+      anyToday: rows.some((r) => r.today !== null),
+    }),
   };
 }
 
@@ -568,12 +574,18 @@ function caveats(args: {
   readonly enteredCounts: readonly string[];
   readonly multiDistrictTowns: readonly string[];
   readonly adjustments: ExcessSpendingAdjustments | undefined;
+  /** True when at least one town row has a rate today; only then is there a change to explain. */
+  readonly anyToday: boolean;
 }): string[] {
   const out = [
-    'This engine’s rates can differ from the rates the Department of Taxes published for some ' +
-      'districts. Both sides of every comparison here, today and pooled, come from this engine, ' +
-      'so the change shown comes from pooling and the assumptions listed. The published rate is shown for ' +
-      'reference, not as the starting point.',
+    args.anyToday
+      ? 'This engine’s rates can differ from the rates the Department of Taxes published for some ' +
+        'districts. Where a town has both a rate today and a pooled rate here, both come from this ' +
+        'engine, so the change shown comes from pooling and the assumptions listed. The published ' +
+        'rate is not the starting point.'
+      : 'No rate today was worked out for any town here, so no change is shown. The pooled rates ' +
+        'rest on figures entered on this page, and they can differ a lot from the rates the ' +
+        'Department of Taxes published. They cannot be compared with the published rates.',
     'Spending is held at the members’ combined published education spending times the ' +
       'consolidation factor. It is not a forecast of what a pooled board would budget.',
     'Sparsity and small school weights belong to the pooled district, not its members, so ' +
@@ -583,13 +595,13 @@ function caveats(args: {
   if (args.transitionYear) {
     out.push(
       'This year the Act 84 transition lowers some districts’ rates. Each member keeps its own ' +
-        'decrease today. The pooled district uses the decrease you set, which starts at 0 ' +
+        'decrease today. The pooled district uses the decrease set on this page, which starts at 0 ' +
         'because no published figure exists for a district that has not been formed.',
     );
   }
   if (args.enteredCounts.length > 0) {
     out.push(
-      `Some pooled counts were entered by you, not published: ${listed(args.enteredCounts)}. ` +
+      `Some pooled counts were entered on this page, not published: ${listed(args.enteredCounts)}. ` +
         'They are labelled in the assumptions.',
     );
   }
