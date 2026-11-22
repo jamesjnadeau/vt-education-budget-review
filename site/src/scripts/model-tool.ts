@@ -745,6 +745,12 @@ export function initModelTool(
     return out;
   };
 
+  // Where the current scenario came from, for the one-per-visit
+  // model_result_viewed event. Only a visitor's own input, a prefill or a shared
+  // link can produce a computed rate, so loading a blank form records nothing.
+  let scenarioSource: 'blank' | 'prefill' | 'shared_link' = 'blank';
+  let resultViewedSent = false;
+
   const recompute = (): void => {
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
@@ -888,6 +894,16 @@ export function initModelTool(
       dl.append(dd);
     }
     summary.append(dl);
+
+    if (!resultViewedSent && rate.billedRate.value !== null) {
+      resultViewedSent = true;
+      const properties: PostHogProperties = {
+        source: useExample ? 'example' : scenarioSource,
+        has_estimates: estimates.size > 0,
+      };
+      if (!useExample) properties.fiscal_year = selectedYear;
+      capture('model_result_viewed', properties);
+    }
   };
 
   // Offer the selected year's published statewide average, without ever
@@ -965,6 +981,12 @@ export function initModelTool(
         estimates.delete(id);
       }
       recompute();
+      // The field id names a form box (e.g. "spending"), never its value.
+      capture('estimate_suggestion_toggled', {
+        field: id,
+        checked: check.checked,
+        lower_limit: use?.lowerLimit === true,
+      });
     });
     field.addEventListener('input', () => {
       estimates.delete(id);
@@ -1062,6 +1084,7 @@ export function initModelTool(
     fillBandRow(plan.later, '2');
     fillSpending(plan.spending, plan.spendingHistory, Number(plan.mode));
     fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
+    scenarioSource = 'prefill';
     recompute();
     capture('district_prefill_applied', { fiscal_year: Number(plan.mode) });
   };
@@ -1131,7 +1154,15 @@ export function initModelTool(
   // before applyStatewidePrefill (so a statewide-average carried in the link
   // counts as user-entered and the prefill leaves it alone). Fields the link
   // omits keep their HTML defaults.
-  applyScenario(decodeScenario(window.location.search));
+  const sharedScenario = decodeScenario(window.location.search);
+  applyScenario(sharedScenario);
+  if (Object.keys(sharedScenario).length > 0) {
+    scenarioSource = 'shared_link';
+    capture('shared_link_opened', {
+      field_count: Object.keys(sharedScenario).length,
+      estimate_count: decodeEstimated(window.location.search).size,
+    });
+  }
   // A field the link marks as an estimate stays one. The link does not say how
   // the value was worked out, only that it was a suggestion.
   for (const id of decodeEstimated(window.location.search)) {
