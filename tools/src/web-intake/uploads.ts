@@ -130,6 +130,17 @@ export async function putChunk(
   if (!Number.isInteger(n) || n < 0 || n >= meta.chunkCount) return fail(400, 'Chunk index out of range.');
   if (body.byteLength !== expectedChunkLength(meta, n)) return fail(400, 'Chunk has the wrong length.');
   await s.set(chunkKey(id, n), body, { metadata: { sha256: sha256Hex(body), bytes: body.byteLength } });
+  // Blobs has no compare-and-set, so a concurrent finishUpload can flip the
+  // state between the check above and the write. Re-read after writing and back
+  // the chunk out if the upload is no longer open. A residual window remains
+  // (finish could still land between this re-read and the end of the request);
+  // the consumer recomputes chunk hashes from the bytes, so a late write is
+  // detected there rather than trusted via chunkSha256.
+  const after = await readMeta(s, id);
+  if (!after || after.state !== 'open') {
+    await s.delete(chunkKey(id, n));
+    return fail(409, 'This upload is already complete.');
+  }
   return { ok: true, value: null };
 }
 

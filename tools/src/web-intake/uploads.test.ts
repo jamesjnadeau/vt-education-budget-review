@@ -156,6 +156,25 @@ describe('putChunk', () => {
   });
 });
 
+describe('putChunk racing finishUpload', () => {
+  it('backs out a chunk written after the state flipped to uploaded', async () => {
+    const s = memoryStore();
+    const a = await begin(s, 3);
+    // Flip the state as part of the chunk write, i.e. between putChunk's check and its re-check.
+    const racing: BlobStore = {
+      ...s,
+      async set(key, data, o) {
+        await s.set(key, data, o);
+        const meta = (await readMeta(s, a.id)) as UploadMeta;
+        await s.setJSON(`meta/${a.id}`, { ...meta, state: 'uploaded', tokenHash: null });
+      },
+    };
+    const r = await putChunk(racing, a.id, 0, a.token, new Uint8Array([1, 2, 3]));
+    expect(r).toMatchObject({ ok: false, status: 409 });
+    expect(s.data.has(`chunk/${a.id}/0`)).toBe(false);
+  });
+});
+
 describe('finishUpload', () => {
   it('fails with 409 when a chunk is missing', async () => {
     const s = memoryStore();
