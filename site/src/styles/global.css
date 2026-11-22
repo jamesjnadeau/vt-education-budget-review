@@ -846,3 +846,7 @@ button:hover {
 .notice-more[open] > summary {
   margin-bottom: 0.4rem;
 }
+
+.blank-reason {
+  color: var(--text-muted);
+}

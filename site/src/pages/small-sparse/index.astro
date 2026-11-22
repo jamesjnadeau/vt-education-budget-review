@@ -23,6 +23,8 @@ interface SchoolRow {
   enrollment_status: string;
   density_status: string;
   determination_status: string;
+  small_screen_blank_reason: string | null;
+  sparse_screen_blank_reason: string | null;
 }
 
 const data = smallSparse as unknown as {
@@ -49,6 +51,14 @@ const names = new Map(
 const rows = data.schools
   .filter((r) => r.municipality !== null)
   .sort((a, b) => a.name.localeCompare(b.name));
+
+// "meets" is a result of the arithmetic, not an eligibility finding. A screen
+// that could not run is "can't tell", never "does not meet".
+function verdict(met: boolean | null): { label: string; cls: string } {
+  if (met === true) return { label: 'meets', cls: 'ok' };
+  if (met === false) return { label: 'does not meet', cls: 'not-computable' };
+  return { label: "can't tell", cls: 'missing-input' };
+}
 
 const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 ---
@@ -143,7 +153,7 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <th scope="row">With each school's own student count</th>
         <td>{data.counts['with_enrollment']}</td>
         <td>
-          From the state's fall count (October 1) for school years {data.enrollment_school_years.join(' and ')}.
+          From the state's fall count (October 1) for school years {data.enrollment_school_years.join(' and ')}, counted on October 1 of {data.enrollment_school_years.map((y) => y - 1).join(' and ')}.
           Schools that are not in that count, or that list no grades, are left blank.
         </td>
       </tr>
@@ -198,8 +208,8 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <th scope="col">Land area (sq mi)</th>
         <th scope="col">Population</th>
         <th scope="col">Density</th>
-        <th scope="col">Small test</th>
-        <th scope="col">Sparse test</th>
+        <th scope="col">Small test (average grade size under 12)</th>
+        <th scope="col">Sparse test (under 55 per sq mi)</th>
         <th scope="col">Necessity</th>
       </tr>
     </thead>
@@ -213,8 +223,8 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
           <td>{row.land_area_sq_mi?.toFixed(1) ?? '—'}</td>
           <td>{row.population ?? '—'}</td>
           <td>{row.density?.toFixed(1) ?? '—'}</td>
-          <td><span class="tag unverified">{row.enrollment_status.replace(/_/g, ' ')}</span></td>
-          <td><span class="tag unverified">{row.density_status.replace(/_/g, ' ')}</span></td>
+          <td><span class={`tag ${verdict(row.small_screen_met).cls}`}>{verdict(row.small_screen_met).label}</span>{row.small_screen_blank_reason && <small class="blank-reason"> {row.small_screen_blank_reason}</small>}</td>
+          <td><span class={`tag ${verdict(row.sparse_screen_met).cls}`}>{verdict(row.sparse_screen_met).label}</span>{row.sparse_screen_blank_reason && <small class="blank-reason"> {row.sparse_screen_blank_reason}</small>}</td>
           <td><span class="tag undetermined">{row.determination_status}</span></td>
         </tr>
       ))}

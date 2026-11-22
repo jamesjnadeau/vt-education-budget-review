@@ -61,8 +61,8 @@ entries:
       Elementary FY2026: 81 vs 86 non-preschool). James Nadeau, who has calculated this
       count, confirmed that DC#06_FALL_ADM_Official is the October 1 headcount; the year-end
       collection is not used. The dataset's own description is empty, so this rests on that
-      confirmation and not on AOE documentation. Still unchecked: whether the school-year label N
-      means fall N-1 or fall N. Part-time kindergarten is a separate column and the statute counts
+      confirmation and not on AOE documentation. The school-year label N is the year ending in spring N, so
+      its October 1 count was taken in the fall of N-1 (confirmed by James Nadeau, 2026-11-22). Part-time kindergarten is a separate column and the statute counts
       it as one student, so the screen must sum full-time and part-time kindergarten.
       Average daily membership by RESIDENT DISTRICT is a town figure, not a school's, and is
       never substituted: a town with three schools has one ADM figure and three different

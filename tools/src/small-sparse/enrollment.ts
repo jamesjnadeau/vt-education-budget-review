@@ -18,9 +18,9 @@
  *  - The same school appears twice in some early years under two spellings of
  *    its name. Identical counts collapse to one; different counts make that
  *    school-year unusable rather than picking one.
- *  - School year N is the year ending in spring N. Whether the label means the
- *    fall of N-1 or N is not stated in the data; the build records the label
- *    as published and does not translate it.
+ *  - School year N is the year ending in spring N, so its October 1 count is
+ *    taken in the fall of N-1 (confirmed by James Nadeau, 2026-11-22). The build
+ *    keeps the label as published; subtract one for the calendar year.
  */
 
 export const FALL_COLLECTION = 'DC#06_FALL_ADM_Official';

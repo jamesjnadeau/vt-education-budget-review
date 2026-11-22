@@ -94,6 +94,9 @@ export interface SchoolRow {
   readonly density_status: string;
   readonly determination_status: string;
   readonly grant_suppressed_reason: string | null;
+  /** Why a screen could not be run, in plain words. Null when it ran. */
+  readonly small_screen_blank_reason: string | null;
+  readonly sparse_screen_blank_reason: string | null;
 }
 
 interface DerivedMunicipality {
@@ -256,6 +259,32 @@ export function buildSmallSparse(
       screensResolved++;
     }
 
+    const heldYears = [...(fall?.get(entity.aoe_org_id ?? '')?.keys() ?? [])].filter((y) =>
+      enrollmentYears.includes(y),
+    );
+    const smallBlank =
+      result.statutory.smallScreenMet !== null
+        ? null
+        : !entity.grade_span
+          ? 'no grade span on file'
+          : heldYears.length === 0
+            ? 'not in the state fall count'
+            : heldYears.length < enrollmentYears.length
+              ? 'only one year of fall counts'
+              : result.statutory.enrollment.averageEnrollment !== null
+                ? 'no grades above pre-K to divide by'
+                : 'enrollment count unusable';
+    const sparseBlank =
+      result.statutory.sparseScreenMet !== null
+        ? null
+        : !municipality
+          ? 'town not known'
+          : demographics?.landAreaSqMi == null
+            ? 'no land area for the town'
+            : population === null
+              ? 'no population for the town'
+              : 'density could not be computed';
+
     rows.push({
       school: entity.slug,
       name: entity.name,
@@ -277,6 +306,8 @@ export function buildSmallSparse(
       density_status: result.statutory.density.node.status,
       determination_status: result.necessity.determinationStatus,
       grant_suppressed_reason: result.grant.small.suppressedReason,
+      small_screen_blank_reason: smallBlank,
+      sparse_screen_blank_reason: sparseBlank,
     });
   }
 
@@ -321,7 +352,7 @@ export function buildSmallSparse(
         'only if the conditions in Act 73 Sec. 70(f)(1) are met. These screens are candidate ' +
         'filters run on today\u2019s roll, not eligibility and not FY2030 figures.',
       'Enrollment is the October 1 K-12 count from AOE\u2019s fall collection (school years ' +
-        `${enrollmentYears.join(' and ')}). Schools with no row there, or no grade span, have no ` +
+        `${enrollmentYears.join(' and ')}, counted on October 1 of ${enrollmentYears.map((y) => y - 1).join(' and ')}). Schools with no row there, or no grade span, have no ` +
         'average grade size.',
       'AOE has published no small or sparse by necessity determinations, and the rules that ' +
         'would govern them are not yet written. Eligibility is undetermined for every school ' +
