@@ -180,14 +180,17 @@ const counts = registry.counts as Record<string, number>;
             <strong>
               {set.unverified_count} of {set.parameters.length} numbers are unchecked
             </strong>
-            <p>
-              No number below has been checked against the current law, so the engine won't do any
-              math with them. The official sources — the Legislature's laws website and the Agency
-              of Education — could not be reached when this file was written, and filling the numbers
-              in from memory or a copy would be the exact mistake this site exists to avoid.
-              Vermont's school funding laws were changed by Act 127 of 2022 and Act 73 of 2025, so a
-              number from memory is very likely an out-of-date one.
-            </p>
+            <details class="notice-more">
+              <summary>show more information</summary>
+              <p>
+                No number below has been checked against the current law, so the engine won't do any
+                math with them. The official sources — the Legislature's laws website and the Agency
+                of Education — could not be reached when this file was written, and filling the numbers
+                in from memory or a copy would be the exact mistake this site exists to avoid.
+                Vermont's school funding laws were changed by Act 127 of 2022 and Act 73 of 2025, so a
+                number from memory is very likely an out-of-date one.
+              </p>
+            </details>
           </div>
         )}
         <div class="scroll-x">

@@ -121,76 +121,79 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
           ? 'This group has changed since the law passed'
           : 'These may no longer be the districts in this group'}
       </strong>
-      <p>
-        On {longDate(moved.as_of)} the {moved.by}, which runs the merger talks for the state, put
-        Vermont's districts into {moved.committee_count ?? 'fewer'} groups instead of the law's
-        {' '}{doc.groupings.length}. {moved.requests_granted ?? 'Several'} districts had asked to move.
-        {unseenFloor && <span> The guides moved some others too, to keep groups near 2,000 students.</span>}
-        {' '}The law lets them do this. They have not published the new lists.
-      </p>
-      {movedOut.map((c) => (
+      <details class="notice-more">
+        <summary>show more information</summary>
         <p>
-          <strong>{c.district_name_as_written ?? c.district} has left this group.</strong>
-          {c.to_grouping_as_reported && <span> It asked to go in {c.to_grouping_as_reported}</span>}
-          {c.to_grouping !== null && (
-            <span>
-              {' '}— by our reading, <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>
-            </span>
-          )}. It is still counted in the tables below, because those tables are the law's text.
+          On {longDate(moved.as_of)} the {moved.by}, which runs the merger talks for the state, put
+          Vermont's districts into {moved.committee_count ?? 'fewer'} groups instead of the law's
+          {' '}{doc.groupings.length}. {moved.requests_granted ?? 'Several'} districts had asked to move.
+          {unseenFloor && <span> The guides moved some others too, to keep groups near 2,000 students.</span>}
+          {' '}The law lets them do this. They have not published the new lists.
         </p>
-      ))}
-      {movedIn.map((c) => (
-        <p>
-          <strong>{c.district_name_as_written ?? c.district} is joining this group.</strong>
-          {c.from_grouping !== null && (
-            <span> It moved over from <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a>.</span>
-          )}
-          {' '}It is <strong>not</strong> in the tables below, and any combined total on this page
-          leaves it out.
-          {c.to_grouping_basis === 'inferred' && (
-            <span> The guides did not number the new groups; matching this move to this group is
-            our reading, and it could be wrong.</span>
-          )}
-        </p>
-      ))}
-      {movedOut.length === 0 && movedIn.length === 0 && (
-        <p>
-          We have no report of a district moving in or out of this group. That is not the same as
-          nothing happening.
-          {unseen !== null && unseen > 0 && (
-            <span> {unseenFloor ? 'At least ' : ''}{unseen} of the moves have not been made public,
-            and any of them could be here.</span>
-          )}
-          {' '}Treat this page as the law's group, not as a roster of who will be in the room.
-        </p>
-      )}
-      {(movedOut.length > 0 || movedIn.length > 0) && unseen !== null && unseen > 0 && (
-        <p>
-          That may not be the only change. {unseenFloor ? 'At least ' : ''}{unseen} other moves have
-          not been made public, and some of them could be here too.
-        </p>
-      )}
-      {moved.status === 'announced_provisional' && (
-        <p>
-          The new groups were a starting point, not a decision: comments were open until
-          {' '}{longDate(moved.comment_deadline)} and the guides aimed to settle them on
-          {' '}{longDate(moved.finalize_target)}.
-          {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
-        </p>
-      )}
-      {movedSources.length > 0 && (
-        <p style="font-size:.9rem">
-          Where this comes from:{' '}
-          {movedSources.map((src, i) => (
-            <>
-              {i > 0 && '; '}
-              <a href={src.url}>{src.publisher}, "{src.title}"</a>, {longDate(src.published_date)}
-            </>
-          ))}
-          {' '}— reports about the announcement, not the announcement itself.
-          {' '}<a href={`${base}/groupings/`}>More on what changed</a>.
-        </p>
-      )}
+        {movedOut.map((c) => (
+          <p>
+            <strong>{c.district_name_as_written ?? c.district} has left this group.</strong>
+            {c.to_grouping_as_reported && <span> It asked to go in {c.to_grouping_as_reported}</span>}
+            {c.to_grouping !== null && (
+              <span>
+                {' '}— by our reading, <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>
+              </span>
+            )}. It is still counted in the tables below, because those tables are the law's text.
+          </p>
+        ))}
+        {movedIn.map((c) => (
+          <p>
+            <strong>{c.district_name_as_written ?? c.district} is joining this group.</strong>
+            {c.from_grouping !== null && (
+              <span> It moved over from <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a>.</span>
+            )}
+            {' '}It is <strong>not</strong> in the tables below, and any combined total on this page
+            leaves it out.
+            {c.to_grouping_basis === 'inferred' && (
+              <span> The guides did not number the new groups; matching this move to this group is
+              our reading, and it could be wrong.</span>
+            )}
+          </p>
+        ))}
+        {movedOut.length === 0 && movedIn.length === 0 && (
+          <p>
+            We have no report of a district moving in or out of this group. That is not the same as
+            nothing happening.
+            {unseen !== null && unseen > 0 && (
+              <span> {unseenFloor ? 'At least ' : ''}{unseen} of the moves have not been made public,
+              and any of them could be here.</span>
+            )}
+            {' '}Treat this page as the law's group, not as a roster of who will be in the room.
+          </p>
+        )}
+        {(movedOut.length > 0 || movedIn.length > 0) && unseen !== null && unseen > 0 && (
+          <p>
+            That may not be the only change. {unseenFloor ? 'At least ' : ''}{unseen} other moves have
+            not been made public, and some of them could be here too.
+          </p>
+        )}
+        {moved.status === 'announced_provisional' && (
+          <p>
+            The new groups were a starting point, not a decision: comments were open until
+            {' '}{longDate(moved.comment_deadline)} and the guides aimed to settle them on
+            {' '}{longDate(moved.finalize_target)}.
+            {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
+          </p>
+        )}
+        {movedSources.length > 0 && (
+          <p style="font-size:.9rem">
+            Where this comes from:{' '}
+            {movedSources.map((src, i) => (
+              <>
+                {i > 0 && '; '}
+                <a href={src.url}>{src.publisher}, "{src.title}"</a>, {longDate(src.published_date)}
+              </>
+            ))}
+            {' '}— reports about the announcement, not the announcement itself.
+            {' '}<a href={`${base}/groupings/`}>More on what changed</a>.
+          </p>
+        )}
+      </details>
     </div>
   )}
 
@@ -222,12 +225,15 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
               ? 'These figures are AOE\'s stated education spending, not adopted budgets'
               : `${budgets.members.filter((m) => m.spending_basis === 'aoe_edspend').length} of ${budgets.member_count} members use AOE's stated education spending`}
           </strong>
-          <p>
-            We hold no budget document with a usable total for these districts, so the figure is the
-            education spending the Agency of Education reports for each one (Data Request #853), from
-            the latest year it lists. It is a state-reported figure, not what a district's voters
-            approved, and it can differ from one.
-          </p>
+          <details class="notice-more">
+            <summary>show more information</summary>
+            <p>
+              We hold no budget document with a usable total for these districts, so the figure is the
+              education spending the Agency of Education reports for each one (Data Request #853), from
+              the latest year it lists. It is a state-reported figure, not what a district's voters
+              approved, and it can differ from one.
+            </p>
+          </details>
         </div>
       )}
 
@@ -249,7 +255,10 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
       {mixedYears && (
         <div class="notice">
           <strong>Members' budgets are from different years</strong>
-          <p>The combined figure mixes fiscal years {budgets.fiscal_years_present.map((y) => `FY${y}`).join(', ')}. Compare years before quoting it.</p>
+          <details class="notice-more">
+            <summary>show more information</summary>
+            <p>The combined figure mixes fiscal years {budgets.fiscal_years_present.map((y) => `FY${y}`).join(', ')}. Compare years before quoting it.</p>
+          </details>
         </div>
       )}
 
@@ -289,11 +298,14 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
       </div>
       <div class="notice blocking">
         <strong>Combined total not computed: {gaps.length} of {budgets.member_count} member budgets are missing</strong>
-        <p>A combined figure is only shown when every member has a published total, so one missing budget does not silently shrink the group. Missing or unmatched:</p>
-        <ul>
-          {gaps.map((m) => <li>{m.name_as_written ?? m.slug} — {m.resolution === 'ambiguous' ? 'budget held only at the supervisory-union level, which serves more than one district' : 'no budget held'}</li>)}
-        </ul>
-        <p>Have one of these budgets? <a href={`${base}/su/`}>Find the supervisory union</a> and send the document in through its issue form — a bot opens the pull request.</p>
+        <details class="notice-more">
+          <summary>show more information</summary>
+          <p>A combined figure is only shown when every member has a published total, so one missing budget does not silently shrink the group. Missing or unmatched:</p>
+          <ul>
+            {gaps.map((m) => <li>{m.name_as_written ?? m.slug} — {m.resolution === 'ambiguous' ? 'budget held only at the supervisory-union level, which serves more than one district' : 'no budget held'}</li>)}
+          </ul>
+          <p>Have one of these budgets? <a href={`${base}/su/`}>Find the supervisory union</a> and send the document in through its issue form — a bot opens the pull request.</p>
+        </details>
       </div>
     </>
   )}
@@ -301,10 +313,13 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
   {state === 'recruitment' && (
     <div class="notice blocking">
       <strong>No member budgets held for this group yet</strong>
-      <p>None of the {budgets.member_count} districts in this group has a budget document collected, so the merger comparison cannot be run. This is a gap in coverage, not a statement that these districts published nothing.</p>
-      <h3>Members</h3>
-      <ul>{budgets.members.map((m) => <li>{m.name_as_written ?? m.slug} <code>{m.slug}</code></li>)}</ul>
-      <p>Have one of these budgets? <a href={`${base}/su/`}>Find the supervisory union</a> and send it in through its issue form.</p>
+      <details class="notice-more">
+        <summary>show more information</summary>
+        <p>None of the {budgets.member_count} districts in this group has a budget document collected, so the merger comparison cannot be run. This is a gap in coverage, not a statement that these districts published nothing.</p>
+        <h3>Members</h3>
+        <ul>{budgets.members.map((m) => <li>{m.name_as_written ?? m.slug} <code>{m.slug}</code></li>)}</ul>
+        <p>Have one of these budgets? <a href={`${base}/su/`}>Find the supervisory union</a> and send it in through its issue form.</p>
+      </details>
     </div>
   )}
 

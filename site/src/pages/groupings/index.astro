@@ -45,77 +45,80 @@ const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOStr
   {moved && !moved.roster_published && (
     <div class="notice blocking">
       <strong>These groups have changed. We do not have the new list.</strong>
-      <p>
-        On {longDate(moved.as_of)} the {moved.by} — the group the state hired to run the merger
-        talks — put Vermont's {moved.district_count ?? 'roughly 119'} school districts into
-        <strong> {moved.committee_count ?? 'fewer'} groups</strong>, not the {doc.groupings.length} the
-        law printed. {moved.requests_granted ?? 'Some'} districts had asked to move, and got their
-        way. The law always allowed this.
-        {unseenFloor && (
-          <span> The guides also moved some other districts that did not ask, to keep each group
-          near 2,000 students. They have not said how many.</span>
-        )}
-      </p>
-      <p>
-        <strong>They have not published which districts are in which new group.</strong> We know
-        about {knownCount} of the {moved.requests_granted ?? 'granted'} moves that districts asked
-        for, from news reports. {unseen !== null && unseen > 0 && (
-          <span>That leaves {unseenFloor ? 'at least ' : ''}{unseen} moves we cannot see.</span>
-        )}
-      </p>
-      <p>
-        So the groups below are still the law's groups, exactly as it wrote them. For many
-        districts that is still the right answer. For at least {knownWord} it is not, and we cannot tell
-        you which of the rest changed. If a group's page says nothing about a change, that means
-        we have no report about it — not that nothing happened.
-      </p>
-      {moved.known_changes.length > 0 && (
-        <>
-          <p>What we do know:</p>
-          <ul>
-            {moved.known_changes.map((c) => (
-              <li>
-                <strong>{c.district_name_as_written ?? c.district}</strong> moved
-                {c.from_grouping !== null && (
-                  <span> out of <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a></span>
-                )}
-                {c.to_grouping_as_reported && <span> and in {c.to_grouping_as_reported}</span>}
-                {c.to_grouping !== null && c.to_grouping_basis === 'inferred' && (
-                  <span> — which looks like <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>, though the guides have not numbered the new groups, so that match is our reading and could be wrong</span>
-                )}.
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-      {moved.status === 'announced_provisional' && (
+      <details class="notice-more">
+        <summary>show more information</summary>
         <p>
-          The guides called the new groups a starting point, not a decision. School board leaders
-          could send comments until {longDate(moved.comment_deadline)}, and the plan was to settle
-          the groups on {longDate(moved.finalize_target)}.
-          {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
-          {moved.first_meeting_deadline && (
-            <span> Each group has to hold its first meeting by {longDate(moved.first_meeting_deadline)}.</span>
+          On {longDate(moved.as_of)} the {moved.by} — the group the state hired to run the merger
+          talks — put Vermont's {moved.district_count ?? 'roughly 119'} school districts into
+          <strong> {moved.committee_count ?? 'fewer'} groups</strong>, not the {doc.groupings.length} the
+          law printed. {moved.requests_granted ?? 'Some'} districts had asked to move, and got their
+          way. The law always allowed this.
+          {unseenFloor && (
+            <span> The guides also moved some other districts that did not ask, to keep each group
+            near 2,000 students. They have not said how many.</span>
           )}
         </p>
-      )}
-      {sources.length > 0 && (
-        <div style="font-size:.9rem">
-          <p>Where this comes from:</p>
-          <ul>
-            {sources.map((s) => (
-              <li>
-                <a href={s.url}>{s.publisher}, "{s.title}"</a>, {longDate(s.published_date)}
-              </li>
-            ))}
-          </ul>
+        <p>
+          <strong>They have not published which districts are in which new group.</strong> We know
+          about {knownCount} of the {moved.requests_granted ?? 'granted'} moves that districts asked
+          for, from news reports. {unseen !== null && unseen > 0 && (
+            <span>That leaves {unseenFloor ? 'at least ' : ''}{unseen} moves we cannot see.</span>
+          )}
+        </p>
+        <p>
+          So the groups below are still the law's groups, exactly as it wrote them. For many
+          districts that is still the right answer. For at least {knownWord} it is not, and we cannot tell
+          you which of the rest changed. If a group's page says nothing about a change, that means
+          we have no report about it — not that nothing happened.
+        </p>
+        {moved.known_changes.length > 0 && (
+          <>
+            <p>What we do know:</p>
+            <ul>
+              {moved.known_changes.map((c) => (
+                <li>
+                  <strong>{c.district_name_as_written ?? c.district}</strong> moved
+                  {c.from_grouping !== null && (
+                    <span> out of <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a></span>
+                  )}
+                  {c.to_grouping_as_reported && <span> and in {c.to_grouping_as_reported}</span>}
+                  {c.to_grouping !== null && c.to_grouping_basis === 'inferred' && (
+                    <span> — which looks like <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>, though the guides have not numbered the new groups, so that match is our reading and could be wrong</span>
+                  )}.
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {moved.status === 'announced_provisional' && (
           <p>
-            These are reports about the guides' announcement, not the announcement itself. Nobody
-            here has checked them against the guides' own list, because we have not been able to
-            get one.
+            The guides called the new groups a starting point, not a decision. School board leaders
+            could send comments until {longDate(moved.comment_deadline)}, and the plan was to settle
+            the groups on {longDate(moved.finalize_target)}.
+            {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
+            {moved.first_meeting_deadline && (
+              <span> Each group has to hold its first meeting by {longDate(moved.first_meeting_deadline)}.</span>
+            )}
           </p>
-        </div>
-      )}
+        )}
+        {sources.length > 0 && (
+          <div style="font-size:.9rem">
+            <p>Where this comes from:</p>
+            <ul>
+              {sources.map((s) => (
+                <li>
+                  <a href={s.url}>{s.publisher}, "{s.title}"</a>, {longDate(s.published_date)}
+                </li>
+              ))}
+            </ul>
+            <p>
+              These are reports about the guides' announcement, not the announcement itself. Nobody
+              here has checked them against the guides' own list, because we have not been able to
+              get one.
+            </p>
+          </div>
+        )}
+      </details>
     </div>
   )}
 
@@ -123,23 +126,26 @@ const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOStr
     doc.groupings.length === 0 ? (
       <div class="notice blocking">
         <strong>Not typed in yet</strong>
-        <p>
-          This list is empty because we have not typed the groups in yet — not because the law has
-          none. The law does have them, and they matter for everything this tool does.
-        </p>
-        <p>
-          No public data feed lists them, and we could not reach the Legislature's website when
-          this site was built. Writing out twenty groups of district names from memory would risk
-          putting a made-up answer in the one place people most need the truth. Someone on this
-          page is asking which districts the Legislature grouped them with, and a confident wrong
-          answer there is much worse than no answer.
-        </p>
-        <p>
-          Typing them in is a small, careful job of copying from the law's own text. When it is
-          done, each group will show the district names exactly as the law writes them, next to the
-          IDs we match them to, so the match can be checked. Names in the law and names used by the
-          Agency do not always agree, and any name we cannot match will be listed, not dropped.
-        </p>
+        <details class="notice-more">
+          <summary>show more information</summary>
+          <p>
+            This list is empty because we have not typed the groups in yet — not because the law has
+            none. The law does have them, and they matter for everything this tool does.
+          </p>
+          <p>
+            No public data feed lists them, and we could not reach the Legislature's website when
+            this site was built. Writing out twenty groups of district names from memory would risk
+            putting a made-up answer in the one place people most need the truth. Someone on this
+            page is asking which districts the Legislature grouped them with, and a confident wrong
+            answer there is much worse than no answer.
+          </p>
+          <p>
+            Typing them in is a small, careful job of copying from the law's own text. When it is
+            done, each group will show the district names exactly as the law writes them, next to the
+            IDs we match them to, so the match can be checked. Names in the law and names used by the
+            Agency do not always agree, and any name we cannot match will be listed, not dropped.
+          </p>
+        </details>
       </div>
     ) : (
       <ul class="grid">

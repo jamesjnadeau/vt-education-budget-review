@@ -64,17 +64,20 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 
   <div class="notice blocking">
     <strong>Nothing on this page says whether a school qualifies.</strong>
-    <p>
-      Three separate things stand between this table and an answer, and each one belongs to a
-      different group:
-    </p>
-    <ul>
-      {data.why.map((reason) => <li>{reason}</li>)}
-    </ul>
-    <p>
-      The first two are on us. The third is the State's, and that is not a complaint: the Agency
-      of Education can't decide who qualifies under rules that do not exist yet.
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        Three separate things stand between this table and an answer, and each one belongs to a
+        different group:
+      </p>
+      <ul>
+        {data.why.map((reason) => <li>{reason}</li>)}
+      </ul>
+      <p>
+        The first two are on us. The third is the State's, and that is not a complaint: the Agency
+        of Education can't decide who qualifies under rules that do not exist yet.
+      </p>
+    </details>
   </div>
 
   <h2>What the law asks for</h2>

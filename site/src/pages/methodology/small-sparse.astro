@@ -46,15 +46,18 @@ const data = smallSparse as unknown as { counts: Record<string, number>; paramet
 
   <div class="notice blocking">
     <strong>This part can't make the promise the rest of the site rests on.</strong>
-    <p>
-      Everywhere else, the strongest thing we can say is: <em>the engine matches the state's
-      published numbers, and here are the tests</em>. Here there is nothing to match. The
-      Agency of Education has made no small-or-sparse-by-necessity decisions, so no test in this
-      part checks our math against the State's. The tests in
-      <code>model/goldens/small-sparse/</code> are hand-worked edge cases against guessed
-      cutoffs, and a green run means the math is right given a guess. That is worth having. It is
-      not worth more than that.
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        Everywhere else, the strongest thing we can say is: <em>the engine matches the state's
+        published numbers, and here are the tests</em>. Here there is nothing to match. The
+        Agency of Education has made no small-or-sparse-by-necessity decisions, so no test in this
+        part checks our math against the State's. The tests in
+        <code>model/goldens/small-sparse/</code> are hand-worked edge cases against guessed
+        cutoffs, and a green run means the math is right given a guess. That is worth having. It is
+        not worth more than that.
+      </p>
+    </details>
   </div>
 
   <h2>Two tests and a decision</h2>

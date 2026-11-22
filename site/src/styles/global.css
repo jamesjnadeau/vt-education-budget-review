@@ -826,3 +826,23 @@ button:hover {
   color: var(--text-muted);
   font-size: 0.85rem;
 }
+
+/* Collapsed notes under a data table (native <details>, no JS). */
+.data-notes {
+  margin: 1rem 0;
+}
+.data-notes > summary {
+  cursor: pointer;
+  color: var(--link, #1a5fb4);
+  text-decoration: underline;
+}
+
+/* Body of a notice, collapsed under its header (native <details>, no JS). */
+.notice-more > summary {
+  cursor: pointer;
+  color: var(--link, #1a5fb4);
+  text-decoration: underline;
+}
+.notice-more[open] > summary {
+  margin-bottom: 0.4rem;
+}

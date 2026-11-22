@@ -311,18 +311,21 @@ const homesteadRows = Object.entries(homesteadYears)
     cells.every((c) => c.state === 'missing') ? (
       <div class="notice">
         <strong>No budget documents held for this supervisory union</strong>
-        <p>
-          Nothing has been collected yet for any of the {cells.length} fiscal years this site
-          tracks. This is a gap in coverage, not a statement that the SU published nothing.
-        </p>
-        {cells[0]?.intakeUrl && (
+        <details class="notice-more">
+          <summary>show more information</summary>
           <p>
-            If you have one:{' '}
-            <a href={cells[0].intakeUrl}>send it in through the issue form</a> — drag the file in
-            and say where it came from, and a bot opens the pull request. Or{' '}
-            <a href={cells[0].flagUrl ?? '#'}>open an issue</a> recording what you checked.
+            Nothing has been collected yet for any of the {cells.length} fiscal years this site
+            tracks. This is a gap in coverage, not a statement that the SU published nothing.
           </p>
-        )}
+          {cells[0]?.intakeUrl && (
+            <p>
+              If you have one:{' '}
+              <a href={cells[0].intakeUrl}>send it in through the issue form</a> — drag the file in
+              and say where it came from, and a bot opens the pull request. Or{' '}
+              <a href={cells[0].flagUrl ?? '#'}>open an issue</a> recording what you checked.
+            </p>
+          )}
+        </details>
       </div>
     ) : (
       <div class="scroll-x">
@@ -365,49 +368,58 @@ const homesteadRows = Object.entries(homesteadYears)
 
   <div class="notice blocking">
     <strong>Weighted long-term membership — missing inputs</strong>
-    <p>Even where student counts are published, the count as it stands cannot be reduced to the figure the statute asks for:</p>
-    <ul>
-      {blockReasons.map((reason) => <li>{reason}</li>)}
-    </ul>
-    <p>
-      Concretely, these <span style="white-space:nowrap">16 V.S.A. § 4010</span> inputs are not yet
-      held for any district:
-    </p>
-    <ul>
-      {missingMembershipInputs.map((e) => (
-        <li>
-          <code>{e.input}</code>{' '}
-          <span style="color:var(--text-muted);font-size:.9rem">— {e.statute}</span>
-        </li>
-      ))}
-    </ul>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>Even where student counts are published, the count as it stands cannot be reduced to the figure the statute asks for:</p>
+      <ul>
+        {blockReasons.map((reason) => <li>{reason}</li>)}
+      </ul>
+      <p>
+        Concretely, these <span style="white-space:nowrap">16 V.S.A. § 4010</span> inputs are not yet
+        held for any district:
+      </p>
+      <ul>
+        {missingMembershipInputs.map((e) => (
+          <li>
+            <code>{e.input}</code>{' '}
+            <span style="color:var(--text-muted);font-size:.9rem">— {e.statute}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
   </div>
 
   <div class="notice blocking">
     <strong>Spending per weighted pupil — needs education spending</strong>
-    <p>
-      This divides a district's education spending by the weighted membership above, so it is
-      blocked by that figure and by the spending itself. Education spending comes from the budget
-      documents listed earlier on this page:{' '}
-      {normalizedYears === 0
-        ? `none of the ${cells.length} fiscal years tracked here are normalized yet`
-        : `${normalizedYears} of ${cells.length} fiscal years are normalized`}.
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        This divides a district's education spending by the weighted membership above, so it is
+        blocked by that figure and by the spending itself. Education spending comes from the budget
+        documents listed earlier on this page:{' '}
+        {normalizedYears === 0
+          ? `none of the ${cells.length} fiscal years tracked here are normalized yet`
+          : `${normalizedYears} of ${cells.length} fiscal years are normalized`}.
+      </p>
+    </details>
   </div>
 
   <div class="notice blocking">
     <strong>Member-town homestead rates — need the two figures above</strong>
-    <p>
-      A homestead rate rests on both figures above and on the statutory yields and weights that
-      convert spending into a rate.
-      {unverifiedParams > 0 && (
-        <>
-          {' '}Of the legal numbers those calculations draw on, {unverifiedParams} of {totalParams}
-          {' '}are still unchecked against current statute — listed year by year, with sources, on
-          the <a href={`${base}/methodology/`}>methodology page</a>.
-        </>
-      )}
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        A homestead rate rests on both figures above and on the statutory yields and weights that
+        convert spending into a rate.
+        {unverifiedParams > 0 && (
+          <>
+            {' '}Of the legal numbers those calculations draw on, {unverifiedParams} of {totalParams}
+            {' '}are still unchecked against current statute — listed year by year, with sources, on
+            the <a href={`${base}/methodology/`}>methodology page</a>.
+          </>
+        )}
+      </p>
+    </details>
   </div>
 
   <p>

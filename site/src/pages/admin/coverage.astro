@@ -138,11 +138,14 @@ const LABEL: Record<Cell['state'], string> = {
     coverage.totals.missing === cells.length && (
       <div class="notice blocking">
         <strong>Everything is missing, and that is accurate</strong>
-        <p>
-          No budget documents have been collected yet. The system that would clean them up, check
-          them, and publish them is built and tested — what it lacks is documents. Each supervisory
-          union has a collector setup that records where to start looking.
-        </p>
+        <details class="notice-more">
+          <summary>show more information</summary>
+          <p>
+            No budget documents have been collected yet. The system that would clean them up, check
+            them, and publish them is built and tested — what it lacks is documents. Each supervisory
+            union has a collector setup that records where to start looking.
+          </p>
+        </details>
       </div>
     )
   }

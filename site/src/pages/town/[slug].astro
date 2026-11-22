@@ -188,19 +188,22 @@ const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
   <h2>Homestead tax rate</h2>
   <div class="notice blocking">
     <strong>Not computed</strong>
-    <p>
-      A town's billed homestead rate is its district's education spending per weighted pupil,
-      divided by the property yield the Legislature sets each year, then divided by the town's
-      common level of appraisal. None of those three inputs is available yet: no budget document
-      has been collected for this district, and neither the yield nor the pupil weights have been
-      verified against current statute.
-    </p>
-    <p>
-      That last step — dividing by the CLA — is usually the least-explained part of a Vermont tax
-      bill, and it is frequently the largest reason a bill moved when district spending did not.
-      The <a href={`${base}/model/`}>modeling tool</a> shows it as its own step with its own
-      explanation.
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        A town's billed homestead rate is its district's education spending per weighted pupil,
+        divided by the property yield the Legislature sets each year, then divided by the town's
+        common level of appraisal. None of those three inputs is available yet: no budget document
+        has been collected for this district, and neither the yield nor the pupil weights have been
+        verified against current statute.
+      </p>
+      <p>
+        That last step — dividing by the CLA — is usually the least-explained part of a Vermont tax
+        bill, and it is frequently the largest reason a bill moved when district spending did not.
+        The <a href={`${base}/model/`}>modeling tool</a> shows it as its own step with its own
+        explanation.
+      </p>
+    </details>
   </div>
 
   {
