@@ -29,7 +29,7 @@ import { isBudgetRecordPath } from '../warehouse-budgets.ts';
 import { edspendEntities, prefillSpending, type EdspendRecord } from '../edspend-prefill.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import type { Act84Record } from '../aoe/act84/record.ts';
-import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
+import { buildSubgroupPublication, type SubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
 import { buildCombinerData, type CombinerInputs } from '../combiner-data.ts';
 import { operativeGroupings, type GroupingsDoc } from '../committees.ts';
@@ -67,6 +67,21 @@ function censusTownsForCombiner(): NonNullable<CombinerInputs['censusTowns']> {
       }>;
     };
     for (const t of rec.towns ?? []) if (t.entity) out.push(t);
+  }
+  return out;
+}
+
+/** SY25 (fiscal year 2026, final) ELL and free-or-reduced-lunch cells by town, for the combiner's estimates. */
+function subgroupTownsForCombiner(
+  publication: SubgroupPublication | null,
+): NonNullable<CombinerInputs['subgroupTowns']> {
+  const year = publication?.years.find((y) => y.fiscal_year === 2026);
+  if (!publication || !year) return [];
+  const out: Array<NonNullable<CombinerInputs['subgroupTowns']>[number]> = [];
+  for (const [slug, byYear] of Object.entries(publication.towns)) {
+    const t = byYear[year.school_year];
+    if (!t) continue;
+    out.push(t.row === 'not_applicable' ? { slug, absent: t.reason } : { slug, ell: t.ell, nslelg: t.nslelg });
   }
   return out;
 }
@@ -306,6 +321,7 @@ function main(): number {
         taxRates: taxRates.towns,
         edspendTowns: edspend2026.towns ?? [],
         censusTowns: censusTownsForCombiner(),
+        subgroupTowns: subgroupTownsForCombiner(subgroupPublication),
         schools: smallSparseResult?.schools ?? [],
       }),
     );

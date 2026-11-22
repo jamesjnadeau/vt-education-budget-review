@@ -157,4 +157,37 @@ describe('buildCombinerData', () => {
     expect(data.districts['ud/beta']!.schools).toHaveLength(1);
     expect(data.districts['town/solo']!.schools).toEqual([]);
   });
+
+  describe('town subgroup cells', () => {
+    it('carries a published town\'s ELL and FRL cells', () => {
+      const data = buildCombinerData({
+        ...fixture(),
+        subgroupTowns: [
+          { slug: 'town/aa', ell: { value: 12 }, nslelg: { status: 'suppressed', low: 1, high: 10, exclusive_low: false } },
+        ],
+      });
+      expect(data.towns['town/aa']?.ell_sy25).toEqual({ value: 12 });
+      expect(data.towns['town/aa']?.frl_sy25).toEqual({ status: 'suppressed', low: 1, high: 10, exclusive_low: false });
+    });
+
+    it('counts a town with no resident students as 0', () => {
+      const data = buildCombinerData({ ...fixture(), subgroupTowns: [{ slug: 'town/aa', absent: 'no_resident_students' }] });
+      expect(data.towns['town/aa']?.ell_sy25).toEqual({ value: 0 });
+      expect(data.towns['town/aa']?.frl_sy25).toEqual({ value: 0 });
+    });
+
+    it('leaves a closed town and a town missing from the input null', () => {
+      const data = buildCombinerData({ ...fixture(), subgroupTowns: [{ slug: 'town/aa', absent: 'entity_closed' }] });
+      expect(data.towns['town/aa']?.ell_sy25).toBeNull();
+      expect(data.towns['town/bb']?.frl_sy25).toBeNull();
+    });
+
+    it('leaves every town null when no subgroup input is given', () => {
+      const data = buildCombinerData(fixture());
+      for (const t of Object.values(data.towns)) {
+        expect(t.ell_sy25).toBeNull();
+        expect(t.frl_sy25).toBeNull();
+      }
+    });
+  });
 });
