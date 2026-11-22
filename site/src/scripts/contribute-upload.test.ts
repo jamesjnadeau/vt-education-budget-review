@@ -100,7 +100,7 @@ interface Call {
   body: unknown;
 }
 
-function fakeServer(opts: { failPut?: (n: number, attempt: number) => Response | null } = {}) {
+function fakeServer(opts: { failPut?: (n: number, attempt: number) => Response | null; failDone?: (attempt: number) => Response | null } = {}) {
   const calls: Call[] = [];
   const attempts = new Map<string, number>();
   const impl = (async (url: string, init: RequestInit = {}) => {
@@ -112,6 +112,12 @@ function fakeServer(opts: { failPut?: (n: number, attempt: number) => Response |
       const attempt = (attempts.get(url) ?? 0) + 1;
       attempts.set(url, attempt);
       const failure = opts.failPut?.(n, attempt) ?? null;
+      if (failure) return failure;
+    }
+    if (url.endsWith('/done')) {
+      const attempt = (attempts.get(url) ?? 0) + 1;
+      attempts.set(url, attempt);
+      const failure = opts.failDone?.(attempt) ?? null;
       if (failure) return failure;
     }
     return Response.json({ ok: true });
@@ -146,6 +152,20 @@ describe('uploadFile', () => {
     const { calls, impl } = fakeServer({ failPut: (n, attempt) => (n === 1 && attempt === 1 ? new Response('', { status: 502 }) : null) });
     await uploadFile(nineMb(), 't', { fetchImpl: impl, retryDelayMs: 0 });
     expect(calls.filter((c) => c.url.endsWith('/1'))).toHaveLength(2);
+  });
+
+  it('retries a done call that fails once', async () => {
+    const { calls, impl } = fakeServer({ failDone: (attempt) => (attempt === 1 ? new Response('', { status: 503 }) : null) });
+    await uploadFile(nineMb(), 't', { fetchImpl: impl, retryDelayMs: 0 });
+    expect(calls.filter((c) => c.url.endsWith('/done'))).toHaveLength(2);
+  });
+
+  it('treats "already complete" on a done retry as success, but not on the first try', async () => {
+    const already = () => Response.json({ error: 'This upload is already complete.' }, { status: 409 });
+    const lost = fakeServer({ failDone: (attempt) => (attempt === 1 ? new Response('', { status: 502 }) : already()) });
+    await expect(uploadFile(nineMb(), 't', { fetchImpl: lost.impl, retryDelayMs: 0 })).resolves.toBe('a'.repeat(32));
+    const first = fakeServer({ failDone: () => already() });
+    await expect(uploadFile(nineMb(), 't', { fetchImpl: first.impl, retryDelayMs: 0 })).rejects.toThrow('already complete');
   });
 
   it('rejects with the server message once the retries are used up', async () => {

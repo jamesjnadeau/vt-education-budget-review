@@ -206,7 +206,17 @@ export async function uploadFile(
     }
     opts.onProgress?.(end / file.size);
   }
-  await send(`/api/intake-upload/${id}/done`, { method: 'POST', headers: auth });
+  for (let attempt = 0; ; attempt++) {
+    try {
+      await send(`/api/intake-upload/${id}/done`, { method: 'POST', headers: auth });
+      break;
+    } catch (e) {
+      // A 409 after a retry means an earlier attempt landed but its answer was lost.
+      if (attempt > 0 && e instanceof ServerError && e.status === 409) break;
+      if (attempt >= retries || !retryable(e)) throw e;
+      await sleep(retryDelayMs * (attempt + 1));
+    }
+  }
   opts.onProgress?.(1);
   return id;
 }
