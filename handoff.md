@@ -93,6 +93,12 @@ LFS pointers in this container (`git lfs pull` fixes them, CI fetches them); `np
 6. **FY2027 is still blocked** on the Act 73 prekindergarten contingency, the yield act figures
    and the FY2027 statewide adjustment (which the FY2027 rate page now prints as 70.33%; it
    could be entered from there with a fetched artifact, not from the current-use example).
+7. **Group 11 still has no combined total.** `/groupings/11/` is the one grouping page that
+   still shows "Combined total not computed". Act 170 lists "Essex North Supervisory Union" as
+   a member (`su/essex-north`): a supervisory union, not a district, so AOE states no spending
+   for it. Its districts, Canaan and Northeast Kingdom Choice, are already members, so filling
+   the gap from them would double-count. Decide whether to drop that member from the
+   computation, treat it as a non-district, or leave it as a labelled gap.
 
 ## Housekeeping
 

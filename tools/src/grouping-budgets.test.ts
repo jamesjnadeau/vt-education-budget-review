@@ -177,4 +177,39 @@ describe('buildGroupingBudgets', () => {
     expect(g.resolved_count).toBe(2);
     expect(g.fiscal_years_present).toEqual([2023, 2024]);
   });
+
+  describe('AOE education spending fallback', () => {
+    const aoe = { 'ud/a-1': { '2025': { value: 5 }, '2026': { value: 7 } } };
+
+    it('fills a member with no budget from the latest AOE year, labelled', () => {
+      const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud', supervisory_union: 'su/a' }));
+      const m = buildGroupingBudgets([GROUP(['ud/a-1'])], reg, [], aoe)[0]!.members[0]!;
+      expect(m.spending_basis).toBe('aoe_edspend');
+      expect(m.budget?.education_spending).toBe(7);
+      expect(m.fiscal_year).toBe(2026);
+    });
+
+    it('fills a budget whose total is null, and a member whose SU budget is ambiguous', () => {
+      const reg = registryOf(
+        entity({ slug: 'ud/a-1', type: 'ud', supervisory_union: 'su/a' }),
+        entity({ slug: 'ud/a-2', type: 'ud', supervisory_union: 'su/a' }),
+      );
+      const g = buildGroupingBudgets(
+        [GROUP(['ud/a-1', 'ud/a-2'])],
+        reg,
+        [budget({ entity: 'ud/a-1', education_spending: null }), budget({ entity: 'su/a' })],
+        aoe,
+      )[0]!;
+      expect(g.members[0]!.budget?.education_spending).toBe(7);
+      expect(g.members[1]!.budget).toBeNull();
+      expect(g.members[1]!.spending_basis).toBeNull();
+    });
+
+    it('prefers a budget document with a total over AOE', () => {
+      const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud', supervisory_union: 'su/a' }));
+      const m = buildGroupingBudgets([GROUP(['ud/a-1'])], reg, [budget({ entity: 'ud/a-1' })], aoe)[0]!.members[0]!;
+      expect(m.spending_basis).toBe('budget');
+      expect(m.budget?.education_spending).toBe(1_000_000);
+    });
+  });
 });

@@ -22,6 +22,7 @@ interface GroupingBudgetMember {
   resolution: 'direct' | 'via_su' | 'missing' | 'ambiguous';
   fiscal_year: number | null;
   status: string | null;
+  spending_basis: 'budget' | 'aoe_edspend' | null;
 }
 interface GroupingBudgets {
   number: number;
@@ -206,13 +207,29 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
               <tr>
                 <th scope="row">{m.name_as_written ?? m.slug}</th>
                 <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
-                <td>{m.status ?? '—'}{m.resolution === 'via_su' && <span class="tag" style="margin-left:.4rem">via SU</span>}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
+                <td>{m.spending_basis === 'aoe_edspend' ? 'AOE stated spending' : (m.status ?? '—')}{m.resolution === 'via_su' && m.spending_basis !== 'aoe_edspend' && <span class="tag" style="margin-left:.4rem">via SU</span>}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
                 <td>{m.budget && m.budget.education_spending !== null ? formatValue(m.budget.education_spending, 'usd') : 'not published'}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {budgets.members.some((m) => m.spending_basis === 'aoe_edspend') && (
+        <div class="notice">
+          <strong>
+            {budgets.members.every((m) => m.spending_basis === 'aoe_edspend')
+              ? 'These figures are AOE\'s stated education spending, not adopted budgets'
+              : `${budgets.members.filter((m) => m.spending_basis === 'aoe_edspend').length} of ${budgets.member_count} members use AOE's stated education spending`}
+          </strong>
+          <p>
+            We hold no budget document with a usable total for these districts, so the figure is the
+            education spending the Agency of Education reports for each one (Data Request #853), from
+            the latest year it lists. It is a state-reported figure, not what a district's voters
+            approved, and it can differ from one.
+          </p>
+        </div>
+      )}
 
       <h2>Combined</h2>
       <dl class="facts">

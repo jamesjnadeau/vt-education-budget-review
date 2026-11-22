@@ -130,10 +130,6 @@ function main(): number {
   }
   writeJson(join(PATHS.siteGenerated, 'groupings.json'), groupings);
   const groupingList = (groupings as { groupings?: GroupingInput[] }).groupings ?? [];
-  writeJson(
-    join(PATHS.siteGenerated, 'grouping-budgets.json'),
-    buildGroupingBudgets(groupingList, registry, budgets as unknown as BudgetInput[]),
-  );
 
   // --- coverage ------------------------------------------------------------
   const coverage = buildCoverage(registry, { today });
@@ -189,6 +185,12 @@ function main(): number {
   // district's education spending. Always written: the model page imports it.
   const edspendRecords = walkFiles(join(PATHS.warehouse, 'aoe-edspend'), (n) => /^fy\d{4}\.yaml$/.test(n)).map(
     (file) => parseYaml(readFileSync(file, 'utf8')) as EdspendRecord,
+  );
+  // Members with no usable budget figure fall back to AOE's stated education
+  // spending, labelled as such, so a group's combined total can still be run.
+  writeJson(
+    join(PATHS.siteGenerated, 'grouping-budgets.json'),
+    buildGroupingBudgets(groupingList, registry, budgets as unknown as BudgetInput[], prefillSpending(edspendRecords)),
   );
   const prefillYears = subgroupPublication?.years.map((y) => y.fiscal_year) ?? [];
   const prefillAdm = buildPrefillAdm(
