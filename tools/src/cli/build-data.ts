@@ -25,6 +25,7 @@ import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { act84Prefill } from '../act84-prefill.ts';
 import { buildHomesteadAdm } from '../adm-lookup.ts';
 import { buildPrefillAdm, type PrefillBudget } from '../adm-town-sums.ts';
+import { isBudgetRecordPath } from '../warehouse-budgets.ts';
 import { edspendEntities, prefillSpending, type EdspendRecord } from '../edspend-prefill.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
 import type { Act84Record } from '../aoe/act84/record.ts';
@@ -57,21 +58,9 @@ function writeJson(path: string, data: unknown): void {
 
 function readBudgets(): BudgetRecord[] {
   return walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json'))
-    // The warehouse holds more than budgets now: the AOE ADM series, which is
-    // the state's voice about pupils, and the Census land-area record. Reading
-    // either as a budget would put an object with no revenues or expenditures
-    // into every per-SU page's budget list.
-    .filter((file) => {
-      const path = rel(file);
-      return (
-        !path.startsWith('warehouse/aoe-adm/') &&
-        !path.startsWith('warehouse/aoe-adm-subgroups/') &&
-        !path.startsWith('warehouse/aoe-edspend/') &&
-        !path.startsWith('warehouse/aoe-act84/') &&
-        !path.startsWith('warehouse/census/') &&
-        !path.startsWith('warehouse/small-sparse/')
-      );
-    })
+    // The warehouse holds more than budgets (AOE and Census series with no
+    // entity); see warehouse-budgets.ts.
+    .filter((file) => isBudgetRecordPath(rel(file)))
     .map((file) => {
     const text = readFileSync(file, 'utf8');
     const record = (file.endsWith('.json') ? JSON.parse(text) : parseYaml(text)) as BudgetRecord;
