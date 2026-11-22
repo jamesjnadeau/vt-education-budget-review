@@ -257,6 +257,10 @@ export function planCombiner(state: CombinerShareState, data: CombinerData): Com
       pooled_persons_per_square_mile: density.value,
       statewide_average_per_pupil: avg.value,
       pooled_inputs: pooled,
+      pooled_inputs_estimated: {
+        ...(state.povertyEstimate ? { poverty_185_fpl: true } : {}),
+        ...(state.elEstimate ? { english_learners: true } : {}),
+      },
       town_districts: townDistricts(data),
     },
   };

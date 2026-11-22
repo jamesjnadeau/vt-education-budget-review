@@ -157,6 +157,26 @@ describe('planCombiner', () => {
   });
 });
 
+describe('planCombiner and the estimate flags', () => {
+  it('passes a flagged count to the engine as estimated, and never state-placed', () => {
+    const plan = planCombiner(
+      choices({ poverty: '12', el: '3', statePlaced: '1', povertyEstimate: true, elEstimate: true }),
+      DATA,
+    );
+    if (plan.kind === 'ready') {
+      expect(plan.options.pooled_inputs_estimated).toEqual({ poverty_185_fpl: true, english_learners: true });
+    } else {
+      expect(plan.kind).toBe('ready');
+    }
+  });
+
+  it('marks nothing estimated when the flags are off', () => {
+    const plan = planCombiner(choices({ poverty: '12', el: '3', statePlaced: '1' }), DATA);
+    if (plan.kind === 'ready') expect(plan.options.pooled_inputs_estimated).toEqual({});
+    else expect(plan.kind).toBe('ready');
+  });
+});
+
 describe('admYearsFor', () => {
   it('turns a withheld band into a blank, never its range', () => {
     const d = district('ud/x', 'X', ['town/x']);

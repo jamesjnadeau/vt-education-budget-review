@@ -35,6 +35,8 @@ import {
   changeText,
   combinedDensity,
   combinedDensityText,
+  combinedSubgroupEstimate,
+  subgroupEstimateText,
   schoolLine,
   nameOf,
   plainText,
@@ -329,6 +331,50 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     update();
   });
 
+  // posthog is absent when analytics is not enabled for this build.
+  const capture = (event: string, properties: Record<string, string | number | boolean>): void => {
+    (
+      window as Window & { posthog?: { capture: (e: string, p?: Record<string, string | number | boolean>) => void } }
+    ).posthog?.capture(event, properties);
+  };
+
+  // --- Estimates for lower-income students and English learners -----------
+  // A box holds the page's estimate only while its checkbox is ticked: typing
+  // unticks it, so a typed number is never labeled an estimate.
+  const SUBGROUPS = [
+    { key: 'poverty', kind: 'frl', input: 'combiner-poverty', use: 'combiner-poverty-use', note: 'combiner-poverty-note' },
+    { key: 'el', kind: 'ell', input: 'combiner-el', use: 'combiner-el-use', note: 'combiner-el-note' },
+  ] as const;
+  const subgroupChecks = new Map<'poverty' | 'el', HTMLInputElement | null>();
+  for (const g of SUBGROUPS) {
+    const check = byId<HTMLElement>(g.use)?.querySelector('input') ?? null;
+    subgroupChecks.set(g.key, check);
+    byId<HTMLInputElement>(g.input)?.addEventListener('input', () => {
+      if (check) check.checked = false;
+    });
+    check?.addEventListener('change', () => {
+      // The field names a form box, never its value.
+      capture('estimate_suggestion_toggled', { field: `combiner-${g.key}`, checked: check.checked });
+    });
+  }
+  function renderSubgroupEstimates(): void {
+    for (const g of SUBGROUPS) {
+      const e = combinedSubgroupEstimate(picked, data, g.kind);
+      const note = byId<HTMLElement>(g.note);
+      if (note) note.textContent = subgroupEstimateText(e, g.kind);
+      const label = byId<HTMLElement>(g.use);
+      const check = subgroupChecks.get(g.key) ?? null;
+      if (label) {
+        label.hidden = e === null;
+        const text = label.querySelector('span');
+        const lower = e !== null && (e.withheld.length > 0 || e.missing.length > 0);
+        if (text) text.textContent = lower ? 'Use lower limit estimate' : 'Use estimate';
+      }
+      const input = byId<HTMLInputElement>(g.input);
+      if (check?.checked && input) input.value = e === null ? '' : String(e.sum);
+    }
+  }
+
   // --- The picked districts' schools, beside the small-school boxes --------
   const schoolList = byId<HTMLElement>('combiner-school-list');
   function renderSchoolList(): void {
@@ -367,8 +413,8 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       enrollment: '',
       schoolIn: schoolIn?.value ?? '',
       avg: '',
-      povertyEstimate: false,
-      elEstimate: false,
+      povertyEstimate: subgroupChecks.get('poverty')?.checked === true,
+      elEstimate: subgroupChecks.get('el')?.checked === true,
     };
     for (const [key, id] of TEXT_INPUTS) state[key] = byId<HTMLInputElement>(id)?.value ?? '';
     return state;
@@ -381,6 +427,10 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       if (input && state[key] !== '') input.value = state[key];
     }
     if (state.density !== '') densityTouched = true;
+    const pc = subgroupChecks.get('poverty');
+    const ec = subgroupChecks.get('el');
+    if (pc && state.povertyEstimate) pc.checked = true;
+    if (ec && state.elEstimate) ec.checked = true;
     renderSchoolIn();
     if (schoolIn && state.schoolIn !== '' && picked.includes(state.schoolIn)) schoolIn.value = state.schoolIn;
   }
@@ -396,6 +446,7 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     renderSchoolIn();
     renderSchoolList();
     renderDensity();
+    renderSubgroupEstimates();
     if (admScaleLine) admScaleLine.textContent = admScaleText(admScale(picked, data));
     renderResult();
   }

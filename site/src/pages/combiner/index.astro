@@ -41,13 +41,14 @@ const combinerData = JSON.stringify(combiner);
       cannot show the rate today, or the change, yet. The State does not publish each district's own
       population density. It also does not publish each district's own count of state-placed
       students, students from lower-income homes, or English learners. The math for the rate today
-      needs them, so this page does not show the rate today or the change. It will not fill those
-      figures in for you.
+      needs them, so this page does not show the rate today or the change. It can offer labeled
+      estimates for two of them (lower-income students and English learners), built from the
+      State's town-level counts. State-placed students are still yours to enter.
     </p>
     <p>
       The “if combined” rate is what this tool shows. To see it, enter those figures for all the
-      districts together, in the boxes below. What you enter is your own estimate, and the result
-      depends heavily on it.
+      districts together, in the boxes below, or tick “Use estimate” where it is offered. An
+      estimate is not a published figure, and the result depends heavily on it.
     </p>
     <p>
       This page's math does not match the rate the State published for every district. For 47 of
@@ -143,8 +144,8 @@ const combinerData = JSON.stringify(combiner);
       <legend>Figures the State does not publish</legend>
       <p class="field-help">
         Each of these changes how students are counted. Leave a box blank and the result names it
-        as missing. The page will not fill it in for you. What you enter is your own estimate, and
-        the result depends heavily on it.
+        as missing. The page can estimate two of them (lower-income students and English learners)
+        if you tick “Use estimate.” Whatever goes in a box, the result depends heavily on it.
       </p>
       <p class="field-help">
         The three student boxes take a number of students, not a percent.
@@ -177,6 +178,8 @@ const combinerData = JSON.stringify(combiner);
             figure. Enter the total number for all the districts together, not a percent, or leave
             blank.
           </small>
+          <label class="use-suggestion" id="combiner-poverty-use" hidden><input type="checkbox" /> <span>Use estimate</span></label>
+          <small id="combiner-poverty-note" class="field-help"></small>
         </div>
         <div class="field">
           <label for="combiner-el">English learners, a number of students</label>
@@ -185,6 +188,8 @@ const combinerData = JSON.stringify(combiner);
             No published per-district figure. Enter the total number for all the districts
             together, not a percent, or leave blank.
           </small>
+          <label class="use-suggestion" id="combiner-el-use" hidden><input type="checkbox" /> <span>Use estimate</span></label>
+          <small id="combiner-el-note" class="field-help"></small>
         </div>
       </div>
     </fieldset>
