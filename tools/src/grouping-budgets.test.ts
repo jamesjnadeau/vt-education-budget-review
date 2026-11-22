@@ -211,5 +211,24 @@ describe('buildGroupingBudgets', () => {
       expect(m.spending_basis).toBe('budget');
       expect(m.budget?.education_spending).toBe(1_000_000);
     });
+
+    it('carries AOE pupils, in the budget year when AOE lists it, else the latest year', () => {
+      const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud', supervisory_union: 'su/a' }));
+      const pupils = {
+        'ud/a-1': {
+          '2024': { value: 1, pupils: 90, pupil_measure: 'equalized_pupils' },
+          '2026': { value: 7, pupils: 100, pupil_measure: 'long_term_weighted_adm' },
+        },
+      };
+      const own = buildGroupingBudgets([GROUP(['ud/a-1'])], reg, [budget({ entity: 'ud/a-1' })], pupils)[0]!.members[0]!;
+      expect(own.pupils).toEqual({ value: 90, measure: 'equalized_pupils', fiscal_year: 2024 });
+      const filled = buildGroupingBudgets([GROUP(['ud/a-1'])], reg, [], pupils)[0]!.members[0]!;
+      expect(filled.pupils).toEqual({ value: 100, measure: 'long_term_weighted_adm', fiscal_year: 2026 });
+    });
+
+    it('leaves pupils null when AOE lists none', () => {
+      const reg = registryOf(entity({ slug: 'ud/a-1', type: 'ud', supervisory_union: 'su/a' }));
+      expect(buildGroupingBudgets([GROUP(['ud/a-1'])], reg, [budget({ entity: 'ud/a-1' })])[0]!.members[0]!.pupils).toBeNull();
+    });
   });
 });

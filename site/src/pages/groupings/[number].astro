@@ -23,6 +23,7 @@ interface GroupingBudgetMember {
   fiscal_year: number | null;
   status: string | null;
   spending_basis: 'budget' | 'aoe_edspend' | null;
+  pupils: { value: number; measure: string; fiscal_year: number } | null;
 }
 interface GroupingBudgets {
   number: number;
@@ -97,6 +98,17 @@ const movedSources = moved?.sources ?? [];
 const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOString().slice(0, 10));
 
 const gaps = budgets.members.filter((m) => !m.budget || m.budget.education_spending === null);
+// Pupils are AOE's count: long-term weighted ADM from FY2025 (a weighted count,
+// not a head count), equalized pupils before. A combined figure is stated only
+// when every member has one and they are all the same measure.
+const pupilMeasures = [...new Set(budgets.members.map((m) => m.pupils?.measure).filter((x): x is string => !!x))];
+const pupilsComputable =
+  budgets.members.length > 0 && budgets.members.every((m) => m.pupils) && pupilMeasures.length === 1;
+const pupilsTotal = pupilsComputable ? budgets.members.reduce((t, m) => t + (m.pupils?.value ?? 0), 0) : null;
+const pupilYears = [...new Set(budgets.members.map((m) => m.pupils?.fiscal_year).filter((y): y is number => !!y))].sort();
+const pupilLabel = (measure: string) =>
+  measure === 'long_term_weighted_adm' ? 'Weighted ADM' : measure === 'equalized_pupils' ? 'Equalized pupils' : 'Pupils';
+const fmtPupils = (n: number) => n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 const mixedYears = budgets.fiscal_years_present.length > 1;
 const state: 'computed' | 'partial' | 'recruitment' = computable
   ? 'computed'
@@ -200,7 +212,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
       <div class="scroll-x">
         <table>
           <thead>
-            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Status</th><th scope="col">Education spending</th></tr>
+            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Status</th><th scope="col">Education spending</th><th scope="col">{pupilMeasures.length === 1 ? pupilLabel(pupilMeasures[0]!) : 'Pupils'}</th></tr>
           </thead>
           <tbody>
             {budgets.members.map((m) => (
@@ -209,6 +221,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
                 <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
                 <td>{m.spending_basis === 'aoe_edspend' ? 'AOE stated spending' : (m.status ?? '—')}{m.resolution === 'via_su' && m.spending_basis !== 'aoe_edspend' && <span class="tag" style="margin-left:.4rem">via SU</span>}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
                 <td>{m.budget && m.budget.education_spending !== null ? formatValue(m.budget.education_spending, 'usd') : 'not published'}</td>
+                <td>{m.pupils ? <>{fmtPupils(m.pupils.value)}{m.pupils.fiscal_year !== m.fiscal_year && <span class="tag" style="margin-left:.4rem">FY{m.pupils.fiscal_year}</span>}</> : 'not held'}</td>
               </tr>
             ))}
           </tbody>
@@ -233,6 +246,14 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
 
       <h2>Combined</h2>
       <dl class="facts">
+        <dt>{pupilMeasures.length === 1 ? `Combined ${pupilLabel(pupilMeasures[0]!)}` : 'Combined pupils'}</dt>
+        <dd>
+          {pupilsTotal !== null
+            ? fmtPupils(pupilsTotal)
+            : pupilMeasures.length > 1
+              ? 'not stated: members are counted on different measures'
+              : 'not stated: some members have no AOE pupil count'}
+        </dd>
         <dt>{result.currentTotal.label}</dt>
         <dd>{formatValue(result.currentTotal.value, 'usd')}</dd>
         <dt>{result.scenarioTotal.label}</dt>
@@ -245,6 +266,15 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
         design: the tool assumes no consolidation you did not choose. Adjust the factor in the
         <a href={`${base}/model/`}>what-if tool</a> to see movement in either direction.
       </p>
+
+      {pupilMeasures.includes('long_term_weighted_adm') && (
+        <p style="color:var(--text-muted)">
+          Weighted ADM is the Agency of Education's long-term weighted average daily membership: the
+          pupil count AOE divides education spending by. Weights count some students (for example
+          those in poverty or learning English) as more than one, so it is larger than a head count.
+          {pupilYears.length > 1 && ` Counts are from ${pupilYears.map((y) => `FY${y}`).join(', ')}.`}
+        </p>
+      )}
 
       {mixedYears && (
         <div class="notice">
@@ -274,7 +304,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
       <div class="scroll-x">
         <table>
           <thead>
-            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Education spending</th></tr>
+            <tr><th scope="col">District</th><th scope="col">Fiscal year</th><th scope="col">Education spending</th><th scope="col">Pupils</th></tr>
           </thead>
           <tbody>
             {budgets.members.map((m) => (
@@ -282,6 +312,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
                 <th scope="row">{m.name_as_written ?? m.slug}</th>
                 <td>{m.fiscal_year ? `FY${m.fiscal_year}` : '—'}</td>
                 <td>{m.budget && m.budget.education_spending !== null ? formatValue(m.budget.education_spending, 'usd') : 'no budget held'}{m.status === 'actual' && <span class="tag" style="margin-left:.4rem">year-end actuals, not an adopted budget</span>}</td>
+                <td>{m.pupils ? fmtPupils(m.pupils.value) : 'not held'}</td>
               </tr>
             ))}
           </tbody>
