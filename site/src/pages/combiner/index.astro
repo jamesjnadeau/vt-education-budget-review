@@ -156,7 +156,10 @@ const combinerData = JSON.stringify(combiner);
           <input id="combiner-density" type="number" min="0" step="any" />
           <small class="field-help">
             How spread out people are (the law calls this sparsity), for the combined district.
+            It starts from the Census figure for the towns you picked. You can change it.
           </small>
+          <small id="combiner-density-note" class="field-help"></small>
+          <button type="button" id="combiner-density-use" class="combiner-remove" hidden>Use the Census figure</button>
         </div>
         <div class="field">
           <label for="combiner-state-placed">State-placed students, a number of students</label>
@@ -206,6 +209,7 @@ const combinerData = JSON.stringify(combiner);
           <select id="combiner-school-in"></select>
         </div>
       </div>
+      <div id="combiner-school-list"></div>
     </fieldset>
 
     <fieldset class="field-group">

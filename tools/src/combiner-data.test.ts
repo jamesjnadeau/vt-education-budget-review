@@ -125,4 +125,36 @@ describe('buildCombinerData', () => {
   it('gives a town-run district its own town', () => {
     expect(buildCombinerData(fixture()).districts['town/solo']!.towns).toEqual(['town/solo']);
   });
+
+  it('carries Census land area and both population figures per town, and null where there is none', () => {
+    const data = buildCombinerData({
+      ...fixture(),
+      censusTowns: [
+        { entity: 'town/aa', land_area_sq_mi: 10, population: { decennial_2020: 500, pep_july1_2025: 520, acs_5yr: 480 } },
+        { entity: 'town/bb', land_area_sq_mi: null, population: {} },
+      ],
+    });
+    expect(data.towns['town/aa']).toMatchObject({ land_area_sq_mi: 10, population_2020: 500, population_2025: 520 });
+    expect(data.towns['town/bb']).toMatchObject({ land_area_sq_mi: null, population_2020: null, population_2025: null });
+    expect(data.towns['town/cc']!.land_area_sq_mi).toBeNull();
+  });
+
+  it('lists each district\'s schools, sorted, by the district that operates them', () => {
+    const row = (name: string, operated_by: string | null) => ({
+      name,
+      operated_by,
+      grades_as_stated: 'K,1',
+      average_enrollment: 20,
+      average_grade_size: 10,
+      small_screen_met: true,
+      small_screen_blank_reason: null,
+    });
+    const data = buildCombinerData({
+      ...fixture(),
+      schools: [row('Zed School', 'ud/alpha'), row('Ace School', 'ud/alpha'), row('Other', 'ud/beta'), row('Nowhere', null)],
+    });
+    expect(data.districts['ud/alpha']!.schools.map((s) => s.name)).toEqual(['Ace School', 'Zed School']);
+    expect(data.districts['ud/beta']!.schools).toHaveLength(1);
+    expect(data.districts['town/solo']!.schools).toEqual([]);
+  });
 });

@@ -33,6 +33,9 @@ import {
   admScaleText,
   blockerList,
   changeText,
+  combinedDensity,
+  combinedDensityText,
+  schoolLine,
   nameOf,
   plainText,
   planCombiner,
@@ -303,6 +306,52 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     schoolIn.value = picked.includes(keep) ? keep : '';
   }
 
+  // --- Density, from the Census figure for the picked districts' towns ---------
+  // The box starts from the 2020 count over land area and follows the picks
+  // until the visitor types in it or opens a link that carries a figure. The
+  // button puts the Census figure back.
+  const densityInput = byId<HTMLInputElement>('combiner-density');
+  const densityNote = byId<HTMLElement>('combiner-density-note');
+  const densityUse = byId<HTMLButtonElement>('combiner-density-use');
+  let densityTouched = false;
+  function renderDensity(): void {
+    const d = combinedDensity(picked, data);
+    if (densityNote) densityNote.textContent = combinedDensityText(d);
+    const figure = d?.density2020 ?? null;
+    if (densityUse) densityUse.hidden = figure === null || !densityTouched || densityInput?.value === String(figure);
+    if (densityInput && !densityTouched) densityInput.value = figure === null ? '' : String(figure);
+  }
+  densityInput?.addEventListener('input', () => {
+    densityTouched = true;
+  });
+  densityUse?.addEventListener('click', () => {
+    densityTouched = false;
+    update();
+  });
+
+  // --- The picked districts' schools, beside the small-school boxes --------
+  const schoolList = byId<HTMLElement>('combiner-school-list');
+  function renderSchoolList(): void {
+    if (!schoolList) return;
+    schoolList.replaceChildren();
+    const groups = picked
+      .map((slug) => ({ slug, schools: data.districts[slug]?.schools ?? [] }))
+      .filter((g) => g.schools.length > 0);
+    if (groups.length === 0) return;
+    schoolList.append(
+      el(
+        'p',
+        'field-help',
+        'For reference, the public schools in the districts you picked, with the numbers the State’s small-school grant test uses (average grade size under 12). ' +
+          'This is separate from the small-school rule here, and nothing below is filled in for you. It is not a finding that a school qualifies for anything.',
+      ),
+    );
+    for (const g of groups) {
+      schoolList.append(el('h4', undefined, nameOf(g.slug, data)));
+      schoolList.append(list(g.schools.map(schoolLine)));
+    }
+  }
+
   // --- Form <-> state --------------------------------------------------------
   function readState(): CombinerShareState {
     const state: CombinerShareState = {
@@ -329,6 +378,7 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       const input = byId<HTMLInputElement>(id);
       if (input && state[key] !== '') input.value = state[key];
     }
+    if (state.density !== '') densityTouched = true;
     renderSchoolIn();
     if (schoolIn && state.schoolIn !== '' && picked.includes(state.schoolIn)) schoolIn.value = state.schoolIn;
   }
@@ -342,6 +392,8 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
     for (const [slug, box] of checkboxes) box.checked = picked.includes(slug);
     renderPicked();
     renderSchoolIn();
+    renderSchoolList();
+    renderDensity();
     if (admScaleLine) admScaleLine.textContent = admScaleText(admScale(picked, data));
     renderResult();
   }

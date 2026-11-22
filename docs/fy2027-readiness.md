@@ -104,6 +104,13 @@ claim about the world, the same standard the parameter files hold themselves to.
   determinations because the rules are not yet written — that is the State's position, not
   a repo gap.)
 
+- [ ] **Link the combiner to the small/sparse page.** On `/combiner/`, point from the
+  small-school fieldset and from each picked district's school list to `/small-sparse/`, and
+  from that page back to the combiner, so a reader moving between the two sees that the
+  combiner's tax-weight small-school rule (§ 4010) and the § 4019 grant test are separate
+  questions. Not done: the combiner now lists each picked district's schools and prefills
+  density from Census figures, but has no link to the grant page.
+
 - [ ] **Small/sparse golden from a real school.** Take one or two schools whose average
   grade size James Nadeau has calculated for the State, and encode their enrollment, grade
   span and published result as a golden under `model/goldens/small-sparse/`. The engine's

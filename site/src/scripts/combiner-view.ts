@@ -43,6 +43,15 @@ export interface CombinerAdmYear {
   bands: Record<string, CombinerAdmBand>;
 }
 
+export interface CombinerSchool {
+  name: string;
+  grades: string | null;
+  average_enrollment: number | null;
+  average_grade_size: number | null;
+  small_screen_met: boolean | null;
+  blank_reason: string | null;
+}
+
 export interface CombinerDistrict {
   entity: string;
   label: string;
@@ -54,6 +63,8 @@ export interface CombinerDistrict {
   poverty_185_fpl: number | null;
   english_learners: number | null;
   act84_decrease: number | null;
+  /** Public schools the district runs, with the numbers § 4019(a)'s small test uses. Informational. */
+  schools?: CombinerSchool[];
   /** Why this district cannot be combined yet. Empty when it can. */
   blockers: string[];
 }
@@ -63,6 +74,11 @@ export interface CombinerTown {
   cla: number | null;
   cla_source: string | null;
   published_homestead_rate: number | null;
+  /** Census land area (not total area), square miles. */
+  land_area_sq_mi?: number | null;
+  /** Census 2020 count, and the July 1, 2025 estimate. */
+  population_2020?: number | null;
+  population_2025?: number | null;
   /** Every district that taxes this town. */
   districts: string[];
 }
@@ -373,4 +389,88 @@ export function changeText(row: Pick<CombinerTownRow, 'delta' | 'direction'>): s
 export function blockerList(result: CombinerResult, data: CombinerData): string[] {
   const all = [...result.pooled.reasons, ...result.members.flatMap((m) => m.reasons)];
   return [...new Set(all.map((r) => plainText(r, data)))];
+}
+
+/**
+ * The population density of the towns the picked districts cover, from the
+ * Census land area and population: people divided by square miles of land,
+ * summed over the union of the member towns (a town served by two picked
+ * districts counts once). The 2020 count is the main figure and the July 1,
+ * 2025 estimate is shown beside it. If any town has no figure, no density is
+ * given for that series and the towns missing are named: a density over some of
+ * the towns would be a different number, not a smaller one.
+ */
+export interface CombinedDensity {
+  towns: number;
+  landSqMi: number | null;
+  density2020: number | null;
+  density2025: number | null;
+  /** Towns with no land area or no population in the series named. */
+  missing2020: string[];
+  missing2025: string[];
+}
+
+export function combinedDensity(slugs: readonly string[], data: CombinerData): CombinedDensity | null {
+  const towns = new Set<string>();
+  for (const slug of slugs) for (const t of data.districts[slug]?.towns ?? []) towns.add(t);
+  if (towns.size === 0) return null;
+  let land = 0;
+  let pop2020 = 0;
+  let pop2025 = 0;
+  const missing2020: string[] = [];
+  const missing2025: string[] = [];
+  let landKnown = true;
+  for (const slug of [...towns].sort()) {
+    const t = data.towns[slug];
+    const area = t?.land_area_sq_mi ?? null;
+    if (area === null || area <= 0) {
+      landKnown = false;
+      missing2020.push(nameOf(slug, data));
+      missing2025.push(nameOf(slug, data));
+      continue;
+    }
+    land += area;
+    const p20 = t?.population_2020 ?? null;
+    const p25 = t?.population_2025 ?? null;
+    if (p20 === null) missing2020.push(nameOf(slug, data));
+    else pop2020 += p20;
+    if (p25 === null) missing2025.push(nameOf(slug, data));
+    else pop2025 += p25;
+  }
+  const round = (n: number): number => Math.round(n * 10) / 10;
+  return {
+    towns: towns.size,
+    landSqMi: landKnown ? round(land) : null,
+    density2020: missing2020.length === 0 ? round(pop2020 / land) : null,
+    density2025: missing2025.length === 0 ? round(pop2025 / land) : null,
+    missing2020,
+    missing2025,
+  };
+}
+
+/** The line under the density box. It says where the figure came from and what it leaves out. */
+export function combinedDensityText(d: CombinedDensity | null): string {
+  if (d === null) return 'Pick districts and this box can start from the Census figure for their towns.';
+  const count = `${d.towns} town${d.towns === 1 ? '' : 's'}`;
+  if (d.density2020 === null) {
+    return `The Census figure for these ${count} is not complete: ${d.missing2020.join(', ')} ${d.missing2020.length === 1 ? 'has' : 'have'} no land area or 2020 count on file, so nothing is filled in. Enter your own estimate or leave it blank.`;
+  }
+  const later = d.density2025 === null ? '' : ` With the July 1, 2025 estimate it is ${d.density2025}.`;
+  return `Census 2020 count over the land area of the ${count} the picked districts cover: ${d.density2020} people per square mile.${later} Land area only, not water.`;
+}
+
+/** The text a school's line shows: its numbers, never a verdict on eligibility. */
+export function schoolLine(s: CombinerSchool): string {
+  const grades = s.grades ? `grades ${s.grades}` : 'grades not listed';
+  const size =
+    s.average_grade_size === null
+      ? `average grade size not worked out${s.blank_reason ? ` (${s.blank_reason})` : ''}`
+      : `${s.average_enrollment ?? '?'} students on average, ${s.average_grade_size} per grade`;
+  const test =
+    s.small_screen_met === true
+      ? 'under 12 per grade'
+      : s.small_screen_met === false
+        ? '12 or more per grade'
+        : "can't tell";
+  return `${s.name}: ${grades}; ${size}; ${test}.`;
 }

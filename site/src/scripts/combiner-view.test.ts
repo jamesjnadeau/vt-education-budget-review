@@ -15,7 +15,10 @@ import {
   admYearsFor,
   blockerList,
   changeText,
+  combinedDensity,
+  combinedDensityText,
   nameOf,
+  schoolLine,
   plainText,
   planCombiner,
   resultStatus,
@@ -326,5 +329,59 @@ describe('the published student count, for scale', () => {
     expect(admScale([], DATA)).toBeNull();
     expect(admScale(['ud/nope'], DATA)).toBeNull();
     expect(admScaleText(null)).toMatch(/^Pick districts/);
+  });
+});
+
+describe('the density of the picked districts\' towns', () => {
+  const withCensus: CombinerData = {
+    ...DATA,
+    towns: {
+      ...DATA.towns,
+      'town/beta': { ...DATA.towns['town/beta']!, land_area_sq_mi: 20, population_2020: 400, population_2025: 440 },
+      'town/gamma': { ...DATA.towns['town/gamma']!, land_area_sq_mi: 30, population_2020: 1100, population_2025: 1160 },
+    },
+  };
+
+  it('sums people and land over the towns, rounded to a tenth, and shows both counts', () => {
+    const d = combinedDensity(['ud/beta-1'], withCensus)!;
+    expect(d).toMatchObject({ towns: 2, landSqMi: 50, density2020: 30, density2025: 32 });
+    expect(combinedDensityText(d)).toMatch(/30 people per square mile.*July 1, 2025 estimate it is 32/);
+  });
+
+  it('counts a town once when two picked districts cover it', () => {
+    const data: CombinerData = {
+      ...withCensus,
+      districts: { ...withCensus.districts, 'ud/also': district('ud/also', 'Also', ['town/beta']) },
+    };
+    expect(combinedDensity(['ud/beta-1', 'ud/also'], data)!.towns).toBe(2);
+  });
+
+  it('gives no figure, and names the towns, when any town has none', () => {
+    const d = combinedDensity(['ud/beta-1', 'town/alpha'], withCensus)!;
+    expect(d.density2020).toBeNull();
+    expect(d.missing2020).toEqual(['Alpha']);
+    expect(combinedDensityText(d)).toMatch(/Alpha has no land area or 2020 count on file, so nothing is filled in/);
+    expect(combinedDensity([], withCensus)).toBeNull();
+  });
+});
+
+describe('a school line', () => {
+  it('gives the numbers and the small-test result without calling it eligibility', () => {
+    const line = schoolLine({
+      name: 'Tiny School',
+      grades: 'K,1,2',
+      average_enrollment: 24,
+      average_grade_size: 8,
+      small_screen_met: true,
+      blank_reason: null,
+    });
+    expect(line).toBe('Tiny School: grades K,1,2; 24 students on average, 8 per grade; under 12 per grade.');
+    expect(line).not.toMatch(/qualif|eligible/i);
+  });
+
+  it('says why a number is blank', () => {
+    expect(
+      schoolLine({ name: 'X', grades: null, average_enrollment: null, average_grade_size: null, small_screen_met: null, blank_reason: 'not in the fall count' }),
+    ).toBe("X: grades not listed; average grade size not worked out (not in the fall count); can't tell.");
   });
 });

@@ -16,7 +16,7 @@
  * there is a performance problem to solve.
  */
 
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
@@ -51,6 +51,24 @@ interface BudgetRecord {
   fiscal_year: number;
   status: string;
   [key: string]: unknown;
+}
+
+/** Census land area and population by town, for the combiner's density prefill. */
+function censusTownsForCombiner(): NonNullable<CombinerInputs['censusTowns']> {
+  const dir = join(PATHS.warehouse, 'census');
+  if (!existsSync(dir)) return [];
+  const out: Array<NonNullable<CombinerInputs['censusTowns']>[number]> = [];
+  for (const f of readdirSync(dir).filter((n) => n.endsWith('.yaml'))) {
+    const rec = parseYaml(readFileSync(join(dir, f), 'utf8')) as {
+      towns?: Array<{
+        entity: string | null;
+        land_area_sq_mi: number | null;
+        population: Record<string, number | null>;
+      }>;
+    };
+    for (const t of rec.towns ?? []) if (t.entity) out.push(t);
+  }
+  return out;
 }
 
 function writeJson(path: string, data: unknown): void {
@@ -239,6 +257,30 @@ function main(): number {
     ),
   });
 
+  let smallSparseCounts: Record<string, number> | null = null;
+  let smallSparseResult: ReturnType<typeof buildSmallSparse> | null = null;
+
+  // --- small / sparse candidate table --------------------------------------
+  // Computed here rather than committed: it is derived from the registry, the
+  // census record and the parameter file, and nothing derived is committed.
+  if (existsSync(SMALL_SPARSE_PARAMETER_FILE)) {
+    const smallSparseSet = parseParameterSet(
+      parseYaml(readFileSync(SMALL_SPARSE_PARAMETER_FILE, 'utf8')),
+    );
+    const smallSparse = buildSmallSparse(registry, smallSparseSet, {
+      parameterSetRef: SMALL_SPARSE_PARAMETER_REF,
+      generated: today.toISOString(),
+      // Neither has a default in the statute as read, so the build states which
+      // frame it published under and the page repeats it. A default chosen here
+      // and forgotten downstream is how an unread question becomes an answer.
+      enrollmentBasis: 'two_year_average',
+      populationSeries: 'decennial_2020',
+    });
+    writeJson(join(PATHS.siteGenerated, 'small-sparse.json'), smallSparse);
+    smallSparseCounts = smallSparse.counts;
+    smallSparseResult = smallSparse;
+  }
+
   // --- combiner: per-district pooling inputs, per-town CLA ------------------
   // FY2026 only: the Tax Department's per-town CLA table is imported for that
   // year. Without it there is nothing to pool against, so no file is written.
@@ -263,30 +305,10 @@ function main(): number {
         groupings: groupingList,
         taxRates: taxRates.towns,
         edspendTowns: edspend2026.towns ?? [],
+        censusTowns: censusTownsForCombiner(),
+        schools: smallSparseResult?.schools ?? [],
       }),
     );
-  }
-
-  let smallSparseCounts: Record<string, number> | null = null;
-
-  // --- small / sparse candidate table --------------------------------------
-  // Computed here rather than committed: it is derived from the registry, the
-  // census record and the parameter file, and nothing derived is committed.
-  if (existsSync(SMALL_SPARSE_PARAMETER_FILE)) {
-    const smallSparseSet = parseParameterSet(
-      parseYaml(readFileSync(SMALL_SPARSE_PARAMETER_FILE, 'utf8')),
-    );
-    const smallSparse = buildSmallSparse(registry, smallSparseSet, {
-      parameterSetRef: SMALL_SPARSE_PARAMETER_REF,
-      generated: today.toISOString(),
-      // Neither has a default in the statute as read, so the build states which
-      // frame it published under and the page repeats it. A default chosen here
-      // and forgotten downstream is how an unread question becomes an answer.
-      enrollmentBasis: 'two_year_average',
-      populationSeries: 'decennial_2020',
-    });
-    writeJson(join(PATHS.siteGenerated, 'small-sparse.json'), smallSparse);
-    smallSparseCounts = smallSparse.counts;
   }
 
   // --- per-SU data, and the compact index the modeling island loads first ---

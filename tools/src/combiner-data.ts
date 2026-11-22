@@ -41,6 +41,32 @@ export interface CombinerInputs {
     readonly homestead_rate?: number | null;
     readonly union_districts?: ReadonlyArray<{ readonly entity: string | null }>;
   }>;
+  /** Census land area and population per town. Optional: without it the town carries no density figures. */
+  readonly censusTowns?: ReadonlyArray<{
+    readonly entity: string | null;
+    readonly land_area_sq_mi: number | null;
+    readonly population: Readonly<Record<string, number | null>>;
+  }>;
+  /** Small/sparse school rows, for listing each district's schools. Informational only. */
+  readonly schools?: ReadonlyArray<{
+    readonly name: string;
+    readonly operated_by: string | null;
+    readonly grades_as_stated: string | null;
+    readonly average_enrollment: number | null;
+    readonly average_grade_size: number | null;
+    readonly small_screen_met: boolean | null;
+    readonly small_screen_blank_reason: string | null;
+  }>;
+}
+
+/** One public school, with the numbers § 4019(a)'s small test uses. Not an eligibility finding. */
+export interface CombinerSchool {
+  readonly name: string;
+  readonly grades: string | null;
+  readonly average_enrollment: number | null;
+  readonly average_grade_size: number | null;
+  readonly small_screen_met: boolean | null;
+  readonly blank_reason: string | null;
 }
 
 export interface AdmYear {
@@ -59,6 +85,7 @@ export interface CombinerDistrict {
   readonly poverty_185_fpl: number | null;
   readonly english_learners: number | null;
   readonly act84_decrease: number | null;
+  readonly schools: CombinerSchool[];
   readonly blockers: string[];
 }
 
@@ -67,6 +94,11 @@ export interface CombinerTown {
   readonly cla: number | null;
   readonly cla_source: string | null;
   readonly published_homestead_rate: number | null;
+  /** Census land area (not total area), square miles. Null when the Census file has no row. */
+  readonly land_area_sq_mi: number | null;
+  /** Census 2020 count and July 1, 2025 estimate. */
+  readonly population_2020: number | null;
+  readonly population_2025: number | null;
   readonly districts: string[];
 }
 
@@ -163,6 +195,20 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
     for (const ud of t.union_districts ?? []) if (ud.entity) addMember(ud.entity, t.entity);
   }
 
+  const schoolsByDistrict = new Map<string, CombinerSchool[]>();
+  for (const sc of inputs.schools ?? []) {
+    if (!sc.operated_by) continue;
+    (schoolsByDistrict.get(sc.operated_by) ?? schoolsByDistrict.set(sc.operated_by, []).get(sc.operated_by)!).push({
+      name: sc.name,
+      grades: sc.grades_as_stated,
+      average_enrollment: sc.average_enrollment,
+      average_grade_size: sc.average_grade_size,
+      small_screen_met: sc.small_screen_met,
+      blank_reason: sc.small_screen_blank_reason,
+    });
+  }
+  for (const list of schoolsByDistrict.values()) list.sort((a, b) => a.name.localeCompare(b.name));
+
   const districts: Record<string, CombinerDistrict> = {};
   const slugs = new Set<string>();
   for (const e of inputs.registry) {
@@ -210,6 +256,7 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
       poverty_185_fpl: null,
       english_learners: null,
       act84_decrease: resolved.act84[slug]?.value ?? null,
+      schools: schoolsByDistrict.get(slug) ?? [],
       blockers,
     };
   }
@@ -225,6 +272,7 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
     }
   }
 
+  const censusByTown = new Map((inputs.censusTowns ?? []).map((t) => [t.entity, t] as const));
   const towns: Record<string, CombinerTown> = {};
   for (const [slug, serving] of [...districtsOfTown].sort(([a], [b]) => a.localeCompare(b))) {
     const e = bySlug.get(slug);
@@ -237,6 +285,9 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
       cla: row ? row.cla : null,
       cla_source: row ? `Vermont Tax Department FY${COMBINER_FISCAL_YEAR} education tax rates table, row "${row.town}"` : null,
       published_homestead_rate: typeof rate === 'number' ? rate : null,
+      land_area_sq_mi: censusByTown.get(slug)?.land_area_sq_mi ?? null,
+      population_2020: censusByTown.get(slug)?.population?.['decennial_2020'] ?? null,
+      population_2025: censusByTown.get(slug)?.population?.['pep_july1_2025'] ?? null,
       districts: serving.sort(),
     };
   }
