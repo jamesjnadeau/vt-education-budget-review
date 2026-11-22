@@ -108,15 +108,30 @@ describe('joining Census names to registry slugs', () => {
     expect(joined.unmatched[0]?.reason).toMatch(/by hand/);
   });
 
-  it('reports a town AOE tracks only as an incorporated school district', () => {
-    const registry = registryOf(town('town/bennington-id'));
+  it('joins Bennington, Bradford and Barton town to their school-district records by GEOID', () => {
+    const registry = registryOf(town('town/bennington-id'), town('town/bradford-id'), town('town/barton-id'));
     const joined = joinToRegistry(
-      parseGazetteer(`${HEADER}\n${row('5000303175', 'Bennington town', '42.0', '0.2')}`),
+      parseGazetteer(
+        [
+          HEADER,
+          row('5000304825', 'Bennington town', '42.0', '0.2'),
+          row('5001707375', 'Bradford town', '40.0', '0.3'),
+          row('5001903550', 'Barton town', '44.0', '2.0'),
+        ].join('\n'),
+      ),
       registry,
     );
+    expect(joined.towns.map((t) => t.entity)).toEqual(['town/bennington-id', 'town/bradford-id', 'town/barton-id']);
+    expect(joined.unmatched).toHaveLength(0);
+  });
 
+  it('does not attach a district record to a differently numbered place of the same name', () => {
+    const registry = registryOf(town('town/bennington-id'));
+    const joined = joinToRegistry(
+      parseGazetteer(`${HEADER}\n${row('5000399999', 'Bennington town', '42.0', '0.2')}`),
+      registry,
+    );
     expect(joined.towns[0]?.entity).toBeNull();
-    expect(joined.unmatched[0]?.reason).toMatch(/incorporated school district/);
   });
 
   it('never joins a reporting bucket, which is not a place', () => {

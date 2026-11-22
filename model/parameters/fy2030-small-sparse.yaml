@@ -467,8 +467,9 @@ parameters:
       2025 July 1, 2025 estimate (pep_july1_2025, intake/census/pep2025/) beside the
       decennial and ACS series. The statute does not name the Census product, and
       "of the year of determination" has no determination year yet, so this stays a
-      reading and the value stays unspecified_in_statute. The published density column
-      uses the July 1, 2025 estimate, as of the 2026-11-22 decision to follow the statute's July 1 date; seven towns with a school flip across the three
+      reading and the value stays unspecified_in_statute. James Nadeau decided on 2026-11-22 that the determinations use the 2020
+      decennial count; the July 1, 2025 estimate is shown beside it on the page for
+      comparison and is never used for a determination. Seven towns with a school flip across the three
       series, and the page lists them. Newport town's estimate rises from 1,527 (2020)
       to 2,583 (2025) in the Census file, which is what moves it past the cutoff.
 

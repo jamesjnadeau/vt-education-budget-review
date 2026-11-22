@@ -9,24 +9,24 @@ derivation:
   inputs:
     - ref: registry/entities/school.json
       pinned_by: git_sha
-      pin: f04cb05384b2e12de44166652e0fb96b2a394ebc
+      pin: 66c2f7c5544dd8b09cbb27f024edef85421da087
       note: Git blob hash of the registry file this run read, computed over the
         working tree rather than over HEAD -- so the pin identifies the bytes
         that were actually used, including on a run made before the registry was
         committed.
     - ref: warehouse/census/vt-town-land-and-population.yaml
       pinned_by: sha256
-      pin: f5a8a8258f9c6210da0b2f7314dcf32def32134cba761dac6e89b7550ad9674b
+      pin: 0197adcdd9b5b11ae02f9366b4c52bb0ff5c970e537deeddef42c15480c0ecc0
       note: Supplies the GEOID-to-registry-town join, so this run does not make a
         second one.
   parameters:
     benchmark: Public_AR_Census2020
     vintage: Census2020_Census2020
     layers: County Subdivisions
-  run_id: 2026-07-31T07:38:20.030Z/1a3ef2
+  run_id: 2026-11-22T13:47:32.858Z/46d9ae
   run_by: npm run school:municipality
   output_file: vt-school-municipality.yaml
-  output_sha256: 1a3ef2f1ea528acc2b4b0c502300b5d82ac9bc9ba8e10b04a348f96837f1fd0d
+  output_sha256: 46d9ae75123f428b6d1f44dfc117bde20b47152f3b40e5fc03bb125a827fb483
   note: "Re-runnable: same coordinates, same pinned benchmark and vintage, same
     answer. The benchmark is pinned rather than set to Current because the
     current vintage moves, and a derived record that cannot be reproduced is not

@@ -247,7 +247,7 @@ towns:
       decennial_2020: 2457
       acs_5yr: 2773
       pep_july1_2025: 2404
-  - entity: null
+  - entity: town/bennington-id
     geoid: "5000304825"
     name_as_published: Bennington town
     land_area_sq_mi: 41.949
@@ -1156,7 +1156,7 @@ towns:
       decennial_2020: 1670
       acs_5yr: 1531
       pep_july1_2025: 1672
-  - entity: null
+  - entity: town/bradford-id
     geoid: "5001707375"
     name_as_published: Bradford town
     land_area_sq_mi: 29.66
@@ -1318,7 +1318,7 @@ towns:
       decennial_2020: 976
       acs_5yr: 987
       pep_july1_2025: 940
-  - entity: null
+  - entity: town/barton-id
     geoid: "5001903550"
     name_as_published: Barton town
     land_area_sq_mi: 42.735
@@ -2344,33 +2344,9 @@ not_published:
     confirmed_by: npm run census:import
     confirmed_date: 2026-11-22
 unmatched:
-  - geoid: "5000304825"
-    name_as_published: Bennington town
-    reason: No registry town matches "Bennington town". Either the Bureau and AOE
-      use different names for this place -- which is substantive at least once,
-      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
-      only through an incorporated school district, as it does for Bennington,
-      Bradford and Barton. Resolve by hand; the density screen reports no figure
-      for it until someone does.
   - geoid: "5000976562"
     name_as_published: Warren's gore
     reason: No registry town matches "Warren's gore". Either the Bureau and AOE use
-      different names for this place -- which is substantive at least once,
-      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
-      only through an incorporated school district, as it does for Bennington,
-      Bradford and Barton. Resolve by hand; the density screen reports no figure
-      for it until someone does.
-  - geoid: "5001707375"
-    name_as_published: Bradford town
-    reason: No registry town matches "Bradford town". Either the Bureau and AOE use
-      different names for this place -- which is substantive at least once,
-      Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
-      only through an incorporated school district, as it does for Bennington,
-      Bradford and Barton. Resolve by hand; the density screen reports no figure
-      for it until someone does.
-  - geoid: "5001903550"
-    name_as_published: Barton town
-    reason: No registry town matches "Barton town". Either the Bureau and AOE use
       different names for this place -- which is substantive at least once,
       Census "Warren's gore" against AOE "WARRENS GRANT" -- or AOE tracks it
       only through an incorporated school district, as it does for Bennington,

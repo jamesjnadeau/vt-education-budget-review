@@ -16,6 +16,8 @@ interface SchoolRow {
   land_area_sq_mi: number | null;
   population: number | null;
   density: number | null;
+  population_pep_2025: number | null;
+  density_pep_2025: number | null;
   average_enrollment: number | null;
   average_grade_size: number | null;
   small_screen_met: boolean | null;
@@ -146,7 +148,7 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <td>
           {data.population_series_held.length === 0
             ? 'None yet: the Census population feed needs a key for town-level numbers, and this build did not have one.'
-            : `Three Census figures held: ${data.population_series_held.join(', ')}. The density column uses the July 1, 2025 estimate.`}
+            : `Three Census figures held: ${data.population_series_held.join(', ')}. The tests use the 2020 count; the July 1, 2025 estimate is shown beside it.`}
         </td>
       </tr>
       <tr>
@@ -179,14 +181,15 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 
   <h2>The map facts we do have</h2>
   <p class="note">
-    Population is the Census July 1, 2025 estimate for the town, because the law measures density
-    as of July 1. The law does not name the Census count, so we also hold the 2020 count and a
-    2019–2023 estimate and compare all three.
+    The sparse test uses the Census 2020 count for the town. The law measures density as of July 1
+    of the year of determination but does not name a Census count, so we chose the 2020 count and
+    also show the July 1, 2025 estimate beside it. We hold a 2019–2023 estimate too and compare all
+    three below.
   </p>
   {data.series_sensitive_towns.length > 0 && (
     <p class="note">
       {data.series_sensitive_towns.length} towns with a school flip between sparse and not sparse
-      depending on which count is used (people per square mile: 2020 count, 2019–2023 estimate, July 1, 2025 estimate; the page uses the last):
+      depending on which count is used (people per square mile: 2020 count, 2019–2023 estimate, July 1, 2025 estimate; the tests use the first):
       {data.series_sensitive_towns.map((t, i) => (
         <>{i > 0 ? '; ' : ' '}{names.get(t.town) ?? t.town} {t.decennial_density}, {t.acs_density} and {t.pep_density}</>
       ))}.
@@ -206,8 +209,10 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <th scope="col">Grades</th>
         <th scope="col">Average grade size</th>
         <th scope="col">Land area (sq mi)</th>
-        <th scope="col">Population</th>
-        <th scope="col">Density</th>
+        <th scope="col">Population (2020)</th>
+        <th scope="col">Density (2020)</th>
+        <th scope="col">Population (July 2025 est.)</th>
+        <th scope="col">Density (July 2025 est.)</th>
         <th scope="col">Small test (average grade size under 12)</th>
         <th scope="col">Sparse test (under 55 per sq mi)</th>
         <th scope="col">Necessity</th>
@@ -223,6 +228,8 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
           <td>{row.land_area_sq_mi?.toFixed(1) ?? '—'}</td>
           <td>{row.population ?? '—'}</td>
           <td>{row.density?.toFixed(1) ?? '—'}</td>
+          <td>{row.population_pep_2025 ?? '—'}</td>
+          <td>{row.density_pep_2025?.toFixed(1) ?? '—'}</td>
           <td><span class={`tag ${verdict(row.small_screen_met).cls}`}>{verdict(row.small_screen_met).label}</span>{row.small_screen_blank_reason && <small class="blank-reason"> {row.small_screen_blank_reason}</small>}</td>
           <td><span class={`tag ${verdict(row.sparse_screen_met).cls}`}>{verdict(row.sparse_screen_met).label}</span>{row.sparse_screen_blank_reason && <small class="blank-reason"> {row.sparse_screen_blank_reason}</small>}</td>
           <td><span class="tag undetermined">{row.determination_status}</span></td>

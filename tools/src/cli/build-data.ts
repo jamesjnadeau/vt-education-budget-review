@@ -283,7 +283,7 @@ function main(): number {
       // frame it published under and the page repeats it. A default chosen here
       // and forgotten downstream is how an unread question becomes an answer.
       enrollmentBasis: 'two_year_average',
-      populationSeries: 'pep_july1_2025',
+      populationSeries: 'decennial_2020',
     });
     writeJson(join(PATHS.siteGenerated, 'small-sparse.json'), smallSparse);
     smallSparseCounts = smallSparse.counts;

@@ -86,6 +86,9 @@ export interface SchoolRow {
   readonly population: number | null;
   readonly population_series: PopulationSeries;
   readonly density: number | null;
+  /** Shown beside the determination series, never used for it. */
+  readonly population_pep_2025: number | null;
+  readonly density_pep_2025: number | null;
   readonly average_enrollment: number | null;
   readonly average_grade_size: number | null;
   readonly small_screen_met: boolean | null;
@@ -201,6 +204,7 @@ export function buildSmallSparse(
 
     const town = municipality ? townData.get(municipality) : undefined;
     const population = town?.population?.[options.populationSeries] ?? null;
+    const pep2025 = town?.population?.['pep_july1_2025'] ?? null;
 
     const school: SchoolRef = {
       id: entity.slug,
@@ -304,6 +308,9 @@ export function buildSmallSparse(
       population,
       population_series: options.populationSeries,
       density: result.statutory.density.value,
+      population_pep_2025: pep2025,
+      density_pep_2025:
+        pep2025 !== null && demographics?.landAreaSqMi ? Math.round((pep2025 / demographics.landAreaSqMi) * 10) / 10 : null,
       average_enrollment: result.statutory.enrollment.averageEnrollment ?? null,
       average_grade_size: result.statutory.enrollment.value,
       small_screen_met: result.statutory.smallScreenMet,
