@@ -3,7 +3,7 @@
   // only; Netlify bundles the functions itself with esbuild. No project
   // reference to ../tools: the wrappers import its .ts sources directly, and tsc
   // refuses to rewrite .ts import extensions across project boundaries (TS2878),
-  // so those few files are simply compiled as part of this project.
+  // so the web-intake and intake modules are compiled as part of this project (globbed, tests excluded, so a new import is picked up without editing this list).
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
@@ -14,5 +14,6 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "types": ["node"]
   },
-  "include": ["functions/**/*.mts", "../tools/src/web-intake/limits.ts", "../tools/src/web-intake/github-app.ts", "../tools/src/web-intake/on-submission.ts", "../tools/src/web-intake/payload.ts", "../tools/src/intake/rules.ts", "../tools/src/web-intake/signing.ts", "../tools/src/web-intake/turnstile.ts", "../tools/src/web-intake/uploads.ts", "../tools/src/web-intake/store-adapter.ts", "../tools/src/intake/security.ts"]
+  "include": ["functions/**/*.mts", "../tools/src/web-intake/**/*.ts", "../tools/src/intake/**/*.ts"],
+  "exclude": ["../tools/src/**/*.test.ts"]
 }

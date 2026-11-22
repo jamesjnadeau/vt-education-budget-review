@@ -12,8 +12,13 @@ export function toBlobStore(store: Store): BlobStore {
       return r === null ? null : { metadata: r.metadata };
     },
     set: async (key, data, o) => {
-      // Store.set wants an ArrayBuffer-compatible value; copy a Uint8Array view out.
-      const buf = data instanceof Uint8Array ? (data.slice().buffer as ArrayBuffer) : data;
+      // Store.set wants an ArrayBuffer; copy exactly the view's bytes out. (Not
+      // `data.slice().buffer`: Buffer#slice is a view, so that would hand over
+      // the whole shared pool.)
+      const buf =
+        data instanceof Uint8Array
+          ? (data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer)
+          : data;
       await store.set(key, buf, o);
     },
     setJSON: async (key, data) => {
