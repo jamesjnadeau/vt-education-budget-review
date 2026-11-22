@@ -29,6 +29,8 @@
   # The intake corpus is stored in Git LFS. Validation hash-checks artifact
   # bytes, so Netlify must fetch real LFS content, not pointers.
   GIT_LFS_ENABLED = "true"
+  # Used to build the GitHub deep links (coverage dashboard, SU pages).
+  GITHUB_REPOSITORY = "jamesjnadeau/vt-education-budget-review"
 
 # SITE_BASE is deliberately unset everywhere on Netlify: the site is served
 # from the domain root, so Astro's default base of '/' is correct. (On GitHub

@@ -55,6 +55,7 @@ const cells = (coverage.cells as Array<{
   warehouseFile: string | null;
   intakeFiles: string[];
   intakeUrl: string | null;
+  formUrl: string | null;
   normalizeUrl: string | null;
   flagUrl: string | null;
 }>).filter((c) => c.entity === su.slug);
@@ -322,12 +323,14 @@ const homesteadRows = Object.entries(homesteadYears)
             Nothing has been collected yet for any of the {cells.length} fiscal years this site
             tracks. This is a gap in coverage, not a statement that the SU published nothing.
           </p>
-          {cells[0]?.intakeUrl && (
+          {cells[0]?.formUrl && (
             <p>
-              If you have one:{' '}
-              <a href={cells[0].intakeUrl}>send it in through the issue form</a> — drag the file in
-              and say where it came from, and a bot opens the pull request. Or{' '}
-              <a href={cells[0].flagUrl ?? '#'}>open an issue</a> recording what you checked.
+              Have this document? <a href={cells[0].formUrl}>Send it to us</a> — no account needed.
+              {cells[0].intakeUrl && (
+                <>
+                  {' '}(Or use the <a href={cells[0].intakeUrl}>GitHub form</a>.)
+                </>
+              )}
             </p>
           )}
         </details>

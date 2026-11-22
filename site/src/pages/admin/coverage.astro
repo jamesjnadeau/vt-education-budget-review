@@ -14,6 +14,7 @@ interface Cell {
   intakeFiles: string[];
   lastKnownSource: string | null;
   intakeUrl: string | null;
+  formUrl: string | null;
   normalizeUrl: string | null;
   flagUrl: string | null;
   notPublishedNote: string | null;
@@ -86,7 +87,7 @@ const LABEL: Record<Cell['state'], string> = {
                 const title = `${titleCase(entity.name)} FY${year}: ${LABEL[cell.state]}`;
                 const href = cell.warehouseFile
                   ? null
-                  : (cell.normalizeUrl ?? cell.intakeUrl ?? cell.flagUrl ?? null);
+                  : (cell.normalizeUrl ?? cell.formUrl ?? cell.flagUrl ?? null);
                 const linkText =
                   cell.state === 'intake_only'
                     ? 'enter it'
