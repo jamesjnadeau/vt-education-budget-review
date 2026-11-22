@@ -1,4 +1,4 @@
 {
   "files": [],
-  "references": [{ "path": "./model" }, { "path": "./tools" }, { "path": "./site" }]
+  "references": [{ "path": "./model" }, { "path": "./tools" }, { "path": "./site" }, { "path": "./netlify" }]
 }

@@ -13,6 +13,10 @@
   command = "npm run build"
   publish = "site/dist"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [build.environment]
   # engines.node in package.json requires >=22.
   NODE_VERSION = "22"

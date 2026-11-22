@@ -47,6 +47,8 @@
     "vitest": "^4.1.10"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.13",
+    "@netlify/functions": "^6.1.1",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "read-excel-file": "^9.3.5",
