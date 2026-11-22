@@ -307,6 +307,40 @@ describe('the combiner', () => {
       expect(b.notComputable).toMatch(/poverty/);
     });
 
+    it('say estimated, not entered, when the page flags the count as an estimate', () => {
+      const members = [A(), member('ud/b', { ...k5Only('ud/b', 200), poverty_185_fpl: null }, 2_400_000, [['town/b', 1]])];
+      const flagged = runCombiner(syntheticParameters(), members, {
+        ...OPTIONS,
+        pooled_inputs: { state_placed_fte: null, poverty_185_fpl: 30, english_learners: null },
+        pooled_inputs_estimated: { poverty_185_fpl: true },
+      });
+      const a = flagged.assumptions.find((x) => x.key === 'pooled_inputs.poverty_185_fpl');
+      expect(a?.label).toMatch(/estimated from AOE town-level counts/);
+      expect(a?.label).not.toMatch(/entered on this page/);
+      expect(a?.rationale).toMatch(/lower limit/);
+      expect(flagged.caveats.join(' ')).toMatch(/estimated from AOE town-level counts/);
+      // Unflagged stays as before.
+      const plain = runCombiner(syntheticParameters(), members, {
+        ...OPTIONS,
+        pooled_inputs: { state_placed_fte: null, poverty_185_fpl: 30, english_learners: null },
+      });
+      expect(plain.assumptions.find((x) => x.key === 'pooled_inputs.poverty_185_fpl')?.label).toMatch(
+        /entered on this page, not published/,
+      );
+    });
+
+    it('ignore the estimate flag when every member published', () => {
+      const result = runCombiner(
+        syntheticParameters(),
+        [
+          member('ud/a', { ...k5Only('ud/a', 100), poverty_185_fpl: 10 }, 1_000_000, [['town/a', 1]]),
+          member('ud/b', { ...k5Only('ud/b', 200), poverty_185_fpl: 20 }, 2_400_000, [['town/b', 1]]),
+        ],
+        { ...OPTIONS, pooled_inputs: { state_placed_fte: null, poverty_185_fpl: 999, english_learners: null }, pooled_inputs_estimated: { poverty_185_fpl: true } },
+      );
+      expect(result.assumptions.some((a) => a.key.startsWith('pooled_inputs.'))).toBe(false);
+    });
+
     it('give way to the members’ published figures when every member has one', () => {
       // 10 + 20 = 30 published poverty pupils; the entered 999 is not used.
       const result = runCombiner(

@@ -69,6 +69,12 @@ export interface CombinerDistrict {
   blockers: string[];
 }
 
+/** An AOE cell as published: a number, a bounded withheld cell, or a withheld cell with no bounds. */
+export type TownCount =
+  | { value: number }
+  | { status: 'suppressed'; low?: number; high?: number | null; exclusive_low?: boolean }
+  | { status: 'not_published' };
+
 export interface CombinerTown {
   label: string;
   cla: number | null;
@@ -79,6 +85,9 @@ export interface CombinerTown {
   /** Census 2020 count, and the July 1, 2025 estimate. */
   population_2020?: number | null;
   population_2025?: number | null;
+  /** AOE SY25 counts of students living in the town; null when the town has no record. Absent in older builds. */
+  ell_sy25?: TownCount | null;
+  frl_sy25?: TownCount | null;
   /** Every district that taxes this town. */
   districts: string[];
 }
@@ -248,6 +257,10 @@ export function planCombiner(state: CombinerShareState, data: CombinerData): Com
       pooled_persons_per_square_mile: density.value,
       statewide_average_per_pupil: avg.value,
       pooled_inputs: pooled,
+      pooled_inputs_estimated: {
+        ...(state.povertyEstimate ? { poverty_185_fpl: true } : {}),
+        ...(state.elEstimate ? { english_learners: true } : {}),
+      },
       town_districts: townDistricts(data),
     },
   };
@@ -457,6 +470,84 @@ export function combinedDensityText(d: CombinedDensity | null): string {
   }
   const later = d.density2025 === null ? '' : ` With the July 1, 2025 estimate it is ${d.density2025}.`;
   return `Census 2020 count over the land area of the ${count} the picked districts cover: ${d.density2020} people per square mile.${later} Land area only, not water.`;
+}
+
+export interface SubgroupEstimate {
+  /** Sum of the published cells: a lower limit where any town withheld its count. */
+  sum: number;
+  towns: number;
+  /** Towns whose cell AOE withheld. */
+  withheld: string[];
+  /** Towns with no record, so nothing could be added for them. */
+  missing: string[];
+  /** The most the true total could be; null when a withheld or missing town has no bound. */
+  upperBound: number | null;
+}
+
+/**
+ * The picked districts' towns' AOE counts of resident students (school year
+ * 2024-25), summed. Withheld cells add nothing to `sum`, so it is a lower limit.
+ */
+export function combinedSubgroupEstimate(
+  slugs: readonly string[],
+  data: CombinerData,
+  kind: 'ell' | 'frl',
+): SubgroupEstimate | null {
+  const towns = new Set<string>();
+  for (const slug of slugs) for (const t of data.districts[slug]?.towns ?? []) towns.add(t);
+  if (towns.size === 0) return null;
+  let sum = 0;
+  let upper: number | null = 0;
+  const withheld: string[] = [];
+  const missing: string[] = [];
+  for (const slug of [...towns].sort()) {
+    const t = data.towns[slug];
+    const cell = (kind === 'ell' ? t?.ell_sy25 : t?.frl_sy25) ?? null;
+    if (cell !== null && 'value' in cell) {
+      sum += cell.value;
+      if (upper !== null) upper += cell.value;
+    } else if (cell !== null && cell.status === 'suppressed') {
+      withheld.push(nameOf(slug, data));
+      const high = cell.high;
+      upper = upper !== null && typeof high === 'number' ? upper + high : null;
+    } else {
+      missing.push(nameOf(slug, data));
+      upper = null;
+    }
+  }
+  const round = (n: number): number => Math.round(n * 100) / 100;
+  return {
+    sum: round(sum),
+    towns: towns.size,
+    withheld,
+    missing,
+    upperBound: upper === null ? null : round(upper),
+  };
+}
+
+/** The note under an estimate box: what the figure is, what it leaves out, and its limits. */
+export function subgroupEstimateText(e: SubgroupEstimate | null, kind: 'ell' | 'frl'): string {
+  if (e === null) return 'Pick districts and this box can offer an estimate from the State’s town-level counts.';
+  const what = kind === 'ell' ? 'English learners' : 'students getting free or reduced-price lunch';
+  const count = `${e.towns} town${e.towns === 1 ? '' : 's'}`;
+  const names = (list: string[]): string => list.join(', ');
+  let head: string;
+  if (e.withheld.length === 0 && e.missing.length === 0) {
+    head = `Estimate: ${e.sum}, the State’s published count of ${what} for the ${count} the picked districts cover (school year 2024–25).`;
+  } else {
+    const up = e.upperBound === null ? '' : `, up to ${e.upperBound}`;
+    const parts: string[] = [];
+    if (e.withheld.length > 0) parts.push(`the State withheld small counts for ${names(e.withheld)}`);
+    if (e.missing.length > 0) parts.push(`${names(e.missing)} ${e.missing.length === 1 ? 'has' : 'have'} no count on file`);
+    head =
+      `Lower limit estimate: at least ${e.sum}${up} ${what} in the ${count} the picked districts cover (school year 2024–25); ${parts.join(' and ')}.` +
+      (e.upperBound === null ? ' No upper limit can be given.' : '');
+  }
+  const caveats =
+    (kind === 'frl'
+      ? ' Free or reduced-price lunch is not the same as the 185 percent poverty count the law uses.'
+      : '') + ' These count students who live in the towns, who may not all attend the combined district.';
+  return head + caveats;
 }
 
 /** The text a school's line shows: its numbers, never a verdict on eligibility. */

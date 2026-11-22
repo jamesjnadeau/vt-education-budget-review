@@ -31,6 +31,13 @@ export interface CombinerShareState {
   /** The slug of the member district the small school belongs to. */
   schoolIn: string;
   avg: string;
+  /**
+   * The poverty / English-learner box held the page's own estimate from the
+   * State's town-level counts. Linked as a flag, not a number: an opened link
+   * refills from current data and never asserts a figure the sharer typed.
+   */
+  povertyEstimate: boolean;
+  elEstimate: boolean;
 }
 
 /** The shape the brief names, plus the optional pooled inputs. */
@@ -45,7 +52,15 @@ export interface DecodedCombiner {
   ignoredYear: string | null;
 }
 
-type TextField = Exclude<keyof CombinerShareState, 'year' | 'districts'>;
+type TextField = Exclude<
+  keyof CombinerShareState,
+  'year' | 'districts' | 'povertyEstimate' | 'elEstimate'
+>;
+
+const ESTIMATE_PARAMS = [
+  { key: 'povertyEstimate', text: 'poverty', param: 'poverty_est' },
+  { key: 'elEstimate', text: 'el', param: 'el_est' },
+] as const;
 
 // The order here is the order params appear in the URL, after y and d.
 const TEXT_FIELDS: readonly { key: TextField; param: string }[] = [
@@ -76,7 +91,11 @@ export function encodeCombiner(s: CombinerShareInput): string {
   for (const { key, param } of TEXT_FIELDS) {
     const value = s[key];
     if (value === undefined || value.trim() === '') continue;
+    if (ESTIMATE_PARAMS.some((e) => e.text === key && s[e.key] === true)) continue;
     params.set(param, value.trim());
+  }
+  for (const { key, param } of ESTIMATE_PARAMS) {
+    if (s[key] === true) params.set(param, '1');
   }
   return params.toString();
 }
@@ -124,6 +143,8 @@ export function decodeCombiner(
     enrollment: '',
     schoolIn: '',
     avg: '',
+    povertyEstimate: params.get('poverty_est')?.trim() === '1',
+    elEstimate: params.get('el_est')?.trim() === '1',
   };
   for (const { key, param } of TEXT_FIELDS) {
     const value = (params.get(param) ?? '').trim();
@@ -163,8 +184,16 @@ export function linkFigureNote(state: CombinerShareState, publishedAverage: numb
   for (const { key, name, unit, start } of LINK_FIGURES) {
     const value = state[key].trim();
     if (value === '') continue;
+    if (key === 'poverty' && state.povertyEstimate) continue;
+    if (key === 'el' && state.elEstimate) continue;
     if (start !== undefined && Number(value) === start) continue;
     items.push(`${name}: ${clip(value)}${unit ? ` ${unit}` : ''}.`);
+  }
+  if (state.povertyEstimate) {
+    items.push('Students from lower-income homes: filled from the State’s town-level counts as an estimate.');
+  }
+  if (state.elEstimate) {
+    items.push('English learners: filled from the State’s town-level counts as an estimate.');
   }
   const school = state.school.trim();
   if (school !== '') items.push(`A small school: ${clip(school)}.`);

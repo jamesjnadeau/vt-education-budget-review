@@ -9,7 +9,16 @@
  * is never turned into a value.
  */
 
+import type { PublishedCell } from './aoe/adm-subgroups/publish.ts';
 import type { RegistryEntity } from './registry/types.ts';
+
+/** A town's AOE count for one subgroup: a cell as published, or null when there is no record. */
+export type TownCount = PublishedCell | null;
+
+/** One town's SY25 (fiscal year 2026) subgroup cells, or the reason it has none. */
+export type CombinerSubgroupTown =
+  | { readonly slug: string; readonly ell: PublishedCell; readonly nslelg: PublishedCell }
+  | { readonly slug: string; readonly absent: 'no_resident_students' | 'entity_closed' };
 
 export const COMBINER_FISCAL_YEAR = 2026;
 
@@ -25,6 +34,8 @@ export interface AdmBandInput {
 }
 
 export interface CombinerInputs {
+  /** SY25 English-learner and free-or-reduced-lunch cells by town of residence. */
+  readonly subgroupTowns?: ReadonlyArray<CombinerSubgroupTown>;
   readonly registry: ReadonlyArray<RegistryEntity>;
   readonly resolved: {
     readonly entities: Readonly<Record<string, Readonly<Record<string, Readonly<Record<string, AdmBandInput>>>>>>;
@@ -99,6 +110,10 @@ export interface CombinerTown {
   /** Census 2020 count and July 1, 2025 estimate. */
   readonly population_2020: number | null;
   readonly population_2025: number | null;
+  /** AOE SY25 English-learner count for students resident in the town (cells under 11 are withheld). */
+  readonly ell_sy25: TownCount;
+  /** AOE SY25 free-or-reduced-lunch count for students resident in the town. Not the 185% poverty count. */
+  readonly frl_sy25: TownCount;
   readonly districts: string[];
 }
 
@@ -249,9 +264,10 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
       towns: [...(memberTowns.get(slug) ?? [])].sort(),
       adm_years,
       spending,
-      // Not published per district in the build: the subgroup table is by town
-      // of residence, English-learner counts are mostly suppressed, and the
-      // free-or-reduced-lunch count is not the 185% poverty count the law uses.
+      // Not published per district: the subgroup table is by town of residence.
+      // The page sums the picked towns' cells (CombinerTown.ell_sy25/frl_sy25)
+      // as a labeled estimate; the free-or-reduced-lunch count is not the 185%
+      // poverty count the law uses.
       state_placed_fte: null,
       poverty_185_fpl: null,
       english_learners: null,
@@ -273,6 +289,13 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
   }
 
   const censusByTown = new Map((inputs.censusTowns ?? []).map((t) => [t.entity, t] as const));
+  const subgroupByTown = new Map((inputs.subgroupTowns ?? []).map((t) => [t.slug, t] as const));
+  const subgroupCell = (slug: string, kind: 'ell' | 'nslelg'): TownCount => {
+    const t = subgroupByTown.get(slug);
+    if (!t) return null;
+    if ('absent' in t) return t.absent === 'no_resident_students' ? { value: 0 } : null;
+    return t[kind];
+  };
   const towns: Record<string, CombinerTown> = {};
   for (const [slug, serving] of [...districtsOfTown].sort(([a], [b]) => a.localeCompare(b))) {
     const e = bySlug.get(slug);
@@ -288,6 +311,8 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
       land_area_sq_mi: censusByTown.get(slug)?.land_area_sq_mi ?? null,
       population_2020: censusByTown.get(slug)?.population?.['decennial_2020'] ?? null,
       population_2025: censusByTown.get(slug)?.population?.['pep_july1_2025'] ?? null,
+      ell_sy25: subgroupCell(slug, 'ell'),
+      frl_sy25: subgroupCell(slug, 'nslelg'),
       districts: serving.sort(),
     };
   }

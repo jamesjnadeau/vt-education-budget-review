@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { runCombiner, type CombinerMember, type CombinerTownRow } from '@vt-budget/model';
 
 import type { CombinerShareState } from './combiner-share.ts';
+import type { TownCount } from './combiner-view.ts';
 import {
   MIN_DISTRICTS_MESSAGE,
   admScale,
@@ -17,6 +18,8 @@ import {
   changeText,
   combinedDensity,
   combinedDensityText,
+  combinedSubgroupEstimate,
+  subgroupEstimateText,
   nameOf,
   schoolLine,
   plainText,
@@ -24,6 +27,7 @@ import {
   resultStatus,
   type CombinerData,
   type CombinerDistrict,
+  type CombinerTown,
 } from './combiner-view.ts';
 import { exampleParameters } from './model-tool.ts';
 
@@ -90,6 +94,8 @@ function choices(over: Partial<CombinerShareState> = {}): CombinerShareState {
     enrollment: '',
     schoolIn: '',
     avg: '13497',
+    povertyEstimate: false,
+    elEstimate: false,
     ...over,
   };
 }
@@ -148,6 +154,26 @@ describe('planCombiner', () => {
     expect(plan.options.pooled_persons_per_square_mile).toBeNull();
     expect(plan.options.statewide_average_per_pupil).toBe(13497);
     expect(plan.options.town_districts['town/gamma']).toEqual(['ud/beta-1']);
+  });
+});
+
+describe('planCombiner and the estimate flags', () => {
+  it('passes a flagged count to the engine as estimated, and never state-placed', () => {
+    const plan = planCombiner(
+      choices({ poverty: '12', el: '3', statePlaced: '1', povertyEstimate: true, elEstimate: true }),
+      DATA,
+    );
+    if (plan.kind === 'ready') {
+      expect(plan.options.pooled_inputs_estimated).toEqual({ poverty_185_fpl: true, english_learners: true });
+    } else {
+      expect(plan.kind).toBe('ready');
+    }
+  });
+
+  it('marks nothing estimated when the flags are off', () => {
+    const plan = planCombiner(choices({ poverty: '12', el: '3', statePlaced: '1' }), DATA);
+    if (plan.kind === 'ready') expect(plan.options.pooled_inputs_estimated).toEqual({});
+    else expect(plan.kind).toBe('ready');
   });
 });
 
@@ -362,6 +388,68 @@ describe('the density of the picked districts\' towns', () => {
     expect(d.missing2020).toEqual(['Alpha']);
     expect(combinedDensityText(d)).toMatch(/Alpha has no land area or 2020 count on file, so nothing is filled in/);
     expect(combinedDensity([], withCensus)).toBeNull();
+  });
+});
+
+describe('the town-level estimate for lower-income and English-learner counts', () => {
+  const cell = (c: TownCount | null): Partial<CombinerTown> => ({ ell_sy25: c, frl_sy25: c });
+  const hidden = { status: 'suppressed' as const, low: 0, high: 10 };
+  const build = (cells: Record<string, TownCount | null>): CombinerData => ({
+    ...DATA,
+    towns: {
+      ...DATA.towns,
+      ...Object.fromEntries(Object.entries(cells).map(([slug, c]) => [slug, { ...DATA.towns[slug]!, ...cell(c) }])),
+    },
+  });
+
+  it('sums published cells; nothing withheld means the sum is also the upper bound', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': { value: 30 } }), 'ell')!;
+    expect(e).toMatchObject({ sum: 42, withheld: [], missing: [], upperBound: 42 });
+    expect(subgroupEstimateText(e, 'ell')).not.toMatch(/at least/i);
+  });
+
+  it('adds up to 10 for each bounded withheld town to the upper bound', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': hidden }), 'ell')!;
+    expect(e).toMatchObject({ sum: 12, withheld: ['Gamma'], upperBound: 22 });
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/at least 12.*up to 22/s);
+  });
+
+  it('gives no upper bound for a complement-suppressed cell', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': { status: 'suppressed' } }), 'frl')!;
+    expect(e.upperBound).toBeNull();
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/at least 12/);
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/no upper limit/i);
+  });
+
+  it('is 0 and says "at least 0" when every town is withheld', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': hidden, 'town/gamma': hidden }), 'ell')!;
+    expect(e).toMatchObject({ sum: 0, upperBound: 20 });
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/at least 0/);
+  });
+
+  it('names a town with no record, still gives the sum, and gives no upper bound', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': null }), 'ell')!;
+    expect(e).toMatchObject({ sum: 12, missing: ['Gamma'], upperBound: null });
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/Gamma/);
+  });
+
+  it('counts a town once when two picked districts cover it, and rounds off float noise', () => {
+    const data = build({ 'town/beta': { value: 502.55000000000007 }, 'town/gamma': { value: 1 } });
+    data.districts['ud/also'] = district('ud/also', 'Also', ['town/beta']);
+    expect(combinedSubgroupEstimate(['ud/beta-1', 'ud/also'], data, 'ell')!.sum).toBe(503.55);
+  });
+
+  it('gives nothing when no towns are picked', () => {
+    expect(combinedSubgroupEstimate([], DATA, 'ell')).toBeNull();
+    expect(subgroupEstimateText(null, 'ell')).toMatch(/^Pick districts/);
+  });
+
+  it('adds the lunch caveat for FRL only, and the residency caveat for both', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 1 }, 'town/gamma': { value: 1 } }), 'frl')!;
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/not the same as the 185 percent poverty count/);
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/live in/);
+    expect(subgroupEstimateText(e, 'ell')).not.toMatch(/185 percent/);
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/live in/);
   });
 });
 
