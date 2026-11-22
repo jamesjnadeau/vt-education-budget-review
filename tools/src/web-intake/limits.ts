@@ -25,6 +25,6 @@ export function repositoryFrom(env: Record<string, string | undefined>): string 
   return v !== undefined && v !== '' ? v : DEFAULT_REPOSITORY;
 }
 
-export const STORE_NAME = "intake-uploads";
-export const FORM_NAME = "budget-intake";
-export const DISPATCH_TYPE = "web-intake";
+export const STORE_NAME = 'intake-uploads';
+export const FORM_NAME = 'budget-intake';
+export const DISPATCH_TYPE = 'web-intake';

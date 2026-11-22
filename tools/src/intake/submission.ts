@@ -16,10 +16,10 @@
  * make.
  */
 
-import { findAttachments, parseIssueForm } from "./parse.ts";
-export { DOCUMENT_TYPES, RETRIEVAL_METHODS } from "./rules.ts";
-import { checkFields } from "./rules.ts";
-import { filenameError, isAllowedAttachmentUrl } from "./security.ts";
+import { findAttachments, parseIssueForm } from './parse.ts';
+export { DOCUMENT_TYPES, RETRIEVAL_METHODS } from './rules.ts';
+import { checkFields } from './rules.ts';
+import { filenameError, isAllowedAttachmentUrl } from './security.ts';
 
 export interface SubmissionInput {
   readonly body: string;
@@ -55,13 +55,13 @@ export function buildSubmission(inputData: SubmissionInput): SubmissionResult {
 
   const fieldCheck = checkFields(
     {
-      entity: get("entity"),
-      fiscalYear: get("fiscal year"),
-      sourceUrl: get("source url"),
-      retrievedDate: get("retrieved date"),
-      retrievalMethod: get("retrieval method"),
-      documentType: get("document type"),
-      note: get("note"),
+      entity: get('entity'),
+      fiscalYear: get('fiscal year'),
+      sourceUrl: get('source url'),
+      retrievedDate: get('retrieved date'),
+      retrievalMethod: get('retrieval method'),
+      documentType: get('document type'),
+      note: get('note'),
     },
     inputData.knownSlugs,
   );
@@ -69,12 +69,12 @@ export function buildSubmission(inputData: SubmissionInput): SubmissionResult {
 
   // --- the attachment -----------------------------------------------------
   const attachments = findAttachments(inputData.body);
-  let filename = "";
-  let attachmentUrl = "";
+  let filename = '';
+  let attachmentUrl = '';
   if (attachments.length === 0) {
     errors.push(
-      "No document is attached. Drag the PDF or spreadsheet into the Document field so it " +
-        "uploads as an attachment.",
+      'No document is attached. Drag the PDF or spreadsheet into the Document field so it ' +
+        'uploads as an attachment.',
     );
   } else if (attachments.length > 1) {
     errors.push(
@@ -83,8 +83,8 @@ export function buildSubmission(inputData: SubmissionInput): SubmissionResult {
     );
   } else {
     const only = attachments[0];
-    filename = only?.text ?? "";
-    attachmentUrl = only?.url ?? "";
+    filename = only?.text ?? '';
+    attachmentUrl = only?.url ?? '';
     const nameProblem = filenameError(filename);
     if (nameProblem) errors.push(nameProblem);
     if (!isAllowedAttachmentUrl(attachmentUrl)) {

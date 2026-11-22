@@ -8,30 +8,30 @@
 // carry the same lists, and this is the check that a submission cannot record a
 // value the validator will later reject.
 export const RETRIEVAL_METHODS = [
-  "http-fetch",
-  "scrape",
-  "manual-download",
-  "email",
-  "in_person",
-  "foia",
+  'http-fetch',
+  'scrape',
+  'manual-download',
+  'email',
+  'in_person',
+  'foia',
 ] as const;
 
 export const DOCUMENT_TYPES = [
-  "annual_report",
-  "budget_book",
-  "town_meeting_warning",
-  "board_presentation",
-  "spreadsheet",
-  "aoe_report",
-  "tax_department_report",
-  "other",
+  'annual_report',
+  'budget_book',
+  'town_meeting_warning',
+  'board_presentation',
+  'spreadsheet',
+  'aoe_report',
+  'tax_department_report',
+  'other',
 ] as const;
 
 // The schema permits a null source_url only for these two methods, and then
 // requires a note to say where the document came from. `foia` is deliberately
 // not here: a records request has a reference to cite, so it needs a source_url
 // like any fetch.
-const NULL_SOURCE_METHODS = new Set(["email", "in_person"]);
+const NULL_SOURCE_METHODS = new Set(['email', 'in_person']);
 
 // Schema bounds on fiscal_year.
 const FIRST_FY = 2015;
@@ -75,27 +75,27 @@ export function checkFields(
 
   // --- entity -------------------------------------------------------------
   const entity = raw.entity;
-  let entityDir = "";
+  let entityDir = '';
   if (!entity) {
     errors.push(
-      "Entity is required. It is prefilled from the coverage cell; do not clear it.",
+      'Entity is required. It is prefilled from the coverage cell; do not clear it.',
     );
   } else if (!knownSlugs.has(entity)) {
     errors.push(
-      `Entity "${entity}" is not a known registry entity. Use the slug exactly as the coverage ` +
+      `Entity '${entity}' is not a known registry entity. Use the slug exactly as the coverage ` +
         `page prefilled it (e.g. su/addison-central), or run \`npm run registry:sync\` if it is new.`,
     );
   } else {
-    entityDir = entity.replace("/", "-");
+    entityDir = entity.replace('/', '-');
   }
 
   // --- fiscal year --------------------------------------------------------
   const fyRaw = raw.fiscalYear;
   let fiscalYear = 0;
   if (!fyRaw) {
-    errors.push("Fiscal year is required.");
+    errors.push('Fiscal year is required.');
   } else if (!/^\d{4}$/.test(fyRaw)) {
-    errors.push(`Fiscal year "${fyRaw}" is not a four-digit year.`);
+    errors.push(`Fiscal year '${fyRaw}' is not a four-digit year.`);
   } else {
     fiscalYear = Number(fyRaw);
     if (fiscalYear < FIRST_FY || fiscalYear > LAST_FY) {
@@ -111,10 +111,10 @@ export function checkFields(
     retrievalMethod !== null &&
     (RETRIEVAL_METHODS as readonly string[]).includes(retrievalMethod);
   if (!retrievalMethod) {
-    errors.push("Retrieval method is required.");
+    errors.push('Retrieval method is required.');
   } else if (!methodValid) {
     errors.push(
-      `Retrieval method "${retrievalMethod}" is not one of ${RETRIEVAL_METHODS.join(", ")}. ` +
+      `Retrieval method '${retrievalMethod}' is not one of ${RETRIEVAL_METHODS.join(', ')}. ` +
         `Choose from the dropdown rather than typing a value.`,
     );
   }
@@ -143,27 +143,27 @@ export function checkFields(
       // eslint-disable-next-line no-new
       new URL(sourceUrlRaw);
     } catch {
-      errors.push(`Source URL "${sourceUrlRaw}" is not a valid URL.`);
+      errors.push(`Source URL '${sourceUrlRaw}' is not a valid URL.`);
     }
   }
 
   // --- retrieved date -----------------------------------------------------
   const retrievedDate = raw.retrievedDate;
   if (!retrievedDate) {
-    errors.push("Retrieved date is required.");
+    errors.push('Retrieved date is required.');
   } else if (!isIsoDate(retrievedDate)) {
     errors.push(
-      `Retrieved date "${retrievedDate}" is not an ISO date (YYYY-MM-DD).`,
+      `Retrieved date '${retrievedDate}' is not an ISO date (YYYY-MM-DD).`,
     );
   }
 
   // --- document type ------------------------------------------------------
   const documentType = raw.documentType;
   if (!documentType) {
-    errors.push("Document type is required.");
+    errors.push('Document type is required.');
   } else if (!(DOCUMENT_TYPES as readonly string[]).includes(documentType)) {
     errors.push(
-      `Document type "${documentType}" is not one of ${DOCUMENT_TYPES.join(", ")}. ` +
+      `Document type '${documentType}' is not one of ${DOCUMENT_TYPES.join(', ')}. ` +
         `Choose from the dropdown rather than typing a value.`,
     );
   }

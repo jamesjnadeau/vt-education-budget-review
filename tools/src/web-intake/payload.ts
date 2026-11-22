@@ -3,7 +3,7 @@
  * that turns a received payload into a checked submission. GitHub caps a
  * client_payload at 10 top-level keys, so the form fields nest under `fields`.
  */
-import { checkFields, type CheckedFields } from "../intake/rules.ts";
+import { checkFields, type CheckedFields } from '../intake/rules.ts';
 
 export interface WebIntakePayload {
   submission_id: string;
@@ -22,9 +22,9 @@ export interface WebIntakePayload {
 }
 
 function clean(value: unknown): string | null {
-  if (typeof value !== "string") return null;
+  if (typeof value !== 'string') return null;
   const trimmed = value.trim();
-  return trimmed === "" ? null : trimmed;
+  return trimmed === '' ? null : trimmed;
 }
 
 /** Copy only the named keys; everything else (email, honeypot, token) is dropped. */
@@ -35,8 +35,8 @@ export function toDispatchPayload(
   return {
     submission_id: submissionId,
     upload_id: clean(data.upload_id),
-    entity: clean(data.entity) ?? "",
-    fiscal_year: clean(data.fiscal_year) ?? "",
+    entity: clean(data.entity) ?? '',
+    fiscal_year: clean(data.fiscal_year) ?? '',
     fields: {
       document_url: clean(data.document_url),
       source_url: clean(data.source_url),
@@ -50,8 +50,8 @@ export function toDispatchPayload(
 }
 
 export type WebSource =
-  | { kind: "upload"; uploadId: string }
-  | { kind: "link"; url: string };
+  | { kind: 'upload'; uploadId: string }
+  | { kind: 'link'; url: string };
 
 export interface WebSubmission extends CheckedFields {
   submissionId: string;
@@ -60,21 +60,21 @@ export interface WebSubmission extends CheckedFields {
 }
 
 const FIELD_KEYS = [
-  "document_url",
-  "source_url",
-  "retrieved_date",
-  "retrieval_method",
-  "document_type",
-  "note",
-  "name",
+  'document_url',
+  'source_url',
+  'retrieved_date',
+  'retrieval_method',
+  'document_type',
+  'note',
+  'name',
 ] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function isStringOrNull(value: unknown): boolean {
-  return value === null || value === undefined || typeof value === "string";
+  return value === null || value === undefined || typeof value === 'string';
 }
 
 export function buildWebSubmission(
@@ -86,17 +86,17 @@ export function buildWebSubmission(
   if (!isRecord(payload)) {
     return {
       ok: false,
-      errors: ["The submission payload is not an object."],
-      entity: "unknown",
-      fiscalYear: "unknown",
+      errors: ['The submission payload is not an object.'],
+      entity: 'unknown',
+      fiscalYear: 'unknown',
     };
   }
 
-  const entityRaw = typeof payload.entity === "string" ? payload.entity : null;
+  const entityRaw = typeof payload.entity === 'string' ? payload.entity : null;
   const fyRaw =
-    typeof payload.fiscal_year === "string" ? payload.fiscal_year : null;
-  const entity = entityRaw || "unknown";
-  const fiscalYear = fyRaw || "unknown";
+    typeof payload.fiscal_year === 'string' ? payload.fiscal_year : null;
+  const entity = entityRaw || 'unknown';
+  const fiscalYear = fyRaw || 'unknown';
   const fail = (errors: string[]) => ({
     ok: false as const,
     errors,
@@ -106,18 +106,18 @@ export function buildWebSubmission(
 
   // --- shape: every field must be a string (or absent/null) ---------------
   const shapeErrors: string[] = [];
-  for (const key of ["submission_id", "upload_id", "entity", "fiscal_year"]) {
+  for (const key of ['submission_id', 'upload_id', 'entity', 'fiscal_year']) {
     if (!isStringOrNull(payload[key])) {
-      shapeErrors.push(`Field "${key}" must be a string.`);
+      shapeErrors.push(`Field '${key}' must be a string.`);
     }
   }
   if (payload.fields !== undefined && !isRecord(payload.fields)) {
-    shapeErrors.push(`Field "fields" must be an object.`);
+    shapeErrors.push(`Field 'fields' must be an object.`);
   }
   const fields = isRecord(payload.fields) ? payload.fields : {};
   for (const key of FIELD_KEYS) {
     if (!isStringOrNull(fields[key])) {
-      shapeErrors.push(`Field "fields.${key}" must be a string.`);
+      shapeErrors.push(`Field 'fields.${key}' must be a string.`);
     }
   }
   if (shapeErrors.length > 0) return fail(shapeErrors);
@@ -127,20 +127,20 @@ export function buildWebSubmission(
   const documentUrl = clean(fields.document_url);
 
   const errors: string[] = [];
-  if (!submissionId) errors.push("The submission has no submission_id.");
+  if (!submissionId) errors.push('The submission has no submission_id.');
 
   let source: WebSource | null = null;
   if (uploadId && documentUrl) {
-    errors.push("Send either a file or a link, not both.");
+    errors.push('Send either a file or a link, not both.');
   } else if (!uploadId && !documentUrl) {
-    errors.push("Send a file or a link to the document.");
+    errors.push('Send a file or a link to the document.');
   } else if (uploadId) {
-    source = { kind: "upload", uploadId };
+    source = { kind: 'upload', uploadId };
   } else if (documentUrl) {
-    if (!documentUrl.startsWith("https://")) {
-      errors.push(`The document link "${documentUrl}" must start with https://.`);
+    if (!documentUrl.startsWith('https://')) {
+      errors.push(`The document link '${documentUrl}' must start with https://.`);
     } else {
-      source = { kind: "link", url: documentUrl };
+      source = { kind: 'link', url: documentUrl };
     }
   }
 

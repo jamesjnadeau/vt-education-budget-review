@@ -152,12 +152,12 @@ export function contentErrors(
   const errors: string[] = [];
   if (bytes.length > maxBytes) {
     const mb = (bytes.length / (1024 * 1024)).toFixed(1);
-    if (maxBytes !== MAX_ATTACHMENT_BYTES) {
-      errors.push(`the file is ${mb} MB, over the ${Math.round(maxBytes / (1024 * 1024))} MB limit.`);
-    } else errors.push(
-      `the attachment is ${mb} MB, over GitHub's 25 MB limit for issue files. ` +
-        `This is the one failure you cannot fix by editing the issue -- see CONTRIBUTING.md ` +
-        `for the clone-and-push path oversize documents still use.`,
+    errors.push(
+      maxBytes !== MAX_ATTACHMENT_BYTES
+        ? `the file is ${mb} MB, over the ${Math.round(maxBytes / (1024 * 1024))} MB limit.`
+        : `the attachment is ${mb} MB, over GitHub's 25 MB limit for issue files. ` +
+            `This is the one failure you cannot fix by editing the issue -- see CONTRIBUTING.md ` +
+            `for the clone-and-push path oversize documents still use.`,
     );
   }
   if (!magicBytesMatch(filename, bytes)) {
