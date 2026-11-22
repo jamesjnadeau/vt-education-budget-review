@@ -93,6 +93,8 @@ function choices(over: Partial<CombinerShareState> = {}): CombinerShareState {
     enrollment: '',
     schoolIn: '',
     avg: '13497',
+    povertyEstimate: false,
+    elEstimate: false,
     ...over,
   };
 }

@@ -367,6 +367,8 @@ export function initCombinerTool(rawSets: RawParameterSet[], data: CombinerData)
       enrollment: '',
       schoolIn: schoolIn?.value ?? '',
       avg: '',
+      povertyEstimate: false,
+      elEstimate: false,
     };
     for (const [key, id] of TEXT_INPUTS) state[key] = byId<HTMLInputElement>(id)?.value ?? '';
     return state;

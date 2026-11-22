@@ -19,6 +19,8 @@ const BLANK_EXTRAS = {
   enrollment: '',
   schoolIn: '',
   avg: '',
+  povertyEstimate: false,
+  elEstimate: false,
 } as const;
 
 const BASE: CombinerShareState = {
@@ -45,6 +47,8 @@ describe('combiner share link', () => {
       enrollment: '80',
       schoolIn: 'ud/maple-run-57',
       avg: '13500',
+      povertyEstimate: false,
+      elEstimate: false,
     };
     const decoded = decodeCombiner(encodeCombiner(state), KNOWN);
     expect(decoded.state).toEqual(state);
@@ -175,5 +179,41 @@ describe('the note about districts a link names that the page does not know', ()
   it('works on a decoded link', () => {
     const decoded = decodeCombiner('d=town/burlington,ud/one,ud/two,ud/three,ud/four', KNOWN);
     expect(unknownDistrictNote(decoded.unknown)?.lead).toBe('The first 3 are below, and 1 more is not shown.');
+  });
+});
+
+describe('estimate flags', () => {
+  it('round-trips both flags and leaves the filled number out of the link', () => {
+    const state: CombinerShareState = { ...BASE, poverty: '410', el: '96', povertyEstimate: true, elEstimate: true };
+    const query = encodeCombiner(state);
+    expect(query).toContain('poverty_est=1');
+    expect(query).toContain('el_est=1');
+    expect(query).not.toContain('poverty=');
+    expect(query).not.toContain('el=');
+    const back = decodeCombiner(query, KNOWN).state;
+    expect(back.povertyEstimate).toBe(true);
+    expect(back.elEstimate).toBe(true);
+  });
+
+  it('leaves the params out when false, so old links are unchanged', () => {
+    const query = encodeCombiner({ ...BASE, poverty: '410' });
+    expect(query).not.toContain('_est');
+    expect(query).toContain('poverty=410');
+    const old = decodeCombiner('y=2026&d=town/burlington&poverty=5', KNOWN).state;
+    expect(old.povertyEstimate).toBe(false);
+    expect(old.elEstimate).toBe(false);
+  });
+
+  it('reads only exactly 1 as true', () => {
+    const s = decodeCombiner('d=town/burlington&poverty_est=2&el_est=true', KNOWN).state;
+    expect(s.povertyEstimate).toBe(false);
+    expect(s.elEstimate).toBe(false);
+  });
+
+  it('notes estimate-filled figures only when flagged, and not as the sharer’s entries', () => {
+    const flagged = linkFigureNote(decodeCombiner('d=town/burlington&poverty_est=1', KNOWN).state, 13_497);
+    expect(flagged?.items.join(' ')).toMatch(/Students from lower-income homes: filled from the State’s town-level counts as an estimate/);
+    expect(flagged?.items.join(' ')).not.toMatch(/English learners/);
+    expect(linkFigureNote(decodeCombiner('d=town/burlington', KNOWN).state, 13_497)).toBeNull();
   });
 });
