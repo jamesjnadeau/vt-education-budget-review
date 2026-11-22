@@ -89,6 +89,36 @@ describe('runWebIntake', () => {
     expect(call[0]).not.toMatch(/@(?!\u200d)/);
   });
 
+  it('defangs a hostile submission id in the failure issue', async () => {
+    const { deps } = setup();
+    await runWebIntake(payload({}, { submission_id: 'a b @octocat' }), deps);
+    const call = deps.openFailureIssue.mock.calls[0]!;
+    expect(bodyOf(call)).not.toMatch(/@(?!\u200d)/);
+    expect(call[0]).not.toMatch(/@(?!\u200d)/);
+  });
+
+  it('does not file a second failure issue when one already exists (redelivery)', async () => {
+    const exists = vi.fn(async (_t: string) => true);
+    const { deps } = setup({
+      download: vi.fn(async () => { throw new DownloadError('x'); }),
+      failureIssueExists: exists,
+    });
+    const r = await runWebIntake(payload(), deps);
+    expect(r.ok).toBe(false);
+    expect(exists).toHaveBeenCalledTimes(1);
+    expect(exists.mock.calls[0]![0]).toContain(ID);
+    expect(deps.openFailureIssue).not.toHaveBeenCalled();
+  });
+
+  it('files the failure issue when none exists yet', async () => {
+    const { deps } = setup({
+      download: vi.fn(async () => { throw new DownloadError('x'); }),
+      failureIssueExists: vi.fn(async () => false),
+    });
+    await runWebIntake(payload(), deps);
+    expect(deps.openFailureIssue).toHaveBeenCalledTimes(1);
+  });
+
   it('link path records http-fetch', async () => {
     const { deps, written } = setup();
     const r = await runWebIntake(payload({ document_url: 'https://d.example/docs/Budget%20FY27.pdf' }, { upload_id: null }), deps);
@@ -104,7 +134,7 @@ describe('runWebIntake', () => {
     expect(r).toEqual({ ok: false, reasons: ['upload not found'] });
     expect(deps.openFailureIssue).toHaveBeenCalledTimes(1);
     const call = deps.openFailureIssue.mock.calls[0]!;
-    expect(call[0]).toBe('Web intake failed: su/x FY2027');
+    expect(call[0]).toBe('Web intake failed: su/x FY2027 (sub-123)');
     expect(readFileSync(call[1], 'utf8')).toContain(ID);
     expect(deps.openPr).not.toHaveBeenCalled();
     expect(deps.cleanupUpload).not.toHaveBeenCalled();

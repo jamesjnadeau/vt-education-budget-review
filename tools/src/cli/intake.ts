@@ -269,6 +269,16 @@ async function runWeb(): Promise<number> {
         { encoding: 'utf8' },
       ).trim();
     },
+    failureIssueExists: async (title) => {
+      const found = JSON.parse(
+        execFileSync(
+          'gh',
+          ['issue', 'list', '--repo', repo, '--label', 'web-intake-failed', '--state', 'open', '--limit', '100', '--json', 'title'],
+          { encoding: 'utf8' },
+        ),
+      ) as { title: string }[];
+      return found.some((i) => i.title === title);
+    },
     openFailureIssue: async (title, bodyFile) => {
       execFileSync(
         'gh',

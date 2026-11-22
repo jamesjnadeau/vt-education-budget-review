@@ -34,6 +34,11 @@ export interface WebRunDeps {
   writeArtifact: (relDir: string, filename: string, bytes: Buffer, provenanceYaml: string) => void;
   openPr: (branch: string, title: string, bodyFile: string) => Promise<string>;
   openFailureIssue: (title: string, bodyFile: string) => Promise<void>;
+  /**
+   * True when an open failure issue with exactly this title already exists, so a
+   * redelivered dispatch does not file a duplicate. Optional: absent means "never".
+   */
+  failureIssueExists?: (title: string) => Promise<boolean>;
   cleanupUpload: (id: string) => Promise<void>;
 }
 
@@ -78,7 +83,7 @@ const lowerExtension = (filename: string): string => filename.replace(/\.([^.]+)
 
 function submissionIdOf(payload: unknown): string {
   const id = typeof payload === 'object' && payload !== null ? (payload as Record<string, unknown>)['submission_id'] : null;
-  return typeof id === 'string' && id.trim() !== '' ? flat(id, 80) : 'unknown';
+  return typeof id === 'string' && id.trim() !== '' ? id : 'unknown';
 }
 
 function prBody(ws: WebSubmission, filename: string, sha256: string, how: Obtained): string {
@@ -104,7 +109,7 @@ function prBody(ws: WebSubmission, filename: string, sha256: string, how: Obtain
 function failureBody(entity: string, fy: string, submissionId: string, reasons: readonly string[]): string {
   return (
     `A document sent through the web form could not be filed.\n\n` +
-    `- Entity: ${flat(entity)}\n- Fiscal year: ${flat(fy, 20)}\n- Submission id: ${submissionId}\n\n` +
+    `- Entity: ${flat(entity)}\n- Fiscal year: ${flat(fy, 20)}\n- Submission id: ${flat(submissionId, 80)}\n\n` +
     `Reasons:\n\n${reasons.map((r) => `- ${defang(r.replace(/\s*\n\s*/g, ' '))}`).join('\n')}\n\n` +
     'Re-send it through the GitHub issue form once fixed.\n'
   );
@@ -112,8 +117,15 @@ function failureBody(entity: string, fy: string, submissionId: string, reasons: 
 
 export async function runWebIntake(payload: unknown, deps: WebRunDeps): Promise<WebRunResult> {
   const fail = async (entity: string, fy: string, reasons: string[]): Promise<WebRunResult> => {
-    const bodyFile = scratchFile('web-intake-failure.md', failureBody(entity, fy, submissionIdOf(payload), reasons));
-    await deps.openFailureIssue(`Web intake failed: ${flat(entity, 80)} FY${flat(fy, 20)}`, bodyFile);
+    const submissionId = submissionIdOf(payload);
+    // The id is in the title so a redelivered dispatch maps to the same issue.
+    const title = `Web intake failed: ${flat(entity, 80)} FY${flat(fy, 20)} (${flat(submissionId, 40)})`;
+    // Payloads with no usable id cannot be matched, so each gets its own issue.
+    const seen = submissionId !== 'unknown' && (await deps.failureIssueExists?.(title)) === true;
+    if (!seen) {
+      const bodyFile = scratchFile('web-intake-failure.md', failureBody(entity, fy, submissionId, reasons));
+      await deps.openFailureIssue(title, bodyFile);
+    }
     return { ok: false, reasons };
   };
 
