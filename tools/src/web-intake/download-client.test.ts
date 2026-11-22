@@ -74,6 +74,25 @@ describe('downloadUpload', () => {
     expect(s.seen[2]).toMatchObject({ method: 'DELETE', path: `/api/intake-download/${ID}` });
   });
 
+  it('a non-string browserSha256 is malformed metadata', async () => {
+    const s = server([Buffer.from('abc')], { browserSha256: 123 });
+    await expect(downloadUpload('https://site.test', SECRET, ID, s.impl)).rejects.toThrow(/malformed/);
+  });
+
+  it('a null browserSha256 skips the whole-file check', async () => {
+    const s = server([Buffer.from('abc')], { browserSha256: null });
+    await expect(downloadUpload('https://site.test', SECRET, ID, s.impl)).resolves.toMatchObject({ filename: 'b.pdf' });
+  });
+
+  it('a request that never answers times out as a DownloadError', async () => {
+    const hang = ((_url: string, init?: RequestInit) =>
+      new Promise((_resolve, reject) => {
+        init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+      })) as unknown as typeof fetch;
+    await expect(downloadUpload('https://site.test', SECRET, ID, hang, 20)).rejects.toThrow(/could not be reached/);
+    await expect(deleteRemoteUpload('https://site.test', SECRET, ID, hang, 20)).rejects.toBeInstanceOf(DownloadError);
+  });
+
   it.each(['x/../y', 'abc?x=1'])('hostile id %s throws without any fetch', async (id) => {
     const impl = vi.fn() as unknown as typeof fetch;
     await expect(downloadUpload('https://site.test', SECRET, id, impl)).rejects.toBeInstanceOf(DownloadError);

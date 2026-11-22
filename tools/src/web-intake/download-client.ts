@@ -20,12 +20,16 @@ type PublicMeta = Omit<UploadMeta, 'tokenHash'>;
 
 const sha256Hex = (data: Uint8Array): string => createHash('sha256').update(data).digest('hex');
 
+/** Per request (metadata, one chunk, or the delete); a chunk is at most 4 MB. */
+const REQUEST_TIMEOUT_MS = 60_000;
+
 async function signedFetch(
   fetchImpl: typeof fetch,
   origin: string,
   secret: string,
   method: 'GET' | 'DELETE',
   path: string,
+  signal: AbortSignal,
 ): Promise<Response> {
   const ts = Date.now();
   const headers = {
@@ -33,7 +37,7 @@ async function signedFetch(
     [SIGNATURE_HEADER]: signRequest(secret, method, path, ts),
   };
   try {
-    return await fetchImpl(new URL(path, origin).href, { method, headers, redirect: 'error' });
+    return await fetchImpl(new URL(path, origin).href, { method, headers, redirect: 'error', signal });
   } catch {
     throw new DownloadError('the upload store could not be reached');
   }
@@ -49,6 +53,7 @@ function isMeta(value: unknown): value is PublicMeta {
     typeof m['chunkCount'] === 'number' &&
     Array.isArray(m['chunkSha256']) &&
     m['chunkSha256'].every((s) => typeof s === 'string') &&
+    (m['browserSha256'] === null || m['browserSha256'] === undefined || typeof m['browserSha256'] === 'string') &&
     typeof m['state'] === 'string'
   );
 }
@@ -58,11 +63,12 @@ export async function downloadUpload(
   secret: string,
   id: string,
   fetchImpl: typeof fetch = fetch,
+  timeoutMs: number = REQUEST_TIMEOUT_MS,
 ): Promise<{ filename: string; bytes: Buffer }> {
   if (!isUploadId(id)) throw new DownloadError('the upload id is not valid');
   const base = `/api/intake-download/${id}`;
 
-  const metaRes = await signedFetch(fetchImpl, origin, secret, 'GET', `${base}/meta`);
+  const metaRes = await signedFetch(fetchImpl, origin, secret, 'GET', `${base}/meta`, AbortSignal.timeout(timeoutMs));
   if (metaRes.status === 404) throw new DownloadError('upload not found');
   if (!metaRes.ok) throw new DownloadError(`the upload store answered HTTP ${metaRes.status} for the metadata`);
   let meta: unknown;
@@ -79,9 +85,16 @@ export async function downloadUpload(
   const parts: Buffer[] = [];
   let total = 0;
   for (let n = 0; n < meta.chunkCount; n++) {
-    const res = await signedFetch(fetchImpl, origin, secret, 'GET', `${base}/${n}`);
+    // One signal covers the request and the body read, so a stalled stream is cut off too.
+    const signal = AbortSignal.timeout(timeoutMs);
+    const res = await signedFetch(fetchImpl, origin, secret, 'GET', `${base}/${n}`, signal);
     if (!res.ok) throw new DownloadError(`the upload store answered HTTP ${res.status} for chunk ${n}`);
-    const chunk = Buffer.from(await res.arrayBuffer());
+    let chunk: Buffer;
+    try {
+      chunk = Buffer.from(await res.arrayBuffer());
+    } catch {
+      throw new DownloadError(`chunk ${n} could not be read from the upload store`);
+    }
     if (sha256Hex(chunk) !== meta.chunkSha256[n]) throw new DownloadError(`chunk ${n} failed its checksum`);
     total += chunk.length;
     if (total > meta.bytes) throw new DownloadError('the upload is larger than recorded');
@@ -100,8 +113,9 @@ export async function deleteRemoteUpload(
   secret: string,
   id: string,
   fetchImpl: typeof fetch = fetch,
+  timeoutMs: number = REQUEST_TIMEOUT_MS,
 ): Promise<void> {
   if (!isUploadId(id)) throw new DownloadError('the upload id is not valid');
-  const res = await signedFetch(fetchImpl, origin, secret, 'DELETE', `/api/intake-download/${id}`);
+  const res = await signedFetch(fetchImpl, origin, secret, 'DELETE', `/api/intake-download/${id}`, AbortSignal.timeout(timeoutMs));
   if (!res.ok) throw new DownloadError(`the upload store answered HTTP ${res.status} for the delete`);
 }
