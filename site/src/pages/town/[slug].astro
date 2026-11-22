@@ -140,46 +140,51 @@ const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
           </table>
         </div>
         )}
-        {belowFloorYears.length > 0 && (
-          <p>
-            Fewer than 11 students lived in {titleCase(town.name)} in{' '}
-            {belowFloorYears.map((y) => y.count_year).join(' and ')}, so the state hid every number
-            for {belowFloorYears.length === 1 ? 'that year' : 'those years'}.
-          </p>
-        )}
-        {anyHidden && (
-          <p>
-            <strong>Hidden</strong> means the state did not give us that number, to protect student
-            privacy. The state hides any count under 11. It also hides some bigger counts, so that
-            nobody can work out a hidden one by subtracting. Where the rules let us say how big a
-            hidden number is, we say so under it.
-          </p>
-        )}
-        {preliminaryYears.map((y) => (
-          <p>
-            The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
-            they are final and had not heard back when this page was built.
-          </p>
-        ))}
-        {unusableYears.map((y) => (
-          <p>
-            For {y.count_year}, the state's English learner and lunch counts were{' '}
-            <strong>not usable</strong>, so we do not show them. The state did not collect the
-            English learner flag that year, and it has said its lunch flag was set for nearly every
-            student by mistake.
-          </p>
-        ))}
-        {notApplicable.length > 0 && !closed && (
-          <p>
-            No students were counted as living in {titleCase(town.name)} in{' '}
-            {notApplicable.map((y) => y.count_year).join(', ')}.
-          </p>
-        )}
-        {closed && (
-          <p>
-            This record closed in {town.effective_to?.slice(0, 4)} and no students are counted
-            under it. Its students are counted with the town they live in.
-          </p>
+        {(belowFloorYears.length > 0 || anyHidden || preliminaryYears.length > 0 || unusableYears.length > 0 || (notApplicable.length > 0 && !closed) || closed) && (
+          <details class="data-notes">
+            <summary>More information and notes about the above data</summary>
+          {belowFloorYears.length > 0 && (
+            <p>
+              Fewer than 11 students lived in {titleCase(town.name)} in{' '}
+              {belowFloorYears.map((y) => y.count_year).join(' and ')}, so the state hid every number
+              for {belowFloorYears.length === 1 ? 'that year' : 'those years'}.
+            </p>
+          )}
+          {anyHidden && (
+            <p>
+              <strong>Hidden</strong> means the state did not give us that number, to protect student
+              privacy. The state hides any count under 11. It also hides some bigger counts, so that
+              nobody can work out a hidden one by subtracting. Where the rules let us say how big a
+              hidden number is, we say so under it.
+            </p>
+          )}
+          {preliminaryYears.map((y) => (
+            <p>
+              The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
+              they are final and had not heard back when this page was built.
+            </p>
+          ))}
+          {unusableYears.map((y) => (
+            <p>
+              For {y.count_year}, the state's English learner and lunch counts were{' '}
+              <strong>not usable</strong>, so we do not show them. The state did not collect the
+              English learner flag that year, and it has said its lunch flag was set for nearly every
+              student by mistake.
+            </p>
+          ))}
+          {notApplicable.length > 0 && !closed && (
+            <p>
+              No students were counted as living in {titleCase(town.name)} in{' '}
+              {notApplicable.map((y) => y.count_year).join(', ')}.
+            </p>
+          )}
+          {closed && (
+            <p>
+              This record closed in {town.effective_to?.slice(0, 4)} and no students are counted
+              under it. Its students are counted with the town they live in.
+            </p>
+          )}
+          </details>
         )}
       </>
     )

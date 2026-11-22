@@ -263,44 +263,49 @@ const homesteadRows = Object.entries(homesteadYears)
             </table>
           </div>
         )}
-        {anyRange && (
-          <p>
-            Some cells show a <strong>range</strong> instead of one number. That is because the
-            state hid the count for one or more towns, to protect student privacy. The state hides
-            any count under 11. It also hides some bigger counts, so that nobody can work out a
-            hidden one by subtracting. We add the hidden towns' numbers to the sum as the smallest
-            and largest values the rules allow, so the real number is somewhere in the range.
-            {anyUnbounded &&
-              ' Where the rules do not say how big a hidden number could be, we can only say "at least".'}
-          </p>
-        )}
-        {hiddenTowns.length > 0 && (
-          <p>
-            Towns with hidden numbers:{' '}
-            {hiddenTowns.map((r, i) => (
-              <>{i > 0 && ', '}<a href={`${base}/town/${slugTail(r.town.slug)}/`}>{titleCase(r.town.name)}</a></>
-            ))}.
-          </p>
-        )}
-        {preliminaryYears.map((y) => (
-          <p>
-            The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
-            they are final and had not heard back when this page was built.
-          </p>
-        ))}
-        {unusableYears.map((y) => (
-          <p>
-            For {y.count_year}, the state's English learner and lunch counts were{' '}
-            <strong>not usable</strong>, so we do not show them. The state did not collect the
-            English learner flag that year, and it has said its lunch flag was set for nearly every
-            student by mistake.
-          </p>
-        ))}
-        {emptyYears.length > 0 && (
-          <p>
-            No students were counted as living in any of these towns in{' '}
-            {emptyYears.map((y) => y.count_year).join(', ')}.
-          </p>
+        {(anyRange || hiddenTowns.length > 0 || preliminaryYears.length > 0 || unusableYears.length > 0 || emptyYears.length > 0) && (
+          <details class="data-notes">
+            <summary>More information and notes about the above data</summary>
+          {anyRange && (
+            <p>
+              Some cells show a <strong>range</strong> instead of one number. That is because the
+              state hid the count for one or more towns, to protect student privacy. The state hides
+              any count under 11. It also hides some bigger counts, so that nobody can work out a
+              hidden one by subtracting. We add the hidden towns' numbers to the sum as the smallest
+              and largest values the rules allow, so the real number is somewhere in the range.
+              {anyUnbounded &&
+                ' Where the rules do not say how big a hidden number could be, we can only say "at least".'}
+            </p>
+          )}
+          {hiddenTowns.length > 0 && (
+            <p>
+              Towns with hidden numbers:{' '}
+              {hiddenTowns.map((r, i) => (
+                <>{i > 0 && ', '}<a href={`${base}/town/${slugTail(r.town.slug)}/`}>{titleCase(r.town.name)}</a></>
+              ))}.
+            </p>
+          )}
+          {preliminaryYears.map((y) => (
+            <p>
+              The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
+              they are final and had not heard back when this page was built.
+            </p>
+          ))}
+          {unusableYears.map((y) => (
+            <p>
+              For {y.count_year}, the state's English learner and lunch counts were{' '}
+              <strong>not usable</strong>, so we do not show them. The state did not collect the
+              English learner flag that year, and it has said its lunch flag was set for nearly every
+              student by mistake.
+            </p>
+          ))}
+          {emptyYears.length > 0 && (
+            <p>
+              No students were counted as living in any of these towns in{' '}
+              {emptyYears.map((y) => y.count_year).join(', ')}.
+            </p>
+          )}
+          </details>
         )}
       </>
     )
