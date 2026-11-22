@@ -23,7 +23,7 @@ export const MAX_ATTACHMENT_BYTES = 25 * 1024 * 1024;
  * case-sensitive check would land as a plain git blob and defeat the whole LFS
  * decision this channel is built on.
  */
-const ALLOWED_EXTENSIONS = ['pdf', 'xlsx', 'xls', 'doc', 'docx', 'zip'] as const;
+export const ALLOWED_EXTENSIONS = ['pdf', 'xlsx', 'xls', 'doc', 'docx', 'zip'] as const;
 
 const MEDIA_TYPES: Readonly<Record<string, string>> = {
   pdf: 'application/pdf',
@@ -53,7 +53,7 @@ const MAGIC: Readonly<Record<string, readonly number[]>> = {
 // eslint-disable-next-line no-control-regex
 const CONTROL_CHARS = /[\x00-\x1f\x7f]/;
 
-function extensionOf(filename: string): string | null {
+export function extensionOf(filename: string): string | null {
   const dot = filename.lastIndexOf('.');
   if (dot <= 0 || dot === filename.length - 1) return null;
   return filename.slice(dot + 1).toLowerCase();
@@ -144,11 +144,17 @@ export function mediaTypeFor(filename: string): string | null {
  * checks above. Assumes `filenameError` already passed, so the extension is on
  * the allowlist.
  */
-export function contentErrors(filename: string, bytes: Buffer): string[] {
+export function contentErrors(
+  filename: string,
+  bytes: Buffer,
+  maxBytes: number = MAX_ATTACHMENT_BYTES,
+): string[] {
   const errors: string[] = [];
-  if (bytes.length > MAX_ATTACHMENT_BYTES) {
+  if (bytes.length > maxBytes) {
     const mb = (bytes.length / (1024 * 1024)).toFixed(1);
-    errors.push(
+    if (maxBytes !== MAX_ATTACHMENT_BYTES) {
+      errors.push(`the file is ${mb} MB, over the ${Math.round(maxBytes / (1024 * 1024))} MB limit.`);
+    } else errors.push(
       `the attachment is ${mb} MB, over GitHub's 25 MB limit for issue files. ` +
         `This is the one failure you cannot fix by editing the issue -- see CONTRIBUTING.md ` +
         `for the clone-and-push path oversize documents still use.`,
