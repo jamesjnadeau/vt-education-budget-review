@@ -100,7 +100,7 @@ jobs:
     if: github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
     concurrency:
-      group: web-intake-${{ github.event.client_payload.submission_id }}
+      group: web-intake-${{ github.event.client_payload.submission_id || github.run_id }}
       cancel-in-progress: false
     steps:
       - name: Mint a GitHub App token
@@ -140,3 +140,17 @@ jobs:
           INTAKE_DOWNLOAD_SECRET: ${{ secrets.INTAKE_DOWNLOAD_SECRET }}
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: npm run intake
+
+      - name: Report a workflow failure
+        # The upload would otherwise be deleted by the 14-day cleanup unseen.
+        # Only the run URL and a sanitised submission id go in the issue; both
+        # arrive through env, never interpolated into the script.
+        if: failure()
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          SUBMISSION_ID: ${{ github.event.client_payload.submission_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          id=$(printf '%s' "$SUBMISSION_ID" | tr -cd 'A-Za-z0-9_-' | cut -c1-64)
+          printf 'The web intake workflow failed before the submission could be filed.\n\n- Run: %s\n- Submission id: %s\n' "$RUN_URL" "${id:-unknown}" > "$RUNNER_TEMP/failure.md"
+          gh issue create --title 'Web intake failed: workflow error' --label web-intake-failed --body-file "$RUNNER_TEMP/failure.md"

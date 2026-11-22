@@ -36,7 +36,10 @@ export async function installationToken(
   if (typeof id !== 'number') throw new Error('GitHub installation lookup returned no id');
   const res = await fetchImpl(`${API}/app/installations/${id}/access_tokens`, {
     method: 'POST',
-    headers: headers(jwt),
+    headers: { ...headers(jwt), 'content-type': 'application/json' },
+    // Only this repo, and only what repository_dispatch needs (contents: write).
+    // git push / gh pr / gh issue use the workflow's own token, not this one.
+    body: JSON.stringify({ repositories: [repo.split('/')[1] ?? repo], permissions: { contents: 'write' } }),
   });
   if (!res.ok) throw new Error(`GitHub access token request failed: ${res.status}`);
   const { token } = (await res.json()) as { token?: unknown };

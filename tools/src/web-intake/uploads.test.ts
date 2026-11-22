@@ -269,6 +269,28 @@ describe('cleanup', () => {
     expect(ABANDONED_AFTER_MS).toBe(48 * HOUR);
   });
 
+  it('does not treat an upload started between the two listings as orphaned', async () => {
+    const base = memoryStore();
+    let injected = '';
+    const s: BlobStore = {
+      ...base,
+      async list(o) {
+        const r = await base.list(o);
+        if (o.prefix === 'chunk/') {
+          // A new upload begins right after the chunk listing is taken.
+          const n = await startUpload(base, { filename: 'late.pdf', bytes: 5 }, NOW);
+          if (!n.ok) throw new Error(n.error);
+          injected = n.value.id;
+          await putChunk(base, n.value.id, 0, n.value.token, new Uint8Array(5));
+        }
+        return r;
+      },
+    };
+    await cleanup(s, NOW);
+    expect(await readMeta(base, injected)).not.toBeNull();
+    expect(base.data.has(`chunk/${injected}/0`)).toBe(true);
+  });
+
   it('deletes an abandoned open upload and orphan chunks', async () => {
     const s = memoryStore();
     const open = await seed(s, 'open', 50 * HOUR, 5);

@@ -186,6 +186,9 @@ export async function cleanup(s: BlobStore, now: number): Promise<{ deleted: str
   const deleted: string[] = [];
   let pendingBytes = 0;
   const live = new Set<string>();
+  // List chunks BEFORE meta: an upload started between the two listings has its
+  // meta (written first) in the later list, so its chunks are never orphans.
+  const chunkKeys = (await s.list({ prefix: 'chunk/' })).blobs.map((b) => b.key);
   for (const { key } of (await s.list({ prefix: 'meta/' })).blobs) {
     const meta = (await s.getJSON(key)) as UploadMeta | null;
     if (!meta) continue;
@@ -202,7 +205,7 @@ export async function cleanup(s: BlobStore, now: number): Promise<{ deleted: str
     }
   }
   // Chunks whose meta is gone (an interrupted delete) are unreachable; drop them.
-  for (const { key } of (await s.list({ prefix: 'chunk/' })).blobs) {
+  for (const key of chunkKeys) {
     if (!live.has(key.split('/')[1] ?? '')) await s.delete(key);
   }
   await s.setJSON(PENDING_KEY, pendingBytes);

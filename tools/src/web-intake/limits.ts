@@ -13,6 +13,18 @@ export const RETAIN_MS = 14 * 24 * 60 * 60 * 1000;
 /** How far a signed request's timestamp may drift. */
 export const SIGNATURE_WINDOW_MS = 5 * 60 * 1000;
 
+/**
+ * The repository that receives the dispatch. Not secret. netlify.toml's
+ * [build.environment] is build-time only and invisible to functions, so the
+ * function falls back to this when GITHUB_REPOSITORY is not set at runtime.
+ */
+export const DEFAULT_REPOSITORY = 'jamesjnadeau/vt-education-budget-review';
+
+export function repositoryFrom(env: Record<string, string | undefined>): string {
+  const v = env['GITHUB_REPOSITORY'];
+  return v !== undefined && v !== '' ? v : DEFAULT_REPOSITORY;
+}
+
 export const STORE_NAME = "intake-uploads";
 export const FORM_NAME = "budget-intake";
 export const DISPATCH_TYPE = "web-intake";

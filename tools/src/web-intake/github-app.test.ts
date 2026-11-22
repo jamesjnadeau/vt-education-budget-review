@@ -33,6 +33,7 @@ describe('installationToken', () => {
     expect(calls[0]!.url).toBe('https://api.github.com/repos/o/r/installation');
     expect(calls[1]!.url).toBe('https://api.github.com/app/installations/77/access_tokens');
     expect(calls[1]!.init.method).toBe('POST');
+    expect(JSON.parse(calls[1]!.init.body as string)).toEqual({ repositories: ['r'], permissions: { contents: 'write' } });
     for (const c of calls) {
       const h = c.init.headers as Record<string, string>;
       expect(h.authorization).toBe('Bearer JWT');

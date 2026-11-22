@@ -19,7 +19,7 @@ import type { Handler } from '@netlify/functions';
 import { getStore } from '@netlify/blobs';
 
 import { appJwt, installationToken, sendDispatch } from '../../tools/src/web-intake/github-app.ts';
-import { STORE_NAME } from '../../tools/src/web-intake/limits.ts';
+import { repositoryFrom, STORE_NAME } from '../../tools/src/web-intake/limits.ts';
 import { handleSubmission } from '../../tools/src/web-intake/on-submission.ts';
 import { toBlobStore } from '../../tools/src/web-intake/store-adapter.ts';
 import { verifyTurnstile } from '../../tools/src/web-intake/turnstile.ts';
@@ -33,7 +33,7 @@ function need(name: string): string {
 export const handler: Handler = async (event) => {
   const appId = need('INTAKE_APP_ID');
   const privateKey = need('INTAKE_APP_PRIVATE_KEY').replace(/\\n/g, '\n');
-  const repo = need('GITHUB_REPOSITORY');
+  const repo = repositoryFrom(process.env);
   const secret = need('TURNSTILE_SECRET_KEY');
 
   const parsed = JSON.parse(event.body ?? '{}') as {

@@ -70,6 +70,25 @@ describe('runWebIntake', () => {
     expect(deps.openFailureIssue).not.toHaveBeenCalled();
   });
 
+  it('a failing git/PR step becomes a failure issue and keeps the upload', async () => {
+    const { deps } = setup({ openPr: vi.fn(async () => { throw new Error('boom token=SECRET'); }) });
+    const r = await runWebIntake(payload(), deps);
+    expect(r.ok).toBe(false);
+    expect(deps.openFailureIssue).toHaveBeenCalledTimes(1);
+    const body = bodyOf(deps.openFailureIssue.mock.calls[0]!);
+    expect(body).toContain('opening the pull request failed');
+    expect(body).not.toContain('SECRET');
+    expect(deps.cleanupUpload).not.toHaveBeenCalled();
+  });
+
+  it('neutralises @mentions in user text echoed into issues', async () => {
+    const { deps } = setup({ download: vi.fn(async () => { throw new DownloadError('x'); }) });
+    await runWebIntake(payload({}, { entity: 'su/x @octocat' }), deps);
+    const call = deps.openFailureIssue.mock.calls[0]!;
+    expect(bodyOf(call)).not.toMatch(/@(?!\u200d)/);
+    expect(call[0]).not.toMatch(/@(?!\u200d)/);
+  });
+
   it('link path records http-fetch', async () => {
     const { deps, written } = setup();
     const r = await runWebIntake(payload({ document_url: 'https://d.example/docs/Budget%20FY27.pdf' }, { upload_id: null }), deps);

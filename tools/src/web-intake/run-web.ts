@@ -39,7 +39,9 @@ export interface WebRunDeps {
 
 export type WebRunResult = { ok: true; pr: string } | { ok: false; reasons: string[] };
 
-const flat = (s: string, max = 120): string => s.replace(/[\p{Cc}\s]+/gu, ' ').trim().slice(0, max);
+/** A zero-width joiner after each '@' stops the App from @mentioning users or teams. */
+const defang = (s: string): string => s.replace(/@/g, '@\u200d');
+const flat = (s: string, max = 120): string => defang(s.replace(/[\p{Cc}\s]+/gu, ' ').trim().slice(0, max));
 const cell = (s: string | null): string => (s === null ? '' : flat(s, 300).replace(/\|/g, '\\|'));
 
 function scratchFile(name: string, contents: string): string {
@@ -103,7 +105,7 @@ function failureBody(entity: string, fy: string, submissionId: string, reasons: 
   return (
     `A document sent through the web form could not be filed.\n\n` +
     `- Entity: ${flat(entity)}\n- Fiscal year: ${flat(fy, 20)}\n- Submission id: ${submissionId}\n\n` +
-    `Reasons:\n\n${reasons.map((r) => `- ${r.replace(/\s*\n\s*/g, ' ')}`).join('\n')}\n\n` +
+    `Reasons:\n\n${reasons.map((r) => `- ${defang(r.replace(/\s*\n\s*/g, ' '))}`).join('\n')}\n\n` +
     'Re-send it through the GitHub issue form once fixed.\n'
   );
 }
@@ -184,14 +186,20 @@ export async function runWebIntake(payload: unknown, deps: WebRunDeps): Promise<
     existing = Array.isArray(doc?.artifacts) ? doc : null;
   }
   const provenance = buildProvenance(submission, { sha256, bytes: bytes.length }, existing);
-  deps.writeArtifact(relDir, filename, bytes, serializeProvenance(provenance));
-
-  const bodyFile = scratchFile('web-intake-pr.md', prBody(ws, filename, sha256, how));
-  const pr = await deps.openPr(
-    `intake/web-${ws.submissionId}`,
-    `Budget intake: ${ws.entity} FY${ws.fiscalYear}`,
-    bodyFile,
-  );
+  let pr: string;
+  try {
+    deps.writeArtifact(relDir, filename, bytes, serializeProvenance(provenance));
+    const bodyFile = scratchFile('web-intake-pr.md', prBody(ws, filename, sha256, how));
+    pr = await deps.openPr(
+      `intake/web-${ws.submissionId}`,
+      `Budget intake: ${flat(ws.entity, 80)} FY${ws.fiscalYear}`,
+      bodyFile,
+    );
+  } catch (err) {
+    // The upload is deliberately kept (cleanup is skipped) so a human can retry.
+    console.error(`web-intake: filing failed: ${err instanceof Error ? err.message : 'unknown error'}`);
+    return failHere(['The document was accepted but opening the pull request failed. Check the workflow run.']);
+  }
 
   if (ws.source.kind === 'upload') {
     try {

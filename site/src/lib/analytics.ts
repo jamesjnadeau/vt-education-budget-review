@@ -14,7 +14,7 @@ export function cfBeaconToken(env: Record<string, string | undefined>): string |
 }
 
 // PostHog product analytics. Same opt-in rule as the beacon above: the build
-// must set PUBLIC_POSTHOG_ENABLED === '1' (Deploy workflow only) and supply the
+// must set PUBLIC_POSTHOG_ENABLED === '1' (production context of netlify.toml only) and supply the
 // project token and host. The token is a public ingestion key, not a secret.
 // Returns the init config, or null to omit PostHog from the page entirely.
 export function posthogConfig(

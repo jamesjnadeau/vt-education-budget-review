@@ -28,6 +28,8 @@
   # bytes, so Netlify must fetch real LFS content, not pointers.
   GIT_LFS_ENABLED = "true"
   # Used to build the GitHub deep links (coverage dashboard, SU pages).
+  # Build-time only: functions cannot see this; they have their own default
+  # (DEFAULT_REPOSITORY in tools/src/web-intake/limits.ts).
   GITHUB_REPOSITORY = "jamesjnadeau/vt-education-budget-review"
 
 [context.production.environment]
