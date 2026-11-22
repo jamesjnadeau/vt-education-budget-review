@@ -91,8 +91,9 @@ claim about the world, the same standard the parameter files hold themselves to.
 - [ ] **Small/sparse statutory values** — every statutory value in
   [`model/parameters/fy2030-small-sparse.yaml`](../model/parameters/fy2030-small-sparse.yaml)
   was read from Act 170 of 2026 Sec. 29 (16 V.S.A. § 4019) on 2026-11-22 and is verified, with
-  the stacking rule (additive) on James Nadeau's reading; human countersignature of the
-  automated reads is still pending. The grants implement in 2029-30 only if the Act 73
+  the stacking rule (additive) on James Nadeau's reading. James Nadeau countersigned the 16
+  enacted-text parameters on 2026-11-22; the 12 `framework.*` parameters stay unverified (see
+  the next item). The grants implement in 2029-30 only if the Act 73
   Sec. 70(f)(1) conditions are met, and are **not required for the core FY2027 tax model**.
   The screens now run for 282 schools. Struck-through text does not carry into the signed bill, so the
   extracted text of Sec. 70(f)(1) is taken as the enacted wording (James Nadeau, 2026-11-22). Open: the population series (§ 4019(a)(4) says July 1 of the year of determination).

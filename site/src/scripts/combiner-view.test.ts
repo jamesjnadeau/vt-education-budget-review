@@ -17,6 +17,8 @@ import {
   changeText,
   combinedDensity,
   combinedDensityText,
+  combinedSubgroupEstimate,
+  subgroupEstimateText,
   nameOf,
   schoolLine,
   plainText,
@@ -24,6 +26,7 @@ import {
   resultStatus,
   type CombinerData,
   type CombinerDistrict,
+  type CombinerTown,
 } from './combiner-view.ts';
 import { exampleParameters } from './model-tool.ts';
 
@@ -362,6 +365,68 @@ describe('the density of the picked districts\' towns', () => {
     expect(d.missing2020).toEqual(['Alpha']);
     expect(combinedDensityText(d)).toMatch(/Alpha has no land area or 2020 count on file, so nothing is filled in/);
     expect(combinedDensity([], withCensus)).toBeNull();
+  });
+});
+
+describe('the town-level estimate for lower-income and English-learner counts', () => {
+  const cell = (c: CombinerTown['ell_sy25']): Partial<CombinerTown> => ({ ell_sy25: c, frl_sy25: c });
+  const hidden = { status: 'suppressed' as const, low: 0, high: 10 };
+  const build = (cells: Record<string, CombinerTown['ell_sy25']>): CombinerData => ({
+    ...DATA,
+    towns: {
+      ...DATA.towns,
+      ...Object.fromEntries(Object.entries(cells).map(([slug, c]) => [slug, { ...DATA.towns[slug]!, ...cell(c) }])),
+    },
+  });
+
+  it('sums published cells; nothing withheld means the sum is also the upper bound', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': { value: 30 } }), 'ell')!;
+    expect(e).toMatchObject({ sum: 42, withheld: [], missing: [], upperBound: 42 });
+    expect(subgroupEstimateText(e, 'ell')).not.toMatch(/at least/i);
+  });
+
+  it('adds up to 10 for each bounded withheld town to the upper bound', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': hidden }), 'ell')!;
+    expect(e).toMatchObject({ sum: 12, withheld: ['Gamma'], upperBound: 22 });
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/at least 12.*up to 22/s);
+  });
+
+  it('gives no upper bound for a complement-suppressed cell', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': { status: 'suppressed' } }), 'frl')!;
+    expect(e.upperBound).toBeNull();
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/at least 12/);
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/no upper limit/i);
+  });
+
+  it('is 0 and says "at least 0" when every town is withheld', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': hidden, 'town/gamma': hidden }), 'ell')!;
+    expect(e).toMatchObject({ sum: 0, upperBound: 20 });
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/at least 0/);
+  });
+
+  it('names a town with no record, still gives the sum, and gives no upper bound', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 12 }, 'town/gamma': null }), 'ell')!;
+    expect(e).toMatchObject({ sum: 12, missing: ['Gamma'], upperBound: null });
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/Gamma/);
+  });
+
+  it('counts a town once when two picked districts cover it, and rounds off float noise', () => {
+    const data = build({ 'town/beta': { value: 502.55000000000007 }, 'town/gamma': { value: 1 } });
+    data.districts['ud/also'] = district('ud/also', 'Also', ['town/beta']);
+    expect(combinedSubgroupEstimate(['ud/beta-1', 'ud/also'], data, 'ell')!.sum).toBe(503.55);
+  });
+
+  it('gives nothing when no towns are picked', () => {
+    expect(combinedSubgroupEstimate([], DATA, 'ell')).toBeNull();
+    expect(subgroupEstimateText(null, 'ell')).toMatch(/^Pick districts/);
+  });
+
+  it('adds the lunch caveat for FRL only, and the residency caveat for both', () => {
+    const e = combinedSubgroupEstimate(['ud/beta-1'], build({ 'town/beta': { value: 1 }, 'town/gamma': { value: 1 } }), 'frl')!;
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/not the same as the 185 percent poverty count/);
+    expect(subgroupEstimateText(e, 'frl')).toMatch(/live in/);
+    expect(subgroupEstimateText(e, 'ell')).not.toMatch(/185 percent/);
+    expect(subgroupEstimateText(e, 'ell')).toMatch(/live in/);
   });
 });
 
