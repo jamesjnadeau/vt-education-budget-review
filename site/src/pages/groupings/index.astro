@@ -1,7 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 import groupings from '../../generated/groupings.json';
-import { longDate, settleDatePassedUnconfirmed, unseenChangeCount, unseenIsFloor, type Reassignment } from '../../lib/groupings.ts';
+import {
+  committeeMoves,
+  dissolvedGroups,
+  longDate,
+  publishedCommittees,
+  settleDatePassedUnconfirmed,
+  unlistedActMembers,
+  type Reassignment,
+} from '../../lib/groupings.ts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -10,6 +18,7 @@ interface Grouping {
   slug: string;
   name: string;
   members: string[];
+  member_names_as_written?: string[];
   verified: boolean;
 }
 
@@ -20,159 +29,163 @@ const doc = groupings as {
   groupings: Grouping[];
 };
 
-// The groups below are the law's. The state's guides have since redrawn them,
-// and we hold only a couple of the moves -- so this page has to lead with that,
-// not bury it. See site/src/lib/groupings.ts.
+// The facilitators' committees, once their list is in; the act's groups
+// otherwise. Moves are read off by comparing the two. See site/src/lib/groupings.ts.
 const moved = doc.reassignment ?? null;
-const unseen = unseenChangeCount(moved);
-const unseenFloor = unseenIsFloor(moved);
+const committees = publishedCommittees(moved);
+const moves = committeeMoves(doc.groupings, committees);
+const dissolved = dissolvedGroups(doc.groupings, committees);
+const unlisted = unlistedActMembers(doc.groupings, committees);
 const sources = moved?.sources ?? [];
-const knownCount = moved?.known_changes.length ?? 0;
-const knownWord = knownCount === 1 ? 'one' : knownCount === 2 ? 'two' : String(knownCount);
 const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOString().slice(0, 10));
+const districtCount = (c: (typeof committees)[number]) => c.roster.filter((l) => l.kind === 'district').length;
+const fmt = (n: number) => n.toLocaleString('en-US');
+const andList = (xs: string[]) =>
+  xs.length <= 1 ? (xs[0] ?? '') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
 ---
 
-<Base title="Act 170 groupings — Vermont School Budgets">
-  <h1>Act 170 groups</h1>
-  <p class="lede">
-    The groups of school districts named in {doc.act?.name ?? 'Act 170'}. These are the starting
-    what-ifs in the tool. For most people, the real question is not "what if we merged with
-    someone?" but "what happens under the group the Legislature already put us in?"
-    {moved && <span> The law let the state's guides move districts between groups. They have.
-    Read the warning below before you use this list.</span>}
-  </p>
+<Base title="Merger study groups — Vermont School Budgets">
+  <h1>Merger study groups</h1>
+  {committees.length > 0 ? (
+    <p class="lede">
+      {doc.act?.name ?? 'Act 170'} put Vermont's school districts into {doc.groupings.length} groups.
+      Each group studies whether its districts should join into one. The law let the people the state
+      hired to run these talks, the {moved?.by}, change the groups. On {longDate(moved?.as_of)} they
+      did. There are now {committees.length} groups. These are the starting what-ifs in the tool.
+    </p>
+  ) : (
+    <p class="lede">
+      The groups of school districts named in {doc.act?.name ?? 'Act 170'}. These are the starting
+      what-ifs in the tool.
+    </p>
+  )}
 
-  {moved && !moved.roster_published && (
-    <div class="notice blocking">
-      <strong>These groups have changed. We do not have the new list.</strong>
+  {committees.length > 0 && moved?.status === 'announced_provisional' && (
+    <div class="notice">
+      <strong>This is the first list, not the final one</strong>
       <details class="notice-more">
         <summary>show more information</summary>
         <p>
-          On {longDate(moved.as_of)} the {moved.by} — the group the state hired to run the merger
-          talks — put Vermont's {moved.district_count ?? 'roughly 119'} school districts into
-          <strong> {moved.committee_count ?? 'fewer'} groups</strong>, not the {doc.groupings.length} the
-          law printed. {moved.requests_granted ?? 'Some'} districts had asked to move, and got their
-          way. The law always allowed this.
-          {unseenFloor && (
-            <span> The guides also moved some other districts that did not ask, to keep each group
-            near 2,000 students. They have not said how many.</span>
-          )}
+          The {moved.by} called this list "a starting point, not a final decision." School boards
+          could send comments until {longDate(moved.comment_deadline)}. The plan was to settle the
+          groups by {longDate(moved.finalize_target)}.
+          {settleUnconfirmed && <span> We have not seen a final list yet, so a few groups may have changed since.</span>}
         </p>
         <p>
-          <strong>They have not published which districts are in which new group.</strong> We know
-          about {knownCount} of the {moved.requests_granted ?? 'granted'} moves that districts asked
-          for, from news reports. {unseen !== null && unseen > 0 && (
-            <span>That leaves {unseenFloor ? 'at least ' : ''}{unseen} moves we cannot see.</span>
-          )}
+          A computer copied this list from the press release. A person has not checked it line by
+          line yet. That is why each group says "not checked."
         </p>
-        <p>
-          So the groups below are still the law's groups, exactly as it wrote them. For many
-          districts that is still the right answer. For at least {knownWord} it is not, and we cannot tell
-          you which of the rest changed. If a group's page says nothing about a change, that means
-          we have no report about it — not that nothing happened.
-        </p>
-        {moved.known_changes.length > 0 && (
-          <>
-            <p>What we do know:</p>
-            <ul>
-              {moved.known_changes.map((c) => (
-                <li>
-                  <strong>{c.district_name_as_written ?? c.district}</strong> moved
-                  {c.from_grouping !== null && (
-                    <span> out of <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a></span>
-                  )}
-                  {c.to_grouping_as_reported && <span> and in {c.to_grouping_as_reported}</span>}
-                  {c.to_grouping !== null && c.to_grouping_basis === 'inferred' && (
-                    <span> — which looks like <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>, though the guides have not numbered the new groups, so that match is our reading and could be wrong</span>
-                  )}.
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        {moved.status === 'announced_provisional' && (
-          <p>
-            The guides called the new groups a starting point, not a decision. School board leaders
-            could send comments until {longDate(moved.comment_deadline)}, and the plan was to settle
-            the groups on {longDate(moved.finalize_target)}.
-            {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
-            {moved.first_meeting_deadline && (
-              <span> Each group has to hold its first meeting by {longDate(moved.first_meeting_deadline)}.</span>
-            )}
-          </p>
-        )}
-        {sources.length > 0 && (
-          <div style="font-size:.9rem">
-            <p>Where this comes from:</p>
-            <ul>
-              {sources.map((s) => (
-                <li>
-                  <a href={s.url}>{s.publisher}, "{s.title}"</a>, {longDate(s.published_date)}
-                </li>
-              ))}
-            </ul>
-            <p>
-              These are reports about the guides' announcement, not the announcement itself. Nobody
-              here has checked them against the guides' own list, because we have not been able to
-              get one.
-            </p>
-          </div>
-        )}
       </details>
     </div>
   )}
 
-  {
-    doc.groupings.length === 0 ? (
-      <div class="notice blocking">
-        <strong>Not typed in yet</strong>
-        <details class="notice-more">
-          <summary>show more information</summary>
-          <p>
-            This list is empty because we have not typed the groups in yet — not because the law has
-            none. The law does have them, and they matter for everything this tool does.
+  {committees.length > 0 ? (
+    <ul class="grid">
+      {committees.map((c) => (
+        <li class="card">
+          <h3 style="margin-top:0">
+            <a href={`${base}/groupings/${c.number}/`}>{c.name}</a>
+          </h3>
+          <p style="margin:.3rem 0 0;font-size:.9rem;color:var(--text-muted)">
+            {c.region && <span>{c.region} · </span>}
+            {districtCount(c)} district(s)
+            {c.adm_total_as_published != null && <span> · {fmt(c.adm_total_as_published)} students</span>}
+            {!c.verified && <span class="tag unverified" style="margin-left:.5rem">not checked</span>}
           </p>
-          <p>
-            No public data feed lists them, and we could not reach the Legislature's website when
-            this site was built. Writing out twenty groups of district names from memory would risk
-            putting a made-up answer in the one place people most need the truth. Someone on this
-            page is asking which districts the Legislature grouped them with, and a confident wrong
-            answer there is much worse than no answer.
+        </li>
+      ))}
+    </ul>
+  ) : doc.groupings.length === 0 ? (
+    <div class="notice blocking">
+      <strong>Not typed in yet</strong>
+      <details class="notice-more">
+        <summary>show more information</summary>
+        <p>
+          This list is empty because we have not typed the groups in yet — not because the law has
+          none. Any name we cannot match will be listed, not dropped.
+        </p>
+      </details>
+    </div>
+  ) : (
+    <ul class="grid">
+      {doc.groupings.map((g) => (
+        <li class="card">
+          <h3 style="margin-top:0">
+            <a href={`${base}/groupings/${g.number}/`}>{g.number}. {g.name}</a>
+          </h3>
+          <p style="margin:.3rem 0 0;font-size:.9rem;color:var(--text-muted)">
+            {g.members.length} district(s)
+            {!g.verified && <span class="tag unverified" style="margin-left:.5rem">not checked</span>}
           </p>
-          <p>
-            Typing them in is a small, careful job of copying from the law's own text. When it is
-            done, each group will show the district names exactly as the law writes them, next to the
-            IDs we match them to, so the match can be checked. Names in the law and names used by the
-            Agency do not always agree, and any name we cannot match will be listed, not dropped.
-          </p>
-        </details>
-      </div>
-    ) : (
-      <ul class="grid">
-        {doc.groupings.map((g) => (
-          <li class="card">
-            <h3 style="margin-top:0">
-              <a href={`${base}/groupings/${g.number}/`}>
-                {g.number}. {g.name}
-              </a>
-            </h3>
-            <p style="margin:.3rem 0 0;font-size:.9rem;color:var(--text-muted)">
-              {g.members.length} district(s)
-              {!g.verified && <span class="tag unverified" style="margin-left:.5rem">not checked</span>}
-            </p>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {committees.length > 0 && (
+    <>
+      <p style="font-size:.9rem;color:var(--text-muted)">
+        "Students" is the state's count of students who live in each district, averaged over two
+        years (ADM). The numbers are the ones printed on the list.
+      </p>
+
+      <h2>What changed from the law</h2>
+      {dissolved.length > 0 && (
+        <p>
+          <strong>
+            {dissolved.length === 1 ? 'Group ' : 'Groups '}
+            {andList(dissolved.map(String))} {dissolved.length === 1 ? 'is' : 'are'} gone.
+          </strong>{' '}
+          After some districts asked to leave, too few students were left to meet the law's
+          2,000-student floor. So the rest of the districts were sent to other groups. The other
+          groups kept their numbers from the law.
+        </p>
+      )}
+      {moves.length > 0 && (
+        <>
+          <p>These districts are now in a different group than the law put them in:</p>
+          <ul>
+            {moves.map((m) => (
+              <li>
+                <strong>{m.name}</strong> moved from{' '}
+                <a href={`${base}/groupings/${m.from_grouping}/`}>group {m.from_grouping}</a> to{' '}
+                <a href={`${base}/groupings/${m.to_grouping}/`}>group {m.to_grouping}</a>.
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {unlisted.map((u) => (
+        <p>
+          The law put <strong>{u.name}</strong> in group {u.from_grouping}. The new list does not name it.
+          {u.slug.startsWith('su/') && <span> It names the districts in it instead, so we do not count this as a move.</span>}
+        </p>
+      ))}
+    </>
+  )}
 
   <h2>Where this comes from</h2>
   <dl class="facts">
     <dt>Law</dt>
     <dd>{doc.act?.citation?.statute ?? '—'}</dd>
-    <dt>Checked against the law</dt>
+    <dt>Law's groups checked against the law</dt>
     <dd>
       {doc.act?.citation?.verified ? 'yes' : <span class="tag unverified">not checked yet</span>}
     </dd>
   </dl>
+  {sources.length > 0 && (
+    <ul style="font-size:.9rem">
+      {sources.map((s) => (
+        <li>
+          <a href={s.url}>{s.publisher}, "{s.title}"</a>, {longDate(s.published_date)}
+        </li>
+      ))}
+    </ul>
+  )}
+  {committees.length > 0 && (
+    <p style="font-size:.9rem;color:var(--text-muted)">
+      The first link is the {moved?.by}'s own press release with the full list. We got our copy from
+      The Chester Telegraph's website. The others are news reports from before we had the list.
+    </p>
+  )}
 </Base>

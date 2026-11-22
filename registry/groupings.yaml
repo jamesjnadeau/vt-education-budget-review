@@ -2,34 +2,29 @@ schema_version: "1.0"
 status: verified
 
 # ---------------------------------------------------------------------------
-# The Act 170 statutory district groupings.
+# The Act 170 statutory district groupings, and what the facilitators have
+# done to them since.
 #
-# `groupings` below is EMPTY, and that is a meaningful state rather than an
-# unfinished one. Empty means the act text has not been transcribed yet. It does
-# not mean the act contains no groupings -- it does, and they are the default
-# scenarios the modeling tool is built around.
+# Two lists live here, kept apart on purpose:
 #
-# They are not here because no API publishes them and the act text could not be
-# reached from the environment this file was drafted in (legislature.vermont.gov
-# fails TLS chain verification to automated clients). Transcribing twenty
-# groupings of district names from memory would be a fabrication in the exact
-# place where the tool is most load-bearing: a resident opening
-# /groupings/7/ is asking which districts the Legislature put them with, and a
-# wrong answer there is worse than no answer.
+#   `groupings`              The twenty groups as the act prints them,
+#                            transcribed and verified against the enacted PDF.
+#                            This is the law and does not change when a
+#                            facilitator moves a district.
+#   `reassignment.committees` The merger study committees as the Vermont
+#                            Learning Collaborative published them -- the
+#                            groups districts are actually meeting in.
 #
-# HOW TO FILL THIS IN
+# Which districts moved is read off by comparing the two. It is not written
+# down a third time.
 #
-#   1. Open the act text (see act.text_url) and find the section listing the
-#      groupings -- reported to be around page 43.
-#   2. For each grouping, record its number, a slug, its name, and the district
-#      names EXACTLY as the act writes them in `member_names_as_written`.
-#   3. Map each written name to a registry slug. Act names and AOE names do not
-#      always agree, which is why both are kept -- the mapping itself has to be
-#      auditable.
-#   4. Anything that will not map goes in `unmapped_members` rather than being
-#      dropped. A silently dropped district is a wrong scenario.
-#   5. Set `verified: true` with your name and the date, per grouping.
-#   6. When all twenty are verified, set the file's `status` to `verified`.
+# Mapping convention (both lists): a single-town "X School District" maps to
+# `town/x`. The registry has only one `sd/` record; every surviving town school
+# district is carried as a `town/` entity, and `operated_by` pointing at a union
+# district means the town is a member for some grades, not that its district is
+# gone. See [[adm-import-town-to-district-mapping]]. A modified union district
+# the source writes once (West River, Lamoille North) maps to both of its
+# registry records, A and B.
 #
 # `npm run validate` checks every slug here against the registry, so a typo in a
 # district name fails CI rather than producing an empty scenario on the site.
@@ -120,55 +115,29 @@ act:
 # ---------------------------------------------------------------------------
 # WHAT HAS HAPPENED TO THESE GROUPINGS SINCE THE ACT PASSED
 #
-# The act's groupings were never meant to be the last word: Act 170 lets the
-# merger-study facilitators change them. On 2026-09-18 they did. The Vermont
-# Learning Collaborative -- the agency the state hired to run the merger study
-# process -- announced that the state's 119 districts are now sorted into 18
-# committees rather than the act's 20, after 13 districts asked to be moved.
+# Act 170 lets the merger-study facilitators change the act's groupings. On
+# 2026-09-18 they did: the Vermont Learning Collaborative put the state's 119
+# districts into 18 committees rather than the act's 20, after 13 districts
+# asked to be moved. Groups 6 and 16 were left below the ~2,000-student floor by
+# those moves and were dissolved; their districts went to other committees.
+# The facilitators kept the act's numbers for the 18 that remain.
 #
-# THE ACT TEXT BELOW IS UNCHANGED, AND THAT IS DELIBERATE. `groupings` is a
-# transcription of the law, verified line by line against the enacted PDF. It
-# does not become wrong when a facilitator moves a district; it stops being the
-# whole story. So the new assignments are recorded here, beside it, instead of
-# being edited into it. Editing them in would destroy the one thing about this
-# file that is checkable -- that it says what the act says -- and would do it
-# while we hold only one of the thirteen moves.
+# The full list is in `committees` below, transcribed from the VLC's own press
+# release (intake/vlc-act170/). Two things to know about it:
 #
-# WHAT WE HAVE, AND WHAT WE DO NOT
+#   - It is the PRELIMINARY list. Boards could comment through 2026-09-23 and
+#     the facilitators aimed to finalize on 2026-09-25. We have not seen a
+#     final list or a report that one was issued, so `status` stays
+#     `announced_provisional`. When a final list is found, land it in intake/
+#     the same way, update `committees`, and set `status: final`.
+#   - Every committee is `verified: false`. The roster was transcribed by
+#     script from the PDF's text layer and spot-checked against its totals, not
+#     read line by line by a person. Set `verified: true` per committee once
+#     someone has.
 #
-# We have the fact of the change and two named moves: Harwood Union UUSD out of
-# the Barre/Montpelier group and in with Mount Mansfield and Champlain Valley,
-# and Windham School District out of group 6 and in with the group that includes
-# Londonderry (the second one pieced together from a law firm's newsletter, see
-# its note). That is it. The Vermont Learning Collaborative's own
-# committee-by-committee list has not been obtained -- the press release
-# announcing it is not reachable from here, no state page carries the rosters,
-# and the reporting names only these districts. The facilitators declined to say
-# which 13 districts asked to move.
-#
-# And the 13 are not the whole change. The facilitators also moved districts on
-# their own to keep groups near the act's ~2,000-student target
-# (`additional_adjustments: true`), and nobody has said how many. So the number
-# of moves we cannot see is AT LEAST thirteen minus what we hold, not exactly
-# that.
-#
-# So `roster_published` is false. While it is false, no page may show an act
-# grouping as the answer to "who am I studying a merger with?" without saying
-# that the groups have since been redrawn and we do not yet hold the new list.
-# Twelve moves we cannot see are twelve chances to tell a reader with total
-# confidence that they are in a room they are not in.
-#
-# TO FINISH THIS
-#
-#   1. Get the Vermont Learning Collaborative's committee list -- ask them
-#      directly (54 Main St., Suite 200, Windsor VT; 802-428-6789) or watch for
-#      an AOE posting. Land it in intake/vlc-act170/ with a provenance record,
-#      the way any other source document is landed.
-#   2. Record each committee's membership, and set `roster_published: true`
-#      only once the whole list is in -- not once most of it is.
-#   3. The groups were provisional when announced: comment closed 2026-09-23
-#      and the facilitators aimed to finalize on 2026-09-25. Get the final list,
-#      not the draft, and set `status: final` when it is the final one.
+# `known_changes` predates the list: it holds the two moves we had pieced
+# together from reporting before the list was obtained. Both are now confirmed
+# by the list itself, and they are kept for their sourcing history.
 # ---------------------------------------------------------------------------
 reassignment:
   by: "Vermont Learning Collaborative"
@@ -180,18 +149,33 @@ reassignment:
   comment_deadline: 2026-09-23
   finalize_target: 2026-09-25
   first_meeting_deadline: 2026-10-15
-  roster_published: false
+  roster_published: true
   additional_adjustments: true
   note: >-
     Announced as a starting point, not a final decision: school board leaders
     could comment through 2026-09-23, with the groups to be settled on
     2026-09-25. Committees must hold a first meeting by 2026-10-15 and report
     recommendations by September 2027; any merger goes to voters on Town Meeting
-    Day 2028. The Vermont Learning Collaborative press release that carries the
-    full committee list has not been obtained -- see intake/vlc-act170/.
-    As of 2026-09-27 we have seen no report that the groups were in fact
-    settled on 2026-09-25, so `status` stays provisional.
+    Day 2028. The full committee list below is from the Vermont Learning
+    Collaborative's own press release of 2026-09-18 (intake/vlc-act170/). It
+    is the preliminary list. As of 2026-11-22 we have seen no final list and no
+    report that the groups were in fact settled on 2026-09-25, so `status`
+    stays provisional.
   sources:
+    - publisher: "Vermont Learning Collaborative"
+      title: "Vermont Learning Collaborative Shares Preliminary Act 170 Merger Committee Groupings"
+      url: https://www.chestertelegraph.org/wp-content/uploads/2026/09/New-Groupings-as-of-9-18-26.pdf
+      published_date: 2026-09-18
+      retrieved_date: 2026-11-22
+      retrieved_by: "automated fetch by a Claude subagent; not read by a person"
+      quote: >-
+        "These groupings reflect a starting point, not a final decision."
+      note: >-
+        The facilitators' own press release, with the committee-by-committee
+        list and each district's two-year average ADM. Hosted by The Chester
+        Telegraph, not by the VLC; the copy and its checksum are in
+        intake/vlc-act170/. The authority for `committees` and for
+        `roster_published: true`.
     - publisher: VTDigger
       title: "School districts assigned to new merger discussion groups"
       url: https://vtdigger.org/2026/09/18/school-districts-assigned-to-new-merger-discussion-groups/
@@ -256,58 +240,657 @@ reassignment:
       from_grouping: 20
       to_grouping: 13
       to_grouping_as_reported: "with Mount Mansfield and Champlain Valley"
-      to_grouping_basis: inferred
+      to_grouping_basis: published
       verified: false
       note: >-
-        `to_grouping: 13` is our inference, not the facilitators' label. VTDigger
-        says Harwood goes in with Mount Mansfield UUSD; Downs Rachlin Martin
-        says it asked to study merger with Champlain Valley AND Mount Mansfield,
-        and that the new groups "accommodate that request". Those two districts
-        are exactly act group 13, so the match is a strong one. Whether
-        the new committee is act group 13 plus Harwood, or some larger regrouping
-        that also took other districts, is not stated anywhere we can read. The
-        new committees are not publicly numbered at all, and there are 18 of them
-        against the act's 20, so act numbers and committee numbers should not be
-        assumed to line up.
+        First pieced together from reporting: VTDigger said Harwood goes in
+        with Mount Mansfield UUSD, and Downs Rachlin Martin said it asked to
+        study merger with Champlain Valley and Mount Mansfield. The VLC's own
+        list (2026-09-18) now confirms it: Group Thirteen is Champlain Valley,
+        Harwood and Mount Mansfield.
     - district: town/windham
       district_name_as_written: "Windham School District"
       from_grouping: 6
       to_grouping: 3
       to_grouping_as_reported: "with the group that includes Londonderry"
-      to_grouping_basis: inferred
+      to_grouping_basis: published
       verified: false
       note: >-
-        Two inferences, both ours. (1) That the move happened: DRM reported
-        Windham's request on 2026-09-14, and on 2026-09-21 reported that all
-        thirteen requests were granted; no source says in so many words that
-        Windham moved. (2) That it went to act group 3: Londonderry is a member
-        town of Taconic and Green Regional School District
-        (ud/taconic-and-green-regional-63), which the act puts in group 3. If
-        the facilitators also redrew group 3, "the group that includes
-        Londonderry" may not look much like act group 3 any more.
+        First pieced together from a law firm's newsletter: DRM reported
+        Windham's request to join "the group that includes Londonderry"
+        (Londonderry is a member town of Taconic and Green, act group 3). The
+        VLC's own list (2026-09-18) now confirms it: Windham is in Group Three
+        with Taconic and Green.
 
-# ---------------------------------------------------------------------------
-# DRAFT mapping -- filled in from act.citation.quote, NOT yet verified against
-# the act PDF. Every `verified` is false and the file `status` stays `draft`.
-#
-# Mapping convention: a single-town "X School District" maps to `town/x`. The
-# registry has only one `sd/` record; every surviving town school district is
-# carried as a `town/` entity, and `operated_by` pointing at a union district
-# means the town is a member for some grades, not that its district is gone.
-# See [[adm-import-town-to-district-mapping]].
-#
-# Items flagged in `note` / `unmapped_members` need a human eye before verify:
-#   - Group 6:  "West River Modified Union Education District" -> registry
-#               splits into #72A and #72B; both mapped, confirm which apply.
-#   - Group 9:  act writes "Stafford School District" -- no such VT town;
-#               mapped to town/strafford (Strafford). Confirm the act spelling.
-#   - Group 10: "Waits River Valley Union School District 36" -> registry
-#               "Waits River Union High District #36" (same #36).
-#   - Group 12: "Jay"/"Westfield" mapped to town/jay + town/westfield; a joint
-#               sd/jay-westfield-joint-elementary also exists.
-#   - Group 15: "Lamoille North Modified Unified Union" -> registry splits into
-#               #058A and #058B; both mapped, confirm which apply.
-# ---------------------------------------------------------------------------
+  committees:
+    - number: 1
+      slug: committee-1
+      name: "Group 1"
+      name_as_written: "Group One"
+      region: "Champlain Valley South"
+      adm_total_as_published: 3248
+      note: "The release prints the committee total as 3,248, but the three district figures it lists add up to 3,748. The printed total is kept as printed."
+      verified: false
+      roster:
+        - name_as_written: "Addison Central School District"
+          maps_to: [ud/addison-central-55]
+          kind: district
+          adm_as_published: 1669
+        - name_as_written: "Addison Northwest School District"
+          maps_to: [ud/addison-northwest-54]
+          kind: district
+          adm_as_published: 889
+        - name_as_written: "Hannaford Regional Technical Center"
+          maps_to: [techcenter/patricia-hannaford-career-center]
+          kind: career_technical_center
+        - name_as_written: "Mount Abraham Unified School District"
+          maps_to: [ud/mt-abraham-61]
+          kind: district
+          adm_as_published: 1190
+    - number: 2
+      slug: committee-2
+      name: "Group 2"
+      name_as_written: "Group Two"
+      region: "Southwest"
+      adm_total_as_published: 6630
+      verified: false
+      roster:
+        - name_as_written: "Barstow Unified School District"
+          maps_to: [ud/barstow-49]
+          kind: district
+          adm_as_published: 265
+        - name_as_written: "Ira School District"
+          maps_to: [town/ira]
+          kind: district
+          adm_as_published: 43
+        - name_as_written: "Mill River Unified Union School District"
+          maps_to: [ud/mill-river-52]
+          kind: district
+          adm_as_published: 698
+        - name_as_written: "Otter Valley Unified Union School District"
+          maps_to: [ud/otter-valley-53]
+          kind: district
+          adm_as_published: 1158
+        - name_as_written: "Quarry Valley Unified Union School District"
+          maps_to: [ud/quarry-valley-70]
+          kind: district
+          adm_as_published: 990
+        - name_as_written: "Rutland City School District"
+          maps_to: [town/rutland-city]
+          kind: district
+          adm_as_published: 1716
+        - name_as_written: "Rutland Town School District"
+          maps_to: [town/rutland-town]
+          kind: district
+          adm_as_published: 540
+        - name_as_written: "Slate Valley Unified Union School District"
+          maps_to: [ud/slate-valley-62]
+          kind: district
+          adm_as_published: 1220
+    - number: 3
+      slug: committee-3
+      name: "Group 3"
+      name_as_written: "Group Three"
+      region: "Southwest"
+      adm_total_as_published: 2792
+      verified: false
+      roster:
+        - name_as_written: "Mettawee School District"
+          maps_to: [ud/mettawee-84]
+          kind: district
+          adm_as_published: 261
+        - name_as_written: "Readsboro School District"
+          maps_to: [town/readsboro]
+          kind: district
+          adm_as_published: 65
+        - name_as_written: "River Valleys Unified School"
+          maps_to: [ud/river-valleys-73]
+          kind: district
+          adm_as_published: 220
+        - name_as_written: "Searsburg School District"
+          maps_to: [town/searsburg]
+          kind: district
+          adm_as_published: 23
+        - name_as_written: "Somerset School District"
+          maps_to: [town/somerset]
+          kind: district
+          adm_as_published: 1
+        - name_as_written: "Southwest Vermont Technical Center"
+          maps_to: [techcenter/southwest-tech]
+          kind: career_technical_center
+        - name_as_written: "Stamford School District"
+          maps_to: [town/stamford]
+          kind: district
+          adm_as_published: 102
+        - name_as_written: "Stratton School District"
+          maps_to: [town/stratton]
+          kind: district
+          adm_as_published: 42
+        - name_as_written: "Taconic and Green Regional School District"
+          maps_to: [ud/taconic-and-green-regional-63]
+          kind: district
+          adm_as_published: 1599
+        - name_as_written: "Wells Spring Unified Union School District"
+          maps_to: [ud/wells-spring-69]
+          kind: district
+          adm_as_published: 255
+        - name_as_written: "Windham School District"
+          maps_to: [town/windham]
+          kind: district
+          adm_as_published: 24
+        - name_as_written: "Winhall School District"
+          maps_to: [town/winhall]
+          kind: district
+          adm_as_published: 200
+    - number: 4
+      slug: committee-4
+      name: "Group 4"
+      name_as_written: "Group Four"
+      region: "Southwest"
+      adm_total_as_published: 3218
+      verified: false
+      roster:
+        - name_as_written: "Arlington School District"
+          maps_to: [town/arlington]
+          kind: district
+          adm_as_published: 344
+        - name_as_written: "Mount Anthony Union High School District #14"
+          maps_to: [ud/mount-anthony-union-high-14]
+          kind: district
+          adm_as_published: 1351
+        - name_as_written: "North Bennington Graded School District"
+          maps_to: [town/north-bennington]
+          kind: district
+          adm_as_published: 159
+        - name_as_written: "Sandgate School District"
+          maps_to: [town/sandgate]
+          kind: district
+          adm_as_published: 68
+        - name_as_written: "Southwest Vermont Technical Center"
+          maps_to: [techcenter/southwest-tech]
+          kind: career_technical_center
+        - name_as_written: "Southwest Vermont Union Elementary School District"
+          maps_to: [ud/southwest-vermont-union-elementary-87]
+          kind: district
+          adm_as_published: 1296
+    - number: 5
+      slug: committee-5
+      name: "Group 5"
+      name_as_written: "Group Five"
+      region: "Southeast / VTLC"
+      adm_total_as_published: 3431
+      note: "The release lists West River once, as \"West River Modified Union Education District\", with one ADM figure; the registry carries it as two records, #72A and #72B, and both are mapped."
+      verified: false
+      roster:
+        - name_as_written: "Halifax School District"
+          maps_to: [town/halifax]
+          kind: district
+          adm_as_published: 94
+        - name_as_written: "Marlboro School District"
+          maps_to: [town/marlboro]
+          kind: district
+          adm_as_published: 105
+        - name_as_written: "Twin Valley Unified School District"
+          maps_to: [ud/twin-valley-75]
+          kind: district
+          adm_as_published: 372
+        - name_as_written: "Vernon Town School District"
+          maps_to: [town/vernon]
+          kind: district
+          adm_as_published: 297
+        - name_as_written: "West River Modified Union Education District"
+          maps_to: [ud/west-river-valley-union-education-district-a-72, ud/west-river-valley-union-education-district-b-72]
+          kind: district
+          adm_as_published: 442
+        - name_as_written: "Windham Southeast School District"
+          maps_to: [ud/windham-southeast-96]
+          kind: district
+          adm_as_published: 2121
+    - number: 7
+      slug: committee-7
+      name: "Group 7"
+      name_as_written: "Group Seven"
+      region: "Southeast / VTLC"
+      adm_total_as_published: 3087
+      verified: false
+      roster:
+        - name_as_written: "Athens Grafton School District"
+          maps_to: [ud/athens-grafton]
+          kind: district
+          adm_as_published: 47
+        - name_as_written: "Bellows Falls Union High School District"
+          maps_to: [ud/bellows-falls-union-high-27]
+          kind: district
+          adm_as_published: 310
+        - name_as_written: "Green Mountain Unified School District"
+          maps_to: [ud/green-mountain-77]
+          kind: district
+          adm_as_published: 593
+        - name_as_written: "Ludlow-Mount Holly Unified Union School District"
+          maps_to: [ud/ludlow-mt-holly-83]
+          kind: district
+          adm_as_published: 319
+        - name_as_written: "River Valley Technical Center"
+          maps_to: [techcenter/river-valley-technical-center]
+          kind: career_technical_center
+        - name_as_written: "Rockingham School District"
+          maps_to: [town/rockingham]
+          kind: district
+          adm_as_published: 443
+        - name_as_written: "Springfield School District"
+          maps_to: [town/springfield]
+          kind: district
+          adm_as_published: 1184
+        - name_as_written: "Westminster School District"
+          maps_to: [town/westminster]
+          kind: district
+          adm_as_published: 191
+    - number: 8
+      slug: committee-8
+      name: "Group 8"
+      name_as_written: "Group Eight"
+      region: "Southeast / VTLC"
+      adm_total_as_published: 3539
+      verified: false
+      roster:
+        - name_as_written: "Hartford School District"
+          maps_to: [town/hartford]
+          kind: district
+          adm_as_published: 1269
+        - name_as_written: "Hartland School District"
+          maps_to: [town/hartland]
+          kind: district
+          adm_as_published: 400
+        - name_as_written: "Mount Ascutney School District"
+          maps_to: [ud/mount-ascutney-86]
+          kind: district
+          adm_as_published: 554
+        - name_as_written: "Mountain Views School District"
+          maps_to: [ud/mountain-views]
+          kind: district
+          adm_as_published: 911
+        - name_as_written: "Pittsfield School District"
+          maps_to: [town/pittsfield]
+          kind: district
+          adm_as_published: 45
+        - name_as_written: "Weathersfield School District"
+          maps_to: [town/weathersfield]
+          kind: district
+          adm_as_published: 360
+    - number: 9
+      slug: committee-9
+      name: "Group 9"
+      name_as_written: "Group Nine"
+      region: "Winooski Valley"
+      adm_total_as_published: 2897
+      verified: false
+      roster:
+        - name_as_written: "Echo Valley Community School District"
+          maps_to: [ud/echo-valley-community-67]
+          kind: district
+          adm_as_published: 279
+        - name_as_written: "First Branch Unified School District"
+          maps_to: [ud/first-branch-82]
+          kind: district
+          adm_as_published: 339
+        - name_as_written: "Granville-Hancock Unified District"
+          maps_to: [ud/granville-hancock]
+          kind: district
+          adm_as_published: 95
+        - name_as_written: "Lincoln School District"
+          maps_to: [town/lincoln]
+          kind: district
+          adm_as_published: 192
+        - name_as_written: "Orange Southwest Unified Union School District"
+          maps_to: [ud/orange-southwest-59]
+          kind: district
+          adm_as_published: 806
+        - name_as_written: "Rochester-Stockbridge Unified District"
+          maps_to: [ud/rochester-stockbridge-81]
+          kind: district
+          adm_as_published: 176
+        - name_as_written: "Sharon School District"
+          maps_to: [town/sharon]
+          kind: district
+          adm_as_published: 272
+        - name_as_written: "Strafford School District"
+          maps_to: [town/strafford]
+          kind: district
+          adm_as_published: 167
+        - name_as_written: "White River Unified District"
+          maps_to: [ud/white-river-79]
+          kind: district
+          adm_as_published: 571
+    - number: 10
+      slug: committee-10
+      name: "Group 10"
+      name_as_written: "Group Ten"
+      region: "Northeast"
+      adm_total_as_published: 2312
+      verified: false
+      roster:
+        - name_as_written: "Blue Mountain Union School District"
+          maps_to: [ud/blue-mountain-21]
+          kind: district
+          adm_as_published: 384
+        - name_as_written: "Cabot School District"
+          maps_to: [town/cabot]
+          kind: district
+          adm_as_published: 163
+        - name_as_written: "Danville School District"
+          maps_to: [town/danville]
+          kind: district
+          adm_as_published: 289
+        - name_as_written: "Oxbow Unified Union School District"
+          maps_to: [ud/oxbow-91]
+          kind: district
+          adm_as_published: 613
+        - name_as_written: "Peacham School District"
+          maps_to: [town/peacham]
+          kind: district
+          adm_as_published: 106
+        - name_as_written: "Thetford Town School District"
+          maps_to: [town/thetford]
+          kind: district
+          adm_as_published: 360
+        - name_as_written: "Waits River Valley Union School District #36"
+          maps_to: [ud/waits-river-union-high-district-36]
+          kind: district
+          adm_as_published: 397
+    - number: 11
+      slug: committee-11
+      name: "Group 11"
+      name_as_written: "Group Eleven"
+      region: "Northeast"
+      adm_total_as_published: 3709
+      note: "Essex North Supervisory Union, which the act lists in group 11, is not on the release's list. Its operating districts, Canaan and NEK Choice, are both here, so this is read as the release naming districts rather than the supervisory union -- not as a move."
+      verified: false
+      roster:
+        - name_as_written: "Caledonia Cooperative School District"
+          maps_to: [ud/caledonia-cooperative-78]
+          kind: district
+          adm_as_published: 542
+        - name_as_written: "Canaan School District"
+          maps_to: [town/canaan]
+          kind: district
+          adm_as_published: 138
+        - name_as_written: "Kingdom East Unified Union School District"
+          maps_to: [ud/kingdom-east-64]
+          kind: district
+          adm_as_published: 1675
+        - name_as_written: "NEK Choice School District"
+          maps_to: [ud/northeast-kingdom-choice]
+          kind: district
+          adm_as_published: 326
+        - name_as_written: "St. Johnsbury School District"
+          maps_to: [town/st-johnsbury]
+          kind: district
+          adm_as_published: 1021
+        - name_as_written: "Stannard Town School District"
+          maps_to: [town/stannard]
+          kind: district
+          adm_as_published: 7
+    - number: 12
+      slug: committee-12
+      name: "Group 12"
+      name_as_written: "Group Twelve"
+      region: "Northeast"
+      adm_total_as_published: 3567
+      verified: false
+      roster:
+        - name_as_written: "Brighton School District"
+          maps_to: [town/brighton]
+          kind: district
+          adm_as_published: 122
+        - name_as_written: "Charleston School District"
+          maps_to: [town/charleston]
+          kind: district
+          adm_as_published: 116
+        - name_as_written: "Coventry School District"
+          maps_to: [town/coventry]
+          kind: district
+          adm_as_published: 164
+        - name_as_written: "Derby School District"
+          maps_to: [town/derby]
+          kind: district
+          adm_as_published: 365
+        - name_as_written: "Holland School District"
+          maps_to: [town/holland]
+          kind: district
+          adm_as_published: 61
+        - name_as_written: "Jay School District"
+          maps_to: [town/jay]
+          kind: district
+          adm_as_published: 44
+        - name_as_written: "Lake Region Union Elementary-Middle SD"
+          maps_to: [ud/lake-region-union-elementary-middle]
+          kind: district
+          adm_as_published: 666
+        - name_as_written: "Lake Region Union High School District"
+          maps_to: [ud/lake-region-union-high-24]
+          kind: district
+          adm_as_published: 321
+        - name_as_written: "Lowell School District"
+          maps_to: [town/lowell]
+          kind: district
+          adm_as_published: 87
+        - name_as_written: "Morgan School District"
+          maps_to: [town/morgan]
+          kind: district
+          adm_as_published: 44
+        - name_as_written: "Newport City School District"
+          maps_to: [town/newport-city]
+          kind: district
+          adm_as_published: 310
+        - name_as_written: "Newport Town School District"
+          maps_to: [town/newport-town]
+          kind: district
+          adm_as_published: 147
+        - name_as_written: "North Country Union High School District"
+          maps_to: [ud/north-country-union-high]
+          kind: district
+          adm_as_published: 678
+        - name_as_written: "North Country Union Junior High School Board"
+          maps_to: [ud/north-country-union-junior-high]
+          kind: district
+          adm_as_published: 213
+        - name_as_written: "Troy School District"
+          maps_to: [town/troy]
+          kind: district
+          adm_as_published: 190
+        - name_as_written: "Westfield School District"
+          maps_to: [town/westfield]
+          kind: district
+          adm_as_published: 39
+    - number: 13
+      slug: committee-13
+      name: "Group 13"
+      name_as_written: "Group Thirteen"
+      region: "Champlain Valley South"
+      adm_total_as_published: 8265
+      verified: false
+      roster:
+        - name_as_written: "Champlain Valley School District"
+          maps_to: [ud/champlain-valley-56]
+          kind: district
+          adm_as_published: 3951
+        - name_as_written: "Harwood Unified Union School District"
+          maps_to: [ud/harwood-60]
+          kind: district
+          adm_as_published: 1750
+        - name_as_written: "Mount Mansfield Unified Union School District"
+          maps_to: [ud/mount-mansfield-401]
+          kind: district
+          adm_as_published: 2564
+    - number: 14
+      slug: committee-14
+      name: "Group 14"
+      name_as_written: "Group Fourteen"
+      region: "Chittenden Central"
+      adm_total_as_published: 3528
+      verified: false
+      roster:
+        - name_as_written: "Essex Westford Educational Community Unified Union School District"
+          maps_to: [ud/essex-westford-educational-community-unified-union-sd-51]
+          kind: district
+          adm_as_published: 3528
+    - number: 15
+      slug: committee-15
+      name: "Group 15"
+      name_as_written: "Group Fifteen"
+      region: "Winooski Valley"
+      adm_total_as_published: 4190
+      note: "The release lists \"Lamoille North MUSD and Lamoille USD\" as one line with one ADM figure; the registry carries it as two records, #058A and #058B, and both are mapped."
+      verified: false
+      roster:
+        - name_as_written: "Cambridge School District"
+          maps_to: [town/cambridge]
+          kind: district
+          adm_as_published: 310
+        - name_as_written: "Craftsbury School District"
+          maps_to: [town/craftsbury]
+          kind: district
+          adm_as_published: 177
+        - name_as_written: "Elmore-Morristown Unified Union School District"
+          maps_to: [ud/elmore-morristown-90]
+          kind: district
+          adm_as_published: 762
+        - name_as_written: "Hazen Union School District"
+          maps_to: [ud/hazen-union-high-26]
+          kind: district
+          adm_as_published: 253
+        - name_as_written: "Lamoille North MUSD and Lamoille USD"
+          maps_to: [ud/lamoille-north-modified-a-058, ud/lamoille-north-modified-b-058]
+          kind: district
+          adm_as_published: 1434
+        - name_as_written: "Mountain View Union Elementary School District"
+          maps_to: [ud/mountain-view-union-elementary-94]
+          kind: district
+          adm_as_published: 305
+        - name_as_written: "Stowe School District"
+          maps_to: [town/stowe]
+          kind: district
+          adm_as_published: 726
+        - name_as_written: "Wolcott School District"
+          maps_to: [town/wolcott]
+          kind: district
+          adm_as_published: 223
+    - number: 17
+      slug: committee-17
+      name: "Group 17"
+      name_as_written: "Group Seventeen"
+      region: "Champlain Valley North"
+      adm_total_as_published: 8116
+      verified: false
+      roster:
+        - name_as_written: "Enosburg-Richford Unified Union School District"
+          maps_to: [ud/enosburgh-richford-88]
+          kind: district
+          adm_as_published: 854
+        - name_as_written: "Fairfax School District"
+          maps_to: [town/fairfax]
+          kind: district
+          adm_as_published: 908
+        - name_as_written: "Fletcher School District"
+          maps_to: [town/fletcher]
+          kind: district
+          adm_as_published: 195
+        - name_as_written: "Georgia School District"
+          maps_to: [town/georgia]
+          kind: district
+          adm_as_published: 829
+        - name_as_written: "Maple Run Unified School District"
+          maps_to: [ud/maple-run-57]
+          kind: district
+          adm_as_published: 2368
+        - name_as_written: "Missisquoi Valley School District"
+          maps_to: [ud/missisquoi-valley-89]
+          kind: district
+          adm_as_published: 1823
+        - name_as_written: "Northern Mountain Valley Unified Union School District"
+          maps_to: [ud/northern-mountain-valley-85]
+          kind: district
+          adm_as_published: 1139
+    - number: 18
+      slug: committee-18
+      name: "Group 18"
+      name_as_written: "Group Eighteen"
+      region: "Chittenden Central"
+      adm_total_as_published: 6682
+      verified: false
+      roster:
+        - name_as_written: "Burlington School District"
+          maps_to: [town/burlington]
+          kind: district
+          adm_as_published: 3385
+        - name_as_written: "South Burlington School District"
+          maps_to: [town/south-burlington]
+          kind: district
+          adm_as_published: 2512
+        - name_as_written: "Winooski ID"
+          maps_to: [town/winooski]
+          kind: district
+          adm_as_published: 785
+    - number: 19
+      slug: committee-19
+      name: "Group 19"
+      name_as_written: "Group Nineteen"
+      region: "Champlain Valley North"
+      adm_total_as_published: 4693
+      verified: false
+      roster:
+        - name_as_written: "Alburgh School District"
+          maps_to: [town/alburgh]
+          kind: district
+          adm_as_published: 283
+        - name_as_written: "Champlain Islands Unified Union School District"
+          maps_to: [ud/champlain-islands-66]
+          kind: district
+          adm_as_published: 392
+        - name_as_written: "Colchester School District"
+          maps_to: [town/colchester]
+          kind: district
+          adm_as_published: 2331
+        - name_as_written: "Milton Town School District"
+          maps_to: [town/milton]
+          kind: district
+          adm_as_published: 1465
+        - name_as_written: "South Hero School District"
+          maps_to: [town/south-hero]
+          kind: district
+          adm_as_published: 222
+    - number: 20
+      slug: committee-20
+      name: "Group 20"
+      name_as_written: "Group Twenty"
+      region: "Winooski Valley"
+      adm_total_as_published: 5925
+      verified: false
+      roster:
+        - name_as_written: "Barre Unified Union School District"
+          maps_to: [ud/barre-97]
+          kind: district
+          adm_as_published: 2127
+        - name_as_written: "Central Vermont Career Center"
+          maps_to: [techcenter/central-vermont-career-center]
+          kind: career_technical_center
+        - name_as_written: "Montpelier Roxbury School District"
+          maps_to: [ud/montpelier-roxbury-71]
+          kind: district
+          adm_as_published: 1187
+        - name_as_written: "Paine Mountain School District"
+          maps_to: [ud/paine-mountain-68]
+          kind: district
+          adm_as_published: 1008
+        - name_as_written: "Twinfield Unified School District"
+          maps_to: [ud/twinfield-33]
+          kind: district
+          adm_as_published: 304
+        - name_as_written: "Washington Central Unified Union School District"
+          maps_to: [ud/washington-central-92]
+          kind: district
+          adm_as_published: 1299
+
 groupings:
   - number: 1
     slug: group-1

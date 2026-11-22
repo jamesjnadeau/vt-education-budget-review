@@ -5,6 +5,14 @@ import {
   unseenIsFloor,
   settleDatePassedUnconfirmed,
   longDate,
+  committeeAdmSum,
+  committeeMoves,
+  committeeOf,
+  dissolvedGroups,
+  publishedCommittees,
+  unlistedActMembers,
+  whereMembersWent,
+  type Committee,
   type Reassignment,
   type KnownChange,
 } from './groupings.ts';
@@ -127,5 +135,72 @@ describe('longDate', () => {
 
   it('is empty for a missing date', () => {
     expect(longDate(null)).toBe('');
+  });
+});
+
+const committee = (number: number, roster: Committee['roster'], adm: number | null = null): Committee => ({
+  number,
+  slug: `committee-${number}`,
+  name: `Group ${number}`,
+  name_as_written: `Group ${number}`,
+  adm_total_as_published: adm,
+  roster,
+  verified: false,
+});
+const d = (name: string, maps_to: string[], adm: number | null = null) => ({
+  name_as_written: name,
+  maps_to,
+  kind: 'district' as const,
+  adm_as_published: adm,
+});
+
+// Act: 5 = {a}, 6 = {b, wr-a, wr-b}, 11 = {c, su/x}. Committees: 5 = {a, wr-a/b}, 3 = {b}, 11 = {c}.
+const acts = [
+  { number: 5, members: ['town/a'] },
+  { number: 6, members: ['town/b', 'ud/wr-a', 'ud/wr-b'] },
+  { number: 11, members: ['town/c', 'su/x'], member_names_as_written: ['C SD', 'X Supervisory Union'] },
+];
+const committees = [
+  committee(3, [d('B SD', ['town/b'])]),
+  committee(5, [d('A SD', ['town/a'], 10), d('West River', ['ud/wr-a', 'ud/wr-b'], 20), { name_as_written: 'Tech', maps_to: ['techcenter/t'], kind: 'career_technical_center' }], 31),
+  committee(11, [d('C SD', ['town/c'])]),
+];
+
+describe('committee helpers', () => {
+  it('reads moves off the committees, one per written name', () => {
+    expect(committeeMoves(acts, committees)).toEqual([
+      { districts: ['town/b'], name: 'B SD', from_grouping: 6, to_grouping: 3 },
+      { districts: ['ud/wr-a', 'ud/wr-b'], name: 'West River', from_grouping: 6, to_grouping: 5 },
+    ]);
+  });
+  it('finds dissolved act groups', () => {
+    expect(dissolvedGroups(acts, committees)).toEqual([6]);
+  });
+  it('lists act members on no committee, by the act name', () => {
+    expect(unlistedActMembers(acts, committees)).toEqual([{ slug: 'su/x', name: 'X Supervisory Union', from_grouping: 11 }]);
+  });
+  it('sums district ADM and ignores tech centers', () => {
+    expect(committeeAdmSum(committees[1]!)).toBe(30);
+    expect(committeeAdmSum(committees[0]!)).toBeNull();
+  });
+  it('finds a district\'s committee', () => {
+    expect(committeeOf(committees, 'ud/wr-b')?.number).toBe(5);
+    expect(committeeOf(committees, 'techcenter/t')).toBeNull();
+  });
+  it('uses committees only once the roster is published', () => {
+    expect(publishedCommittees(reassignment({ committees }))).toEqual([]);
+    expect(publishedCommittees(reassignment({ roster_published: true, committees })).map((c) => c.number)).toEqual([3, 5, 11]);
+    expect(committeeMoves(acts, [])).toEqual([]);
+  });
+});
+
+describe('whereMembersWent', () => {
+  it('names each district from the committee roster, once per written name', () => {
+    // Act names deliberately short by one, as in act group 6: index pairing would drift.
+    const g6 = { number: 6, members: ['town/b', 'ud/wr-a', 'ud/wr-b'], member_names_as_written: ['B', 'West River'] };
+    expect(whereMembersWent(g6, committees).map((w) => [w.name, w.committee?.number])).toEqual([
+      ['B SD', 3],
+      ['West River', 5],
+    ]);
   });
 });

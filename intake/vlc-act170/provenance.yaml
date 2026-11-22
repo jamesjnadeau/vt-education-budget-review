@@ -1,0 +1,22 @@
+schema_version: "1.0"
+entity: source/vlc-act170
+fiscal_year: 2027
+artifacts:
+  - file: New-Groupings-as-of-9-18-26.pdf
+    source_url: https://www.chestertelegraph.org/wp-content/uploads/2026/09/New-Groupings-as-of-9-18-26.pdf
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 7821e995d67fc5605d45337f42700c8f4cfa41a4fc96cb09f47774c362cbcbc8
+    bytes: 149743
+    media_type: application/pdf
+    retrieved_by: "automated fetch by a Claude subagent, at James Nadeau's request"
+    document_type: other
+    note: >-
+      Vermont Learning Collaborative press release of 2026-09-18, "Vermont
+      Learning Collaborative Shares Preliminary Act 170 Merger Committee
+      Groupings": the 18 preliminary merger study committees, each district's
+      latest two-year average ADM, and the Act 170 milestone dates. Four pages.
+      Hosted by The Chester Telegraph, not by the VLC; the file carries the VLC
+      letterhead on every page. Fiscal year 2027 is the school year the
+      committees were formed in. This is the PRELIMINARY list -- the VLC aimed
+      to finalize by 2026-09-25, and no final list has been landed here.

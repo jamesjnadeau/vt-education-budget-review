@@ -32,6 +32,7 @@ import type { Act84Record } from '../aoe/act84/record.ts';
 import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
 import { buildCombinerData, type CombinerInputs } from '../combiner-data.ts';
+import { operativeGroupings, type GroupingsDoc } from '../committees.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
 import { buildHomesteadComparison } from '../homestead-comparison.ts';
@@ -130,7 +131,9 @@ function main(): number {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
   }
   writeJson(join(PATHS.siteGenerated, 'groupings.json'), groupings);
-  const groupingList = (groupings as { groupings?: GroupingInput[] }).groupings ?? [];
+  // The committees the facilitators published, once their roster is in;
+  // otherwise the act's groupings. See tools/src/committees.ts.
+  const groupingList: GroupingInput[] = operativeGroupings(groupings as GroupingsDoc);
 
   // --- coverage ------------------------------------------------------------
   const coverage = buildCoverage(registry, { today });

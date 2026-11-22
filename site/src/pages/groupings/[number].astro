@@ -4,7 +4,16 @@ import groupingsDoc from '../../generated/groupings.json';
 import groupingBudgets from '../../generated/grouping-budgets.json';
 import { createContext, runScenario, defaultAssumptions, formatValue } from '@vt-budget/model';
 import type { DistrictBudget } from '@vt-budget/model';
-import { changesTouching, longDate, settleDatePassedUnconfirmed, unseenChangeCount, unseenIsFloor, type Reassignment } from '../../lib/groupings.ts';
+import {
+  committeeAdmSum,
+  committeeMoves,
+  longDate,
+  publishedCommittees,
+  unlistedActMembers,
+  whereMembersWent,
+  type Committee,
+  type Reassignment,
+} from '../../lib/groupings.ts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -13,6 +22,7 @@ interface Grouping {
   slug: string;
   name: string;
   members: string[];
+  member_names_as_written?: string[];
   verified: boolean;
 }
 interface GroupingBudgetMember {
@@ -44,12 +54,20 @@ const budgetsByNumber = new Map(
   (groupingBudgets as GroupingBudgets[]).map((g) => [g.number, g]),
 );
 
+// One page per act group number. The committees kept the act's numbers, so a
+// committee shares its page with the act group of the same number; an act group
+// with no committee (dissolved) still gets a page saying where its districts went.
 export function getStaticPaths() {
   const source = groupingsDoc as { groupings: Grouping[] };
   return source.groupings.map((g) => ({ params: { number: String(g.number) }, props: { grouping: g } }));
 }
 
 const { grouping } = Astro.props as { grouping: Grouping };
+const moved = doc.reassignment ?? null;
+const committees = publishedCommittees(moved);
+const committee: Committee | null = committees.find((c) => c.number === grouping.number) ?? null;
+const dissolved = committees.length > 0 && committee === null;
+const title = committee?.name ?? grouping.name;
 const budgets = budgetsByNumber.get(grouping.number) ?? {
   number: grouping.number,
   slug: grouping.slug,
@@ -84,18 +102,22 @@ if (computable) {
   });
 }
 
-// This group as the law wrote it is not necessarily this group as it now
-// meets: the state's guides redrew the groups on 2026-09-18 and have not
-// published the new lists. `touching` is the moves we have a source for; the
-// rest of the group's membership we simply cannot check.
-const moved = doc.reassignment ?? null;
-const touching = changesTouching(moved, grouping.number);
-const unseen = unseenChangeCount(moved);
-const movedOut = touching.filter((c) => c.from_grouping === grouping.number);
-const movedIn = touching.filter((c) => c.to_grouping === grouping.number);
-const unseenFloor = unseenIsFloor(moved);
-const movedSources = moved?.sources ?? [];
-const settleUnconfirmed = settleDatePassedUnconfirmed(moved, new Date().toISOString().slice(0, 10));
+// What changed against the act's group, read off the committees.
+const allMoves = committeeMoves(doc.groupings, committees);
+const movedIn = allMoves.filter((m) => m.to_grouping === grouping.number);
+const movedOut = allMoves.filter((m) => m.from_grouping === grouping.number);
+const unlistedHere = unlistedActMembers(doc.groupings, committees).filter((u) => u.from_grouping === grouping.number);
+const techCenters = committee?.roster.filter((l) => l.kind === 'career_technical_center') ?? [];
+const rosterDistricts = committee?.roster.filter((l) => l.kind === 'district') ?? [];
+const admSum = committee ? committeeAdmSum(committee) : null;
+const admMismatch =
+  committee?.adm_total_as_published != null && admSum !== null && admSum !== committee.adm_total_as_published;
+const listSource = moved?.sources.find((s) => s.publisher === moved.by) ?? null;
+const fmt = (n: number) => n.toLocaleString('en-US');
+// Where each of a dissolved group's districts went, by the act's names.
+const wentTo = dissolved
+  ? whereMembersWent(grouping, committees).map((w) => ({ name: w.name, to: w.committee }))
+  : [];
 
 const gaps = budgets.members.filter((m) => !m.budget || m.budget.education_spending === null);
 // Pupils are AOE's count: long-term weighted ADM from FY2025 (a weighted count,
@@ -117,99 +139,122 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
     : 'partial';
 ---
 
-<Base title={`${grouping.name} — Vermont School Budgets`}>
-  <p><a href={`${base}/groupings/`}>← All Act 170 groups</a></p>
-  <h1>{grouping.name}</h1>
-  <p class="lede">
-    The districts {doc.act?.name ?? 'Act 170'} groups together, run individually and combined.
-    A grouping is a what-if the Legislature already named — this page runs it.
-    {!grouping.verified && <span class="tag unverified" style="margin-left:.5rem">membership not checked</span>}
-  </p>
+<Base title={`${title} — Vermont School Budgets`}>
+  <p><a href={`${base}/groupings/`}>← All merger study groups</a></p>
+  <h1>{title}</h1>
 
-  {moved && !moved.roster_published && (
-    <div class="notice blocking">
-      <strong>
-        {movedOut.length > 0 || movedIn.length > 0
-          ? 'This group has changed since the law passed'
-          : 'These may no longer be the districts in this group'}
-      </strong>
-      <details class="notice-more">
-        <summary>show more information</summary>
-        <p>
-          On {longDate(moved.as_of)} the {moved.by}, which runs the merger talks for the state, put
-          Vermont's districts into {moved.committee_count ?? 'fewer'} groups instead of the law's
-          {' '}{doc.groupings.length}. {moved.requests_granted ?? 'Several'} districts had asked to move.
-          {unseenFloor && <span> The guides moved some others too, to keep groups near 2,000 students.</span>}
-          {' '}The law lets them do this. They have not published the new lists.
-        </p>
-        {movedOut.map((c) => (
-          <p>
-            <strong>{c.district_name_as_written ?? c.district} has left this group.</strong>
-            {c.to_grouping_as_reported && <span> It asked to go in {c.to_grouping_as_reported}</span>}
-            {c.to_grouping !== null && (
-              <span>
-                {' '}— by our reading, <a href={`${base}/groupings/${c.to_grouping}/`}>group {c.to_grouping}</a>
-              </span>
-            )}. It is still counted in the tables below, because those tables are the law's text.
-          </p>
+  {dissolved ? (
+    <>
+      <p class="lede">
+        {doc.act?.name ?? 'Act 170'} put these districts together as group {grouping.number}. On
+        {' '}{longDate(moved?.as_of)} the {moved?.by} split this group up. After some districts asked
+        to leave, too few students were left to meet the law's 2,000-student floor, so every district
+        went to another group.
+      </p>
+      <h2>Where each district went</h2>
+      <ul>
+        {wentTo.map((w) => (
+          <li>
+            <strong>{w.name}</strong>{' '}
+            {w.to ? (
+              <>is now in <a href={`${base}/groupings/${w.to.number}/`}>{w.to.name}</a>.</>
+            ) : (
+              <>is not on the new list.</>
+            )}
+          </li>
         ))}
-        {movedIn.map((c) => (
-          <p>
-            <strong>{c.district_name_as_written ?? c.district} is joining this group.</strong>
-            {c.from_grouping !== null && (
-              <span> It moved over from <a href={`${base}/groupings/${c.from_grouping}/`}>group {c.from_grouping}</a>.</span>
-            )}
-            {' '}It is <strong>not</strong> in the tables below, and any combined total on this page
-            leaves it out.
-            {c.to_grouping_basis === 'inferred' && (
-              <span> The guides did not number the new groups; matching this move to this group is
-              our reading, and it could be wrong.</span>
-            )}
-          </p>
-        ))}
-        {movedOut.length === 0 && movedIn.length === 0 && (
-          <p>
-            We have no report of a district moving in or out of this group. That is not the same as
-            nothing happening.
-            {unseen !== null && unseen > 0 && (
-              <span> {unseenFloor ? 'At least ' : ''}{unseen} of the moves have not been made public,
-              and any of them could be here.</span>
-            )}
-            {' '}Treat this page as the law's group, not as a roster of who will be in the room.
-          </p>
-        )}
-        {(movedOut.length > 0 || movedIn.length > 0) && unseen !== null && unseen > 0 && (
-          <p>
-            That may not be the only change. {unseenFloor ? 'At least ' : ''}{unseen} other moves have
-            not been made public, and some of them could be here too.
-          </p>
-        )}
-        {moved.status === 'announced_provisional' && (
-          <p>
-            The new groups were a starting point, not a decision: comments were open until
-            {' '}{longDate(moved.comment_deadline)} and the guides aimed to settle them on
-            {' '}{longDate(moved.finalize_target)}.
-            {settleUnconfirmed && <span> We have not seen a report that they did.</span>}
-          </p>
-        )}
-        {movedSources.length > 0 && (
-          <p style="font-size:.9rem">
-            Where this comes from:{' '}
-            {movedSources.map((src, i) => (
-              <>
-                {i > 0 && '; '}
-                <a href={src.url}>{src.publisher}, "{src.title}"</a>, {longDate(src.published_date)}
-              </>
+      </ul>
+    </>
+  ) : committee ? (
+    <>
+      <p class="lede">
+        The districts in this merger study group, run one by one and added together.
+        {committee.region && <span> Region: {committee.region}.</span>}
+        {!committee.verified && <span class="tag unverified" style="margin-left:.5rem">list not checked</span>}
+      </p>
+      <p style="font-size:.9rem;color:var(--text-muted)">
+        From the {moved?.by}'s first list, {longDate(moved?.as_of)}. It may still change.
+        {' '}<a href={`${base}/groupings/`}>More about the list</a>.
+      </p>
+
+      <h2>Who is in this group</h2>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th scope="col">District</th><th scope="col">Students (ADM)</th></tr>
+          </thead>
+          <tbody>
+            {rosterDistricts.map((l) => (
+              <tr>
+                <th scope="row">{l.name_as_written}</th>
+                <td>{l.adm_as_published != null ? fmt(l.adm_as_published) : '—'}</td>
+              </tr>
             ))}
-            {' '}— reports about the announcement, not the announcement itself.
-            {' '}<a href={`${base}/groupings/`}>More on what changed</a>.
-          </p>
-        )}
-      </details>
-    </div>
+            {committee.adm_total_as_published != null && (
+              <tr>
+                <th scope="row">Total, as printed</th>
+                <td>{fmt(committee.adm_total_as_published)}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      {admMismatch && admSum !== null && (
+        <p>
+          The list prints this group's total as {fmt(committee.adm_total_as_published!)}. But its
+          districts add up to {fmt(admSum)}. We show both numbers just as they were printed.
+        </p>
+      )}
+      {techCenters.length > 0 && (
+        <p>
+          Also in this group: {techCenters.map((t) => t.name_as_written).join(', ')}. A tech center
+          is not a school district, so it has no student count and is not in the totals.
+        </p>
+      )}
+      <p style="font-size:.9rem;color:var(--text-muted)">
+        "Students" is the state's count of students who live in the district, averaged over two years.
+      </p>
+
+      {(movedIn.length > 0 || movedOut.length > 0 || unlistedHere.length > 0) && (
+        <>
+          <h2>What changed from the law</h2>
+          <ul>
+            {movedIn.map((m) => (
+              <li>
+                <strong>{m.name}</strong> joined from{' '}
+                <a href={`${base}/groupings/${m.from_grouping}/`}>group {m.from_grouping}</a>.
+              </li>
+            ))}
+            {movedOut.map((m) => (
+              <li>
+                <strong>{m.name}</strong> left for{' '}
+                <a href={`${base}/groupings/${m.to_grouping}/`}>group {m.to_grouping}</a>.
+              </li>
+            ))}
+            {unlistedHere.map((u) => (
+              <li>
+                The law named <strong>{u.name}</strong> here. The new list does not.
+                {u.slug.startsWith('su/') && <span> It names the districts in it instead.</span>}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {movedIn.length === 0 && movedOut.length === 0 && unlistedHere.length === 0 && (
+        <p>This group has the same districts the law gave it.</p>
+      )}
+
+      <h2>Budgets</h2>
+    </>
+  ) : (
+    <p class="lede">
+      The districts {doc.act?.name ?? 'Act 170'} groups together, run individually and combined.
+      A grouping is a what-if the Legislature already named — this page runs it.
+      {!grouping.verified && <span class="tag unverified" style="margin-left:.5rem">membership not checked</span>}
+    </p>
   )}
 
-  {state === 'computed' && result && (
+  {!dissolved && state === 'computed' && result && (
     <>
       <h2>Run individually</h2>
       <div class="scroll-x">
@@ -307,7 +352,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
     </>
   )}
 
-  {state === 'partial' && (
+  {!dissolved && state === 'partial' && (
     <>
       <h2>Run individually (partial)</h2>
       <div class="scroll-x">
@@ -341,7 +386,7 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
     </>
   )}
 
-  {state === 'recruitment' && (
+  {!dissolved && state === 'recruitment' && (
     <div class="notice blocking">
       <strong>No member budgets held for this group yet</strong>
       <details class="notice-more">
@@ -358,5 +403,11 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
   <dl class="facts">
     <dt>Law</dt>
     <dd>{doc.act?.citation?.statute ?? '—'}</dd>
+    {listSource && committees.length > 0 && (
+      <>
+        <dt>Group list</dt>
+        <dd><a href={listSource.url}>{listSource.publisher}, "{listSource.title}"</a>, {longDate(listSource.published_date)}</dd>
+      </>
+    )}
   </dl>
 </Base>

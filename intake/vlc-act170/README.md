@@ -1,86 +1,45 @@
 # Vermont Learning Collaborative: Act 170 merger study committees
 
-**This directory is deliberately empty of the document it is named for.**
-
 The Vermont Learning Collaborative (VLC) is the educational services agency the state hired to
 run the Act 170 merger study process. Act 170 printed twenty district groupings and let the
-facilitators change them. On **2026-09-18** the VLC announced that they had: Vermont's **119
-school districts** are now sorted into **18 committees**, after **13 districts** asked to be
-moved and were.
+facilitators change them. On **2026-09-18** the VLC did: Vermont's **119 school districts** are
+now sorted into **18 committees**, after **13 districts** asked to be moved.
 
-That announcement is the authority for `reassignment` in
-[`registry/groupings.yaml`](../../registry/groupings.yaml), and we do not have it.
-
-## What belongs here
+## What is here
 
 | | |
 |---|---|
-| Artifact | The VLC press release of 2026-09-18 announcing the new committees, **and the committee-by-committee membership list it refers to** |
-| Publisher | Vermont Learning Collaborative, 54 Main St., Suite 200, Windsor VT 05089 — 802-428-6789 |
-| Lead facilitator | Dave Younce |
-| Status when announced | A starting point, not a decision. Comment closed 2026-09-23; the VLC aimed to settle the groups 2026-09-25. Get the settled list, not the draft. |
-| Statutory deadlines it sits inside | Committees appoint members by 2026-09-15, first meet by 2026-10-15, report by September 2027, voters decide Town Meeting Day 2028 |
+| File | [`New-Groupings-as-of-9-18-26.pdf`](New-Groupings-as-of-9-18-26.pdf) — see [`provenance.yaml`](provenance.yaml) |
+| What it is | The VLC press release of 2026-09-18, "Vermont Learning Collaborative Shares Preliminary Act 170 Merger Committee Groupings" |
+| Where it came from | Hosted by The Chester Telegraph, not by the VLC. The copy carries VLC letterhead on every page. |
+| What it holds | All 18 committees with their region, member districts, each district's latest two-year average ADM from AOE, and a committee total. Career and technical centers are listed on four committees without an ADM. Plus the milestone dates. |
+| Publisher | Vermont Learning Collaborative, 54 Main St., Suite 200, Windsor VT 05089 — 802-428-6789. Lead facilitator Dave Younce. |
 
-## Why it is not here
+It is transcribed into `reassignment.committees` in
+[`registry/groupings.yaml`](../../registry/groupings.yaml), which is why
+`reassignment.roster_published` is now **true**.
 
-No state page carries the rosters. `education.vermont.gov`'s education transformation page
-still describes the act's twenty groupings and links no committee list. The VLC's own site was
-not reachable when this was written. The release was distributed to press rather than posted
-somewhere fetchable, and the reporting on it does not print the rosters.
+## What the list says, in short
 
-**Ask the VLC for the list directly.** When it arrives, drop it in beside this file exactly as
-released, write a `provenance.yaml` recording the source URL or how it was obtained, the
-retrieval date and method, the SHA-256 and who fetched it — the pattern to copy is
-[`intake/aoe-adm/fy2024/provenance.yaml`](../aoe-adm/fy2024/provenance.yaml) — then transcribe
-the committees into `registry/groupings.yaml` and set `reassignment.roster_published: true`.
+- The facilitators kept the act's group numbers. Groups **6** and **16** were dissolved — board
+  requests left them below Act 170's ~2,000-student floor — and their districts were reassigned.
+- 22 registry records changed group (counting West River's #72A/#72B as two). The site derives
+  the moves by comparing the committees with the act; they are not written down separately.
+- Essex North Supervisory Union, which the act lists in group 11, is not on the list. Its
+  operating districts (Canaan, NEK Choice) are in Group Eleven, so this reads as the release
+  naming districts rather than the SU — not a move.
 
-## Leads, as of 2026-09-27
+## What to be careful of
 
-- **The list exists and went to reporters.** VTDigger's 2026-09-18 story says four districts
-  "appear to be in Franklin County, based on the list of new committees" — so the reporter had
-  the list. It just was not printed. Asking VTDigger (Charlotte Oliver) is a second route.
-- **The Caledonian Record may have printed it.** Its story "Vermont Learning Collaborative
-  Announces Preliminary Merger Study Groupings" is behind a paywall (HTTP 402 to an automated
-  fetch). A person with a subscription should read it:
-  <https://www.caledonianrecord.com/news/local/vermont-learning-collaborative-announces-preliminary-merger-study-groupings/article_ce4d86d3-12ae-56c9-96cd-78b77b7d8b73.html>
-- **It was meant to be final by 2026-09-25.** No report yet says it was. Committees must meet by
-  2026-10-15, so first-meeting agendas posted by supervisory unions will start naming who is in
-  each room. Those are primary sources for single committees even before the full list lands.
-
-## What we have instead, and what it is worth
-
-One news report:
-
-> VTDigger, "School districts assigned to new merger discussion groups", 2026-09-18.
-> <https://vtdigger.org/2026/09/18/school-districts-assigned-to-new-merger-discussion-groups/>
-
-It is good for the shape of the change — the counts, the dates, the fact that the groups moved
-at all — and those are recorded from it. It is not a roster. It names **one** of the thirteen
-moves: Harwood Union UUSD out of the Barre/Montpelier group, in with Mount Mansfield UUSD.
-Younce declined to say which thirteen districts asked to move.
-
-Two law firm newsletters from Downs Rachlin Martin add a little:
-
-> "Vermont School Consolidation: Progress Update 09.14.2026" and "… 09.21.2026".
-> <https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-14-2026/>
-> <https://www.drm.com/articles/vermont-school-consolidation-progress-update-09-21-2026/>
-
-The first, written before the announcement, names what three districts asked for: Harwood (to
-study with Champlain Valley and Mount Mansfield — exactly act group 13), Windham (to join "the
-group containing Londonderry") and Readsboro (a group that keeps high-school choice, no
-destination named). The second says all thirteen requests were granted **and that the
-facilitators made further moves of their own** to keep groups near 2,000 students. That is how
-Windham got into `known_changes`, and why `additional_adjustments` is true: thirteen is a floor
-on the number of moves, not the number.
-
-## Why the missing twelve matter more than they look
-
-A grouping page answers "which districts am I about to spend a year studying a merger with?" We
-can now say with certainty that the answer we hold is wrong for at least one district, and we
-cannot say which of the other nineteen groups changed. That is a materially different state from
-before the announcement, and it is worse than it looks: a page that quietly kept showing the
-act's group would be confidently wrong for twelve districts we cannot name.
-
-So `reassignment.roster_published` stays **false**, every grouping page carries the warning, and
-`known_changes` holds exactly the moves that have a source — two, as of 2026-09-27. Landing the VLC's list is what
-lifts that — not deleting the warning.
+- **It is the preliminary list.** Boards could comment 2026-09-18 to 2026-09-23 and the VLC aimed
+  to finalize on 2026-09-25, saying updates would be shared "through the same channels". We have
+  not seen a final list. If one turns up, land it here beside this one (with `supersedes` in its
+  provenance entry), update `committees`, and set `reassignment.status: final`.
+- **Not yet checked by a person.** The rosters were transcribed by script from the PDF's text
+  layer. Every committee's ADM figures add up to its printed total except Group One: it prints
+  3,248, but its three districts (1,669 + 889 + 1,190) add to 3,748. The printed figure is kept
+  and flagged. Each committee stays `verified: false` until someone reads it off the PDF.
+- **Names do not always match the act's.** The mapping to registry slugs reuses the act's
+  verified matches where the names agree; the rest are mapped by hand (for example "Waits River
+  Valley Union School District #36", "Lamoille North MUSD and Lamoille USD"). Each roster line
+  keeps the name exactly as written beside its slug.
