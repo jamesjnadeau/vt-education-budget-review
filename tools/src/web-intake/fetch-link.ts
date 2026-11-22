@@ -43,7 +43,12 @@ const V4_PRIVATE: [string, number][] = [
   ['127.0.0.0', 8],
   ['169.254.0.0', 16],
   ['172.16.0.0', 12],
+  ['192.0.0.0', 24], // IETF protocol assignments
+  ['192.0.2.0', 24], // TEST-NET-1
   ['192.168.0.0', 16],
+  ['198.18.0.0', 15], // benchmarking
+  ['198.51.100.0', 24], // TEST-NET-2
+  ['203.0.113.0', 24], // TEST-NET-3
   ['224.0.0.0', 4],
   ['240.0.0.0', 4],
 ];
@@ -83,17 +88,28 @@ function expandV6(ip: string): number[] | null {
   return out.length === 8 && out.every((g) => !Number.isNaN(g)) ? out : null;
 }
 
+const v4Of = (hi: number, lo: number): string => `${hi >> 8}.${hi & 255}.${lo >> 8}.${lo & 255}`;
+
 function isPrivateV6(ip: string): boolean {
   const g = expandV6(ip);
   if (!g) return true;
-  const [g0 = 0, , , , , g5 = 0, g6 = 0, g7 = 0] = g;
-  if (g.every((x) => x === 0)) return true; // ::
-  if (g.slice(0, 7).every((x) => x === 0) && g[7] === 1) return true; // ::1
-  if ((g0 & 0xfe00) === 0xfc00) return true; // fc00::/7
-  if ((g0 & 0xffc0) === 0xfe80) return true; // fe80::/10
-  if (g.slice(0, 5).every((x) => x === 0) && g5 === 0xffff) {
-    return isPrivateV4(`${g6 >> 8}.${g6 & 255}.${g7 >> 8}.${g7 & 255}`);
+  const [g0 = 0, g1 = 0, g2 = 0, g3 = 0, g4 = 0, g5 = 0, g6 = 0, g7 = 0] = g;
+  const zeroTo = (n: number): boolean => g.slice(0, n).every((x) => x === 0);
+  if (zeroTo(7) && (g7 === 0 || g7 === 1)) return true; // :: and ::1
+  if ((g0 & 0xfe00) === 0xfc00) return true; // fc00::/7 unique local
+  if ((g0 & 0xffc0) === 0xfe80) return true; // fe80::/10 link-local
+  if ((g0 & 0xffc0) === 0xfec0) return true; // fec0::/10 deprecated site-local
+  if ((g0 & 0xff00) === 0xff00) return true; // ff00::/8 multicast
+  if (zeroTo(5) && g5 === 0xffff) return isPrivateV4(v4Of(g6, g7)); // ::ffff:0:0/96 mapped
+  if (zeroTo(6)) return true; // ::/96 deprecated IPv4-compatible
+  if (g0 === 0x64 && g1 === 0xff9b) {
+    // 64:ff9b::/96 NAT64 embeds a v4 address; 64:ff9b:1::/48 is local-use.
+    if (g2 === 0 && g3 === 0 && g4 === 0 && g5 === 0) return isPrivateV4(v4Of(g6, g7));
+    return true;
   }
+  if (g0 === 0x2002) return isPrivateV4(v4Of(g1, g2)); // 6to4 embeds a v4 address
+  if (g0 === 0x2001 && (g1 === 0 || g1 === 0x0db8)) return true; // Teredo, documentation
+  if (g0 === 0x0100 && g1 === 0 && g2 === 0 && g3 === 0) return true; // 100::/64 discard
   return false;
 }
 
