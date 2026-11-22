@@ -29,7 +29,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { stringify as stringifyYaml } from 'yaml';
+import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 
 import { joinToRegistry, parseGazetteer } from '../census/gazetteer.ts';
 import { parsePep } from '../census/pep.ts';
@@ -222,6 +222,22 @@ async function main(): Promise<number> {
       }),
       'utf8',
     );
+  }
+  // The API series are not held in intake/ (only the Gazetteer and the PEP file
+  // are), so a --from-intake rebuild would silently drop them. Carry them over
+  // from the existing warehouse record instead of erasing them.
+  if (fromIntake && existsSync(WAREHOUSE_FILE)) {
+    const prior = parseYaml(readFileSync(WAREHOUSE_FILE, 'utf8')) as {
+      towns?: Array<{ geoid: string; population?: Record<string, number | null> }>;
+    };
+    for (const series of ['decennial_2020', 'acs_5yr']) {
+      const carried = new Map<string, number>();
+      for (const t of prior.towns ?? []) {
+        const v = t.population?.[series];
+        if (typeof v === 'number') carried.set(t.geoid, v);
+      }
+      if (carried.size > 0) populations.set(series, carried);
+    }
   }
   const pep = pepRaw ? parsePep(pepRaw.toString('utf8'), PEP_YEAR) : null;
   if (pep) populations.set(PEP_SERIES, pep.byGeoid as Map<string, number>);

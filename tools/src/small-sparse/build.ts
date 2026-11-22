@@ -129,9 +129,15 @@ function readYaml<T>(path: string): T | null {
 }
 
 /** Every school-shaped entity still open, in slug order. */
+/**
+ * Public schools only: AOE organization identifiers beginning "PS" (scope set by
+ * James Nadeau, 2026-11-22). Independent schools (PI...) and career-tech centers
+ * and academies without a PS identifier are not candidates for these grants.
+ */
 export function schoolsOf(registry: ReadonlyMap<string, RegistryEntity>): RegistryEntity[] {
   return [...registry.values()]
     .filter((e) => ['school', 'academy', 'techcenter', 'independent'].includes(e.type))
+    .filter((e) => e.aoe_org_id?.startsWith('PS') === true)
     .filter((e) => !e.effective_to)
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }

@@ -33,12 +33,13 @@ entries:
 
   - input: grade_span_operated
     source: AOE school grade span, normalized in the registry
-    supplied: false
-    whose: ours
+    supplied: true
+    whose: null
     note: >-
       Average grade size divides by the grades above prekindergarten the school operates. The
       engine derives that count from the registry's low and high grade, which assumes every
-      grade between them is operated. A school with no grade span has no average grade size, and
+      grade between them is operated. James Nadeau confirmed on 2026-11-22 that this
+      assumption is correct. A school with no grade span has no average grade size, and
       the screen declines rather than guessing.
 
   - input: school_enrollment
@@ -163,3 +164,14 @@ entries:
       precision, so geocode_precision is `unknown` for every school and the criterion would
       return indeterminate even with routing in place — establishing precision is part of that
       work, not separate from it.
+
+  - input: golden_from_published_figure
+    source: a school's average grade size as calculated for the State
+    supplied: false
+    whose: ours
+    note: >-
+      No golden fixture reproduces a published state figure, so the engine's arithmetic is
+      unchecked against anything outside this project. To do: James Nadeau supplies one or two
+      schools with their enrollment, grade span and calculated average grade size, and they are
+      encoded under model/goldens/small-sparse/. Scope is public schools only (AOE organization
+      ID beginning "PS").

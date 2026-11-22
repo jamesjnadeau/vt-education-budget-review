@@ -104,6 +104,11 @@ claim about the world, the same standard the parameter files hold themselves to.
   determinations because the rules are not yet written — that is the State's position, not
   a repo gap.)
 
+- [ ] **Small/sparse golden from a real school.** Take one or two schools whose average
+  grade size James Nadeau has calculated for the State, and encode their enrollment, grade
+  span and published result as a golden under `model/goldens/small-sparse/`. The engine's
+  arithmetic is not yet checked against anything outside this project.
+
 ## Quality gate that unlocks `verified`
 
 - [ ] **Add at least one golden fixture reproducing a published state figure.**
