@@ -42,13 +42,14 @@ of the regrouping itself.
 - **The list was final on 2026-09-25 but has changed since.** The 2026-11-12 update moved two
   more districts. If another update turns up, land it here beside these (with `supersedes` in its
   provenance entry), update `committees`, and move `roster_as_of`.
-- **Not yet checked by a person.** The rosters were transcribed by script from the PDFs' text
-  layers. Every committee's ADM figures add up to its printed total. (The 2026-09-18 list printed
-  Group One as 3,248; its districts add to 3,748, and the later lists print 3,748.) Each committee
-  stays `verified: false` until someone reads it off the PDF.
+- **Checked 2026-11-22.** The rosters were transcribed by script from the PDFs' text layers.
+  James Nadeau read the lists line by line, and each committee is `verified: true`. As a second
+  check, a script compared every roster line, ADM figure and committee total against the
+  2026-11-12 list's text; all 121 lines matched once Group Fifteen's "&" spelling was corrected. (The 2026-09-18 list printed Group One
+  as 3,248; its districts add to 3,748, and the later lists print 3,748.)
 - **The map shows "Unassigned" areas** around Vershire / West Fairlee / Fairlee and Norwich. These
   are likely the interstate districts, which are not on any list. Not confirmed.
 - **Names do not always match the act's.** The mapping to registry slugs reuses the act's
   verified matches where the names agree; the rest are mapped by hand (for example "Waits River
-  Valley Union School District #36", "Lamoille North MUSD and Lamoille USD"). Each roster line
+  Valley Union School District #36", "Lamoille North MUSD & Lamoille USD"). Each roster line
   keeps the name exactly as written beside its slug.

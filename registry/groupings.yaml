@@ -139,10 +139,11 @@ act:
 #
 # Two more things to know:
 #
-#   - Every committee is `verified: false`. The roster was transcribed by
-#     script from the PDF's text layer and spot-checked against its totals, not
-#     read line by line by a person. Set `verified: true` per committee once
-#     someone has.
+#   - Every committee is `verified: true` (2026-11-22, James Nadeau). The
+#     rosters were transcribed by script from the 2026-11-12 PDF's text layer.
+#     James Nadeau read the lists line by line. As a second check, a script compared
+#     every roster line, ADM figure and printed total against the PDF text; all
+#     121 lines matched once Group Fifteen's "&" spelling was corrected.
 #
 # `known_changes` predates the list: it holds the two moves we had pieced
 # together from reporting before the list was obtained. Both are now confirmed
@@ -286,7 +287,9 @@ reassignment:
       to_grouping: 13
       to_grouping_as_reported: "with Mount Mansfield and Champlain Valley"
       to_grouping_basis: published
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       note: >-
         First pieced together from reporting: VTDigger said Harwood goes in
         with Mount Mansfield UUSD, and Downs Rachlin Martin said it asked to
@@ -299,7 +302,9 @@ reassignment:
       to_grouping: 3
       to_grouping_as_reported: "with the group that includes Londonderry"
       to_grouping_basis: published
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       note: >-
         First pieced together from a law firm's newsletter: DRM reported
         Windham's request to join "the group that includes Londonderry"
@@ -315,7 +320,9 @@ reassignment:
       region: "Champlain Valley South"
       adm_total_as_published: 3748
       note: "The 2026-09-18 list printed this total as 3,248, which did not match its three districts (1,669 + 889 + 1,190 = 3,748). The 2026-09-25 and 2026-11-12 lists print 3,748."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Addison Central School District"
           maps_to: [ud/addison-central-55]
@@ -338,7 +345,9 @@ reassignment:
       name_as_written: "Group Two"
       region: "Southwest"
       adm_total_as_published: 6630
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Barstow Unified School District"
           maps_to: [ud/barstow-49]
@@ -379,7 +388,9 @@ reassignment:
       region: "Southwest"
       adm_total_as_published: 3179
       note: "Ludlow-Mount Holly joined on 2026-09-25 (from Group Seven) and Sandgate by 2026-11-12 (from Group Four)."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Ludlow-Mount Holly Unified Union School District"
           maps_to: [ud/ludlow-mt-holly-83]
@@ -443,7 +454,9 @@ reassignment:
       region: "Southwest"
       adm_total_as_published: 3150
       note: "Sandgate left for Group Three by 2026-11-12."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Arlington School District"
           maps_to: [town/arlington]
@@ -471,7 +484,9 @@ reassignment:
       region: "Southeast / VTLC"
       adm_total_as_published: 3431
       note: "The release lists West River once, as \"West River Modified Union Education District\", with one ADM figure; the registry carries it as two records, #72A and #72B, and both are mapped."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Halifax School District"
           maps_to: [town/halifax]
@@ -504,7 +519,9 @@ reassignment:
       region: "Southeast / VTLC"
       adm_total_as_published: 2768
       note: "Ludlow-Mount Holly left for Group Three on 2026-09-25."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Athens Grafton School District"
           maps_to: [ud/athens-grafton]
@@ -539,7 +556,9 @@ reassignment:
       name_as_written: "Group Eight"
       region: "Southeast / VTLC"
       adm_total_as_published: 3539
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Hartford School District"
           maps_to: [town/hartford]
@@ -572,7 +591,9 @@ reassignment:
       region: "Winooski Valley"
       adm_total_as_published: 2618
       note: "Echo Valley left for Group Twenty by 2026-11-12."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "First Branch Unified School District"
           maps_to: [ud/first-branch-82]
@@ -612,7 +633,9 @@ reassignment:
       name_as_written: "Group Ten"
       region: "Northeast"
       adm_total_as_published: 2312
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Blue Mountain Union School District"
           maps_to: [ud/blue-mountain-21]
@@ -649,7 +672,9 @@ reassignment:
       region: "Northeast"
       adm_total_as_published: 3709
       note: "Essex North Supervisory Union, which the act lists in group 11, is not on the release's list. Its operating districts, Canaan and NEK Choice, are both here, so this is read as the release naming districts rather than the supervisory union -- not as a move."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Caledonia Cooperative School District"
           maps_to: [ud/caledonia-cooperative-78]
@@ -681,7 +706,9 @@ reassignment:
       name_as_written: "Group Twelve"
       region: "Northeast"
       adm_total_as_published: 3567
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Brighton School District"
           maps_to: [town/brighton]
@@ -753,7 +780,9 @@ reassignment:
       name_as_written: "Group Thirteen"
       region: "Champlain Valley South"
       adm_total_as_published: 8265
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Champlain Valley School District"
           maps_to: [ud/champlain-valley-56]
@@ -773,7 +802,9 @@ reassignment:
       name_as_written: "Group Fourteen"
       region: "Chittenden Central"
       adm_total_as_published: 3528
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Essex Westford Educational Community Unified Union School District"
           maps_to: [ud/essex-westford-educational-community-unified-union-sd-51]
@@ -785,8 +816,10 @@ reassignment:
       name_as_written: "Group Fifteen"
       region: "Winooski Valley"
       adm_total_as_published: 4190
-      note: "The release lists \"Lamoille North MUSD and Lamoille USD\" as one line with one ADM figure; the registry carries it as two records, #058A and #058B, and both are mapped."
-      verified: false
+      note: "The release lists \"Lamoille North MUSD & Lamoille USD\" as one line with one ADM figure; the registry carries it as two records, #058A and #058B, and both are mapped."
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Cambridge School District"
           maps_to: [town/cambridge]
@@ -804,7 +837,7 @@ reassignment:
           maps_to: [ud/hazen-union-high-26]
           kind: district
           adm_as_published: 253
-        - name_as_written: "Lamoille North MUSD and Lamoille USD"
+        - name_as_written: "Lamoille North MUSD & Lamoille USD"
           maps_to: [ud/lamoille-north-modified-a-058, ud/lamoille-north-modified-b-058]
           kind: district
           adm_as_published: 1434
@@ -826,7 +859,9 @@ reassignment:
       name_as_written: "Group Seventeen"
       region: "Champlain Valley North"
       adm_total_as_published: 8116
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Enosburgh-Richford Unified Union School District"
           maps_to: [ud/enosburgh-richford-88]
@@ -862,7 +897,9 @@ reassignment:
       name_as_written: "Group Eighteen"
       region: "Chittenden Central"
       adm_total_as_published: 6682
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Burlington School District"
           maps_to: [town/burlington]
@@ -882,7 +919,9 @@ reassignment:
       name_as_written: "Group Nineteen"
       region: "Champlain Valley North"
       adm_total_as_published: 4693
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Alburgh School District"
           maps_to: [town/alburgh]
@@ -911,7 +950,9 @@ reassignment:
       region: "Winooski Valley"
       adm_total_as_published: 6204
       note: "Echo Valley joined by 2026-11-12 (from Group Nine)."
-      verified: false
+      verified: true
+      verified_date: 2026-11-22
+      verified_by: James Nadeau
       roster:
         - name_as_written: "Barre Unified Union School District"
           maps_to: [ud/barre-97]
