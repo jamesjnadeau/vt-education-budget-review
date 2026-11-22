@@ -9,6 +9,7 @@ import {
   RETRIEVAL_METHOD_LABELS,
   chunkRanges,
   clientErrors,
+  createTokenWaiters,
   uploadFile,
   type FormState,
 } from './contribute-upload.ts';
@@ -157,5 +158,36 @@ describe('uploadFile', () => {
   it('does not retry a refusal, and shows the start message as-is', async () => {
     const refuse = (async () => Response.json({ error: 'The human check failed; please reload the page and try again.' }, { status: 403 })) as unknown as typeof fetch;
     await expect(uploadFile(nineMb(), 't', { fetchImpl: refuse })).rejects.toThrow('The human check failed; please reload the page and try again.');
+  });
+});
+
+describe('createTokenWaiters', () => {
+  it('gives the token to every waiter and then forgets them', async () => {
+    const w = createTokenWaiters();
+    const a = w.wait();
+    const b = w.wait();
+    expect(w.size).toBe(2);
+    w.give('tok');
+    await expect(a).resolves.toBe('tok');
+    await expect(b).resolves.toBe('tok');
+    expect(w.size).toBe(0);
+  });
+
+  it('rejects every waiter on failure so nothing hangs', async () => {
+    const w = createTokenWaiters();
+    const a = w.wait();
+    const b = w.wait();
+    w.fail(new Error('human check failed'));
+    await expect(a).rejects.toThrow('human check failed');
+    await expect(b).rejects.toThrow('human check failed');
+    expect(w.size).toBe(0);
+  });
+
+  it('does not reject a waiter added after the failure', async () => {
+    const w = createTokenWaiters();
+    w.fail(new Error('x'));
+    const late = w.wait();
+    w.give('later');
+    await expect(late).resolves.toBe('later');
   });
 });

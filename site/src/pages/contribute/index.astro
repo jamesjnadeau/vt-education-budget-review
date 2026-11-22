@@ -149,7 +149,7 @@ const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
 
   <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
   <script>
-    import { clientErrors, fileErrors, uploadFile } from '../../scripts/contribute-upload';
+    import { clientErrors, createTokenWaiters, fileErrors, uploadFile } from '../../scripts/contribute-upload.ts';
 
     interface TurnstileApi {
       render(
@@ -194,7 +194,12 @@ const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
     let touched = false;
     let widgetId: string | null = null;
     let widgetFailed = false;
-    let tokenWaiters: Array<(t: string) => void> = [];
+    const tokenWaiters = createTokenWaiters();
+    // Each file pick gets a run number; only the newest run may touch shared state.
+    let currentRun = 0;
+    const WIDGET_PROBLEM =
+      'The human check could not start. Please reload the page, or send the document through the GitHub form instead.';
+    const WIDGET_WAIT_MS = 10_000;
 
     function refresh() {
       const errors = clientErrors({
@@ -214,18 +219,24 @@ const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
 
     function onToken(token: string) {
       tokenInput.value = token;
-      for (const resolve of tokenWaiters.splice(0)) resolve(token);
+      tokenWaiters.give(token);
       refresh();
     }
     function takeToken(): Promise<string> {
       if (tokenInput.value !== '') return Promise.resolve(tokenInput.value);
-      return new Promise((resolve) => tokenWaiters.push(resolve));
+      if (widgetFailed) return Promise.reject(new Error(WIDGET_PROBLEM));
+      return tokenWaiters.wait();
     }
+    const widgetDeadline = Date.now() + WIDGET_WAIT_MS;
     function startWidget() {
       const el = $('turnstile-widget');
       const sitekey = el.dataset.sitekey ?? '';
       if (!sitekey) return failWidget();
-      if (!w.turnstile) return void setTimeout(startWidget, 100);
+      if (!w.turnstile) {
+        // The script may be blocked (ad blocker, offline); stop polling after a while.
+        if (Date.now() >= widgetDeadline) return failWidget();
+        return void setTimeout(startWidget, 100);
+      }
       widgetId = w.turnstile.render(el, {
         sitekey,
         'response-field': false,
@@ -240,13 +251,16 @@ const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
     function failWidget() {
       widgetFailed = true;
       widgetProblem.hidden = false;
-      widgetProblem.textContent =
-        'The human check could not start. Please reload the page, or send the document through the GitHub form instead.';
+      widgetProblem.textContent = WIDGET_PROBLEM;
+      tokenWaiters.fail(new Error(WIDGET_PROBLEM));
       refresh();
     }
 
     fileInput.addEventListener('change', async () => {
+      const run = ++currentRun;
+      const isCurrent = () => run === currentRun;
       touched = true;
+      uploading = false; // a newer pick supersedes any run still in flight
       uploadIdInput.value = '';
       progress.hidden = true;
       status.textContent = '';
@@ -260,6 +274,7 @@ const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
       if (widgetFailed) return refresh();
 
       uploading = true;
+      fileInput.disabled = true;
       progress.hidden = false;
       progress.value = 0;
       status.textContent = `Uploading ${file.name}…`;
@@ -270,16 +285,21 @@ const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
         tokenInput.value = '';
         if (widgetId !== null) w.turnstile?.reset(widgetId);
         const id = await uploadFile(file, token, { onProgress: (f) => (progress.value = f) });
+        if (!isCurrent()) return;
         uploadIdInput.value = id;
         status.textContent = `Uploaded ${file.name}. You can now fill in the rest and send it in.`;
       } catch (e) {
+        if (!isCurrent()) return;
         picked = null;
         fileInput.value = '';
         progress.hidden = true;
         status.textContent = e instanceof Error ? e.message : 'The upload failed. Please try again.';
       } finally {
-        uploading = false;
-        refresh();
+        if (isCurrent()) {
+          uploading = false;
+          fileInput.disabled = false;
+          refresh();
+        }
       }
     });
 

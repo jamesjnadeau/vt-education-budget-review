@@ -210,3 +210,35 @@ export async function uploadFile(
   opts.onProgress?.(1);
   return id;
 }
+
+/**
+ * Holds the callers waiting for a Turnstile token. `give` hands the token to
+ * every waiter; `fail` rejects every waiter so nobody waits forever after the
+ * widget errors out.
+ */
+export interface TokenWaiters {
+  wait(): Promise<string>;
+  give(token: string): void;
+  fail(error: Error): void;
+  readonly size: number;
+}
+
+export function createTokenWaiters(): TokenWaiters {
+  let waiters: Array<{ resolve: (t: string) => void; reject: (e: Error) => void }> = [];
+  return {
+    wait: () => new Promise((resolve, reject) => void waiters.push({ resolve, reject })),
+    give(token) {
+      const taken = waiters;
+      waiters = [];
+      for (const w of taken) w.resolve(token);
+    },
+    fail(error) {
+      const taken = waiters;
+      waiters = [];
+      for (const w of taken) w.reject(error);
+    },
+    get size() {
+      return waiters.length;
+    },
+  };
+}
