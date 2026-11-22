@@ -27,8 +27,9 @@ entries:
       receiving the Sec. 45a foundation formula report and the merger facilitator report, and on
       enacted legislation addressing the report's components (including "sparsity measures"),
       a pre-K funding mechanism, and legacy bargaining agreements and debt. None is confirmed met,
-      and sparsity may change before 2029. The strike-through in the act was read from extracted
-      text, not the PDF. Still open: whether the two grants stack, on which the act is silent.
+      and sparsity may change before 2029. Struck-through text does not carry into the signed bill, so the extracted
+      text of the act is taken as the enacted wording (James Nadeau, 2026-11-22). The two
+      grants are read as additive (see statutory.grants.stacking_rule).
 
   - input: grade_span_operated
     source: AOE school grade span, normalized in the registry

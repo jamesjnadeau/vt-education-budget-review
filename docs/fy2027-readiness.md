@@ -94,8 +94,8 @@ claim about the world, the same standard the parameter files hold themselves to.
   the stacking rule (additive) on James Nadeau's reading; human countersignature of the
   automated reads is still pending. The grants implement in 2029-30 only if the Act 73
   Sec. 70(f)(1) conditions are met, and are **not required for the core FY2027 tax model**.
-  The screens now run for 282 schools. Open: the PDF check of the Sec. 70(f)(1) strike-through
-  and the population series (§ 4019(a)(4) says July 1 of the year of determination).
+  The screens now run for 282 schools. Struck-through text does not carry into the signed bill, so the
+  extracted text of Sec. 70(f)(1) is taken as the enacted wording (James Nadeau, 2026-11-22). Open: the population series (§ 4019(a)(4) says July 1 of the year of determination).
 
 - [ ] **Save the State Board small/sparse framework as a hashed intake artifact.** The
   proposed-framework values carry numbers but are `is_law: false` and unverified until the
