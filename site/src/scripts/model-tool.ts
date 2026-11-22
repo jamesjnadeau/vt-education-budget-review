@@ -685,25 +685,14 @@ export function initModelTool(
   if (!walkthrough || !blockers || !citations || !assumptions || !summary) return;
 
   type PostHogProperties = Record<string, string | number | boolean>;
-  const posthog = (): {
-    capture: (event: string, properties?: PostHogProperties) => void;
-    logger?: { info: (message: string, attributes?: PostHogProperties) => void };
-  } | undefined =>
+  // posthog is absent when analytics is not enabled for this build (or the
+  // script is blocked), so every call goes through this null-safe wrapper.
+  const capture = (event: string, properties?: PostHogProperties): void => {
     (
       window as Window & {
-        posthog?: {
-          capture: (event: string, properties?: PostHogProperties) => void;
-          logger?: { info: (message: string, attributes?: PostHogProperties) => void };
-        };
+        posthog?: { capture: (event: string, properties?: PostHogProperties) => void };
       }
-    ).posthog;
-  const capture = (event: string, properties?: PostHogProperties): void => {
-    posthog()?.capture(event, properties);
-  };
-  // This dedicated logger exports only the outcome records added below; it
-  // deliberately does not forward browser console output or existing logging.
-  const logModelOutcome = (message: string, attributes: PostHogProperties): void => {
-    posthog()?.logger?.info(message, attributes);
+    ).posthog?.capture(event, properties);
   };
 
   renderAssumptions(assumptions);
@@ -1075,7 +1064,6 @@ export function initModelTool(
     fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
     recompute();
     capture('district_prefill_applied', { fiscal_year: Number(plan.mode) });
-    logModelOutcome('model district prefill applied', { fiscal_year: Number(plan.mode) });
   };
 
   // Populate the entity options, grouped by kind, and the year options for
@@ -1108,7 +1096,6 @@ export function initModelTool(
       ? { mode: 'example' }
       : { mode: 'live', fiscal_year: Number(modeSelect.value) };
     capture('parameter_mode_selected', properties);
-    logModelOutcome('model parameter mode selected', properties);
   });
 
   // Build a link that reproduces the current form and copy it to the clipboard.
@@ -1127,18 +1114,15 @@ export function initModelTool(
         () => {
           if (shareStatus) shareStatus.textContent = 'Link copied to clipboard';
           capture('scenario_link_shared', { delivery: 'clipboard' });
-          logModelOutcome('model scenario link shared', { delivery: 'clipboard' });
         },
         () => {
           if (shareStatus) shareStatus.textContent = url;
           capture('scenario_link_shared', { delivery: 'manual' });
-          logModelOutcome('model scenario link shared', { delivery: 'manual' });
         },
       );
     } else if (shareStatus) {
       shareStatus.textContent = url;
       capture('scenario_link_shared', { delivery: 'manual' });
-      logModelOutcome('model scenario link shared', { delivery: 'manual' });
     }
   });
 

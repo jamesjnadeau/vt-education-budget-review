@@ -1,29 +1,49 @@
 ---
 // Browser-side PostHog initialization shared by the base layout.
+//
+// Mirrors the Cloudflare beacon policy (see lib/analytics.ts): PostHog loads
+// only when the build opts in with PUBLIC_POSTHOG_ENABLED === '1', which the
+// Deploy workflow alone sets. Local dev, local builds and PR previews never
+// phone home, even if a developer has a token in their .env.
+import { posthogConfig } from '../lib/analytics.ts';
+
+const config = posthogConfig(import.meta.env);
 ---
-<script is:inline define:vars={{ apiKey: import.meta.env.PUBLIC_POSTHOG_PROJECT_TOKEN, apiHost: import.meta.env.PUBLIC_POSTHOG_HOST, isDev: import.meta.env.DEV }}>
-  if (apiKey && apiHost) {
+{config && (
+  <script is:inline define:vars={{ config }}>
     // POSTHOG_BROWSER_SNIPPET_START
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
     // POSTHOG_BROWSER_SNIPPET_END
-    posthog.init(apiKey, {
-      api_host: apiHost,
+
+    // Shared scenario links carry the visitor's model inputs in the query
+    // string, so no URL leaves the browser with its query or fragment.
+    var stripUrl = function (value) {
+      if (typeof value !== 'string' || value === '') return value;
+      return value.split('#')[0].split('?')[0];
+    };
+    var urlProps = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer', '$pathname'];
+
+    posthog.init(config.apiKey, {
+      api_host: config.apiHost,
+      // No identify() anywhere, so no person profile per anonymous visitor.
+      person_profiles: 'identified_only',
+      // Explicit events cover the model; skip click/text autocapture and
+      // session replay, which could pick up user-entered budget values.
+      autocapture: false,
+      disable_session_recording: true,
       capture_exceptions: {
         capture_unhandled_errors: true,
         capture_unhandled_rejections: true,
         capture_console_errors: false,
       },
-      logs: {
-        serviceName: 'vt-education-budget-review-web',
-        environment: isDev ? 'development' : 'production',
+      before_send: function (event) {
+        if (!event || !event.properties) return event;
+        for (var i = 0; i < urlProps.length; i++) {
+          var key = urlProps[i];
+          if (key in event.properties) event.properties[key] = stripUrl(event.properties[key]);
+        }
+        return event;
       },
     });
-  } else if (isDev) {
-    const missingVariable = !apiKey
-      ? 'PUBLIC_POSTHOG_PROJECT_TOKEN'
-      : 'PUBLIC_POSTHOG_HOST';
-    console.error(
-      new Error(`${missingVariable} variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once ${missingVariable} is configured`),
-    );
-  }
-</script>
+  </script>
+)}
