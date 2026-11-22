@@ -5,8 +5,8 @@
 export const CF_BEACON_TOKEN = 'da8000ca451b4497b086e6a9c38b2f41';
 
 // The beacon is emitted only when the build explicitly opts in via
-// PUBLIC_CF_ANALYTICS === '1'. That flag is set exclusively by the Deploy
-// workflow (merge to main -> GitHub Pages), so local dev, local builds and
+// PUBLIC_CF_ANALYTICS === '1'. That flag is set exclusively in the production
+// context of netlify.toml, so local dev, local builds and
 // previews never phone home. Returns the token to emit, or null to omit the
 // beacon entirely.
 export function cfBeaconToken(env: Record<string, string | undefined>): string | null {

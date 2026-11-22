@@ -1,10 +1,8 @@
 # Netlify deploy configuration.
 #
-# This runs alongside the GitHub Pages deploy (.github/workflows/deploy.yml);
-# it does not replace it. Netlify builds from its own fresh clone, so the full
-# pipeline (validate -> build:data -> build:site) runs here too -- nothing
-# reaches the public site without passing validation immediately beforehand,
-# same as the Pages workflow.
+# Netlify is the only host. It builds from its own fresh clone, so the full
+# pipeline (validate -> build:data -> build:site) runs here -- nothing reaches
+# the public site without passing validation immediately beforehand.
 #
 # One-time Netlify site setup (UI, not this file): point the site at this
 # repo, and add www.vermont-school-budgets.org as the primary custom domain.
@@ -32,17 +30,16 @@
   # Used to build the GitHub deep links (coverage dashboard, SU pages).
   GITHUB_REPOSITORY = "jamesjnadeau/vt-education-budget-review"
 
-# SITE_BASE is deliberately unset everywhere on Netlify: the site is served
-# from the domain root, so Astro's default base of '/' is correct. (On GitHub
-# Pages the workflow sets it via actions/configure-pages instead.)
-
 [context.production.environment]
   # Astro uses SITE_URL for canonical URLs, the sitemap, and rss.xml.
   SITE_URL = "https://www.vermont-school-budgets.org"
   # Cloudflare Web Analytics beacon is emitted only when this is '1'. Set for
-  # production alone -- deploy previews and branch deploys never load it,
-  # mirroring the GitHub Pages workflow.
+  # production alone -- deploy previews and branch deploys never load it.
   PUBLIC_CF_ANALYTICS = "1"
+  # PostHog is emitted only when this is '1' (production alone). The project
+  # token and host are Netlify UI env vars, PUBLIC_POSTHOG_PROJECT_TOKEN and
+  # PUBLIC_POSTHOG_HOST -- never committed.
+  PUBLIC_POSTHOG_ENABLED = "1"
 
 # Deploy previews and branch deploys leave SITE_URL unset; astro.config.mjs
 # falls back to a placeholder, which only affects absolute URLs in

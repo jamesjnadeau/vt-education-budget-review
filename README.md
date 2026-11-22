@@ -217,9 +217,9 @@ main entry point does not import.
 
 The published site loads [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/),
 which is cookieless and collects no personal data — consistent with the site's "no server, no
-database, no login" design. The beacon is emitted **only** by the production GitHub Pages deploy:
+database, no login" design. The beacon is emitted **only** by the production Netlify deploy:
 `site/src/lib/analytics.ts` renders it solely when the build sets `PUBLIC_CF_ANALYTICS=1`, and that
-flag is set exclusively in the merge-to-main `Deploy` workflow. Local development (`npm run dev`),
+flag is set exclusively in the production context of `netlify.toml`. Local development (`npm run dev`),
 local builds, and PR previews never load it.
 
 ## Licence
