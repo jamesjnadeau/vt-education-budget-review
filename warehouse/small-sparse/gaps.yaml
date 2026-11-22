@@ -41,16 +41,31 @@ entries:
       the screen declines rather than guessing.
 
   - input: school_enrollment
-    source: AOE Public Data API
-    supplied: false
-    whose: the source's
+    source: AOE Vermont Education Dashboard enrollment dataset (data.vermont.gov 3y6q-qqc7), intake/aoe-enrollment/
+    supplied: true
+    whose: null
     note: >-
-      No per-school enrollment series is published. AOE publishes average daily membership by
-      RESIDENT DISTRICT, which is a town rather than a school, and the Public Data API carries
-      no membership data at all. A town's ADM standing in for a school's roll would be a
-      fabrication that looked like data: a town with three schools has one ADM figure and three
-      different answers to the enrollment screen. Left missing until a per-school source is
-      found and landed in intake/ with a hash.
+      The statute's "enrollment" is an October 1 headcount of K-12 students in a school operated
+      by the district, part-time students counted as one (§ 4019(a)(2)), averaged over two years.
+      Average daily membership, FTE and any other count are different quantities and must not be
+      substituted. Any per-school source must be checked for its count date and its treatment of
+      part-time students and prekindergarten before use.
+
+      SOURCE (identified and confirmed 2026-11-22, landed in intake/aoe-enrollment/2026-dashboard/ with a hash): AOE's "Vermont
+      Education Dashboard: Enrollment 2004-2026", data.vermont.gov dataset 3y6q-qqc7, linked from
+      the dashboard page's "complete dataset" link. One row per school per collection per year,
+      with pre-school, full-time kindergarten, part-time kindergarten and grades 1-12 as separate
+      columns, plus `total` and `nonpreschooltotal`. The data holds many collection names; the two that
+      matter are DC#06_FALL_ADM_Official and DC#04_YearEndCollection_Official, which differ (Beeman
+      Elementary FY2026: 81 vs 86 non-preschool). James Nadeau, who has calculated this
+      count, confirmed that DC#06_FALL_ADM_Official is the October 1 headcount; the year-end
+      collection is not used. The dataset's own description is empty, so this rests on that
+      confirmation and not on AOE documentation. Still unchecked: whether the school-year label N
+      means fall N-1 or fall N. Part-time kindergarten is a separate column and the statute counts
+      it as one student, so the screen must sum full-time and part-time kindergarten.
+      Average daily membership by RESIDENT DISTRICT is a town figure, not a school's, and is
+      never substituted: a town with three schools has one ADM figure and three different
+      answers to the enrollment screen.
 
   - input: municipality_of_school_building
     source: derived/school-municipality/

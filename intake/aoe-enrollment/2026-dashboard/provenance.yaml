@@ -1,0 +1,23 @@
+schema_version: "1.0"
+entity: source/aoe
+fiscal_year: 2026
+artifacts:
+  - file: Vermont-Education-Dashboard-Enrollment-2004-2026.csv
+    source_url: https://data.vermont.gov/api/views/3y6q-qqc7/rows.csv?accessType=DOWNLOAD
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 1fbb59f8446783455d3c138e4aad6c855592051d17238dff075493a587323904
+    bytes: 2784281
+    media_type: text/csv
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: spreadsheet
+    note: >-
+      AOE's "Vermont Education Dashboard: Enrollment 2004-2026" (data.vermont.gov 3y6q-qqc7),
+      the dataset behind https://education.vermont.gov/accountability-data/vermont-education-dashboard/ved-enrollment
+      ("Download the complete dataset"). 20,449 rows: one per school per collection per year, with
+      pre-school, full-time and part-time kindergarten, grades 1-12 and adult columns. Two
+      collections per year, DC#06_FALL_ADM_Official and DC#04_YearEndCollection_Official, whose
+      counts differ. The dataset carries no description of its count date. James Nadeau, who has
+      calculated this count, confirmed on 2026-11-22 that DC#06_FALL_ADM_Official is the October 1
+      headcount in 16 V.S.A. § 4019(a)(2); the year-end collection is not used (see
+      warehouse/small-sparse/gaps.yaml). Dashboard page says version 6, updated 2023-08-23.

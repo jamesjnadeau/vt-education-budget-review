@@ -130,6 +130,14 @@ parameters:
       the PAYMENT basis use different enrollment figures, borderline schools
       qualify under one frame and are paid under the other, and the divergence is
       publishable in its own right.
+      WHAT "ENROLLMENT" COUNTS (READ 2026-11-22, § 4019(a)(2)): "Enrollment" means
+      the number of students in kindergarten through grade 12 who are enrolled in
+      a school operated by the school district on October 1. A student shall be
+      counted as one whether the student is enrolled as a full-time or part-time
+      student. So the input is an October 1 headcount, K-12 only (prekindergarten
+      is not counted), with part-time students counted as one, not as an FTE or
+      an average daily membership. Both years of the two-year average are October
+      1 counts.
 
   statutory.grants.small_school.inflation_index:
     value: nipa_state_local_government_implicit_price_deflator
@@ -197,6 +205,15 @@ parameters:
       verified: true
       verified_date: "2026-11-22"
       verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+    structural_note: >-
+      WHAT "ENROLLMENT" COUNTS (READ 2026-11-22, § 4019(a)(2)): "Enrollment" means
+      the number of students in kindergarten through grade 12 who are enrolled in
+      a school operated by the school district on October 1. A student shall be
+      counted as one whether the student is enrolled as a full-time or part-time
+      student. So the input is an October 1 headcount, K-12 only (prekindergarten
+      is not counted), with part-time students counted as one, not as an FTE or
+      an average daily membership. Both years of the two-year average are October
+      1 counts.
 
   statutory.grants.sparse_school.inflation_index:
     value: nipa_state_local_government_implicit_price_deflator

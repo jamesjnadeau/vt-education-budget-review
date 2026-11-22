@@ -40,6 +40,7 @@ import {
 } from '@vt-budget/model';
 
 import { PATHS, rel } from '../paths.ts';
+import { latestYears, parseFallEnrollment, type FallEnrollment } from './enrollment.ts';
 import type { RegistryEntity } from '../registry/types.ts';
 
 export interface SmallSparsePublication {
@@ -62,6 +63,8 @@ export interface SmallSparsePublication {
   };
   readonly population_series_held: readonly string[];
   readonly enrollment_bases: readonly EnrollmentBasis[];
+  /** School years of the October 1 counts the screen drew on, as AOE labels them. */
+  readonly enrollment_school_years: readonly number[];
   readonly schools: readonly SchoolRow[];
 }
 
@@ -99,6 +102,17 @@ interface CensusRecord {
     land_area_sq_mi: number | null;
     population: Record<string, number | null>;
   }>;
+}
+
+export const ENROLLMENT_CSV = join(
+  PATHS.intake,
+  'aoe-enrollment',
+  '2026-dashboard',
+  'Vermont-Education-Dashboard-Enrollment-2004-2026.csv',
+);
+
+function loadFallEnrollment(): FallEnrollment | null {
+  return existsSync(ENROLLMENT_CSV) ? parseFallEnrollment(readFileSync(ENROLLMENT_CSV, 'utf8')) : null;
 }
 
 function readYaml<T>(path: string): T | null {
@@ -144,6 +158,14 @@ export function buildSmallSparse(
       .filter((t) => t.entity)
       .map((t) => [t.entity as string, t]),
   );
+
+  // The screen runs on the two most recent October 1 counts AOE has published,
+  // not on the statute's FY2030 years, which do not exist yet. The engine reads
+  // the two school years before `fiscalYear`, so the as-of year is one past the
+  // latest published. This is a candidate screen on today's roll.
+  const fall = loadFallEnrollment();
+  const enrollmentYears = fall ? latestYears(fall) : [];
+  const asOfFiscalYear = enrollmentYears.length === 2 ? (enrollmentYears[1] as number) + 1 : parameters.fiscal_year;
 
   const rows: SchoolRow[] = [];
   let withMunicipality = 0;
@@ -196,10 +218,15 @@ export function buildSmallSparse(
     const ctx = createContext(parameters);
     const result: SmallSparseResult = evaluateSmallSparse(ctx, {
       school,
-      // No per-school enrollment series exists. An empty series produces a
-      // missing_input, which is the truth; a town's ADM stood in for a school's
-      // roll would be a fabrication that looked like data.
-      enrollment: { byYear: {} },
+      // October 1 K-12 counts from the AOE fall collection, joined on the AOE
+      // school identifier. A school with no row gets an empty series, which
+      // produces a missing_input: the truth. A town's ADM stood in for a
+      // school's roll would be a fabrication that looked like data.
+      enrollment: {
+        byYear: Object.fromEntries(
+          [...(fall?.get(entity.aoe_org_id ?? '')?.entries() ?? [])].filter(([y]) => enrollmentYears.includes(y)),
+        ),
+      },
       demographics,
       nearest: {
         targetSchool: null,
@@ -209,7 +236,7 @@ export function buildSmallSparse(
         routingRunRef: null,
       },
       options: {
-        fiscalYear: parameters.fiscal_year,
+        fiscalYear: asOfFiscalYear,
         enrollmentBasis: options.enrollmentBasis,
         populationSeries: options.populationSeries,
       },
@@ -254,11 +281,12 @@ export function buildSmallSparse(
     fiscal_year: parameters.fiscal_year,
     nothing_is_computable: screensResolved === 0,
     why: [
-      'Every statutory threshold in the parameter file is null and unverified. The engine ' +
-        'refuses to compute from an unverified parameter, so no school in Vermont screens to ' +
-        'either a yes or a no. Reading the enacted acts is what changes this.',
-      'No per-school enrollment series is published through the AOE Public Data API. Average ' +
-        'daily membership is published by resident district, which is a town, not a school.',
+      'The size and density tests are read from Act 170 of 2026 and take effect July 1, 2029 ' +
+        'only if the conditions in Act 73 Sec. 70(f)(1) are met. These screens are candidate ' +
+        'filters run on today\u2019s roll, not eligibility and not FY2030 figures.',
+      'Enrollment is the October 1 K-12 count from AOE\u2019s fall collection (school years ' +
+        `${enrollmentYears.join(' and ')}). Schools with no row there, or no grade span, have no ` +
+        'average grade size.',
       'AOE has published no small or sparse by necessity determinations, and the rules that ' +
         'would govern them are not yet written. Eligibility is undetermined for every school ' +
         'in Vermont, which is a fact about the State’s timetable and not a gap in this data.',
@@ -273,6 +301,7 @@ export function buildSmallSparse(
     },
     population_series_held: census?.population_series_held ?? [],
     enrollment_bases: ['two_year_average', 'single_year'],
+    enrollment_school_years: enrollmentYears,
     schools: rows,
   };
 }
