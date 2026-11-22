@@ -90,12 +90,12 @@ claim about the world, the same standard the parameter files hold themselves to.
 
 - [ ] **Small/sparse statutory values** — every statutory value in
   [`model/parameters/fy2030-small-sparse.yaml`](../model/parameters/fy2030-small-sparse.yaml)
-  is `null` pending a reading of Act 73 Sec. 37 as possibly amended by Act 170. The
-  grants implement in 2029-30 and are **not required for the core FY2027 tax model**, but
-  the two statutory screens return nothing for all 438 schools until these are read.
-  Structural readings to resolve first: `sparse_density.geography` (school's town vs.
-  district member towns), `sparse_density.area_measure` (land vs. total area), and
-  `grants.stacking_rule`.
+  was read from Act 170 of 2026 Sec. 29 (16 V.S.A. § 4019) on 2026-11-22 and is verified, with
+  the stacking rule (additive) on James Nadeau's reading; human countersignature of the
+  automated reads is still pending. The grants implement in 2029-30 only if the Act 73
+  Sec. 70(f)(1) conditions are met, and are **not required for the core FY2027 tax model**.
+  The screens now run for 282 schools. Open: the PDF check of the Sec. 70(f)(1) strike-through
+  and the population series (§ 4019(a)(4) says July 1 of the year of determination).
 
 - [ ] **Save the State Board small/sparse framework as a hashed intake artifact.** The
   proposed-framework values carry numbers but are `is_law: false` and unverified until the

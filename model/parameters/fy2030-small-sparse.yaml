@@ -240,35 +240,37 @@ parameters:
       verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
 
   statutory.grants.stacking_rule:
-    value: null
+    value: additive
     unit: enum
     description: whether a school meeting both screens receives both grants or the greater
     applies_to: public schools meeting both the small and the sparse screen
-    contingent: true
+    contingent: false
     citation:
-      statute: "2025 Acts and Resolves No. 73, Sec. 37 (codified section unread)"
-      session_law: "Act 73 of 2025, Sec. 37"
+      statute: "16 V.S.A. § 4019, as added by 2026 Acts and Resolves No. 170, Sec. 29, § 4019(b), (c)"
+      session_law: "Act 170 of 2026, Sec. 29"
       source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf"
-      quote: null
-      verified: false
-      verified_date: null
-      verified_by: null
+      quote: >-
+        (b) Small schools support grant. Annually, the Secretary shall pay a small
+        schools support grant to each school district for each small school operated by
+        the school district in an amount determined by multiplying the two-year
+        average enrollment in the small school by $3,157.00. (c) Sparse schools support
+        grant. Annually, the Secretary shall pay a sparse schools support grant to each
+        school district for each sparse school operated by the school district in an
+        amount determined by multiplying the two-year average enrollment in the sparse
+        school by $1,954.00.
+      verified: true
+      verified_date: "2026-11-22"
+      verified_by: "James Nadeau, 2026-11-22: a school can get both grants. Consistent with the enacted text, intake/vt-legislature/2026-acts/ACT170 As Enacted.txt, which does not state it in one sentence"
     structural_note: >-
-      STRUCTURAL, not merely numeric. Legal values are additive, greater_of and
-      mutually_exclusive. A school under the enrollment threshold in a town under
-      the density threshold appears to meet both screens. Under the secondary
-      readings the spread between additive and greater-of is roughly 60% on the
-      line item, concentrated in exactly the schools most exposed in the March
-      2028 votes. Until this is read the engine emits separate lines and no
-      total. Record the finding in the header of model/src/small-sparse.ts in the
-      same commit as the reading.
-
-      READ 2026-11-22 against Act 170 Sec. 29: § 4019(b) and (c) are two
-      independent payments, each "to each school district for each small school"
-      or "each sparse school", and nothing in the section excludes one for a
-      school that is also the other. That reads as additive, but silence is not a
-      rule and no sentence states it, so the value stays null: there is no
-      quotable sentence to verify. Confirm with AOE or the Joint Fiscal Office.
+      STRUCTURAL. The act does not say "both" in so many words. It reads as additive
+      because subsections (b) and (c) are two separate payments, each owed "for each
+      small school" and "for each sparse school", and nothing in § 4019 caps a school
+      at one grant, takes the greater, or excludes a school from (c) for being in (b).
+      A school that is both small and sparse therefore carries $3,157 + $1,954 per
+      pupil, before the inflation adjustment in (d). This rests on James Nadeau's
+      reading and the text above, not on an AOE or LJFO statement, so a contrary
+      statement from either would reopen it. Both grants still need the by-necessity
+      determination for that school.
 
   # --- Statutory screen 1: enrollment ---------------------------------------
 
@@ -457,6 +459,13 @@ parameters:
       unspecified_in_statute is the correct VERIFIED value and the choice becomes
       a user-visible scenario input with no default rather than an implementation
       detail. Compute both and publish the towns that move between them.
+
+      NOTE 2026-11-22: the definition measures residents "as of July 1 of the year of
+      determination". That date is the reference date of the Census Bureau's annual
+      population estimates, not of the decennial census (April 1) or the ACS (a
+      five-year period). So the text arguably points at a July 1 estimate, which this
+      project does not yet hold, and the two held series are stand-ins. This is a
+      reading, not a stated rule, so the value stays unspecified_in_statute.
 
   # --- Who determines necessity, and when -----------------------------------
 

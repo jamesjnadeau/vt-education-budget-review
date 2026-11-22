@@ -462,11 +462,11 @@ describe('the grant gate', () => {
 describe('the shipped small/sparse parameter file', () => {
   const set = loadParameterFile(SHIPPED_FILE);
 
-  it('verifies every statutory value except the stacking rule, which the act does not state', () => {
+  it('verifies every statutory value, the stacking rule on James Nadeau\'s reading', () => {
     const statutory = [...set.parameters.values()].filter((p) => p.key.startsWith('statutory.'));
     expect(statutory.length).toBeGreaterThan(0);
     const unverified = statutory.filter((p) => !p.citation.verified).map((p) => p.key);
-    expect(unverified).toEqual(['statutory.grants.stacking_rule']);
+    expect(unverified).toEqual([]);
     expect(statutory.filter((p) => p.citation.verified).every((p) => p.citation.quote)).toBe(true);
   });
 

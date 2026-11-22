@@ -5,9 +5,13 @@
 > Act 73 Sec. 37 language, and the parameter file now carries the verbatim sentences. The readings
 > below are historical. Where they differ, the act wins: the small test is an average grade size
 > under 12 (not under 100 pupils), the density geography is the school's own town, the area is
-> land area, no population series is named, and the pupil count is the two-year average. Still open:
-> the stacking rule (the act is silent) and the Act 73 Sec. 70(f)(1) contingency on the July 1,
-> 2029 effective date. The SBE presentation is saved in `intake/sbe/2025-12-17-small-sparse-framework/`.
+> land area, no population series is named, and the pupil count is the two-year average. Stacking is read as additive
+> (the grants in § 4019(b) and (c) are separate payments; James Nadeau, 2026-11-22). Still open: the
+> Act 73 Sec. 70(f)(1) contingency on the July 1, 2029 effective date. The statute also measures
+> density "as of July 1 of the year of determination", which points to a July 1 population estimate
+> rather than the decennial census or the ACS; this is not yet reflected in the build.
+> Enrollment is now landed (the AOE fall collection, October 1 headcount) and population (2020
+> decennial and 2019-2023 ACS) is landed. The SBE presentation is saved in `intake/sbe/2025-12-17-small-sparse-framework/`.
 
 Companion to `model/parameters/fy2030-small-sparse.yaml`. This is where the
 secondary-source readings live, deliberately **outside** the parameter file.
@@ -50,7 +54,7 @@ and it gates everything downstream.
 | `grants.small_school.inflation_index` | "Adjusted for inflation annually", index unnamed | AOE summary | The index name; compare to the base amount's |
 | `grants.sparse_school.per_pupil` | 1,954 USD per pupil | AOE Act 73 summary; JFO briefing | — |
 | `grants.sparse_school.inflation_index` | Not stated | Absence in AOE summary | Whether the silence is real or a summary artifact |
-| `grants.stacking_rule` | Not stated anywhere found | — | **Structural.** Additive, greater-of, or exclusive |
+| `grants.stacking_rule` | Resolved 2026-11-22: additive (§ 4019(b), (c) are separate payments) | Act 170 Sec. 29; J. Nadeau | Reopen if AOE or LJFO say otherwise |
 | `screens.small_enrollment.threshold` | Fewer than 100 students | AOE summary; JFO briefing | Strict or inclusive comparator |
 | `screens.small_enrollment` basis | **Conflicting.** AOE: enrolls fewer than 100. JFO: two-year average under 100 | Both | Whether test and payment use one figure |
 | `screens.sparse_density.threshold` | Fewer than 55 persons per square mile of land | AOE summary | The exact phrase, especially "of land" |
@@ -64,7 +68,7 @@ and it gates everything downstream.
 Numbers are the easy part. Per the structural caveat in the verification doc, these change the
 shape of the calculation and a parameter review will not catch them:
 
-1. **Stacking.** If the grants are additive, a school meeting both screens carries roughly
+1. **Stacking.** Resolved as additive (2026-11-22). The note below is the secondary-source arithmetic: if the grants are additive, a school meeting both screens carries roughly
    5,100 per pupil under the secondary readings. If it is greater-of, roughly 3,200. That is a
    60% spread on the line item, concentrated in precisely the schools most exposed in the March
    2028 votes.

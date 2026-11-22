@@ -41,9 +41,9 @@
  *       inside it.
  *     - Grants are computed per SCHOOL and summed to the district, so district
  *       payment = EOP + the sum of school grants + categorical aid.
- *     - The small and sparse grants may BOTH apply to one school. Whether they
- *       add or the school takes the greater is unread; until then this module
- *       emits separate lines and never a total.
+ *     - The small and sparse grants may BOTH apply to one school, and they add
+ *       (James Nadeau's reading, 2026-11-22; see the stacking_rule note). This
+ *       module still emits separate lines and no per-school total.
  *     - The density test applies to the municipality the school BUILDING sits
  *       in.
  *     - "Per square mile of land" means Census TIGER ALAND, not total area.
@@ -60,8 +60,8 @@
  *   July 1, 2029 if the Act 73 Sec. 70(f)(1) contingency is met): the small test
  *   is average grade size under 12, not enrollment under 100; the density test
  *   is the school's own town, land area; the grants are $3,157 and $1,954 times
- *   two-year average enrollment. The statute is silent on whether the two
- *   grants stack, so that one remains open.
+ *   two-year average enrollment. The statute does not say in one sentence whether the
+ *   two grants stack; they are read as additive (stacking_rule, James Nadeau).
  *
  *   Correct any of these here and in the parameter file's structural_note in the
  *   same commit as the reading. A wrong structure with right numbers produces
@@ -155,8 +155,9 @@ export type EnrollmentBasis = 'two_year_average' | 'single_year';
 export interface ScreenOptions {
   readonly fiscalYear: number;
   /**
-   * No default, because the statute's basis is unread and the two readings
-   * disagree for borderline schools. The caller states which frame it is using
+   * No default. The statute's basis is the two-year average (§ 4019(a)(6)), but the
+   * single-year reading is kept as a sensitivity, and the two disagree for borderline
+   * schools. The caller states which frame it is using
    * and the record carries it.
    */
   readonly enrollmentBasis: EnrollmentBasis;
@@ -252,9 +253,9 @@ export interface SmallSparseResult {
     readonly small: GrantLine;
     readonly sparse: GrantLine;
     /**
-     * Intentionally typed as null rather than merely left empty. Whether the two
-     * grants add or a school takes the greater is unread; see the parameter
-     * file's structural_note on statutory.grants.stacking_rule.
+     * Typed as null: no per-school total is emitted yet, only the two lines. The
+     * grants are read as additive; see the parameter file's structural_note on
+     * statutory.grants.stacking_rule.
      */
     readonly total: null;
   };
