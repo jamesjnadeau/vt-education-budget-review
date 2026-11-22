@@ -14,5 +14,5 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "types": ["node"]
   },
-  "include": ["functions/**/*.mts", "../tools/src/web-intake/limits.ts", "../tools/src/web-intake/signing.ts", "../tools/src/web-intake/turnstile.ts", "../tools/src/web-intake/uploads.ts", "../tools/src/web-intake/store-adapter.ts", "../tools/src/intake/security.ts"]
+  "include": ["functions/**/*.mts", "../tools/src/web-intake/limits.ts", "../tools/src/web-intake/github-app.ts", "../tools/src/web-intake/on-submission.ts", "../tools/src/web-intake/payload.ts", "../tools/src/intake/rules.ts", "../tools/src/web-intake/signing.ts", "../tools/src/web-intake/turnstile.ts", "../tools/src/web-intake/uploads.ts", "../tools/src/web-intake/store-adapter.ts", "../tools/src/intake/security.ts"]
 }
