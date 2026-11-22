@@ -70,6 +70,11 @@ jobs:
           # here alone -- the merge-to-main Pages deploy -- so local dev, local
           # builds and PR previews never load the beacon.
           PUBLIC_CF_ANALYTICS: '1'
+          # PostHog follows the same rule: opted in here alone. The token and
+          # host are public ingestion values, kept as repository variables.
+          PUBLIC_POSTHOG_ENABLED: '1'
+          PUBLIC_POSTHOG_PROJECT_TOKEN: ${{ vars.PUBLIC_POSTHOG_PROJECT_TOKEN }}
+          PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST }}
         run: npm run build:data && npm run build:site
 
       - uses: actions/upload-pages-artifact@v5

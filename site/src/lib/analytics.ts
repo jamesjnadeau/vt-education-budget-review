@@ -12,3 +12,16 @@ export const CF_BEACON_TOKEN = 'da8000ca451b4497b086e6a9c38b2f41';
 export function cfBeaconToken(env: Record<string, string | undefined>): string | null {
   return env.PUBLIC_CF_ANALYTICS === '1' ? CF_BEACON_TOKEN : null;
 }
+
+// PostHog product analytics. Same opt-in rule as the beacon above: the build
+// must set PUBLIC_POSTHOG_ENABLED === '1' (Deploy workflow only) and supply the
+// project token and host. The token is a public ingestion key, not a secret.
+// Returns the init config, or null to omit PostHog from the page entirely.
+export function posthogConfig(
+  env: Record<string, string | undefined>,
+): { apiKey: string; apiHost: string } | null {
+  const apiKey = env.PUBLIC_POSTHOG_PROJECT_TOKEN;
+  const apiHost = env.PUBLIC_POSTHOG_HOST;
+  if (env.PUBLIC_POSTHOG_ENABLED !== '1' || !apiKey || !apiHost) return null;
+  return { apiKey, apiHost };
+}

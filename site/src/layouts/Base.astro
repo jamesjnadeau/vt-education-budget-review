@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import PostHog from '../components/posthog.astro';
 import { cfBeaconToken } from '../lib/analytics.ts';
 
 interface Props {
@@ -51,6 +52,7 @@ const modelingNav = [
         data-cf-beacon={JSON.stringify({ token: beaconToken })}
       />
     )}
+    <PostHog />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

@@ -1,5 +1,33 @@
 import { describe, it, expect } from 'vitest';
-import { cfBeaconToken, CF_BEACON_TOKEN } from './analytics.ts';
+import { cfBeaconToken, CF_BEACON_TOKEN, posthogConfig } from './analytics.ts';
+
+describe('posthogConfig', () => {
+  const full = {
+    PUBLIC_POSTHOG_ENABLED: '1',
+    PUBLIC_POSTHOG_PROJECT_TOKEN: 'phc_test',
+    PUBLIC_POSTHOG_HOST: 'https://us.i.posthog.com',
+  };
+
+  it('returns the key and host when enabled and fully configured', () => {
+    expect(posthogConfig(full)).toEqual({
+      apiKey: 'phc_test',
+      apiHost: 'https://us.i.posthog.com',
+    });
+  });
+
+  it('returns null when the enable flag is unset, even with a token (local .env)', () => {
+    expect(posthogConfig({ ...full, PUBLIC_POSTHOG_ENABLED: undefined })).toBeNull();
+  });
+
+  it('returns null for a truthy-but-not-"1" flag', () => {
+    expect(posthogConfig({ ...full, PUBLIC_POSTHOG_ENABLED: 'true' })).toBeNull();
+  });
+
+  it('returns null when the token or host is missing or empty', () => {
+    expect(posthogConfig({ ...full, PUBLIC_POSTHOG_PROJECT_TOKEN: undefined })).toBeNull();
+    expect(posthogConfig({ ...full, PUBLIC_POSTHOG_HOST: '' })).toBeNull();
+  });
+});
 
 describe('cfBeaconToken', () => {
   it('returns the beacon token when PUBLIC_CF_ANALYTICS is exactly "1"', () => {
