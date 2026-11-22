@@ -2,7 +2,7 @@ name: LFS audit
 
 # Monthly full re-verification of the raw artifact store.
 #
-# validate.yml and deploy.yml fetch only the artifacts a change touched, to keep
+# validate.yml fetches only the artifacts a change touched, to keep
 # per-merge bandwidth inside the free tier. That is correct -- an artifact is
 # immutable once it lands, so re-hashing all 324 of them on every push pays for
 # bytes that cannot have changed. But the old full fetch caught store corruption

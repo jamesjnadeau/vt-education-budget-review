@@ -19,6 +19,15 @@ export const CONFIG = {
 } as const;
 
 /**
+ * Site-relative link to the web upload form at /contribute/, prefilled with the
+ * cell's entity and fiscal year. Unlike the GitHub links it needs no repository
+ * configuration and no account, so it is never null.
+ */
+export function intakeFormUrl(entitySlug: string, fiscalYear: number): string {
+  return `/contribute/?entity=${encodeURIComponent(entitySlug)}&fiscal_year=${fiscalYear}`;
+}
+
+/**
  * Deep link to the budget-intake issue form, prefilled with the cell's entity
  * and fiscal year.
  *

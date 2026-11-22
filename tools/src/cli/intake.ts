@@ -38,6 +38,10 @@ import {
 import { buildSubmission, type Submission } from '../intake/submission.ts';
 import { writeScratchFile } from '../intake/scratch.ts';
 import { MAX_ATTACHMENT_BYTES, contentErrors, isAllowedAttachmentUrl } from '../intake/security.ts';
+import { deleteRemoteUpload, downloadUpload } from '../web-intake/download-client.ts';
+import { fetchLink } from '../web-intake/fetch-link.ts';
+import { MAX_WEB_BYTES } from '../web-intake/limits.ts';
+import { runWebIntake } from '../web-intake/run-web.ts';
 
 interface Env {
   readonly body: string;
@@ -184,7 +188,114 @@ function commitAndOpenPr(env: Env, submission: Submission, relArtifactPath: stri
   );
 }
 
+/**
+ * Web mode (INTAKE_MODE=web): one repository_dispatch payload from the Netlify
+ * form becomes a PR, or a failure issue. The payload is public input: it is
+ * read from an env var, and every git/gh call below takes an argument array
+ * with text passed through files, never a shell. Commits are the bot's alone,
+ * with no co-author line (the submitter is anonymous).
+ */
+async function runWeb(): Promise<number> {
+  const need = (name: string): string => {
+    const value = process.env[name];
+    if (!value) throw new Error(`${name} is not set. Web mode needs it.`);
+    return value;
+  };
+  const origin = need('INTAKE_SITE_ORIGIN');
+  const secret = need('INTAKE_DOWNLOAD_SECRET');
+  const repo = need('GITHUB_REPOSITORY');
+  let payload: unknown;
+  try {
+    payload = JSON.parse(need('WEB_INTAKE_PAYLOAD'));
+  } catch (err) {
+    if (err instanceof SyntaxError) payload = undefined;
+    else throw err;
+  }
+
+  const knownSlugs = new Set(readRegistry().keys());
+  // A fresh base before anything is checked, so duplicate and collision checks
+  // see current main and a re-run regenerates an identical tree.
+  git('fetch', 'origin', 'main');
+  git('checkout', '--detach', 'FETCH_HEAD');
+
+  let written: string[] = [];
+  const result = await runWebIntake(payload, {
+    knownSlugs,
+    repoRoot: REPO_ROOT,
+    today: new Date().toISOString().slice(0, 10),
+    download: (id) => downloadUpload(origin, secret, id),
+    fetchLink: (url) => fetchLink(url, { maxBytes: MAX_WEB_BYTES, timeoutMs: 120_000 }),
+    writeArtifact: (relDir, filename, bytes, provenanceYaml) => {
+      const dirAbs = join(REPO_ROOT, relDir);
+      mkdirSync(dirAbs, { recursive: true });
+      writeFileSync(join(dirAbs, filename), bytes, { flag: 'wx' });
+      writeFileSync(join(dirAbs, 'provenance.yaml'), provenanceYaml, 'utf8');
+      written = [join(relDir, filename), join(relDir, 'provenance.yaml')];
+    },
+    openPr: async (branch, title, bodyFile) => {
+      git('checkout', '-B', branch);
+      git('add', ...written);
+      const messageFile = writeScratchFile(
+        PATHS.build,
+        'intake-web-commit.txt',
+        `${title}\n\nRaw artifact and its provenance record, from a web form submission. ` +
+          `Nothing else changes; extraction and normalization stay a separate step.\n`,
+      );
+      execFileSync(
+        'git',
+        [
+          '-c',
+          'user.name=github-actions[bot]',
+          '-c',
+          'user.email=41898282+github-actions[bot]@users.noreply.github.com',
+          'commit',
+          '-F',
+          messageFile,
+        ],
+        { stdio: 'inherit', cwd: REPO_ROOT },
+      );
+      git('push', '--force', 'origin', branch);
+
+      const open = JSON.parse(
+        execFileSync('gh', ['pr', 'list', '--repo', repo, '--head', branch, '--json', 'url'], { encoding: 'utf8' }),
+      ) as { url: string }[];
+      if (open[0]) {
+        console.log(`PR for ${branch} already open; the force-push updated it.`);
+        return open[0].url;
+      }
+      return execFileSync(
+        'gh',
+        ['pr', 'create', '--repo', repo, '--head', branch, '--base', 'main', '--title', title, '--body-file', bodyFile],
+        { encoding: 'utf8' },
+      ).trim();
+    },
+    failureIssueExists: async (title) => {
+      const found = JSON.parse(
+        execFileSync(
+          'gh',
+          ['issue', 'list', '--repo', repo, '--label', 'web-intake-failed', '--state', 'open', '--limit', '100', '--json', 'title'],
+          { encoding: 'utf8' },
+        ),
+      ) as { title: string }[];
+      return found.some((i) => i.title === title);
+    },
+    openFailureIssue: async (title, bodyFile) => {
+      execFileSync(
+        'gh',
+        ['issue', 'create', '--repo', repo, '--label', 'web-intake-failed', '--title', title, '--body-file', bodyFile],
+        { stdio: 'inherit' },
+      );
+    },
+    cleanupUpload: (id) => deleteRemoteUpload(origin, secret, id),
+  });
+
+  if (result.ok) console.log(`Opened web intake PR: ${result.pr}`);
+  else console.log(`Web intake failed; opened a failure issue (${result.reasons.length} reason(s)).`);
+  return 0;
+}
+
 async function main(): Promise<number> {
+  if (process.env['INTAKE_MODE'] === 'web') return runWeb();
   const env = readEnv();
   const registry = readRegistry();
   const knownSlugs = new Set(registry.keys());

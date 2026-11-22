@@ -1,0 +1,19 @@
+{
+  // Netlify Functions (.mts) wrappers around tools/src/web-intake. Typecheck
+  // only; Netlify bundles the functions itself with esbuild. No project
+  // reference to ../tools: the wrappers import its .ts sources directly, and tsc
+  // refuses to rewrite .ts import extensions across project boundaries (TS2878),
+  // so the web-intake and intake modules are compiled as part of this project (globbed, tests excluded, so a new import is picked up without editing this list).
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist/types",
+    "rootDir": "..",
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"]
+  },
+  "include": ["functions/**/*.mts", "../tools/src/web-intake/**/*.ts", "../tools/src/intake/**/*.ts"],
+  "exclude": ["../tools/src/**/*.test.ts"]
+}

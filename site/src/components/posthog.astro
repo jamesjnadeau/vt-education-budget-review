@@ -3,7 +3,7 @@
 //
 // Mirrors the Cloudflare beacon policy (see lib/analytics.ts): PostHog loads
 // only when the build opts in with PUBLIC_POSTHOG_ENABLED === '1', which the
-// Deploy workflow alone sets. Local dev, local builds and PR previews never
+// production context of netlify.toml alone sets. Local dev, local builds and PR previews never
 // phone home, even if a developer has a token in their .env.
 import { posthogConfig } from '../lib/analytics.ts';
 

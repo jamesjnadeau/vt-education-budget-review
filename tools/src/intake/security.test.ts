@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { MAX_WEB_BYTES } from '../web-intake/limits.ts';
 import {
   MAX_ATTACHMENT_BYTES,
   contentErrors,
@@ -134,5 +135,29 @@ describe('contentErrors', () => {
   it('rejects bytes whose magic does not match the extension', () => {
     const errors = contentErrors('budget.pdf', Buffer.from('<html>'));
     expect(errors.some((e) => /pdf/i.test(e))).toBe(true);
+  });
+});
+
+describe('contentErrors with a parameterized cap', () => {
+  const pdf = (mb: number) => {
+    const b = Buffer.alloc(mb * 1024 * 1024 + 5);
+    b.write('%PDF-');
+    return b;
+  };
+
+  it('accepts 30 MB under the web cap', () => {
+    expect(contentErrors('a.pdf', pdf(30), MAX_WEB_BYTES)).toEqual([]);
+  });
+
+  it('rejects 30 MB under the default cap, naming 25 MB', () => {
+    const errors = contentErrors('a.pdf', pdf(30));
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toMatch(/25 MB/);
+  });
+
+  it('rejects 101 MB under the web cap without GitHub wording', () => {
+    const errors = contentErrors('a.pdf', pdf(101), MAX_WEB_BYTES);
+    expect(errors[0]).toMatch(/over the 100 MB limit/);
+    expect(errors[0]).not.toMatch(/GitHub/);
   });
 });
