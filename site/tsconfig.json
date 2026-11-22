@@ -6,13 +6,16 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "dist/types",
-    "rootDir": "src",
+    "rootDir": "..",
     "noEmit": false,
     "emitDeclarationOnly": true,
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  // contribute-upload.ts imports three pure modules from tools/ directly (same
+  // approach as netlify/tsconfig.json: tsc cannot rewrite .ts extensions across
+  // project references), so they are compiled as part of this project.
+  "include": ["src/**/*.ts", "../tools/src/web-intake/limits.ts", "../tools/src/intake/rules.ts", "../tools/src/intake/security.ts"],
   // Astro-runtime .ts (content config + endpoint routes) import virtual modules
   // like `astro:content` and use `import.meta.env`, which plain tsc cannot
   // resolve -- those belong to the `astro check` surface (a separate decision,

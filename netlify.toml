@@ -8,6 +8,12 @@
 #
 # One-time Netlify site setup (UI, not this file): point the site at this
 # repo, and add www.vermont-school-budgets.org as the primary custom domain.
+#
+# Also in the UI: PUBLIC_TURNSTILE_SITE_KEY, the public Cloudflare Turnstile
+# site key the /contribute/ page renders its human check with. It is read at
+# build time (Astro inlines PUBLIC_* variables), so changing it needs a new
+# deploy. Without it the page's check cannot start and uploads are impossible.
+# The matching secret, TURNSTILE_SECRET_KEY, is a function-only variable.
 
 [build]
   command = "npm run build"
