@@ -11,6 +11,7 @@ function mac(secret: string, method: string, path: string, timestamp: string): B
 }
 
 export function signRequest(secret: string, method: string, path: string, timestampMs: number): string {
+  if (secret === '') throw new Error('The signing secret is empty.');
   return mac(secret, method, path, String(timestampMs)).toString('hex');
 }
 
@@ -23,6 +24,7 @@ export function verifyRequest(
   signatureHeader: string | null,
   nowMs: number,
 ): boolean {
+  if (secret === '' || !Number.isFinite(nowMs)) return false;
   if (timestampHeader === null || signatureHeader === null) return false;
   if (!/^[0-9]{1,16}$/.test(timestampHeader)) return false;
   if (!/^[0-9a-f]+$/i.test(signatureHeader) || signatureHeader.length % 2 !== 0) return false;

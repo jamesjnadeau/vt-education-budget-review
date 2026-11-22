@@ -1,3 +1,5 @@
+import { createHmac } from 'node:crypto';
+
 import { describe, expect, it } from 'vitest';
 
 import { SIGNATURE_WINDOW_MS } from './limits.ts';
@@ -20,6 +22,13 @@ describe('signing', () => {
     expect(verifyRequest('s3cret', 'POST', '/api/x', String(NOW), sig, NOW + SIGNATURE_WINDOW_MS)).toBe(true);
     expect(verifyRequest('s3cret', 'POST', '/api/x', String(NOW), sig, NOW + SIGNATURE_WINDOW_MS + 1)).toBe(false);
     expect(verifyRequest('s3cret', 'POST', '/api/x', String(NOW), sig, NOW - SIGNATURE_WINDOW_MS - 1)).toBe(false);
+  });
+  it('fails closed on an empty secret or non-finite now', () => {
+    expect(() => signRequest('', 'POST', '/api/x', NOW)).toThrow();
+    const forged = createHmac('sha256', '').update(`POST\n/api/x\n${NOW}`).digest('hex');
+    expect(verifyRequest('', 'POST', '/api/x', String(NOW), forged, NOW)).toBe(false);
+    expect(verifyRequest('s3cret', 'POST', '/api/x', String(NOW), sig, Number.NaN)).toBe(false);
+    expect(verifyRequest('s3cret', 'POST', '/api/x', String(NOW), sig, Infinity)).toBe(false);
   });
   it('returns false, never throws, on malformed input', () => {
     for (const [t, s] of [
