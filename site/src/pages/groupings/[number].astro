@@ -173,7 +173,14 @@ const state: 'computed' | 'partial' | 'recruitment' = computable
         {!committee.verified && <span class="tag unverified" style="margin-left:.5rem">list not checked</span>}
       </p>
       <p style="font-size:.9rem;color:var(--text-muted)">
-        From the {moved?.by}'s first list, {longDate(moved?.as_of)}. It may still change.
+        {moved?.status === 'final' ? (
+          <span>
+            From the {moved?.by}'s list of {longDate(moved?.roster_as_of ?? moved?.as_of)}. They made
+            the groups final on {longDate(moved?.finalized_date)}, but have moved a few districts since.
+          </span>
+        ) : (
+          <span>From the {moved?.by}'s first list, {longDate(moved?.as_of)}. It may still change.</span>
+        )}
         {' '}<a href={`${base}/groupings/`}>More about the list</a>.
       </p>
 

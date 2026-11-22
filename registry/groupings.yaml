@@ -122,14 +122,23 @@ act:
 # those moves and were dissolved; their districts went to other committees.
 # The facilitators kept the act's numbers for the 18 that remain.
 #
-# The full list is in `committees` below, transcribed from the VLC's own press
-# release (intake/vlc-act170/). Two things to know about it:
+# The list has been published three times, all in intake/vlc-act170/:
 #
-#   - It is the PRELIMINARY list. Boards could comment through 2026-09-23 and
-#     the facilitators aimed to finalize on 2026-09-25. We have not seen a
-#     final list or a report that one was issued, so `status` stays
-#     `announced_provisional`. When a final list is found, land it in intake/
-#     the same way, update `committees`, and set `status: final`.
+#   - 2026-09-18, the preliminary list (a press release).
+#   - 2026-09-25, the final list (a press release). One change: Ludlow-Mount
+#     Holly moved from Group Seven to Group Three. It also corrects Group
+#     One's printed total from 3,248 to 3,748.
+#   - 2026-11-12, an updated final list ("Merger Groups Public Release", posted
+#     on vtlc.org). Two more changes: Sandgate moved from Group Four to Group
+#     Three, and Echo Valley moved from Group Nine to Group Twenty.
+#
+# `committees` below is the 2026-11-12 list (`roster_as_of`), and `status` is
+# `final` (`finalized_date` is 2026-09-25). Districts can still ask to move
+# after that, as Sandgate and Echo Valley did. When a newer list turns up, land
+# it in intake/ the same way, update `committees` and `roster_as_of`.
+#
+# Two more things to know:
+#
 #   - Every committee is `verified: false`. The roster was transcribed by
 #     script from the PDF's text layer and spot-checked against its totals, not
 #     read line by line by a person. Set `verified: true` per committee once
@@ -141,8 +150,10 @@ act:
 # ---------------------------------------------------------------------------
 reassignment:
   by: "Vermont Learning Collaborative"
-  status: announced_provisional
+  status: final
   as_of: 2026-09-18
+  finalized_date: 2026-09-25
+  roster_as_of: 2026-11-12
   committee_count: 18
   district_count: 119
   requests_granted: 13
@@ -152,16 +163,50 @@ reassignment:
   roster_published: true
   additional_adjustments: true
   note: >-
-    Announced as a starting point, not a final decision: school board leaders
-    could comment through 2026-09-23, with the groups to be settled on
-    2026-09-25. Committees must hold a first meeting by 2026-10-15 and report
-    recommendations by September 2027; any merger goes to voters on Town Meeting
-    Day 2028. The full committee list below is from the Vermont Learning
-    Collaborative's own press release of 2026-09-18 (intake/vlc-act170/). It
-    is the preliminary list. As of 2026-11-22 we have seen no final list and no
-    report that the groups were in fact settled on 2026-09-25, so `status`
-    stays provisional.
+    First announced 2026-09-18 as a starting point, with comments through
+    2026-09-23. Settled on 2026-09-25 with one change (Ludlow-Mount Holly,
+    Group Seven to Group Three). Updated 2026-11-12 with two more (Sandgate,
+    Group Four to Group Three; Echo Valley, Group Nine to Group Twenty).
+    Committees had to hold a first meeting by 2026-10-15 and report
+    recommendations by September 2027; any merger goes to voters on Town
+    Meeting Day 2028. The committee list below is the 2026-11-12 one.
   sources:
+    - publisher: "Vermont Learning Collaborative"
+      title: "Merger Groups Public Release (11.12.26 Updated Merger Committee Groups)"
+      url: "https://img1.wsimg.com/blobby/go/b7b25bf1-1b43-4027-a5c4-bba582a01a30/downloads/9648de9d-6f43-47d9-abbc-39ef84641bd8/11.12.26%20Updated%20Merger%20Commitee%20Groups%20.pdf?ver=1794837880463"
+      published_date: 2026-11-12
+      retrieved_date: 2026-11-22
+      retrieved_by: "automated fetch by Claude, at James Nadeau's request; not read by a person"
+      note: >-
+        The current list, posted on the VLC's own Resources page
+        (https://vtlc.org/resources). A table only: committee, member
+        districts, FY25 ADM and a total, with no dates or commentary. Its
+        date is from the title on that page. The authority for `committees`
+        and `roster_as_of`. Copy and checksum in intake/vlc-act170/.
+    - publisher: "Vermont Learning Collaborative"
+      title: "Vermont Learning Collaborative Finalizes Act 170 Merger Committee Groupings and Releases Good Faith Participation Standard"
+      url: "https://img1.wsimg.com/blobby/go/b7b25bf1-1b43-4027-a5c4-bba582a01a30/downloads/0d11ffb4-8e07-44c6-825b-b41ba4f03eec/VTLC%20Act%20170%20Sept%2025%20Press%20Release%20(1).pdf?ver=1794837880463"
+      published_date: 2026-09-25
+      retrieved_date: 2026-11-22
+      retrieved_by: "automated fetch by Claude, at James Nadeau's request; not read by a person"
+      quote: >-
+        "one school district requested and received a change in assignment
+        moving from Group Seven (Southeast / VTLC Region) to Group Three
+        (Southwest Region)."
+      note: >-
+        The authority for `status: final` and `finalized_date`. Its table
+        moves Ludlow-Mount Holly to Group Three and prints Group One's total
+        as 3,748. Also sets out the Good Faith Participation Standard and the
+        standard first-meeting agenda. Copy and checksum in intake/vlc-act170/.
+    - publisher: The Chester Telegraph
+      title: "LMH exits Green Mountain merger group; First Group 7 meeting Oct. 13"
+      url: https://www.chestertelegraph.org/2026/09/30/lmh-exits-green-mountain-merger-group-first-group-7-meeting-oct-13/
+      published_date: 2026-09-30
+      retrieved_date: 2026-11-22
+      retrieved_by: "automated fetch by a Claude subagent; not read by a person"
+      note: >-
+        Reporting on the 2026-09-25 list. Says the Ludlow-Mount Holly board
+        voted on 2026-09-22 to move to Group Three, to keep school choice.
     - publisher: "Vermont Learning Collaborative"
       title: "Vermont Learning Collaborative Shares Preliminary Act 170 Merger Committee Groupings"
       url: https://www.chestertelegraph.org/wp-content/uploads/2026/09/New-Groupings-as-of-9-18-26.pdf
@@ -174,8 +219,8 @@ reassignment:
         The facilitators' own press release, with the committee-by-committee
         list and each district's two-year average ADM. Hosted by The Chester
         Telegraph, not by the VLC; the copy and its checksum are in
-        intake/vlc-act170/. The authority for `committees` and for
-        `roster_published: true`.
+        intake/vlc-act170/. The first list, since replaced by the two above.
+        The authority for `as_of` and for which act groups were dissolved.
     - publisher: VTDigger
       title: "School districts assigned to new merger discussion groups"
       url: https://vtdigger.org/2026/09/18/school-districts-assigned-to-new-merger-discussion-groups/
@@ -268,8 +313,8 @@ reassignment:
       name: "Group 1"
       name_as_written: "Group One"
       region: "Champlain Valley South"
-      adm_total_as_published: 3248
-      note: "The release prints the committee total as 3,248, but the three district figures it lists add up to 3,748. The printed total is kept as printed."
+      adm_total_as_published: 3748
+      note: "The 2026-09-18 list printed this total as 3,248, which did not match its three districts (1,669 + 889 + 1,190 = 3,748). The 2026-09-25 and 2026-11-12 lists print 3,748."
       verified: false
       roster:
         - name_as_written: "Addison Central School District"
@@ -332,9 +377,14 @@ reassignment:
       name: "Group 3"
       name_as_written: "Group Three"
       region: "Southwest"
-      adm_total_as_published: 2792
+      adm_total_as_published: 3179
+      note: "Ludlow-Mount Holly joined on 2026-09-25 (from Group Seven) and Sandgate by 2026-11-12 (from Group Four)."
       verified: false
       roster:
+        - name_as_written: "Ludlow-Mount Holly Unified Union School District"
+          maps_to: [ud/ludlow-mt-holly-83]
+          kind: district
+          adm_as_published: 319
         - name_as_written: "Mettawee School District"
           maps_to: [ud/mettawee-84]
           kind: district
@@ -347,6 +397,10 @@ reassignment:
           maps_to: [ud/river-valleys-73]
           kind: district
           adm_as_published: 220
+        - name_as_written: "Sandgate School District"
+          maps_to: [town/sandgate]
+          kind: district
+          adm_as_published: 68
         - name_as_written: "Searsburg School District"
           maps_to: [town/searsburg]
           kind: district
@@ -387,7 +441,8 @@ reassignment:
       name: "Group 4"
       name_as_written: "Group Four"
       region: "Southwest"
-      adm_total_as_published: 3218
+      adm_total_as_published: 3150
+      note: "Sandgate left for Group Three by 2026-11-12."
       verified: false
       roster:
         - name_as_written: "Arlington School District"
@@ -402,10 +457,6 @@ reassignment:
           maps_to: [town/north-bennington]
           kind: district
           adm_as_published: 159
-        - name_as_written: "Sandgate School District"
-          maps_to: [town/sandgate]
-          kind: district
-          adm_as_published: 68
         - name_as_written: "Southwest Vermont Technical Center"
           maps_to: [techcenter/southwest-tech]
           kind: career_technical_center
@@ -451,7 +502,8 @@ reassignment:
       name: "Group 7"
       name_as_written: "Group Seven"
       region: "Southeast / VTLC"
-      adm_total_as_published: 3087
+      adm_total_as_published: 2768
+      note: "Ludlow-Mount Holly left for Group Three on 2026-09-25."
       verified: false
       roster:
         - name_as_written: "Athens Grafton School District"
@@ -466,10 +518,6 @@ reassignment:
           maps_to: [ud/green-mountain-77]
           kind: district
           adm_as_published: 593
-        - name_as_written: "Ludlow-Mount Holly Unified Union School District"
-          maps_to: [ud/ludlow-mt-holly-83]
-          kind: district
-          adm_as_published: 319
         - name_as_written: "River Valley Technical Center"
           maps_to: [techcenter/river-valley-technical-center]
           kind: career_technical_center
@@ -522,13 +570,10 @@ reassignment:
       name: "Group 9"
       name_as_written: "Group Nine"
       region: "Winooski Valley"
-      adm_total_as_published: 2897
+      adm_total_as_published: 2618
+      note: "Echo Valley left for Group Twenty by 2026-11-12."
       verified: false
       roster:
-        - name_as_written: "Echo Valley Community School District"
-          maps_to: [ud/echo-valley-community-67]
-          kind: district
-          adm_as_published: 279
         - name_as_written: "First Branch Unified School District"
           maps_to: [ud/first-branch-82]
           kind: district
@@ -783,7 +828,7 @@ reassignment:
       adm_total_as_published: 8116
       verified: false
       roster:
-        - name_as_written: "Enosburg-Richford Unified Union School District"
+        - name_as_written: "Enosburgh-Richford Unified Union School District"
           maps_to: [ud/enosburgh-richford-88]
           kind: district
           adm_as_published: 854
@@ -864,7 +909,8 @@ reassignment:
       name: "Group 20"
       name_as_written: "Group Twenty"
       region: "Winooski Valley"
-      adm_total_as_published: 5925
+      adm_total_as_published: 6204
+      note: "Echo Valley joined by 2026-11-12 (from Group Nine)."
       verified: false
       roster:
         - name_as_written: "Barre Unified Union School District"
@@ -874,6 +920,10 @@ reassignment:
         - name_as_written: "Central Vermont Career Center"
           maps_to: [techcenter/central-vermont-career-center]
           kind: career_technical_center
+        - name_as_written: "Echo Valley Community School District"
+          maps_to: [ud/echo-valley-community-67]
+          kind: district
+          adm_as_published: 279
         - name_as_written: "Montpelier Roxbury School District"
           maps_to: [ud/montpelier-roxbury-71]
           kind: district

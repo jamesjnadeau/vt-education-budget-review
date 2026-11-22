@@ -51,7 +51,16 @@ const andList = (xs: string[]) =>
       {doc.act?.name ?? 'Act 170'} put Vermont's school districts into {doc.groupings.length} groups.
       Each group studies whether its districts should join into one. The law let the people the state
       hired to run these talks, the {moved?.by}, change the groups. On {longDate(moved?.as_of)} they
-      did. There are now {committees.length} groups. These are the starting what-ifs in the tool.
+      did. There are now {committees.length} groups.{' '}
+      {moved?.status === 'final' && moved.finalized_date && (
+        <span>
+          They made the list final on {longDate(moved.finalized_date)}.
+          {moved.roster_as_of && moved.roster_as_of !== moved.finalized_date && (
+            <span> They moved a few more districts after that. This page shows their list of {longDate(moved.roster_as_of)}.</span>
+          )}
+        </span>
+      )}
+      {' '}These are the starting what-ifs in the tool.
     </p>
   ) : (
     <p class="lede">
@@ -74,6 +83,19 @@ const andList = (xs: string[]) =>
         <p>
           A computer copied this list from the press release. A person has not checked it line by
           line yet. That is why each group says "not checked."
+        </p>
+      </details>
+    </div>
+  )}
+
+  {committees.length > 0 && moved?.status === 'final' && committees.some((c) => !c.verified) && (
+    <div class="notice">
+      <strong>A person has not checked this list yet</strong>
+      <details class="notice-more">
+        <summary>show more information</summary>
+        <p>
+          A computer copied this list from the {moved.by}'s own copy. A person has not checked it line
+          by line yet. That is why each group says "not checked."
         </p>
       </details>
     </div>
@@ -184,8 +206,17 @@ const andList = (xs: string[]) =>
   )}
   {committees.length > 0 && (
     <p style="font-size:.9rem;color:var(--text-muted)">
-      The first link is the {moved?.by}'s own press release with the full list. We got our copy from
-      The Chester Telegraph's website. The others are news reports from before we had the list.
+      {moved?.status === 'final' ? (
+        <span>
+          The first link is the {moved?.by}'s newest list. The second is their press release that made
+          the list final. The rest are news reports and the first list.
+        </span>
+      ) : (
+        <span>
+          The first link is the {moved?.by}'s own press release with the full list. We got our copy
+          from The Chester Telegraph's website. The others are news reports from before we had the list.
+        </span>
+      )}
     </p>
   )}
 </Base>

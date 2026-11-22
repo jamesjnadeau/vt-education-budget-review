@@ -44,6 +44,8 @@ export interface Reassignment {
   by: string;
   status: 'announced_provisional' | 'final';
   as_of: string;
+  finalized_date?: string | null;
+  roster_as_of?: string | null;
   committee_count: number | null;
   district_count: number | null;
   requests_granted: number | null;

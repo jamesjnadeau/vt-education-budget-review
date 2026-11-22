@@ -42,7 +42,23 @@
           "enum": ["announced_provisional", "final"],
           "description": "`announced_provisional` means the new committees are out for comment and can still move. Only `final` may be presented as the answer to \"which districts am I grouped with?\"."
         },
-        "as_of": { "type": "string", "format": "date" },
+        "as_of": {
+          "type": "string",
+          "format": "date",
+          "description": "The date the facilitators first announced the regrouping."
+        },
+        "finalized_date": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "The date the facilitators declared the committee list final. Null while it is provisional.",
+          "default": null
+        },
+        "roster_as_of": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "The date of the published list transcribed in `committees`. A final list can still be updated later; this says which edition the roster is.",
+          "default": null
+        },
         "committee_count": { "type": ["integer", "null"], "minimum": 1, "default": null },
         "district_count": { "type": ["integer", "null"], "minimum": 1, "default": null },
         "requests_granted": {
