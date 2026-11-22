@@ -37,6 +37,33 @@ describe('checkFields', () => {
       expect(checkFields({ ...valid, fiscalYear: fy }, slugs).ok).toBe(false);
     }
   });
+
+  it('accepts the fiscal-year boundaries 2015 and 2100', () => {
+    for (const fy of ['2015', '2100']) {
+      const r = checkFields({ ...valid, fiscalYear: fy }, slugs);
+      expect(r.ok).toBe(true);
+      if (r.ok) expect(r.fields.fiscalYear).toBe(Number(fy));
+    }
+  });
+
+  it('collects every problem rather than stopping at the first', () => {
+    const r = checkFields(
+      { ...valid, entity: 'su/nope', fiscalYear: 'abc', retrievalMethod: 'carrier-pigeon', documentType: 'novel' },
+      slugs,
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.errors).toHaveLength(4);
+  });
+
+  it('requires a source URL for foia, unlike email and in_person', () => {
+    expect(checkFields({ ...valid, retrievalMethod: 'foia', sourceUrl: null }, slugs).ok).toBe(false);
+    expect(checkFields({ ...valid, retrievalMethod: 'in_person', sourceUrl: null, note: 'handed over' }, slugs).ok).toBe(true);
+  });
+
+  it('rejects an unparseable source URL', () => {
+    const r = checkFields({ ...valid, sourceUrl: 'not a url' }, slugs);
+    expect(r.ok).toBe(false);
+  });
 });
 
 describe('isIsoDate', () => {

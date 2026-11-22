@@ -92,11 +92,9 @@ export function buildWebSubmission(
     };
   }
 
-  const entityRaw = typeof payload.entity === 'string' ? payload.entity : null;
-  const fyRaw =
-    typeof payload.fiscal_year === 'string' ? payload.fiscal_year : null;
-  const entity = entityRaw || 'unknown';
-  const fiscalYear = fyRaw || 'unknown';
+  // Trimmed like every other field, so the failure issue shows what was checked.
+  const entity = clean(payload.entity) ?? 'unknown';
+  const fiscalYear = clean(payload.fiscal_year) ?? 'unknown';
   const fail = (errors: string[]) => ({
     ok: false as const,
     errors,

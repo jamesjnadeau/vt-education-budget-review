@@ -94,3 +94,31 @@ describe('buildWebSubmission', () => {
     expect(r2.ok).toBe(false);
   });
 });
+
+describe('buildWebSubmission failure path', () => {
+  it('reports the trimmed entity and fiscal year', () => {
+    const r = buildWebSubmission(valid({ entity: '  su/nope  ', fiscal_year: ' 20x6 ' }), slugs);
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.entity).toBe('su/nope');
+      expect(r.fiscalYear).toBe('20x6');
+    }
+  });
+
+  it('rejects a payload with no submission_id', () => {
+    const r = buildWebSubmission(valid({ submission_id: '  ' }), slugs);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.errors).toContain('The submission has no submission_id.');
+  });
+
+  it('rejects non-string fields with a shape error', () => {
+    const p = valid();
+    (p.fields as Record<string, unknown>).note = 7;
+    const r = buildWebSubmission(p, slugs);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.errors).toContain("Field 'fields.note' must be a string.");
+    const r2 = buildWebSubmission(valid({ fields: 'x' }), slugs);
+    expect(r2.ok).toBe(false);
+    if (!r2.ok) expect(r2.errors).toContain("Field 'fields' must be an object.");
+  });
+});

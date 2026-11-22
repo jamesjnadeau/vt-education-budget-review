@@ -139,7 +139,11 @@ describe('contentErrors', () => {
 });
 
 describe('contentErrors with a parameterized cap', () => {
-  const pdf = (mb: number) => Buffer.from('%PDF-' + 'x'.repeat(mb * 1024 * 1024));
+  const pdf = (mb: number) => {
+    const b = Buffer.alloc(mb * 1024 * 1024 + 5);
+    b.write('%PDF-');
+    return b;
+  };
 
   it('accepts 30 MB under the web cap', () => {
     expect(contentErrors('a.pdf', pdf(30), MAX_WEB_BYTES)).toEqual([]);
