@@ -1,6 +1,15 @@
 # Small / sparse parameters — verification worksheet
 
-Companion to `model/parameters/fy2030-small-sparse.yaml`, whose statutory values are all null. This is where the
+> **Update 2026-11-22.** Act 170 of 2026 as enacted has been read and saved to
+> `intake/vt-legislature/2026-acts/`. Its Sec. 29 adds 16 V.S.A. § 4019, which replaces the
+> Act 73 Sec. 37 language, and the parameter file now carries the verbatim sentences. The readings
+> below are historical. Where they differ, the act wins: the small test is an average grade size
+> under 12 (not under 100 pupils), the density geography is the school's own town, the area is
+> land area, no population series is named, and the pupil count is the two-year average. Still open:
+> the stacking rule (the act is silent) and the Act 73 Sec. 70(f)(1) contingency on the July 1,
+> 2029 effective date. The SBE presentation is saved in `intake/sbe/2025-12-17-small-sparse-framework/`.
+
+Companion to `model/parameters/fy2030-small-sparse.yaml`. This is where the
 secondary-source readings live, deliberately **outside** the parameter file.
 
 Per `docs/parameter-verification.md`, the danger is not a wrong number, it is a *plausible*
@@ -73,11 +82,9 @@ worksheet's confirm-or-refute list. They come from the committee report itself, 
 primary source for what the committee proposed, and they sit in the parameter file's `framework:`
 block with values present and `is_law: false`.
 
-One thing still to do: `education.vermont.gov` serves the presentation PDF but 403s automated
+Done 2026-11-22: the presentation is saved with a hash. (Previously: `education.vermont.gov` served the presentation PDF but 403s automated
 clients, so the artifact needs a manual save into `intake/sbe/2025-12-17-small-sparse-framework/`
-with a SHA-256 before anything cites it. The reading currently in the parameter file came from a
-copy supplied in conversation. That is not a hashed intake artifact, and under rule 2 the
-distinction matters.
+with a SHA-256 before anything cites it.)
 
 ---
 

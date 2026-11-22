@@ -1,12 +1,12 @@
 name: a school at exactly the enrollment threshold
 why: |
-  Vermont has schools at exactly 100 pupils. `lt` and `lte` decide them
+  Average grade size is a rounded-down integer, so schools land exactly on 12: 84 pupils across K-6's seven grades. `lt` and `lte` decide them
   differently, so the comparator is a parameter and not a convention. If someone
   ever hard-codes the comparison, this fixture is what catches it -- and it
   catches it at the only value where the two readings disagree.
 
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:
@@ -15,7 +15,7 @@ school:
   municipality_basis: census_geocoder_point_in_polygon
 
 inputs:
-  enrollment_by_year: { 2028: 100, 2029: 100 }
+  enrollment_by_year: { 2028: 84, 2029: 84 }
   municipality:
     population: 1000
     land_area_sq_mi: 40
@@ -27,7 +27,7 @@ options:
   enrollment_basis: two_year_average
 
 expected:
-  enrollment_value: 100
+  average_grade_size: 12
   small_screen_met: false
   density_value: 25
   sparse_screen_met: true

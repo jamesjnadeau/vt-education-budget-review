@@ -1,0 +1,34 @@
+name: a PK-5 school, where prekindergarten is not one of the grades
+why: |
+  Average grade size divides by the grades ABOVE prekindergarten. PK-5 is six
+  such grades, so 72 pupils is exactly 12 and does not meet the under-12 screen.
+  Counting prekindergarten as a grade would divide by seven, give 10 and wrongly
+  pass the school.
+
+thresholds:
+  enrollment: { threshold: 12, comparator: lt }
+  density: { threshold: 55, comparator: lt }
+
+school:
+  grade_span: { low: -1, high: 5 }
+  school_type: public
+  municipality_basis: census_geocoder_point_in_polygon
+
+inputs:
+  enrollment_by_year: { 2028: 72, 2029: 72 }
+  municipality:
+    population: 1000
+    land_area_sq_mi: 40
+    water_area_sq_mi: 0
+    series: decennial_2020
+
+options:
+  fiscal_year: 2030
+  enrollment_basis: two_year_average
+
+expected:
+  average_grade_size: 12
+  small_screen_met: false
+  density_value: 25
+  sparse_screen_met: true
+  grant_amount: null

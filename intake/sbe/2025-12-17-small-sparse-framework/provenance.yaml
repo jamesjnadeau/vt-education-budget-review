@@ -1,0 +1,20 @@
+schema_version: "1.0"
+entity: source/sbe
+fiscal_year: 2030
+artifacts:
+  - file: SBE Small Sparse presentation.pdf
+    source_url: https://education.vermont.gov/sites/aoe/files/documents/SBE%20Small%20Sparse%20presentation.pdf
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: bcb7f7d0cd2c2a97f7cf80eeaec9613a1b8bd3d53be0d56d1d709ab808f1554b
+    bytes: 118878
+    media_type: application/pdf
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: board_presentation
+    note: >-
+      "Framework for Considering Small/Sparse Schools That Operate by Necessity",
+      Committee Report to the Vermont State Board of Education, 2025-12-17, under Act 73
+      of 2025 Sec. 8. Proposed criteria, not adopted rules. Act 170 Sec. 26 requires the
+      State Board's rules to be "consistent with" this report and its recommendations.
+      The presentation describes the small test as "<100 students", the Act 73 Sec. 37
+      wording; Act 170 Sec. 29 replaced it with average grade size under 12.

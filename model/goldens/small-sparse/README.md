@@ -21,7 +21,7 @@ was written.
 
 Four things, each of which is a real way to get this layer silently wrong:
 
-1. **Boundary arithmetic.** A school at exactly the enrollment threshold, and a town at exactly
+1. **Boundary arithmetic.** A school at exactly the average-grade-size threshold (12, over the grades above prekindergarten), and a town at exactly
    the density threshold. `lt` and `lte` decide these differently and Vermont has schools at
    exactly 100 pupils.
 2. **Land area against total area.** A lakeside town whose land and total areas diverge sharply.
@@ -37,7 +37,7 @@ Four things, each of which is a real way to get this layer silently wrong:
 ## Fixture format
 
 ```yaml
-name: a school exactly at the enrollment threshold
+name: a school exactly at the average-grade-size threshold
 why: |
   What this fixture would catch if it broke, in a sentence. Not optional --
   a fixture nobody can explain is a fixture nobody dares delete.
@@ -48,7 +48,7 @@ why: |
 # "SYNTHETIC TEST FIXTURE -- not a statutory value and not Vermont law", so a
 # value copied out of here announces what it is wherever it lands.
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:

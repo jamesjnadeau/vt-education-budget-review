@@ -5,7 +5,7 @@ why: |
   comparator excludes the town and an inclusive one admits it.
 
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:
@@ -26,7 +26,7 @@ options:
   enrollment_basis: two_year_average
 
 expected:
-  enrollment_value: 60
+  average_grade_size: 8
   small_screen_met: true
   density_value: 55
   sparse_screen_met: false

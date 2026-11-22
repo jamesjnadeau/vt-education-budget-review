@@ -1,6 +1,6 @@
 # Framework for Considering Small/Sparse Schools That Operate by Necessity
 
-**This directory is deliberately empty of the artifact it is named for.**
+**The artifact landed on 2026-11-22; see provenance.yaml.** The sections below describe why it was missing and are kept as history.
 
 ## What belongs here
 

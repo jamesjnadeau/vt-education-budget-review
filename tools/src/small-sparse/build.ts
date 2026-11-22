@@ -78,7 +78,8 @@ export interface SchoolRow {
   readonly population: number | null;
   readonly population_series: PopulationSeries;
   readonly density: number | null;
-  readonly enrollment: number | null;
+  readonly average_enrollment: number | null;
+  readonly average_grade_size: number | null;
   readonly small_screen_met: boolean | null;
   readonly sparse_screen_met: boolean | null;
   readonly enrollment_status: string;
@@ -236,7 +237,8 @@ export function buildSmallSparse(
       population,
       population_series: options.populationSeries,
       density: result.statutory.density.value,
-      enrollment: result.statutory.enrollment.value,
+      average_enrollment: result.statutory.enrollment.averageEnrollment ?? null,
+      average_grade_size: result.statutory.enrollment.value,
       small_screen_met: result.statutory.smallScreenMet,
       sparse_screen_met: result.statutory.sparseScreenMet,
       enrollment_status: result.statutory.enrollment.node.status,
@@ -266,7 +268,7 @@ export function buildSmallSparse(
       with_municipality: withMunicipality,
       with_land_area: withLandArea,
       with_population: withPopulation,
-      with_enrollment: rows.filter((r) => r.enrollment !== null).length,
+      with_enrollment: rows.filter((r) => r.average_grade_size !== null).length,
       screens_resolved: screensResolved,
     },
     population_series_held: census?.population_series_held ?? [],

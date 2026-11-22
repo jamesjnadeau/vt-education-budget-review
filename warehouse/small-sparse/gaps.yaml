@@ -12,23 +12,29 @@ schema_version: "1.0"
 layer: small-sparse
 parameter_set_ref: model/parameters/fy2030-small-sparse.yaml
 entries:
-  - input: screens.small_enrollment.threshold
-    source: 2025 Acts and Resolves No. 73, Sec. 37
+  - input: statutory_parameters
+    source: Act 170 of 2026 Sec. 29 (16 V.S.A. § 4019), intake/vt-legislature/2026-acts/
+    supplied: true
+    whose: null
+    note: >-
+      Read from the enacted act and verified with the verbatim sentence: the small test is an
+      average grade size under 12 (two-year average enrollment over the grades above
+      prekindergarten, rounded down), the sparse test is under 55 persons per square mile of
+      land in the school's own town, and the grants are $3,157 and $1,954 times two-year average
+      enrollment, inflated by the NIPA state and local deflator. The earlier "fewer than 100"
+      reading was Act 73 Sec. 37, repealed by Act 170 Sec. 28. Two things remain unread: the
+      Act 73 Sec. 70(f)(1) contingency that gates the July 1, 2029 effective date, and whether
+      the two grants stack, on which the act is silent.
+
+  - input: grade_span_operated
+    source: AOE school grade span, normalized in the registry
     supplied: false
     whose: ours
     note: >-
-      Null and unverified, along with every other statutory value in this layer.
-      legislature.vermont.gov serves an incomplete TLS chain to automated clients and
-      education.vermont.gov returns 403, so nothing here was read from a primary source.
-      Neither obstructs a person with a browser. This is a manual afternoon, and it gates
-      every figure downstream: with the threshold null the engine declines to screen any
-      school, independently of how complete the enrollment and geography data become.
-
-  - input: screens.sparse_density.threshold
-    source: 2025 Acts and Resolves No. 73, Sec. 37
-    supplied: false
-    whose: ours
-    note: Same. See docs/small-sparse-verification-worksheet.md for what to read.
+      Average grade size divides by the grades above prekindergarten the school operates. The
+      engine derives that count from the registry's low and high grade, which assumes every
+      grade between them is operated. A school with no grade span has no average grade size, and
+      the screen declines rather than guessing.
 
   - input: school_enrollment
     source: AOE Public Data API

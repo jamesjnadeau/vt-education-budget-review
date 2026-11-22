@@ -7,7 +7,7 @@ why: |
   there in the API response.
 
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:
@@ -28,7 +28,7 @@ options:
   enrollment_basis: two_year_average
 
 expected:
-  enrollment_value: 70
+  average_grade_size: 10
   small_screen_met: true
   density_value: null
   sparse_screen_met: null
