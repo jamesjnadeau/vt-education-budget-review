@@ -8,8 +8,10 @@ status: draft
 # The statutory values here were read from the enacted Act 170 of 2026 (Sec. 29
 # adds 16 V.S.A. § 4019; Sec. 28 repeals Act 73 Sec. 37) and carry the verbatim
 # operative sentence. Sec. 86 makes Sec. 29 effective July 1, 2029 if the Act 73
-# Sec. 70(f)(1) conditions are met; that contingency is still unread. The one
-# statutory key left null is the stacking rule, because the act states none.
+# Sec. 70(f)(1) conditions are met (READ 2026-11-22: the General Assembly must
+# receive the Sec. 45a foundation formula report and the merger-committee
+# facilitator report, and enact legislation addressing, among other things,
+# "sparsity measures"; none is confirmed). The one statutory key left null is the stacking rule, because the act states none.
 # Secondary readings are in docs/small-sparse-verification-worksheet.md.
 #
 # A DISTINCTION THIS FILE NEEDS AND THE OTHERS DO NOT
@@ -53,9 +55,10 @@ status: draft
 # ONE FILE, NOT TWO
 #
 # Act 73 attached the grants to foundation formula implementation, originally the
-# 2028-29 school year. Act 170 moved implementation to 2029-30. Whether Act 170
-# amended the fiscal year references in Sec. 37, or the schedule shifts by
-# operation of the contingency, is unread. Do NOT create a parallel fy2029 file
+# 2028-29 school year. Act 170 moved implementation to 2029-30 (Sec. 18 changes the
+# Sec. 70(f)(1) date from July 1, 2028 to July 1, 2029). Sec. 37 itself is
+# repealed by Act 170 Sec. 28, so the question is moot for the grants; whether
+# the 2029 date holds depends on the Sec. 70(f)(1) conditions. Do NOT create a parallel fy2029 file
 # with the same values -- that is carrying a value forward, which the
 # verification checklist prohibits for the yield and prohibits here for the same
 # reason. The correct fiscal year is a finding, not a guess to hedge.
@@ -72,7 +75,10 @@ status: draft
 note: >-
   Small and sparse school support grants under 16 V.S.A. § 4019 as added by Act
   170 of 2026 Sec. 29 (effective July 1, 2029 if the Act 73 Sec. 70(f)(1)
-  conditions are met, which is unread), plus the State Board committee's
+  conditions are met: receipt of the Sec. 45a foundation formula report and the
+  merger facilitator report, plus enacted legislation addressing the report's
+  components including "sparsity measures", a pre-K funding mechanism, and
+  legacy bargaining agreements and debt; Act 170 Sec. 18), plus the State Board committee's
   proposed necessity framework of 2025-12-17. Statutory values were read from
   the enacted act and carry the verbatim sentence, except the stacking rule,
   which the act does not state. The framework parameters carry values but are

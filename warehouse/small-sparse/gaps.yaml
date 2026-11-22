@@ -22,9 +22,13 @@ entries:
       prekindergarten, rounded down), the sparse test is under 55 persons per square mile of
       land in the school's own town, and the grants are $3,157 and $1,954 times two-year average
       enrollment, inflated by the NIPA state and local deflator. The earlier "fewer than 100"
-      reading was Act 73 Sec. 37, repealed by Act 170 Sec. 28. Two things remain unread: the
-      Act 73 Sec. 70(f)(1) contingency that gates the July 1, 2029 effective date, and whether
-      the two grants stack, on which the act is silent.
+      reading was Act 73 Sec. 37, repealed by Act 170 Sec. 28. Read 2026-11-22: Act 73 Sec. 70(f)(1), as
+      amended by Act 170 Sec. 18, gates the July 1, 2029 effective date on the General Assembly
+      receiving the Sec. 45a foundation formula report and the merger facilitator report, and on
+      enacted legislation addressing the report's components (including "sparsity measures"),
+      a pre-K funding mechanism, and legacy bargaining agreements and debt. None is confirmed met,
+      and sparsity may change before 2029. The strike-through in the act was read from extracted
+      text, not the PDF. Still open: whether the two grants stack, on which the act is silent.
 
   - input: grade_span_operated
     source: AOE school grade span, normalized in the registry
