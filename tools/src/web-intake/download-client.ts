@@ -13,6 +13,9 @@ export class DownloadError extends Error {
   }
 }
 
+/** The id goes into a signed path, so it must be exactly what uploads.ts mints. */
+export const isUploadId = (id: string): boolean => /^[0-9a-f]{32}$/.test(id);
+
 type PublicMeta = Omit<UploadMeta, 'tokenHash'>;
 
 const sha256Hex = (data: Uint8Array): string => createHash('sha256').update(data).digest('hex');
@@ -56,6 +59,7 @@ export async function downloadUpload(
   id: string,
   fetchImpl: typeof fetch = fetch,
 ): Promise<{ filename: string; bytes: Buffer }> {
+  if (!isUploadId(id)) throw new DownloadError('the upload id is not valid');
   const base = `/api/intake-download/${id}`;
 
   const metaRes = await signedFetch(fetchImpl, origin, secret, 'GET', `${base}/meta`);
@@ -97,6 +101,7 @@ export async function deleteRemoteUpload(
   id: string,
   fetchImpl: typeof fetch = fetch,
 ): Promise<void> {
+  if (!isUploadId(id)) throw new DownloadError('the upload id is not valid');
   const res = await signedFetch(fetchImpl, origin, secret, 'DELETE', `/api/intake-download/${id}`);
   if (!res.ok) throw new DownloadError(`the upload store answered HTTP ${res.status} for the delete`);
 }

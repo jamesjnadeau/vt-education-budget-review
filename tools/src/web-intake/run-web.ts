@@ -17,7 +17,7 @@ import { parse as parseYaml } from 'yaml';
 
 import { buildProvenance, serializeProvenance, type ProvenanceDoc } from '../intake/provenance.ts';
 import { contentErrors, mediaTypeFor } from '../intake/security.ts';
-import { DownloadError } from './download-client.ts';
+import { DownloadError, isUploadId } from './download-client.ts';
 import { chooseWebFilename } from './filename.ts';
 import { LinkFetchError, type FetchedLink } from './fetch-link.ts';
 import { MAX_WEB_BYTES } from './limits.ts';
@@ -122,6 +122,10 @@ export async function runWebIntake(payload: unknown, deps: WebRunDeps): Promise<
   // The id becomes a git branch name, so it must be a plain token.
   if (!/^[A-Za-z0-9_-]{1,64}$/.test(ws.submissionId)) {
     return failHere(['The submission id is not a plain token, so no branch can be named for it.']);
+  }
+
+  if (ws.source.kind === 'upload' && !isUploadId(ws.source.uploadId)) {
+    return failHere(['The upload id is not valid.']);
   }
 
   // --- obtain the bytes ---------------------------------------------------

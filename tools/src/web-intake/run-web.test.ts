@@ -153,6 +153,14 @@ describe('runWebIntake', () => {
     expect(deps.download).not.toHaveBeenCalled();
   });
 
+  it.each(['x/../y', 'abc?x=1', `${UP}/0`, `${UP}#f`])('hostile upload id %s fails before any download', async (id) => {
+    const { deps } = setup();
+    const r = await runWebIntake(payload({}, { upload_id: id }), deps);
+    expect(r).toEqual({ ok: false, reasons: ['The upload id is not valid.'] });
+    expect(deps.download).not.toHaveBeenCalled();
+    expect(deps.openFailureIssue).toHaveBeenCalledTimes(1);
+  });
+
   it('an invalid payload becomes a failure issue', async () => {
     const { deps } = setup();
     const r = await runWebIntake({ submission_id: ID, entity: 'nope', fiscal_year: '2027' }, deps);

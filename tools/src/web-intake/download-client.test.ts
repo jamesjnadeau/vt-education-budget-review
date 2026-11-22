@@ -73,4 +73,11 @@ describe('downloadUpload', () => {
     }
     expect(s.seen[2]).toMatchObject({ method: 'DELETE', path: `/api/intake-download/${ID}` });
   });
+
+  it.each(['x/../y', 'abc?x=1'])('hostile id %s throws without any fetch', async (id) => {
+    const impl = vi.fn() as unknown as typeof fetch;
+    await expect(downloadUpload('https://site.test', SECRET, id, impl)).rejects.toBeInstanceOf(DownloadError);
+    await expect(deleteRemoteUpload('https://site.test', SECRET, id, impl)).rejects.toBeInstanceOf(DownloadError);
+    expect(impl).not.toHaveBeenCalled();
+  });
 });
