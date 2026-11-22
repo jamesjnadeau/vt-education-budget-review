@@ -65,6 +65,11 @@ export interface SmallSparsePublication {
   readonly enrollment_bases: readonly EnrollmentBasis[];
   /** School years of the October 1 counts the screen drew on, as AOE labels them. */
   readonly enrollment_school_years: readonly number[];
+  /**
+   * Towns with a school in the table that fall on opposite sides of the sparse
+   * cutoff depending on which population series is used. The statute names none.
+   */
+  readonly series_sensitive_towns: readonly { readonly town: string; readonly decennial_density: number; readonly acs_density: number }[];
   readonly schools: readonly SchoolRow[];
 }
 
@@ -275,6 +280,27 @@ export function buildSmallSparse(
     });
   }
 
+  const sparseCutoff = Number(
+    (parameters.parameters.get('statutory.screens.sparse_density.threshold') as { value?: unknown } | undefined)?.value,
+  );
+  const schoolTowns = new Set(rows.map((r) => r.municipality).filter((m): m is string => m !== null));
+  const seriesSensitive = Number.isFinite(sparseCutoff)
+    ? [...townData.entries()]
+        .filter(([slug]) => schoolTowns.has(slug))
+        .flatMap(([slug, t]) => {
+          const area = t.land_area_sq_mi;
+          const dec = t.population?.['decennial_2020'];
+          const acs = t.population?.['acs_5yr'];
+          if (!area || !dec || !acs) return [];
+          const d = dec / area;
+          const a = acs / area;
+          return d < sparseCutoff !== a < sparseCutoff
+            ? [{ town: slug, decennial_density: Math.round(d * 10) / 10, acs_density: Math.round(a * 10) / 10 }]
+            : [];
+        })
+        .sort((x, y) => x.town.localeCompare(y.town))
+    : [];
+
   return {
     generated: options.generated,
     parameter_set_ref: options.parameterSetRef,
@@ -302,6 +328,7 @@ export function buildSmallSparse(
     population_series_held: census?.population_series_held ?? [],
     enrollment_bases: ['two_year_average', 'single_year'],
     enrollment_school_years: enrollmentYears,
+    series_sensitive_towns: seriesSensitive,
     schools: rows,
   };
 }

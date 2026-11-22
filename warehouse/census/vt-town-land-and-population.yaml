@@ -10,8 +10,20 @@ schema_version: "1.0"
 source: intake/census/fy2023/2023_gaz_cousubs_50.txt
 area_measure: aland
 area_vintage: 2023 Census Gazetteer, county subdivisions
-population_series_held: []
-population_sources: []
+population_series_held:
+  - decennial_2020
+  - acs_5yr
+population_sources:
+  - series: decennial_2020
+    dataset: https://api.census.gov/data/2020/dec/pl
+    variable: P1_001N
+    vintage: 2020 Decennial Census, P.L. 94-171 redistricting file
+    retrieved: 2026-11-22
+  - series: acs_5yr
+    dataset: https://api.census.gov/data/2023/acs/acs5
+    variable: B01003_001E
+    vintage: 2019-2023 American Community Survey 5-year estimates
+    retrieved: 2026-11-22
 towns:
   - entity: town/addison
     geoid: "5000100325"
@@ -19,8 +31,8 @@ towns:
     land_area_sq_mi: 41.587
     water_area_sq_mi: 7.401
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1365
+      acs_5yr: 1148
       state_estimate: null
   - entity: town/bridport
     geoid: "5000108575"
@@ -28,8 +40,8 @@ towns:
     land_area_sq_mi: 43.691
     water_area_sq_mi: 2.582
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1225
+      acs_5yr: 1202
       state_estimate: null
   - entity: town/bristol
     geoid: "5000109025"
@@ -37,8 +49,8 @@ towns:
     land_area_sq_mi: 40.548
     water_area_sq_mi: 0.661
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3782
+      acs_5yr: 3759
       state_estimate: null
   - entity: town/cornwall
     geoid: "5000116000"
@@ -46,8 +58,8 @@ towns:
     land_area_sq_mi: 28.568
     water_area_sq_mi: 0.17
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1207
+      acs_5yr: 1146
       state_estimate: null
   - entity: town/ferrisburgh
     geoid: "5000126300"
@@ -55,8 +67,8 @@ towns:
     land_area_sq_mi: 47.483
     water_area_sq_mi: 13.722
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2646
+      acs_5yr: 2653
       state_estimate: null
   - entity: town/goshen
     geoid: "5000128600"
@@ -64,8 +76,8 @@ towns:
     land_area_sq_mi: 20.581
     water_area_sq_mi: 0.162
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 172
+      acs_5yr: 157
       state_estimate: null
   - entity: town/granville
     geoid: "5000129575"
@@ -73,8 +85,8 @@ towns:
     land_area_sq_mi: 50.885
     water_area_sq_mi: 0.098
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 301
+      acs_5yr: 376
       state_estimate: null
   - entity: town/hancock
     geoid: "5000131525"
@@ -82,8 +94,8 @@ towns:
     land_area_sq_mi: 38.478
     water_area_sq_mi: 0.107
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 359
+      acs_5yr: 485
       state_estimate: null
   - entity: town/leicester
     geoid: "5000139325"
@@ -91,8 +103,8 @@ towns:
     land_area_sq_mi: 20.837
     water_area_sq_mi: 0.932
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 990
+      acs_5yr: 1049
       state_estimate: null
   - entity: town/lincoln
     geoid: "5000140075"
@@ -100,8 +112,8 @@ towns:
     land_area_sq_mi: 45.611
     water_area_sq_mi: 0.19
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1323
+      acs_5yr: 1306
       state_estimate: null
   - entity: town/middlebury
     geoid: "5000144350"
@@ -109,8 +121,8 @@ towns:
     land_area_sq_mi: 39.231
     water_area_sq_mi: 0.394
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 9152
+      acs_5yr: 9157
       state_estimate: null
   - entity: town/monkton
     geoid: "5000145550"
@@ -118,8 +130,8 @@ towns:
     land_area_sq_mi: 35.893
     water_area_sq_mi: 0.376
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2079
+      acs_5yr: 2082
       state_estimate: null
   - entity: town/new-haven
     geoid: "5000148700"
@@ -127,8 +139,8 @@ towns:
     land_area_sq_mi: 41.155
     water_area_sq_mi: 0.35
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1683
+      acs_5yr: 1815
       state_estimate: null
   - entity: town/orwell
     geoid: "5000153725"
@@ -136,8 +148,8 @@ towns:
     land_area_sq_mi: 47.22
     water_area_sq_mi: 2.501
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1239
+      acs_5yr: 1198
       state_estimate: null
   - entity: town/panton
     geoid: "5000153950"
@@ -145,8 +157,8 @@ towns:
     land_area_sq_mi: 15.48
     water_area_sq_mi: 6.553
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 646
+      acs_5yr: 724
       state_estimate: null
   - entity: town/ripton
     geoid: "5000159650"
@@ -154,8 +166,8 @@ towns:
     land_area_sq_mi: 49.286
     water_area_sq_mi: 0.163
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 739
+      acs_5yr: 508
       state_estimate: null
   - entity: town/salisbury
     geoid: "5000162575"
@@ -163,8 +175,8 @@ towns:
     land_area_sq_mi: 28.941
     water_area_sq_mi: 1.158
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1221
+      acs_5yr: 1262
       state_estimate: null
   - entity: town/shoreham
     geoid: "5000165050"
@@ -172,8 +184,8 @@ towns:
     land_area_sq_mi: 43.224
     water_area_sq_mi: 2.952
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1260
+      acs_5yr: 1280
       state_estimate: null
   - entity: town/starksboro
     geoid: "5000170075"
@@ -181,8 +193,8 @@ towns:
     land_area_sq_mi: 45.361
     water_area_sq_mi: 0.191
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1756
+      acs_5yr: 1883
       state_estimate: null
   - entity: town/vergennes
     geoid: "5000174650"
@@ -190,8 +202,8 @@ towns:
     land_area_sq_mi: 2.456
     water_area_sq_mi: 0.077
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2553
+      acs_5yr: 2571
       state_estimate: null
   - entity: town/waltham
     geoid: "5000176075"
@@ -199,8 +211,8 @@ towns:
     land_area_sq_mi: 9.116
     water_area_sq_mi: 0.118
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 446
+      acs_5yr: 421
       state_estimate: null
   - entity: town/weybridge
     geoid: "5000183275"
@@ -208,8 +220,8 @@ towns:
     land_area_sq_mi: 17.097
     water_area_sq_mi: 0.47
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 814
+      acs_5yr: 796
       state_estimate: null
   - entity: town/whiting
     geoid: "5000183800"
@@ -217,8 +229,8 @@ towns:
     land_area_sq_mi: 13.601
     water_area_sq_mi: 0.105
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 405
+      acs_5yr: 519
       state_estimate: null
   - entity: town/arlington
     geoid: "5000301450"
@@ -226,8 +238,8 @@ towns:
     land_area_sq_mi: 42.026
     water_area_sq_mi: 0.19
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2457
+      acs_5yr: 2773
       state_estimate: null
   - entity: null
     geoid: "5000304825"
@@ -235,8 +247,8 @@ towns:
     land_area_sq_mi: 41.949
     water_area_sq_mi: 0.252
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 15333
+      acs_5yr: 15313
       state_estimate: null
   - entity: town/dorset
     geoid: "5000317725"
@@ -244,8 +256,8 @@ towns:
     land_area_sq_mi: 47.372
     water_area_sq_mi: 0.129
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2133
+      acs_5yr: 1969
       state_estimate: null
   - entity: town/glastenbury
     geoid: "5000327962"
@@ -253,8 +265,8 @@ towns:
     land_area_sq_mi: 44.412
     water_area_sq_mi: 0.005
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 9
+      acs_5yr: 0
       state_estimate: null
   - entity: town/landgrove
     geoid: "5000339025"
@@ -262,8 +274,8 @@ towns:
     land_area_sq_mi: 8.855
     water_area_sq_mi: 0.04
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 177
+      acs_5yr: 238
       state_estimate: null
   - entity: town/manchester
     geoid: "5000342850"
@@ -271,8 +283,8 @@ towns:
     land_area_sq_mi: 41.954
     water_area_sq_mi: 0.124
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4484
+      acs_5yr: 4483
       state_estimate: null
   - entity: town/peru
     geoid: "5000355000"
@@ -280,8 +292,8 @@ towns:
     land_area_sq_mi: 37.371
     water_area_sq_mi: 0.116
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 531
+      acs_5yr: 434
       state_estimate: null
   - entity: town/pownal
     geoid: "5000357025"
@@ -289,8 +301,8 @@ towns:
     land_area_sq_mi: 46.775
     water_area_sq_mi: 0.259
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3258
+      acs_5yr: 3265
       state_estimate: null
   - entity: town/readsboro
     geoid: "5000358600"
@@ -298,8 +310,8 @@ towns:
     land_area_sq_mi: 36.13
     water_area_sq_mi: 0.148
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 702
+      acs_5yr: 776
       state_estimate: null
   - entity: town/rupert
     geoid: "5000361000"
@@ -307,8 +319,8 @@ towns:
     land_area_sq_mi: 44.746
     water_area_sq_mi: 0.038
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 698
+      acs_5yr: 578
       state_estimate: null
   - entity: town/sandgate
     geoid: "5000362875"
@@ -316,8 +328,8 @@ towns:
     land_area_sq_mi: 42.246
     water_area_sq_mi: 0.066
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 387
+      acs_5yr: 460
       state_estimate: null
   - entity: town/searsburg
     geoid: "5000363175"
@@ -325,8 +337,8 @@ towns:
     land_area_sq_mi: 21.284
     water_area_sq_mi: 0.126
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 126
+      acs_5yr: 151
       state_estimate: null
   - entity: town/shaftsbury
     geoid: "5000363550"
@@ -334,8 +346,8 @@ towns:
     land_area_sq_mi: 42.991
     water_area_sq_mi: 0.092
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3598
+      acs_5yr: 3599
       state_estimate: null
   - entity: town/stamford
     geoid: "5000369775"
@@ -343,8 +355,8 @@ towns:
     land_area_sq_mi: 39.481
     water_area_sq_mi: 0.116
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 861
+      acs_5yr: 918
       state_estimate: null
   - entity: town/sunderland
     geoid: "5000371425"
@@ -352,8 +364,8 @@ towns:
     land_area_sq_mi: 45.235
     water_area_sq_mi: 0.317
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1056
+      acs_5yr: 1312
       state_estimate: null
   - entity: town/winhall
     geoid: "5000385075"
@@ -361,8 +373,8 @@ towns:
     land_area_sq_mi: 44.052
     water_area_sq_mi: 0.475
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1182
+      acs_5yr: 768
       state_estimate: null
   - entity: town/woodford
     geoid: "5000385675"
@@ -370,8 +382,8 @@ towns:
     land_area_sq_mi: 47.357
     water_area_sq_mi: 0.169
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 355
+      acs_5yr: 275
       state_estimate: null
   - entity: town/barnet
     geoid: "5000502875"
@@ -379,8 +391,8 @@ towns:
     land_area_sq_mi: 42.326
     water_area_sq_mi: 1.312
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1663
+      acs_5yr: 1671
       state_estimate: null
   - entity: town/burke
     geoid: "5000510450"
@@ -388,8 +400,8 @@ towns:
     land_area_sq_mi: 33.563
     water_area_sq_mi: 0.137
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1651
+      acs_5yr: 1258
       state_estimate: null
   - entity: town/danville
     geoid: "5000517125"
@@ -397,8 +409,8 @@ towns:
     land_area_sq_mi: 60.616
     water_area_sq_mi: 0.411
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2335
+      acs_5yr: 2259
       state_estimate: null
   - entity: town/groton
     geoid: "5000530550"
@@ -406,8 +418,8 @@ towns:
     land_area_sq_mi: 53.828
     water_area_sq_mi: 1.206
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 984
+      acs_5yr: 1014
       state_estimate: null
   - entity: town/hardwick
     geoid: "5000531825"
@@ -415,8 +427,8 @@ towns:
     land_area_sq_mi: 38.266
     water_area_sq_mi: 0.395
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2920
+      acs_5yr: 2950
       state_estimate: null
   - entity: town/kirby
     geoid: "5000537900"
@@ -424,8 +436,8 @@ towns:
     land_area_sq_mi: 24.696
     water_area_sq_mi: 0.049
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 575
+      acs_5yr: 808
       state_estimate: null
   - entity: town/lyndon
     geoid: "5000541725"
@@ -433,8 +445,8 @@ towns:
     land_area_sq_mi: 39.341
     water_area_sq_mi: 0.355
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5491
+      acs_5yr: 5553
       state_estimate: null
   - entity: town/newark
     geoid: "5000547725"
@@ -442,8 +454,8 @@ towns:
     land_area_sq_mi: 36.774
     water_area_sq_mi: 0.466
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 584
+      acs_5yr: 703
       state_estimate: null
   - entity: town/peacham
     geoid: "5000554400"
@@ -451,8 +463,8 @@ towns:
     land_area_sq_mi: 46.682
     water_area_sq_mi: 1.033
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 715
+      acs_5yr: 938
       state_estimate: null
   - entity: town/ryegate
     geoid: "5000561525"
@@ -460,8 +472,8 @@ towns:
     land_area_sq_mi: 36.565
     water_area_sq_mi: 0.293
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1165
+      acs_5yr: 1054
       state_estimate: null
   - entity: town/st-johnsbury
     geoid: "5000562200"
@@ -469,8 +481,8 @@ towns:
     land_area_sq_mi: 36.45
     water_area_sq_mi: 0.353
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 7364
+      acs_5yr: 7381
       state_estimate: null
   - entity: town/sheffield
     geoid: "5000564075"
@@ -478,8 +490,8 @@ towns:
     land_area_sq_mi: 32.757
     water_area_sq_mi: 0.257
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 682
+      acs_5yr: 634
       state_estimate: null
   - entity: town/stannard
     geoid: "5000569925"
@@ -487,8 +499,8 @@ towns:
     land_area_sq_mi: 12.642
     water_area_sq_mi: 0.087
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 208
+      acs_5yr: 181
       state_estimate: null
   - entity: town/sutton
     geoid: "5000571575"
@@ -496,8 +508,8 @@ towns:
     land_area_sq_mi: 38.298
     water_area_sq_mi: 0.195
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 913
+      acs_5yr: 869
       state_estimate: null
   - entity: town/walden
     geoid: "5000575700"
@@ -505,8 +517,8 @@ towns:
     land_area_sq_mi: 38.621
     water_area_sq_mi: 0.355
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 956
+      acs_5yr: 986
       state_estimate: null
   - entity: town/waterford
     geoid: "5000577125"
@@ -514,8 +526,8 @@ towns:
     land_area_sq_mi: 38.284
     water_area_sq_mi: 1.405
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1268
+      acs_5yr: 1463
       state_estimate: null
   - entity: town/wheelock
     geoid: "5000583500"
@@ -523,8 +535,8 @@ towns:
     land_area_sq_mi: 39.504
     water_area_sq_mi: 0.321
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 759
+      acs_5yr: 703
       state_estimate: null
   - entity: town/bolton
     geoid: "5000706550"
@@ -532,8 +544,8 @@ towns:
     land_area_sq_mi: 41.765
     water_area_sq_mi: 0.276
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1301
+      acs_5yr: 1023
       state_estimate: null
   - entity: town/buels-gore
     geoid: "5000710300"
@@ -541,8 +553,8 @@ towns:
     land_area_sq_mi: 4.998
     water_area_sq_mi: 0.004
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 29
+      acs_5yr: 11
       state_estimate: null
   - entity: town/burlington
     geoid: "5000710675"
@@ -550,8 +562,8 @@ towns:
     land_area_sq_mi: 10.303
     water_area_sq_mi: 5.05
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 44743
+      acs_5yr: 44649
       state_estimate: null
   - entity: town/charlotte
     geoid: "5000713300"
@@ -559,8 +571,8 @@ towns:
     land_area_sq_mi: 41.252
     water_area_sq_mi: 9.111
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3912
+      acs_5yr: 3905
       state_estimate: null
   - entity: town/colchester
     geoid: "5000714875"
@@ -568,8 +580,8 @@ towns:
     land_area_sq_mi: 36.3
     water_area_sq_mi: 23.984
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 17524
+      acs_5yr: 17570
       state_estimate: null
   - entity: town/essex-town
     geoid: "5000724175"
@@ -577,8 +589,8 @@ towns:
     land_area_sq_mi: 34.341
     water_area_sq_mi: 0.316
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 22094
+      acs_5yr: 11486
       state_estimate: null
   - entity: town/essex-junction
     geoid: "5000724400"
@@ -587,7 +599,7 @@ towns:
     water_area_sq_mi: 0.193
     population:
       decennial_2020: null
-      acs_5yr: null
+      acs_5yr: 10720
       state_estimate: null
   - entity: town/hinesburg
     geoid: "5000733475"
@@ -595,8 +607,8 @@ towns:
     land_area_sq_mi: 39.298
     water_area_sq_mi: 0.387
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4698
+      acs_5yr: 4687
       state_estimate: null
   - entity: town/huntington
     geoid: "5000734600"
@@ -604,8 +616,8 @@ towns:
     land_area_sq_mi: 38.228
     water_area_sq_mi: 0.098
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1934
+      acs_5yr: 1827
       state_estimate: null
   - entity: town/jericho
     geoid: "5000736700"
@@ -613,8 +625,8 @@ towns:
     land_area_sq_mi: 35.455
     water_area_sq_mi: 0.158
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5104
+      acs_5yr: 5097
       state_estimate: null
   - entity: town/milton
     geoid: "5000745250"
@@ -622,8 +634,8 @@ towns:
     land_area_sq_mi: 51.587
     water_area_sq_mi: 9.381
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 10723
+      acs_5yr: 10723
       state_estimate: null
   - entity: town/richmond
     geoid: "5000759275"
@@ -631,8 +643,8 @@ towns:
     land_area_sq_mi: 32.376
     water_area_sq_mi: 0.516
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4167
+      acs_5yr: 4148
       state_estimate: null
   - entity: town/st-george
     geoid: "5000762050"
@@ -640,8 +652,8 @@ towns:
     land_area_sq_mi: 3.67
     water_area_sq_mi: 0.003
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 794
+      acs_5yr: 886
       state_estimate: null
   - entity: town/shelburne
     geoid: "5000764300"
@@ -649,8 +661,8 @@ towns:
     land_area_sq_mi: 24.276
     water_area_sq_mi: 19.019
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 7717
+      acs_5yr: 7807
       state_estimate: null
   - entity: town/south-burlington
     geoid: "5000766175"
@@ -658,8 +670,8 @@ towns:
     land_area_sq_mi: 16.435
     water_area_sq_mi: 14.403
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 20292
+      acs_5yr: 20488
       state_estimate: null
   - entity: town/underhill-town
     geoid: "5000773975"
@@ -667,8 +679,8 @@ towns:
     land_area_sq_mi: 51.215
     water_area_sq_mi: 0.073
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3129
+      acs_5yr: 3144
       state_estimate: null
   - entity: town/westford
     geoid: "5000780350"
@@ -676,8 +688,8 @@ towns:
     land_area_sq_mi: 38.921
     water_area_sq_mi: 0.209
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2062
+      acs_5yr: 2364
       state_estimate: null
   - entity: town/williston
     geoid: "5000784475"
@@ -685,8 +697,8 @@ towns:
     land_area_sq_mi: 30.48
     water_area_sq_mi: 0.537
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 10103
+      acs_5yr: 10098
       state_estimate: null
   - entity: town/winooski
     geoid: "5000785150"
@@ -694,8 +706,8 @@ towns:
     land_area_sq_mi: 1.381
     water_area_sq_mi: 0.091
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 7997
+      acs_5yr: 8198
       state_estimate: null
   - entity: town/averill
     geoid: "5000902125"
@@ -703,8 +715,8 @@ towns:
     land_area_sq_mi: 36.012
     water_area_sq_mi: 2.053
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 21
+      acs_5yr: 5
       state_estimate: null
   - entity: town/averys-gore
     geoid: "5000902162"
@@ -712,8 +724,8 @@ towns:
     land_area_sq_mi: 18.227
     water_area_sq_mi: 0.033
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 0
+      acs_5yr: 0
       state_estimate: null
   - entity: town/bloomfield
     geoid: "5000906325"
@@ -721,8 +733,8 @@ towns:
     land_area_sq_mi: 40.168
     water_area_sq_mi: 0.237
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 217
+      acs_5yr: 244
       state_estimate: null
   - entity: town/brighton
     geoid: "5000908725"
@@ -730,8 +742,8 @@ towns:
     land_area_sq_mi: 52.868
     water_area_sq_mi: 1.478
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1157
+      acs_5yr: 1030
       state_estimate: null
   - entity: town/brunswick
     geoid: "5000910075"
@@ -739,8 +751,8 @@ towns:
     land_area_sq_mi: 24.79
     water_area_sq_mi: 0.529
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 88
+      acs_5yr: 122
       state_estimate: null
   - entity: town/canaan
     geoid: "5000911800"
@@ -748,8 +760,8 @@ towns:
     land_area_sq_mi: 33.022
     water_area_sq_mi: 0.387
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 896
+      acs_5yr: 746
       state_estimate: null
   - entity: town/concord
     geoid: "5000915250"
@@ -757,8 +769,8 @@ towns:
     land_area_sq_mi: 51.285
     water_area_sq_mi: 2.185
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1141
+      acs_5yr: 1179
       state_estimate: null
   - entity: town/east-haven
     geoid: "5000921250"
@@ -766,8 +778,8 @@ towns:
     land_area_sq_mi: 37.253
     water_area_sq_mi: 0.045
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 270
+      acs_5yr: 262
       state_estimate: null
   - entity: town/ferdinand
     geoid: "5000925975"
@@ -775,8 +787,8 @@ towns:
     land_area_sq_mi: 52.86
     water_area_sq_mi: 0.227
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 16
+      acs_5yr: 92
       state_estimate: null
   - entity: town/granby
     geoid: "5000929125"
@@ -784,8 +796,8 @@ towns:
     land_area_sq_mi: 38.719
     water_area_sq_mi: 0.093
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 81
+      acs_5yr: 40
       state_estimate: null
   - entity: town/guildhall
     geoid: "5000930775"
@@ -793,8 +805,8 @@ towns:
     land_area_sq_mi: 32.97
     water_area_sq_mi: 0.029
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 262
+      acs_5yr: 359
       state_estimate: null
   - entity: town/lemington
     geoid: "5000939700"
@@ -802,8 +814,8 @@ towns:
     land_area_sq_mi: 35.43
     water_area_sq_mi: 0.144
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 87
+      acs_5yr: 86
       state_estimate: null
   - entity: town/lewis
     geoid: "5000939775"
@@ -811,8 +823,8 @@ towns:
     land_area_sq_mi: 38.886
     water_area_sq_mi: 0.128
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2
+      acs_5yr: 0
       state_estimate: null
   - entity: town/lunenburg
     geoid: "5000941425"
@@ -820,8 +832,8 @@ towns:
     land_area_sq_mi: 45.173
     water_area_sq_mi: 0.627
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1246
+      acs_5yr: 1403
       state_estimate: null
   - entity: town/maidstone
     geoid: "5000942475"
@@ -829,8 +841,8 @@ towns:
     land_area_sq_mi: 30.695
     water_area_sq_mi: 1.517
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 211
+      acs_5yr: 247
       state_estimate: null
   - entity: town/norton
     geoid: "5000952750"
@@ -838,8 +850,8 @@ towns:
     land_area_sq_mi: 38.389
     water_area_sq_mi: 0.404
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 153
+      acs_5yr: 112
       state_estimate: null
   - entity: town/victory
     geoid: "5000975175"
@@ -847,8 +859,8 @@ towns:
     land_area_sq_mi: 42.954
     water_area_sq_mi: 0.127
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 70
+      acs_5yr: 45
       state_estimate: null
   - entity: town/warners-grant
     geoid: "5000976337"
@@ -856,8 +868,8 @@ towns:
     land_area_sq_mi: 3.199
     water_area_sq_mi: 0
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 0
+      acs_5yr: 0
       state_estimate: null
   - entity: null
     geoid: "5000976562"
@@ -865,8 +877,8 @@ towns:
     land_area_sq_mi: 9.472
     water_area_sq_mi: 0.834
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2
+      acs_5yr: 0
       state_estimate: null
   - entity: town/bakersfield
     geoid: "5001102500"
@@ -874,8 +886,8 @@ towns:
     land_area_sq_mi: 42.082
     water_area_sq_mi: 0.099
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1273
+      acs_5yr: 1155
       state_estimate: null
   - entity: town/berkshire
     geoid: "5001105425"
@@ -883,8 +895,8 @@ towns:
     land_area_sq_mi: 41.69
     water_area_sq_mi: 0.22
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1547
+      acs_5yr: 1644
       state_estimate: null
   - entity: town/enosburgh
     geoid: "5001124050"
@@ -892,8 +904,8 @@ towns:
     land_area_sq_mi: 47.598
     water_area_sq_mi: 0.489
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2810
+      acs_5yr: 2808
       state_estimate: null
   - entity: town/fairfax
     geoid: "5001124925"
@@ -901,8 +913,8 @@ towns:
     land_area_sq_mi: 39.739
     water_area_sq_mi: 0.579
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5014
+      acs_5yr: 5138
       state_estimate: null
   - entity: town/fairfield
     geoid: "5001125225"
@@ -910,8 +922,8 @@ towns:
     land_area_sq_mi: 67.311
     water_area_sq_mi: 1.079
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2044
+      acs_5yr: 1872
       state_estimate: null
   - entity: town/fletcher
     geoid: "5001126500"
@@ -919,8 +931,8 @@ towns:
     land_area_sq_mi: 38.347
     water_area_sq_mi: 0.258
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1346
+      acs_5yr: 1248
       state_estimate: null
   - entity: town/franklin
     geoid: "5001127100"
@@ -928,8 +940,8 @@ towns:
     land_area_sq_mi: 38.585
     water_area_sq_mi: 2.279
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1363
+      acs_5yr: 1596
       state_estimate: null
   - entity: town/georgia
     geoid: "5001127700"
@@ -937,8 +949,8 @@ towns:
     land_area_sq_mi: 39.348
     water_area_sq_mi: 5.91
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4845
+      acs_5yr: 4876
       state_estimate: null
   - entity: town/highgate
     geoid: "5001133025"
@@ -946,8 +958,8 @@ towns:
     land_area_sq_mi: 51.026
     water_area_sq_mi: 9.033
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3472
+      acs_5yr: 3510
       state_estimate: null
   - entity: town/montgomery
     geoid: "5001145850"
@@ -955,8 +967,8 @@ towns:
     land_area_sq_mi: 56.349
     water_area_sq_mi: 0.078
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1184
+      acs_5yr: 1016
       state_estimate: null
   - entity: town/richford
     geoid: "5001159125"
@@ -964,8 +976,8 @@ towns:
     land_area_sq_mi: 42.933
     water_area_sq_mi: 0.273
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2346
+      acs_5yr: 2483
       state_estimate: null
   - entity: town/st-albans-city
     geoid: "5001161675"
@@ -973,8 +985,8 @@ towns:
     land_area_sq_mi: 1.955
     water_area_sq_mi: 0.002
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 6877
+      acs_5yr: 6910
       state_estimate: null
   - entity: town/st-albans-town
     geoid: "5001161750"
@@ -982,8 +994,8 @@ towns:
     land_area_sq_mi: 37.133
     water_area_sq_mi: 23.698
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 6988
+      acs_5yr: 7036
       state_estimate: null
   - entity: town/sheldon
     geoid: "5001164600"
@@ -991,8 +1003,8 @@ towns:
     land_area_sq_mi: 38.641
     water_area_sq_mi: 0.699
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2136
+      acs_5yr: 2295
       state_estimate: null
   - entity: town/swanton
     geoid: "5001171725"
@@ -1000,8 +1012,8 @@ towns:
     land_area_sq_mi: 48.224
     water_area_sq_mi: 13.471
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 6701
+      acs_5yr: 6792
       state_estimate: null
   - entity: town/alburgh
     geoid: "5001300860"
@@ -1009,8 +1021,8 @@ towns:
     land_area_sq_mi: 29.102
     water_area_sq_mi: 18.364
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2106
+      acs_5yr: 1802
       state_estimate: null
   - entity: town/grand-isle
     geoid: "5001329275"
@@ -1018,8 +1030,8 @@ towns:
     land_area_sq_mi: 16.413
     water_area_sq_mi: 18.595
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2086
+      acs_5yr: 2108
       state_estimate: null
   - entity: town/isle-lamotte
     geoid: "5001335875"
@@ -1027,8 +1039,8 @@ towns:
     land_area_sq_mi: 7.885
     water_area_sq_mi: 10.526
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 488
+      acs_5yr: 604
       state_estimate: null
   - entity: town/north-hero
     geoid: "5001350650"
@@ -1036,8 +1048,8 @@ towns:
     land_area_sq_mi: 13.454
     water_area_sq_mi: 32.548
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 939
+      acs_5yr: 1264
       state_estimate: null
   - entity: town/south-hero
     geoid: "5001367000"
@@ -1045,8 +1057,8 @@ towns:
     land_area_sq_mi: 14.915
     water_area_sq_mi: 31.534
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1674
+      acs_5yr: 1615
       state_estimate: null
   - entity: town/belvidere
     geoid: "5001504375"
@@ -1054,8 +1066,8 @@ towns:
     land_area_sq_mi: 35.601
     water_area_sq_mi: 0.054
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 358
+      acs_5yr: 439
       state_estimate: null
   - entity: town/cambridge
     geoid: "5001511500"
@@ -1063,8 +1075,8 @@ towns:
     land_area_sq_mi: 62.942
     water_area_sq_mi: 0.518
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3839
+      acs_5yr: 3783
       state_estimate: null
   - entity: town/eden
     geoid: "5001523500"
@@ -1072,8 +1084,8 @@ towns:
     land_area_sq_mi: 62.923
     water_area_sq_mi: 0.986
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1338
+      acs_5yr: 1291
       state_estimate: null
   - entity: town/elmore
     geoid: "5001523725"
@@ -1081,8 +1093,8 @@ towns:
     land_area_sq_mi: 38.929
     water_area_sq_mi: 0.547
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 886
+      acs_5yr: 1009
       state_estimate: null
   - entity: town/hyde-park
     geoid: "5001535050"
@@ -1090,8 +1102,8 @@ towns:
     land_area_sq_mi: 37.671
     water_area_sq_mi: 1.351
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3020
+      acs_5yr: 3016
       state_estimate: null
   - entity: town/johnson
     geoid: "5001537075"
@@ -1099,8 +1111,8 @@ towns:
     land_area_sq_mi: 45.32
     water_area_sq_mi: 0.377
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3491
+      acs_5yr: 3467
       state_estimate: null
   - entity: town/morristown
     geoid: "5001546675"
@@ -1108,8 +1120,8 @@ towns:
     land_area_sq_mi: 50.78
     water_area_sq_mi: 0.519
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5434
+      acs_5yr: 5594
       state_estimate: null
   - entity: town/stowe
     geoid: "5001570525"
@@ -1117,8 +1129,8 @@ towns:
     land_area_sq_mi: 72.456
     water_area_sq_mi: 0.167
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5223
+      acs_5yr: 5252
       state_estimate: null
   - entity: town/waterville
     geoid: "5001577425"
@@ -1126,8 +1138,8 @@ towns:
     land_area_sq_mi: 15.685
     water_area_sq_mi: 0.046
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 686
+      acs_5yr: 654
       state_estimate: null
   - entity: town/wolcott
     geoid: "5001585375"
@@ -1135,8 +1147,8 @@ towns:
     land_area_sq_mi: 38.948
     water_area_sq_mi: 0.357
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1670
+      acs_5yr: 1531
       state_estimate: null
   - entity: null
     geoid: "5001707375"
@@ -1144,8 +1156,8 @@ towns:
     land_area_sq_mi: 29.66
     water_area_sq_mi: 0.224
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2790
+      acs_5yr: 2802
       state_estimate: null
   - entity: town/braintree
     geoid: "5001707600"
@@ -1153,8 +1165,8 @@ towns:
     land_area_sq_mi: 38.445
     water_area_sq_mi: 0.106
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1207
+      acs_5yr: 1059
       state_estimate: null
   - entity: town/brookfield
     geoid: "5001709325"
@@ -1162,8 +1174,8 @@ towns:
     land_area_sq_mi: 40.879
     water_area_sq_mi: 0.356
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1244
+      acs_5yr: 1407
       state_estimate: null
   - entity: town/chelsea
     geoid: "5001713525"
@@ -1171,8 +1183,8 @@ towns:
     land_area_sq_mi: 40.051
     water_area_sq_mi: 0.048
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1233
+      acs_5yr: 1183
       state_estimate: null
   - entity: town/corinth
     geoid: "5001715700"
@@ -1180,8 +1192,8 @@ towns:
     land_area_sq_mi: 48.242
     water_area_sq_mi: 0.11
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1455
+      acs_5yr: 1706
       state_estimate: null
   - entity: town/fairlee
     geoid: "5001725675"
@@ -1189,8 +1201,8 @@ towns:
     land_area_sq_mi: 19.968
     water_area_sq_mi: 1.084
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 988
+      acs_5yr: 1042
       state_estimate: null
   - entity: town/newbury
     geoid: "5001748175"
@@ -1198,8 +1210,8 @@ towns:
     land_area_sq_mi: 64.048
     water_area_sq_mi: 0.522
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2293
+      acs_5yr: 2081
       state_estimate: null
   - entity: town/orange
     geoid: "5001753425"
@@ -1207,8 +1219,8 @@ towns:
     land_area_sq_mi: 38.687
     water_area_sq_mi: 0.28
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1048
+      acs_5yr: 993
       state_estimate: null
   - entity: town/randolph
     geoid: "5001758075"
@@ -1216,8 +1228,8 @@ towns:
     land_area_sq_mi: 47.969
     water_area_sq_mi: 0.151
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4774
+      acs_5yr: 4819
       state_estimate: null
   - entity: town/strafford
     geoid: "5001770675"
@@ -1225,8 +1237,8 @@ towns:
     land_area_sq_mi: 44.085
     water_area_sq_mi: 0.182
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1094
+      acs_5yr: 1341
       state_estimate: null
   - entity: town/thetford
     geoid: "5001772400"
@@ -1234,8 +1246,8 @@ towns:
     land_area_sq_mi: 43.552
     water_area_sq_mi: 0.804
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2775
+      acs_5yr: 2802
       state_estimate: null
   - entity: town/topsham
     geoid: "5001773075"
@@ -1243,8 +1255,8 @@ towns:
     land_area_sq_mi: 48.922
     water_area_sq_mi: 0.093
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1199
+      acs_5yr: 1034
       state_estimate: null
   - entity: town/tunbridge
     geoid: "5001773675"
@@ -1252,8 +1264,8 @@ towns:
     land_area_sq_mi: 44.637
     water_area_sq_mi: 0.152
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1337
+      acs_5yr: 1176
       state_estimate: null
   - entity: town/vershire
     geoid: "5001774950"
@@ -1261,8 +1273,8 @@ towns:
     land_area_sq_mi: 36.101
     water_area_sq_mi: 0.051
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 672
+      acs_5yr: 792
       state_estimate: null
   - entity: town/washington
     geoid: "5001776750"
@@ -1270,8 +1282,8 @@ towns:
     land_area_sq_mi: 38.981
     water_area_sq_mi: 0.056
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1032
+      acs_5yr: 1059
       state_estimate: null
   - entity: town/west-fairlee
     geoid: "5001779975"
@@ -1279,8 +1291,8 @@ towns:
     land_area_sq_mi: 22.621
     water_area_sq_mi: 0.217
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 621
+      acs_5yr: 751
       state_estimate: null
   - entity: town/williamstown
     geoid: "5001784175"
@@ -1288,8 +1300,8 @@ towns:
     land_area_sq_mi: 40.16
     water_area_sq_mi: 0.2
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3515
+      acs_5yr: 3547
       state_estimate: null
   - entity: town/albany
     geoid: "5001900475"
@@ -1297,8 +1309,8 @@ towns:
     land_area_sq_mi: 38.545
     water_area_sq_mi: 0.438
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 976
+      acs_5yr: 987
       state_estimate: null
   - entity: null
     geoid: "5001903550"
@@ -1306,8 +1318,8 @@ towns:
     land_area_sq_mi: 42.735
     water_area_sq_mi: 1.625
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2872
+      acs_5yr: 2832
       state_estimate: null
   - entity: town/brownington
     geoid: "5001909850"
@@ -1315,8 +1327,8 @@ towns:
     land_area_sq_mi: 28.082
     water_area_sq_mi: 0.279
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1042
+      acs_5yr: 1157
       state_estimate: null
   - entity: town/charleston
     geoid: "5001913150"
@@ -1324,8 +1336,8 @@ towns:
     land_area_sq_mi: 37.106
     water_area_sq_mi: 1.43
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1021
+      acs_5yr: 874
       state_estimate: null
   - entity: town/coventry
     geoid: "5001916150"
@@ -1333,8 +1345,8 @@ towns:
     land_area_sq_mi: 27.022
     water_area_sq_mi: 0.789
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1100
+      acs_5yr: 936
       state_estimate: null
   - entity: town/craftsbury
     geoid: "5001916300"
@@ -1342,8 +1354,8 @@ towns:
     land_area_sq_mi: 39
     water_area_sq_mi: 0.558
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1343
+      acs_5yr: 1204
       state_estimate: null
   - entity: town/derby
     geoid: "5001917350"
@@ -1351,8 +1363,8 @@ towns:
     land_area_sq_mi: 48.983
     water_area_sq_mi: 8.364
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4579
+      acs_5yr: 4538
       state_estimate: null
   - entity: town/glover
     geoid: "5001928075"
@@ -1360,8 +1372,8 @@ towns:
     land_area_sq_mi: 37.558
     water_area_sq_mi: 0.974
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1114
+      acs_5yr: 974
       state_estimate: null
   - entity: town/greensboro
     geoid: "5001930175"
@@ -1369,8 +1381,8 @@ towns:
     land_area_sq_mi: 37.802
     water_area_sq_mi: 1.75
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 811
+      acs_5yr: 722
       state_estimate: null
   - entity: town/holland
     geoid: "5001933775"
@@ -1378,8 +1390,8 @@ towns:
     land_area_sq_mi: 37.931
     water_area_sq_mi: 0.736
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 632
+      acs_5yr: 799
       state_estimate: null
   - entity: town/irasburg
     geoid: "5001935575"
@@ -1387,8 +1399,8 @@ towns:
     land_area_sq_mi: 40.271
     water_area_sq_mi: 0.268
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1233
+      acs_5yr: 1315
       state_estimate: null
   - entity: town/jay
     geoid: "5001936325"
@@ -1396,8 +1408,8 @@ towns:
     land_area_sq_mi: 33.915
     water_area_sq_mi: 0.048
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 551
+      acs_5yr: 511
       state_estimate: null
   - entity: town/lowell
     geoid: "5001940525"
@@ -1405,8 +1417,8 @@ towns:
     land_area_sq_mi: 56.526
     water_area_sq_mi: 0.08
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 887
+      acs_5yr: 1154
       state_estimate: null
   - entity: town/morgan
     geoid: "5001946450"
@@ -1414,8 +1426,8 @@ towns:
     land_area_sq_mi: 31.206
     water_area_sq_mi: 2.918
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 638
+      acs_5yr: 750
       state_estimate: null
   - entity: town/newport-city
     geoid: "5001948850"
@@ -1423,8 +1435,8 @@ towns:
     land_area_sq_mi: 5.858
     water_area_sq_mi: 1.766
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4455
+      acs_5yr: 4413
       state_estimate: null
   - entity: town/newport-town
     geoid: "5001948925"
@@ -1432,8 +1444,8 @@ towns:
     land_area_sq_mi: 41.527
     water_area_sq_mi: 1.995
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1526
+      acs_5yr: 1483
       state_estimate: null
   - entity: town/troy
     geoid: "5001973525"
@@ -1441,8 +1453,8 @@ towns:
     land_area_sq_mi: 36.128
     water_area_sq_mi: 0.318
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1722
+      acs_5yr: 1826
       state_estimate: null
   - entity: town/westfield
     geoid: "5001980200"
@@ -1450,8 +1462,8 @@ towns:
     land_area_sq_mi: 39.911
     water_area_sq_mi: 0.106
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 534
+      acs_5yr: 615
       state_estimate: null
   - entity: town/westmore
     geoid: "5001981700"
@@ -1459,8 +1471,8 @@ towns:
     land_area_sq_mi: 34.447
     water_area_sq_mi: 3.129
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 357
+      acs_5yr: 402
       state_estimate: null
   - entity: town/benson
     geoid: "5002105200"
@@ -1468,8 +1480,8 @@ towns:
     land_area_sq_mi: 43.881
     water_area_sq_mi: 1.533
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 974
+      acs_5yr: 770
       state_estimate: null
   - entity: town/brandon
     geoid: "5002107750"
@@ -1477,8 +1489,8 @@ towns:
     land_area_sq_mi: 39.735
     water_area_sq_mi: 0.224
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4129
+      acs_5yr: 4121
       state_estimate: null
   - entity: town/castleton
     geoid: "5002111950"
@@ -1486,8 +1498,8 @@ towns:
     land_area_sq_mi: 38.942
     water_area_sq_mi: 3.452
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4458
+      acs_5yr: 4457
       state_estimate: null
   - entity: town/chittenden
     geoid: "5002114350"
@@ -1495,8 +1507,8 @@ towns:
     land_area_sq_mi: 72.735
     water_area_sq_mi: 1.226
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1237
+      acs_5yr: 1405
       state_estimate: null
   - entity: town/clarendon
     geoid: "5002114500"
@@ -1504,8 +1516,8 @@ towns:
     land_area_sq_mi: 31.287
     water_area_sq_mi: 0.215
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2412
+      acs_5yr: 2557
       state_estimate: null
   - entity: town/danby
     geoid: "5002116825"
@@ -1513,8 +1525,8 @@ towns:
     land_area_sq_mi: 41.544
     water_area_sq_mi: 0.127
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1284
+      acs_5yr: 1186
       state_estimate: null
   - entity: town/fair-haven
     geoid: "5002125375"
@@ -1522,8 +1534,8 @@ towns:
     land_area_sq_mi: 17.509
     water_area_sq_mi: 0.712
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2736
+      acs_5yr: 2729
       state_estimate: null
   - entity: town/hubbardton
     geoid: "5002134450"
@@ -1531,8 +1543,8 @@ towns:
     land_area_sq_mi: 27.222
     water_area_sq_mi: 1.363
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 735
+      acs_5yr: 852
       state_estimate: null
   - entity: town/ira
     geoid: "5002135425"
@@ -1540,8 +1552,8 @@ towns:
     land_area_sq_mi: 22.263
     water_area_sq_mi: 0.007
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 368
+      acs_5yr: 435
       state_estimate: null
   - entity: town/killington
     geoid: "5002137685"
@@ -1549,8 +1561,8 @@ towns:
     land_area_sq_mi: 47.331
     water_area_sq_mi: 0.271
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1407
+      acs_5yr: 835
       state_estimate: null
   - entity: town/mendon
     geoid: "5002144125"
@@ -1558,8 +1570,8 @@ towns:
     land_area_sq_mi: 37.958
     water_area_sq_mi: 0.036
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1149
+      acs_5yr: 982
       state_estimate: null
   - entity: town/middletown-springs
     geoid: "5002144800"
@@ -1567,8 +1579,8 @@ towns:
     land_area_sq_mi: 22.699
     water_area_sq_mi: 0.009
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 794
+      acs_5yr: 734
       state_estimate: null
   - entity: town/mt-holly
     geoid: "5002147200"
@@ -1576,8 +1588,8 @@ towns:
     land_area_sq_mi: 49.098
     water_area_sq_mi: 0.455
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1385
+      acs_5yr: 1456
       state_estimate: null
   - entity: town/mt-tabor
     geoid: "5002147425"
@@ -1585,8 +1597,8 @@ towns:
     land_area_sq_mi: 44.108
     water_area_sq_mi: 0.143
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 210
+      acs_5yr: 218
       state_estimate: null
   - entity: town/pawlet
     geoid: "5002154250"
@@ -1594,8 +1606,8 @@ towns:
     land_area_sq_mi: 42.844
     water_area_sq_mi: 0.208
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1424
+      acs_5yr: 1334
       state_estimate: null
   - entity: town/pittsfield
     geoid: "5002155450"
@@ -1603,8 +1615,8 @@ towns:
     land_area_sq_mi: 20.478
     water_area_sq_mi: 0.066
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 504
+      acs_5yr: 399
       state_estimate: null
   - entity: town/pittsford
     geoid: "5002155600"
@@ -1612,8 +1624,8 @@ towns:
     land_area_sq_mi: 43.287
     water_area_sq_mi: 0.254
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2862
+      acs_5yr: 2890
       state_estimate: null
   - entity: town/poultney
     geoid: "5002156875"
@@ -1621,8 +1633,8 @@ towns:
     land_area_sq_mi: 42.558
     water_area_sq_mi: 1.058
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3020
+      acs_5yr: 3019
       state_estimate: null
   - entity: town/proctor
     geoid: "5002157250"
@@ -1630,8 +1642,8 @@ towns:
     land_area_sq_mi: 7.415
     water_area_sq_mi: 0.168
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1763
+      acs_5yr: 1792
       state_estimate: null
   - entity: town/rutland-city
     geoid: "5002161225"
@@ -1639,8 +1651,8 @@ towns:
     land_area_sq_mi: 7.553
     water_area_sq_mi: 0.117
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 15807
+      acs_5yr: 15747
       state_estimate: null
   - entity: town/rutland-town
     geoid: "5002161300"
@@ -1648,8 +1660,8 @@ towns:
     land_area_sq_mi: 19.055
     water_area_sq_mi: 0.176
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3924
+      acs_5yr: 3923
       state_estimate: null
   - entity: town/shrewsbury
     geoid: "5002165275"
@@ -1657,8 +1669,8 @@ towns:
     land_area_sq_mi: 50.062
     water_area_sq_mi: 0.207
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1096
+      acs_5yr: 1250
       state_estimate: null
   - entity: town/sudbury
     geoid: "5002171050"
@@ -1666,8 +1678,8 @@ towns:
     land_area_sq_mi: 21.394
     water_area_sq_mi: 0.75
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 545
+      acs_5yr: 667
       state_estimate: null
   - entity: town/tinmouth
     geoid: "5002172925"
@@ -1675,8 +1687,8 @@ towns:
     land_area_sq_mi: 28.591
     water_area_sq_mi: 0.166
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 553
+      acs_5yr: 800
       state_estimate: null
   - entity: town/wallingford
     geoid: "5002175925"
@@ -1684,8 +1696,8 @@ towns:
     land_area_sq_mi: 42.507
     water_area_sq_mi: 0.448
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2129
+      acs_5yr: 2376
       state_estimate: null
   - entity: town/wells
     geoid: "5002177950"
@@ -1693,8 +1705,8 @@ towns:
     land_area_sq_mi: 22.343
     water_area_sq_mi: 0.874
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1214
+      acs_5yr: 1023
       state_estimate: null
   - entity: town/west-haven
     geoid: "5002180875"
@@ -1702,8 +1714,8 @@ towns:
     land_area_sq_mi: 28.123
     water_area_sq_mi: 0.647
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 239
+      acs_5yr: 252
       state_estimate: null
   - entity: town/west-rutland
     geoid: "5002182300"
@@ -1711,8 +1723,8 @@ towns:
     land_area_sq_mi: 18.028
     water_area_sq_mi: 0.054
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2214
+      acs_5yr: 2275
       state_estimate: null
   - entity: town/barre-city
     geoid: "5002303175"
@@ -1720,8 +1732,8 @@ towns:
     land_area_sq_mi: 3.987
     water_area_sq_mi: 0.032
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 8491
+      acs_5yr: 8461
       state_estimate: null
   - entity: town/barre-town
     geoid: "5002303250"
@@ -1729,8 +1741,8 @@ towns:
     land_area_sq_mi: 30.573
     water_area_sq_mi: 0.152
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 7923
+      acs_5yr: 7974
       state_estimate: null
   - entity: town/berlin
     geoid: "5002305650"
@@ -1738,8 +1750,8 @@ towns:
     land_area_sq_mi: 36.041
     water_area_sq_mi: 0.681
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2849
+      acs_5yr: 2871
       state_estimate: null
   - entity: town/cabot
     geoid: "5002311125"
@@ -1747,8 +1759,8 @@ towns:
     land_area_sq_mi: 37.136
     water_area_sq_mi: 1.279
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1443
+      acs_5yr: 1579
       state_estimate: null
   - entity: town/calais
     geoid: "5002311350"
@@ -1756,8 +1768,8 @@ towns:
     land_area_sq_mi: 37.93
     water_area_sq_mi: 0.624
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1661
+      acs_5yr: 1784
       state_estimate: null
   - entity: town/duxbury
     geoid: "5002318550"
@@ -1765,8 +1777,8 @@ towns:
     land_area_sq_mi: 42.968
     water_area_sq_mi: 0.204
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1413
+      acs_5yr: 1469
       state_estimate: null
   - entity: town/east-montpelier
     geoid: "5002321925"
@@ -1774,8 +1786,8 @@ towns:
     land_area_sq_mi: 31.748
     water_area_sq_mi: 0.255
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2598
+      acs_5yr: 2610
       state_estimate: null
   - entity: town/fayston
     geoid: "5002325825"
@@ -1783,8 +1795,8 @@ towns:
     land_area_sq_mi: 36.506
     water_area_sq_mi: 0.009
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1364
+      acs_5yr: 1263
       state_estimate: null
   - entity: town/marshfield
     geoid: "5002343600"
@@ -1792,8 +1804,8 @@ towns:
     land_area_sq_mi: 43.311
     water_area_sq_mi: 0.422
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1583
+      acs_5yr: 1775
       state_estimate: null
   - entity: town/middlesex
     geoid: "5002344500"
@@ -1801,8 +1813,8 @@ towns:
     land_area_sq_mi: 39.491
     water_area_sq_mi: 0.305
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1779
+      acs_5yr: 2011
       state_estimate: null
   - entity: town/montpelier
     geoid: "5002346000"
@@ -1810,8 +1822,8 @@ towns:
     land_area_sq_mi: 10.057
     water_area_sq_mi: 0.195
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 8074
+      acs_5yr: 8038
       state_estimate: null
   - entity: town/moretown
     geoid: "5002346225"
@@ -1819,8 +1831,8 @@ towns:
     land_area_sq_mi: 39.714
     water_area_sq_mi: 0.357
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1753
+      acs_5yr: 1595
       state_estimate: null
   - entity: town/northfield
     geoid: "5002350275"
@@ -1828,8 +1840,8 @@ towns:
     land_area_sq_mi: 44.632
     water_area_sq_mi: 0.129
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5918
+      acs_5yr: 5932
       state_estimate: null
   - entity: town/plainfield
     geoid: "5002355825"
@@ -1837,8 +1849,8 @@ towns:
     land_area_sq_mi: 21.003
     water_area_sq_mi: 0.083
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1236
+      acs_5yr: 1251
       state_estimate: null
   - entity: town/roxbury
     geoid: "5002360625"
@@ -1846,8 +1858,8 @@ towns:
     land_area_sq_mi: 41.699
     water_area_sq_mi: 0.048
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 678
+      acs_5yr: 956
       state_estimate: null
   - entity: town/waitsfield
     geoid: "5002375325"
@@ -1855,8 +1867,8 @@ towns:
     land_area_sq_mi: 25.748
     water_area_sq_mi: 0.178
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1844
+      acs_5yr: 1825
       state_estimate: null
   - entity: town/warren
     geoid: "5002376525"
@@ -1864,8 +1876,8 @@ towns:
     land_area_sq_mi: 40.084
     water_area_sq_mi: 0.05
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1977
+      acs_5yr: 1678
       state_estimate: null
   - entity: town/waterbury
     geoid: "5002376975"
@@ -1873,8 +1885,8 @@ towns:
     land_area_sq_mi: 48.153
     water_area_sq_mi: 1.549
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 5331
+      acs_5yr: 5381
       state_estimate: null
   - entity: town/woodbury
     geoid: "5002385525"
@@ -1882,8 +1894,8 @@ towns:
     land_area_sq_mi: 37.723
     water_area_sq_mi: 1.582
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 928
+      acs_5yr: 594
       state_estimate: null
   - entity: town/worcester
     geoid: "5002386125"
@@ -1891,8 +1903,8 @@ towns:
     land_area_sq_mi: 38.556
     water_area_sq_mi: 0.172
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 964
+      acs_5yr: 911
       state_estimate: null
   - entity: town/athens
     geoid: "5002501900"
@@ -1900,8 +1912,8 @@ towns:
     land_area_sq_mi: 13.953
     water_area_sq_mi: 0.076
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 380
+      acs_5yr: 453
       state_estimate: null
   - entity: town/brattleboro
     geoid: "5002507900"
@@ -1909,8 +1921,8 @@ towns:
     land_area_sq_mi: 32.056
     water_area_sq_mi: 0.585
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 12184
+      acs_5yr: 12152
       state_estimate: null
   - entity: town/brookline
     geoid: "5002509475"
@@ -1918,8 +1930,8 @@ towns:
     land_area_sq_mi: 12.853
     water_area_sq_mi: 0.111
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 540
+      acs_5yr: 432
       state_estimate: null
   - entity: town/dover
     geoid: "5002517875"
@@ -1927,8 +1939,8 @@ towns:
     land_area_sq_mi: 35.768
     water_area_sq_mi: 0.087
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1798
+      acs_5yr: 1212
       state_estimate: null
   - entity: town/dummerston
     geoid: "5002518325"
@@ -1936,8 +1948,8 @@ towns:
     land_area_sq_mi: 30.696
     water_area_sq_mi: 0.24
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1865
+      acs_5yr: 2190
       state_estimate: null
   - entity: town/grafton
     geoid: "5002528900"
@@ -1945,8 +1957,8 @@ towns:
     land_area_sq_mi: 38.137
     water_area_sq_mi: 0.1
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 645
+      acs_5yr: 664
       state_estimate: null
   - entity: town/guilford
     geoid: "5002530925"
@@ -1954,8 +1966,8 @@ towns:
     land_area_sq_mi: 39.546
     water_area_sq_mi: 0.13
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2120
+      acs_5yr: 2416
       state_estimate: null
   - entity: town/halifax
     geoid: "5002531150"
@@ -1963,8 +1975,8 @@ towns:
     land_area_sq_mi: 39.718
     water_area_sq_mi: 0.096
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 771
+      acs_5yr: 725
       state_estimate: null
   - entity: town/jamaica
     geoid: "5002536175"
@@ -1972,8 +1984,8 @@ towns:
     land_area_sq_mi: 48.946
     water_area_sq_mi: 0.536
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1005
+      acs_5yr: 887
       state_estimate: null
   - entity: town/londonderry
     geoid: "5002540225"
@@ -1981,8 +1993,8 @@ towns:
     land_area_sq_mi: 35.468
     water_area_sq_mi: 0.503
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1919
+      acs_5yr: 2115
       state_estimate: null
   - entity: town/marlboro
     geoid: "5002543375"
@@ -1990,8 +2002,8 @@ towns:
     land_area_sq_mi: 40.349
     water_area_sq_mi: 0.38
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1722
+      acs_5yr: 1424
       state_estimate: null
   - entity: town/newfane
     geoid: "5002548400"
@@ -1999,8 +2011,8 @@ towns:
     land_area_sq_mi: 39.761
     water_area_sq_mi: 0.269
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1645
+      acs_5yr: 1630
       state_estimate: null
   - entity: town/putney
     geoid: "5002557700"
@@ -2008,8 +2020,8 @@ towns:
     land_area_sq_mi: 26.658
     water_area_sq_mi: 0.07
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2617
+      acs_5yr: 2612
       state_estimate: null
   - entity: town/rockingham
     geoid: "5002560250"
@@ -2017,8 +2029,8 @@ towns:
     land_area_sq_mi: 41.41
     water_area_sq_mi: 0.777
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 4832
+      acs_5yr: 4828
       state_estimate: null
   - entity: town/somerset
     geoid: "5002565762"
@@ -2026,8 +2038,8 @@ towns:
     land_area_sq_mi: 25.331
     water_area_sq_mi: 2.276
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 6
+      acs_5yr: 0
       state_estimate: null
   - entity: town/stratton
     geoid: "5002570750"
@@ -2035,8 +2047,8 @@ towns:
     land_area_sq_mi: 46.027
     water_area_sq_mi: 0.736
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 440
+      acs_5yr: 406
       state_estimate: null
   - entity: town/townshend
     geoid: "5002573300"
@@ -2044,8 +2056,8 @@ towns:
     land_area_sq_mi: 42.283
     water_area_sq_mi: 0.449
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1291
+      acs_5yr: 1619
       state_estimate: null
   - entity: town/vernon
     geoid: "5002574800"
@@ -2053,8 +2065,8 @@ towns:
     land_area_sq_mi: 19.448
     water_area_sq_mi: 0.572
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2192
+      acs_5yr: 2444
       state_estimate: null
   - entity: town/wardsboro
     geoid: "5002576225"
@@ -2062,8 +2074,8 @@ towns:
     land_area_sq_mi: 29.222
     water_area_sq_mi: 0.033
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 869
+      acs_5yr: 950
       state_estimate: null
   - entity: town/westminster
     geoid: "5002581400"
@@ -2071,8 +2083,8 @@ towns:
     land_area_sq_mi: 45.025
     water_area_sq_mi: 0.259
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3016
+      acs_5yr: 3005
       state_estimate: null
   - entity: town/whitingham
     geoid: "5002583950"
@@ -2080,8 +2092,8 @@ towns:
     land_area_sq_mi: 36.759
     water_area_sq_mi: 2.333
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1344
+      acs_5yr: 1352
       state_estimate: null
   - entity: town/wilmington
     geoid: "5002584700"
@@ -2089,8 +2101,8 @@ towns:
     land_area_sq_mi: 40.45
     water_area_sq_mi: 2.01
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2255
+      acs_5yr: 1844
       state_estimate: null
   - entity: town/windham
     geoid: "5002584850"
@@ -2098,8 +2110,8 @@ towns:
     land_area_sq_mi: 26.093
     water_area_sq_mi: 0.082
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 449
+      acs_5yr: 553
       state_estimate: null
   - entity: town/andover
     geoid: "5002701300"
@@ -2107,8 +2119,8 @@ towns:
     land_area_sq_mi: 28.85
     water_area_sq_mi: 0.058
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 568
+      acs_5yr: 635
       state_estimate: null
   - entity: town/baltimore
     geoid: "5002702575"
@@ -2116,8 +2128,8 @@ towns:
     land_area_sq_mi: 4.755
     water_area_sq_mi: 0.009
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 229
+      acs_5yr: 310
       state_estimate: null
   - entity: town/barnard
     geoid: "5002702725"
@@ -2125,8 +2137,8 @@ towns:
     land_area_sq_mi: 48.034
     water_area_sq_mi: 0.237
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 992
+      acs_5yr: 1071
       state_estimate: null
   - entity: town/bethel
     geoid: "5002705800"
@@ -2134,8 +2146,8 @@ towns:
     land_area_sq_mi: 45.496
     water_area_sq_mi: 0.265
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1942
+      acs_5yr: 1770
       state_estimate: null
   - entity: town/bridgewater
     geoid: "5002708275"
@@ -2143,8 +2155,8 @@ towns:
     land_area_sq_mi: 49.483
     water_area_sq_mi: 0.136
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 903
+      acs_5yr: 1047
       state_estimate: null
   - entity: town/cavendish
     geoid: "5002712250"
@@ -2152,8 +2164,8 @@ towns:
     land_area_sq_mi: 39.4
     water_area_sq_mi: 0.221
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1392
+      acs_5yr: 1400
       state_estimate: null
   - entity: town/chester
     geoid: "5002713675"
@@ -2161,8 +2173,8 @@ towns:
     land_area_sq_mi: 55.711
     water_area_sq_mi: 0.259
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3005
+      acs_5yr: 2998
       state_estimate: null
   - entity: town/hartford
     geoid: "5002732275"
@@ -2170,8 +2182,8 @@ towns:
     land_area_sq_mi: 45.111
     water_area_sq_mi: 0.881
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 10686
+      acs_5yr: 10713
       state_estimate: null
   - entity: town/hartland
     geoid: "5002732425"
@@ -2179,8 +2191,8 @@ towns:
     land_area_sq_mi: 45.23
     water_area_sq_mi: 0.314
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3446
+      acs_5yr: 3462
       state_estimate: null
   - entity: town/ludlow
     geoid: "5002741275"
@@ -2188,8 +2200,8 @@ towns:
     land_area_sq_mi: 34.75
     water_area_sq_mi: 0.527
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2172
+      acs_5yr: 1916
       state_estimate: null
   - entity: town/norwich
     geoid: "5002752900"
@@ -2197,8 +2209,8 @@ towns:
     land_area_sq_mi: 44.494
     water_area_sq_mi: 0.257
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3612
+      acs_5yr: 3628
       state_estimate: null
   - entity: town/plymouth
     geoid: "5002756050"
@@ -2206,8 +2218,8 @@ towns:
     land_area_sq_mi: 48.174
     water_area_sq_mi: 0.561
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 641
+      acs_5yr: 528
       state_estimate: null
   - entity: town/pomfret
     geoid: "5002756350"
@@ -2215,8 +2227,8 @@ towns:
     land_area_sq_mi: 39.475
     water_area_sq_mi: 0.077
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 916
+      acs_5yr: 846
       state_estimate: null
   - entity: town/reading
     geoid: "5002758375"
@@ -2224,8 +2236,8 @@ towns:
     land_area_sq_mi: 41.095
     water_area_sq_mi: 0.187
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 687
+      acs_5yr: 697
       state_estimate: null
   - entity: town/rochester
     geoid: "5002760100"
@@ -2233,8 +2245,8 @@ towns:
     land_area_sq_mi: 56.845
     water_area_sq_mi: 0.304
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1099
+      acs_5yr: 1429
       state_estimate: null
   - entity: town/royalton
     geoid: "5002760850"
@@ -2242,8 +2254,8 @@ towns:
     land_area_sq_mi: 40.374
     water_area_sq_mi: 0.575
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2750
+      acs_5yr: 2765
       state_estimate: null
   - entity: town/sharon
     geoid: "5002763775"
@@ -2251,8 +2263,8 @@ towns:
     land_area_sq_mi: 39.808
     water_area_sq_mi: 0.501
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1560
+      acs_5yr: 1518
       state_estimate: null
   - entity: town/springfield
     geoid: "5002769550"
@@ -2260,8 +2272,8 @@ towns:
     land_area_sq_mi: 49.212
     water_area_sq_mi: 0.424
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 9062
+      acs_5yr: 9088
       state_estimate: null
   - entity: town/stockbridge
     geoid: "5002770375"
@@ -2269,8 +2281,8 @@ towns:
     land_area_sq_mi: 45.785
     water_area_sq_mi: 0.273
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 718
+      acs_5yr: 853
       state_estimate: null
   - entity: town/weathersfield
     geoid: "5002777500"
@@ -2278,8 +2290,8 @@ towns:
     land_area_sq_mi: 43.509
     water_area_sq_mi: 0.561
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 2842
+      acs_5yr: 2843
       state_estimate: null
   - entity: town/weston
     geoid: "5002782000"
@@ -2287,8 +2299,8 @@ towns:
     land_area_sq_mi: 35.371
     water_area_sq_mi: 0.197
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 623
+      acs_5yr: 769
       state_estimate: null
   - entity: town/west-windsor
     geoid: "5002783050"
@@ -2296,8 +2308,8 @@ towns:
     land_area_sq_mi: 24.72
     water_area_sq_mi: 0.091
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 1344
+      acs_5yr: 1105
       state_estimate: null
   - entity: town/windsor
     geoid: "5002784925"
@@ -2305,8 +2317,8 @@ towns:
     land_area_sq_mi: 19.408
     water_area_sq_mi: 0.278
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3559
+      acs_5yr: 3552
       state_estimate: null
   - entity: town/woodstock
     geoid: "5002785975"
@@ -2314,29 +2326,17 @@ towns:
     land_area_sq_mi: 44.052
     water_area_sq_mi: 0.284
     population:
-      decennial_2020: null
-      acs_5yr: null
+      decennial_2020: 3005
+      acs_5yr: 3025
       state_estimate: null
 not_published:
-  - path: towns.population.decennial_2020
-    reason: "The Census data API requires an API key for county-subdivision queries
-      and none was supplied, so no population was retrieved. This is a fact
-      about the run, not about the Bureau: set CENSUS_API_KEY and re-import.
-      Until then the density screen reports population as missing rather than
-      dividing by an estimate."
-    confirmed_by: npm run census:import
-    confirmed_date: 2026-07-31
-  - path: towns.population.acs_5yr
-    reason: "Same: no API key was supplied, so the ACS series was not retrieved."
-    confirmed_by: npm run census:import
-    confirmed_date: 2026-07-31
   - path: towns.population.state_estimate
     reason: Vermont publishes its own municipal population estimates, which are not
       fetched here. Whether the statute means a state estimate at all is unread
       -- see the parameter file structural_note on
       statutory.screens.sparse_density.population_series.
     confirmed_by: npm run census:import
-    confirmed_date: 2026-07-31
+    confirmed_date: 2026-11-22
 unmatched:
   - geoid: "5000304825"
     name_as_published: Bennington town
@@ -2371,4 +2371,4 @@ unmatched:
       Bradford and Barton. Resolve by hand; the density screen reports no figure
       for it until someone does.
 extracted_by: npm run census:import
-extracted_date: 2026-07-31
+extracted_date: 2026-11-22

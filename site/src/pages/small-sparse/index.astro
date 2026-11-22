@@ -34,6 +34,7 @@ const data = smallSparse as unknown as {
   counts: Record<string, number>;
   population_series_held: string[];
   enrollment_school_years: number[];
+  series_sensitive_towns: { town: string; decennial_density: number; acs_density: number }[];
   schools: SchoolRow[];
 };
 
@@ -135,7 +136,7 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <td>
           {data.population_series_held.length === 0
             ? 'None yet: the Census population feed needs a key for town-level numbers, and this build did not have one.'
-            : `Series held: ${data.population_series_held.join(', ')}.`}
+            : `Two Census counts held: ${data.population_series_held.join(' and ')}. The density column uses the 2020 count.`}
         </td>
       </tr>
       <tr>
@@ -168,9 +169,19 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 
   <h2>The map facts we do have</h2>
   <p class="note">
-    The population column is blank because we do not have town population numbers yet. The
-    density test needs them. The size test uses the student counts described above.
+    Population is the Census 2020 count for the town. The law does not say which Census count to
+    use, so we also hold a newer estimate (2019–2023) and compare the two.
   </p>
+  {data.series_sensitive_towns.length > 0 && (
+    <p class="note">
+      {data.series_sensitive_towns.length} towns with a school flip between sparse and not sparse
+      depending on which count is used (people per square mile, 2020 count then newer estimate):
+      {data.series_sensitive_towns.map((t, i) => (
+        <>{i > 0 ? '; ' : ' '}{names.get(t.town) ?? t.town} {t.decennial_density} and {t.acs_density}</>
+      ))}.
+      For these schools, the sparse test is a toss-up until the State picks a count.
+    </p>
+  )}
 
   <table class="scroll-x">
     <caption>
