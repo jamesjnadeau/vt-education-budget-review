@@ -75,6 +75,12 @@ export interface CombinerOptions {
   readonly adjustments?: ExcessSpendingAdjustments;
   readonly pooled_inputs?: CombinerPooledInputs;
   /**
+   * Counts whose entered figure is the page's own estimate from AOE town-level
+   * counts (a lower limit where counts were withheld), not a typed number. Only
+   * read where a count is entered because a member did not publish one.
+   */
+  readonly pooled_inputs_estimated?: Partial<Record<'poverty_185_fpl' | 'english_learners', boolean>>;
+  /**
    * Every district that taxes each town, keyed by town slug. A town with more
    * than one is not computed: its rate blends those districts' rates, which
    * this engine does not model yet. A town that more than one member lists in
@@ -161,6 +167,7 @@ export function runCombiner(
   const holdHarmless = params.parameters.get('membership.hold_harmless_applies')?.value === true;
   const assumptions: Assumption[] = [consolidationAssumption(opts.consolidation_factor), act84Assumption(opts)];
   const enteredCounts: string[] = [];
+  const estimatedCounts: string[] = [];
 
   // --- Pooled membership ---------------------------------------------------
   // Every member is given every fiscal year any member reports, so a member
@@ -191,15 +198,20 @@ export function runCombiner(
         poolReasons.push(`${entity}: the count of ${what} was not published, and no pooled figure was entered.`);
       }
     } else {
-      enteredCounts.push(what);
+      const estimated = key !== 'state_placed_fte' && opts.pooled_inputs_estimated?.[key] === true;
+      (estimated ? estimatedCounts : enteredCounts).push(what);
       assumptions.push({
         key: `pooled_inputs.${key}`,
-        label: `Pooled ${what}, entered on this page, not published`,
+        label: estimated
+          ? `Pooled ${what}, estimated from AOE town-level counts, not published`
+          : `Pooled ${what}, entered on this page, not published`,
         value: entered,
         unit,
         rationale:
           `${listed(missing)} did not publish a count of ${what}, so the pooled count cannot be ` +
-          `summed from the members. This figure was entered on this page, not published, and is used for the pooled ` +
+          (estimated
+            ? `summed from the members. This figure was estimated from AOE town-level counts (a lower limit where counts were withheld), not a published district figure, and is used for the pooled `
+            : `summed from the members. This figure was entered on this page, not published, and is used for the pooled `) +
           `district only. Each member’s rate today still needs its own published count, so it is ` +
           `not worked out for ${listed(missing)}. Where every member publishes a count, their sum is ` +
           `used and an entry here is ignored.`,
@@ -398,6 +410,7 @@ export function runCombiner(
     caveats: caveats({
       transitionYear,
       enteredCounts,
+      estimatedCounts,
       multiDistrictTowns,
       adjustments: opts.adjustments,
       anyToday: rows.some((r) => r.today !== null),
@@ -572,6 +585,7 @@ function act84Assumption(opts: CombinerOptions): Assumption {
 function caveats(args: {
   readonly transitionYear: boolean;
   readonly enteredCounts: readonly string[];
+  readonly estimatedCounts: readonly string[];
   readonly multiDistrictTowns: readonly string[];
   readonly adjustments: ExcessSpendingAdjustments | undefined;
   /** True when at least one town row has a rate today; only then is there a change to explain. */
@@ -602,6 +616,12 @@ function caveats(args: {
   if (args.enteredCounts.length > 0) {
     out.push(
       `Some pooled counts were entered on this page, not published: ${listed(args.enteredCounts)}. ` +
+        'They are labelled in the assumptions.',
+    );
+  }
+  if (args.estimatedCounts.length > 0) {
+    out.push(
+      `Some pooled counts were estimated from AOE town-level counts, not published for the districts: ${listed(args.estimatedCounts)}. ` +
         'They are labelled in the assumptions.',
     );
   }

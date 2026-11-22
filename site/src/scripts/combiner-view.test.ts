@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { runCombiner, type CombinerMember, type CombinerTownRow } from '@vt-budget/model';
 
 import type { CombinerShareState } from './combiner-share.ts';
+import type { TownCount } from './combiner-view.ts';
 import {
   MIN_DISTRICTS_MESSAGE,
   admScale,
@@ -371,9 +372,9 @@ describe('the density of the picked districts\' towns', () => {
 });
 
 describe('the town-level estimate for lower-income and English-learner counts', () => {
-  const cell = (c: CombinerTown['ell_sy25']): Partial<CombinerTown> => ({ ell_sy25: c, frl_sy25: c });
+  const cell = (c: TownCount | null): Partial<CombinerTown> => ({ ell_sy25: c, frl_sy25: c });
   const hidden = { status: 'suppressed' as const, low: 0, high: 10 };
-  const build = (cells: Record<string, CombinerTown['ell_sy25']>): CombinerData => ({
+  const build = (cells: Record<string, TownCount | null>): CombinerData => ({
     ...DATA,
     towns: {
       ...DATA.towns,
