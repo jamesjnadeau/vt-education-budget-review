@@ -454,7 +454,7 @@ parameters:
       verified_date: "2026-11-22"
       verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
     structural_note: >-
-      Legal values are decennial, acs_5yr, state_estimate and
+      Legal values are decennial, acs_5yr, pep_july1, state_estimate and
       unspecified_in_statute. If the statute names no series, then
       unspecified_in_statute is the correct VERIFIED value and the choice becomes
       a user-visible scenario input with no default rather than an implementation
@@ -463,9 +463,14 @@ parameters:
       NOTE 2026-11-22: the definition measures residents "as of July 1 of the year of
       determination". That date is the reference date of the Census Bureau's annual
       population estimates, not of the decennial census (April 1) or the ACS (a
-      five-year period). So the text arguably points at a July 1 estimate, which this
-      project does not yet hold, and the two held series are stand-ins. This is a
-      reading, not a stated rule, so the value stays unspecified_in_statute.
+      five-year period). So the text arguably points at a July 1 estimate. The project now holds the Vintage
+      2025 July 1, 2025 estimate (pep_july1_2025, intake/census/pep2025/) beside the
+      decennial and ACS series. The statute does not name the Census product, and
+      "of the year of determination" has no determination year yet, so this stays a
+      reading and the value stays unspecified_in_statute. The published density column
+      uses the July 1, 2025 estimate, as of the 2026-11-22 decision to follow the statute's July 1 date; seven towns with a school flip across the three
+      series, and the page lists them. Newport town's estimate rises from 1,527 (2020)
+      to 2,583 (2025) in the Census file, which is what moves it past the cutoff.
 
   # --- Who determines necessity, and when -----------------------------------
 

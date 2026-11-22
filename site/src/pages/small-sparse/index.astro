@@ -34,7 +34,7 @@ const data = smallSparse as unknown as {
   counts: Record<string, number>;
   population_series_held: string[];
   enrollment_school_years: number[];
-  series_sensitive_towns: { town: string; decennial_density: number; acs_density: number }[];
+  series_sensitive_towns: { town: string; decennial_density: number; acs_density: number; pep_density: number }[];
   schools: SchoolRow[];
 };
 
@@ -136,7 +136,7 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
         <td>
           {data.population_series_held.length === 0
             ? 'None yet: the Census population feed needs a key for town-level numbers, and this build did not have one.'
-            : `Two Census counts held: ${data.population_series_held.join(' and ')}. The density column uses the 2020 count.`}
+            : `Three Census figures held: ${data.population_series_held.join(', ')}. The density column uses the July 1, 2025 estimate.`}
         </td>
       </tr>
       <tr>
@@ -169,15 +169,16 @@ const withoutTown = data.counts['schools'] - data.counts['with_municipality'];
 
   <h2>The map facts we do have</h2>
   <p class="note">
-    Population is the Census 2020 count for the town. The law does not say which Census count to
-    use, so we also hold a newer estimate (2019–2023) and compare the two.
+    Population is the Census July 1, 2025 estimate for the town, because the law measures density
+    as of July 1. The law does not name the Census count, so we also hold the 2020 count and a
+    2019–2023 estimate and compare all three.
   </p>
   {data.series_sensitive_towns.length > 0 && (
     <p class="note">
       {data.series_sensitive_towns.length} towns with a school flip between sparse and not sparse
-      depending on which count is used (people per square mile, 2020 count then newer estimate):
+      depending on which count is used (people per square mile: 2020 count, 2019–2023 estimate, July 1, 2025 estimate; the page uses the last):
       {data.series_sensitive_towns.map((t, i) => (
-        <>{i > 0 ? '; ' : ' '}{names.get(t.town) ?? t.town} {t.decennial_density} and {t.acs_density}</>
+        <>{i > 0 ? '; ' : ' '}{names.get(t.town) ?? t.town} {t.decennial_density}, {t.acs_density} and {t.pep_density}</>
       ))}.
       For these schools, the sparse test is a toss-up until the State picks a count.
     </p>

@@ -69,7 +69,7 @@ export interface SmallSparsePublication {
    * Towns with a school in the table that fall on opposite sides of the sparse
    * cutoff depending on which population series is used. The statute names none.
    */
-  readonly series_sensitive_towns: readonly { readonly town: string; readonly decennial_density: number; readonly acs_density: number }[];
+  readonly series_sensitive_towns: readonly { readonly town: string; readonly decennial_density: number; readonly acs_density: number; readonly pep_density: number }[];
   readonly schools: readonly SchoolRow[];
 }
 
@@ -291,11 +291,21 @@ export function buildSmallSparse(
           const area = t.land_area_sq_mi;
           const dec = t.population?.['decennial_2020'];
           const acs = t.population?.['acs_5yr'];
-          if (!area || !dec || !acs) return [];
+          const pep = t.population?.['pep_july1_2025'];
+          if (!area || !dec || !acs || !pep) return [];
           const d = dec / area;
           const a = acs / area;
-          return d < sparseCutoff !== a < sparseCutoff
-            ? [{ town: slug, decennial_density: Math.round(d * 10) / 10, acs_density: Math.round(a * 10) / 10 }]
+          const p = pep / area;
+          const sides = [d, a, p].map((x) => x < sparseCutoff);
+          return sides.some((x) => x !== sides[0])
+            ? [
+                {
+                  town: slug,
+                  decennial_density: Math.round(d * 10) / 10,
+                  acs_density: Math.round(a * 10) / 10,
+                  pep_density: Math.round(p * 10) / 10,
+                },
+              ]
             : [];
         })
         .sort((x, y) => x.town.localeCompare(y.town))

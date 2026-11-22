@@ -34,7 +34,7 @@
     },
     "population_series_held": {
       "type": "array",
-      "items": { "enum": ["decennial_2020", "acs_5yr", "state_estimate"] },
+      "items": { "enum": ["decennial_2020", "acs_5yr", "pep_july1_2025", "state_estimate"] },
       "description": "Which series this record actually carries. An empty array is legal and honest: the Census data API requires a key, so a run without one lands land area alone. The screen then reports population as missing input rather than dividing by a number it invented."
     },
     "population_sources": {
@@ -45,7 +45,7 @@
         "additionalProperties": false,
         "required": ["series", "dataset", "variable", "retrieved"],
         "properties": {
-          "series": { "enum": ["decennial_2020", "acs_5yr", "state_estimate"] },
+          "series": { "enum": ["decennial_2020", "acs_5yr", "pep_july1_2025", "state_estimate"] },
           "dataset": { "type": "string", "minLength": 1 },
           "variable": { "type": "string", "minLength": 1 },
           "vintage": { "type": ["string", "null"], "default": null },
@@ -91,6 +91,7 @@
             "properties": {
               "decennial_2020": { "type": ["number", "null"], "default": null },
               "acs_5yr": { "type": ["number", "null"], "default": null },
+              "pep_july1_2025": { "type": ["number", "null"], "default": null },
               "state_estimate": { "type": ["number", "null"], "default": null }
             }
           }

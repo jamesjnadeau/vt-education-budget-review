@@ -32,6 +32,7 @@ import { join } from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
 
 import { joinToRegistry, parseGazetteer } from '../census/gazetteer.ts';
+import { parsePep } from '../census/pep.ts';
 import { PATHS, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
 
@@ -47,6 +48,12 @@ const GAZETTEER_FILE = `${GAZETTEER_VINTAGE}_gaz_cousubs_50.txt`;
 const GAZETTEER_URL =
   `https://www2.census.gov/geo/docs/maps-data/data/gazetteer/${GAZETTEER_VINTAGE}_Gazetteer/${GAZETTEER_FILE}`;
 const INTAKE_DIR = join(PATHS.intake, 'census', `fy${GAZETTEER_VINTAGE}`);
+const PEP_YEAR = 2025;
+const PEP_FILE = 'sub-est2025_50.csv';
+const PEP_URL =
+  `https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/cities/totals/${PEP_FILE}`;
+const PEP_DIR = join(PATHS.intake, 'census', 'pep2025');
+const PEP_SERIES = 'pep_july1_2025';
 const WAREHOUSE_FILE = join(PATHS.warehouse, 'census', 'vt-town-land-and-population.yaml');
 
 const POPULATION_SOURCES = [
@@ -169,6 +176,56 @@ async function main(): Promise<number> {
     );
   }
 
+  // --- July 1 estimate (static file, no key) -------------------------------
+  const pepPath = join(PEP_DIR, PEP_FILE);
+  let pepRaw: Buffer | null = null;
+  if (fromIntake) {
+    if (existsSync(pepPath)) pepRaw = readFileSync(pepPath);
+  } else {
+    console.log(`Fetching ${PEP_URL}`);
+    const response = await fetch(PEP_URL);
+    if (!response.ok) throw new Error(`${PEP_URL} returned HTTP ${response.status}.`);
+    pepRaw = Buffer.from(await response.arrayBuffer());
+    mkdirSync(PEP_DIR, { recursive: true });
+    if (existsSync(pepPath) && sha256(readFileSync(pepPath)) !== sha256(pepRaw)) {
+      console.error(
+        `${rel(pepPath)} is already held and the Bureau is now serving different bytes. ` +
+          `Raw artifacts are never edited; land the revised file under its own name.`,
+      );
+      return 1;
+    }
+    writeFileSync(pepPath, pepRaw);
+    writeFileSync(
+      join(PEP_DIR, 'provenance.yaml'),
+      stringifyYaml({
+        schema_version: '1.0',
+        kind: 'sourced',
+        entity: 'source/us-census-bureau',
+        fiscal_year: PEP_YEAR,
+        artifacts: [
+          {
+            file: PEP_FILE,
+            source_url: PEP_URL,
+            retrieved_date: today,
+            retrieval_method: 'http-fetch',
+            sha256: sha256(pepRaw),
+            bytes: pepRaw.byteLength,
+            media_type: 'text/csv',
+            retrieved_by: 'npm run census:import',
+            document_type: 'spreadsheet',
+            note:
+              'Census Population Estimates Program, county subdivisions, Vintage 2025. ' +
+              'POPESTIMATE2025 is the July 1, 2025 estimate, the reference date § 4019(a)(4) names. ' +
+              'Only SUMLEV 061 rows (towns) are used.',
+          },
+        ],
+      }),
+      'utf8',
+    );
+  }
+  const pep = pepRaw ? parsePep(pepRaw.toString('utf8'), PEP_YEAR) : null;
+  if (pep) populations.set(PEP_SERIES, pep.byGeoid as Map<string, number>);
+
   const held = [...populations.keys()];
 
   // --- provenance ---------------------------------------------------------
@@ -208,6 +265,15 @@ async function main(): Promise<number> {
     area_vintage: `${GAZETTEER_VINTAGE} Census Gazetteer, county subdivisions`,
     population_series_held: held,
     population_sources: [...populations.keys()].map((series) => {
+      if (series === PEP_SERIES) {
+        return {
+          series,
+          dataset: PEP_URL,
+          variable: `POPESTIMATE${PEP_YEAR}`,
+          vintage: `Population Estimates Program Vintage ${PEP_YEAR}, July 1, ${PEP_YEAR}`,
+          retrieved: today,
+        };
+      }
       const source = POPULATION_SOURCES.find((s) => s.series === series);
       return {
         series,
@@ -226,7 +292,7 @@ async function main(): Promise<number> {
       population: {
         decennial_2020: populations.get('decennial_2020')?.get(t.geoid) ?? null,
         acs_5yr: populations.get('acs_5yr')?.get(t.geoid) ?? null,
-        state_estimate: null,
+        pep_july1_2025: populations.get(PEP_SERIES)?.get(t.geoid) ?? null,
       },
     })),
     not_published: [

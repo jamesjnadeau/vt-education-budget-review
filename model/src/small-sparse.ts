@@ -130,7 +130,7 @@ export interface EnrollmentSeries {
   readonly byYear: Readonly<Record<number, number | null>>;
 }
 
-export type PopulationSeries = 'decennial_2020' | 'acs_5yr' | 'state_estimate' | 'unknown';
+export type PopulationSeries = 'decennial_2020' | 'acs_5yr' | 'pep_july1_2025' | 'state_estimate' | 'unknown';
 
 export interface MunicipalityDemographics {
   readonly municipality: string;
