@@ -104,7 +104,7 @@ parameters:
         small school by $3,157.00.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.grants.small_school.pupil_count_basis:
     value: two_year_average
@@ -123,7 +123,7 @@ parameters:
         small school by $3,157.00.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Legal values are two_year_average and single_year. Read against
       statutory.screens.small_enrollment.comparator: if the QUALIFYING test and
@@ -161,7 +161,7 @@ parameters:
         dollar amount.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Read whether the index reaches the SPARSE grant as well. Secondary sources
       describe indexing for one and are silent on the other, which may be an
@@ -185,7 +185,7 @@ parameters:
         sparse school by $1,954.00.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.grants.sparse_school.pupil_count_basis:
     value: two_year_average
@@ -204,7 +204,7 @@ parameters:
         sparse school by $1,954.00.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       WHAT "ENROLLMENT" COUNTS (READ 2026-11-22, § 4019(a)(2)): "Enrollment" means
       the number of students in kindergarten through grade 12 who are enrolled in
@@ -237,7 +237,7 @@ parameters:
         dollar amount.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.grants.stacking_rule:
     value: additive
@@ -291,7 +291,7 @@ parameters:
         consistent with State Board of Education rule.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.screens.small_enrollment.comparator:
     value: lt
@@ -310,7 +310,7 @@ parameters:
         consistent with State Board of Education rule.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Legal values are lt and lte. A school sitting exactly on the threshold
       qualifies under one and not the other, which is not a rounding question:
@@ -334,7 +334,7 @@ parameters:
         operated by the school, rounded downward.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Resolved by the act: § 4019(a)(1) defines average grade size from the
       TWO-YEAR AVERAGE enrollment divided by the grades above prekindergarten
@@ -360,7 +360,7 @@ parameters:
         year of determination is fewer than 55 persons.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.screens.sparse_density.comparator:
     value: lt
@@ -379,7 +379,7 @@ parameters:
         year of determination is fewer than 55 persons.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.screens.sparse_density.geography:
     value: municipality_of_school_location
@@ -398,7 +398,7 @@ parameters:
         Education rule.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       STRUCTURAL, and the single reading most likely to invalidate this layer's
       shape. Legal values are municipality_of_school_location, district_member_towns
@@ -426,7 +426,7 @@ parameters:
         year of determination is fewer than 55 persons.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Legal values are land_area and total_area. The secondary sources say "of
       land". If that is the statutory wording, use Census TIGER ALAND. Total area
@@ -452,7 +452,7 @@ parameters:
         year of determination is fewer than 55 persons.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Legal values are decennial, acs_5yr, pep_july1, state_estimate and
       unspecified_in_statute. If the statute names no series, then
@@ -492,7 +492,7 @@ parameters:
         consistent with State Board of Education rule.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
 
   statutory.determination.rules_due_date:
     value: "2027-03-31"
@@ -513,7 +513,7 @@ parameters:
         2027.
       verified: true
       verified_date: "2026-11-22"
-      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); awaiting human countersignature"
+      verified_by: "automated read of the enacted act, intake/vt-legislature/2026-acts/ACT170 As Enacted.pdf (sha256 d3f70eb8…); countersigned by James Nadeau, 2026-11-22"
     structural_note: >-
       Computes nothing, and is still worth reading early: it drives the
       rulemaking comment deadline, and a missed comment window is unrecoverable
