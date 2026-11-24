@@ -52,7 +52,8 @@ export function initPicker(options: PickerOptions): void {
     if (!slug || !valid.has(slug)) return;
 
     document.cookie = serializeTownCookie(slug, secure);
-    window.posthog?.capture(buildTownSelected(slug).event, buildTownSelected(slug).properties);
+    const captured = buildTownSelected(slug);
+    window.posthog?.capture(captured.event, captured.properties);
     window.location.assign(`${base}/my/town/${slug}/`);
   });
 }

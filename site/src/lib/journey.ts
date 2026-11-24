@@ -78,6 +78,8 @@ export interface GroupPage {
   students: Students;
   people: Figure<number>;
   split?: { number: number; towns: string[] }[];
+  /** Union only: member towns whose district sits on no committee. */
+  unassignedTowns?: { town: string; name: string }[];
   actGroup?: { number: number; moved: boolean };
   steps: Step[];
   next: Step | null;
@@ -178,8 +180,7 @@ export function buildJourney(inputs: JourneyInputs): Journey {
     activeTowns.filter((t) => t.supervisory_union === us).map((t) => t.slug);
 
   const committees = publishedCommittees(inputs.groupings.reassignment);
-  const committeeFor = (e: Entity, memberSlugs: string[]): Committee | null =>
-    memberSlugs.length === memberSlugs.length ? committeeOf(committees, e.operated_by ?? e.slug) : null;
+  const committeeFor = (e: Entity): Committee | null => committeeOf(committees, e.operated_by ?? e.slug);
   const committeeTowns = (c: Committee): string[] => {
     const on = new Set<string>();
     for (const line of c.roster) {
@@ -229,7 +230,7 @@ export function buildJourney(inputs: JourneyInputs): Journey {
     const dTowns = districtSlug ? districtMembers(districtSlug) : [town.slug];
     const hasDistrictStep = districtSlug !== null && dTowns.length > 1;
     const unionSlug = town.supervisory_union;
-    const committee = committeeFor(town, [town.slug]);
+    const committee = committeeFor(town);
 
     const steps: Step[] = [townStep(slug)];
     if (hasDistrictStep && districtSlug) steps.push(districtStep(slugTail(districtSlug)));
@@ -354,14 +355,26 @@ export function buildJourney(inputs: JourneyInputs): Journey {
     const uEntity = bySlug.get(us);
     const slug = slugTail(us);
     const byCommittee = new Map<number, string[]>();
+    let assigned = 0;
     for (const m of members) {
       const t = bySlug.get(m);
       if (!t) continue;
       const c = committeeOf(committees, t.operated_by ?? t.slug);
-      if (c) byCommittee.set(c.number, [...(byCommittee.get(c.number) ?? []), m]);
+      if (c) {
+        byCommittee.set(c.number, [...(byCommittee.get(c.number) ?? []), m]);
+        assigned += 1;
+      }
     }
     const split = byCommittee.size > 1 ? [...byCommittee.entries()].map(([n, towns]) => ({ number: n, towns })) : undefined;
-    const single = byCommittee.size === 1 ? [...byCommittee.keys()][0] : undefined;
+    // A single "next grouping" only when every member town is on that one
+    // committee. If any member's district is unassigned, presenting the group
+    // as "your group" would send that resident somewhere their district is not.
+    const single =
+      byCommittee.size === 1 && assigned === members.length ? [...byCommittee.keys()][0] : undefined;
+    const unassignedTowns = members.filter((m) => {
+      const t = bySlug.get(m);
+      return t !== undefined && committeeOf(committees, t.operated_by ?? t.slug) === null;
+    });
     const steps: Step[] = [unionStep(slug)];
     if (single !== undefined) steps.push(groupingStep(single));
     const unionPage: GroupPage = {
@@ -376,6 +389,12 @@ export function buildJourney(inputs: JourneyInputs): Journey {
       next: single !== undefined ? groupingStep(single) : null,
     };
     if (split) unionPage.split = split;
+    if (unassignedTowns.length > 0) {
+      unionPage.unassignedTowns = unassignedTowns.map((s) => ({
+        town: slugTail(s),
+        name: titleCase(bySlug.get(s)?.name ?? s),
+      }));
+    }
     unions[slug] = unionPage;
   }
 

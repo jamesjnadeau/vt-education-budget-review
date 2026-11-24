@@ -37,18 +37,18 @@ function renderShare(
   s: { students: { kind: string; value?: number; reason?: string }; people: { kind: string; value?: number; reason?: string } },
   what: string,
 ): string {
-  const parts: string[] = [];
+  const values: string[] = [];
   if (s.students.kind === 'value' && s.students.value != null) {
-    parts.push(`${shareText(s.students.value)} of the students`);
-  } else if (s.students.kind === 'blank') {
-    parts.push(`student share: ${s.students.reason}`);
+    values.push(`${shareText(s.students.value)} of the students`);
   }
   if (s.people.kind === 'value' && s.people.value != null) {
-    parts.push(`and ${shareText(s.people.value)} of the people`);
-  } else if (s.people.kind === 'blank') {
-    parts.push(`people share: ${s.people.reason}`);
+    values.push(`${shareText(s.people.value)} of the people`);
   }
-  return `Your town holds about ${parts.join(', ')} of ${what}.`;
+  if (values.length > 0) {
+    return `This works out to about ${values.join(' and ')} of ${what}.`;
+  }
+  const reasons = [s.students.reason, s.people.reason].filter(Boolean);
+  return `The share of ${what} can't be given right now. ${reasons.join(' ')}`;
 }
 ---
 
@@ -67,6 +67,12 @@ function renderShare(
   />
 
   <h2>How {page.name} fits in</h2>
+  <p class="lede">
+    In the figures below, the <strong>homestead tax rate</strong> is the school tax rate for the
+    home you live in; <strong>students counted by the state</strong> (ADM) are the public school
+    students who live here; and a <strong>supervisory union</strong> is a group of nearby school
+    districts that run their schools' business together.
+  </p>
 
   {/* --- Rate scale --- */}
   <h3>Your town's tax rate, compared</h3>
@@ -88,7 +94,7 @@ function renderShare(
     studentsPct ? (
       <ScaleBar
         fraction={studentsPct.lower > 0 ? Math.min(1, studentsPct.lower / Math.max(1, studentsPct.of)) : 0}
-        caption={`${percentileWords(studentsPct, 'towns')}, of ${studentsPct.of} towns with an exact student count.`}
+        caption={`${percentileWords(studentsPct, 'towns')}.`}
       />
     ) : (
       <p class="blank-reason">{page.studentsScale.kind === 'blank' ? page.studentsScale.reason : 'The student count is not an exact number, so there is nothing to compare.'}</p>
@@ -101,7 +107,7 @@ function renderShare(
     peoplePct ? (
       <ScaleBar
         fraction={peoplePct.lower > 0 ? Math.min(1, peoplePct.lower / Math.max(1, peoplePct.of)) : 0}
-        caption={`${percentileWords(peoplePct, 'towns')}, of ${peoplePct.of} towns with a published population.`}
+        caption={`${percentileWords(peoplePct, 'towns')}.`}
       />
     ) : (
       <p class="blank-reason">{page.peopleScale.kind === 'blank' ? page.peopleScale.reason : 'The population is not published, so there is nothing to compare.'}</p>
@@ -113,7 +119,7 @@ function renderShare(
     page.shares.district && (
       <div class="journey-share">
         <h3>Your share of the school district</h3>
-        {renderShare(page.shares.district, 'the other towns in your district')}
+        {renderShare(page.shares.district, 'your school district')}
       </div>
     )
   }
@@ -121,7 +127,7 @@ function renderShare(
     page.shares.union && (
       <div class="journey-share">
         <h3>Your share of the supervisory union</h3>
-        {renderShare(page.shares.union, 'the other towns in your supervisory union')}
+        {renderShare(page.shares.union, 'your supervisory union')}
       </div>
     )
   }
@@ -129,7 +135,20 @@ function renderShare(
     page.shares.grouping && (
       <div class="journey-share">
         <h3>Your share of your group</h3>
-        {renderShare(page.shares.grouping, 'the other towns in your group')}
+        {renderShare(page.shares.grouping, 'your group')}
+      </div>
+    )
+  }
+
+  {
+    page.committeeNumber === null && page.unionSlug !== null && (
+      <div class="notice journey-no-group">
+        <strong>No group yet for your district</strong>
+        <p>
+          Your school district is not in any of the study's groups right now, so this journey
+          stops at your supervisory union. The study is still arranging some districts; you can
+          ask the people in charge where yours stands.
+        </p>
       </div>
     )
   }

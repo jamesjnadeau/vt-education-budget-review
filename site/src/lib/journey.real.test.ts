@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildJourney, type JourneyInputs } from './journey.ts';
@@ -10,18 +10,23 @@ const hasData: boolean = ['registry.json', 'combiner.json', 'adm-subgroups.json'
   existsSync(url(f)),
 );
 
+function loadModel(): JourneyInputs {
+  const registry = require('../generated/registry.json') as { entities: JourneyInputs['registry'] };
+  const combiner = require('../generated/combiner.json') as unknown as JourneyInputs['combiner'];
+  const subgroups = require('../generated/adm-subgroups.json') as unknown as JourneyInputs['subgroups'];
+  const groupings = require('../generated/groupings.json') as unknown as JourneyInputs['groupings'];
+  return { registry: registry.entities, combiner, subgroups, groupings };
+}
+
 describe('buildJourney against the real data', () => {
   const skip = !hasData;
 
   if (!skip) {
-    const registry = require('../generated/registry.json') as { entities: JourneyInputs['registry'] };
-    const combiner = require('../generated/combiner.json') as unknown as JourneyInputs['combiner'];
-    const subgroups = require('../generated/adm-subgroups.json') as unknown as JourneyInputs['subgroups'];
-    const groupings = require('../generated/groupings.json') as unknown as JourneyInputs['groupings'];
-    const j = buildJourney({ registry: registry.entities, combiner, subgroups, groupings });
+    const inputs = loadModel();
+    const j = buildJourney(inputs);
 
     it('builds one town page per active non-closed, non-reporting town', () => {
-      const active = registry.entities.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only);
+      const active = inputs.registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only);
       expect(Object.keys(j.towns).length).toBe(active.length);
     });
 
@@ -48,6 +53,18 @@ describe('buildJourney against the real data', () => {
         }
       }
     });
+
+    it('never points a union at a grouping one of its towns is not on', () => {
+      // C1 regression: when a union's "next" leads to a grouping, every member
+      // town must be on that exact committee — none may be unassigned or on a
+      // different one (an unassigned district must never be routed to a group).
+      for (const u of Object.values(j.unions)) {
+        if (u.next?.id !== 'grouping') continue;
+        const nextNumber = Number(u.next.href.split('/')[3]);
+        const numbers = u.members.map((m) => j.towns[m.town]?.committeeNumber);
+        expect(numbers.every((n) => n === nextNumber)).toBe(true);
+      }
+    });
   } else {
     it.skip('skips real-data checks when generated data is missing', () => {});
   }
@@ -63,14 +80,17 @@ describe('built /my/ pages', () => {
     const unions = readdirSync(join(dist, 'my', 'union'), { withFileTypes: true }).filter((d) => d.isDirectory());
     const groupings = readdirSync(join(dist, 'my', 'grouping'), { withFileTypes: true }).filter((d) => d.isDirectory());
 
-    it('builds one town directory per non-closed town', () => {
-      // at least as many as active towns: 260 non-closed towns in the registry
-      expect(towns.length).toBe(260);
+    it('builds one town directory per active non-closed, non-reporting town', () => {
+      const inputs = loadModel();
+      const active = inputs.registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only);
+      expect(towns.length).toBe(active.length);
     });
 
-    it('builds 52 union pages and 18 grouping pages per the design', () => {
-      expect(unions.length).toBe(52);
-      expect(groupings.length).toBe(18);
+    it('builds union and grouping pages matching the model', () => {
+      const inputs = loadModel();
+      const j = buildJourney(inputs);
+      expect(unions.length).toBe(Object.keys(j.unions).length);
+      expect(groupings.length).toBe(Object.keys(j.groupings).length);
     });
 
     it('renders no NaN, undefined or null as visible text under /my/', () => {

@@ -206,9 +206,6 @@ describe('buildJourney', () => {
   });
 
   it('lists a union split across two committees and follows each town to its own', () => {
-    // World: two towns in one union but on two different districts on two
-    // different committees. The union page must say so; each town's grouping
-    // must follow its own district.
     const two = {
       registry: [
         { slug: 'town/x', name: 'Town X', type: 'town', effective_to: null, reporting_only: false, supervisory_union: 'su/split', operated_by: 'ud/d1' },
@@ -251,5 +248,47 @@ describe('buildJourney', () => {
     // one town per district -> no district step, straight to union then grouping
     expect(j2.towns['x']?.steps.map((s) => s.id)).toEqual(['town', 'union', 'grouping']);
     expect(j2.towns['x']?.steps[2]?.href).toBe('/my/grouping/7/');
+  });
+
+  it('does not route a union to a single grouping when a member district is unassigned', () => {
+    // C1 regression: a union where one town's district is on committee 7 but
+    // another's is on no committee must not offer "your group" as the next step —
+    // that would send the unassigned town's resident somewhere their district is not.
+    const mixed = {
+      registry: [
+        { slug: 'town/p', name: 'Town P', type: 'town', effective_to: null, reporting_only: false, supervisory_union: 'su/mix', operated_by: 'ud/z1' },
+        { slug: 'town/q', name: 'Town Q', type: 'town', effective_to: null, reporting_only: false, supervisory_union: 'su/mix', operated_by: null },
+        { slug: 'ud/z1', name: 'District Z1', type: 'ud', effective_to: null, reporting_only: false, supervisory_union: null, operated_by: null },
+        { slug: 'su/mix', name: 'Mixed Union', type: 'su', effective_to: null, reporting_only: false, supervisory_union: null, operated_by: null },
+      ],
+      combiner: {
+        towns: {
+          'town/p': { published_homestead_rate: 1, population_2020: 10 },
+          'town/q': { published_homestead_rate: 2, population_2020: 20 },
+        },
+      },
+      subgroups: {
+        towns: { 'town/p': { SY25: sy25(bands(5)) }, 'town/q': { SY25: sy25(bands(5)) } },
+      },
+      groupings: {
+        reassignment: {
+          roster_published: true,
+          committees: [
+            { number: 7, slug: 'c7', name: 'Seven', name_as_written: 'Seven', verified: true, roster: [{ name_as_written: 'District Z1', maps_to: ['ud/z1'], kind: 'district', adm_as_published: 5 }] },
+          ],
+        } as unknown as Reassignment,
+        groupings: [{ number: 7, members: ['ud/z1'] }],
+      },
+    } as JourneyInputs;
+
+    const j3 = buildJourney(mixed);
+    const u = j3.unions['mix'];
+    expect(u?.next).toBeNull();
+    expect(u?.steps.map((s) => s.id)).toEqual(['union']);
+    expect(u?.unassignedTowns?.map((t) => t.town)).toEqual(['q']);
+    // the assigned town still gets its own grouping step; the unassigned one does not
+    expect(j3.towns['p']?.committeeNumber).toBe(7);
+    expect(j3.towns['q']?.committeeNumber).toBeNull();
+    expect(j3.towns['q']?.steps.map((s) => s.id)).toEqual(['town', 'union']);
   });
 });

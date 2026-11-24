@@ -84,6 +84,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   {
+    page.unassignedTowns && page.unassignedTowns.length > 0 && (
+      <div class="notice">
+        <h3>Some districts here are not in a group yet</h3>
+        <p>These towns' school districts are not in any of the study's groups right now, so the
+        journey stops at this union for anyone living there: {page.unassignedTowns.map((t) => t.name).join(', ')}.</p>
+      </div>
+    )
+  }
+
+  {
     page.next && (
       <p class="journey-next">
         <a href={`${base}${page.next.href}`}>Next: {page.next.label} →</a>

@@ -10,13 +10,6 @@ import { titleCase } from '../../../lib/display.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 
-const journey = buildJourney({
-  registry: registry.entities,
-  combiner: combiner as never,
-  subgroups: subgroups as never,
-  groupings: groupingsDoc as never,
-});
-
 const reassignment = (groupingsDoc as { reassignment?: { by?: string | null; roster_as_of?: string | null; sources?: { retrieved_by?: string | null; retrieved_date?: string | null }[] } }).reassignment;
 // The date the list was brought in, from the source record, not a hardcoded value.
 const source = reassignment?.sources?.find((s) => s.retrieved_by?.includes('James Nadeau')) ?? reassignment?.sources?.[0];
@@ -52,7 +45,7 @@ const preliminaryNote =
   <h1>Your group: {page.name}</h1>
   <p class="lede">
     Act 170 divided Vermont's school districts into groups to plan how they'd work together.
-    The people in change of the study later moved some districts into committees that meet now.
+    The people in charge of the study later moved some districts into committees that meet now.
     Your town's district sits in one of those committees.
   </p>
 
