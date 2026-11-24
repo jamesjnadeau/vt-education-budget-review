@@ -13,7 +13,7 @@ export interface Percentile {
   /** Count of all values compared, including `value` itself. */
   of: number;
   /** True when every compared value equals `value` (nothing to rank against). */
-  allEqual: boolean;
+  allEqual?: boolean;
 }
 
 /** Where `value` sits among `all`: the count strictly below and the total. */
