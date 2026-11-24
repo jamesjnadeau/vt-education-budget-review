@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { percentileOf, percentileWords, shareOf, percentText } from './journey-scale.ts';
+import { percentileOf, percentileWords, shareOf, percentText, median, mean } from './journey-scale.ts';
 
 describe('percentileOf', () => {
   it('counts values strictly below and the total', () => {
@@ -63,5 +63,31 @@ describe('percentText', () => {
   });
   it('renders zero plainly', () => {
     expect(percentText(0)).toBe('0%');
+  });
+});
+
+describe('median', () => {
+  it('returns the middle value for an odd count', () => {
+    expect(median([3, 1, 2])).toBe(2);
+  });
+  it('averages the two middle values for an even count', () => {
+    expect(median([1, 2, 3, 4])).toBe(2.5);
+  });
+  it('is null for an empty set', () => {
+    expect(median([])).toBeNull();
+  });
+  it('does not mutate its input', () => {
+    const v = [10, 20, 5];
+    median(v);
+    expect(v).toEqual([10, 20, 5]);
+  });
+});
+
+describe('mean', () => {
+  it('returns the arithmetic mean', () => {
+    expect(mean([1, 2, 3, 4])).toBe(2.5);
+  });
+  it('is null for an empty set', () => {
+    expect(mean([])).toBeNull();
   });
 });

@@ -6,9 +6,14 @@
  * number or an estimate. A `blank` renders its plain reason and a status tag;
  * a student sum that is a range renders as "at least N" / "N to M", never a
  * single invented number.
+ *
+ * Under each figure, when we have them, sit neutral state and county
+ * comparators in light text: for a tax rate that is the MEDIAN of published
+ * rates (a mean of rates over towns of different size is a figure nobody
+ * publishes); for students and people, the mean per town.
  */
 import { count } from '../lib/residents.ts';
-import type { Figure, Students } from '../lib/journey.ts';
+import type { Figure, Students, Comparators } from '../lib/journey.ts';
 
 interface Props {
   rate: Figure<number>;
@@ -17,9 +22,13 @@ interface Props {
   rateLabel: string;
   studentsLabel: string;
   peopleLabel: string;
+  /** The town's county the comparators are scoped to; omitted for group/union pages. */
+  county?: string | null;
+  /** State and county comparator figures for a TOWN page; omitted elsewhere. */
+  comparators?: Comparators;
 }
 
-const { rate, students, people, rateLabel, studentsLabel, peopleLabel } = Astro.props;
+const { rate, students, people, rateLabel, studentsLabel, peopleLabel, county, comparators } = Astro.props;
 
 const blankTag: Record<string, string> = {
   missing_input: 'not published',
@@ -32,6 +41,27 @@ function boundRange(low: number, high: number | null): string {
   if (high === null) return `at least ${count(low)} students`;
   return `${count(low)} to ${count(high)} students`;
 }
+
+/** "Vermont 3.5 (median) · Addison County 3.0 (median)" — null-safe, never invents. */
+function comparatorLine(
+  c: Comparators['rate'] | undefined,
+  countyName: string | null,
+  isMedian: boolean,
+): string | null {
+  if (!c) return null;
+  const tag = isMedian ? '(median)' : '(avg per town)';
+  const parts: string[] = [];
+  if (c.state) parts.push(`Vermont ${format(c.state.value)} ${tag}`);
+  if (countyName && c.county) parts.push(`${countyName} County ${format(c.county.value)} ${tag}`);
+  return parts.length > 0 ? parts.join(' · ') : null;
+}
+function format(n: number): string {
+  return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
+}
+const rateCompare = comparators ? comparatorLine(comparators.rate, county ?? null, true) : null;
+// students and people are means, not medians
+const studentsCompare = comparators ? comparatorLine(comparators.students, county ?? null, false) : null;
+const peopleCompare = comparators ? comparatorLine(comparators.people, county ?? null, false) : null;
 ---
 
 <div class="journey-stats">
@@ -46,6 +76,9 @@ function boundRange(low: number, high: number | null): string {
           <p class="muted">{rate.reason}</p>
         </div>
       )
+    }
+    {
+      rateCompare && <p class="journey-stat-compare">{rateCompare}</p>
     }
   </article>
 
@@ -75,6 +108,9 @@ function boundRange(low: number, high: number | null): string {
           </div>
         )
     }
+    {
+      studentsCompare && <p class="journey-stat-compare">{studentsCompare}</p>
+    }
   </article>
 
   <article class="journey-stat">
@@ -89,5 +125,19 @@ function boundRange(low: number, high: number | null): string {
         </div>
       )
     }
+    {
+      peopleCompare && <p class="journey-stat-compare">{peopleCompare}</p>
+    }
   </article>
 </div>
+
+<style>
+  .journey-stat-compare {
+    margin: 0.5rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    max-width: 30ch;
+    border-top: 1px solid var(--border);
+    padding-top: 0.4rem;
+  }
+</style>

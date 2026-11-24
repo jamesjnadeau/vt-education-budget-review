@@ -50,3 +50,18 @@ export function percentText(f: number): string {
   if (f > 0 && f < 0.005) return 'less than 1%';
   return `${Math.round(f * 100)}%`;
 }
+
+/** The median of a set of values, or null when the set is empty. */
+export function median(values: ReadonlyArray<number>): number | null {
+  if (values.length === 0) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  if (sorted.length % 2 === 1) return sorted[mid] as number;
+  return ((sorted[mid - 1] as number) + (sorted[mid] as number)) / 2;
+}
+
+/** The arithmetic mean of a set of values, or null when the set is empty. */
+export function mean(values: ReadonlyArray<number>): number | null {
+  if (values.length === 0) return null;
+  return values.reduce((a, b) => a + b, 0) / values.length;
+}

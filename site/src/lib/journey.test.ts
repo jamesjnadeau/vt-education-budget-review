@@ -23,6 +23,7 @@ const sy25 = (bands_: Record<string, Cell>, row: TownYear['row'] = 'published'):
 type TownRec = {
   published_homestead_rate: number | null;
   population_2020: number | null;
+  county?: string | null;
 };
 
 function mkRegistry(): JourneyInputs['registry'] {
@@ -54,13 +55,13 @@ function mkRegistry(): JourneyInputs['registry'] {
 function mkInputs(): JourneyInputs {
   const registry = mkRegistry();
   const towns: Record<string, TownRec> = {
-    'town/shared-a': { published_homestead_rate: 1.0, population_2020: 100 },
-    'town/shared-b': { published_homestead_rate: 2.0, population_2020: 200 },
-    'town/shared-c': { published_homestead_rate: 3.0, population_2020: 300 },
-    'town/alone': { published_homestead_rate: 4.0, population_2020: 400 },
-    'town/norate': { published_homestead_rate: null, population_2020: 500 },
-    'town/nopop': { published_homestead_rate: 5.0, population_2020: null },
-    'town/hiddendm': { published_homestead_rate: 6.0, population_2020: 600 },
+    'town/shared-a': { published_homestead_rate: 1.0, population_2020: 100, county: 'Addison' },
+    'town/shared-b': { published_homestead_rate: 2.0, population_2020: 200, county: 'Addison' },
+    'town/shared-c': { published_homestead_rate: 3.0, population_2020: 300, county: 'Addison' },
+    'town/alone': { published_homestead_rate: 4.0, population_2020: 400, county: 'Rutland' },
+    'town/norate': { published_homestead_rate: null, population_2020: 500, county: 'Addison' },
+    'town/nopop': { published_homestead_rate: 5.0, population_2020: null, county: 'Addison' },
+    'town/hiddendm': { published_homestead_rate: 6.0, population_2020: 600, county: 'Addison' },
   };
   const subgroupsTowns: Record<string, Record<string, TownYear>> = {
     'town/shared-a': { SY25: sy25({ ...bands(40), grades_9_through_12: { value: 20 } }) },
@@ -203,6 +204,26 @@ describe('buildJourney', () => {
     expect(j.townList.map((t) => t.slug)).toEqual(
       expect.arrayContaining(['shared-a', 'shared-b', 'shared-c', 'alone', 'norate', 'nopop', 'hiddendm']),
     );
+  });
+
+  it('computes state and county comparators: median rate, mean students/people, nulls excluded', () => {
+    // State: published rates among the 6 non-null of 7 active towns -> median 3.5
+    expect(j.towns['shared-a']?.comparators.rate.state).toEqual({ value: 3.5, over: 6 });
+    // County Addison: rates 1,2,3,5,6 (norate null) -> median 3
+    expect(j.towns['shared-b']?.comparators.rate.county).toEqual({ value: 3, over: 5 });
+    // State students: exact counts 140,40,40,40,40,40 -> mean 56.67 (hiddendm excluded)
+    expect(j.towns['shared-a']?.comparators.students.state?.value).toBeCloseTo(56.667, 1);
+    expect(j.towns['shared-a']?.comparators.students.state?.over).toBe(6);
+    // County Addison students mean: 60
+    expect(j.towns['shared-a']?.comparators.students.county?.value).toBeCloseTo(60, 2);
+    // State people mean 350; county Addison people mean 340
+    expect(j.towns['shared-a']?.comparators.people.state).toMatchObject({ value: 350, over: 6 });
+    expect(j.towns['shared-a']?.comparators.people.county).toMatchObject({ value: 340, over: 5 });
+    // a town with no county gets state-only comparators
+    expect(j.towns.alone?.county).toBe('Rutland');
+    expect(j.towns.alone?.comparators.rate.county).not.toBeNull();
+    // a null-rate town's county rate comparator is still computed from peers
+    expect(j.towns.norate?.comparators.rate.county).toEqual({ value: 3, over: 5 });
   });
 
   it('lists a union split across two committees and follows each town to its own', () => {

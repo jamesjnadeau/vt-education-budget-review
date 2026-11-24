@@ -25,7 +25,7 @@ import {
   type Committee,
   type Reassignment,
 } from './groupings.ts';
-import { percentileOf, shareOf, type Percentile } from './journey-scale.ts';
+import { percentileOf, shareOf, median, mean, type Percentile } from './journey-scale.ts';
 import { slugTail, titleCase } from './display.ts';
 
 export type BlankKind = 'missing_input' | 'unverified' | 'undetermined' | 'not_computable';
@@ -52,15 +52,35 @@ export interface Step {
   label: string;
 }
 
+/** A comparator figure for one statistic: median for a rate, mean for counts.
+ *  `over` is how many towns the figure covers; null when there is nothing to compare. */
+export interface Comparator {
+  value: number;
+  over: number;
+}
+
+/** State and county comparators for the three headline statistics a town page shows. */
+export interface Comparators {
+  /** Fiscal year 2026 homestead rate: the MEDIAN of published rates (a mean of rates is a figure nobody publishes). */
+  rate: { state: Comparator | null; county: Comparator | null };
+  /** Town-of-residence students (SY25): the MEAN per town, over towns with an exact count. */
+  students: { state: Comparator | null; county: Comparator | null };
+  /** People (2020 Census): the MEAN per town, over towns with a published population. */
+  people: { state: Comparator | null; county: Comparator | null };
+}
+
 export interface TownPage {
   slug: string;
   name: string;
+  /** Vermont county derived from the census geoid; null when the town has no geoid. */
+  county: string | null;
   rate: Figure<number>;
   rateScale: Figure<Percentile>;
   students: Students;
   studentsScale: Figure<Percentile>;
   people: Figure<number>;
   peopleScale: Figure<Percentile>;
+  comparators: Comparators;
   shares: { district?: Share; union?: Share; grouping?: Share };
   steps: Step[];
   next: Step | null;
@@ -103,7 +123,14 @@ export interface Entity {
   operated_by: string | null;
 }
 export interface CombinerJson {
-  towns: Record<string, { published_homestead_rate: number | null; population_2020: number | null }>;
+  towns: Record<
+    string,
+    {
+      published_homestead_rate: number | null;
+      population_2020: number | null;
+      county?: string | null;
+    }
+  >;
 }
 export interface SubgroupsJson {
   towns: Record<string, Record<string, TownYear>>;
@@ -173,6 +200,52 @@ export function buildJourney(inputs: JourneyInputs): Journey {
   const studentPool = activeTowns
     .map((t) => exactStudentValue(t.slug))
     .filter((v): v is number => v !== null);
+
+  // --- state & county comparators --------------------------------------
+  // A town page shows, under each headline figure, where it sits against the
+  // state and its county. Median for a RATE (a mean of rates over towns of
+  // different size is a figure nobody publishes); mean per town for counts.
+  const byCounty = new Map<string, string[]>();
+  for (const t of activeTowns) {
+    const county = inputs.combiner.towns[t.slug]?.county ?? null;
+    if (county) byCounty.set(county, [...(byCounty.get(county) ?? []), t.slug]);
+  }
+  const stateComparator = (pick: (slug: string) => number | null, aggregate: (v: number[]) => number | null) => {
+    const values = activeTowns.map((t) => pick(t.slug)).filter((v): v is number => v !== null);
+    const value = aggregate(values);
+    return value === null ? null : { value, over: values.length };
+  };
+  const countyComparator = (countySlugs: string[], pick: (slug: string) => number | null, aggregate: (v: number[]) => number | null) => {
+    const values = countySlugs.map((s) => pick(s)).filter((v): v is number => v !== null);
+    const value = aggregate(values);
+    return value === null ? null : { value, over: values.length };
+  };
+
+  const stateRate = stateComparator((s) => rateOf(s), median);
+  const stateStudents = stateComparator((s) => exactStudentValue(s), mean);
+  const statePeople = stateComparator((s) => peopleOf(s), mean);
+  interface CountyComparators {
+    rate: Comparator | null;
+    students: Comparator | null;
+    people: Comparator | null;
+  }
+  const countyComparators = new Map<string, CountyComparators>();
+  for (const [county, slugs] of byCounty) {
+    countyComparators.set(county, {
+      rate: countyComparator(slugs, (s) => rateOf(s), median),
+      students: countyComparator(slugs, (s) => exactStudentValue(s), mean),
+      people: countyComparator(slugs, (s) => peopleOf(s), mean),
+    });
+  }
+  const comparatorsFor = (slug: string): Comparators => {
+    const county = inputs.combiner.towns[slug]?.county ?? null;
+    const cc = county ? countyComparators.get(county) : undefined;
+    return {
+      rate: { state: stateRate, county: cc?.rate ?? null },
+      students: { state: stateStudents, county: cc?.students ?? null },
+      people: { state: statePeople, county: cc?.people ?? null },
+    };
+  };
 
   const districtSlugOf = (t: Entity): string | null => t.operated_by;
   const districtMembers = (ds: string): string[] => activeTowns.filter((t) => t.operated_by === ds).map((t) => t.slug);
@@ -282,6 +355,7 @@ export function buildJourney(inputs: JourneyInputs): Journey {
     towns[slug] = {
       slug,
       name: titleCase(town.name),
+      county: inputs.combiner.towns[town.slug]?.county ?? null,
       rate:
         rate === null
           ? { kind: 'blank', why: 'missing_input', reason: 'the state did not publish a homestead rate for this town.' }
@@ -294,6 +368,7 @@ export function buildJourney(inputs: JourneyInputs): Journey {
           ? { kind: 'blank', why: 'missing_input', reason: 'people are not published for this town.' }
           : { kind: 'value', value: people },
       peopleScale: scale(people, peoplePool),
+      comparators: comparatorsFor(town.slug),
       shares,
       steps,
       next,
