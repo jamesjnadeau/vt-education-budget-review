@@ -216,11 +216,15 @@ main entry point does not import.
 ## Web analytics
 
 The published site loads [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/),
-which is cookieless and collects no personal data — consistent with the site's "no server, no
-database, no login" design. The beacon is emitted **only** by the production Netlify deploy:
-`site/src/lib/analytics.ts` renders it solely when the build sets `PUBLIC_CF_ANALYTICS=1`, and that
-flag is set exclusively in the production context of `netlify.toml`. Local development (`npm run dev`),
-local builds, and PR previews never load it.
+which is cookieless and collects no personal data. The "Find my town" feature sets one first-party
+cookie only when a visitor picks a town: it holds that town's name, so a returning visitor is taken
+straight back to it. Picking a town also sends one [PostHog](https://posthog.com/) event
+(`town_selected` with the town's slug) — no identity is attached to it. Neither the Cloudflare
+beacon nor the PostHog script loads outside the production Netlify deploy:
+`site/src/lib/analytics.ts` emits them solely when the build sets `PUBLIC_CF_ANALYTICS=1` /
+`PUBLIC_POSTHOG_ENABLED=1`, which are set exclusively in the production context of `netlify.toml`.
+Local development (`npm run dev`), local builds, and PR previews never load either, and the journey
+cookie is never set without an active town choice.
 
 ## Licence
 
