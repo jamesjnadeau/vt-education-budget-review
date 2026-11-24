@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildJourney, type JourneyInputs } from './journey.ts';
 
@@ -49,5 +50,51 @@ describe('buildJourney against the real data', () => {
     });
   } else {
     it.skip('skips real-data checks when generated data is missing', () => {});
+  }
+});
+
+/** Check the built site (site/dist), for pages that exist only after build:site. */
+describe('built /my/ pages', () => {
+  const dist = join(import.meta.dirname, '..', '..', 'dist');
+  const hasBuild = existsSync(join(dist, 'my'));
+
+  if (hasBuild) {
+    const towns = readdirSync(join(dist, 'my', 'town'), { withFileTypes: true }).filter((d) => d.isDirectory());
+    const unions = readdirSync(join(dist, 'my', 'union'), { withFileTypes: true }).filter((d) => d.isDirectory());
+    const groupings = readdirSync(join(dist, 'my', 'grouping'), { withFileTypes: true }).filter((d) => d.isDirectory());
+
+    it('builds one town directory per non-closed town', () => {
+      // at least as many as active towns: 260 non-closed towns in the registry
+      expect(towns.length).toBe(260);
+    });
+
+    it('builds 52 union pages and 18 grouping pages per the design', () => {
+      expect(unions.length).toBe(52);
+      expect(groupings.length).toBe(18);
+    });
+
+    it('renders no NaN, undefined or null as visible text under /my/', () => {
+      const bad = ['NaN', 'undefined', 'null'];
+      const walk = (dir: string): string[] => {
+        let html: string[] = [];
+        for (const ent of readdirSync(dir, { withFileTypes: true })) {
+          const p = join(dir, ent.name);
+          if (ent.isDirectory()) html = html.concat(walk(p));
+          else if (ent.name.endsWith('.html')) html.push(readFileSync(p, 'utf8'));
+        }
+        return html;
+      };
+      const all = walk(join(dist, 'my'));
+      // "null" can legitimately appear in JS source references; strip <script> blocks
+      const textOnly = all
+        .map((h) => h.replace(/<script[\s\S]*?<\/script>/g, ' '))
+        .join(' ')
+        .replace(/<[^>]+>/g, ' ');
+      for (const needle of bad) {
+        expect(textOnly).not.toContain(` ${needle} `);
+      }
+    });
+  } else {
+    it.skip('skips built-page checks when the site is not built', () => {});
   }
 });

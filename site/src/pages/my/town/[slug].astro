@@ -1,0 +1,148 @@
+---
+import Base from '../../../layouts/Base.astro';
+import registry from '../../../generated/registry.json';
+import combiner from '../../../generated/combiner.json';
+import subgroups from '../../../generated/adm-subgroups.json';
+import groupings from '../../../generated/groupings.json';
+import { buildJourney } from '../../../lib/journey.ts';
+import { percentileWords, percentText } from '../../../lib/journey-scale.ts';
+import JourneyStats from '../../../components/JourneyStats.astro';
+import JourneyProgress from '../../../components/JourneyProgress.astro';
+import DotGrid from '../../../components/DotGrid.astro';
+import ScaleBar from '../../../components/ScaleBar.astro';
+
+export function getStaticPaths() {
+  const journey = buildJourney({
+    registry: registry.entities,
+    combiner: combiner as never,
+    subgroups: subgroups as never,
+    groupings: groupings as never,
+  });
+  return Object.values(journey.towns).map((t) => ({ params: { slug: t.slug }, props: { page: t } }));
+}
+
+const { page } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const ratePct = page.rateScale.kind === 'value' ? page.rateScale.value : null;
+const studentsPct = page.studentsScale.kind === 'value' ? page.studentsScale.value : null;
+const peoplePct = page.peopleScale.kind === 'value' ? page.peopleScale.value : null;
+
+// DotGrid dots are 0-indexed; mineIndex is the count below (its position).
+const mineIndex = ratePct ? ratePct.lower : null;
+
+const shareText = (s: number): string => percentText(s);
+
+function renderShare(
+  s: { students: { kind: string; value?: number; reason?: string }; people: { kind: string; value?: number; reason?: string } },
+  what: string,
+): string {
+  const parts: string[] = [];
+  if (s.students.kind === 'value' && s.students.value != null) {
+    parts.push(`${shareText(s.students.value)} of the students`);
+  } else if (s.students.kind === 'blank') {
+    parts.push(`student share: ${s.students.reason}`);
+  }
+  if (s.people.kind === 'value' && s.people.value != null) {
+    parts.push(`and ${shareText(s.people.value)} of the people`);
+  } else if (s.people.kind === 'blank') {
+    parts.push(`people share: ${s.people.reason}`);
+  }
+  return `Your town holds about ${parts.join(', ')} of ${what}.`;
+}
+---
+
+<Base title={`Your town: ${page.name} — Vermont School Budgets`}>
+  <JourneyProgress steps={page.steps} current="town" />
+
+  <h1>Your town: {page.name}</h1>
+
+  <JourneyStats
+    rate={page.rate}
+    students={page.students}
+    people={page.people}
+    rateLabel="Homestead tax rate (FY2026)"
+    studentsLabel="Students counted by the state (school year 2025)"
+    peopleLabel="People (2020 Census)"
+  />
+
+  <h2>How {page.name} fits in</h2>
+
+  {/* --- Rate scale --- */}
+  <h3>Your town's tax rate, compared</h3>
+  {
+    ratePct ? (
+      <DotGrid
+        total={ratePct.of}
+        mineIndex={mineIndex}
+        caption={`${percentileWords(ratePct, 'towns')}. Your dot is shown in green.`}
+      />
+    ) : (
+      <p class="blank-reason">{page.rateScale.kind === 'blank' ? page.rateScale.reason : 'The tax rate is not published, so there is nothing to compare.'}</p>
+    )
+  }
+
+  {/* --- Students scale --- */}
+  <h3>Your town's students, compared</h3>
+  {
+    studentsPct ? (
+      <ScaleBar
+        fraction={studentsPct.lower > 0 ? Math.min(1, studentsPct.lower / Math.max(1, studentsPct.of)) : 0}
+        caption={`${percentileWords(studentsPct, 'towns')}, of ${studentsPct.of} towns with an exact student count.`}
+      />
+    ) : (
+      <p class="blank-reason">{page.studentsScale.kind === 'blank' ? page.studentsScale.reason : 'The student count is not an exact number, so there is nothing to compare.'}</p>
+    )
+  }
+
+  {/* --- People scale --- */}
+  <h3>Your town's people, compared</h3>
+  {
+    peoplePct ? (
+      <ScaleBar
+        fraction={peoplePct.lower > 0 ? Math.min(1, peoplePct.lower / Math.max(1, peoplePct.of)) : 0}
+        caption={`${percentileWords(peoplePct, 'towns')}, of ${peoplePct.of} towns with a published population.`}
+      />
+    ) : (
+      <p class="blank-reason">{page.peopleScale.kind === 'blank' ? page.peopleScale.reason : 'The population is not published, so there is nothing to compare.'}</p>
+    )
+  }
+
+  {/* --- Shares --- */}
+  {
+    page.shares.district && (
+      <div class="journey-share">
+        <h3>Your share of the school district</h3>
+        {renderShare(page.shares.district, 'the other towns in your district')}
+      </div>
+    )
+  }
+  {
+    page.shares.union && (
+      <div class="journey-share">
+        <h3>Your share of the supervisory union</h3>
+        {renderShare(page.shares.union, 'the other towns in your supervisory union')}
+      </div>
+    )
+  }
+  {
+    page.shares.grouping && (
+      <div class="journey-share">
+        <h3>Your share of your group</h3>
+        {renderShare(page.shares.grouping, 'the other towns in your group')}
+      </div>
+    )
+  }
+
+  {
+    page.next && (
+      <p class="journey-next">
+        <a href={`${base}${page.next.href}`}>Next: {page.next.label} →</a>
+      </p>
+    )
+  }
+
+  <p class="journey-change">
+    <a href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
+  </p>
+</Base>
