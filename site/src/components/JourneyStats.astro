@@ -1,0 +1,143 @@
+---
+/**
+ * Three headline figures for one journey step: tax rate, students, people.
+ *
+ * The rule that matters: a figure that cannot be shown is never shown as a
+ * number or an estimate. A `blank` renders its plain reason and a status tag;
+ * a student sum that is a range renders as "at least N" / "N to M", never a
+ * single invented number.
+ *
+ * Under each figure, when we have them, sit neutral state and county
+ * comparators in light text: for a tax rate that is the MEDIAN of published
+ * rates (a mean of rates over towns of different size is a figure nobody
+ * publishes); for students and people, the mean per town.
+ */
+import { count } from '../lib/residents.ts';
+import type { Figure, Students, Comparators } from '../lib/journey.ts';
+
+interface Props {
+  rate: Figure<number>;
+  students: Students;
+  people: Figure<number>;
+  rateLabel: string;
+  studentsLabel: string;
+  peopleLabel: string;
+  /** The town's county the comparators are scoped to; omitted for group/union pages. */
+  county?: string | null;
+  /** State and county comparator figures for a TOWN page; omitted elsewhere. */
+  comparators?: Comparators;
+}
+
+const { rate, students, people, rateLabel, studentsLabel, peopleLabel, county, comparators } = Astro.props;
+
+const blankTag: Record<string, string> = {
+  missing_input: 'not published',
+  unverified: 'not checked yet',
+  undetermined: 'not decided yet',
+  not_computable: 'cannot be told',
+};
+
+function boundRange(low: number, high: number | null): string {
+  if (high === null) return `at least ${count(low)} students`;
+  return `${count(low)} to ${count(high)} students`;
+}
+
+/** "Vermont 3.5 (median) · Addison County 3.0 (median)" — null-safe, never invents. */
+function comparatorLine(
+  c: Comparators['rate'] | undefined,
+  countyName: string | null,
+  isMedian: boolean,
+): string | null {
+  if (!c) return null;
+  const tag = isMedian ? '(median)' : '(avg per town)';
+  const parts: string[] = [];
+  if (c.state) parts.push(`Vermont ${format(c.state.value)} ${tag}`);
+  if (countyName && c.county) parts.push(`${countyName} County ${format(c.county.value)} ${tag}`);
+  return parts.length > 0 ? parts.join(' · ') : null;
+}
+function format(n: number): string {
+  return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
+}
+const rateCompare = comparators ? comparatorLine(comparators.rate, county ?? null, true) : null;
+// students and people are means, not medians
+const studentsCompare = comparators ? comparatorLine(comparators.students, county ?? null, false) : null;
+const peopleCompare = comparators ? comparatorLine(comparators.people, county ?? null, false) : null;
+---
+
+<div class="journey-stats">
+  <article class="journey-stat">
+    <h3 class="journey-stat-heading">{rateLabel}</h3>
+    {
+      rate.kind === 'value' ? (
+        <p class="journey-stat-figure" data-type="number">{rate.value.toLocaleString('en-US', { maximumFractionDigits: 4 })}</p>
+      ) : (
+        <div class="journey-stat-blank">
+          <span class={`tag ${rate.why}`}>{blankTag[rate.why]}</span>
+          <p class="muted">{rate.reason}</p>
+        </div>
+      )
+    }
+    {
+      rateCompare && <p class="journey-stat-compare">{rateCompare}</p>
+    }
+  </article>
+
+  <article class="journey-stat">
+    <h3 class="journey-stat-heading">{studentsLabel}</h3>
+    {
+      students.kind === 'sum'
+        ? students.sum.kind === 'exact' ? (
+            <p class="journey-stat-figure" data-type="number">{count(students.sum.value)}</p>
+          ) : students.sum.kind === 'range' ? (
+            <p class="journey-stat-figure">{boundRange(students.sum.low, students.sum.high)}</p>
+          ) : students.sum.kind === 'none' ? (
+            <div class="journey-stat-blank">
+              <span class="tag not-computable">cannot be told</span>
+              <p class="muted">No students are counted as living here.</p>
+            </div>
+          ) : (
+            <div class="journey-stat-blank">
+              <span class="tag not-computable">cannot be told</span>
+              <p class="muted">The state did not publish usable student counts for this place this year.</p>
+            </div>
+          )
+        : (
+          <div class="journey-stat-blank">
+            <span class="tag not-computable">cannot be told</span>
+            <p class="muted">{students.reason}</p>
+          </div>
+        )
+    }
+    {
+      studentsCompare && <p class="journey-stat-compare">{studentsCompare}</p>
+    }
+  </article>
+
+  <article class="journey-stat">
+    <h3 class="journey-stat-heading">{peopleLabel}</h3>
+    {
+      people.kind === 'value' ? (
+        <p class="journey-stat-figure" data-type="number">{count(people.value)}</p>
+      ) : (
+        <div class="journey-stat-blank">
+          <span class={`tag ${people.why}`}>{blankTag[people.why]}</span>
+          <p class="muted">{people.reason}</p>
+        </div>
+      )
+    }
+    {
+      peopleCompare && <p class="journey-stat-compare">{peopleCompare}</p>
+    }
+  </article>
+</div>
+
+<style>
+  .journey-stat-compare {
+    margin: 0.5rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    max-width: 30ch;
+    border-top: 1px solid var(--border);
+    padding-top: 0.4rem;
+  }
+</style>

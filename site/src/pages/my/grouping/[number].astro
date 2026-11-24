@@ -1,0 +1,105 @@
+---
+import Base from '../../../layouts/Base.astro';
+import registry from '../../../generated/registry.json';
+import combiner from '../../../generated/combiner.json';
+import subgroups from '../../../generated/adm-subgroups.json';
+import groupingsDoc from '../../../generated/groupings.json';
+import { buildJourney } from '../../../lib/journey.ts';
+import { longDate } from '../../../lib/groupings.ts';
+import { titleCase } from '../../../lib/display.ts';
+import JourneyStats from '../../../components/JourneyStats.astro';
+import JourneyProgress from '../../../components/JourneyProgress.astro';
+
+const reassignment = (groupingsDoc as { reassignment?: { by?: string | null; roster_as_of?: string | null; sources?: { retrieved_by?: string | null; retrieved_date?: string | null }[] } }).reassignment;
+// The date the list was brought in, from the source record, not a hardcoded value.
+const source = reassignment?.sources?.find((s) => s.retrieved_by?.includes('James Nadeau')) ?? reassignment?.sources?.[0];
+const feltDate = source?.retrieved_date ?? reassignment?.roster_as_of ?? null;
+
+export function getStaticPaths() {
+  const journey = buildJourney({
+    registry: registry.entities,
+    combiner: combiner as never,
+    subgroups: subgroups as never,
+    groupings: groupingsDoc as never,
+  });
+  return Object.values(journey.groupings).map((g) => ({
+    params: { number: g.slug },
+    props: { page: g },
+  }));
+}
+
+const { page } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const by = reassignment?.by ?? 'the facilitators';
+const preliminaryNote =
+  `The group list on this page is the one ${by} put together (their list as of ` +
+  (feltDate ? longDate(feltDate) : 'an unrecorded date') +
+  `), brought in on ` +
+  (source?.retrieved_date ? longDate(source.retrieved_date) : 'an unrecorded date') +
+  `. It has not been checked line by line by a person yet, so treat it as preliminary.`;
+---
+
+<Base title={`Your pathway group ${page.slug} — Vermont School Budgets`}>
+  <JourneyProgress steps={page.steps} current="grouping" />
+
+  <h1>Your group: {page.name}</h1>
+  <p class="lede">
+    Act 170 divided Vermont's school districts into groups to plan how they'd work together.
+    The people in charge of the study later moved some districts into committees that meet now.
+    Your town's district sits in one of those committees.
+  </p>
+
+  {
+    page.rateRange.kind === 'value' ? (
+      <dl class="facts">
+        <dt>Homestead tax rate (FY2026)</dt>
+        <dd>
+          from {page.rateRange.value.low} to {page.rateRange.value.high} across{' '}
+          {page.rateRange.value.covers} of {page.rateRange.value.of} towns
+        </dd>
+      </dl>
+    ) : (
+      <div class="notice">
+        <p class="blank-reason">{page.rateRange.reason}</p>
+      </div>
+    )
+  }
+
+  <JourneyStats
+    rate={{ kind: 'blank' as const, why: 'not_computable', reason: 'A group does not have one tax rate: each town sets its own.' }}
+    students={page.students}
+    people={page.people}
+    rateLabel="Homestead tax rate (FY2026)"
+    studentsLabel="Students, combined (school year 2025)"
+    peopleLabel="People, combined (2020 Census)"
+  />
+
+  <h2>Districts in this group</h2>
+  <ul class="grid">
+    {page.members.map((m) => (
+      <li class="card">
+        <a href={`${base}/my/town/${m.town}/`}>{titleCase(m.name)}</a>
+      </li>
+    ))}
+  </ul>
+
+  {
+    page.actGroup && (
+      <div class="notice">
+        <p>
+          Act 170 first placed these districts in a group numbered {page.actGroup.number}
+          {page.actGroup.moved ? '; the people in charge of the study have since moved some of them.' : ', and that has not changed.'}
+        </p>
+      </div>
+    )
+  }
+
+  <details class="data-notes">
+    <summary>About this group list</summary>
+    <p>{preliminaryNote}</p>
+  </details>
+
+  <p class="journey-change">
+    <a href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
+  </p>
+</Base>

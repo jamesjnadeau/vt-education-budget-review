@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import registry from '../../generated/registry.json';
+import combiner from '../../generated/combiner.json';
+import subgroups from '../../generated/adm-subgroups.json';
+import groupings from '../../generated/groupings.json';
+import { buildJourney } from '../../lib/journey.ts';
+
+const journey = buildJourney({
+  registry: registry.entities,
+  combiner: combiner as never,
+  subgroups: subgroups as never,
+  groupings: groupings as never,
+});
+const townList = journey.townList;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="Find your town — Vermont School Budgets" description="Choose your town, then see its schools' tax rate, student counts and population, and how it fits into its district, supervisory union and Act 170 group.">
+  <h1>Find your town</h1>
+  <p class="lede">Pick the town where you live. You'll see its school figures, then follow it out to the district, the supervisory union, and the group its district meets in.</p>
+
+  <form class="journey-picker" data-my-picker action={`${base}/my/`}>
+    <label class="visually-hidden" for="town-select">Your town</label>
+    <select id="town-select" name="town">
+      <option value="">Choose a town…</option>
+      {townList.map((t) => (
+        <option value={t.slug}>{t.name}</option>
+      ))}
+    </select>
+    <button type="submit">Show me</button>
+  </form>
+
+  <p class="journey-picker-note">
+    Your town's name is saved in a cookie on your device. It is only used to take you back to
+    your town's page. You can clear it any time with the "not your town?" link.
+  </p>
+
+  <h2>Or pick by name</h2>
+  <p>If you'd rather (or if the list above doesn't work), here is every town as a plain link.</p>
+  <ul class="grid journey-townlist">
+    {townList.map((t) => (
+      <li class="card">
+        <a href={`${base}/my/town/${t.slug}/`}>{t.name}</a>
+      </li>
+    ))}
+  </ul>
+
+  <script>
+    import { initPicker } from '../../scripts/my-picker.ts';
+    initPicker({});
+  </script>
+</Base>
+
+<style>
+  .journey-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: end;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .journey-picker select {
+    min-width: 16rem;
+  }
+  .journey-picker-note {
+    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .journey-townlist {
+    margin-top: 1.25rem;
+  }
+</style>

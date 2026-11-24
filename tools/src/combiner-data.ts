@@ -55,8 +55,11 @@ export interface CombinerInputs {
   /** Census land area and population per town. Optional: without it the town carries no density figures. */
   readonly censusTowns?: ReadonlyArray<{
     readonly entity: string | null;
+    readonly geoid?: string | null;
     readonly land_area_sq_mi: number | null;
     readonly population: Readonly<Record<string, number | null>>;
+    /** Vermont county derived from the census GEOID — null when the geoid is missing/unknown. */
+    readonly county: string | null;
   }>;
   /** Small/sparse school rows, for listing each district's schools. Informational only. */
   readonly schools?: ReadonlyArray<{
@@ -110,6 +113,8 @@ export interface CombinerTown {
   /** Census 2020 count and July 1, 2025 estimate. */
   readonly population_2020: number | null;
   readonly population_2025: number | null;
+  /** Vermont county from the census GEOID; null when the geoid is missing/unknown. */
+  readonly county: string | null;
   /** AOE SY25 English-learner count for students resident in the town (cells under 11 are withheld). */
   readonly ell_sy25: TownCount;
   /** AOE SY25 free-or-reduced-lunch count for students resident in the town. Not the 185% poverty count. */
@@ -311,6 +316,7 @@ export function buildCombinerData(inputs: CombinerInputs): CombinerData {
       land_area_sq_mi: censusByTown.get(slug)?.land_area_sq_mi ?? null,
       population_2020: censusByTown.get(slug)?.population?.['decennial_2020'] ?? null,
       population_2025: censusByTown.get(slug)?.population?.['pep_july1_2025'] ?? null,
+      county: censusByTown.get(slug)?.county ?? null,
       ell_sy25: subgroupCell(slug, 'ell'),
       frl_sy25: subgroupCell(slug, 'nslelg'),
       districts: serving.sort(),

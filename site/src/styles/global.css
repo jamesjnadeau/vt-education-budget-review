@@ -850,3 +850,130 @@ button:hover {
 .blank-reason {
   color: var(--text-muted);
 }
+
+/* ---- "My journey" pages ------------------------------------------- */
+/* Shared visuals and cards for the /my/ section: stat cards, dot grid,
+   scale bar, and progress walk. Every visual carries the same information
+   as visible text or an aria-label, never meaning by colour or length alone. */
+.journey-stats {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 1.25rem 0;
+}
+.journey-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  border-radius: 0;
+  padding: 1.1rem 1.25rem 1.3rem;
+}
+.journey-stat-heading {
+  margin: 0 0 0.4rem;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+.journey-stat-figure {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text);
+  max-width: none;
+}
+.journey-stat-blank .muted {
+  margin: 0.35rem 0 0;
+  max-width: 30ch;
+}
+
+.journey-dotgrid {
+  margin: 1rem 0;
+}
+.journey-dotgrid-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 100%;
+}
+.journey-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.journey-dot--mine {
+  background: var(--accent);
+  outline: 2px solid var(--gold);
+}
+
+.journey-scalebar {
+  margin: 1rem 0;
+}
+.journey-scalebar-track {
+  height: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+}
+.journey-scalebar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.journey-caption {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 60ch;
+}
+
+.journey-progress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+.journey-progress-step {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  max-width: none;
+}
+.journey-progress-step:not(.journey-progress-step--current) {
+  color: var(--text-muted);
+}
+.journey-progress-label {
+  font-weight: 600;
+}
+.journey-progress-step--current .journey-progress-label {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 4px;
+}
+.journey-progress-mark {
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.journey-cta {
+  margin: 1.5rem 0 0.25rem;
+  font-weight: 600;
+}
+.journey-cta a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: var(--gold-dark);
+  text-underline-offset: 4px;
+}
+.journey-change {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
