@@ -8,6 +8,7 @@ import { buildJourney } from '../../../lib/journey.ts';
 import { percentileWords, percentText } from '../../../lib/journey-scale.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
+import JourneyNext from '../../../components/JourneyNext.astro';
 import DotGrid from '../../../components/DotGrid.astro';
 import ScaleBar from '../../../components/ScaleBar.astro';
 
@@ -156,11 +157,7 @@ function renderShare(
   }
 
   {
-    page.next && (
-      <p class="journey-next">
-        <a href={`${base}${page.next.href}`}>Next: {page.next.label} →</a>
-      </p>
-    )
+    page.next && <JourneyNext next={page.next} base={base} />
   }
 
   <p class="journey-change">

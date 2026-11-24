@@ -8,6 +8,7 @@ import { buildJourney } from '../../../lib/journey.ts';
 import { slugTail, titleCase } from '../../../lib/display.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
+import JourneyNext from '../../../components/JourneyNext.astro';
 
 export function getStaticPaths() {
   const journey = buildJourney({
@@ -94,11 +95,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   {
-    page.next && (
-      <p class="journey-next">
-        <a href={`${base}${page.next.href}`}>Next: {page.next.label} →</a>
-      </p>
-    )
+    page.next && <JourneyNext next={page.next} base={base} />
   }
 
   <p class="journey-change">

@@ -961,12 +961,10 @@ button:hover {
   font-weight: 600;
 }
 
-.journey-next,
 .journey-cta {
   margin: 1.5rem 0 0.25rem;
   font-weight: 600;
 }
-.journey-next a,
 .journey-cta a {
   color: var(--link);
   text-decoration: underline;
