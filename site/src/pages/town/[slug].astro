@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import registry from '../../generated/registry.json';
 import subgroups from '../../generated/adm-subgroups.json';
-import { slugTail, titleCase } from '../../lib/display';
+import { isOutOfState, slugTail, titleCase } from '../../lib/display';
 import { ROWS, bound, count, type TownYear, type Year } from '../../lib/residents';
 
 interface Entity {
@@ -26,6 +26,8 @@ export function getStaticPaths() {
     // in the data files, because other records reference it -- but it is not a
     // town anyone lives in and no membership is awarded to it.
     .filter((e) => !e.reporting_only)
+    // Out-of-state towns (ORFORD NH) are not Vermont towns and get no page.
+    .filter((e) => !isOutOfState(e))
     .map((town) => ({ params: { slug: town.slug.split('/')[1] }, props: { town } }));
 }
 
@@ -36,7 +38,7 @@ const entities = registry.entities as Entity[];
 const su = entities.find((e) => e.slug === town.supervisory_union) ?? null;
 const district = entities.find((e) => e.slug === town.operated_by) ?? null;
 const siblings = entities.filter(
-  (e) => e.type === 'town' && e.operated_by === town.operated_by && e.slug !== town.slug,
+  (e) => e.type === 'town' && !isOutOfState(e) && e.operated_by === town.operated_by && e.slug !== town.slug,
 );
 
 // --- Students who live here ------------------------------------------------

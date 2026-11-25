@@ -6,7 +6,7 @@ import adm from '../../generated/adm.json';
 import parameters from '../../generated/parameters.json';
 import homesteadComparison from '../../generated/homestead-comparison.json';
 import subgroups from '../../generated/adm-subgroups.json';
-import { slugTail, titleCase } from '../../lib/display';
+import { entityLabel, isOutOfState, slugTail, titleCase } from '../../lib/display';
 import { ROWS, count, sumCells, type Sum, type TownYear, type Year } from '../../lib/residents';
 
 interface AdmGapEntry {
@@ -46,7 +46,7 @@ const entities = registry.entities as Entity[];
 
 const districts = entities.filter((e) => e.type === 'ud' && e.supervisory_union === su.slug);
 const schools = entities.filter((e) => e.type === 'school' && e.supervisory_union === su.slug);
-const towns = entities.filter((e) => e.type === 'town' && e.supervisory_union === su.slug);
+const towns = entities.filter((e) => e.type === 'town' && e.supervisory_union === su.slug && !isOutOfState(e));
 
 const cells = (coverage.cells as Array<{
   entity: string;
@@ -58,6 +58,17 @@ const cells = (coverage.cells as Array<{
   formUrl: string | null;
   normalizeUrl: string | null;
 }>).filter((c) => c.entity === su.slug);
+
+/** The Orford school sits in the interstate union and has no Vermont member town. */
+const isNhSchool = (s: Entity) =>
+  s.supervisory_union === 'su/school-administrative-unit-70' && s.member_towns.length === 0;
+/** A link to the operator's own page when one exists (only towns and supervisory unions have pages). */
+const operatorHref = (slug: string | null) => {
+  const e = entities.find((x) => x.slug === slug);
+  if (!e) return null;
+  if (e.type === 'town' || e.type === 'su') return `${base}/${e.type}/${slugTail(e.slug)}/`;
+  return null;
+};
 
 const byDistrict = new Map<string, Entity[]>();
 for (const town of towns) {
@@ -476,11 +487,12 @@ const homesteadRows = Object.entries(homesteadYears)
     </>
   )}
 
-  <h2>Member districts ({districts.length})</h2>
   {
     districts.length === 0 ? (
-      <p>No unified districts recorded under this supervisory union.</p>
+      <p>This supervisory union has no member districts on file.</p>
     ) : (
+      <>
+      <h2>Member districts ({districts.length})</h2>
       <ul class="grid">
         {districts.map((d) => (
           <li class="card">
@@ -488,12 +500,13 @@ const homesteadRows = Object.entries(homesteadYears)
             <p style="margin:.4rem 0 0;font-size:.9rem;color:var(--text-muted)">
               <code>{d.slug}</code>
               <br />
-              {(byDistrict.get(d.slug) ?? []).length} member town(s)
+              Towns in this district ({(byDistrict.get(d.slug) ?? []).length})
               {d.effective_to && ` · closed ${d.effective_to}`}
             </p>
           </li>
         ))}
       </ul>
+      </>
     )
   }
 
@@ -514,9 +527,15 @@ const homesteadRows = Object.entries(homesteadYears)
           <tbody>
             {schools.map((s) => (
               <tr>
-                <td>{titleCase(s.name)}</td>
+                <td>{titleCase(s.name)}{isNhSchool(s) && ' (New Hampshire school)'}</td>
                 <td>{s.grades.length > 0 ? s.grades.join(', ') : '—'}</td>
-                <td><code>{s.operated_by ?? '—'}</code></td>
+                <td>
+                  {operatorHref(s.operated_by) ? (
+                    <a href={operatorHref(s.operated_by)}>{entityLabel(s.operated_by, entities)}</a>
+                  ) : (
+                    entityLabel(s.operated_by, entities)
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -525,7 +544,7 @@ const homesteadRows = Object.entries(homesteadYears)
     )
   }
 
-  <h2>Member towns ({towns.length})</h2>
+  <h2>Towns in the supervisory union ({towns.length})</h2>
   {
     towns.length === 0 ? (
       <p>No towns recorded under this supervisory union.</p>

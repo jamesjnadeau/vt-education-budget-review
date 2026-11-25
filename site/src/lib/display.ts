@@ -8,7 +8,7 @@
  * here, where it changes nothing about what is stored.
  */
 
-const KEEP_UPPER = new Set(['ii', 'iii', 'iv']);
+const KEEP_UPPER = new Set(['ii', 'iii', 'iv', 'nh', 'id']);
 const KEEP_LOWER = new Set(['of', 'the', 'and', 'at', 'in', 'on']);
 
 export function titleCase(name: string): string {
@@ -27,6 +27,21 @@ export function titleCase(name: string): string {
       return part.charAt(0).toUpperCase() + part.slice(1);
     })
     .join('');
+}
+
+/** A town whose name ends in a non-Vermont state code, such as ORFORD NH. */
+export function isOutOfState(e: { name: string }): boolean {
+  return / (NH|NY|MA)$/.test(e.name.trim());
+}
+
+/**
+ * The reader-facing name for a registry slug. Never the raw id. A null or
+ * unknown slug is a blank we have not checked yet.
+ */
+export function entityLabel(slug: string | null, entities: { slug: string; name: string }[]): string {
+  if (!slug) return 'not checked yet';
+  const found = entities.find((e) => e.slug === slug);
+  return found ? titleCase(found.name) : 'not checked yet';
 }
 
 export function slugTail(slug: string): string {
