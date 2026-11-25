@@ -64,7 +64,15 @@ import {
   type Suggestion,
 } from './adm-prefill.ts';
 import type { CombinerData } from './combiner-view.ts';
-import { claSelectOptions, districtInputEstimates, fieldAction, planDistrictInputs, type InputField } from './district-inputs.ts';
+import {
+  claSelectOptions,
+  districtInputEstimates,
+  emptyBoxCopy,
+  fieldAction,
+  planDistrictInputs,
+  type InputField,
+  type InputPlan,
+} from './district-inputs.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import {
   LOWER_LIMIT_PARAM,
@@ -412,6 +420,9 @@ function blockerItem(b: Blocker, byKey: Map<string, Parameter>): HTMLElement {
   return li;
 }
 
+/** The plans for the district now loaded, so an empty box can say whether the source has a figure. */
+let districtPlans: Record<InputField, InputPlan> | null = null;
+
 function renderBlockers(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   if (root.blockers.length === 0) return;
@@ -508,11 +519,15 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
       el(
         'p',
         undefined,
-        `${missing.length} figure(s) were not published by the source. These are facts about the documents, not about our progress.`,
+        `${missing.length} box(es) are still empty. Fill them in, or tick a suggestion where one is offered.`,
       ),
     );
     const ul = el('ul');
-    for (const b of missing) ul.append(blockerItem(b, byKey));
+    for (const b of missing) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${emptyBoxCopy(b.ref, districtPlans)}`));
+      ul.append(li);
+    }
     box.append(ul);
   }
 
@@ -1044,6 +1059,7 @@ export function initModelTool(
   });
   const applyDistrictInputs = (entity: string): void => {
     const plans = planDistrictInputs(entity, combinerData);
+    districtPlans = plans;
     for (const id of DISTRICT_INPUT_IDS) {
       const action = fieldAction(plans[id], userEditedAdm.has(id));
       const field = document.getElementById(id) as HTMLInputElement | null;

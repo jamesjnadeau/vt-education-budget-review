@@ -121,6 +121,41 @@ export function claSelectOptions(plan: InputPlan): SelectOption[] {
   ];
 }
 
+/**
+ * The engine's label for each district input, as it appears on a blocker, and
+ * the label the form shows over that box.
+ */
+const INPUT_BOXES: ReadonlyArray<{ field: InputField; matches: (ref: string) => boolean; box: string }> = [
+  {
+    field: 'econ',
+    matches: (r) => r === 'Pupils whose family is at or below 185 percent of FPL',
+    box: 'Students in families at or below 185% of the poverty line',
+  },
+  { field: 'el', matches: (r) => r === 'English learner pupils', box: 'Students learning English' },
+  {
+    field: 'density',
+    matches: (r) => r === 'Persons per square mile in the district',
+    box: 'Persons per square mile in the district',
+  },
+  {
+    field: 'cla',
+    matches: (r) => r.endsWith('common level of appraisal'),
+    box: 'Common level of appraisal (how close town values are to real sale prices)',
+  },
+];
+
+/**
+ * What the what-if tool says about a box that is empty. An empty box is not a
+ * gap in the source, so it never says "not published". Where the district's
+ * plan really refused (the source has no figure), it gives that reason instead.
+ */
+export function emptyBoxCopy(ref: string, plans: Record<InputField, InputPlan> | null): string {
+  const hit = INPUT_BOXES.find((i) => i.matches(ref));
+  const plan = hit && plans ? plans[hit.field] : undefined;
+  if (plan?.kind === 'refuse') return plan.reason;
+  return `Fill in the "${hit?.box ?? ref}" box to see this result.`;
+}
+
 export type FieldAction =
   | { kind: 'keep' }
   | { kind: 'suggest'; value: number; note: string; tick: boolean }

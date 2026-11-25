@@ -18,7 +18,7 @@ import {
   combinedSubgroupEstimate,
   type CombinerData,
 } from './combiner-view.ts';
-import { planDistrictInputs, type InputField, type InputPlan } from './district-inputs.ts';
+import { emptyBoxCopy, planDistrictInputs, type InputField, type InputPlan } from './district-inputs.ts';
 
 // combiner.json is generated (git-ignored). Without it the data-driven tests skip,
 // as in site/src/lib/journey.real.test.ts, and the data is loaded only inside them.
@@ -50,6 +50,31 @@ describe('planDistrictInputs without data', () => {
     const empty = { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] } as CombinerData;
     const plan = planDistrictInputs('ud/not-a-district', empty);
     for (const field of FIELDS) expect(plan[field].kind).toBe('refuse');
+  });
+});
+
+describe('emptyBoxCopy', () => {
+  const refused = (reason: string): InputPlan => ({ kind: 'refuse', reason });
+  const suggest: InputPlan = { kind: 'suggest', value: 1, note: 'n', tickByDefault: false };
+  const plans = { econ: suggest, el: refused('The English learner count for this district is not published.'), density: suggest, cla: suggest };
+
+  it('asks the reader to fill in an empty box, capitalised, without blaming the source', () => {
+    const text = emptyBoxCopy('English learner pupils', { ...plans, el: suggest });
+    expect(text).toBe('Fill in the "Students learning English" box to see this result.');
+    expect(text).not.toMatch(/not published|source document/);
+  });
+  it('uses the plan reason when the source really has no figure', () => {
+    expect(emptyBoxCopy('English learner pupils', plans)).toBe(
+      'The English learner count for this district is not published.',
+    );
+  });
+  it('names the CLA box for any town label', () => {
+    expect(emptyBoxCopy('your town common level of appraisal', null)).toContain('Common level of appraisal');
+  });
+  it('falls back to the engine label for other boxes, and starts with a capital', () => {
+    const text = emptyBoxCopy('Education spending', null);
+    expect(text).toBe('Fill in the "Education spending" box to see this result.');
+    expect(text).toMatch(/^[A-Z]/);
   });
 });
 
