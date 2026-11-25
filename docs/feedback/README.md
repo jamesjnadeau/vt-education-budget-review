@@ -41,6 +41,7 @@ that is the one thing a resident does not have.
 |---|---|---|
 | `2026-11-24-milton-fifth-grader.md` | 10-year-old, Milton | "What does my school cost?" |
 | `2026-11-24-milton-adult-fifth-grade-reading-level.md` | 41-year-old, reads at a 5th-grade level, Milton | "Is my bill going up and is my school closing?" |
+| `2026-11-24-norwich-college-professor.md` | college professor, Upper Valley, Norwich | "Is this defensible, and can I check your work?" |
 | `persona-review-template.md` | — | Copy this to add one |
 
 ## Adding one
