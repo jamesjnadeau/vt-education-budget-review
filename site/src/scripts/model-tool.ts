@@ -51,6 +51,7 @@ import {
   act84Fill,
   bandFill,
   pickerGroups,
+  blockedBandsText,
   planAdmPrefill,
   spendingFill,
   type Act84Entry,
@@ -1147,6 +1148,12 @@ export function initModelTool(
       spendingByEntity[entity],
     );
     if (loadStatus) loadStatus.textContent = plan.kind === 'no-parameters' ? plan.message : '';
+    const blockedText = blockedBandsText(plan);
+    const blockedBox = document.getElementById('blocked-bands');
+    if (blockedBox) {
+      blockedBox.textContent = blockedText ?? '';
+      blockedBox.hidden = blockedText === null;
+    }
     if (plan.kind !== 'fill') return;
     if (modeSelect && modeSelect.value !== plan.mode) {
       modeSelect.value = plan.mode;

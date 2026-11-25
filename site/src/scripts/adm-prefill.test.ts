@@ -3,11 +3,14 @@
  * year and the parameter-mode selector in step.
  */
 
+import { existsSync, readFileSync } from 'node:fs';
+
 import { describe, expect, it } from 'vitest';
 
 import {
   act84Fill,
   bandFill,
+  blockedBandsText,
   pairText,
   pickerGroups,
   planAdmPrefill,
@@ -293,5 +296,44 @@ describe('weightedAdmComparison', () => {
     expect(r.gapPercent).toBeNull();
     expect(r.text).toContain('2,417.47');
     expect(r.text).not.toContain('NaN');
+  });
+});
+
+const RESOLVED = new URL('../generated/resolved-adm.json', import.meta.url);
+
+describe('blockedBandsText', () => {
+  const row: PrefillRow = {
+    prekindergarten: { value: null, source: 'withheld' },
+    kindergarten_through_5: { value: 140.68, source: 'aoe' },
+    grades_6_through_8: { value: null, source: 'withheld' },
+    grades_9_through_12: { value: 137.55, source: 'aoe' },
+  };
+
+  it('is null when no band is withheld', () => {
+    const whole: PrefillRow = { ...row, prekindergarten: { value: 3, source: 'aoe' }, grades_6_through_8: { value: 9, source: 'aoe' } };
+    expect(blockedBandsText(planAdmPrefill('x', '2026', { '2026': whole }, [2026]))).toBeNull();
+    expect(blockedBandsText({ kind: 'none' })).toBeNull();
+  });
+
+  it('names each withheld band and says what the reader can do', () => {
+    const text = blockedBandsText(planAdmPrefill('x', '2026', { '2026': row }, [2026]));
+    expect(text).toContain('prekindergarten');
+    expect(text).toContain('grades 6 through 8');
+    expect(text).not.toContain('grades 9 through 12');
+    expect(text).toContain('hides small counts');
+    expect(text).toContain('range');
+    expect(text).not.toContain(';');
+  });
+
+  describe.skipIf(!existsSync(RESOLVED))('with the generated data', () => {
+    it('explains Champlain Valley #56 for FY2026', () => {
+      const data = JSON.parse(readFileSync(RESOLVED, 'utf8'));
+      const text = blockedBandsText(
+        planAdmPrefill('ud/champlain-valley-56', '2026', data.entities['ud/champlain-valley-56'], [2025, 2026]),
+      );
+      expect(text).toContain('prekindergarten');
+      expect(text).toContain('grades 6 through 8');
+      expect(text).toContain('hides small counts');
+    });
   });
 });

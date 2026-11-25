@@ -364,6 +364,31 @@ export function planAdmPrefill(
 }
 
 /**
+ * Why a picked district's result may be blocked: the grade bands the State
+ * hides to protect students. Looks at both years the page counts. Null when
+ * nothing is hidden, so the screen shows no extra text.
+ */
+export function blockedBandsText(plan: PrefillPlan): string | null {
+  if (plan.kind !== 'fill') return null;
+  const hidden = new Set<string>();
+  for (const row of [plan.earlier, plan.later]) {
+    for (const [key, band] of Object.entries(row ?? {})) {
+      if (band.source === 'withheld') hidden.add(key);
+    }
+  }
+  const names = Object.keys(BAND_NAME)
+    .filter((k) => hidden.has(k))
+    .map((k) => BAND_NAME[k]);
+  if (names.length === 0) return null;
+  const list = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
+  return (
+    `The State hides small counts to protect students, so these grade counts are blank: ${list}. ` +
+    `Without them the result cannot be worked out. ` +
+    `Use the range box under each one, or tick its suggestion, to fill it in.`
+  );
+}
+
+/**
  * AOE's weighted long-term ADM for the district and year, beside the count this
  * page builds. The gap is the page's count against AOE's, in percent, so a
  * page that counts fewer pupils reads negative.
