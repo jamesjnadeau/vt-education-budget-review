@@ -674,6 +674,7 @@ summary.step-head::before {
   max-width: var(--measure);
 }
 .step-citation {
+  overflow-wrap: anywhere;
   font-size: 0.84rem;
   color: var(--text-muted);
   font-family: var(--mono);
@@ -683,9 +684,28 @@ summary.step-head::before {
 /* ---- Definition lists ----------------------------------------------- */
 dl.facts {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
   gap: 0.4rem 1.25rem;
   margin: 1.25rem 0;
+}
+/* Long registry ids and URLs must wrap rather than widen the page. */
+dl.facts dt,
+dl.facts dd {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  dl.facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.1rem 0;
+  }
+  dl.facts dd {
+    margin-bottom: 0.6rem;
+  }
+  /* A tag with a long label has to wrap on a phone. */
+  .tag {
+    white-space: normal;
+  }
 }
 dl.facts dt {
   color: var(--text-muted);
@@ -716,6 +736,7 @@ dl.facts dd {
 /* ---- Forms ---------------------------------------------------------- */
 select,
 input {
+  max-width: 100%;
   font: inherit;
   padding: 0.55rem 0.75rem;
   border: 2px solid var(--text-muted);
@@ -774,6 +795,8 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  min-width: 0;
+  max-width: 100%;
 }
 .field label {
   font-size: 0.9rem;
@@ -832,6 +855,10 @@ button:hover {
 .residents .muted {
   color: var(--text-muted);
   font-size: 0.85rem;
+}
+
+.muted {
+  color: var(--text-muted);
 }
 
 /* Collapsed notes under a data table (native <details>, no JS). */
