@@ -68,13 +68,13 @@ Check an item only when the thing it names is live and `npm run validate` still 
   `town/milton` and `ud/champlain-valley-56` in operator columns; title-casing such as
   "Orford Nh", "Barton Id".
 
-- [ ] **Sign off the FY2026 parameters against the statute.** A person reads 16 V.S.A.
+- [x] **Sign off the FY2026 parameters against the statute.** A person reads 16 V.S.A.
   § 4010(d) and the yield act and countersigns
   [`model/parameters/fy2026.yaml`](../model/parameters/fy2026.yaml) with a name and date,
   per [`parameter-verification.md`](parameter-verification.md). The Norwich walk checked
-  all eleven weights live in about four minutes; the blocker is labour, not access. Also
-  correct `/methodology/` where it says the Legislature's site "could not be reached"
-  (done on `release/must-fix`, commit 8b4a46f; the sign-off itself is still open).
+  all eleven weights live in about four minutes; the blocker is labour, not access.
+  Signed 2026-11-25. `/methodology/` no longer says the Legislature's site "could not be
+  reached".
 
 - [x] **Verify the phone layout.** No walk could test it, and the Hinesburg parent and the
   Milton reader are the readers most likely to be on a phone.
