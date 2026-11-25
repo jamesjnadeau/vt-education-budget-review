@@ -6,7 +6,10 @@ import adm from '../../generated/adm.json';
 import parameters from '../../generated/parameters.json';
 import homesteadComparison from '../../generated/homestead-comparison.json';
 import subgroups from '../../generated/adm-subgroups.json';
-import { entityLabel, isOutOfState, slugTail, titleCase } from '../../lib/display';
+import combiner from '../../generated/combiner.json';
+import groupings from '../../generated/groupings.json';
+import { buildJourney } from '../../lib/journey.ts';
+import { entityLabel, isOutOfState, operatorHref, slugTail, titleCase } from '../../lib/display';
 import { ROWS, count, sumCells, type Sum, type TownYear, type Year } from '../../lib/residents';
 
 interface AdmGapEntry {
@@ -62,13 +65,17 @@ const cells = (coverage.cells as Array<{
 /** The Orford school sits in the interstate union and has no Vermont member town. */
 const isNhSchool = (s: Entity) =>
   s.supervisory_union === 'su/school-administrative-unit-70' && s.member_towns.length === 0;
-/** A link to the operator's own page when one exists (only towns and supervisory unions have pages). */
-const operatorHref = (slug: string | null) => {
-  const e = entities.find((x) => x.slug === slug);
-  if (!e) return null;
-  if (e.type === 'town' || e.type === 'su') return `${base}/${e.type}/${slugTail(e.slug)}/`;
-  return null;
-};
+/** Slugs of the district pages that are built, from the same data their getStaticPaths uses. */
+const districtPages = new Set(
+  Object.keys(
+    buildJourney({
+      registry: registry.entities,
+      combiner: combiner as never,
+      subgroups: subgroups as never,
+      groupings: groupings as never,
+    }).districts,
+  ),
+);
 
 const byDistrict = new Map<string, Entity[]>();
 for (const town of towns) {
@@ -530,8 +537,8 @@ const homesteadRows = Object.entries(homesteadYears)
                 <td>{titleCase(s.name)}{isNhSchool(s) && ' (New Hampshire school)'}</td>
                 <td>{s.grades.length > 0 ? s.grades.join(', ') : '—'}</td>
                 <td>
-                  {operatorHref(s.operated_by) ? (
-                    <a href={operatorHref(s.operated_by)}>{entityLabel(s.operated_by, entities)}</a>
+                  {operatorHref(s.operated_by, districtPages, base) ? (
+                    <a href={operatorHref(s.operated_by, districtPages, base)}>{entityLabel(s.operated_by, entities)}</a>
                   ) : (
                     entityLabel(s.operated_by, entities)
                   )}

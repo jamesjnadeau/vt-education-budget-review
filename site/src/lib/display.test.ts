@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { entityLabel, isOutOfState, titleCase } from './display';
+import { entityLabel, isOutOfState, operatorHref, titleCase } from './display';
 
 describe('titleCase', () => {
   it('keeps state codes upper-case', () => {
@@ -19,6 +19,26 @@ describe('isOutOfState', () => {
   });
   it('does not flag a Vermont town', () => {
     expect(isOutOfState({ name: 'NORWICH' })).toBe(false);
+  });
+});
+
+describe('operatorHref', () => {
+  const built = new Set(['barre-97', 'rivendell-interstate']);
+  it('links a union district whose page is built', () => {
+    expect(operatorHref('ud/barre-97', built, '/b')).toBe('/b/my/district/barre-97/');
+  });
+  it('links a town that runs a built district', () => {
+    expect(operatorHref('town/rivendell-interstate', built, '')).toBe('/my/district/rivendell-interstate/');
+  });
+  it('is null for a district with no page', () => {
+    expect(operatorHref('ud/nope-1', built, '')).toBeNull();
+  });
+  it('falls back to the town and union pages', () => {
+    expect(operatorHref('town/milton', built, '')).toBe('/town/milton/');
+    expect(operatorHref('su/milton', built, '')).toBe('/su/milton/');
+  });
+  it('is null for no operator', () => {
+    expect(operatorHref(null, built, '')).toBeNull();
   });
 });
 

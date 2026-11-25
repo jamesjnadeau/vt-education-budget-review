@@ -44,6 +44,25 @@ export function entityLabel(slug: string | null, entities: { slug: string; name:
   return found ? titleCase(found.name) : 'not checked yet';
 }
 
+/**
+ * Where an operator's own page lives, or null when none is built.
+ * `districtPages` holds the slugs of the built /my/district/ pages (the keys
+ * of buildJourney().districts, which have no type prefix). A district page
+ * wins over a town or union page. Union and town pages are always built.
+ */
+export function operatorHref(
+  slug: string | null,
+  districtPages: ReadonlySet<string>,
+  base: string,
+): string | null {
+  if (!slug) return null;
+  const [kind, tail] = slug.split('/');
+  if (!tail) return null;
+  if ((kind === 'ud' || kind === 'town') && districtPages.has(tail)) return `${base}/my/district/${tail}/`;
+  if (kind === 'town' || kind === 'su') return `${base}/${kind}/${tail}/`;
+  return null;
+}
+
 export function slugTail(slug: string): string {
   return slug.split('/')[1] ?? slug;
 }
