@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildJourney, type JourneyInputs } from './journey.ts';
+import { isOutOfState } from './display.ts';
 
 const require = createRequire(import.meta.url);
 const url = (name: string) => new URL(`../generated/${name}`, import.meta.url).pathname;
@@ -26,7 +27,7 @@ describe('buildJourney against the real data', () => {
     const j = buildJourney(inputs);
 
     it('builds one town page per active non-closed, non-reporting town', () => {
-      const active = inputs.registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only);
+      const active = inputs.registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only && !isOutOfState(e));
       expect(Object.keys(j.towns).length).toBe(active.length);
     });
 
@@ -82,7 +83,7 @@ describe('built /my/ pages', () => {
 
     it('builds one town directory per active non-closed, non-reporting town', () => {
       const inputs = loadModel();
-      const active = inputs.registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only);
+      const active = inputs.registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only && !isOutOfState(e));
       expect(towns.length).toBe(active.length);
     });
 

@@ -26,7 +26,7 @@ import {
   type Reassignment,
 } from './groupings.ts';
 import { percentileOf, shareOf, median, mean, type Percentile } from './journey-scale.ts';
-import { slugTail, titleCase } from './display.ts';
+import { isOutOfState, slugTail, titleCase } from './display.ts';
 
 export type BlankKind = 'missing_input' | 'unverified' | 'undetermined' | 'not_computable';
 
@@ -163,7 +163,7 @@ function sy25Cells(inputs: JourneyInputs, slug: string): Cell[] | null {
 export function buildJourney(inputs: JourneyInputs): Journey {
   const registry = inputs.registry;
   const bySlug = new Map(registry.map((e) => [e.slug, e]));
-  const activeTowns = registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only);
+  const activeTowns = registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only && !isOutOfState(e));
 
   const rateOf = (slug: string): number | null => inputs.combiner.towns[slug]?.published_homestead_rate ?? null;
   const peopleOf = (slug: string): number | null => inputs.combiner.towns[slug]?.population_2020 ?? null;
