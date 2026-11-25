@@ -1,7 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import SourceLine from '../../components/SourceLine.astro';
-import { TAX_RATES_FY2026 } from '../../lib/sources.ts';
 import registry from '../../generated/registry.json';
 import subgroups from '../../generated/adm-subgroups.json';
 import { slugTail, titleCase } from '../../lib/display';
@@ -193,7 +191,6 @@ const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
   }
 
   <h2>Homestead tax rate</h2>
-  <SourceLine source={TAX_RATES_FY2026} />
   <div class="notice blocking">
     <strong>Not computed</strong>
     <details class="notice-more">
