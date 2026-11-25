@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EXAMPLE_HOUSE, rateLines, rateRangeText, rateUnitLine, rateUnitParts } from './rate-format.ts';
+import { EXAMPLE_HOUSE, rateRangeText, rateUnitLine, rateUnitFor, rateUnitParts } from './rate-format.ts';
 
 describe('rateUnitLine', () => {
   it('prints the exact sentence for 1.2462', () => {
@@ -40,12 +40,16 @@ describe('rateRangeText', () => {
   });
 });
 
-describe('rateLines', () => {
-  it('returns nothing for a blank rate', () => {
-    const lines = rateLines({ kind: 'blank', why: 'not_computable', reason: 'x' } as never);
-    expect(lines).toEqual([]);
+describe('rateUnitFor (the guard JourneyStats renders through)', () => {
+  it('returns null for a blank, so no $ and no "per $100" can render', () => {
+    const p = rateUnitFor({ kind: 'blank', why: 'not_computable', reason: 'x' } as never);
+    expect(p).toBeNull();
+    const text = p ? p.before + p.linkText + p.after : '';
+    expect(text).not.toContain('$');
+    expect(text).not.toContain('per $100');
   });
-  it('returns the unit line for a value', () => {
-    expect(rateLines({ kind: 'value', value: 1.2462 } as never)).toEqual([rateUnitLine(1.2462)]);
+  it('returns the parts for a value', () => {
+    const p = rateUnitFor({ kind: 'value', value: 1.2462 } as never);
+    expect(p).toEqual(rateUnitParts(1.2462));
   });
 });

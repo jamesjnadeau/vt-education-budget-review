@@ -46,7 +46,10 @@ export function rateRangeText(low: number, high: number): string {
   return `${perHundred(low)} to ${perHundred(high)} per $100 of value. About ${exampleDollars(low)} to ${exampleDollars(high)} a year on a ${HOUSE} house (an example).`;
 }
 
-/** Lines to show under a rate. A blank rate gets none, so no dollar figure is ever invented. */
-export function rateLines(rate: Figure<number>): string[] {
-  return rate.kind === 'value' ? [rateUnitLine(rate.value)] : [];
+/**
+ * The unit line parts to show under a rate, or null for a blank. This is the one
+ * guard the page uses, so a blank rate never gets a dollar figure.
+ */
+export function rateUnitFor(rate: Figure<number>): ReturnType<typeof rateUnitParts> | null {
+  return rate.kind === 'value' ? rateUnitParts(rate.value) : null;
 }
