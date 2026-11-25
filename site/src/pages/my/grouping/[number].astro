@@ -7,7 +7,8 @@ import groupingsDoc from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
 import { longDate } from '../../../lib/groupings.ts';
 import { titleCase } from '../../../lib/display.ts';
-import { groupRateReason } from '../../../lib/rate-copy.ts';
+import { rateRangeText } from '../../../lib/rate-format.ts';
+import { groupRateReason, EXPLAIN } from '../../../lib/rate-copy.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 
@@ -55,8 +56,10 @@ const preliminaryNote =
       <dl class="facts">
         <dt>Homestead tax rate (FY2026)</dt>
         <dd>
-          from {page.rateRange.value.low} to {page.rateRange.value.high} across{' '}
-          {page.rateRange.value.covers} of {page.rateRange.value.of} towns
+          {rateRangeText(page.rateRange.value.low, page.rateRange.value.high)}{' '}
+          Across{' '}
+          {page.rateRange.value.covers} of {page.rateRange.value.of} towns. School tax only,{' '}
+          <a href={`${base}${EXPLAIN.credit}`}>before the property tax credit</a>.
         </dd>
       </dl>
     ) : (

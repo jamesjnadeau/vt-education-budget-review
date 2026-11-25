@@ -13,6 +13,8 @@
  * publishes); for students and people, the mean per town.
  */
 import { count } from '../lib/residents.ts';
+import { rateUnitParts } from '../lib/rate-format.ts';
+import { EXPLAIN } from '../lib/rate-copy.ts';
 import type { Figure, Students, Comparators } from '../lib/journey.ts';
 
 interface Props {
@@ -29,6 +31,8 @@ interface Props {
 }
 
 const { rate, students, people, rateLabel, studentsLabel, peopleLabel, county, comparators } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const blankTag: Record<string, string> = {
   missing_input: 'not published',
@@ -69,7 +73,14 @@ const peopleCompare = comparators ? comparatorLine(comparators.people, county ??
     <h3 class="journey-stat-heading">{rateLabel}</h3>
     {
       rate.kind === 'value' ? (
-        <p class="journey-stat-figure" data-type="number">{rate.value.toLocaleString('en-US', { maximumFractionDigits: 4 })}</p>
+        <>
+          <p class="journey-stat-figure" data-type="number">{rate.value.toLocaleString('en-US', { maximumFractionDigits: 4 })}</p>
+          <p class="journey-stat-unit">
+            {rateUnitParts(rate.value).before}
+            <a href={`${base}${EXPLAIN.credit}`}>{rateUnitParts(rate.value).linkText}</a>
+            {rateUnitParts(rate.value).after}
+          </p>
+        </>
       ) : (
         <div class="journey-stat-blank">
           <span class={`tag ${rate.why}`}>{blankTag[rate.why]}</span>
@@ -132,6 +143,12 @@ const peopleCompare = comparators ? comparatorLine(comparators.people, county ??
 </div>
 
 <style>
+  .journey-stat-unit {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 34ch;
+  }
   .journey-stat-compare {
     margin: 0.5rem 0 0;
     font-size: 0.82rem;
