@@ -18,7 +18,7 @@ Check an item only when the thing it names is live and `npm run validate` still 
 
 ## Must fix before release
 
-- [ ] **What-if tool: source or refuse the four placeholder inputs.** `econ`, `el`,
+- [x] **What-if tool: source or refuse the four placeholder inputs.** `econ`, `el`,
   `density` and `cla` in [`site/src/pages/model/index.astro`](../site/src/pages/model/index.astro)
   keep demo values (40, 8, 30, 0.8) when a district is loaded, so the engine's weighted
   membership comes out low and the rate high: Milton FY2026 prints $1.8975 against the
@@ -29,32 +29,32 @@ Check an item only when the thing it names is live and `npm run validate` still 
   Evidence: [Norwich professor](feedback/2026-11-24-norwich-college-professor.md) #1,
   [Milton 5th grader](feedback/2026-11-24-milton-fifth-grader.md) #1.
 
-- [ ] **What-if tool: find out why Champlain Valley #56 is fully blocked.** All four
+- [x] **What-if tool: find out why Champlain Valley #56 is fully blocked.** All four
   results read "blocked: figure not published", yet
   `model/goldens/ud-champlain-valley-56-fy2026.yaml` reproduces its rate. Fix it, or say
   on screen why it cannot run. [Hinesburg parent](feedback/2026-11-24-hinesburg-parent-of-three.md) #3.
 
-- [ ] **Replace "each town sets its own".** The rate blank on the district, union and
+- [x] **Replace "each town sets its own".** The rate blank on the district, union and
   grouping pages (`site/src/pages/my/district/[slug].astro:50` and siblings) attributes
   the rate to the town, which is wrong and sends residents to the wrong office. Say that
   voters approve the district budget and the rate is computed from it, and name the CLA as
   why towns in one district differ. [Barre plumber](feedback/2026-11-24-barre-plumber.md) #1–2.
 
-- [ ] **Unit and dollar line under every homestead rate.** "$1.2462 per $100 of value
+- [x] **Unit and dollar line under every homestead rate.** "$1.2462 per $100 of value
   ($12.46 per $1,000); about $3,116 a year on a $250,000 house", derived from the
   published rate with the house value labelled as an example. Say it is the school share
   only and is before the property tax credit, with a link to the glossary entry.
   [Brattleboro teacher](feedback/2026-11-24-brattleboro-retired-teacher.md) #1–2.
 
-- [ ] **Source line under the headline figure on every town page.** Publisher, document,
+- [x] **Source line under the headline figure on every town page.** Publisher, document,
   date, link. No town page links to any source host today.
   [Norwich professor](feedback/2026-11-24-norwich-college-professor.md) #3.
 
-- [ ] **Flag the eleven districts the engine cannot reproduce** wherever their rate is
+- [x] **Flag the eleven districts the engine cannot reproduce** wherever their rate is
   shown, linking to the residual table in [`act-127-transition.md`](act-127-transition.md).
   [Norwich professor](feedback/2026-11-24-norwich-college-professor.md) #2.
 
-- [ ] **Keep every blank inside the four-blank taxonomy.**
+- [x] **Keep every blank inside the four-blank taxonomy.**
   - `not_published` renders as "not usable" with class `not-computable`
     (`site/src/pages/town/[slug].astro:125`, `site/src/pages/su/[slug].astro:244`).
   - "No group yet for your district" (`site/src/pages/my/town/[slug].astro:149`) needs a
@@ -62,7 +62,7 @@ Check an item only when the thing it names is live and `npm run validate` still 
   - "send in" on `/admin/coverage/` reads as an instruction to the reader; say "we have
     not collected it yet".
 
-- [ ] **Fix registry errors visible to readers.** Orford NH as a Vermont town page and as
+- [x] **Fix registry errors visible to readers.** Orford NH as a Vermont town page and as
   an SAU 70 school with an em-dash operator; "Member districts (0)" beside a district's
   schools; Windham Southeast's member-town count (4) against its list (5); raw ids such as
   `town/milton` and `ud/champlain-valley-56` in operator columns; title-casing such as
@@ -73,9 +73,10 @@ Check an item only when the thing it names is live and `npm run validate` still 
   [`model/parameters/fy2026.yaml`](../model/parameters/fy2026.yaml) with a name and date,
   per [`parameter-verification.md`](parameter-verification.md). The Norwich walk checked
   all eleven weights live in about four minutes; the blocker is labour, not access. Also
-  correct `/methodology/` where it says the Legislature's site "could not be reached".
+  correct `/methodology/` where it says the Legislature's site "could not be reached"
+  (done on `release/must-fix`, commit 8b4a46f; the sign-off itself is still open).
 
-- [ ] **Verify the phone layout.** No walk could test it, and the Hinesburg parent and the
+- [x] **Verify the phone layout.** No walk could test it, and the Hinesburg parent and the
   Milton reader are the readers most likely to be on a phone.
 
 ## Should fix before release
