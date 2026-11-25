@@ -88,6 +88,25 @@ export function planDistrictInputs(entity: string, data: CombinerData): Record<I
   return { econ, el, density, cla: planCla(entity, data) };
 }
 
+/**
+ * What the engine is told about the four district inputs: which of them hold a
+ * ticked suggestion (an estimate) rather than the reader's own figure. The ids
+ * are the form's; the keys are the engine's.
+ */
+export function districtInputEstimates(estimates: ReadonlyMap<string, { how: string; lowerLimit?: boolean }>): {
+  membership: Partial<Record<'poverty_185_fpl' | 'english_learners' | 'persons_per_square_mile', string>>;
+  cla: string | undefined;
+} {
+  const membership: Partial<Record<'poverty_185_fpl' | 'english_learners' | 'persons_per_square_mile', string>> = {};
+  const econ = estimates.get('econ')?.how;
+  if (econ !== undefined) membership.poverty_185_fpl = econ;
+  const el = estimates.get('el')?.how;
+  if (el !== undefined) membership.english_learners = el;
+  const density = estimates.get('density')?.how;
+  if (density !== undefined) membership.persons_per_square_mile = density;
+  return { membership, cla: estimates.get('cla')?.how };
+}
+
 export interface SelectOption {
   readonly value: string;
   readonly text: string;

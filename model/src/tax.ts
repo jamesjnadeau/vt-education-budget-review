@@ -47,6 +47,7 @@ import {
   quotient,
   sum,
 } from './node.ts';
+import type { InputEstimate } from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
 export interface TownTaxInput {
@@ -54,6 +55,8 @@ export interface TownTaxInput {
   /** Common level of appraisal as a ratio (0.8734), never a percentage (87.34). */
   readonly cla: number | null;
   readonly cla_source: string;
+  /** Set when the CLA is a suggestion rather than the reader's own figure: how it was worked out. */
+  readonly cla_estimate?: string | InputEstimate | undefined;
 }
 
 export interface TownRateResult {
@@ -289,6 +292,7 @@ export function billedHomesteadRate(
 ): CalcNode {
   const cla = input(ctx, `${town.town} common level of appraisal`, town.cla, 'ratio', {
     source: town.cla_source,
+    estimate: town.cla_estimate,
     notes: [
       'The CLA restates a town’s locally assessed values against fair market value. ' +
         'A town whose assessments have fallen behind the market has a CLA below 1.0, ' +

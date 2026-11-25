@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { claSelectOptions, fieldAction, type InputPlan } from './district-inputs.ts';
+import { claSelectOptions, districtInputEstimates, fieldAction, type InputPlan } from './district-inputs.ts';
 
 const CVSD: InputPlan = {
   kind: 'choose',
@@ -47,5 +47,32 @@ describe('fieldAction', () => {
       reason: 'Not published.',
     });
     expect(fieldAction(CVSD, false).kind).toBe('choose');
+  });
+});
+
+describe('districtInputEstimates', () => {
+  it('passes a ticked suggestion to the engine with its note', () => {
+    const got = districtInputEstimates(
+      new Map([
+        ['econ', { how: 'the lunch count' }],
+        ['cla', { how: 'Milton CLA' }],
+      ]),
+    );
+    expect(got.membership).toEqual({ poverty_185_fpl: 'the lunch count' });
+    expect(got.cla).toBe('Milton CLA');
+  });
+  it('maps el and density, and ignores other fields', () => {
+    const got = districtInputEstimates(
+      new Map([
+        ['el', { how: 'ELL' }],
+        ['density', { how: 'Census' }],
+        ['spending', { how: 'x' }],
+      ]),
+    );
+    expect(got.membership).toEqual({ english_learners: 'ELL', persons_per_square_mile: 'Census' });
+    expect(got.cla).toBeUndefined();
+  });
+  it('reports no estimate for a typed figure', () => {
+    expect(districtInputEstimates(new Map())).toEqual({ membership: {}, cla: undefined });
   });
 });

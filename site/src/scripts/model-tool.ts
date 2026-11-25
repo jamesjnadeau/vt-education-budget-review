@@ -62,7 +62,7 @@ import {
   type Suggestion,
 } from './adm-prefill.ts';
 import type { CombinerData } from './combiner-view.ts';
-import { claSelectOptions, fieldAction, planDistrictInputs, type InputField } from './district-inputs.ts';
+import { claSelectOptions, districtInputEstimates, fieldAction, planDistrictInputs, type InputField } from './district-inputs.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import {
   LOWER_LIMIT_PARAM,
@@ -808,6 +808,7 @@ export function initModelTool(
     const smallSchoolName = textField('small-school-name');
     const smallSchoolEnrollment = numberField('small-school-enrollment');
 
+    const districtEstimates = districtInputEstimates(estimates);
     const membership = computeWeightedMembership(ctx, {
       entity: 'ud/illustrative',
       adm_years: [
@@ -832,6 +833,7 @@ export function initModelTool(
       poverty_185_fpl: numberField('econ'),
       english_learners: numberField('el'),
       persons_per_square_mile: numberField('density'),
+      estimates: districtEstimates.membership,
       // Only consult last year's figure where the floor is in force; in other
       // years it plays no part and the field is hidden, so we do not read it.
       prior_year_weighted_membership: floorApplies ? numberField('prior-year-membership') : null,
@@ -859,6 +861,7 @@ export function initModelTool(
         town: 'your town',
         cla: numberField('cla'),
         cla_source: 'figure entered by you in this form',
+        cla_estimate: districtEstimates.cla,
       },
       // The Secretary of Education's statewide average determination, not a
       // figure the user is supposing about their own district. When the selected
@@ -1023,10 +1026,19 @@ export function initModelTool(
     const plans = planDistrictInputs(entity, combinerData);
     for (const id of DISTRICT_INPUT_IDS) {
       const action = fieldAction(plans[id], userEditedAdm.has(id));
-      if (action.kind === 'keep') continue;
       const field = document.getElementById(id) as HTMLInputElement | null;
       const note = document.querySelector<HTMLElement>(`[data-input-note="${id}"]`);
       if (!field) continue;
+      if (action.kind === 'keep') {
+        // The reader's number stays. The last district's suggestion and note go.
+        setSuggestion(id, undefined);
+        if (note) note.textContent = '';
+        if (id === 'cla' && claTown) {
+          claTown.replaceChildren();
+          claTown.hidden = true;
+        }
+        continue;
+      }
       field.value = '';
       setSuggestion(id, undefined);
       if (id === 'cla' && claTown) {
