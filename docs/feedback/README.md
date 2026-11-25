@@ -47,6 +47,9 @@ that is the one thing a resident does not have.
 | `2026-11-24-hinesburg-parent-of-three.md` | 39, three kids at HCS and CVU, Hinesburg | "What do my kids' schools cost, and are we being merged?" |
 | `persona-review-template.md` | — | Copy this to add one |
 
+The work these walks produced, ordered for general release, is in
+[`../release-readiness.md`](../release-readiness.md).
+
 ## Adding one
 
 Copy `persona-review-template.md`, fill it in from an actual walk of the live
