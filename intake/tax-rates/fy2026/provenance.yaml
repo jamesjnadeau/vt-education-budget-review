@@ -11,6 +11,10 @@ artifacts:
     media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     retrieved_by: "Claude Code session (automated fetch), for James Nadeau"
     document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2026 Education Property Tax Rates
+    published_date: "2025-08-18"
+    document_page: https://tax.vermont.gov/document/fy2026-education-property-tax-rates
     note: >-
       Vermont Department of Taxes, "FY2026 Education Property Tax Rates", the
       document page https://tax.vermont.gov/document/fy2026-education-property-tax-rates

@@ -7,6 +7,8 @@ import groupings from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
 import { percentileWords, percentText } from '../../../lib/journey-scale.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
+import SourceLine from '../../../components/SourceLine.astro';
+import { TAX_RATES_FY2026 } from '../../../lib/sources.ts';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 import JourneyNext from '../../../components/JourneyNext.astro';
 import DotGrid from '../../../components/DotGrid.astro';
@@ -68,6 +70,7 @@ function renderShare(
     county={page.county}
     comparators={page.comparators}
   />
+  <SourceLine source={TAX_RATES_FY2026} />
 
   <h2>How {page.name} fits in</h2>
   <p class="lede">
