@@ -7,6 +7,7 @@ import groupingsDoc from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
 import { longDate } from '../../../lib/groupings.ts';
 import { titleCase } from '../../../lib/display.ts';
+import { groupRateReason } from '../../../lib/rate-copy.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 
@@ -66,7 +67,7 @@ const preliminaryNote =
   }
 
   <JourneyStats
-    rate={{ kind: 'blank' as const, why: 'not_computable', reason: 'A group does not have one tax rate: each town sets its own.' }}
+    rate={{ kind: 'blank' as const, why: 'not_computable', reason: groupRateReason('grouping') }}
     students={page.students}
     people={page.people}
     rateLabel="Homestead tax rate (FY2026)"

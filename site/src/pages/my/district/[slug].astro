@@ -6,6 +6,7 @@ import subgroups from '../../../generated/adm-subgroups.json';
 import groupings from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
 import { titleCase } from '../../../lib/display.ts';
+import { groupRateReason, EXPLAIN } from '../../../lib/rate-copy.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 import JourneyNext from '../../../components/JourneyNext.astro';
@@ -47,13 +48,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
 
   <JourneyStats
-    rate={{ kind: 'blank' as const, why: 'not_computable', reason: 'A district does not have one tax rate: each town sets its own.' }}
+    rate={{ kind: 'blank' as const, why: 'not_computable', reason: groupRateReason('district') }}
     students={page.students}
     people={page.people}
     rateLabel="Homestead tax rate (FY2026)"
     studentsLabel="Students, combined (school year 2025)"
     peopleLabel="People, combined (2020 Census)"
   />
+  <p class="muted">
+    Read more about the <a href={`${base}${EXPLAIN.cla}`}>common level of appraisal</a>.
+  </p>
 
   <h2>Your town is one of these</h2>
   <p>All of these towns pay for this district together.</p>
