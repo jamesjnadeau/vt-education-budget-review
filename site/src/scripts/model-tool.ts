@@ -58,8 +58,11 @@ import {
   type PrefillPair,
   type PrefillRange,
   type PrefillSpending,
+  weightedAdmComparison,
   type Suggestion,
 } from './adm-prefill.ts';
+import type { CombinerData } from './combiner-view.ts';
+import { claSelectOptions, fieldAction, planDistrictInputs, type InputField } from './district-inputs.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import {
   LOWER_LIMIT_PARAM,
@@ -669,6 +672,7 @@ function applyScenario(scenario: Scenario): void {
 export function initModelTool(
   liveParameters: RawParameterSet[],
   resolvedAdmData: ResolvedAdmData = { entities: {} },
+  combinerData: CombinerData = { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] },
 ): void {
   const modeSelect = document.getElementById('parameter-mode') as HTMLSelectElement | null;
   const walkthrough = document.getElementById('walkthrough');
@@ -750,6 +754,10 @@ export function initModelTool(
   // link can produce a computed rate, so loading a blank form records nothing.
   let scenarioSource: 'blank' | 'prefill' | 'shared_link' = 'blank';
   let resultViewedSent = false;
+
+  // AOE's weighted ADM for the district and year the reader loaded, or null
+  // when none is loaded or AOE has none. Set by applyAdmPrefill.
+  let aoeWeightedAdm: { loaded: boolean; published: number | null } = { loaded: false, published: null };
 
   const recompute = (): void => {
     const useExample = modeSelect?.value === 'example';
@@ -891,6 +899,10 @@ export function initModelTool(
       dd.append(el('span', `tag ${statusClass(node)}`, statusLabel(node)));
       const factBand = formatRange(node.range, node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
+      if (node === membership.total && aoeWeightedAdm.loaded) {
+        const compare = weightedAdmComparison(node.value, aoeWeightedAdm.published);
+        dd.append(el('small', 'adm-source', ` ${compare.text}`));
+      }
       dl.append(dd);
     }
     summary.append(dl);
@@ -944,7 +956,8 @@ export function initModelTool(
   const loadStatus = document.getElementById('load-status');
   const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
   const userEditedAdm = new Set<string>();
-  for (const id of [...admFieldIds, 'spending', 'act84-decrease']) {
+  const DISTRICT_INPUT_IDS: readonly InputField[] = ['econ', 'el', 'density', 'cla'];
+  for (const id of [...admFieldIds, 'spending', 'act84-decrease', ...DISTRICT_INPUT_IDS]) {
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
 
@@ -967,7 +980,7 @@ export function initModelTool(
     const text = box.querySelector('span');
     if (text) text.textContent = use?.label ?? '';
   };
-  for (const id of [...admFieldIds, 'spending']) {
+  for (const id of [...admFieldIds, 'spending', ...DISTRICT_INPUT_IDS]) {
     const field = document.getElementById(id) as HTMLInputElement | null;
     const check = suggestionBox(id)?.querySelector('input');
     if (!field || !check) continue;
@@ -994,6 +1007,53 @@ export function initModelTool(
     });
   }
   const spendingByEntity = resolvedAdmData.spending ?? {};
+
+  // The four inputs that used to keep demo values. Each is blank until the
+  // district's own figure is suggested, a town is picked, or the reader types.
+  // A field the reader has typed into is never touched (see fieldAction).
+  const claTown = document.getElementById('cla-town') as HTMLSelectElement | null;
+  claTown?.addEventListener('change', () => {
+    const field = document.getElementById('cla') as HTMLInputElement | null;
+    if (!field) return;
+    field.value = claTown.value;
+    estimates.delete('cla');
+    recompute();
+  });
+  const applyDistrictInputs = (entity: string): void => {
+    const plans = planDistrictInputs(entity, combinerData);
+    for (const id of DISTRICT_INPUT_IDS) {
+      const action = fieldAction(plans[id], userEditedAdm.has(id));
+      if (action.kind === 'keep') continue;
+      const field = document.getElementById(id) as HTMLInputElement | null;
+      const note = document.querySelector<HTMLElement>(`[data-input-note="${id}"]`);
+      if (!field) continue;
+      field.value = '';
+      setSuggestion(id, undefined);
+      if (id === 'cla' && claTown) {
+        claTown.replaceChildren();
+        claTown.hidden = true;
+      }
+      if (action.kind === 'suggest') {
+        setSuggestion(id, { value: action.value, label: `Use this number (${action.value})`, estimate: action.note });
+        if (action.tick) {
+          field.value = String(action.value);
+          estimates.set(id, { how: action.note });
+          const check = suggestionBox(id)?.querySelector('input');
+          if (check) check.checked = true;
+        }
+        if (note) note.textContent = action.note;
+      } else if (action.kind === 'choose') {
+        if (claTown) {
+          for (const o of claSelectOptions(plans[id])) claTown.append(new Option(o.text, o.value));
+          claTown.value = '';
+          claTown.hidden = false;
+        }
+        if (note) note.textContent = action.note;
+      } else if (note) {
+        note.textContent = action.reason;
+      }
+    }
+  };
   const labels = resolvedAdmData.labels ?? {};
 
   // The spending field, like the grade counts: a value the user typed is kept.
@@ -1084,6 +1144,12 @@ export function initModelTool(
     fillBandRow(plan.later, '2');
     fillSpending(plan.spending, plan.spendingHistory, Number(plan.mode));
     fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
+    applyDistrictInputs(entity);
+    const aoeRow = plan.spending;
+    aoeWeightedAdm = {
+      loaded: true,
+      published: aoeRow && aoeRow.pupil_measure === 'long_term_weighted_adm' ? aoeRow.pupils : null,
+    };
     scenarioSource = 'prefill';
     recompute();
     capture('district_prefill_applied', { fiscal_year: Number(plan.mode) });

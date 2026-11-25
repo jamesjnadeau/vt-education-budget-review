@@ -362,3 +362,26 @@ export function planAdmPrefill(
   }
   return { kind: 'fill', mode: String(fy), earlier: rows?.[String(fy - 1)], later: rows?.[year], spending: spending?.[year], spendingHistory: spending };
 }
+
+/**
+ * AOE's weighted long-term ADM for the district and year, beside the count this
+ * page builds. The gap is the page's count against AOE's, in percent, so a
+ * page that counts fewer pupils reads negative.
+ */
+export function weightedAdmComparison(
+  engine: number | null,
+  published: number | null,
+): { text: string; gapPercent: number | null } {
+  if (published === null) {
+    return { text: 'AOE has not published a weighted count for this year.', gapPercent: null };
+  }
+  if (engine === null) {
+    return { text: `AOE publishes ${adm(published)}. This page cannot count it yet.`, gapPercent: null };
+  }
+  const gapPercent = published === 0 ? null : Math.round(((engine - published) / published) * 1000) / 10;
+  let text = `AOE publishes ${adm(published)}. This page counts ${adm(engine)}.`;
+  if (gapPercent !== null && Math.abs(gapPercent) >= 0.5) {
+    text += ` They differ by ${Math.abs(gapPercent)}%.`;
+  }
+  return { text, gapPercent };
+}

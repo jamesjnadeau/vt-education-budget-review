@@ -15,6 +15,7 @@ import {
   SOURCE_NOTE,
   spendingFill,
   spendingSuggestion,
+  weightedAdmComparison,
   type PrefillRow,
 } from './adm-prefill.ts';
 
@@ -266,5 +267,31 @@ describe('act84Fill', () => {
       value: '',
       note: 'does not apply in FY2030',
     });
+  });
+});
+
+describe('weightedAdmComparison', () => {
+  it('compares the engine to the AOE figure and names the gap', () => {
+    const r = weightedAdmComparison(1921.78, 2417.47);
+    expect(r.gapPercent).toBe(-20.5);
+    expect(r.text).toContain('2,417.47');
+    expect(r.text).toContain('1,921.78');
+    expect(r.text).toContain('They differ by 20.5%.');
+  });
+  it('says nothing about a gap when the two agree', () => {
+    const r = weightedAdmComparison(5683.51, 5683.51);
+    expect(r.text).toBe('AOE publishes 5,683.51. This page counts 5,683.51.');
+    expect(r.text).not.toContain('differ');
+  });
+  it('says so when AOE has not published a count', () => {
+    const r = weightedAdmComparison(100, null);
+    expect(r.text).toBe('AOE has not published a weighted count for this year.');
+    expect(r.gapPercent).toBeNull();
+  });
+  it('does not invent a count when the page has none yet', () => {
+    const r = weightedAdmComparison(null, 2417.47);
+    expect(r.gapPercent).toBeNull();
+    expect(r.text).toContain('2,417.47');
+    expect(r.text).not.toContain('NaN');
   });
 });

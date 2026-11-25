@@ -87,3 +87,31 @@ export function planDistrictInputs(entity: string, data: CombinerData): Record<I
 
   return { econ, el, density, cla: planCla(entity, data) };
 }
+
+export interface SelectOption {
+  readonly value: string;
+  readonly text: string;
+}
+
+/** The town picker for a district with more than one common level of appraisal. Nothing is chosen. */
+export function claSelectOptions(plan: InputPlan): SelectOption[] {
+  if (plan.kind !== 'choose') return [];
+  return [
+    { value: '', text: 'Pick your town' },
+    ...plan.choices.map((c) => ({ value: String(c.cla), text: `${c.label} — ${c.cla}` })),
+  ];
+}
+
+export type FieldAction =
+  | { kind: 'keep' }
+  | { kind: 'suggest'; value: number; note: string; tick: boolean }
+  | { kind: 'choose'; note: string }
+  | { kind: 'refuse'; reason: string };
+
+/** What the form does to one input on a district load. A number the reader typed is never touched. */
+export function fieldAction(plan: InputPlan, edited: boolean): FieldAction {
+  if (edited) return { kind: 'keep' };
+  if (plan.kind === 'suggest') return { kind: 'suggest', value: plan.value, note: plan.note, tick: plan.tickByDefault };
+  if (plan.kind === 'choose') return { kind: 'choose', note: plan.note };
+  return { kind: 'refuse', reason: plan.reason };
+}
