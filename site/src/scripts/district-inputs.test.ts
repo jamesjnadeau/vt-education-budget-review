@@ -9,9 +9,9 @@
  * check per district covers every year the site shows.
  */
 
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import {
   combinedDensity,
@@ -20,9 +20,11 @@ import {
 } from './combiner-view.ts';
 import { planDistrictInputs, type InputField, type InputPlan } from './district-inputs.ts';
 
-const data = JSON.parse(
-  readFileSync(new URL('../generated/combiner.json', import.meta.url), 'utf8'),
-) as CombinerData;
+// combiner.json is generated (git-ignored). Without it the data-driven tests skip,
+// as in site/src/lib/journey.real.test.ts, and the data is loaded only inside them.
+const DATA_FILE = new URL('../generated/combiner.json', import.meta.url);
+const HAVE_DATA = existsSync(DATA_FILE);
+let data = { districts: {}, towns: {} } as unknown as CombinerData;
 
 const FIELDS: InputField[] = ['econ', 'el', 'density', 'cla'];
 const DEMO: Record<InputField, number> = { econ: 40, el: 8, density: 30, cla: 0.8 };
@@ -43,7 +45,19 @@ function sourceValue(slug: string, field: InputField): number | null {
   return towns.length === 1 ? (data.towns[towns[0] as string]?.cla ?? null) : null;
 }
 
-describe('planDistrictInputs', () => {
+describe('planDistrictInputs without data', () => {
+  it('an unknown entity is refused on every field', () => {
+    const empty = { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] } as CombinerData;
+    const plan = planDistrictInputs('ud/not-a-district', empty);
+    for (const field of FIELDS) expect(plan[field].kind).toBe('refuse');
+  });
+});
+
+describe.skipIf(!HAVE_DATA)('planDistrictInputs on the built data', () => {
+  beforeAll(() => {
+    data = JSON.parse(readFileSync(DATA_FILE, 'utf8')) as CombinerData;
+  });
+
   it('every district gets a plan for all four fields, never a placeholder', () => {
     expect(plans().length).toBeGreaterThan(100);
     for (const [slug, plan] of plans()) {
@@ -121,10 +135,5 @@ describe('planDistrictInputs', () => {
     if (p.kind !== 'suggest') return;
     expect(p.value).toBe(combinedDensity(['town/milton'], data)?.density2020);
     expect(p.tickByDefault).toBe(true);
-  });
-
-  it('an unknown entity is refused on every field', () => {
-    const plan = planDistrictInputs('ud/not-a-district', data);
-    for (const field of FIELDS) expect(plan[field].kind).toBe('refuse');
   });
 });
