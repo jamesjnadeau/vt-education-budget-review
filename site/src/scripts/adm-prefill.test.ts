@@ -325,6 +325,27 @@ describe('blockedBandsText', () => {
     expect(text).not.toContain(';');
   });
 
+  it('names only the bands that are still blank, and hides when none are left', () => {
+    const plan = planAdmPrefill('x', '2026', { '2026': row, '2025': row }, [2026]);
+    const prekFilled = blockedBandsText(plan, new Set(['prekindergarten:1', 'prekindergarten:2']));
+    expect(prekFilled).not.toContain('prekindergarten');
+    expect(prekFilled).toContain('grades 6 through 8');
+    const all = new Set(['prekindergarten:1', 'prekindergarten:2', 'grades_6_through_8:1', 'grades_6_through_8:2']);
+    expect(blockedBandsText(plan, all)).toBeNull();
+  });
+
+  it('keeps a band named while either year of it is still blank', () => {
+    const plan = planAdmPrefill('x', '2026', { '2026': row, '2025': row }, [2026]);
+    const text = blockedBandsText(plan, new Set(['prekindergarten:2']));
+    expect(text).toContain('prekindergarten');
+  });
+
+  it('only claims what a blank band does: the year count stays unknown', () => {
+    const text = blockedBandsText(planAdmPrefill('x', '2026', { '2026': row }, [2026])) ?? '';
+    expect(text).not.toContain('cannot be worked out');
+    expect(text).toContain('pupil count');
+  });
+
   describe.skipIf(!existsSync(RESOLVED))('with the generated data', () => {
     it('explains Champlain Valley #56 for FY2026', () => {
       const data = JSON.parse(readFileSync(RESOLVED, 'utf8'));

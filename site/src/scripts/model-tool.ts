@@ -57,6 +57,7 @@ import {
   type Act84Entry,
   type EntityLabel,
   type PrefillPair,
+  type PrefillPlan,
   type PrefillRange,
   type PrefillSpending,
   weightedAdmComparison,
@@ -760,7 +761,25 @@ export function initModelTool(
   // when none is loaded or AOE has none. Set by applyAdmPrefill.
   let aoeWeightedAdm: { loaded: boolean; published: number | null } = { loaded: false, published: null };
 
+  // The note above the result about hidden grade bands. It follows the form:
+  // it names only the bands whose boxes are still empty.
+  let admPlan: PrefillPlan = { kind: 'none' };
+  const refreshBlockedNote = (): void => {
+    const box = document.getElementById('blocked-bands');
+    if (!box) return;
+    const filled = new Set<string>();
+    for (const [band, prefix] of Object.entries(BAND_FIELD)) {
+      for (const slot of ['1', '2']) {
+        if (numberField(`${prefix}-${slot}`) !== null) filled.add(`${band}:${slot}`);
+      }
+    }
+    const text = blockedBandsText(admPlan, filled);
+    box.textContent = text ?? '';
+    box.hidden = text === null;
+  };
+
   const recompute = (): void => {
+    refreshBlockedNote();
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
 
@@ -1148,13 +1167,11 @@ export function initModelTool(
       spendingByEntity[entity],
     );
     if (loadStatus) loadStatus.textContent = plan.kind === 'no-parameters' ? plan.message : '';
-    const blockedText = blockedBandsText(plan);
-    const blockedBox = document.getElementById('blocked-bands');
-    if (blockedBox) {
-      blockedBox.textContent = blockedText ?? '';
-      blockedBox.hidden = blockedText === null;
+    admPlan = plan;
+    if (plan.kind !== 'fill') {
+      refreshBlockedNote();
+      return;
     }
-    if (plan.kind !== 'fill') return;
     if (modeSelect && modeSelect.value !== plan.mode) {
       modeSelect.value = plan.mode;
       applyStatewidePrefill();
