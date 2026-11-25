@@ -40,6 +40,22 @@ describe('RATE_RESIDUALS', () => {
   });
 });
 
+describe('residual wording', () => {
+  it('says what lower or higher is compared to, and never leans on the page showing our math', () => {
+    for (const [k, v] of Object.entries(RATE_RESIDUALS)) {
+      if (k === 'town/buels-gore') continue;
+      expect(v, k).toMatch(/^The State's published rate for .+ is (lower|higher) than what this site's math gets/);
+      expect(v, k).not.toMatch(/This page's math|rate change at all/);
+    }
+  });
+  it('is one sentence each', () => {
+    for (const [k, v] of Object.entries(RATE_RESIDUALS)) {
+      const text = v.replace('Mt. Anthony', 'Mt Anthony');
+      expect(text.match(/\.(\s|$)/g)?.length ?? 0, k).toBe(1);
+    }
+  });
+});
+
 describe('residualFor', () => {
   it('returns a reason for Norwich and Hartford', () => {
     expect(residualFor('town/norwich')).toEqual(expect.any(String));
