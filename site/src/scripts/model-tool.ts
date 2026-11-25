@@ -33,6 +33,7 @@ import {
   formatRange,
   formatValue,
   input,
+  isUnfilledInput,
   perWeightedPupil,
   toSteps,
   townRate,
@@ -514,20 +515,32 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     box.append(ul);
   }
 
-  if (missing.length > 0) {
+  // Only a blank input is a box on this form. A parameter with no value for the
+  // year, or a sum that could not be done, is missing too but has no box.
+  const emptyBoxes = missing.filter(isUnfilledInput);
+  const notOnFile = missing.filter((b) => !isUnfilledInput(b));
+
+  if (emptyBoxes.length > 0) {
     box.append(
       el(
         'p',
         undefined,
-        `${missing.length} box(es) are still empty. Fill them in, or tick a suggestion where one is offered.`,
+        `${emptyBoxes.length} box(es) are still empty. Fill them in, or tick a suggestion where one is offered.`,
       ),
     );
     const ul = el('ul');
-    for (const b of missing) {
+    for (const b of emptyBoxes) {
       const li = el('li');
       li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${emptyBoxCopy(b.ref, districtPlans)}`));
       ul.append(li);
     }
+    box.append(ul);
+  }
+
+  if (notOnFile.length > 0) {
+    box.append(el('p', undefined, `${notOnFile.length} figure(s) the math needs could not be found or worked out.`));
+    const ul = el('ul');
+    for (const b of notOnFile) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
