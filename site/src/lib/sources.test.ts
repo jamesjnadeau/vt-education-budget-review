@@ -6,6 +6,10 @@ describe('TAX_RATES_FY2026', () => {
     expect(TAX_RATES_FY2026.url.startsWith('https://tax.vermont.gov/')).toBe(true);
   });
 
+  it('can label the line as the tax rate source', () => {
+    expect(sourceText(TAX_RATES_FY2026, 'Tax rate source:').startsWith('Tax rate source: Vermont')).toBe(true);
+  });
+
   it('names the publisher and the year in the source text', () => {
     const text = sourceText(TAX_RATES_FY2026);
     expect(text).toContain('Vermont Department of Taxes');

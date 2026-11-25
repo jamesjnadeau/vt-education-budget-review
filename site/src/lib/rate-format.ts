@@ -53,3 +53,13 @@ export function rateRangeText(low: number, high: number): string {
 export function rateUnitFor(rate: Figure<number>): ReturnType<typeof rateUnitParts> | null {
   return rate.kind === 'value' ? rateUnitParts(rate.value) : null;
 }
+
+/**
+ * A comparator figure under a stat card. Rates keep up to four decimals. Students
+ * and people are averages per town, so they round to a whole number (half rounds
+ * up) with thousands separators. A fraction of a person reads as an error.
+ */
+export function comparatorFigure(metric: 'rate' | 'students' | 'people', n: number): string {
+  if (metric === 'rate') return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
+  return Math.round(n).toLocaleString('en-US');
+}

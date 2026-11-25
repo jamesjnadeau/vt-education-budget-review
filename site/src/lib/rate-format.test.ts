@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { EXAMPLE_HOUSE, rateRangeText, rateUnitLine, rateUnitFor, rateUnitParts } from './rate-format.ts';
+import { comparatorFigure, EXAMPLE_HOUSE, rateRangeText, rateUnitLine, rateUnitFor, rateUnitParts } from './rate-format.ts';
 
 describe('rateUnitLine', () => {
   it('prints the exact sentence for 1.2462', () => {
@@ -51,5 +51,17 @@ describe('rateUnitFor (the guard JourneyStats renders through)', () => {
   it('returns the parts for a value', () => {
     const p = rateUnitFor({ kind: 'value', value: 1.2462 } as never);
     expect(p).toEqual(rateUnitParts(1.2462));
+  });
+});
+
+describe('comparatorFigure', () => {
+  it('rounds people and students to whole numbers with separators', () => {
+    expect(comparatorFigure('people', 2531.7913)).toBe('2,532');
+    expect(comparatorFigure('students', 436.4752)).toBe('436');
+    expect(comparatorFigure('students', 0.5)).toBe('1');
+  });
+  it('keeps up to four decimals for a rate', () => {
+    expect(comparatorFigure('rate', 1.40951)).toBe('1.4095');
+    expect(comparatorFigure('rate', 1.5)).toBe('1.5');
   });
 });

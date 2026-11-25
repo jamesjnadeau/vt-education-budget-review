@@ -41,6 +41,6 @@ function fromProvenance(text: string): Source {
 
 export const TAX_RATES_FY2026: Source = fromProvenance(provenanceText);
 
-export function sourceText(s: Source): string {
-  return `Source: ${s.publisher}, “${s.document}”, ${s.date}.`;
+export function sourceText(s: Source, label = 'Source:'): string {
+  return `${label} ${s.publisher}, “${s.document}”, ${s.date}.`;
 }

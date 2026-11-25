@@ -8,10 +8,11 @@ import { sourceText, type Source } from '../lib/sources.ts';
 
 interface Props {
   source: Source;
+  label?: string;
 }
 
-const { source } = Astro.props;
-const text = sourceText(source);
+const { source, label } = Astro.props;
+const text = sourceText(source, label);
 const title = `“${source.document}”`;
 const at = text.indexOf(title);
 const before = text.slice(0, at);

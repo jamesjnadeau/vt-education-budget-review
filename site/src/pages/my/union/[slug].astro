@@ -7,7 +7,7 @@ import groupings from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
 import { slugTail, titleCase } from '../../../lib/display.ts';
 import { rateRangeText } from '../../../lib/rate-format.ts';
-import { groupRateReason, EXPLAIN } from '../../../lib/rate-copy.ts';
+import { groupRateReason, showsGroupRateCard, EXPLAIN } from '../../../lib/rate-copy.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 import JourneyNext from '../../../components/JourneyNext.astro';
@@ -55,6 +55,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <JourneyStats
     rate={{ kind: 'blank' as const, why: 'not_computable', reason: groupRateReason('union') }}
+    showRate={showsGroupRateCard(page.rateRange)}
     students={page.students}
     people={page.people}
     rateLabel="Homestead tax rate (FY2026)"

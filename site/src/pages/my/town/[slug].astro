@@ -10,6 +10,7 @@ import JourneyStats from '../../../components/JourneyStats.astro';
 import SourceLine from '../../../components/SourceLine.astro';
 import ResidualNote from '../../../components/ResidualNote.astro';
 import { residualFor } from '../../../lib/rate-residuals.ts';
+import { showsTownRateNotes } from '../../../lib/rate-copy.ts';
 import { TAX_RATES_FY2026 } from '../../../lib/sources.ts';
 import JourneyProgress from '../../../components/JourneyProgress.astro';
 import JourneyNext from '../../../components/JourneyNext.astro';
@@ -74,8 +75,14 @@ function renderShare(
     county={page.county}
     comparators={page.comparators}
   />
-  <SourceLine source={TAX_RATES_FY2026} />
-  {residual && <ResidualNote reason={residual} />}
+  {
+    showsTownRateNotes(page.rate) && (
+      <>
+        <SourceLine source={TAX_RATES_FY2026} label="Tax rate source:" />
+        {residual && <ResidualNote reason={residual} />}
+      </>
+    )
+  }
 
   <h2>How {page.name} fits in</h2>
   <p class="lede">

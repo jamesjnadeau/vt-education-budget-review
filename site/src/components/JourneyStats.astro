@@ -13,7 +13,7 @@
  * publishes); for students and people, the mean per town.
  */
 import { count } from '../lib/residents.ts';
-import { rateUnitFor } from '../lib/rate-format.ts';
+import { rateUnitFor, comparatorFigure } from '../lib/rate-format.ts';
 import { EXPLAIN } from '../lib/rate-copy.ts';
 import type { Figure, Students, Comparators } from '../lib/journey.ts';
 
@@ -28,9 +28,11 @@ interface Props {
   county?: string | null;
   /** State and county comparator figures for a TOWN page; omitted elsewhere. */
   comparators?: Comparators;
+  /** False on a district or union page that already shows a range of town rates. */
+  showRate?: boolean;
 }
 
-const { rate, students, people, rateLabel, studentsLabel, peopleLabel, county, comparators } = Astro.props;
+const { rate, students, people, rateLabel, studentsLabel, peopleLabel, county, comparators, showRate = true } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -53,24 +55,23 @@ function comparatorLine(
   c: Comparators['rate'] | undefined,
   countyName: string | null,
   isMedian: boolean,
+  metric: 'rate' | 'students' | 'people',
 ): string | null {
   if (!c) return null;
   const tag = isMedian ? '(median)' : '(avg per town)';
   const parts: string[] = [];
-  if (c.state) parts.push(`Vermont ${format(c.state.value)} ${tag}`);
-  if (countyName && c.county) parts.push(`${countyName} County ${format(c.county.value)} ${tag}`);
+  if (c.state) parts.push(`Vermont ${comparatorFigure(metric, c.state.value)} ${tag}`);
+  if (countyName && c.county) parts.push(`${countyName} County ${comparatorFigure(metric, c.county.value)} ${tag}`);
   return parts.length > 0 ? parts.join(' · ') : null;
 }
-function format(n: number): string {
-  return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
-}
-const rateCompare = comparators ? comparatorLine(comparators.rate, county ?? null, true) : null;
+const rateCompare = comparators ? comparatorLine(comparators.rate, county ?? null, true, 'rate') : null;
 // students and people are means, not medians
-const studentsCompare = comparators ? comparatorLine(comparators.students, county ?? null, false) : null;
-const peopleCompare = comparators ? comparatorLine(comparators.people, county ?? null, false) : null;
+const studentsCompare = comparators ? comparatorLine(comparators.students, county ?? null, false, 'students') : null;
+const peopleCompare = comparators ? comparatorLine(comparators.people, county ?? null, false, 'people') : null;
 ---
 
 <div class="journey-stats">
+  {showRate && (
   <article class="journey-stat">
     <h3 class="journey-stat-heading">{rateLabel}</h3>
     {
@@ -96,6 +97,7 @@ const peopleCompare = comparators ? comparatorLine(comparators.people, county ??
       rateCompare && <p class="journey-stat-compare">{rateCompare}</p>
     }
   </article>
+  )}
 
   <article class="journey-stat">
     <h3 class="journey-stat-heading">{studentsLabel}</h3>

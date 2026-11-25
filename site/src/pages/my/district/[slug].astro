@@ -7,7 +7,7 @@ import groupings from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
 import { titleCase } from '../../../lib/display.ts';
 import { rateRangeText } from '../../../lib/rate-format.ts';
-import { groupRateReason, EXPLAIN } from '../../../lib/rate-copy.ts';
+import { groupRateReason, showsGroupRateCard, EXPLAIN } from '../../../lib/rate-copy.ts';
 import ResidualNote from '../../../components/ResidualNote.astro';
 import { residualFor } from '../../../lib/rate-residuals.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
@@ -55,6 +55,7 @@ const residual = residualFor(`ud/${page.slug}`);
 
   <JourneyStats
     rate={{ kind: 'blank' as const, why: 'not_computable', reason: groupRateReason('district') }}
+    showRate={showsGroupRateCard(page.rateRange)}
     students={page.students}
     people={page.people}
     rateLabel="Homestead tax rate (FY2026)"

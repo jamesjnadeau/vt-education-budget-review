@@ -15,3 +15,20 @@ export const EXPLAIN = {
   cla: '/explanations/#cla',
   credit: '/explanations/#property-tax-credit',
 };
+
+/**
+ * The source line and the residual note talk about a rate the page shows. They
+ * belong on a town page only when that page shows one rate value.
+ */
+export function showsTownRateNotes(rate: { kind: string }): boolean {
+  return rate.kind === 'value';
+}
+
+/**
+ * A district or union page shows a range of town rates when it has one. A
+ * "cannot be told" rate card next to that range would contradict it, so the
+ * card is shown only when there is no range.
+ */
+export function showsGroupRateCard(rateRange: { kind: string }): boolean {
+  return rateRange.kind !== 'value';
+}
