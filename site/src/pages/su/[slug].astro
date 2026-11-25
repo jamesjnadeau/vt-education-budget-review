@@ -241,7 +241,7 @@ const homesteadRows = Object.entries(homesteadYears)
                       if (s.kind === 'not_usable') {
                         return (
                           <td class="numeric">
-                            <span class="tag not-computable">not usable</span>
+                            <span class="tag not-published">not published</span>
                           </td>
                         );
                       }
@@ -294,7 +294,7 @@ const homesteadRows = Object.entries(homesteadYears)
           {unusableYears.map((y) => (
             <p>
               For {y.count_year}, the state's English learner and lunch counts were{' '}
-              <strong>not usable</strong>, so we do not show them. The state did not collect the
+              <strong>not published</strong>, so we do not show them. The state did not collect the
               English learner flag that year, and it has said its lunch flag was set for nearly every
               student by mistake.
             </p>

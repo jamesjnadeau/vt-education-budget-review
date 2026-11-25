@@ -122,7 +122,7 @@ const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
                     if (c.status === 'not_published') {
                       return (
                         <td class="numeric">
-                          <span class="tag not-computable">not usable</span>
+                          <span class="tag not-published">not published</span>
                         </td>
                       );
                     }
@@ -167,7 +167,7 @@ const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
           {unusableYears.map((y) => (
             <p>
               For {y.count_year}, the state's English learner and lunch counts were{' '}
-              <strong>not usable</strong>, so we do not show them. The state did not collect the
+              <strong>not published</strong>, so we do not show them. The state did not collect the
               English learner flag that year, and it has said its lunch flag was set for nearly every
               student by mistake.
             </p>

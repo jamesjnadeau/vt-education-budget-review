@@ -488,6 +488,13 @@ th {
   color: var(--text-muted);
   background: var(--surface);
 }
+/* The source did not publish the figure. A final answer, so it takes the
+   same quiet grey as `not-computable`, never a failure colour. */
+.tag.not-published {
+  border-color: var(--border);
+  color: var(--text-muted);
+  background: var(--surface);
+}
 .tag.contingent {
   border-color: var(--accent);
   color: var(--accent);
