@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { entityLabel, isOutOfState, operatorHref, titleCase } from './display';
+import { entityLabel, isOutOfState, operatorHref, titleCase } from './display.ts';
 
 describe('titleCase', () => {
   it('keeps state codes upper-case', () => {

@@ -42,7 +42,7 @@ describe('journey leaves out-of-state towns out', () => {
       subgroups: require('../generated/adm-subgroups.json'),
       groupings: require('../generated/groupings.json'),
     } as JourneyInputs);
-    const outOfState = registry.entities.filter((e) => e.type === 'town' && isOutOfState(e)).map((e) => e.slug.split('/')[1]);
+    const outOfState = registry.entities.filter((e) => e.type === 'town' && isOutOfState(e)).map((e) => e.slug.split('/')[1]).filter((s): s is string => s !== undefined);
     expect(outOfState.length).toBeGreaterThan(0);
     for (const s of outOfState) {
       expect(j.towns[s]).toBeUndefined();
