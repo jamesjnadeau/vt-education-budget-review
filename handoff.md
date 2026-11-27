@@ -80,8 +80,8 @@ golden fixtures pass, and none is marked as a known disagreement.
 - **Dead collector source URLs.** Issue #71 is the single tracker; the twelve earlier
   weekly issues were closed into it on 2026-11-27. The real work is finding where each
   district moved its budget page, which unblocks budget collection. The weekly workflow
-  still opens a new dated issue each Monday; make it comment on #71 instead. The liveness PR
-  now uses one fixed branch (`liveness/weekly`), so a new run updates the open PR.
+  comments on the oldest open `dead-link` issue instead of opening a new one, and uses one
+  fixed PR branch (`liveness/weekly`).
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
 - **Fetching State sites from the container.** On 2026-11-27, `curl` reached
