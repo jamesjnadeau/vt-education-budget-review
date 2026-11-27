@@ -86,6 +86,12 @@ golden fixtures pass, and none is marked as a known disagreement.
   project owner's own test record**, confirmed 2026-11-27. The sync's placeholder warning
   about it is expected and correct (`registry/placeholder.ts` skips it); it is not an
   upstream error and needs no report to AOE.
+- **Registry-sync warnings that a supervisory union "is not present in this snapshot"** for
+  `academy/*` (PA002-PA005), `techcenter/central-vermont-career-center` (TE004) and
+  `state/woodside-juvenile-rehabilitation-center` (SC001) are expected, confirmed
+  2026-11-27: the academies are private, career centers are technical education, and SC001
+  is treated as an independent school for reporting. They have no supervisory union by
+  design, so there is nothing to report to AOE. The warning is noise for these types.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
 - **Fetching State sites from the container.** On 2026-11-27, `curl` reached
