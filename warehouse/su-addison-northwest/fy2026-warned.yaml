@@ -1,0 +1,73 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-27
+entity: su/addison-northwest
+fiscal_year: 2026
+status: warned
+source: intake/su-addison-northwest/fy2026/FY26 ANWSD Annual Report.pdf
+source_pages: pp. 53-54
+adopted_date: null
+education_spending: 23116750
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/addison
+      homestead_rate_stated: 1.901
+      cla: 0.9203
+    - town: town/ferrisburgh
+      homestead_rate_stated: 2.0239
+      cla: 0.8644
+    - town: town/panton
+      homestead_rate_stated: 1.1982
+      cla: 1.4601
+    - town: town/vergennes
+      homestead_rate_stated: 1.9552
+      cla: 0.8948
+    - town: town/waltham
+      homestead_rate_stated: 1.9829
+      cla: 0.8823
+notes: "FY26 proposed budget as printed in the annual report for the March 2025 vote: total union budget
+  $27,653,000; offsetting union revenues $4,536,250; education spending $23,116,750; LTWADM 1,525.58;
+  education spending per pupil $15,152.76; equalized union homestead rate $1.7716, or $1.7495 after the
+  $0.0221 cent discount (adjusted by the 72.36% statewide adjuster); income cap percent 2.47%. Town rates are
+  the 'Town Actual Rate' (equalized rate / adjusted CLA) on p. 54. The vote result is not in this document.
+  The $27,653,000 matches the line-item total in the FY26 budget book held under
+  intake/su-addison-northwest/fy2026. Pages 53-54 are images; figures were read from 260-dpi renders and
+  re-added (budget minus revenue equals education spending; spending / pupils equals the printed per-pupil;
+  rate / CLA equals each town rate)."
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "The p. 54 form carries stale template headings ('FY2018 Estimates', 'Act 130 Equalized Homestead Tax
+      Rate Calculation, FY2018') but its figures are FY2026 (LEA U054, $27,653,000). It is also marked
+      'ESTIMATES ONLY: yields are not official', based on the Dec 1, 2024 Education Fund outlook ($8,553
+      yield). Rates are the district's estimates, not the Tax Department's."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: CLAs are the 'Adjusted CLA' column on p. 54, printed as percentages (92.03% etc.), recorded as ratios.
+      Not the Tax Department's published CLAs.
+    resolution: recorded_as_other
+  - path: adm.prekindergarten
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
