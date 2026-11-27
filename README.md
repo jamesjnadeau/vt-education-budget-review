@@ -188,8 +188,8 @@ main entry point does not import.
 - Three budget documents collected (Addison Central, FY2023–FY2025), none yet extracted to a
   spending figure. The coverage dashboard shows every other expected district-year as missing,
   which is accurate.
-- FY2026 parameters are countersigned (`status: verified`, 2026-11-25). FY2027 is still draft:
-  its statewide adjustment is unverified.
+- FY2026 parameters are countersigned (`status: verified`, 2026-11-25). FY2027 is 27/27 verified
+  (statewide adjustment 0.7033 from the FY2027 rate table) and awaits countersignature.
 - **The Act 127 tax-rate transition is modelled, with two loose ends.** The engine applies
   the decrease of 2024 Acts No. 84, Sec. 3, as amended by Act 183, and reproduces 86 of 97
   matchable FY2026 district rates (51 before). It rounds the decrease to three places, which
