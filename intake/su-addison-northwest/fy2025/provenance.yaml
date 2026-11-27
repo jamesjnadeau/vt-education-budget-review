@@ -1,0 +1,24 @@
+schema_version: "1.0"
+entity: su/addison-northwest
+fiscal_year: 2025
+artifacts:
+  - file: FY25 Budget Proposal Book Revote 2.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1EdVQvtyihllFmS6wX81MPSad1NJsYn83
+    retrieved_date: 2026-11-27
+    retrieval_method: http-fetch
+    sha256: 16106a217c0e366d75022eb6288351c8769074540baa65a757c31d35cb0c8dcd
+    bytes: 180256
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Addison Northwest School District
+    title: 2024/2025 Budget Proposed Expenditures (Revote 2)
+    published_date: null
+    document_page: https://www.anwsd.org/budget2
+    supersedes: null
+    note: >-
+      Two-page line-item general operating fund sheet for the second revote
+      of the FY25 budget: FY23 actuals (audited final), FY23 and FY24
+      budgeted, FY25 proposed ($27,250,000 total). Google Sheets export.
+      Expenditures only; it states no revenues or education spending. Saved
+      under the filename the server sent.
