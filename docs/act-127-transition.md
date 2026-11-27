@@ -119,9 +119,9 @@ district-specific tuning:
 
 Three places is what the Tax Department evidently does, and it is the only candidate that is
 not contradicted by most of the table. The engine follows it and the node's note says it is a
-convention. This is the one point where the table, not the text, chose between readings. It should be confirmed with the Department (or in its rate letter) before
-anyone countersigns the parameter files. The difference is at most half a tenth of a cent on
-the equalized rate.
+convention. This is the one point where the table, not the text, chose between readings. The
+Department's use of three places was confirmed on 2026-11-27 (source: TODO, record the letter,
+email or contact here). The difference is at most half a tenth of a cent on the equalized rate.
 
 ## What the FY2026 table showed
 
