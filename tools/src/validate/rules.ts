@@ -17,6 +17,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { isLfsPointer } from '../lfs.ts';
 import { PATHS, rel } from '../paths.ts';
 import type { Snapshot } from '../registry/aoe-client.ts';
 import {
@@ -274,8 +275,7 @@ export function checkProvenanceDoc(
     }
 
     if (options.verifyHashes) {
-      const isLfsPointer = readFileSync(path, 'utf8').startsWith('version https://git-lfs');
-      if (isLfsPointer) {
+      if (isLfsPointer(path)) {
         const mustBeFetched = requireFetched.has(path);
         findings.push({
           severity: mustBeFetched ? 'error' : 'warning',

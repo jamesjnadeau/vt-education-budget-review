@@ -20,13 +20,10 @@ status: draft
 #      stays draft until a person has read model/statute/2026-07-29/ against
 #      every value and set status: verified.
 #
-#   2. THE FY2027 STATEWIDE ADJUSTMENT is not yet published by the Department of
-#      Taxes. `tax.statewide_adjustment` stays unverified with no point value,
-#      but carries a 0.7-0.8 range whose central estimate (0.75) the engine uses
-#      to compute the homestead tax rate, alongside the min/max the range
-#      implies. Every figure that rests on it is labeled `estimated (from range)`
-#      in the tool, not presented as the published number. Give it a verified
-#      value when the Department publishes one.
+#   2. THE FY2027 STATEWIDE ADJUSTMENT is 0.7033, read from the Department of
+#      Taxes' FY2027 Education Property Tax Rates table (2026-07-29), on file at
+#      intake/tax-rates/fy2027/. It replaced a 0.7-0.8 estimating range and
+#      awaits countersignature like the rest of the file.
 #
 # The Act 73 contingency that once blocked FY2027 has been resolved: the
 # maintainer determined it did NOT fire, so the pre-repeal prekindergarten
@@ -43,10 +40,9 @@ note: >-
   Values read from current statute text snapshotted in model/statute/2026-07-29/,
   partially countersigned by hand. Weighted membership computes: the Act 73
   contingency did not fire, so the pre-repeal prekindergarten weight governs
-  FY2027. The homestead tax rate is computed as an estimate -- the FY2027
-  statewide adjustment is unpublished, so tax.statewide_adjustment stays null and
-  unverified and the engine uses its 0.7-0.8 range (central 0.75), showing the
-  implied min/max. The post-2028 foundation formula is modeled as contingent bands.
+  FY2027. The statewide adjustment is the Department of Taxes' published 0.7033
+  (FY2027 rate table, 2026-07-29). The post-2028 foundation formula is modeled as
+  contingent bands.
 
 # Published determinations the formula consumes, kept separate from the
 # statutory parameters below. The what-if tool offers the value of any entry
@@ -501,30 +497,25 @@ parameters:
       verified_by: James Nadeau
 
   tax.statewide_adjustment:
-    value: null
+    value: 0.7033
     unit: ratio
     description: ratio of the aggregate education property tax grand list to the aggregate equalized education property tax grand list
     applies_to: every municipality
-    range:
-      low: 0.7
-      high: 0.8
-      central: 0.75
-      basis: >-
-        The FY2027 statewide adjustment has not been published by the Department
-        of Taxes. The FY2026 ratio is 0.7033, so 0.7-0.8 brackets the plausible
-        FY2027 value pending the published number.
     citation:
       statute: "32 V.S.A. § 5401(17)"
       session_law: null
-      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05401"
+      source_url: "https://tax.vermont.gov/document/fy2027-education-property-tax-rates"
       quote: >-
         "Statewide adjustment" means the ratio of the aggregate education property
         tax grand list of all municipalities to the aggregate value of the equalized
-        education property tax grand list of all municipalities. Determined annually
-        by the Department of Taxes; not yet published for FY2027.
-      verified: false
-      verified_date: null
-      verified_by: null
+        education property tax grand list of all municipalities. The FY2027 figure
+        is the "SA" column of the Department of Taxes' FY2027 Education Property Tax
+        Rates table dated 2026-07-29, 0.7033 on every one of its 260 town rows; the
+        table is on file at intake/tax-rates/fy2027/FY27EdTaxRates_072926.xlsx. Its
+        State Rate column, 1.643 on every row, matches tax.nonhomestead_base_rate.
+      verified: true
+      verified_date: "2026-11-27"
+      verified_by: "automated retrieval from tax.vermont.gov; artifact in intake/tax-rates/fy2027/; awaiting human countersignature"
 
   # --- Act 127 tax rate transition (2024 Acts No. 84, Sec. 3) -----------------
   # Uncodified session law, so the citation is the act. The per-district FY2025

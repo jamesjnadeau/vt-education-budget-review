@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import registry from '../../generated/registry.json';
 import coverage from '../../generated/coverage.json';
-import { slugTail, titleCase } from '../../lib/display';
+import { isOutOfState, slugTail, titleCase } from '../../lib/display';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -22,7 +22,7 @@ const sus = entities
 const districtCount = (slug: string) =>
   entities.filter((e) => e.type === 'ud' && e.supervisory_union === slug).length;
 const townCount = (slug: string) =>
-  entities.filter((e) => e.type === 'town' && e.supervisory_union === slug).length;
+  entities.filter((e) => e.type === 'town' && !isOutOfState(e) && e.supervisory_union === slug).length;
 
 const held = new Map<string, number>();
 for (const cell of coverage.cells as Array<{ entity: string; state: string }>) {

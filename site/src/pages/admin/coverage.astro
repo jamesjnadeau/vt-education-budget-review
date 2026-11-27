@@ -90,7 +90,7 @@ const LABEL: Record<Cell['state'], string> = {
                   cell.state === 'intake_only'
                     ? 'enter it'
                     : cell.state === 'missing'
-                      ? 'send in'
+                      ? 'we have not collected it yet'
                       : LABEL[cell.state];
                 return (
                   <td>

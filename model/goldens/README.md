@@ -53,8 +53,8 @@ AOE's worksheet, 86 of 97 now reproduce. The 11 that do not are listed with like
 Two smaller findings from the same join, both already acted on:
 
 - `tax.statewide_adjustment` in `../parameters/fy2026.yaml` was 0.703, the FY2027 figure. The
-  FY2026 table prints 0.7236 on every row. Corrected, cited to the table, awaiting
-  countersignature.
+  FY2026 table prints 0.7236 on every row. Corrected, cited to the table, and countersigned
+  with the rest of FY2026 on 2026-11-25.
 - The Tax Department rounds CLA ÷ SA to four places before dividing. Dividing by the unrounded
   quotient reproduces only 150 of 260 published homestead rates to the fourth place; dividing
   by the rounded column reproduces all 260. The engine divides unrounded, so the fixtures allow

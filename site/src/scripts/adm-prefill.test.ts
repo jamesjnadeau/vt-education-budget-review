@@ -3,11 +3,14 @@
  * year and the parameter-mode selector in step.
  */
 
+import { existsSync, readFileSync } from 'node:fs';
+
 import { describe, expect, it } from 'vitest';
 
 import {
   act84Fill,
   bandFill,
+  blockedBandsText,
   pairText,
   pickerGroups,
   planAdmPrefill,
@@ -15,6 +18,7 @@ import {
   SOURCE_NOTE,
   spendingFill,
   spendingSuggestion,
+  weightedAdmComparison,
   type PrefillRow,
 } from './adm-prefill.ts';
 
@@ -265,6 +269,92 @@ describe('act84Fill', () => {
     expect(act84Fill({ value: 0.09, listed_as: 'Harwood USD' }, false, 2030)).toEqual({
       value: '',
       note: 'does not apply in FY2030',
+    });
+  });
+});
+
+describe('weightedAdmComparison', () => {
+  it('compares the engine to the AOE figure and names the gap', () => {
+    const r = weightedAdmComparison(1921.78, 2417.47);
+    expect(r.gapPercent).toBe(-20.5);
+    expect(r.text).toContain('2,417.47');
+    expect(r.text).toContain('1,921.78');
+    expect(r.text).toContain('They differ by 20.5%.');
+  });
+  it('says nothing about a gap when the two agree', () => {
+    const r = weightedAdmComparison(5683.51, 5683.51);
+    expect(r.text).toBe('AOE publishes 5,683.51. This page counts 5,683.51.');
+    expect(r.text).not.toContain('differ');
+  });
+  it('says so when AOE has not published a count', () => {
+    const r = weightedAdmComparison(100, null);
+    expect(r.text).toBe('AOE has not published a weighted count for this year.');
+    expect(r.gapPercent).toBeNull();
+  });
+  it('does not invent a count when the page has none yet', () => {
+    const r = weightedAdmComparison(null, 2417.47);
+    expect(r.gapPercent).toBeNull();
+    expect(r.text).toContain('2,417.47');
+    expect(r.text).not.toContain('NaN');
+  });
+});
+
+const RESOLVED = new URL('../generated/resolved-adm.json', import.meta.url);
+
+describe('blockedBandsText', () => {
+  const row: PrefillRow = {
+    prekindergarten: { value: null, source: 'withheld' },
+    kindergarten_through_5: { value: 140.68, source: 'aoe' },
+    grades_6_through_8: { value: null, source: 'withheld' },
+    grades_9_through_12: { value: 137.55, source: 'aoe' },
+  };
+
+  it('is null when no band is withheld', () => {
+    const whole: PrefillRow = { ...row, prekindergarten: { value: 3, source: 'aoe' }, grades_6_through_8: { value: 9, source: 'aoe' } };
+    expect(blockedBandsText(planAdmPrefill('x', '2026', { '2026': whole }, [2026]))).toBeNull();
+    expect(blockedBandsText({ kind: 'none' })).toBeNull();
+  });
+
+  it('names each withheld band and says what the reader can do', () => {
+    const text = blockedBandsText(planAdmPrefill('x', '2026', { '2026': row }, [2026]));
+    expect(text).toContain('prekindergarten');
+    expect(text).toContain('grades 6 through 8');
+    expect(text).not.toContain('grades 9 through 12');
+    expect(text).toContain('hides small counts');
+    expect(text).toContain('range');
+    expect(text).not.toContain(';');
+  });
+
+  it('names only the bands that are still blank, and hides when none are left', () => {
+    const plan = planAdmPrefill('x', '2026', { '2026': row, '2025': row }, [2026]);
+    const prekFilled = blockedBandsText(plan, new Set(['prekindergarten:1', 'prekindergarten:2']));
+    expect(prekFilled).not.toContain('prekindergarten');
+    expect(prekFilled).toContain('grades 6 through 8');
+    const all = new Set(['prekindergarten:1', 'prekindergarten:2', 'grades_6_through_8:1', 'grades_6_through_8:2']);
+    expect(blockedBandsText(plan, all)).toBeNull();
+  });
+
+  it('keeps a band named while either year of it is still blank', () => {
+    const plan = planAdmPrefill('x', '2026', { '2026': row, '2025': row }, [2026]);
+    const text = blockedBandsText(plan, new Set(['prekindergarten:2']));
+    expect(text).toContain('prekindergarten');
+  });
+
+  it('only claims what a blank band does: the year count stays unknown', () => {
+    const text = blockedBandsText(planAdmPrefill('x', '2026', { '2026': row }, [2026])) ?? '';
+    expect(text).not.toContain('cannot be worked out');
+    expect(text).toContain('pupil count');
+  });
+
+  describe.skipIf(!existsSync(RESOLVED))('with the generated data', () => {
+    it('explains Champlain Valley #56 for FY2026', () => {
+      const data = JSON.parse(readFileSync(RESOLVED, 'utf8'));
+      const text = blockedBandsText(
+        planAdmPrefill('ud/champlain-valley-56', '2026', data.entities['ud/champlain-valley-56'], [2025, 2026]),
+      );
+      expect(text).toContain('prekindergarten');
+      expect(text).toContain('grades 6 through 8');
+      expect(text).toContain('hides small counts');
     });
   });
 });

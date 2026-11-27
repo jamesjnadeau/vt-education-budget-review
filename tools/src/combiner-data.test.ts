@@ -130,12 +130,18 @@ describe('buildCombinerData', () => {
     const data = buildCombinerData({
       ...fixture(),
       censusTowns: [
-        { entity: 'town/aa', land_area_sq_mi: 10, population: { decennial_2020: 500, pep_july1_2025: 520, acs_5yr: 480 } },
-        { entity: 'town/bb', land_area_sq_mi: null, population: {} },
+        {
+          entity: 'town/aa',
+          geoid: '5000100325',
+          land_area_sq_mi: 10,
+          population: { decennial_2020: 500, pep_july1_2025: 520, acs_5yr: 480 },
+          county: 'Addison',
+        },
+        { entity: 'town/bb', geoid: null, land_area_sq_mi: null, population: {}, county: null },
       ],
     });
-    expect(data.towns['town/aa']).toMatchObject({ land_area_sq_mi: 10, population_2020: 500, population_2025: 520 });
-    expect(data.towns['town/bb']).toMatchObject({ land_area_sq_mi: null, population_2020: null, population_2025: null });
+    expect(data.towns['town/aa']).toMatchObject({ land_area_sq_mi: 10, population_2020: 500, population_2025: 520, county: 'Addison' });
+    expect(data.towns['town/bb']).toMatchObject({ land_area_sq_mi: null, population_2020: null, population_2025: null, county: null });
     expect(data.towns['town/cc']!.land_area_sq_mi).toBeNull();
   });
 

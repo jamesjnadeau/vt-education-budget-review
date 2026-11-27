@@ -116,6 +116,28 @@
             ],
             "default": "other"
           },
+          "publisher": {
+            "type": ["string", "null"],
+            "description": "Who published the document, as a reader would cite it. The site reads this to print a source line.",
+            "default": null
+          },
+          "title": {
+            "type": ["string", "null"],
+            "description": "The published title of the document, as a reader would cite it.",
+            "default": null
+          },
+          "published_date": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "The date the publisher dated the document, which may differ from retrieved_date.",
+            "default": null
+          },
+          "document_page": {
+            "type": ["string", "null"],
+            "format": "uri",
+            "description": "The publisher's web page for the document, the link a reader can follow. Differs from source_url when that points straight at the file.",
+            "default": null
+          },
           "supersedes": {
             "type": ["string", "null"],
             "description": "Filename of an earlier artifact this one replaces, e.g. a revised budget book. The earlier file stays in the repo.",

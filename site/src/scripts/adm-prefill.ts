@@ -362,3 +362,58 @@ export function planAdmPrefill(
   }
   return { kind: 'fill', mode: String(fy), earlier: rows?.[String(fy - 1)], later: rows?.[year], spending: spending?.[year], spendingHistory: spending };
 }
+
+/**
+ * Why a picked district's result may be blocked: the grade bands the State
+ * hides to protect students. Looks at both years the page counts. `filled`
+ * holds "band:slot" keys (slot 1 earlier year, 2 later) the reader has since
+ * filled, so the note names only what is still blank. Null when nothing is
+ * left, so the screen shows no extra text.
+ */
+export function blockedBandsText(plan: PrefillPlan, filled: ReadonlySet<string> = new Set()): string | null {
+  if (plan.kind !== 'fill') return null;
+  const hidden = new Set<string>();
+  const slots: ReadonlyArray<readonly [string, PrefillRow | undefined]> = [
+    ['1', plan.earlier],
+    ['2', plan.later],
+  ];
+  for (const [slot, row] of slots) {
+    for (const [key, band] of Object.entries(row ?? {})) {
+      // A band the reader has since filled is no longer blank.
+      if (band.source === 'withheld' && !filled.has(`${key}:${slot}`)) hidden.add(key);
+    }
+  }
+  const names = Object.keys(BAND_NAME)
+    .filter((k) => hidden.has(k))
+    .map((k) => BAND_NAME[k]);
+  if (names.length === 0) return null;
+  const list = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
+  return (
+    `The State hides small counts to protect students, so these grade counts are blank: ${list}. ` +
+    `A blank leaves that year's pupil count unknown. ` +
+    `Use the range box under each one, or tick its suggestion, to fill it in.`
+  );
+}
+
+/**
+ * AOE's weighted long-term ADM for the district and year, beside the count this
+ * page builds. The gap is the page's count against AOE's, in percent, so a
+ * page that counts fewer pupils reads negative.
+ */
+export function weightedAdmComparison(
+  engine: number | null,
+  published: number | null,
+): { text: string; gapPercent: number | null } {
+  if (published === null) {
+    return { text: 'AOE has not published a weighted count for this year.', gapPercent: null };
+  }
+  if (engine === null) {
+    return { text: `AOE publishes ${adm(published)}. This page cannot count it yet.`, gapPercent: null };
+  }
+  const gapPercent = published === 0 ? null : Math.round(((engine - published) / published) * 1000) / 10;
+  let text = `AOE publishes ${adm(published)}. This page counts ${adm(engine)}.`;
+  if (gapPercent !== null && Math.abs(gapPercent) >= 0.5) {
+    text += ` They differ by ${Math.abs(gapPercent)}%.`;
+  }
+  return { text, gapPercent };
+}

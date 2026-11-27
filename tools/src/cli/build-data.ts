@@ -39,6 +39,7 @@ import { buildHomesteadComparison } from '../homestead-comparison.ts';
 import { walkFiles } from '../fs-walk.ts';
 import { PATHS, REPO_ROOT, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
+import { countyFromGeoid } from '../census/county.ts';
 import {
   buildSmallSparse,
   SMALL_SPARSE_PARAMETER_FILE,
@@ -62,11 +63,13 @@ function censusTownsForCombiner(): NonNullable<CombinerInputs['censusTowns']> {
     const rec = parseYaml(readFileSync(join(dir, f), 'utf8')) as {
       towns?: Array<{
         entity: string | null;
+        geoid?: string | null;
         land_area_sq_mi: number | null;
         population: Record<string, number | null>;
       }>;
     };
-    for (const t of rec.towns ?? []) if (t.entity) out.push(t);
+    for (const t of rec.towns ?? [])
+      if (t.entity) out.push({ ...t, county: countyFromGeoid(t.geoid ?? '') });
   }
   return out;
 }

@@ -2,10 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import parameters from '../../generated/parameters.json';
 import resolvedAdm from '../../generated/resolved-adm.json';
+import combiner from '../../generated/combiner.json';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const liveParameters = JSON.stringify(parameters);
 const resolvedAdmData = JSON.stringify(resolvedAdm);
+const combinerData = JSON.stringify(combiner);
 ---
 
 <Base
@@ -180,11 +182,15 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
         </div>
         <div class="field">
           <label for="econ">Students in families at or below 185% of the poverty line</label>
-          <input id="econ" type="number" min="0" step="0.01" value="40" />
+          <input id="econ" type="number" min="0" step="0.01" />
+        <small class="adm-source" data-input-note="econ"></small>
+        <label class="use-suggestion" data-use-suggestion="econ" hidden><input type="checkbox" /> <span></span></label>
         </div>
         <div class="field">
           <label for="el">Students learning English</label>
-          <input id="el" type="number" min="0" step="0.01" value="8" />
+          <input id="el" type="number" min="0" step="0.01" />
+        <small class="adm-source" data-input-note="el"></small>
+        <label class="use-suggestion" data-use-suggestion="el" hidden><input type="checkbox" /> <span></span></label>
         </div>
       </div>
     </fieldset>
@@ -199,7 +205,9 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       <div class="controls">
         <div class="field">
           <label for="density">Persons per square mile in the district</label>
-          <input id="density" type="number" min="0" step="0.1" value="30" />
+          <input id="density" type="number" min="0" step="0.1" />
+        <small class="adm-source" data-input-note="density"></small>
+        <label class="use-suggestion" data-use-suggestion="density" hidden><input type="checkbox" /> <span></span></label>
         </div>
         <div class="field">
           <label for="small-school-name">Small school name (optional)</label>
@@ -228,7 +236,10 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
       </div>
       <div class="field">
         <label for="cla">Common level of appraisal (how close town values are to real sale prices)</label>
-        <input id="cla" type="number" min="0.1" max="2" step="0.0001" value="0.8" />
+        <input id="cla" type="number" min="0.1" max="2" step="0.0001" />
+        <select id="cla-town" aria-label="Pick your town for its common level of appraisal" hidden></select>
+        <small class="adm-source" data-input-note="cla"></small>
+        <label class="use-suggestion" data-use-suggestion="cla" hidden><input type="checkbox" /> <span></span></label>
       </div>
     </div>
 
@@ -326,6 +337,7 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
   </div>
 
   <h2>Result</h2>
+  <p id="blocked-bands" class="notice" hidden></p>
   <div id="summary"></div>
   <div id="blockers"></div>
 
@@ -361,12 +373,17 @@ const resolvedAdmData = JSON.stringify(resolvedAdm);
   </p>
 </Base>
 
-<script define:vars={{ liveParameters, resolvedAdmData }}>
+<script define:vars={{ liveParameters, resolvedAdmData, combinerData }}>
   window.__VT_PARAMETERS__ = JSON.parse(liveParameters);
   window.__VT_RESOLVED_ADM__ = JSON.parse(resolvedAdmData);
+  window.__VT_COMBINER__ = JSON.parse(combinerData);
 </script>
 
 <script>
   import { initModelTool } from '../../scripts/model-tool';
-  initModelTool(window.__VT_PARAMETERS__ ?? [], window.__VT_RESOLVED_ADM__ ?? { entities: {} });
+  initModelTool(
+    window.__VT_PARAMETERS__ ?? [],
+    window.__VT_RESOLVED_ADM__ ?? { entities: {} },
+    window.__VT_COMBINER__ ?? { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] },
+  );
 </script>

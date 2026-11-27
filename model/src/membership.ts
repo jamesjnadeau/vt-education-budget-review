@@ -81,6 +81,10 @@ export interface MembershipInput {
   readonly english_learners: number | null;
   /** § 4010(b)(2): persons per square mile within the district's boundaries. */
   readonly persons_per_square_mile: number | null;
+  /** Counts that are stand-ins or suggestions, not reported figures, with how each was worked out. */
+  readonly estimates?: Readonly<
+    Partial<Record<'poverty_185_fpl' | 'english_learners' | 'persons_per_square_mile', string | InputEstimate>>
+  >;
   readonly small_schools: readonly SmallSchool[];
   /**
    * The district's actual weighted long-term membership in the previous year,
@@ -259,7 +263,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
         'Pupils whose family is at or below 185 percent of FPL',
         data.poverty_185_fpl,
         'pupils',
-        { source: data.source },
+        { source: data.source, estimate: data.estimates?.poverty_185_fpl },
       ),
       'weights.poverty_185_fpl',
       'pupils',
@@ -270,7 +274,10 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
     applyWeight(
       ctx,
       'Additional weighting for English learner pupils',
-      input(ctx, 'English learner pupils', data.english_learners, 'pupils', { source: data.source }),
+      input(ctx, 'English learner pupils', data.english_learners, 'pupils', {
+        source: data.source,
+        estimate: data.estimates?.english_learners,
+      }),
       'weights.english_learner',
       'pupils',
     ),
@@ -282,7 +289,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
     'Persons per square mile in the district',
     data.persons_per_square_mile,
     'count',
-    { source: data.source },
+    { source: data.source, estimate: data.estimates?.persons_per_square_mile },
   );
   const band = sparsityBand(data.persons_per_square_mile);
   if (band) {

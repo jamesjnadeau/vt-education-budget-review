@@ -1,0 +1,29 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2027
+artifacts:
+  - file: FY27EdTaxRates_072926.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/FY27EdTaxRates_072926.xlsx
+    retrieved_date: "2026-11-27"
+    retrieval_method: http-fetch
+    sha256: e231349108215e4b023dab1145bf80f24aee295f9c7282d4f5de1ea659640b35
+    bytes: 33194
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (automated fetch), for James Nadeau"
+    document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2027 Education Property Tax Rates
+    published_date: "2026-07-29"
+    document_page: https://tax.vermont.gov/document/fy2027-education-property-tax-rates
+    note: >-
+      Vermont Department of Taxes, "FY2027 Education Property Tax Rates", the
+      document page https://tax.vermont.gov/document/fy2027-education-property-tax-rates
+      dated Wednesday, July 29, 2026. Fetched with curl from the container (a
+      browser User-Agent was needed; the default one gets a 403). One sheet, 260
+      town rows. Columns: School Code, Town, CLA, SA, CLA ÷ SA, 2026 Reappraisal,
+      District Rate, Homestead Rate, State Rate, Nonhomestead Rate, Budget Status.
+      SA (the statewide adjustment, 32 V.S.A. § 5401(17)) is 0.7033 on every row;
+      State Rate (the nonhomestead rate before the CLA step) is 1.643 on every
+      row. Two rows have no homestead rate; "B" in Budget Status marks missing
+      education spending data. This is the published source for
+      tax.statewide_adjustment in model/parameters/fy2027.yaml.

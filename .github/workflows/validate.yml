@@ -68,6 +68,13 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Build data
+        # Must run before the tests: the generated-data suites (for example
+        # district-inputs and journey.real) skip themselves when
+        # site/src/generated/*.json is absent, so testing first would let
+        # them skip silently.
+        run: npm run build:data
+
       - name: Unit and golden tests
         run: npm test
 
@@ -80,9 +87,6 @@ jobs:
 
       - name: Parameter status
         run: npm run params -- --stale 400
-
-      - name: Build data
-        run: npm run build:data
 
       - name: Check site types
         # astro check runs `astro sync` internally to regenerate content types,

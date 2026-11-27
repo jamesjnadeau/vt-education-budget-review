@@ -1,0 +1,27 @@
+---
+/**
+ * The ordered walk of a journey ("your town → your school district → your
+ * supervisory union → your group"), with the current step marked. Works
+ * without JavaScript: a plain ordered list.
+ */
+import type { Step } from '../lib/journey.ts';
+
+interface Props {
+  steps: Step[];
+  current: Step['id'];
+}
+
+const { steps, current } = Astro.props;
+---
+
+<ol class="journey-progress">
+  {steps.map((s) => {
+    const isCurrent = s.id === current;
+    return (
+      <li class:list={['journey-progress-step', isCurrent ? 'journey-progress-step--current' : '']}>
+        <span class="journey-progress-label">{s.label}</span>
+        {isCurrent && <span class="journey-progress-mark" aria-label="you are here">you are here</span>}
+      </li>
+    );
+  })}
+</ol>

@@ -2,16 +2,21 @@ schema_version: "1.0"
 entity: su/mt-abraham
 priority: null
 sources:
-  - url: http://www.anesu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.mausd.org/apps/pages/index.jsp?uREC_ID=1684642&type=d&pREC_ID=1962560
+    kind: budget_page
+    document_pattern: "Per-year sections: annual report including proposed budget, 'Proposed Budget and Detail', flyer, presentation, final audit. All links are Google Drive."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-27
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale anesu.org source (old SU domain). The annual report PDF
+    (Drive) carries the AOE education-spending form and the line-item budget summary; extract with pdftotext -layout.
+    The 'Proposed Budget and Detail FY27' Drive link returns Page Not Found
+    (checked 2026-11-27); its content is also summarised in the annual report.
+    Vote results are posted as news items on mta.mausd.org.
 known_not_published: []
 contacts: []

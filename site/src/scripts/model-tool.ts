@@ -33,6 +33,7 @@ import {
   formatRange,
   formatValue,
   input,
+  isUnfilledInput,
   perWeightedPupil,
   toSteps,
   townRate,
@@ -51,15 +52,28 @@ import {
   act84Fill,
   bandFill,
   pickerGroups,
+  blockedBandsText,
   planAdmPrefill,
   spendingFill,
   type Act84Entry,
   type EntityLabel,
   type PrefillPair,
+  type PrefillPlan,
   type PrefillRange,
   type PrefillSpending,
+  weightedAdmComparison,
   type Suggestion,
 } from './adm-prefill.ts';
+import type { CombinerData } from './combiner-view.ts';
+import {
+  claSelectOptions,
+  districtInputEstimates,
+  emptyBoxCopy,
+  fieldAction,
+  planDistrictInputs,
+  type InputField,
+  type InputPlan,
+} from './district-inputs.ts';
 import { enteredYearTotal } from './entered-total.ts';
 import {
   LOWER_LIMIT_PARAM,
@@ -407,6 +421,9 @@ function blockerItem(b: Blocker, byKey: Map<string, Parameter>): HTMLElement {
   return li;
 }
 
+/** The plans for the district now loaded, so an empty box can say whether the source has a figure. */
+let districtPlans: Record<InputField, InputPlan> | null = null;
+
 function renderBlockers(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   if (root.blockers.length === 0) return;
@@ -498,16 +515,32 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     box.append(ul);
   }
 
-  if (missing.length > 0) {
+  // Only a blank input is a box on this form. A parameter with no value for the
+  // year, or a sum that could not be done, is missing too but has no box.
+  const emptyBoxes = missing.filter(isUnfilledInput);
+  const notOnFile = missing.filter((b) => !isUnfilledInput(b));
+
+  if (emptyBoxes.length > 0) {
     box.append(
       el(
         'p',
         undefined,
-        `${missing.length} figure(s) were not published by the source. These are facts about the documents, not about our progress.`,
+        `${emptyBoxes.length} box(es) are still empty. Fill them in, or tick a suggestion where one is offered.`,
       ),
     );
     const ul = el('ul');
-    for (const b of missing) ul.append(blockerItem(b, byKey));
+    for (const b of emptyBoxes) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${emptyBoxCopy(b.ref, districtPlans)}`));
+      ul.append(li);
+    }
+    box.append(ul);
+  }
+
+  if (notOnFile.length > 0) {
+    box.append(el('p', undefined, `${notOnFile.length} figure(s) the math needs could not be found or worked out.`));
+    const ul = el('ul');
+    for (const b of notOnFile) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
@@ -669,6 +702,7 @@ function applyScenario(scenario: Scenario): void {
 export function initModelTool(
   liveParameters: RawParameterSet[],
   resolvedAdmData: ResolvedAdmData = { entities: {} },
+  combinerData: CombinerData = { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] },
 ): void {
   const modeSelect = document.getElementById('parameter-mode') as HTMLSelectElement | null;
   const walkthrough = document.getElementById('walkthrough');
@@ -751,7 +785,29 @@ export function initModelTool(
   let scenarioSource: 'blank' | 'prefill' | 'shared_link' = 'blank';
   let resultViewedSent = false;
 
+  // AOE's weighted ADM for the district and year the reader loaded, or null
+  // when none is loaded or AOE has none. Set by applyAdmPrefill.
+  let aoeWeightedAdm: { loaded: boolean; published: number | null } = { loaded: false, published: null };
+
+  // The note above the result about hidden grade bands. It follows the form:
+  // it names only the bands whose boxes are still empty.
+  let admPlan: PrefillPlan = { kind: 'none' };
+  const refreshBlockedNote = (): void => {
+    const box = document.getElementById('blocked-bands');
+    if (!box) return;
+    const filled = new Set<string>();
+    for (const [band, prefix] of Object.entries(BAND_FIELD)) {
+      for (const slot of ['1', '2']) {
+        if (numberField(`${prefix}-${slot}`) !== null) filled.add(`${band}:${slot}`);
+      }
+    }
+    const text = blockedBandsText(admPlan, filled);
+    box.textContent = text ?? '';
+    box.hidden = text === null;
+  };
+
   const recompute = (): void => {
+    refreshBlockedNote();
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
 
@@ -800,6 +856,7 @@ export function initModelTool(
     const smallSchoolName = textField('small-school-name');
     const smallSchoolEnrollment = numberField('small-school-enrollment');
 
+    const districtEstimates = districtInputEstimates(estimates);
     const membership = computeWeightedMembership(ctx, {
       entity: 'ud/illustrative',
       adm_years: [
@@ -824,6 +881,7 @@ export function initModelTool(
       poverty_185_fpl: numberField('econ'),
       english_learners: numberField('el'),
       persons_per_square_mile: numberField('density'),
+      estimates: districtEstimates.membership,
       // Only consult last year's figure where the floor is in force; in other
       // years it plays no part and the field is hidden, so we do not read it.
       prior_year_weighted_membership: floorApplies ? numberField('prior-year-membership') : null,
@@ -851,6 +909,7 @@ export function initModelTool(
         town: 'your town',
         cla: numberField('cla'),
         cla_source: 'figure entered by you in this form',
+        cla_estimate: districtEstimates.cla,
       },
       // The Secretary of Education's statewide average determination, not a
       // figure the user is supposing about their own district. When the selected
@@ -891,6 +950,10 @@ export function initModelTool(
       dd.append(el('span', `tag ${statusClass(node)}`, statusLabel(node)));
       const factBand = formatRange(node.range, node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
+      if (node === membership.total && aoeWeightedAdm.loaded) {
+        const compare = weightedAdmComparison(node.value, aoeWeightedAdm.published);
+        dd.append(el('small', 'adm-source', ` ${compare.text}`));
+      }
       dl.append(dd);
     }
     summary.append(dl);
@@ -944,7 +1007,8 @@ export function initModelTool(
   const loadStatus = document.getElementById('load-status');
   const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
   const userEditedAdm = new Set<string>();
-  for (const id of [...admFieldIds, 'spending', 'act84-decrease']) {
+  const DISTRICT_INPUT_IDS: readonly InputField[] = ['econ', 'el', 'density', 'cla'];
+  for (const id of [...admFieldIds, 'spending', 'act84-decrease', ...DISTRICT_INPUT_IDS]) {
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
 
@@ -967,7 +1031,7 @@ export function initModelTool(
     const text = box.querySelector('span');
     if (text) text.textContent = use?.label ?? '';
   };
-  for (const id of [...admFieldIds, 'spending']) {
+  for (const id of [...admFieldIds, 'spending', ...DISTRICT_INPUT_IDS]) {
     const field = document.getElementById(id) as HTMLInputElement | null;
     const check = suggestionBox(id)?.querySelector('input');
     if (!field || !check) continue;
@@ -994,6 +1058,63 @@ export function initModelTool(
     });
   }
   const spendingByEntity = resolvedAdmData.spending ?? {};
+
+  // The four inputs that used to keep demo values. Each is blank until the
+  // district's own figure is suggested, a town is picked, or the reader types.
+  // A field the reader has typed into is never touched (see fieldAction).
+  const claTown = document.getElementById('cla-town') as HTMLSelectElement | null;
+  claTown?.addEventListener('change', () => {
+    const field = document.getElementById('cla') as HTMLInputElement | null;
+    if (!field) return;
+    field.value = claTown.value;
+    estimates.delete('cla');
+    recompute();
+  });
+  const applyDistrictInputs = (entity: string): void => {
+    const plans = planDistrictInputs(entity, combinerData);
+    districtPlans = plans;
+    for (const id of DISTRICT_INPUT_IDS) {
+      const action = fieldAction(plans[id], userEditedAdm.has(id));
+      const field = document.getElementById(id) as HTMLInputElement | null;
+      const note = document.querySelector<HTMLElement>(`[data-input-note="${id}"]`);
+      if (!field) continue;
+      if (action.kind === 'keep') {
+        // The reader's number stays. The last district's suggestion and note go.
+        setSuggestion(id, undefined);
+        if (note) note.textContent = '';
+        if (id === 'cla' && claTown) {
+          claTown.replaceChildren();
+          claTown.hidden = true;
+        }
+        continue;
+      }
+      field.value = '';
+      setSuggestion(id, undefined);
+      if (id === 'cla' && claTown) {
+        claTown.replaceChildren();
+        claTown.hidden = true;
+      }
+      if (action.kind === 'suggest') {
+        setSuggestion(id, { value: action.value, label: `Use this number (${action.value})`, estimate: action.note });
+        if (action.tick) {
+          field.value = String(action.value);
+          estimates.set(id, { how: action.note });
+          const check = suggestionBox(id)?.querySelector('input');
+          if (check) check.checked = true;
+        }
+        if (note) note.textContent = action.note;
+      } else if (action.kind === 'choose') {
+        if (claTown) {
+          for (const o of claSelectOptions(plans[id])) claTown.append(new Option(o.text, o.value));
+          claTown.value = '';
+          claTown.hidden = false;
+        }
+        if (note) note.textContent = action.note;
+      } else if (note) {
+        note.textContent = action.reason;
+      }
+    }
+  };
   const labels = resolvedAdmData.labels ?? {};
 
   // The spending field, like the grade counts: a value the user typed is kept.
@@ -1075,7 +1196,11 @@ export function initModelTool(
       spendingByEntity[entity],
     );
     if (loadStatus) loadStatus.textContent = plan.kind === 'no-parameters' ? plan.message : '';
-    if (plan.kind !== 'fill') return;
+    admPlan = plan;
+    if (plan.kind !== 'fill') {
+      refreshBlockedNote();
+      return;
+    }
     if (modeSelect && modeSelect.value !== plan.mode) {
       modeSelect.value = plan.mode;
       applyStatewidePrefill();
@@ -1084,6 +1209,12 @@ export function initModelTool(
     fillBandRow(plan.later, '2');
     fillSpending(plan.spending, plan.spendingHistory, Number(plan.mode));
     fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
+    applyDistrictInputs(entity);
+    const aoeRow = plan.spending;
+    aoeWeightedAdm = {
+      loaded: true,
+      published: aoeRow && aoeRow.pupil_measure === 'long_term_weighted_adm' ? aoeRow.pupils : null,
+    };
     scenarioSource = 'prefill';
     recompute();
     capture('district_prefill_applied', { fiscal_year: Number(plan.mode) });

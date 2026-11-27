@@ -1,0 +1,36 @@
+---
+/**
+ * One quiet line saying where a figure comes from. The document title is a
+ * link to the publisher's page. The wording comes from sourceText so the
+ * tested text and the page text cannot drift apart.
+ */
+import { sourceText, type Source } from '../lib/sources.ts';
+
+interface Props {
+  source: Source;
+  label?: string;
+}
+
+const { source, label } = Astro.props;
+const text = sourceText(source, label);
+const title = `“${source.document}”`;
+const at = text.indexOf(title);
+const before = text.slice(0, at);
+const after = text.slice(at + title.length);
+---
+
+{
+  at < 0 ? (
+    <p class="source-line">{text}</p>
+  ) : (
+    <p class="source-line">{before}<a href={source.url}>{title}</a>{after}</p>
+  )
+}
+
+<style>
+  .source-line {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 1.25rem;
+  }
+</style>

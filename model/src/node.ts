@@ -364,6 +364,19 @@ export interface InputEstimate {
   readonly lowerLimit?: boolean;
 }
 
+function notPublishedDetail(label: string): string {
+  return `${label} was not published in the source document.`;
+}
+
+/**
+ * True when the blocker is a blank `input()`, the only kind of missing input
+ * that the what-if tool shows as a box. A parameter with no value for the year,
+ * or a non-finite result, is also `missing_input` but has no box to fill in.
+ */
+export function isUnfilledInput(b: Blocker): boolean {
+  return b.kind === 'missing_input' && b.detail === notPublishedDetail(b.ref);
+}
+
 /** A datum from the warehouse, an enrichment join, or the user's scenario. */
 export function input(
   ctx: EngineContext,
@@ -381,7 +394,7 @@ export function input(
           {
             kind: 'missing_input',
             ref: label,
-            detail: `${label} was not published in the source document.`,
+            detail: notPublishedDetail(label),
           },
         ]
       : lowerLimit

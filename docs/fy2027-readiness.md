@@ -12,29 +12,24 @@ claim about the world, the same standard the parameter files hold themselves to.
 
 ## Hard blockers — the engine computes nothing for FY2027 until these close
 
-- [ ] **Resolve the Act 73 contingency and set the prekindergarten weight.**
-  `weights.grade.prekindergarten` in [`model/parameters/fy2027.yaml`](../model/parameters/fy2027.yaml)
-  is `null` because 16 V.S.A. § 4010(d)(1) has a version repealing it "effective July 1,
-  2026 if contingency met" — a date inside FY2027. The answer is in the text of 2025
-  Acts and Resolves No. 73 itself, not the codified section. Until it is read, the engine
-  declines to produce weighted membership for **every** district. See
-  [`docs/parameter-verification.md`](parameter-verification.md).
+- [x] **Resolve the Act 73 contingency and set the prekindergarten weight.** Done: the
+  maintainer determined the contingency did not fire, so the pre-repeal weight
+  (16 V.S.A. § 4010(d)(1)(A), negative 0.54) governs FY2027 and is verified in
+  [`model/parameters/fy2027.yaml`](../model/parameters/fy2027.yaml).
 
 - [ ] **Countersign the FY2027 parameter file.** [`model/parameters/fy2027.yaml`](../model/parameters/fy2027.yaml)
-  is `status: draft`. Its 17 populated values were read and transcribed by automation
-  from the snapshot in `model/statute/2026-07-29/`; a person must read the snapshot
-  against the file, then set `status: verified`. The parser refuses `verified` while any
-  entry is still unverified.
+  is `status: draft`. All 27 entries are verified against a snapshot in
+  `model/statute/` or a published table in `intake/`; some are countersigned by hand and
+  the rest read "awaiting human countersignature". A person must read the sources
+  against the file, then set `status: verified`. This is the one remaining hard blocker.
 
-- [ ] **`yield.property_dollar_equivalent`** — set by the FY2027 yield act; `null` until
-  the act passes. Never carry a prior year forward.
-  [`fy2027.yaml`](../model/parameters/fy2027.yaml)
+- [x] **`yield.property_dollar_equivalent`** — $9,401 from the FY2027 yield act, verified.
 
-- [ ] **`yield.income_dollar_equivalent`** — same; set by the FY2027 yield act.
-  [`fy2027.yaml`](../model/parameters/fy2027.yaml)
+- [x] **`yield.income_dollar_equivalent`** — $12,960 from the FY2027 yield act, verified.
 
-- [ ] **`tax.statewide_adjustment`** — published annually by the Department of Taxes; not
-  yet published for FY2027. [`fy2027.yaml`](../model/parameters/fy2027.yaml)
+- [x] **`tax.statewide_adjustment`** — 0.7033, from the Department of Taxes' FY2027 rate
+  table dated 2026-07-29, on file at `intake/tax-rates/fy2027/` (entered 2026-11-27,
+  awaiting countersignature).
 
 - [ ] **`foundation.base_amount`** — contingent on Act 73. The $6,800.00 statutory base
   is fixed, but the FY2027 amount depends on a published price index not yet applied.
@@ -127,6 +122,6 @@ claim about the world, the same standard the parameter files hold themselves to.
 
 ---
 
-The three true gates are the **Act 73 contingency**, the **human countersignature**, and
-the **FY2027 yield-act figures**. None of the per-district numbers render until those
-close; the groupings are what make the merge/close scenarios work on top of them.
+The Act 73 contingency, the yield-act figures and the statewide adjustment are closed. The
+remaining gate is the **human countersignature** of `fy2027.yaml`. None of the per-district
+numbers render as published figures until it closes; the groupings are what make the merge/close scenarios work on top of them.
