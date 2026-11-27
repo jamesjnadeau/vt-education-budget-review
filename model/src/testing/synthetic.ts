@@ -111,13 +111,12 @@ export function syntheticParameters(options: SyntheticOptions = {}): ParameterSe
     }),
 
     // --- small / sparse -----------------------------------------------------
-    // The real file is all nulls and will stay that way until someone reads the
+    // The real file now holds verified values, but fixtures own their own numbers.
     // enacted acts, so the screens cannot be exercised against it at all. These
-    // stand in for that arithmetic and are, again, NOT Vermont's figures: 100
-    // and 55 happen to be the numbers the secondary sources report, and they are
-    // here because round boundary arithmetic is easy to check by hand, not
-    // because anyone has read them in a statute.
-    p('statutory.screens.small_enrollment.threshold', 100, 'students', 'the small school enrollment threshold'),
+    // stand in for that arithmetic. 12 and 55 happen to match 16 V.S.A. § 4019
+    // as added by Act 170, but fixtures own their numbers so a statutory change
+    // does not silently rewrite a hand-computed expectation.
+    p('statutory.screens.small_enrollment.threshold', 12, 'students', 'the small school average grade size threshold'),
     p('statutory.screens.small_enrollment.comparator', 'lt', 'enum', 'the small school comparator'),
     p('statutory.screens.sparse_density.threshold', 55, 'persons_per_square_mile', 'the sparse density threshold'),
     p('statutory.screens.sparse_density.comparator', 'lt', 'enum', 'the sparse density comparator'),

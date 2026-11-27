@@ -2,16 +2,24 @@ schema_version: "1.0"
 entity: su/addison-northwest
 priority: null
 sources:
-  - url: http://www.anwsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.anwsd.org/budget2
+    kind: budget_page
+    document_pattern: "Annual Reports (Issuu, FY18-FY27) and Budget (Drive, FY18-FY26) lists; presentations at /budget2/budget-presentations."
     link_selector: null
-    last_checked: 2026-10-05
+    last_checked: 2026-11-27
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale anwsu.org source (old SU domain). The district is
+    Addison Northwest School District (Vergennes; towns Addison, Ferrisburgh,
+    Panton, Vergennes, Waltham). The FY27 annual report is on Issuu and is not
+    downloadable; per-page text is readable at
+    https://issuu.com/rd4?p=<N>&d=fy27_anwsd_annual_report&u=anwsd (pages 31-36
+    and several others are image-only). Certified election results are hosted on
+    member-town sites (e.g. pantonvt.gov). The 'AMENDED Treasurer's Report' is
+    a scanned image (FY25 cash statement), needs OCR/vision.
 known_not_published: []
 contacts: []

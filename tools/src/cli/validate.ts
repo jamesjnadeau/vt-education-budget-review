@@ -297,6 +297,12 @@ function main(): number {
       continue;
     }
 
+    if (relative.startsWith('warehouse/aoe-adm-subgroups-su/')) {
+      findings.push(...schemaFindings('adm-subgroups-su', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
     if (relative.startsWith('warehouse/aoe-adm-subgroups/')) {
       findings.push(...schemaFindings('adm-subgroups', data, file));
       findings.push(...checkRegistryRefs(data, file, registry));
@@ -309,10 +315,25 @@ function main(): number {
       continue;
     }
 
+    if (relative.startsWith('warehouse/aoe-act84/')) {
+      findings.push(...schemaFindings('act84', data, file));
+      findings.push(...checkRegistryRefs(data, file, registry));
+      continue;
+    }
+
     if (relative.startsWith('warehouse/census/')) {
       findings.push(...schemaFindings('census-town', data, file));
       findings.push(...checkRegistryRefs(data, file, registry));
       findings.push(...checkLandAreaOnly(data, file));
+      continue;
+    }
+
+    if (relative.startsWith('warehouse/tax-rates/')) {
+      // The Tax Department's per-town rate and CLA table, written by
+      // `npm run tax-rates:import`. It is not a budget record and has no schema
+      // of its own yet; build-data reads it outside the budget list too.
+      // Validating it as a budget would report every budget field as missing
+      // from a file that never claimed to be one.
       continue;
     }
 

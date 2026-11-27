@@ -1,0 +1,94 @@
+---
+/**
+ * The prominent "what's next" link at the foot of a journey step.
+ *
+ * This is the reader's only way forward in the walk, so it earns more than a
+ * plain text link: a solid card, pushed to the right of the page, with the
+ * destination named twice — in a lead-in ("Up next") and in big type — plus a
+ * plain hint at what that step will show.
+ */
+import type { Step } from '../lib/journey.ts';
+
+interface Props {
+  next: Step;
+  base: string;
+}
+
+const { next, base } = Astro.props;
+
+const hints: Record<Step['id'], string> = {
+  town: 'Back to your town and the three headline figures.',
+  district: 'See the towns that share this school district’s budget.',
+  union: 'See the nearby school districts that run their schools together.',
+  grouping: 'See the group this district sits in for the Act 170 study.',
+};
+---
+
+<div class="journey-next">
+  <a class="journey-next-card" href={`${base}${next.href}`}>
+    <span class="journey-next-eyebrow">Up next</span>
+    <span class="journey-next-dest">{next.label}</span>
+    <span class="journey-next-hint">{hints[next.id]}</span>
+    <span class="journey-next-arrow" aria-hidden="true">→</span>
+  </a>
+</div>
+
+<style>
+  .journey-next {
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem 0 0.25rem;
+  }
+  .journey-next-card {
+    display: block;
+    max-width: 34rem;
+    background: var(--accent);
+    color: var(--accent-text);
+    text-decoration: none;
+    padding: 1.1rem 1.4rem;
+    border-left: 6px solid var(--gold);
+    position: relative;
+  }
+  .journey-next-card:hover {
+    background: var(--accent-dark);
+  }
+  .journey-next-card:hover .journey-next-arrow {
+    transform: translateX(4px);
+  }
+  .journey-next-eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .journey-next-dest {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .journey-next-hint {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 30rem;
+  }
+  .journey-next-arrow {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.6rem;
+    color: var(--gold);
+    transition: transform 0.15s ease;
+  }
+  /* Keep a little room so the arrow never overlaps the hint text. */
+  .journey-next-card {
+    padding-right: 3.2rem;
+  }
+</style>

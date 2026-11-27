@@ -1,0 +1,48 @@
+schema_version: "1.0"
+entity: source/vt-legislature
+# Act 170 Sec. 29 re-enacts 16 V.S.A. § 4019, contingently effective 2029-07-01.
+fiscal_year: 2030
+artifacts:
+  - file: ACT170 As Enacted.pdf
+    source_url: https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT170/ACT170%20As%20Enacted.pdf
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: d3f70eb8c88506f030d5b5d2069d126ef6643baabacb788ac562c3c295322925
+    bytes: 544305
+    media_type: application/pdf
+    retrieved_by: "Claude Code session (curl, system trust store), for James Nadeau"
+    document_type: other
+    note: >-
+      2026 Acts and Resolves No. 170 (H.955), as enacted, 152 pages. The citation of
+      record for the small and sparse school grants: Sec. 26 (State Board rulemaking
+      due 2027-03-31), Sec. 28 (repeals 2025 Act 73 Sec. 37), Sec. 29 (adds 16 V.S.A.
+      § 4019), Sec. 86(6) (Sec. 29 effective 2029-07-01 if the Act 73 Sec. 70(f)(1)
+      conditions, as amended, are met). The .txt beside it is pdftotext -layout output,
+      kept for grepping; the PDF is the record.
+  - file: H.955-Fiscal-Note_As-Enacted-ID-406213.pdf
+    source_url: https://ljfo.vermont.gov/assets/Publications/2025-2026-House-Bills/H.955-Fiscal-Note_As-Enacted-ID-406213.pdf
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: c2dacd3acbdec692d3bb389508429a400b2046c881ed3d8ecd5e1d16f0e764c5
+    bytes: 457840
+    media_type: application/pdf
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: other
+    note: >-
+      Joint Fiscal Office fiscal note on H.955 as enacted. A secondary source: a summary
+      of the Act, not the Act. Useful as a cross-check (Sections 26, 28-29 and Appendix 1
+      on effective dates agree with the enacted text) and never as a citation.
+  - file: 04019.html
+    source_url: https://legislature.vermont.gov/statutes/section/16/133/04019
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 171d5960334c6e3b2dd7b44803174605c7171aef20d78fb8a087052add73ff56
+    bytes: 62860
+    media_type: text/html
+    retrieved_by: "Claude Code session (curl, system trust store), for James Nadeau"
+    document_type: other
+    note: >-
+      Vermont Statutes Online page for 16 V.S.A. § 4019, titled "[Effective July 1, 2029
+      if contingency met]". Raw HTML as served. The codified text matches Act 170 Sec. 29
+      word for word on the definitions, both grant formulas and the inflation clause.
+      Statutes Online is a convenience copy; where the two ever differ the Act governs.

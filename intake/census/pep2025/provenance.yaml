@@ -1,0 +1,17 @@
+schema_version: "1.0"
+kind: sourced
+entity: source/us-census-bureau
+fiscal_year: 2025
+artifacts:
+  - file: sub-est2025_50.csv
+    source_url: https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/cities/totals/sub-est2025_50.csv
+    retrieved_date: 2026-11-22
+    retrieval_method: http-fetch
+    sha256: 6fd0390ec883eb2eaf94340b03939918f1775c8d0f67dda844b9728a643f727a
+    bytes: 38420
+    media_type: text/csv
+    retrieved_by: npm run census:import
+    document_type: spreadsheet
+    note: Census Population Estimates Program, county subdivisions, Vintage 2025.
+      POPESTIMATE2025 is the July 1, 2025 estimate, the reference date §
+      4019(a)(4) names. Only SUMLEV 061 rows (towns) are used.

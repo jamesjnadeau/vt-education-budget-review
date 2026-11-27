@@ -180,14 +180,17 @@ const counts = registry.counts as Record<string, number>;
             <strong>
               {set.unverified_count} of {set.parameters.length} numbers are unchecked
             </strong>
-            <p>
-              No number below has been checked against the current law, so the engine won't do any
-              math with them. The official sources — the Legislature's laws website and the Agency
-              of Education — could not be reached when this file was written, and filling the numbers
-              in from memory or a copy would be the exact mistake this site exists to avoid.
-              Vermont's school funding laws were changed by Act 127 of 2022 and Act 73 of 2025, so a
-              number from memory is very likely an out-of-date one.
-            </p>
+            <details class="notice-more">
+              <summary>show more information</summary>
+              <p>
+                The engine won't do any math with a number nobody has checked against the current law.
+                Some of these are waiting for a person to read them against the law. Others depend on a
+                figure the state has not published yet, or on a law that is not settled. Filling them in
+                from memory or a copy would be the very mistake this site exists to avoid. Vermont's school
+                funding laws were changed by Act 127 of 2022 and Act 73 of 2025, so a number from memory is
+                very likely out of date.
+              </p>
+            </details>
           </div>
         )}
         <div class="scroll-x">
@@ -258,7 +261,7 @@ const counts = registry.counts as Record<string, number>;
   </p>
   <p>
     One point matters more than any number here: with one statewide rate, a district's own budget
-    no longer sets its own tax rate. That is a different cause-and-effect than today's system, not
+    no longer decides its own tax rate. That is a different cause-and-effect than today's system, not
     just different math, and the tool says so wherever it applies.
   </p>
 

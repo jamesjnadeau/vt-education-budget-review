@@ -42,7 +42,23 @@
           "enum": ["announced_provisional", "final"],
           "description": "`announced_provisional` means the new committees are out for comment and can still move. Only `final` may be presented as the answer to \"which districts am I grouped with?\"."
         },
-        "as_of": { "type": "string", "format": "date" },
+        "as_of": {
+          "type": "string",
+          "format": "date",
+          "description": "The date the facilitators first announced the regrouping."
+        },
+        "finalized_date": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "The date the facilitators declared the committee list final. Null while it is provisional.",
+          "default": null
+        },
+        "roster_as_of": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "The date of the published list transcribed in `committees`. A final list can still be updated later; this says which edition the roster is.",
+          "default": null
+        },
         "committee_count": { "type": ["integer", "null"], "minimum": 1, "default": null },
         "district_count": { "type": ["integer", "null"], "minimum": 1, "default": null },
         "requests_granted": {
@@ -61,7 +77,7 @@
         },
         "roster_published": {
           "type": "boolean",
-          "description": "True only once the full committee-by-committee membership has been obtained and transcribed here. While it is false, the new committees are known to exist and their membership is NOT known -- which the site has to say plainly, rather than showing the act's groupings as though they still held."
+          "description": "True only once the full committee-by-committee membership has been obtained and transcribed into `committees`. While it is false, the new committees are known to exist and their membership is NOT known -- which the site has to say plainly, rather than showing the act's groupings as though they still held."
         },
         "sources": {
           "type": "array",
@@ -73,6 +89,12 @@
           "type": "array",
           "description": "Every single-district move there is a source for. This is not the whole change -- see roster_published. An empty array with roster_published false means we know the groupings moved and know none of the specifics.",
           "items": { "$ref": "#/$defs/known_change" }
+        },
+        "committees": {
+          "type": "array",
+          "description": "The facilitators' committees, transcribed from their own published list. Empty until that list is obtained. Each committee keeps the act group number the facilitators kept for it; an act group with no committee here was dissolved and its districts reassigned. Which districts moved is read off by comparing these with `groupings` -- it is not recorded twice.",
+          "items": { "$ref": "#/$defs/committee" },
+          "default": []
         },
         "note": { "type": ["string", "null"], "default": null }
       }
@@ -121,6 +143,68 @@
     }
   },
   "$defs": {
+    "committee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["number", "slug", "name", "name_as_written", "roster", "verified"],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The act group number the facilitators kept for this committee (they write it out, e.g. \"Group Seventeen\"). Shares the /groupings/<n>/ URL with the act group of the same number."
+        },
+        "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+        "name": { "type": "string", "minLength": 1 },
+        "name_as_written": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The committee's name exactly as the source writes it."
+        },
+        "region": {
+          "type": ["string", "null"],
+          "description": "The facilitators' region, as written.",
+          "default": null
+        },
+        "adm_total_as_published": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "The committee's total two-year average ADM as the source prints it. Kept as printed, not recomputed.",
+          "default": null
+        },
+        "roster": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/committee_member" }
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "True only when a human has read this committee's roster off the source document."
+        },
+        "verified_date": { "type": ["string", "null"], "format": "date", "default": null },
+        "verified_by": { "type": ["string", "null"], "default": null },
+        "note": { "type": ["string", "null"], "default": null }
+      }
+    },
+    "committee_member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name_as_written", "maps_to", "kind"],
+      "description": "One line of a committee's published roster. One written name can stand for more than one registry record (a modified union district carried as A and B), so `maps_to` is a list.",
+      "properties": {
+        "name_as_written": { "type": "string", "minLength": 1 },
+        "maps_to": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "urn:vt-budget:schema:common:1.0#/$defs/entity_ref" }
+        },
+        "kind": {
+          "enum": ["district", "career_technical_center"],
+          "description": "Career and technical centers are listed on some committees but are not school districts: the source gives them no ADM, and they are left out of district budget totals."
+        },
+        "adm_as_published": { "type": ["integer", "null"], "minimum": 0, "default": null },
+        "note": { "type": ["string", "null"], "default": null }
+      }
+    },
     "reassignment_source": {
       "type": "object",
       "additionalProperties": false,
@@ -160,7 +244,7 @@
         "to_grouping": {
           "type": ["integer", "null"],
           "minimum": 1,
-          "description": "The act grouping number the district moved into, where one can be identified. The new committees are not publicly numbered, so this is the act's number for the group the reporting describes -- not a committee number. Null when it cannot be identified."
+          "description": "The act grouping number the district moved into, where one can be identified. The facilitators kept the act's numbers for their committees, so this is also the committee number. Null when it cannot be identified."
         },
         "to_grouping_as_reported": {
           "type": ["string", "null"],

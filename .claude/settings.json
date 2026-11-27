@@ -87,8 +87,6 @@
       "Bash(git clean:*)",
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
       "Bash(npm publish:*)",
       "Bash(npm login:*)",
       "Read(/**/.env)",

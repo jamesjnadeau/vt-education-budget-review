@@ -7,7 +7,7 @@ why: |
   pass.
 
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:
@@ -28,7 +28,7 @@ options:
   enrollment_basis: two_year_average
 
 expected:
-  enrollment_value: null
+  average_grade_size: null
   small_screen_met: null
   density_value: 25
   sparse_screen_met: true

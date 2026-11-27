@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import coverage from '../../generated/coverage.json';
 import { slugTail, titleCase } from '../../lib/display';
+import { coverageHref } from '../../lib/coverage-link';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -14,8 +15,8 @@ interface Cell {
   intakeFiles: string[];
   lastKnownSource: string | null;
   intakeUrl: string | null;
+  formUrl: string | null;
   normalizeUrl: string | null;
-  flagUrl: string | null;
   notPublishedNote: string | null;
 }
 
@@ -84,14 +85,12 @@ const LABEL: Record<Cell['state'], string> = {
                 const cell = cellFor(entity.slug, year);
                 if (!cell) return <td />;
                 const title = `${titleCase(entity.name)} FY${year}: ${LABEL[cell.state]}`;
-                const href = cell.warehouseFile
-                  ? null
-                  : (cell.normalizeUrl ?? cell.intakeUrl ?? cell.flagUrl ?? null);
+                const href = coverageHref(cell);
                 const linkText =
                   cell.state === 'intake_only'
                     ? 'enter it'
                     : cell.state === 'missing'
-                      ? 'send in'
+                      ? 'we have not collected it yet'
                       : LABEL[cell.state];
                 return (
                   <td>
@@ -138,11 +137,14 @@ const LABEL: Record<Cell['state'], string> = {
     coverage.totals.missing === cells.length && (
       <div class="notice blocking">
         <strong>Everything is missing, and that is accurate</strong>
-        <p>
-          No budget documents have been collected yet. The system that would clean them up, check
-          them, and publish them is built and tested — what it lacks is documents. Each supervisory
-          union has a collector setup that records where to start looking.
-        </p>
+        <details class="notice-more">
+          <summary>show more information</summary>
+          <p>
+            No budget documents have been collected yet. The system that would clean them up, check
+            them, and publish them is built and tested — what it lacks is documents. Each supervisory
+            union has a collector setup that records where to start looking.
+          </p>
+        </details>
       </div>
     )
   }

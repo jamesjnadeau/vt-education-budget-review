@@ -1,15 +1,14 @@
 name: the growing school the two enrollment bases disagree about
 why: |
-  A school at 60 two years ago and 130 last year averages to 95 and meets the
-  screen; read on the latest year alone it is at 130 and does not. Same school,
-  same published figures, opposite answer -- decided entirely by which sentence
-  of Act 73 governs, which nobody has read.
-
-  This is the fixture to point at when explaining why the enrollment basis is a
-  user-visible choice with no default rather than an implementation detail.
+  A school at 40 two years ago and 110 last year averages to 75, an average
+  grade size of 10 across K-6's seven grades, and meets the screen; read on the
+  latest year alone it is 15 and does not. Same school, same published figures,
+  opposite answer, decided by which enrollment basis is used. Act 170 fixes the
+  two-year average, so this fixture shows what a single-year shortcut would get
+  wrong.
 
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:
@@ -18,7 +17,7 @@ school:
   municipality_basis: census_geocoder_point_in_polygon
 
 inputs:
-  enrollment_by_year: { 2028: 60, 2029: 130 }
+  enrollment_by_year: { 2028: 40, 2029: 110 }
   municipality:
     population: 1000
     land_area_sq_mi: 40
@@ -30,11 +29,11 @@ options:
   enrollment_basis: two_year_average
 
 expected:
-  enrollment_value: 95
+  average_grade_size: 10
   small_screen_met: true
   density_value: 25
   sparse_screen_met: true
   grant_amount: null
   under_single_year_basis:
-    enrollment_value: 130
+    average_grade_size: 15
     small_screen_met: false

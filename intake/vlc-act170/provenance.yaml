@@ -1,0 +1,73 @@
+schema_version: "1.0"
+entity: source/vlc-act170
+fiscal_year: 2027
+artifacts:
+  - file: New-Groupings-as-of-9-18-26.pdf
+    source_url: https://www.chestertelegraph.org/wp-content/uploads/2026/09/New-Groupings-as-of-9-18-26.pdf
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 7821e995d67fc5605d45337f42700c8f4cfa41a4fc96cb09f47774c362cbcbc8
+    bytes: 149743
+    media_type: application/pdf
+    retrieved_by: "automated fetch by a Claude subagent, at James Nadeau's request"
+    document_type: other
+    note: >-
+      Vermont Learning Collaborative press release of 2026-09-18, "Vermont
+      Learning Collaborative Shares Preliminary Act 170 Merger Committee
+      Groupings": the 18 preliminary merger study committees, each district's
+      latest two-year average ADM, and the Act 170 milestone dates. Four pages.
+      Hosted by The Chester Telegraph, not by the VLC; the file carries the VLC
+      letterhead on every page. Fiscal year 2027 is the school year the
+      committees were formed in. This is the PRELIMINARY list; it is
+      superseded by the 2026-09-25 final list and the 2026-11-12 update
+      below.
+  - file: VTLC-Act-170-Sept-25-Press-Release.pdf
+    source_url: "https://img1.wsimg.com/blobby/go/b7b25bf1-1b43-4027-a5c4-bba582a01a30/downloads/0d11ffb4-8e07-44c6-825b-b41ba4f03eec/VTLC%20Act%20170%20Sept%2025%20Press%20Release%20(1).pdf?ver=1794837880463"
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 195dba44888a8a1f8874471611688ce6503bbbfbf5c59892095a7e4bac16a78a
+    bytes: 196092
+    media_type: application/pdf
+    retrieved_by: "automated fetch by Claude, at James Nadeau's request"
+    document_type: other
+    supersedes: New-Groupings-as-of-9-18-26.pdf
+    note: >-
+      Vermont Learning Collaborative press release of 2026-09-25 announcing
+      the final Act 170 merger committee groupings, with the full list.
+      Seven pages. Linked from the VLC's own resources page
+      (https://vtlc.org/resources); the file is hosted on the site builder's
+      CDN (img1.wsimg.com). Against the 9/18 list it moves Ludlow-Mount Holly
+      from Group Seven to Group Three and corrects Group One's printed total
+      to 3,748.
+  - file: 11.12.26-Updated-Merger-Committee-Groups.pdf
+    source_url: "https://img1.wsimg.com/blobby/go/b7b25bf1-1b43-4027-a5c4-bba582a01a30/downloads/9648de9d-6f43-47d9-abbc-39ef84641bd8/11.12.26%20Updated%20Merger%20Commitee%20Groups%20.pdf?ver=1794837880463"
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 5d7f87dcd2ca1680d7738a287b7e26ad8dbccb6545f4397154c688e3667f4491
+    bytes: 78015
+    media_type: application/pdf
+    retrieved_by: "automated fetch by Claude, at James Nadeau's request"
+    document_type: other
+    supersedes: VTLC-Act-170-Sept-25-Press-Release.pdf
+    note: >-
+      Vermont Learning Collaborative updated merger committee list dated
+      2026-11-12 (PDF title "Merger Groups Public Release"). Five pages.
+      From https://vtlc.org/resources. This is the edition transcribed into
+      reassignment.committees. Against the 9/25 list it moves Sandgate from
+      Group Four to Group Three and Echo Valley from Group Nine to Group
+      Twenty.
+  - file: Nov2026-Merger-Committee-Groupings-Map.pdf
+    source_url: "https://img1.wsimg.com/blobby/go/b7b25bf1-1b43-4027-a5c4-bba582a01a30/downloads/1b680a9e-7ce8-46f5-8382-41c9a06740b6/Nov2026_UpdatedMergerCommitteeGroupings_202611.pdf?ver=1794837880463"
+    retrieved_date: "2026-11-22"
+    retrieval_method: http-fetch
+    sha256: 6757077c357694428ecfc655f719e87838119792bd83b9f36afe8609c820ce66
+    bytes: 5937475
+    media_type: application/pdf
+    retrieved_by: "automated fetch by Claude, at James Nadeau's request"
+    document_type: other
+    note: >-
+      Statewide map of the updated merger committee groupings, dated
+      2026-11-13, made with VCGI's ArcGIS. Image only, no text layer. Shows
+      some areas as "Unassigned" (around Vershire / West Fairlee / Fairlee
+      and Norwich) -- likely the interstate districts, not confirmed. Not
+      transcribed; kept for reference.

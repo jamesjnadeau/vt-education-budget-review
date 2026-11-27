@@ -1,0 +1,336 @@
+---
+import Base from '../../layouts/Base.astro';
+import combiner from '../../generated/combiner.json';
+import parameters from '../../generated/parameters.json';
+
+// Generated JSON is imported only here, never from a .ts file (see the note in
+// model-tool.ts), and handed to the island through two window globals.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const liveParameters = JSON.stringify(parameters);
+const combinerData = JSON.stringify(combiner);
+---
+
+<Base
+  title="Combine districts — Vermont School Budgets"
+  description="Pick two or more Vermont school districts, pool them into one, and see each town's home tax rate if they were combined, with every step of the math shown."
+>
+  <h1>Combine districts</h1>
+  <p class="lede">
+    Pick two or more school districts and treat them as one. See what each town's home tax rate
+    would be if they were combined, with every step of the math shown. To change one district's
+    numbers instead, use the <a href={`${base}/model/`}>What-if tool</a>.
+  </p>
+
+  <p>
+    Many Vermont districts already share a <strong>supervisory union</strong> (a group of school
+    districts that share one central office). This page goes further. It adds up the students and
+    the spending of the districts you pick, as if they were one district. Then it works out the tax
+    rate for every town in them, using the same steps the State uses.
+  </p>
+  <p>
+    Students are counted by <strong>average daily membership</strong> (the average number of
+    students enrolled across the school year). Then each town's rate is adjusted by its own
+    number, called the <strong>common level of appraisal</strong> (how close the town's listed
+    property values are to what homes really sell for).
+  </p>
+
+  <div class="notice">
+    <strong>Read this before you use the numbers</strong>
+    <p>
+      For now, this page shows one thing: each town's rate if the districts were combined. It
+      cannot show the rate today, or the change, yet. The State does not publish each district's own
+      population density. It also does not publish each district's own count of state-placed
+      students, students from lower-income homes, or English learners. The math for the rate today
+      needs them, so this page does not show the rate today or the change. It can offer labeled
+      estimates for two of them (lower-income students and English learners), built from the
+      State's town-level counts. State-placed students are still yours to enter.
+    </p>
+    <p>
+      The “if combined” rate is what this tool shows. To see it, enter those figures for all the
+      districts together, in the boxes below, or tick “Use estimate” where it is offered. An
+      estimate is not a published figure, and the result depends heavily on it.
+    </p>
+    <p>
+      This page's math does not match the rate the State published for every district. For 47 of
+      the 97 districts that serve a single town, the published rate is lower than the one this math
+      gives. So do not compare the “if combined” rate with the published rate. The table does not
+      show the published rate beside it for that reason.
+    </p>
+    <p>
+      The law's numbers this page uses for FY2026 were checked against the text of the law. A
+      person has not yet signed off on that check.
+    </p>
+  </div>
+
+  <div id="combiner-link-notes"></div>
+
+  <form id="combiner-form">
+    <fieldset class="field-group">
+      <legend>Which year</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-year">Fiscal year</label>
+          <select id="combiner-year"></select>
+        </div>
+      </div>
+      <p class="field-help">
+        Only FY2026 can be run for now. It is the only year with each town's common level of
+        appraisal in this build. Other years show here but cannot be picked.
+      </p>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>Which districts</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-grouping">Start from a merger study group (optional)</label>
+          <select id="combiner-grouping">
+            <option value="">— none —</option>
+          </select>
+        </div>
+      </div>
+      <p class="field-help">
+        Act 170 of 2026 put districts into groups that study joining into larger ones. These are
+        the 18 groups on the state's final list, as updated on November 12, 2026. Picking a group fills in
+        its districts. You can then add or take out districts. To read more,
+        see <a href={`${base}/groupings/`}>merger study groups</a>. Some groups have districts that can't
+        be combined yet, because the State withheld some of their student counts. For example,
+        Slate Valley's union district can't be combined yet for that reason.
+      </p>
+      <p id="combiner-grouping-status" class="field-help" role="status" aria-live="polite"></p>
+
+      <h3 id="combiner-picked-heading" class="combiner-subhead" tabindex="-1">Your districts</h3>
+      <div id="combiner-picked"></div>
+
+      <h3 class="combiner-subhead">Add districts, by supervisory union</h3>
+      <p class="field-help">
+        Open a supervisory union to see its districts. A district that is greyed out can't be
+        combined yet. The reason is written under it.
+      </p>
+      <div id="combiner-picker" class="combiner-picker"></div>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>Spending</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-factor">Spending factor</label>
+          <input id="combiner-factor" type="number" min="0" step="any" />
+        </div>
+      </div>
+      <p class="field-help">
+        1 means the combined district spends the same total as the districts spend now. 0.95 means
+        5% less, and 1.05 means 5% more. It starts at 1, so any change in spending is one you chose.
+      </p>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>Act 84 decrease (an assumption)</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-act84">Pooled Act 84 decrease, dollars per $100</label>
+          <input id="combiner-act84" type="number" min="0" step="any" />
+        </div>
+      </div>
+      <p class="field-help">
+        Act 84 of 2024 gives some districts a short-term cut in their tax rate. The cut shrinks each
+        year until 2029. For “today,” each district's own cut is used. No one has said what cut a
+        combined district would get, so this starts at 0. This is a guess, not a published figure.
+        Enter it in dollars per $100 of property value (13 cents is 0.13).
+      </p>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>Figures the State does not publish</legend>
+      <p class="field-help">
+        Each of these changes how students are counted. Leave a box blank and the result names it
+        as missing. The page can estimate two of them (lower-income students and English learners)
+        if you tick “Use estimate.” Whatever goes in a box, the result depends heavily on it.
+      </p>
+      <p class="field-help">
+        The three student boxes take a number of students, not a percent.
+      </p>
+      <p id="combiner-adm-scale" class="field-help"></p>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-density">Population density, people per square mile</label>
+          <input id="combiner-density" type="number" min="0" step="any" />
+          <small class="field-help">
+            How spread out people are (the law calls this sparsity), for the combined district.
+            It starts from the Census figure for the towns you picked. You can change it.
+          </small>
+          <small id="combiner-density-note" class="field-help"></small>
+          <button type="button" id="combiner-density-use" class="combiner-remove" hidden>Use the Census figure</button>
+        </div>
+        <div class="field">
+          <label for="combiner-state-placed">State-placed students, a number of students</label>
+          <input id="combiner-state-placed" type="number" min="0" step="any" />
+          <small class="field-help">
+            No published per-district figure. Enter the total number for all the districts
+            together, not a percent, or leave blank.
+          </small>
+        </div>
+        <div class="field">
+          <label for="combiner-poverty">Students from lower-income homes, a number of students</label>
+          <input id="combiner-poverty" type="number" min="0" step="any" />
+          <small class="field-help">
+            Students at or below 185% of the federal poverty level. No published per-district
+            figure. Enter the total number for all the districts together, not a percent, or leave
+            blank.
+          </small>
+          <label class="use-suggestion" id="combiner-poverty-use" hidden><input type="checkbox" /> <span>Use estimate</span></label>
+          <small id="combiner-poverty-note" class="field-help"></small>
+        </div>
+        <div class="field">
+          <label for="combiner-el">English learners, a number of students</label>
+          <input id="combiner-el" type="number" min="0" step="any" />
+          <small class="field-help">
+            No published per-district figure. Enter the total number for all the districts
+            together, not a percent, or leave blank.
+          </small>
+          <label class="use-suggestion" id="combiner-el-use" hidden><input type="checkbox" /> <span>Use estimate</span></label>
+          <small id="combiner-el-note" class="field-help"></small>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>A small school (optional)</legend>
+      <p class="field-help">
+        A very small school can add to the student count. Leave these blank if none of the schools
+        is small. If you name one, also say which district it is in.
+      </p>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-school">School name</label>
+          <input id="combiner-school" type="text" />
+        </div>
+        <div class="field">
+          <label for="combiner-enrollment">Average enrollment over two years, a number of students</label>
+          <input id="combiner-enrollment" type="number" min="0" step="any" />
+        </div>
+        <div class="field">
+          <label for="combiner-school-in">In which district</label>
+          <select id="combiner-school-in"></select>
+        </div>
+      </div>
+      <div id="combiner-school-list"></div>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>Statewide average</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="combiner-avg">Statewide average spending per weighted student, dollars</label>
+          <input id="combiner-avg" type="number" min="0" step="any" />
+        </div>
+      </div>
+      <p class="field-help">
+        Filled in from the State's published FY2026 figure. You can change it.
+      </p>
+    </fieldset>
+  </form>
+
+  <div class="share-tools">
+    <button type="button" id="combiner-share">Copy shareable link</button>
+    <span id="combiner-share-status" class="share-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <h2>Result</h2>
+  <p id="combiner-result-status" class="field-help" role="status"></p>
+  <div id="combiner-result"></div>
+
+  <h2>What this tool will not do</h2>
+  <p>
+    It does not rank groupings, score them, or call any result a “saving.” A rate that goes up and
+    a rate that goes down are shown the same way, with a plus or minus sign and plain words. It
+    does not pick a “best” grouping. It will not fill in a figure the State does not publish. Any
+    such figure on this page was entered by a person, and the result depends heavily on it.
+  </p>
+</Base>
+
+<style is:global>
+  .combiner-subhead {
+    font-size: 1rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .combiner-rate-warning {
+    font-weight: 600;
+  }
+  .combiner-picker details.combiner-su {
+    border-top: 1px solid var(--border);
+    padding: 0.4rem 0;
+  }
+  .combiner-picker details.combiner-su > summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .combiner-picker .combiner-add-su {
+    margin: 0.6rem 0 0.2rem;
+  }
+  .combiner-district-list,
+  .combiner-picked-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.5rem 0;
+  }
+  .combiner-district-list li,
+  .combiner-picked-list li {
+    margin: 0.35rem 0;
+    max-width: none;
+  }
+  .combiner-district-list li.combiner-blocked label {
+    color: var(--text-muted);
+  }
+  .combiner-picked-list .combiner-remove {
+    font-size: 0.85rem;
+    padding: 0.15rem 0.6rem;
+    margin-left: 0.4rem;
+  }
+  .combiner-message {
+    font-weight: 600;
+  }
+  .combiner-towns td,
+  .combiner-towns th {
+    vertical-align: top;
+  }
+  .combiner-towns td.combiner-change {
+    white-space: nowrap;
+  }
+  .combiner-towns td.combiner-change .combiner-why > summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  .combiner-towns td.combiner-change .field-help {
+    white-space: normal;
+    min-width: 18rem;
+  }
+  .combiner-math-row > td {
+    padding-top: 0;
+  }
+  details.combiner-math > summary {
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .combiner-members .combiner-pooled-row th,
+  .combiner-members .combiner-pooled-row td {
+    font-weight: 700;
+  }
+  .combiner-assumptions li,
+  .combiner-blockers li {
+    margin: 0.4rem 0;
+  }
+</style>
+
+<script define:vars={{ liveParameters, combinerData }}>
+  window.__VT_PARAMETERS__ = JSON.parse(liveParameters);
+  window.__VT_COMBINER__ = JSON.parse(combinerData);
+</script>
+
+<script>
+  import { initCombinerTool } from '../../scripts/combiner-tool';
+  initCombinerTool(
+    window.__VT_PARAMETERS__ ?? [],
+    window.__VT_COMBINER__ ?? { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] },
+  );
+</script>

@@ -27,7 +27,8 @@
  *                 have no plain town record in the registry at all: AOE records
  *                 residency for those three through incorporated school
  *                 districts, so the registry holds `town/bennington-id` and
- *                 nothing else.
+ *                 nothing else. These three are joined to the district record
+ *                 by an explicit GEOID table (SCHOOL_DISTRICT_STANDS_FOR_TOWN).
  *
  * Only the cosmetic class is normalized away. Everything else lands in
  * `unmatched` with the reason, because an unmatched name is either a place we do
@@ -129,6 +130,18 @@ export function slugCandidates(censusName: string): string[] {
   return [...new Set(out)];
 }
 
+/**
+ * Census towns the registry holds only as an incorporated school district.
+ * Decided by James Nadeau, 2026-11-22: for the density screen the district's
+ * record stands for the town, so the town's land and population attach to it.
+ * Explicit by GEOID, never inferred, so no other name can ride in on this.
+ */
+export const SCHOOL_DISTRICT_STANDS_FOR_TOWN: ReadonlyMap<string, string> = new Map([
+  ['5000304825', 'town/bennington-id'],
+  ['5001707375', 'town/bradford-id'],
+  ['5001903550', 'town/barton-id'],
+]);
+
 export interface JoinedTown {
   readonly entity: string | null;
   readonly geoid: string;
@@ -161,7 +174,10 @@ export function joinToRegistry(
   const claimed = new Set<string>();
 
   for (const row of rows) {
-    const hit = slugCandidates(row.name).find((slug) => available.has(slug) && !claimed.has(slug));
+    const district = SCHOOL_DISTRICT_STANDS_FOR_TOWN.get(row.geoid);
+    const hit =
+      slugCandidates(row.name).find((slug) => available.has(slug) && !claimed.has(slug)) ??
+      (district && available.has(district) && !claimed.has(district) ? district : undefined);
     if (hit) claimed.add(hit);
     else {
       unmatched.push({

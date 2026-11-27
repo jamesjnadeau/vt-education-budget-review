@@ -16,22 +16,30 @@
  * there is a performance problem to solve.
  */
 
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
-import { parseParameterSet, resolveAdm, unverifiedParameters, type BandValues } from '@vt-budget/model';
-import { aoeBandsFor } from '../adm-lookup.ts';
+import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
+import { act84Prefill } from '../act84-prefill.ts';
+import { buildHomesteadAdm } from '../adm-lookup.ts';
+import { buildPrefillAdm, type PrefillBudget } from '../adm-town-sums.ts';
+import { isBudgetRecordPath } from '../warehouse-budgets.ts';
+import { edspendEntities, prefillSpending, type EdspendRecord } from '../edspend-prefill.ts';
 import { buildAdmPublication } from '../aoe/adm/publish.ts';
-import { buildSubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
+import type { Act84Record } from '../aoe/act84/record.ts';
+import { buildSubgroupPublication, type SubgroupPublication } from '../aoe/adm-subgroups/publish.ts';
 import type { YearRecord as SubgroupYearRecord } from '../aoe/adm-subgroups/record.ts';
+import { buildCombinerData, type CombinerInputs } from '../combiner-data.ts';
+import { operativeGroupings, type GroupingsDoc } from '../committees.ts';
 import { buildCoverage } from '../coverage.ts';
 import { buildGroupingBudgets, type BudgetInput, type GroupingInput } from '../grouping-budgets.ts';
 import { buildHomesteadComparison } from '../homestead-comparison.ts';
 import { walkFiles } from '../fs-walk.ts';
-import { PATHS, rel } from '../paths.ts';
+import { PATHS, REPO_ROOT, rel } from '../paths.ts';
 import { readRegistry } from '../registry/store.ts';
+import { countyFromGeoid } from '../census/county.ts';
 import {
   buildSmallSparse,
   SMALL_SPARSE_PARAMETER_FILE,
@@ -46,6 +54,41 @@ interface BudgetRecord {
   [key: string]: unknown;
 }
 
+/** Census land area and population by town, for the combiner's density prefill. */
+function censusTownsForCombiner(): NonNullable<CombinerInputs['censusTowns']> {
+  const dir = join(PATHS.warehouse, 'census');
+  if (!existsSync(dir)) return [];
+  const out: Array<NonNullable<CombinerInputs['censusTowns']>[number]> = [];
+  for (const f of readdirSync(dir).filter((n) => n.endsWith('.yaml'))) {
+    const rec = parseYaml(readFileSync(join(dir, f), 'utf8')) as {
+      towns?: Array<{
+        entity: string | null;
+        geoid?: string | null;
+        land_area_sq_mi: number | null;
+        population: Record<string, number | null>;
+      }>;
+    };
+    for (const t of rec.towns ?? [])
+      if (t.entity) out.push({ ...t, county: countyFromGeoid(t.geoid ?? '') });
+  }
+  return out;
+}
+
+/** SY25 (fiscal year 2026, final) ELL and free-or-reduced-lunch cells by town, for the combiner's estimates. */
+function subgroupTownsForCombiner(
+  publication: SubgroupPublication | null,
+): NonNullable<CombinerInputs['subgroupTowns']> {
+  const year = publication?.years.find((y) => y.fiscal_year === 2026);
+  if (!publication || !year) return [];
+  const out: Array<NonNullable<CombinerInputs['subgroupTowns']>[number]> = [];
+  for (const [slug, byYear] of Object.entries(publication.towns)) {
+    const t = byYear[year.school_year];
+    if (!t) continue;
+    out.push(t.row === 'not_applicable' ? { slug, absent: t.reason } : { slug, ell: t.ell, nslelg: t.nslelg });
+  }
+  return out;
+}
+
 function writeJson(path: string, data: unknown): void {
   mkdirSync(join(path, '..'), { recursive: true });
   writeFileSync(path, JSON.stringify(data), 'utf8');
@@ -53,19 +96,9 @@ function writeJson(path: string, data: unknown): void {
 
 function readBudgets(): BudgetRecord[] {
   return walkFiles(PATHS.warehouse, (n) => n.endsWith('.yaml') || n.endsWith('.json'))
-    // The warehouse holds more than budgets now: the AOE ADM series, which is
-    // the state's voice about pupils, and the Census land-area record. Reading
-    // either as a budget would put an object with no revenues or expenditures
-    // into every per-SU page's budget list.
-    .filter((file) => {
-      const path = rel(file);
-      return (
-        !path.startsWith('warehouse/aoe-adm/') &&
-        !path.startsWith('warehouse/aoe-adm-subgroups/') &&
-        !path.startsWith('warehouse/census/') &&
-        !path.startsWith('warehouse/small-sparse/')
-      );
-    })
+    // The warehouse holds more than budgets (AOE and Census series with no
+    // entity); see warehouse-budgets.ts.
+    .filter((file) => isBudgetRecordPath(rel(file)))
     .map((file) => {
     const text = readFileSync(file, 'utf8');
     const record = (file.endsWith('.json') ? JSON.parse(text) : parseYaml(text)) as BudgetRecord;
@@ -134,11 +167,9 @@ function main(): number {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
   }
   writeJson(join(PATHS.siteGenerated, 'groupings.json'), groupings);
-  const groupingList = (groupings as { groupings?: GroupingInput[] }).groupings ?? [];
-  writeJson(
-    join(PATHS.siteGenerated, 'grouping-budgets.json'),
-    buildGroupingBudgets(groupingList, registry, budgets as unknown as BudgetInput[]),
-  );
+  // The committees the facilitators published, once their roster is in;
+  // otherwise the act's groupings. See tools/src/committees.ts.
+  const groupingList: GroupingInput[] = operativeGroupings(groupings as GroupingsDoc);
 
   // --- coverage ------------------------------------------------------------
   const coverage = buildCoverage(registry, { today });
@@ -168,31 +199,84 @@ function main(): number {
   const subgroupRecords = walkFiles(join(PATHS.warehouse, 'aoe-adm-subgroups'), (n) =>
     /^town-sy\d{2}\.yaml$/.test(n),
   ).map((file) => parseYaml(readFileSync(file, 'utf8')) as SubgroupYearRecord);
-  if (subgroupRecords.length > 0) {
-    writeJson(
-      join(PATHS.siteGenerated, 'adm-subgroups.json'),
-      buildSubgroupPublication(subgroupRecords, registry, today.toISOString()),
-    );
+  const subgroupPublication =
+    subgroupRecords.length > 0
+      ? buildSubgroupPublication(subgroupRecords, registry, today.toISOString())
+      : null;
+  if (subgroupPublication) {
+    writeJson(join(PATHS.siteGenerated, 'adm-subgroups.json'), subgroupPublication);
   }
 
-  // --- resolved ADM (district-first, AOE fallback), per entity+year --------
-  // Also handed to the homestead builder below, so it is kept in a Record
-  // rather than written and forgotten.
-  const resolvedAdmByEntity: Record<string, Record<string, ReturnType<typeof resolveAdm>>> = {};
-  if (admPublication) {
-    for (const budget of budgets) {
-      const adm = (budget as { adm?: BandValues | null }).adm ?? null;
-      const aoe = aoeBandsFor(budget.entity, budget.fiscal_year, admPublication, registry);
-      if (!adm && !aoe) continue;
-      (resolvedAdmByEntity[budget.entity] ??= {})[String(budget.fiscal_year)] = resolveAdm(adm, aoe);
-    }
-    writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
-      generated: today.toISOString(),
-      entities: resolvedAdmByEntity,
-    });
-  }
+  // --- resolved ADM for the homestead comparison ---------------------------
+  // Kept exactly as it was before the town-sum prefill: the budget years only,
+  // district first, the old aoe-adm rollup behind it. No town-of-residence sum
+  // reaches the published rate comparison.
+  const homesteadAdmByEntity = buildHomesteadAdm(
+    budgets as unknown as PrefillBudget[],
+    admPublication,
+    registry,
+  );
+
+  // --- resolved ADM and spending for the model form's prefill -------------
+  // District first per band, then the exact town-of-residence sums (withheld
+  // where any town cell is), over the budget years and the publication's
+  // years. The entities are those with a budget record plus every district
+  // AOE's EdSpend records list in those years; EdSpend also gives each
+  // district's education spending. Always written: the model page imports it.
+  const edspendRecords = walkFiles(join(PATHS.warehouse, 'aoe-edspend'), (n) => /^fy\d{4}\.yaml$/.test(n)).map(
+    (file) => parseYaml(readFileSync(file, 'utf8')) as EdspendRecord,
+  );
+  // Members with no usable budget figure fall back to AOE's stated education
+  // spending, labelled as such, so a group's combined total can still be run.
+  writeJson(
+    join(PATHS.siteGenerated, 'grouping-budgets.json'),
+    buildGroupingBudgets(groupingList, registry, budgets as unknown as BudgetInput[], prefillSpending(edspendRecords)),
+  );
+  const prefillYears = subgroupPublication?.years.map((y) => y.fiscal_year) ?? [];
+  const prefillAdm = buildPrefillAdm(
+    budgets as unknown as PrefillBudget[],
+    subgroupPublication,
+    registry,
+    edspendEntities(edspendRecords, prefillYears),
+  );
+  // Spending only for the years the form can load. A district whose grade
+  // counts cannot be summed (a town that runs some grades and tuitions or
+  // sends the rest) is still listed, for its spending.
+  const prefillSpendingRows = Object.fromEntries(
+    Object.entries(prefillSpending(edspendRecords))
+      .map(([slug, years]) => [
+        slug,
+        Object.fromEntries(Object.entries(years).filter(([fy]) => prefillYears.includes(Number(fy)))),
+      ] as const)
+      .filter(([, years]) => Object.keys(years).length > 0),
+  );
+  const prefillSlugs = [...new Set([...Object.keys(prefillAdm), ...Object.keys(prefillSpendingRows)])].sort();
+  // The FY2025 Act 84 decrease: the worksheet's figure for a listed district,
+  // 0 for any other district AOE listed in the worksheet's year, and nothing
+  // for a supervisory union.
+  const act84Record = parseYaml(
+    readFileSync(join(PATHS.warehouse, 'aoe-act84', 'fy2025.yaml'), 'utf8'),
+  ) as Act84Record;
+  const act84Districts = (
+    parseYaml(readFileSync(join(REPO_ROOT, act84Record.names_from), 'utf8')) as EdspendRecord
+  ).districts
+    .map((d) => d.entity)
+    .filter((e): e is string => e !== null);
+  writeJson(join(PATHS.siteGenerated, 'resolved-adm.json'), {
+    generated: today.toISOString(),
+    entities: prefillAdm,
+    spending: prefillSpendingRows,
+    act84: act84Prefill(act84Record, act84Districts, prefillSlugs),
+    labels: Object.fromEntries(
+      prefillSlugs.map((slug) => {
+        const e = registry.get(slug);
+        return [slug, { name: e?.name ?? slug, type: e?.type ?? slug.split('/')[0] }];
+      }),
+    ),
+  });
 
   let smallSparseCounts: Record<string, number> | null = null;
+  let smallSparseResult: ReturnType<typeof buildSmallSparse> | null = null;
 
   // --- small / sparse candidate table --------------------------------------
   // Computed here rather than committed: it is derived from the registry, the
@@ -212,6 +296,38 @@ function main(): number {
     });
     writeJson(join(PATHS.siteGenerated, 'small-sparse.json'), smallSparse);
     smallSparseCounts = smallSparse.counts;
+    smallSparseResult = smallSparse;
+  }
+
+  // --- combiner: per-district pooling inputs, per-town CLA ------------------
+  // FY2026 only: the Tax Department's per-town CLA table is imported for that
+  // year. Without it there is nothing to pool against, so no file is written.
+  const taxRatesPath = join(PATHS.warehouse, 'tax-rates', 'fy2026.yaml');
+  const edspend2026 = edspendRecords.find((r) => r.fiscal_year === 2026) as
+    | (EdspendRecord & { towns?: CombinerInputs['edspendTowns'] })
+    | undefined;
+  if (existsSync(taxRatesPath) && edspend2026) {
+    const taxRates = parseYaml(readFileSync(taxRatesPath, 'utf8')) as { towns: CombinerInputs['taxRates'] };
+    writeJson(
+      join(PATHS.siteGenerated, 'combiner.json'),
+      buildCombinerData({
+        registry: [...registry.values()],
+        resolved: {
+          entities: prefillAdm as unknown as CombinerInputs['resolved']['entities'],
+          spending: prefillSpendingRows,
+          act84: act84Prefill(act84Record, act84Districts, prefillSlugs),
+          labels: Object.fromEntries(
+            prefillSlugs.map((slug) => [slug, { name: registry.get(slug)?.name ?? slug }]),
+          ),
+        },
+        groupings: groupingList,
+        taxRates: taxRates.towns,
+        edspendTowns: edspend2026.towns ?? [],
+        censusTowns: censusTownsForCombiner(),
+        subgroupTowns: subgroupTownsForCombiner(subgroupPublication),
+        schools: smallSparseResult?.schools ?? [],
+      }),
+    );
   }
 
   // --- per-SU data, and the compact index the modeling island loads first ---
@@ -231,7 +347,7 @@ function main(): number {
     buildHomesteadComparison(
       sus,
       budgets as unknown as Parameters<typeof buildHomesteadComparison>[1],
-      resolvedAdmByEntity,
+      homesteadAdmByEntity,
       parsedParameterSets,
       today.toISOString(),
     ),

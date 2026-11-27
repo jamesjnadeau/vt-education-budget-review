@@ -6,7 +6,10 @@ import adm from '../../generated/adm.json';
 import parameters from '../../generated/parameters.json';
 import homesteadComparison from '../../generated/homestead-comparison.json';
 import subgroups from '../../generated/adm-subgroups.json';
-import { slugTail, titleCase } from '../../lib/display';
+import combiner from '../../generated/combiner.json';
+import groupings from '../../generated/groupings.json';
+import { buildJourney } from '../../lib/journey.ts';
+import { entityLabel, isOutOfState, operatorHref, slugTail, titleCase } from '../../lib/display';
 import { ROWS, count, sumCells, type Sum, type TownYear, type Year } from '../../lib/residents';
 
 interface AdmGapEntry {
@@ -46,7 +49,7 @@ const entities = registry.entities as Entity[];
 
 const districts = entities.filter((e) => e.type === 'ud' && e.supervisory_union === su.slug);
 const schools = entities.filter((e) => e.type === 'school' && e.supervisory_union === su.slug);
-const towns = entities.filter((e) => e.type === 'town' && e.supervisory_union === su.slug);
+const towns = entities.filter((e) => e.type === 'town' && e.supervisory_union === su.slug && !isOutOfState(e));
 
 const cells = (coverage.cells as Array<{
   entity: string;
@@ -55,9 +58,24 @@ const cells = (coverage.cells as Array<{
   warehouseFile: string | null;
   intakeFiles: string[];
   intakeUrl: string | null;
+  formUrl: string | null;
   normalizeUrl: string | null;
-  flagUrl: string | null;
 }>).filter((c) => c.entity === su.slug);
+
+/** The Orford school sits in the interstate union and has no Vermont member town. */
+const isNhSchool = (s: Entity) =>
+  s.supervisory_union === 'su/school-administrative-unit-70' && s.member_towns.length === 0;
+/** Slugs of the district pages that are built, from the same data their getStaticPaths uses. */
+const districtPages = new Set(
+  Object.keys(
+    buildJourney({
+      registry: registry.entities,
+      combiner: combiner as never,
+      subgroups: subgroups as never,
+      groupings: groupings as never,
+    }).districts,
+  ),
+);
 
 const byDistrict = new Map<string, Entity[]>();
 for (const town of towns) {
@@ -241,7 +259,7 @@ const homesteadRows = Object.entries(homesteadYears)
                       if (s.kind === 'not_usable') {
                         return (
                           <td class="numeric">
-                            <span class="tag not-computable">not usable</span>
+                            <span class="tag not-published">not published</span>
                           </td>
                         );
                       }
@@ -263,44 +281,49 @@ const homesteadRows = Object.entries(homesteadYears)
             </table>
           </div>
         )}
-        {anyRange && (
-          <p>
-            Some cells show a <strong>range</strong> instead of one number. That is because the
-            state hid the count for one or more towns, to protect student privacy. The state hides
-            any count under 11. It also hides some bigger counts, so that nobody can work out a
-            hidden one by subtracting. We add the hidden towns' numbers to the sum as the smallest
-            and largest values the rules allow, so the real number is somewhere in the range.
-            {anyUnbounded &&
-              ' Where the rules do not say how big a hidden number could be, we can only say "at least".'}
-          </p>
-        )}
-        {hiddenTowns.length > 0 && (
-          <p>
-            Towns with hidden numbers:{' '}
-            {hiddenTowns.map((r, i) => (
-              <>{i > 0 && ', '}<a href={`${base}/town/${slugTail(r.town.slug)}/`}>{titleCase(r.town.name)}</a></>
-            ))}.
-          </p>
-        )}
-        {preliminaryYears.map((y) => (
-          <p>
-            The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
-            they are final and had not heard back when this page was built.
-          </p>
-        ))}
-        {unusableYears.map((y) => (
-          <p>
-            For {y.count_year}, the state's English learner and lunch counts were{' '}
-            <strong>not usable</strong>, so we do not show them. The state did not collect the
-            English learner flag that year, and it has said its lunch flag was set for nearly every
-            student by mistake.
-          </p>
-        ))}
-        {emptyYears.length > 0 && (
-          <p>
-            No students were counted as living in any of these towns in{' '}
-            {emptyYears.map((y) => y.count_year).join(', ')}.
-          </p>
+        {(anyRange || hiddenTowns.length > 0 || preliminaryYears.length > 0 || unusableYears.length > 0 || emptyYears.length > 0) && (
+          <details class="data-notes">
+            <summary>More information and notes about the above data</summary>
+          {anyRange && (
+            <p>
+              Some cells show a <strong>range</strong> instead of one number. That is because the
+              state hid the count for one or more towns, to protect student privacy. The state hides
+              any count under 11. It also hides some bigger counts, so that nobody can work out a
+              hidden one by subtracting. We add the hidden towns' numbers to the sum as the smallest
+              and largest values the rules allow, so the real number is somewhere in the range.
+              {anyUnbounded &&
+                ' Where the rules do not say how big a hidden number could be, we can only say "at least".'}
+            </p>
+          )}
+          {hiddenTowns.length > 0 && (
+            <p>
+              Towns with hidden numbers:{' '}
+              {hiddenTowns.map((r, i) => (
+                <>{i > 0 && ', '}<a href={`${base}/town/${slugTail(r.town.slug)}/`}>{titleCase(r.town.name)}</a></>
+              ))}.
+            </p>
+          )}
+          {preliminaryYears.map((y) => (
+            <p>
+              The {y.count_year} numbers <strong>may change</strong>. We asked the state whether
+              they are final and had not heard back when this page was built.
+            </p>
+          ))}
+          {unusableYears.map((y) => (
+            <p>
+              For {y.count_year}, the state's English learner and lunch counts were{' '}
+              <strong>not published</strong>, so we do not show them. The state did not collect the
+              English learner flag that year, and it has said its lunch flag was set for nearly every
+              student by mistake.
+            </p>
+          ))}
+          {emptyYears.length > 0 && (
+            <p>
+              No students were counted as living in any of these towns in{' '}
+              {emptyYears.map((y) => y.count_year).join(', ')}.
+            </p>
+          )}
+          </details>
         )}
       </>
     )
@@ -311,18 +334,23 @@ const homesteadRows = Object.entries(homesteadYears)
     cells.every((c) => c.state === 'missing') ? (
       <div class="notice">
         <strong>No budget documents held for this supervisory union</strong>
-        <p>
-          Nothing has been collected yet for any of the {cells.length} fiscal years this site
-          tracks. This is a gap in coverage, not a statement that the SU published nothing.
-        </p>
-        {cells[0]?.intakeUrl && (
+        <details class="notice-more">
+          <summary>show more information</summary>
           <p>
-            If you have one:{' '}
-            <a href={cells[0].intakeUrl}>send it in through the issue form</a> — drag the file in
-            and say where it came from, and a bot opens the pull request. Or{' '}
-            <a href={cells[0].flagUrl ?? '#'}>open an issue</a> recording what you checked.
+            Nothing has been collected yet for any of the {cells.length} fiscal years this site
+            tracks. This is a gap in coverage, not a statement that the SU published nothing.
           </p>
-        )}
+          {cells[0]?.formUrl && (
+            <p>
+              Have this document? <a href={cells[0].formUrl}>Send it to us</a> — no account needed.
+              {cells[0].intakeUrl && (
+                <>
+                  {' '}(Or use the <a href={cells[0].intakeUrl}>GitHub form</a>.)
+                </>
+              )}
+            </p>
+          )}
+        </details>
       </div>
     ) : (
       <div class="scroll-x">
@@ -365,49 +393,58 @@ const homesteadRows = Object.entries(homesteadYears)
 
   <div class="notice blocking">
     <strong>Weighted long-term membership — missing inputs</strong>
-    <p>Even where student counts are published, the count as it stands cannot be reduced to the figure the statute asks for:</p>
-    <ul>
-      {blockReasons.map((reason) => <li>{reason}</li>)}
-    </ul>
-    <p>
-      Concretely, these <span style="white-space:nowrap">16 V.S.A. § 4010</span> inputs are not yet
-      held for any district:
-    </p>
-    <ul>
-      {missingMembershipInputs.map((e) => (
-        <li>
-          <code>{e.input}</code>{' '}
-          <span style="color:var(--text-muted);font-size:.9rem">— {e.statute}</span>
-        </li>
-      ))}
-    </ul>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>Even where student counts are published, the count as it stands cannot be reduced to the figure the statute asks for:</p>
+      <ul>
+        {blockReasons.map((reason) => <li>{reason}</li>)}
+      </ul>
+      <p>
+        Concretely, these <span style="white-space:nowrap">16 V.S.A. § 4010</span> inputs are not yet
+        held for any district:
+      </p>
+      <ul>
+        {missingMembershipInputs.map((e) => (
+          <li>
+            <code>{e.input}</code>{' '}
+            <span style="color:var(--text-muted);font-size:.9rem">— {e.statute}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
   </div>
 
   <div class="notice blocking">
     <strong>Spending per weighted pupil — needs education spending</strong>
-    <p>
-      This divides a district's education spending by the weighted membership above, so it is
-      blocked by that figure and by the spending itself. Education spending comes from the budget
-      documents listed earlier on this page:{' '}
-      {normalizedYears === 0
-        ? `none of the ${cells.length} fiscal years tracked here are normalized yet`
-        : `${normalizedYears} of ${cells.length} fiscal years are normalized`}.
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        This divides a district's education spending by the weighted membership above, so it is
+        blocked by that figure and by the spending itself. Education spending comes from the budget
+        documents listed earlier on this page:{' '}
+        {normalizedYears === 0
+          ? `none of the ${cells.length} fiscal years tracked here are normalized yet`
+          : `${normalizedYears} of ${cells.length} fiscal years are normalized`}.
+      </p>
+    </details>
   </div>
 
   <div class="notice blocking">
     <strong>Member-town homestead rates — need the two figures above</strong>
-    <p>
-      A homestead rate rests on both figures above and on the statutory yields and weights that
-      convert spending into a rate.
-      {unverifiedParams > 0 && (
-        <>
-          {' '}Of the legal numbers those calculations draw on, {unverifiedParams} of {totalParams}
-          {' '}are still unchecked against current statute — listed year by year, with sources, on
-          the <a href={`${base}/methodology/`}>methodology page</a>.
-        </>
-      )}
-    </p>
+    <details class="notice-more">
+      <summary>show more information</summary>
+      <p>
+        A homestead rate rests on both figures above and on the statutory yields and weights that
+        convert spending into a rate.
+        {unverifiedParams > 0 && (
+          <>
+            {' '}Of the legal numbers those calculations draw on, {unverifiedParams} of {totalParams}
+            {' '}are still unchecked against current statute — listed year by year, with sources, on
+            the <a href={`${base}/methodology/`}>methodology page</a>.
+          </>
+        )}
+      </p>
+    </details>
   </div>
 
   <p>
@@ -457,11 +494,12 @@ const homesteadRows = Object.entries(homesteadYears)
     </>
   )}
 
-  <h2>Member districts ({districts.length})</h2>
   {
     districts.length === 0 ? (
-      <p>No unified districts recorded under this supervisory union.</p>
+      <p>This supervisory union has no member districts on file.</p>
     ) : (
+      <>
+      <h2>Member districts ({districts.length})</h2>
       <ul class="grid">
         {districts.map((d) => (
           <li class="card">
@@ -469,12 +507,13 @@ const homesteadRows = Object.entries(homesteadYears)
             <p style="margin:.4rem 0 0;font-size:.9rem;color:var(--text-muted)">
               <code>{d.slug}</code>
               <br />
-              {(byDistrict.get(d.slug) ?? []).length} member town(s)
+              Towns in this district ({(byDistrict.get(d.slug) ?? []).length})
               {d.effective_to && ` · closed ${d.effective_to}`}
             </p>
           </li>
         ))}
       </ul>
+      </>
     )
   }
 
@@ -495,9 +534,15 @@ const homesteadRows = Object.entries(homesteadYears)
           <tbody>
             {schools.map((s) => (
               <tr>
-                <td>{titleCase(s.name)}</td>
+                <td>{titleCase(s.name)}{isNhSchool(s) && ' (New Hampshire school)'}</td>
                 <td>{s.grades.length > 0 ? s.grades.join(', ') : '—'}</td>
-                <td><code>{s.operated_by ?? '—'}</code></td>
+                <td>
+                  {operatorHref(s.operated_by, districtPages, base) ? (
+                    <a href={operatorHref(s.operated_by, districtPages, base)}>{entityLabel(s.operated_by, entities)}</a>
+                  ) : (
+                    entityLabel(s.operated_by, entities)
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -506,7 +551,7 @@ const homesteadRows = Object.entries(homesteadYears)
     )
   }
 
-  <h2>Member towns ({towns.length})</h2>
+  <h2>Towns in the supervisory union ({towns.length})</h2>
   {
     towns.length === 0 ? (
       <p>No towns recorded under this supervisory union.</p>

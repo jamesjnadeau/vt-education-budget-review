@@ -51,7 +51,7 @@
  * the answer genuinely is not known.
  */
 
-import { applyWeight, greaterOf, input, mean, parameterNode, quotient, sum } from './node.ts';
+import { applyWeight, greaterOf, input, mean, parameterNode, quotient, sum, type InputEstimate } from './node.ts';
 import type { CalcNode, EngineContext } from './types.ts';
 
 /** Average daily membership by grade band, EXCLUDING State-placed students. */
@@ -61,6 +61,8 @@ export interface AdmYear {
   readonly kindergarten_through_5: number | null;
   readonly grades_6_through_8: number | null;
   readonly grades_9_through_12: number | null;
+  /** Bands whose count is an estimate rather than a reported figure, with how it was worked out. */
+  readonly estimates?: Readonly<Partial<Record<Band, string | InputEstimate>>>;
 }
 
 export interface SmallSchool {
@@ -79,6 +81,10 @@ export interface MembershipInput {
   readonly english_learners: number | null;
   /** § 4010(b)(2): persons per square mile within the district's boundaries. */
   readonly persons_per_square_mile: number | null;
+  /** Counts that are stand-ins or suggestions, not reported figures, with how each was worked out. */
+  readonly estimates?: Readonly<
+    Partial<Record<'poverty_185_fpl' | 'english_learners' | 'persons_per_square_mile', string | InputEstimate>>
+  >;
   readonly small_schools: readonly SmallSchool[];
   /**
    * The district's actual weighted long-term membership in the previous year,
@@ -147,6 +153,7 @@ function bandLongTermMembership(ctx: EngineContext, data: MembershipInput, band:
   const years = selected.map((y) =>
     input(ctx, `FY${y.fiscal_year} average daily membership, ${label}`, y[band], 'pupils', {
       source: data.source,
+      estimate: y.estimates?.[band],
     }),
   );
 
@@ -256,7 +263,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
         'Pupils whose family is at or below 185 percent of FPL',
         data.poverty_185_fpl,
         'pupils',
-        { source: data.source },
+        { source: data.source, estimate: data.estimates?.poverty_185_fpl },
       ),
       'weights.poverty_185_fpl',
       'pupils',
@@ -267,7 +274,10 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
     applyWeight(
       ctx,
       'Additional weighting for English learner pupils',
-      input(ctx, 'English learner pupils', data.english_learners, 'pupils', { source: data.source }),
+      input(ctx, 'English learner pupils', data.english_learners, 'pupils', {
+        source: data.source,
+        estimate: data.estimates?.english_learners,
+      }),
       'weights.english_learner',
       'pupils',
     ),
@@ -279,7 +289,7 @@ export function computeWeightedMembership(ctx: EngineContext, data: MembershipIn
     'Persons per square mile in the district',
     data.persons_per_square_mile,
     'count',
-    { source: data.source },
+    { source: data.source, estimate: data.estimates?.persons_per_square_mile },
   );
   const band = sparsityBand(data.persons_per_square_mile);
   if (band) {
@@ -469,6 +479,17 @@ export function combineMembership(
     readonly persons_per_square_mile: number | null;
     /** Schools survive a merger unless a closure scenario removes them. */
     readonly small_schools: readonly SmallSchool[];
+    /**
+     * Combined counts to use instead of the parts' sum. Leave one out to sum
+     * the parts (null if any part is null); a value given here, null included,
+     * is used as given. A caller that supplies one is responsible for labelling
+     * where it came from.
+     */
+    readonly state_placed_fte?: number | null;
+    readonly poverty_185_fpl?: number | null;
+    readonly english_learners?: number | null;
+    /** The combined district's previous-year weighted membership, for § 4010(e). */
+    readonly prior_year_weighted_membership?: number | null;
   },
 ): MembershipResult {
   const years = new Map<number, AdmYear>();
@@ -491,14 +512,23 @@ export function combineMembership(
     }
   }
 
+  const summed = (pick: (p: MembershipInput) => number | null): number | null =>
+    parts.reduce<number | null>((acc, p) => addNullable(acc, pick(p)), 0);
+
   return computeWeightedMembership(ctx, {
     entity: combined.entity,
     adm_years: [...years.values()].sort((a, b) => a.fiscal_year - b.fiscal_year),
-    state_placed_fte: parts.reduce<number | null>((acc, p) => addNullable(acc, p.state_placed_fte), 0),
-    poverty_185_fpl: parts.reduce<number | null>((acc, p) => addNullable(acc, p.poverty_185_fpl), 0),
-    english_learners: parts.reduce<number | null>((acc, p) => addNullable(acc, p.english_learners), 0),
+    state_placed_fte:
+      combined.state_placed_fte !== undefined ? combined.state_placed_fte : summed((p) => p.state_placed_fte),
+    poverty_185_fpl:
+      combined.poverty_185_fpl !== undefined ? combined.poverty_185_fpl : summed((p) => p.poverty_185_fpl),
+    english_learners:
+      combined.english_learners !== undefined ? combined.english_learners : summed((p) => p.english_learners),
     persons_per_square_mile: combined.persons_per_square_mile,
     small_schools: combined.small_schools,
+    ...(combined.prior_year_weighted_membership !== undefined
+      ? { prior_year_weighted_membership: combined.prior_year_weighted_membership }
+      : {}),
     source: `combined from ${parts.map((p) => p.entity).join(', ')}`,
   });
 }

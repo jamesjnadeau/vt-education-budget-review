@@ -18,21 +18,22 @@ The pipeline is built, tested and running end to end. What it lacks is inputs.
 | Collector configs | **52**, one per active supervisory union; 19 source URLs currently dead |
 | Budget documents collected | **3** (Addison Central FY2023–FY2025), none yet extracted to a spending figure |
 | Warehouse records | **14**: AOE education spending and tax rates FY2023–FY2026, ADM-24, Act 127 subgroups by town for three years, Census land area, three Addison Central drafts |
-| Statutory parameters verified | **75 of 107** against statute snapshots or published tables, none countersigned by a person; FY2026 is 25 of 25 |
+| Statutory parameters verified | **75 of 107** against statute snapshots or published tables; FY2026 is 25 of 25 and countersigned (2026-11-25), FY2025 and FY2027 are not |
 | Act 170 groupings transcribed | **20 of 20**, verified against the act; the facilitators' 2026-09-18 redrawing is not on file |
 | Golden fixtures reproducing a state figure | **6** FY2026 rates: Slate Valley, Marlboro, and four Act 84 transition districts (Addison Central, Champlain Valley, Mt. Abraham, Colchester) |
 | Small/sparse boundary fixtures | **8**, hand-computed against hypothesis thresholds |
 | Schools located in a municipality | **269 of 430** |
 | Vermont towns with Census land area | **252 of 256** county subdivisions |
 | Site pages built | **348** |
-| Tests | **692 passing**, 8 expected failures, 13 skipped |
+| Tests | **1,278 passing**, 33 skipped (6 of them real-artifact tests that run once `git lfs pull` has fetched the spreadsheets) |
 
 Three of those gaps are load-bearing and deliberate.
 
-**No statutory parameter is countersigned by a person.** The values that carry citations were
+**Only FY2026 is countersigned by a person.** The values that carry citations were
 read from statute text snapshotted verbatim in `model/statute/`, or from a published State
-table on file in `intake/`, but the retrieval and transcription were automated and nobody has
-yet put their name to them — which is why every parameter file is still `status: draft`.
+table on file in `intake/`. The retrieval and transcription were automated. A person has read
+FY2026 against its snapshots and set it `status: verified` (2026-11-25); FY2025 and FY2027 are
+still `status: draft`.
 Everything the snapshots do not cover is `null` with `verified: false`, including the whole
 small and sparse layer: `legislature.vermont.gov` serves an incomplete TLS chain to automated
 clients and `education.vermont.gov` returns 403 to them. Rather than fill values in from memory
@@ -187,17 +188,15 @@ main entry point does not import.
 - Three budget documents collected (Addison Central, FY2023–FY2025), none yet extracted to a
   spending figure. The coverage dashboard shows every other expected district-year as missing,
   which is accurate.
-- No statutory parameter countersigned by a person. Every FY2026 value is verified against a
-  statute snapshot or a published State table by automation, and the golden fixtures now
-  reproduce the Tax Department's FY2026 rates from them, but a person has still to read the
-  snapshots against the files and set `status: verified`.
-- **The Act 127 tax-rate transition is modelled, with three loose ends.** The engine applies
+- FY2026 parameters are countersigned (`status: verified`, 2026-11-25). FY2027 is 27/27 verified
+  (statewide adjustment 0.7033 from the FY2027 rate table) and awaits countersignature.
+- **The Act 127 tax-rate transition is modelled, with two loose ends.** The engine applies
   the decrease of 2024 Acts No. 84, Sec. 3, as amended by Act 183, and reproduces 86 of 97
-  matchable FY2026 district rates (51 before). The loose ends: the three-place rounding of the
-  decrease is the Tax Department's convention, not statute; the income percentage of Sec. 3(e)
-  is not adjusted; and 11 districts still differ, for reasons listed but not modelled. See
-  [docs/act-127-transition.md](docs/act-127-transition.md).
-- No golden fixture yet checks weighted membership itself. The two passing fixtures take AOE's
+  matchable FY2026 district rates (51 before). It rounds the decrease to three places, which
+  is the Tax Department's convention rather than statute text, confirmed 2026-11-27. The loose
+  ends: the income percentage of Sec. 3(e) is not adjusted, and 11 districts still differ, for
+  reasons listed but not modelled. See [docs/act-127-transition.md](docs/act-127-transition.md).
+- No golden fixture yet checks weighted membership itself. The passing fixtures take AOE's
   published long-term weighted ADM as an input; a membership fixture needs AOE's weighted
   membership report with its grade-band inputs.
 - The Act 170 groupings on file are the law's; the facilitators' redrawn committees are not.
@@ -216,11 +215,15 @@ main entry point does not import.
 ## Web analytics
 
 The published site loads [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/),
-which is cookieless and collects no personal data — consistent with the site's "no server, no
-database, no login" design. The beacon is emitted **only** by the production GitHub Pages deploy:
-`site/src/lib/analytics.ts` renders it solely when the build sets `PUBLIC_CF_ANALYTICS=1`, and that
-flag is set exclusively in the merge-to-main `Deploy` workflow. Local development (`npm run dev`),
-local builds, and PR previews never load it.
+which is cookieless and collects no personal data. The "Find my town" feature sets one first-party
+cookie only when a visitor picks a town: it holds that town's name, so a returning visitor is taken
+straight back to it. Picking a town also sends one [PostHog](https://posthog.com/) event
+(`town_selected` with the town's slug) — no identity is attached to it. Neither the Cloudflare
+beacon nor the PostHog script loads outside the production Netlify deploy:
+`site/src/lib/analytics.ts` emits them solely when the build sets `PUBLIC_CF_ANALYTICS=1` /
+`PUBLIC_POSTHOG_ENABLED=1`, which are set exclusively in the production context of `netlify.toml`.
+Local development (`npm run dev`), local builds, and PR previews never load either, and the journey
+cookie is never set without an active town choice.
 
 ## Licence
 

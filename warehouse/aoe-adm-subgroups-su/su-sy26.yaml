@@ -1,0 +1,1082 @@
+# AOE average daily membership by SUPERVISORY UNION, 2025-2026 (SY26).
+#
+# Transcribed from intake/aoe-adm-subgroups-su/fy2026/ADM_Sums_by_SU_Across_Years.csv
+# by npm run adm:subgroups-su. Do not hand-edit: re-run the import instead.
+#
+# BASIS UNCONFIRMED. AOE has not said whether these count students by SU of
+# residence, attendance or responsibility. SY24 equals the sum of member towns'
+# resident ADM; SY25 and SY26 do not. Do not sum towns to an SU or merge this
+# with warehouse/aoe-adm-subgroups (town of residence). See `basis` below.
+schema_version: "1.0"
+source: intake/aoe-adm-subgroups-su/fy2026/ADM_Sums_by_SU_Across_Years.csv
+method: intake/aoe-adm-subgroups/fy2026/adm_ferpa_suppressed_lea.sql
+school_year: SY26
+count_year: 2025-2026
+fiscal_year: 2027
+preliminary: true
+preliminary_note: "SY26 is treated as preliminary, as in the town record: its values are
+  averages over 220 days or eleven periods of a still-running year. Whether SY26 is
+  final was asked of AOE on 2026-09-11 and had not been answered when this was
+  extracted."
+grain: su
+min_n: 11
+basis:
+  confirmed: false
+  observed_against_town_sums: differs_from_town_residence_sums
+  note: "Whether these count students by SU of residence, attendance or responsibility has
+    not been confirmed by AOE (not yet asked). SY26 does NOT equal the sum of member
+    towns' resident ADM: no SU whose towns were all published reconciles, the gap is
+    mostly in grades 9-12 and runs in both directions, and 47 SU-band cells fall below
+    the sum of published town values, which suppression (it only hides values) cannot
+    cause. Working hypothesis (James Nadeau), unconfirmed by AOE: SY25 and SY26 are
+    counted by the school attended, not the town of residence, so tuitioned high
+    schoolers move between SUs. Do not sum towns to an SU or merge the two series."
+suppression_rules:
+  applicability: assumed_from_town_extract
+  reporting_floor:
+    text: 1. Reporting floor - an ADMTDIST/year whose total population is < 11 is not
+      reportable
+    source: "intake/aoe-adm-subgroups/fy2026/adm_ferpa_suppressed_lea.sql rule 1, min_n = 11
+      (assumed: no documentation came with the SU file)"
+  primary:
+    text: 2. Primary - a cell with < 11 students is withheld
+    source: "intake/aoe-adm-subgroups/fy2026/adm_ferpa_suppressed_lea.sql rule 2, min_n = 11
+      (assumed: no documentation came with the SU file)"
+  complement:
+    text: 3. Complement - a subgroup is withheld when the students NOT in it are < 11
+    source: "intake/aoe-adm-subgroups/fy2026/adm_ferpa_suppressed_lea.sql rule 3, min_n = 11
+      (assumed: no documentation came with the SU file)"
+  pair_member:
+    text: 4. Complementary - across the four grade bands, a lone suppressed band is
+      derivable by subtraction, so the next smallest non-empty band is also suppressed
+    source: "intake/aoe-adm-subgroups/fy2026/adm_ferpa_suppressed_lea.sql rule 4, min_n = 11
+      (assumed: no documentation came with the SU file)"
+sus:
+  - entity: su/mt-abraham
+    aoe_org_id: SU001
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 146.4
+      kindergarten_through_5: 482.281818
+      grades_6_through_8: 248.9
+      grades_9_through_12: 374.313636
+    ell: 16
+    nslelg: 492.295455
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/addison-northwest
+    aoe_org_id: SU002
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 91.65
+      kindergarten_through_5: 375.55
+      grades_6_through_8: 168
+      grades_9_through_12: 231.036364
+    ell: 18
+    nslelg: 302.231818
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/addison-central
+    aoe_org_id: SU003
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 148.45
+      kindergarten_through_5: 634.661818
+      grades_6_through_8: 380.332727
+      grades_9_through_12: 512.654545
+    ell: 34
+    nslelg: 616.784545
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/slate-valley
+    aoe_org_id: SU004
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 106.24
+      kindergarten_through_5: 488.643636
+      grades_6_through_8: 266.995455
+      grades_9_through_12: 323.646545
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 673.472
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/southwest-vermont
+    aoe_org_id: SU005
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 290.75
+      kindergarten_through_5: 1238.3
+      grades_6_through_8: 706.9
+      grades_9_through_12: 927.25
+    ell: 39
+    nslelg: 2180.5
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/bennington-rutland
+    aoe_org_id: SU006
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 140
+      kindergarten_through_5: 640.65
+      grades_6_through_8: 406.3
+      grades_9_through_12: 798
+    ell: 35
+    nslelg: 815.8
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/colchester
+    aoe_org_id: SU007
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 246.561
+      kindergarten_through_5: 909.1665
+      grades_6_through_8: 523.436364
+      grades_9_through_12: 691.802273
+    ell: 87.8
+    nslelg: 754.982818
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/caledonia-central
+    aoe_org_id: SU009
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 127.35
+      kindergarten_through_5: 500.054545
+      grades_6_through_8: 308.895455
+      grades_9_through_12: 433.772727
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 708.909091
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/milton
+    aoe_org_id: SU010
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 165.9
+      kindergarten_through_5: 567.889818
+      grades_6_through_8: 318.255636
+      grades_9_through_12: 407.020909
+    ell: 49.8
+    nslelg: 653.741818
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/saint-johnsbury
+    aoe_org_id: SU011
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 73.5
+      kindergarten_through_5: 373.74
+      grades_6_through_8: 191
+      grades_9_through_12: 373
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 602.94
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/mount-mansfield
+    aoe_org_id: SU012
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 314.07
+      kindergarten_through_5: 1032.12
+      grades_6_through_8: 579.813636
+      grades_9_through_12: 666.084545
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 430.245455
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/champlain-valley
+    aoe_org_id: SU014
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 394
+      kindergarten_through_5: 1490.091091
+      grades_6_through_8: 843.168182
+      grades_9_through_12: 1207.213636
+    ell: 113.65
+    nslelg: 912.100909
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/burlington
+    aoe_org_id: SU015
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 356.91
+      kindergarten_through_5: 1390.1
+      grades_6_through_8: 681.15
+      grades_9_through_12: 920.631818
+    ell: 506.05
+    nslelg: 1812.584545
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/south-burlington
+    aoe_org_id: SU016
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 262.3775
+      kindergarten_through_5: 975.1
+      grades_6_through_8: 563.345455
+      grades_9_through_12: 810.827273
+    ell: 160.4
+    nslelg: 683.3275
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/winooski
+    aoe_org_id: SU017
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 110.12
+      kindergarten_through_5: 323.695455
+      grades_6_through_8: 158.989091
+      grades_9_through_12: 198.6
+    ell: 286.45
+    nslelg: 557.720909
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/essex-north
+    aoe_org_id: SU019
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 26
+      kindergarten_through_5: 159.99
+      grades_6_through_8: 74.64
+      grades_9_through_12: 115.09
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 161.58
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/franklin-northeast
+    aoe_org_id: SU020
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 191.75
+      kindergarten_through_5: 785.835682
+      grades_6_through_8: 445.853636
+      grades_9_through_12: 461.127273
+    ell: 20
+    nslelg: 1125.84
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/missisquoi-valley
+    aoe_org_id: SU021
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 154
+      kindergarten_through_5: 773.246364
+      grades_6_through_8: 392.804545
+      grades_9_through_12: 536.8
+    ell: 13
+    nslelg: 977.44
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/franklin-west
+    aoe_org_id: SU022
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 202.1
+      kindergarten_through_5: 808.863636
+      grades_6_through_8: 424.3
+      grades_9_through_12: 248.727273
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 590.627273
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/maple-run
+    aoe_org_id: SU023
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 206.5
+      kindergarten_through_5: 914.312727
+      grades_6_through_8: 511.442727
+      grades_9_through_12: 920.455273
+    ell: 30
+    nslelg: 1246.430909
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/grand-isle
+    aoe_org_id: SU024
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 76
+      kindergarten_through_5: 349.25
+      grades_6_through_8: 142.85
+      grades_9_through_12: 42
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 268.5
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/lamoille-north
+    aoe_org_id: SU025
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 120.225
+      kindergarten_through_5: 645.136364
+      grades_6_through_8: 340.891818
+      grades_9_through_12: 473.945455
+    ell: 12
+    nslelg: 1010.437273
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/lamoille-south
+    aoe_org_id: SU026
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 161.96
+      kindergarten_through_5: 539.575
+      grades_6_through_8: 339.15
+      grades_9_through_12: 502.177273
+    ell: 20
+    nslelg: 597.223182
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/orange-east
+    aoe_org_id: SU027
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 124.35
+      kindergarten_through_5: 685.248864
+      grades_6_through_8: 376.409091
+      grades_9_through_12: 541.273636
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 903.0225
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/orange-southwest
+    aoe_org_id: SU028
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 58.6
+      kindergarten_through_5: 329.85
+      grades_6_through_8: 208.85
+      grades_9_through_12: 208.6
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 406.377273
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/white-river-valley
+    aoe_org_id: SU030
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 128.85
+      kindergarten_through_5: 606.677273
+      grades_6_through_8: 300.7
+      grades_9_through_12: 404.49
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 719.65
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/north-country
+    aoe_org_id: SU031
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 248.8
+      kindergarten_through_5: 1014.139091
+      grades_6_through_8: 564.480909
+      grades_9_through_12: 672.216364
+    ell: 11
+    nslelg: 1782.789091
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/washington-central
+    aoe_org_id: SU032
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 99.4
+      kindergarten_through_5: 487.1
+      grades_6_through_8: 260.315455
+      grades_9_through_12: 464.07
+    ell: 11
+    nslelg: 452.255455
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/mill-river-unified-union
+    aoe_org_id: SU033
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 64.8
+      kindergarten_through_5: 284.6725
+      grades_6_through_8: 184.586364
+      grades_9_through_12: 234.05
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 344.726364
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/orleans-central
+    aoe_org_id: SU034
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 70.5
+      kindergarten_through_5: 390.15
+      grades_6_through_8: 197.05
+      grades_9_through_12: 341.45
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 654.65
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/orleans-southwest
+    aoe_org_id: SU035
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 74.7
+      kindergarten_through_5: 365.64
+      grades_6_through_8: 198.95
+      grades_9_through_12: 243.69
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 529.08
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/rutland-northeast
+    aoe_org_id: SU036
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 111.23
+      kindergarten_through_5: 569.03
+      grades_6_through_8: 328.2
+      grades_9_through_12: 323.37
+    ell: 11.5
+    nslelg: 584.83
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/rutland-city
+    aoe_org_id: SU040
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 113.37
+      kindergarten_through_5: 667.05
+      grades_6_through_8: 380.9
+      grades_9_through_12: 700.809273
+    ell: 68
+    nslelg: 1252.312727
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/harwood-unified-union
+    aoe_org_id: SU042
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 185.76
+      kindergarten_through_5: 716.336364
+      grades_6_through_8: 394
+      grades_9_through_12: 450
+    ell: 20.51
+    nslelg: 496.4
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/windham-central
+    aoe_org_id: SU046
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 79.9
+      kindergarten_through_5: 307.013636
+      grades_6_through_8: 153.37
+      grades_9_through_12: 214.536364
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 369.938182
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/windham-northeast
+    aoe_org_id: SU047
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 66.45
+      kindergarten_through_5: 376.67
+      grades_6_through_8: 209.58
+      grades_9_through_12: 293.292727
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 669.842727
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/windham-southeast
+    aoe_org_id: SU048
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 242.15
+      kindergarten_through_5: 933.298182
+      grades_6_through_8: 518.541818
+      grades_9_through_12: 715.646364
+    ell: 75.3
+    nslelg: 1361.46
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/windham-southwest
+    aoe_org_id: SU049
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 45.95
+      kindergarten_through_5: 292.45
+      grades_6_through_8: 148.8
+      grades_9_through_12: 176.6
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 263.9
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/mountain-views
+    aoe_org_id: SU051
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 104.5
+      kindergarten_through_5: 385.543182
+      grades_6_through_8: 208.7
+      grades_9_through_12: 302.586364
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 271.343182
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/windsor-southeast
+    aoe_org_id: SU052
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 110.95
+      kindergarten_through_5: 513.33
+      grades_6_through_8: 272.39
+      grades_9_through_12: 299.8
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 468.96
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/hartford
+    aoe_org_id: SU054
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 85.465
+      kindergarten_through_5: 504.186364
+      grades_6_through_8: 273.7
+      grades_9_through_12: 494.685236
+    ell: 18.95
+    nslelg: 635.315691
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/school-administrative-unit-70
+    aoe_org_id: SU055
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 46
+      kindergarten_through_5: 233.85
+      grades_6_through_8: 143
+      grades_9_through_12: 183
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 53
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/springfield
+    aoe_org_id: SU056
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 107.3
+      kindergarten_through_5: 473.15
+      grades_6_through_8: 260.968182
+      grades_9_through_12: 344.95
+    ell: 28
+    nslelg: 703.9
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/barre
+    aoe_org_id: SU061
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 182.31
+      kindergarten_through_5: 871.24
+      grades_6_through_8: 418.7
+      grades_9_through_12: 582.1
+    ell: 10.49
+    nslelg: 1040.4
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/two-rivers
+    aoe_org_id: SU063
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 71.26
+      kindergarten_through_5: 348.752273
+      grades_6_through_8: 208.998182
+      grades_9_through_12: 210.4
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 481.136818
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/rivendell-interstate
+    aoe_org_id: SU064
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 40.75
+      kindergarten_through_5: 103
+      grades_6_through_8: 57
+      grades_9_through_12: 74
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 143.5
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/essex-westford
+    aoe_org_id: SU065
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 344.75
+      kindergarten_through_5: 1322.1
+      grades_6_through_8: 757.505455
+      grades_9_through_12: 1195.862273
+    ell: 228.95
+    nslelg: 958.628182
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/greater-rutland-county
+    aoe_org_id: SU066
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 163.15
+      kindergarten_through_5: 672.001636
+      grades_6_through_8: 377.58
+      grades_9_through_12: 400.35
+    ell: 0
+    nslelg: 826.747273
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published_true_zero
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/kingdom-east
+    aoe_org_id: SU067
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 87.5
+      kindergarten_through_5: 647.281818
+      grades_6_through_8: 365.2
+      grades_9_through_12: 527.98
+    ell:
+      suppressed:
+        kind: primary
+        low: 0
+        high: 10
+        exclusive_low: true
+        basis: headcount
+        floor_confirmed: true
+    nslelg: 922.301818
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: primary_small_cell
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/central-vermont
+    aoe_org_id: SU068
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 108.41
+      kindergarten_through_5: 496.25
+      grades_6_through_8: 280.903636
+      grades_9_through_12: 301.75
+    ell: 11
+    nslelg: 638.24
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/montpelier-roxbury
+    aoe_org_id: SU069
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 83.52
+      kindergarten_through_5: 442.01
+      grades_6_through_8: 269.15
+      grades_9_through_12: 378.804545
+    ell: 59.5
+    nslelg: 365.742727
+    suppression_pairs: []
+    as_published:
+      ell_disclosure: published
+      nslelg_disclosure: published
+      bands_suppressed: 0
+  - entity: su/lincoln
+    aoe_org_id: SU070
+    row_status: published
+    total: null
+    bands:
+      prekindergarten: 26
+      kindergarten_through_5: 71.35
+      grades_6_through_8:
+        suppressed:
+          kind: pair_member
+          low: 0
+          high: null
+          exclusive_low: true
+          basis: headcount
+          pair: 0
+      grades_9_through_12:
+        suppressed:
+          kind: pair_member
+          low: 0
+          high: null
+          exclusive_low: true
+          basis: headcount
+          pair: 0
+    ell: 0
+    nslelg: 34.35
+    suppression_pairs:
+      - members:
+          - grades_6_through_8
+          - grades_9_through_12
+        one_of:
+          both_small:
+            low: 0
+            high: 10
+            exclusive_low: true
+            basis: headcount
+          small_and_survivor:
+            small:
+              low: 0
+              high: 10
+              exclusive_low: true
+              basis: headcount
+            survivor:
+              low: 10
+              high: null
+              exclusive_low: true
+              basis: headcount
+        sum_equals: null
+        note: Two bands withheld. Either both have 1 to 10 students, or one does and the other
+          was withheld only so the first could not be recovered by subtraction (rule 4).
+          The extract does not say which, so each is bounded only from below.
+    as_published:
+      ell_disclosure: published_true_zero
+      nslelg_disclosure: published
+      bands_suppressed: 2
+unresolved_rows: []
+not_published: []
+extracted_by: James Nadeau
+extracted_date: 2026-11-20

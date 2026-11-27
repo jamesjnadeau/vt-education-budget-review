@@ -23,7 +23,10 @@
     "coverage": "tsx tools/src/cli/coverage.ts",
     "adm:import": "tsx tools/src/cli/adm-import.ts",
     "adm:subgroups": "tsx tools/src/cli/adm-subgroups-import.ts",
+    "adm:subgroups-su": "tsx tools/src/cli/adm-subgroups-su-import.ts",
     "edspend:import": "tsx tools/src/cli/edspend-import.ts",
+    "tax-rates:import": "tsx tools/src/cli/tax-rates-import.ts",
+    "act84:import": "tsx tools/src/cli/act84-import.ts",
     "census:import": "tsx tools/src/cli/census-import.ts",
     "school:municipality": "tsx tools/src/cli/school-municipality.ts",
     "collect": "tsx tools/src/cli/collect.ts",
@@ -44,6 +47,8 @@
     "vitest": "^4.1.10"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.13",
+    "@netlify/functions": "^6.1.1",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "read-excel-file": "^9.3.5",

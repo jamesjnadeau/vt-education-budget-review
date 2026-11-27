@@ -33,10 +33,13 @@ import {
   formatRange,
   formatValue,
   input,
+  isUnfilledInput,
   perWeightedPupil,
   toSteps,
   townRate,
   type Blocker,
+  type AdmYear,
+  type InputEstimate,
   type CalcNode,
   type MembershipResult,
   type Parameter,
@@ -45,8 +48,41 @@ import {
   type Unit,
 } from '@vt-budget/model';
 
+import {
+  act84Fill,
+  bandFill,
+  pickerGroups,
+  blockedBandsText,
+  planAdmPrefill,
+  spendingFill,
+  type Act84Entry,
+  type EntityLabel,
+  type PrefillPair,
+  type PrefillPlan,
+  type PrefillRange,
+  type PrefillSpending,
+  weightedAdmComparison,
+  type Suggestion,
+} from './adm-prefill.ts';
+import type { CombinerData } from './combiner-view.ts';
+import {
+  claSelectOptions,
+  districtInputEstimates,
+  emptyBoxCopy,
+  fieldAction,
+  planDistrictInputs,
+  type InputField,
+  type InputPlan,
+} from './district-inputs.ts';
 import { enteredYearTotal } from './entered-total.ts';
-import { SHARE_FIELDS, decodeScenario, shareUrl, type Scenario } from './share-link.ts';
+import {
+  LOWER_LIMIT_PARAM,
+  SHARE_FIELDS,
+  decodeEstimated,
+  decodeScenario,
+  shareUrl,
+  type Scenario,
+} from './share-link.ts';
 import { nextStatewideAverage } from './statewide-average.ts';
 import { studentSummarySections } from './student-summary.ts';
 
@@ -62,12 +98,23 @@ import { studentSummarySections } from './student-summary.ts';
 // `liveParameters` below. `ResolvedAdmData` mirrors that pattern.
 export interface ResolvedAdmBand {
   value: number | null;
-  source: 'district' | 'aoe' | 'unknown';
+  source: 'district' | 'aoe' | 'withheld' | 'unknown';
+  preliminary?: true;
+  /** On a withheld band: the range the published bounds allow. Never used as a value. */
+  range?: PrefillRange;
+  /** On a withheld band: towns whose cell is one of a hidden pair. */
+  pairs?: readonly PrefillPair[];
 }
 
 export interface ResolvedAdmData {
   generated?: string;
   entities: Record<string, Record<string, Record<string, ResolvedAdmBand>>>;
+  /** AOE EdSpend education spending, per district and fiscal year. */
+  spending?: Record<string, Record<string, PrefillSpending>>;
+  /** The FY2025 Act 84 decrease from AOE's worksheet, per district. */
+  act84?: Record<string, Act84Entry>;
+  /** Registry name and type for every entity the picker lists. */
+  labels?: Record<string, EntityLabel>;
 }
 
 // The input key carrying the Secretary of Education's statewide average
@@ -94,7 +141,7 @@ export interface RawParameterSet {
 
 // The published statewide-average figure on a set, or null when the year's
 // determination is not yet on file (its `inputs` value is null, or absent).
-function publishedStatewideAverage(set: RawParameterSet | undefined): number | null {
+export function publishedStatewideAverage(set: RawParameterSet | undefined): number | null {
   const entry = set?.inputs?.find((i) => i.key === STATEWIDE_AVERAGE_KEY);
   return entry?.value ?? null;
 }
@@ -106,7 +153,7 @@ function publishedStatewideAverage(set: RawParameterSet | undefined): number | n
 // parameters.json. A set with no file recorded is kept rather than dropped.
 const MAIN_FORMULA_FILE = /(?:^|\/)fy\d{4}\.yaml$/;
 
-function liveSets(sets: RawParameterSet[]): RawParameterSet[] {
+export function liveSets(sets: RawParameterSet[]): RawParameterSet[] {
   return sets
     .filter((s) => s.file === undefined || MAIN_FORMULA_FILE.test(s.file))
     .sort((a, b) => b.fiscal_year - a.fiscal_year);
@@ -126,7 +173,7 @@ function liveLabel(set: RawParameterSet): string {
   return `Live — FY${set.fiscal_year} (${detail})`;
 }
 
-function toParameterSet(raw: RawParameterSet): ParameterSet {
+export function toParameterSet(raw: RawParameterSet): ParameterSet {
   return {
     fiscal_year: raw.fiscal_year,
     status: raw.status,
@@ -258,6 +305,23 @@ const STATUS_CLASS: Record<CalcNode['status'], string> = {
   estimated: 'estimated',
 };
 
+// An estimate from a "use suggestion" checkbox gets its own wording, so the
+// reader can tell it from an estimate the engine made from a parameter range.
+// A figure built on a range's lower limit gets a warning of its own, which
+// wins over both: the real number may be well away from it.
+export function statusLabel(node: CalcNode): string {
+  if (node.status === 'estimated') {
+    if (node.blockers.some((b) => b.kind === 'lower_limit_input')) return 'lower limit estimate';
+    if (!node.blockers.some((b) => b.kind === 'estimated_parameter')) return 'estimated (from suggestion)';
+  }
+  return STATUS_LABEL[node.status];
+}
+
+export function statusClass(node: CalcNode): string {
+  if (node.status === 'estimated' && node.blockers.some((b) => b.kind === 'lower_limit_input')) return 'lower-limit';
+  return STATUS_CLASS[node.status];
+}
+
 function el(tag: string, className?: string, text?: string): HTMLElement {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -278,7 +342,7 @@ function setAdmYearLabels(earlierYear: number, laterYear: number): void {
   }
 }
 
-function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
+export function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   const list = el('ol', 'walkthrough');
 
@@ -292,7 +356,7 @@ function renderWalkthrough(root: CalcNode, container: HTMLElement): void {
     const disclosure = el('details', 'step-disclosure');
     const head = el('summary', 'step-head');
     head.append(el('span', 'step-label', node.label));
-    head.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
+    head.append(el('span', `tag ${statusClass(node)}`, statusLabel(node)));
     head.append(el('span', 'step-value', formatValue(node.value, node.unit)));
     const stepBand = formatRange(node.range, node.unit);
     if (stepBand) head.append(el('span', 'step-range', `range ${stepBand}`));
@@ -357,6 +421,9 @@ function blockerItem(b: Blocker, byKey: Map<string, Parameter>): HTMLElement {
   return li;
 }
 
+/** The plans for the district now loaded, so an empty box can say whether the source has a figure. */
+let districtPlans: Record<InputField, InputPlan> | null = null;
+
 function renderBlockers(root: CalcNode, container: HTMLElement): void {
   container.replaceChildren();
   if (root.blockers.length === 0) return;
@@ -367,6 +434,8 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
   box.append(el('strong', undefined, `${root.blockers.length} thing(s) stand between this scenario and a number`));
 
   const estimated = root.blockers.filter((b) => b.kind === 'estimated_parameter');
+  const suggested = root.blockers.filter((b) => b.kind === 'estimated_input');
+  const lowerLimits = root.blockers.filter((b) => b.kind === 'lower_limit_input');
   const contingent = root.blockers.filter((b) => b.kind === 'contingent_parameter');
   const unverified = root.blockers.filter((b) => b.kind === 'unverified_parameter');
   const missing = root.blockers.filter((b) => b.kind === 'missing_input');
@@ -383,6 +452,40 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     );
     const ul = el('ul');
     for (const b of estimated) ul.append(blockerItem(b, byKey));
+    box.append(ul);
+  }
+
+  if (lowerLimits.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${lowerLimits.length} figure(s) use the lowest count the range allows. The real count may be higher, so any answer built on it could be off.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of lowerLimits) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${b.detail}`));
+      ul.append(li);
+    }
+    box.append(ul);
+  }
+
+  if (suggested.length > 0) {
+    box.append(
+      el(
+        'p',
+        undefined,
+        `${suggested.length} figure(s) were filled in from a suggestion, not a reported number. The math still runs, but the answer is an estimate.`,
+      ),
+    );
+    const ul = el('ul');
+    for (const b of suggested) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${b.detail}`));
+      ul.append(li);
+    }
     box.append(ul);
   }
 
@@ -412,16 +515,32 @@ function renderBlockers(root: CalcNode, container: HTMLElement): void {
     box.append(ul);
   }
 
-  if (missing.length > 0) {
+  // Only a blank input is a box on this form. A parameter with no value for the
+  // year, or a sum that could not be done, is missing too but has no box.
+  const emptyBoxes = missing.filter(isUnfilledInput);
+  const notOnFile = missing.filter((b) => !isUnfilledInput(b));
+
+  if (emptyBoxes.length > 0) {
     box.append(
       el(
         'p',
         undefined,
-        `${missing.length} figure(s) were not published by the source. These are facts about the documents, not about our progress.`,
+        `${emptyBoxes.length} box(es) are still empty. Fill them in, or tick a suggestion where one is offered.`,
       ),
     );
     const ul = el('ul');
-    for (const b of missing) ul.append(blockerItem(b, byKey));
+    for (const b of emptyBoxes) {
+      const li = el('li');
+      li.append(el('code', 'blocker-name', b.ref), document.createTextNode(` — ${emptyBoxCopy(b.ref, districtPlans)}`));
+      ul.append(li);
+    }
+    box.append(ul);
+  }
+
+  if (notOnFile.length > 0) {
+    box.append(el('p', undefined, `${notOnFile.length} figure(s) the math needs could not be found or worked out.`));
+    const ul = el('ul');
+    for (const b of notOnFile) ul.append(blockerItem(b, byKey));
     box.append(ul);
   }
 
@@ -519,7 +638,7 @@ function renderStudentSummary(membership: MembershipResult, container: HTMLEleme
       dl.append(el('dt', undefined, row.label));
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(row.node.value, row.node.unit) + ' '));
-      dd.append(el('span', `tag ${STATUS_CLASS[row.node.status]}`, STATUS_LABEL[row.node.status]));
+      dd.append(el('span', `tag ${statusClass(row.node)}`, statusLabel(row.node)));
       const factBand = formatRange(row.node.range, row.node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
       dl.append(dd);
@@ -583,6 +702,7 @@ function applyScenario(scenario: Scenario): void {
 export function initModelTool(
   liveParameters: RawParameterSet[],
   resolvedAdmData: ResolvedAdmData = { entities: {} },
+  combinerData: CombinerData = { fiscal_year: 2026, districts: {}, towns: {}, sus: {}, groupings: [] },
 ): void {
   const modeSelect = document.getElementById('parameter-mode') as HTMLSelectElement | null;
   const walkthrough = document.getElementById('walkthrough');
@@ -597,6 +717,17 @@ export function initModelTool(
   const priorYearGroup = document.getElementById('prior-year-group');
 
   if (!walkthrough || !blockers || !citations || !assumptions || !summary) return;
+
+  type PostHogProperties = Record<string, string | number | boolean>;
+  // posthog is absent when analytics is not enabled for this build (or the
+  // script is blocked), so every call goes through this null-safe wrapper.
+  const capture = (event: string, properties?: PostHogProperties): void => {
+    (
+      window as Window & {
+        posthog?: { capture: (event: string, properties?: PostHogProperties) => void };
+      }
+    ).posthog?.capture(event, properties);
+  };
 
   renderAssumptions(assumptions);
 
@@ -632,7 +763,51 @@ export function initModelTool(
         : `Total entered: ${formatValue(total, 'pupils')} students`;
   };
 
+  // Fields filled from a "use suggestion" checkbox (or marked so in a shared
+  // link), each with how its value was worked out. The engine labels them as
+  // estimates; typing in the field or unticking the box removes the mark.
+  const estimates = new Map<string, InputEstimate>();
+  const BAND_FIELD: Record<string, string> = {
+    prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
+  };
+  const bandEstimates = (slot: '1' | '2'): NonNullable<AdmYear['estimates']> => {
+    const out: Record<string, InputEstimate> = {};
+    for (const [band, prefix] of Object.entries(BAND_FIELD)) {
+      const estimate = estimates.get(`${prefix}-${slot}`);
+      if (estimate !== undefined) out[band] = estimate;
+    }
+    return out;
+  };
+
+  // Where the current scenario came from, for the one-per-visit
+  // model_result_viewed event. Only a visitor's own input, a prefill or a shared
+  // link can produce a computed rate, so loading a blank form records nothing.
+  let scenarioSource: 'blank' | 'prefill' | 'shared_link' = 'blank';
+  let resultViewedSent = false;
+
+  // AOE's weighted ADM for the district and year the reader loaded, or null
+  // when none is loaded or AOE has none. Set by applyAdmPrefill.
+  let aoeWeightedAdm: { loaded: boolean; published: number | null } = { loaded: false, published: null };
+
+  // The note above the result about hidden grade bands. It follows the form:
+  // it names only the bands whose boxes are still empty.
+  let admPlan: PrefillPlan = { kind: 'none' };
+  const refreshBlockedNote = (): void => {
+    const box = document.getElementById('blocked-bands');
+    if (!box) return;
+    const filled = new Set<string>();
+    for (const [band, prefix] of Object.entries(BAND_FIELD)) {
+      for (const slot of ['1', '2']) {
+        if (numberField(`${prefix}-${slot}`) !== null) filled.add(`${band}:${slot}`);
+      }
+    }
+    const text = blockedBandsText(admPlan, filled);
+    box.textContent = text ?? '';
+    box.hidden = text === null;
+  };
+
   const recompute = (): void => {
+    refreshBlockedNote();
     const useExample = modeSelect?.value === 'example';
     if (exampleWarning) exampleWarning.hidden = !useExample;
 
@@ -681,6 +856,7 @@ export function initModelTool(
     const smallSchoolName = textField('small-school-name');
     const smallSchoolEnrollment = numberField('small-school-enrollment');
 
+    const districtEstimates = districtInputEstimates(estimates);
     const membership = computeWeightedMembership(ctx, {
       entity: 'ud/illustrative',
       adm_years: [
@@ -690,6 +866,7 @@ export function initModelTool(
           kindergarten_through_5: numberField('k5-1'),
           grades_6_through_8: numberField('g68-1'),
           grades_9_through_12: numberField('g912-1'),
+          estimates: bandEstimates('1'),
         },
         {
           fiscal_year: laterYear,
@@ -697,12 +874,14 @@ export function initModelTool(
           kindergarten_through_5: numberField('k5-2'),
           grades_6_through_8: numberField('g68-2'),
           grades_9_through_12: numberField('g912-2'),
+          estimates: bandEstimates('2'),
         },
       ],
       state_placed_fte: numberField('state-placed'),
       poverty_185_fpl: numberField('econ'),
       english_learners: numberField('el'),
       persons_per_square_mile: numberField('density'),
+      estimates: districtEstimates.membership,
       // Only consult last year's figure where the floor is in force; in other
       // years it plays no part and the field is hidden, so we do not read it.
       prior_year_weighted_membership: floorApplies ? numberField('prior-year-membership') : null,
@@ -717,8 +896,10 @@ export function initModelTool(
 
     if (studentSummary) renderStudentSummary(membership, studentSummary);
 
+    const spendingEstimate = estimates.get('spending');
     const spending = input(ctx, 'Education spending', numberField('spending'), 'usd', {
       source: 'figures entered by you in this form',
+      ...(spendingEstimate !== undefined ? { estimate: spendingEstimate } : {}),
     });
     const perPupil = perWeightedPupil(ctx, spending, membership.total);
     const rate = townRate(
@@ -728,6 +909,7 @@ export function initModelTool(
         town: 'your town',
         cla: numberField('cla'),
         cla_source: 'figure entered by you in this form',
+        cla_estimate: districtEstimates.cla,
       },
       // The Secretary of Education's statewide average determination, not a
       // figure the user is supposing about their own district. When the selected
@@ -765,12 +947,26 @@ export function initModelTool(
       dl.append(el('dt', undefined, label));
       const dd = el('dd');
       dd.append(document.createTextNode(formatValue(node.value, node.unit) + ' '));
-      dd.append(el('span', `tag ${STATUS_CLASS[node.status]}`, STATUS_LABEL[node.status]));
+      dd.append(el('span', `tag ${statusClass(node)}`, statusLabel(node)));
       const factBand = formatRange(node.range, node.unit);
       if (factBand) dd.append(el('span', 'fact-range', ` (range ${factBand})`));
+      if (node === membership.total && aoeWeightedAdm.loaded) {
+        const compare = weightedAdmComparison(node.value, aoeWeightedAdm.published);
+        dd.append(el('small', 'adm-source', ` ${compare.text}`));
+      }
       dl.append(dd);
     }
     summary.append(dl);
+
+    if (!resultViewedSent && rate.billedRate.value !== null) {
+      resultViewedSent = true;
+      const properties: PostHogProperties = {
+        source: useExample ? 'example' : scenarioSource,
+        has_estimates: estimates.size > 0,
+      };
+      if (!useExample) properties.fiscal_year = selectedYear;
+      capture('model_result_viewed', properties);
+    }
   };
 
   // Offer the selected year's published statewide average, without ever
@@ -808,69 +1004,239 @@ export function initModelTool(
   const entities = resolvedAdmData.entities ?? {};
   const loadEntity = document.getElementById('load-entity') as HTMLSelectElement | null;
   const loadYear = document.getElementById('load-year') as HTMLSelectElement | null;
-  const SOURCE_TEXT: Record<string, string> = {
-    district: 'from the district’s budget',
-    aoe: 'from the state AOE count',
-    unknown: 'not available',
-  };
-  const BAND_FIELD: Record<string, string> = {
-    prekindergarten: 'prek', kindergarten_through_5: 'k5', grades_6_through_8: 'g68', grades_9_through_12: 'g912',
-  };
+  const loadStatus = document.getElementById('load-status');
   const admFieldIds = Object.values(BAND_FIELD).flatMap((prefix) => [`${prefix}-1`, `${prefix}-2`]);
   const userEditedAdm = new Set<string>();
-  for (const id of admFieldIds) {
+  const DISTRICT_INPUT_IDS: readonly InputField[] = ['econ', 'el', 'density', 'cla'];
+  for (const id of [...admFieldIds, 'spending', 'act84-decrease', ...DISTRICT_INPUT_IDS]) {
     document.getElementById(id)?.addEventListener('input', () => userEditedAdm.add(id));
   }
 
-  // A missing entity/year row (no budget or AOE record for that exact year --
-  // most often the earlier of the two ADM years) is not a "leave it alone"
-  // signal; it means every band in that row is exactly as unresolved as an
-  // explicit source:'unknown' band, so it is folded into the same branch below
-  // rather than left to fall through to a stale value or a blank note.
-  const fillBandRow = (band: Record<string, ResolvedAdmBand> | undefined, slot: '1' | '2'): void => {
+  // The "use suggestion" checkbox under a field that has a suggestion but no
+  // figure. Ticking it fills the field with the suggested value and marks it
+  // as an estimate; unticking it blanks the field again. Typing a number of
+  // your own unticks it, since the field then holds your figure.
+  const suggestions = new Map<string, Suggestion>();
+  const suggestionBox = (id: string): HTMLLabelElement | null =>
+    document.querySelector<HTMLLabelElement>(`[data-use-suggestion="${id}"]`);
+  const setSuggestion = (id: string, use: Suggestion | undefined): void => {
+    estimates.delete(id);
+    if (use) suggestions.set(id, use);
+    else suggestions.delete(id);
+    const box = suggestionBox(id);
+    if (!box) return;
+    box.hidden = !use;
+    const check = box.querySelector('input');
+    if (check) check.checked = false;
+    const text = box.querySelector('span');
+    if (text) text.textContent = use?.label ?? '';
+  };
+  for (const id of [...admFieldIds, 'spending', ...DISTRICT_INPUT_IDS]) {
+    const field = document.getElementById(id) as HTMLInputElement | null;
+    const check = suggestionBox(id)?.querySelector('input');
+    if (!field || !check) continue;
+    check.addEventListener('change', () => {
+      const use = suggestions.get(id);
+      if (check.checked && use) {
+        field.value = String(use.value);
+        estimates.set(id, use.lowerLimit ? { how: use.estimate, lowerLimit: true } : { how: use.estimate });
+      } else {
+        field.value = '';
+        estimates.delete(id);
+      }
+      recompute();
+      // The field id names a form box (e.g. "spending"), never its value.
+      capture('estimate_suggestion_toggled', {
+        field: id,
+        checked: check.checked,
+        lower_limit: use?.lowerLimit === true,
+      });
+    });
+    field.addEventListener('input', () => {
+      estimates.delete(id);
+      check.checked = false;
+    });
+  }
+  const spendingByEntity = resolvedAdmData.spending ?? {};
+
+  // The four inputs that used to keep demo values. Each is blank until the
+  // district's own figure is suggested, a town is picked, or the reader types.
+  // A field the reader has typed into is never touched (see fieldAction).
+  const claTown = document.getElementById('cla-town') as HTMLSelectElement | null;
+  claTown?.addEventListener('change', () => {
+    const field = document.getElementById('cla') as HTMLInputElement | null;
+    if (!field) return;
+    field.value = claTown.value;
+    estimates.delete('cla');
+    recompute();
+  });
+  const applyDistrictInputs = (entity: string): void => {
+    const plans = planDistrictInputs(entity, combinerData);
+    districtPlans = plans;
+    for (const id of DISTRICT_INPUT_IDS) {
+      const action = fieldAction(plans[id], userEditedAdm.has(id));
+      const field = document.getElementById(id) as HTMLInputElement | null;
+      const note = document.querySelector<HTMLElement>(`[data-input-note="${id}"]`);
+      if (!field) continue;
+      if (action.kind === 'keep') {
+        // The reader's number stays. The last district's suggestion and note go.
+        setSuggestion(id, undefined);
+        if (note) note.textContent = '';
+        if (id === 'cla' && claTown) {
+          claTown.replaceChildren();
+          claTown.hidden = true;
+        }
+        continue;
+      }
+      field.value = '';
+      setSuggestion(id, undefined);
+      if (id === 'cla' && claTown) {
+        claTown.replaceChildren();
+        claTown.hidden = true;
+      }
+      if (action.kind === 'suggest') {
+        setSuggestion(id, { value: action.value, label: `Use this number (${action.value})`, estimate: action.note });
+        if (action.tick) {
+          field.value = String(action.value);
+          estimates.set(id, { how: action.note });
+          const check = suggestionBox(id)?.querySelector('input');
+          if (check) check.checked = true;
+        }
+        if (note) note.textContent = action.note;
+      } else if (action.kind === 'choose') {
+        if (claTown) {
+          for (const o of claSelectOptions(plans[id])) claTown.append(new Option(o.text, o.value));
+          claTown.value = '';
+          claTown.hidden = false;
+        }
+        if (note) note.textContent = action.note;
+      } else if (note) {
+        note.textContent = action.reason;
+      }
+    }
+  };
+  const labels = resolvedAdmData.labels ?? {};
+
+  // The spending field, like the grade counts: a value the user typed is kept.
+  const fillSpending = (
+    spending: PrefillSpending | undefined,
+    history: Record<string, PrefillSpending> | undefined,
+    fy: number,
+  ): void => {
+    const field = document.getElementById('spending') as HTMLInputElement | null;
+    const note = document.querySelector<HTMLElement>('[data-spending-source]');
+    const suggestionLine = document.querySelector<HTMLElement>('[data-spending-suggestion]');
+    if (!field || userEditedAdm.has('spending')) return;
+    const fill = spendingFill(spending, history, fy);
+    field.value = fill.value;
+    setSuggestion('spending', fill.use);
+    if (note) note.textContent = fill.note;
+    if (suggestionLine) {
+      suggestionLine.textContent = fill.suggestion ?? '';
+      suggestionLine.hidden = fill.suggestion === null;
+    }
+  };
+
+  // The Act 84 decrease, like the spending field: a value the user typed is
+  // kept. The field is cleared for a year whose parameter set has no
+  // transition, so a figure never stays behind where it does not apply.
+  const fillAct84 = (entry: Act84Entry | undefined, mode: string): void => {
+    const field = document.getElementById('act84-decrease') as HTMLInputElement | null;
+    const note = document.querySelector<HTMLElement>('[data-act84-source]');
+    if (!field || userEditedAdm.has('act84-decrease')) return;
+    const transitionApplies =
+      sets
+        .find((s) => s.fiscal_year === Number(mode))
+        ?.parameters.some((p) => p.key === 'tax.transition.phase_out_share') ?? false;
+    const fill = act84Fill(entry, transitionApplies, Number(mode));
+    field.value = fill.value;
+    if (note) note.textContent = fill.note;
+  };
+
+  // A missing entity/year row (most often the earlier of the two ADM years)
+  // reads as "not available", the same as an explicit unknown band; see
+  // bandFill in adm-prefill.ts.
+  const fillBandRow = (row: Record<string, ResolvedAdmBand> | undefined, slot: '1' | '2'): void => {
     for (const [key, prefix] of Object.entries(BAND_FIELD)) {
       const id = `${prefix}-${slot}`;
       const field = document.getElementById(id) as HTMLInputElement | null;
       const note = document.querySelector<HTMLElement>(`[data-adm-source="${id}"]`);
+      const rangeLine = document.querySelector<HTMLElement>(`[data-adm-range="${id}"]`);
+      const pairLine = document.querySelector<HTMLElement>(`[data-adm-pair="${id}"]`);
       if (!field) continue;
       // A field the user has actually typed into is never touched -- neither
       // its value nor its source note -- so a prefill can never overwrite, or
       // even relabel, something the user entered themselves.
       if (userEditedAdm.has(id)) continue;
-      const resolved = band?.[key];
-      if (resolved && resolved.value !== null) {
-        field.value = String(resolved.value);
-        if (note) note.textContent = SOURCE_TEXT[resolved.source] ?? '';
-      } else {
-        // No value on file -- either the band is explicitly unknown, or the
-        // whole row (band) is missing for this entity/year. Both read as "not
-        // available" and leave the field blank, so the note never claims a
-        // source for a value that isn't there.
-        field.value = '';
-        if (note) note.textContent = SOURCE_TEXT.unknown ?? '';
+      const fill = bandFill(row?.[key]);
+      field.value = fill.value;
+      setSuggestion(id, fill.use);
+      if (note) note.textContent = fill.note;
+      if (rangeLine) {
+        rangeLine.textContent = fill.range ?? '';
+        rangeLine.hidden = fill.range === null;
+      }
+      if (pairLine) {
+        pairLine.textContent = fill.pair ?? '';
+        pairLine.hidden = fill.pair === null;
       }
     }
   };
 
+  // The slot labels and the engine's ADM years follow the mode selector, so a
+  // picked budget year first moves the selector to that year's parameter set.
+  // With no parameter set for the year, nothing is filled (see planAdmPrefill).
   const applyAdmPrefill = (): void => {
     const entity = loadEntity?.value ?? '';
-    const year = loadYear?.value ?? '';
-    if (!entity || !year || !entities[entity]?.[year]) return;
-    fillBandRow(entities[entity]?.[String(Number(year) - 1)], '1');
-    fillBandRow(entities[entity]?.[year], '2');
+    const plan = planAdmPrefill(
+      entity,
+      loadYear?.value ?? '',
+      entities[entity],
+      sets.map((s) => s.fiscal_year),
+      spendingByEntity[entity],
+    );
+    if (loadStatus) loadStatus.textContent = plan.kind === 'no-parameters' ? plan.message : '';
+    admPlan = plan;
+    if (plan.kind !== 'fill') {
+      refreshBlockedNote();
+      return;
+    }
+    if (modeSelect && modeSelect.value !== plan.mode) {
+      modeSelect.value = plan.mode;
+      applyStatewidePrefill();
+    }
+    fillBandRow(plan.earlier, '1');
+    fillBandRow(plan.later, '2');
+    fillSpending(plan.spending, plan.spendingHistory, Number(plan.mode));
+    fillAct84((resolvedAdmData.act84 ?? {})[entity], plan.mode);
+    applyDistrictInputs(entity);
+    const aoeRow = plan.spending;
+    aoeWeightedAdm = {
+      loaded: true,
+      published: aoeRow && aoeRow.pupil_measure === 'long_term_weighted_adm' ? aoeRow.pupils : null,
+    };
+    scenarioSource = 'prefill';
     recompute();
+    capture('district_prefill_applied', { fiscal_year: Number(plan.mode) });
   };
 
-  // Populate the entity options (sorted), and the year options for the chosen entity.
-  for (const slug of Object.keys(entities).sort()) {
-    const opt = document.createElement('option');
-    opt.value = slug; opt.textContent = slug;
-    loadEntity?.append(opt);
+  // Populate the entity options, grouped by kind, and the year options for
+  // the chosen entity: any year with grade counts or spending.
+  const slugs = [...new Set([...Object.keys(entities), ...Object.keys(spendingByEntity)])];
+  for (const group of pickerGroups(slugs, labels)) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = group.label;
+    for (const o of group.options) optgroup.append(new Option(o.text, o.value));
+    loadEntity?.append(optgroup);
   }
   loadEntity?.addEventListener('change', () => {
     if (!loadYear) return;
     loadYear.replaceChildren(new Option('— none —', ''));
-    for (const y of Object.keys(entities[loadEntity.value] ?? {}).sort()) loadYear.append(new Option(`FY${y}`, y));
+    const years = new Set([
+      ...Object.keys(entities[loadEntity.value] ?? {}),
+      ...Object.keys(spendingByEntity[loadEntity.value] ?? {}),
+    ]);
+    for (const y of [...years].sort()) loadYear.append(new Option(`FY${y}`, y));
     applyAdmPrefill();
   });
   loadYear?.addEventListener('change', applyAdmPrefill);
@@ -879,6 +1245,11 @@ export function initModelTool(
   modeSelect?.addEventListener('change', () => {
     applyStatewidePrefill();
     recompute();
+    const isExample = modeSelect.value === 'example';
+    const properties: PostHogProperties = isExample
+      ? { mode: 'example' }
+      : { mode: 'live', fiscal_year: Number(modeSelect.value) };
+    capture('parameter_mode_selected', properties);
   });
 
   // Build a link that reproduces the current form and copy it to the clipboard.
@@ -889,19 +1260,23 @@ export function initModelTool(
   const shareStatus = document.getElementById('share-status');
   shareButton?.addEventListener('click', () => {
     const base = window.location.origin + window.location.pathname;
-    const url = shareUrl(base, readScenario());
+    const lowerLimitIds = new Set([...estimates].filter(([, e]) => e.lowerLimit).map(([id]) => id));
+    const url = shareUrl(base, readScenario(), new Set(estimates.keys()), lowerLimitIds);
     const clipboard = navigator.clipboard;
     if (clipboard) {
       clipboard.writeText(url).then(
         () => {
           if (shareStatus) shareStatus.textContent = 'Link copied to clipboard';
+          capture('scenario_link_shared', { delivery: 'clipboard' });
         },
         () => {
           if (shareStatus) shareStatus.textContent = url;
+          capture('scenario_link_shared', { delivery: 'manual' });
         },
       );
     } else if (shareStatus) {
       shareStatus.textContent = url;
+      capture('scenario_link_shared', { delivery: 'manual' });
     }
   });
 
@@ -910,7 +1285,23 @@ export function initModelTool(
   // before applyStatewidePrefill (so a statewide-average carried in the link
   // counts as user-entered and the prefill leaves it alone). Fields the link
   // omits keep their HTML defaults.
-  applyScenario(decodeScenario(window.location.search));
+  const sharedScenario = decodeScenario(window.location.search);
+  applyScenario(sharedScenario);
+  if (Object.keys(sharedScenario).length > 0) {
+    scenarioSource = 'shared_link';
+    capture('shared_link_opened', {
+      field_count: Object.keys(sharedScenario).length,
+      estimate_count: decodeEstimated(window.location.search).size,
+    });
+  }
+  // A field the link marks as an estimate stays one. The link does not say how
+  // the value was worked out, only that it was a suggestion.
+  for (const id of decodeEstimated(window.location.search)) {
+    estimates.set(id, { how: 'a suggestion carried in the shared link' });
+  }
+  for (const id of decodeEstimated(window.location.search, LOWER_LIMIT_PARAM)) {
+    estimates.set(id, { how: 'a lower limit carried in the shared link', lowerLimit: true });
+  }
 
   applyStatewidePrefill();
   recompute();

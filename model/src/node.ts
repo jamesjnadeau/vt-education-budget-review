@@ -130,13 +130,21 @@ function statusFromBlockers(blockers: readonly Blocker[]): NodeStatus {
   if (blockers.some((b) => b.kind === 'unverified_parameter')) return 'unverified';
   if (blockers.some((b) => b.kind === 'missing_input')) return 'missing_input';
   if (blockers.some((b) => b.kind === 'contingent_parameter')) return 'contingent';
-  if (blockers.some((b) => b.kind === 'estimated_parameter')) return 'estimated';
+  if (blockers.some((b) => b.kind === 'estimated_parameter' || b.kind === 'estimated_input' || b.kind === 'lower_limit_input')) {
+    return 'estimated';
+  }
   return 'ok';
 }
 
-/** A contingent or estimated parameter does not prevent a value -- it qualifies it. */
+/** A contingent or estimated parameter, or an estimated input, does not prevent a value -- it qualifies it. */
+const QUALIFYING_KINDS: ReadonlySet<Blocker['kind']> = new Set([
+  'contingent_parameter',
+  'estimated_parameter',
+  'estimated_input',
+  'lower_limit_input',
+]);
 function blocksValue(blockers: readonly Blocker[]): boolean {
-  return blockers.some((b) => b.kind !== 'contingent_parameter' && b.kind !== 'estimated_parameter');
+  return blockers.some((b) => !QUALIFYING_KINDS.has(b.kind));
 }
 
 function dedupeBlockers(blockers: readonly Blocker[]): Blocker[] {
@@ -340,6 +348,33 @@ export interface InputOptions {
   readonly notes?: readonly string[];
   /** Where this datum came from -- a warehouse record, an AOE report, a user's scenario setting. */
   readonly source?: string;
+  /**
+   * Set when the value is an estimate rather than a reported figure: how it was
+   * worked out, as a clause, e.g. "the middle of the published range". The node
+   * computes as normal but is labeled `estimated`, like a range-estimated parameter.
+   */
+  readonly estimate?: string | InputEstimate | undefined;
+}
+
+/** An estimate on an input, when more than how it was worked out needs saying. */
+export interface InputEstimate {
+  /** How the value was worked out, as a clause. */
+  readonly how: string;
+  /** The value is the lowest a range allows; the real value may be higher. */
+  readonly lowerLimit?: boolean;
+}
+
+function notPublishedDetail(label: string): string {
+  return `${label} was not published in the source document.`;
+}
+
+/**
+ * True when the blocker is a blank `input()`, the only kind of missing input
+ * that the what-if tool shows as a box. A parameter with no value for the year,
+ * or a non-finite result, is also `missing_input` but has no box to fill in.
+ */
+export function isUnfilledInput(b: Blocker): boolean {
+  return b.kind === 'missing_input' && b.detail === notPublishedDetail(b.ref);
 }
 
 /** A datum from the warehouse, an enrichment join, or the user's scenario. */
@@ -350,17 +385,35 @@ export function input(
   unit: Unit,
   options: InputOptions = {},
 ): CalcNode {
+  const given = typeof options.estimate === 'string' ? { how: options.estimate } : options.estimate;
+  const estimate = value !== null && given?.how ? given.how : null;
+  const lowerLimit = estimate !== null && given?.lowerLimit === true;
   const blockers: Blocker[] =
     value === null
       ? [
           {
             kind: 'missing_input',
             ref: label,
-            detail: `${label} was not published in the source document.`,
+            detail: notPublishedDetail(label),
           },
         ]
-      : [];
+      : lowerLimit
+        ? [
+            {
+              kind: 'lower_limit_input',
+              ref: label,
+              detail: `${label} is a lower limit, so the real number may be higher: ${estimate}.`,
+            },
+          ]
+        : estimate
+          ? [{ kind: 'estimated_input', ref: label, detail: `${label} is an estimate: ${estimate}.` }]
+          : [];
   const src = options.source ? ` Source: ${options.source}.` : '';
+  const est = lowerLimit
+    ? ` This is a lower limit, not a reported figure, so the real number may be higher: ${estimate}.`
+    : estimate
+      ? ` This is an estimate, not a reported figure: ${estimate}.`
+      : '';
   return {
     id: ctx.nextId(),
     op: 'input',
@@ -372,8 +425,8 @@ export function input(
     explanation:
       value === null
         ? `${label} is not available. The source document does not publish it, and the engine does not estimate values it was not given.`
-        : `${label} is ${formatValue(value, unit)}${unitNoun(unit) ? ' ' + unitNoun(unit) : ''}.${src}`,
-    status: value === null ? 'missing_input' : 'ok',
+        : `${label} is ${formatValue(value, unit)}${unitNoun(unit) ? ' ' + unitNoun(unit) : ''}.${src}${est}`,
+    status: value === null ? 'missing_input' : estimate ? 'estimated' : 'ok',
     blockers,
     notes: options.notes ?? [],
     range: null,

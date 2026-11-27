@@ -22,7 +22,7 @@ import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
-import { flagIssueUrl, intakeIssueUrl, normalizeIssueUrl, CONFIG } from './config.ts';
+import { flagIssueUrl, intakeFormUrl, intakeIssueUrl, normalizeIssueUrl, CONFIG } from './config.ts';
 import { walkFiles } from './fs-walk.ts';
 import { PATHS, rel } from './paths.ts';
 import type { RegistryEntity } from './registry/types.ts';
@@ -40,6 +40,8 @@ export interface CoverageCell {
   readonly lastKnownSource: string | null;
   /** Deep link to the prefilled budget-intake issue form, or null once normalized. */
   readonly intakeUrl: string | null;
+  /** Site-relative link to the /contribute/ web form, or null once normalized. */
+  readonly formUrl: string | null;
   /** Deep link to the prefilled budget-normalize form; set only for intake_only cells. */
   readonly normalizeUrl: string | null;
   readonly flagUrl: string | null;
@@ -197,6 +199,7 @@ export function buildCoverage(
         budgetStatus: warehouseEntry?.status ?? null,
         lastKnownSource,
         intakeUrl: state === 'normalized' ? null : intakeIssueUrl(entity.slug, fiscalYear),
+        formUrl: state === 'normalized' ? null : intakeFormUrl(entity.slug, fiscalYear),
         normalizeUrl:
           state === 'intake_only' && sourcePath
             ? normalizeIssueUrl(entity.slug, fiscalYear, sourcePath)

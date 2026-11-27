@@ -1,0 +1,375 @@
+---
+import Base from '../../layouts/Base.astro';
+import coverage from '../../generated/coverage.json';
+import { titleCase } from '../../lib/display';
+import { CONFIG } from '../../../../tools/src/config.ts';
+import { DOCUMENT_TYPES, RETRIEVAL_METHODS } from '../../../../tools/src/intake/rules.ts';
+import { ALLOWED_EXTENSIONS } from '../../../../tools/src/intake/security.ts';
+import { MAX_WEB_BYTES } from '../../../../tools/src/web-intake/limits.ts';
+import { DOCUMENT_TYPE_LABELS, RETRIEVAL_METHOD_LABELS } from '../../scripts/contribute-upload.ts';
+
+const entities = coverage.entities as Array<{ slug: string; name: string }>;
+const fiscalYears = coverage.fiscalYears as number[];
+// The widget's public site key comes from the Netlify UI. In `astro dev` it
+// falls back to Cloudflare's published always-passes test key so the page works
+// locally; a production build with no key shows a "not set up" message instead.
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? (import.meta.env.DEV ? '1x00000000000000000000AA' : '');
+const issueFormUrl = CONFIG.repositoryUrl ? `${CONFIG.repositoryUrl}/issues/new?template=budget-intake.yml` : null;
+const maxMb = Math.round(MAX_WEB_BYTES / (1024 * 1024));
+const accept = ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(',');
+---
+
+<Base
+  title="Send in a budget document — Vermont School Budgets"
+  description="Share a school budget document with this project. No account needed."
+>
+  <h1>Send in a budget document</h1>
+  <p class="lede">
+    Do you have a school budget, budget book, town meeting warning or board presentation that we do not? Send it here.
+    You do not need an account. A person looks at every document before it goes on the site, and nothing you send
+    is published until then.
+  </p>
+
+  <noscript>
+    <p class="notice">
+      This form needs JavaScript. You can also send the document through GitHub:
+      {issueFormUrl ? <a href={issueFormUrl}>the GitHub form</a> : 'the form in this project’s GitHub repository'}.
+    </p>
+  </noscript>
+
+  <form
+    id="contribute-form"
+    name="budget-intake"
+    method="POST"
+    action="/contribute/thanks/"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+  >
+    <input type="hidden" name="form-name" value="budget-intake" />
+    <p class="trap" aria-hidden="true">
+      <label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    <fieldset class="field-group">
+      <legend>Which budget is it?</legend>
+      <div class="controls">
+        <div class="field">
+          <label for="entity">District or supervisory union</label>
+          <select id="entity" name="entity" required>
+            {entities.map((e) => <option value={e.slug}>{titleCase(e.name)}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="fiscal_year">Fiscal year</label>
+          <select id="fiscal_year" name="fiscal_year" required>
+            {fiscalYears.map((y) => <option value={String(y)}>{`FY${y}`}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="document_type">What kind of document is it?</label>
+          <select id="document_type" name="document_type" required>
+            {DOCUMENT_TYPES.map((t) => <option value={t}>{DOCUMENT_TYPE_LABELS[t]}</option>)}
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>The document</legend>
+      <p class="field-help">Send the file exactly as you got it. Please do not crop, re-save or convert it.</p>
+      <div class="stack">
+        <div class="field">
+          <label for="file">Choose a file</label>
+          <input id="file" type="file" accept={accept} />
+          <p class="field-help">
+            {ALLOWED_EXTENSIONS.map((e) => `.${e}`).join(', ')}, up to {maxMb} MB. It starts uploading as soon as you pick it.
+          </p>
+          <progress id="upload-progress" max="1" value="0" hidden></progress>
+          <p id="upload-status" class="field-help" role="status" aria-live="polite"></p>
+          <input type="hidden" id="upload_id" name="upload_id" value="" />
+        </div>
+        <div class="field">
+          <label for="document_url">Or paste a link to the document</label>
+          <input id="document_url" name="document_url" type="url" inputmode="url" placeholder="https://" autocomplete="off" />
+          <p class="field-help">Send either a file or a link, not both.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>Where did it come from?</legend>
+      <div class="stack">
+        <div class="field">
+          <label for="source_url">Web page where you found it</label>
+          <input id="source_url" name="source_url" type="url" inputmode="url" placeholder="https://" autocomplete="off" />
+          <p class="field-help">Leave this empty only if it was emailed to you or handed to you in person.</p>
+        </div>
+        <div class="field">
+          <label for="retrieved_date">Date you got it</label>
+          <input id="retrieved_date" name="retrieved_date" type="date" required />
+        </div>
+        <div class="field">
+          <label for="retrieval_method">How did you get it?</label>
+          <select id="retrieval_method" name="retrieval_method" required>
+            {RETRIEVAL_METHODS.map((m) => <option value={m} selected={m === 'manual-download'}>{RETRIEVAL_METHOD_LABELS[m]}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="note">Anything else we should know?</label>
+          <textarea id="note" name="note" rows="4"></textarea>
+          <p class="field-help">
+            If there is no web page, tell us who sent it or where you picked it up, and when.
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="field-group">
+      <legend>About you (optional)</legend>
+      <div class="stack">
+        <div class="field">
+          <label for="name">Your name, if you would like credit</label>
+          <input id="name" name="name" type="text" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Your email, so we can ask a question if something is unclear</label>
+          <input id="email" name="email" type="email" autocomplete="email" />
+          <p class="field-help">We never publish this.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <div id="turnstile-widget" data-sitekey={siteKey}></div>
+    <input type="hidden" id="cf-turnstile-response" name="cf-turnstile-response" value="" />
+
+    <ul id="form-problems" class="problems" aria-live="polite"></ul>
+    <p id="widget-problem" class="problems" role="alert" hidden></p>
+    <button id="submit" type="submit" disabled>Send it in</button>
+  </form>
+
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+  <script>
+    import { clientErrors, createTokenWaiters, fileErrors, uploadFile } from '../../scripts/contribute-upload.ts';
+
+    interface TurnstileApi {
+      render(
+        el: HTMLElement,
+        opts: {
+          sitekey: string;
+          'response-field': boolean;
+          callback: (token: string) => void;
+          'expired-callback': () => void;
+          'error-callback': () => void;
+        },
+      ): string;
+      reset(widgetId: string): void;
+    }
+    const w = window as unknown as { turnstile?: TurnstileApi };
+
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const form = $<HTMLFormElement>('contribute-form');
+    const fileInput = $<HTMLInputElement>('file');
+    const uploadIdInput = $<HTMLInputElement>('upload_id');
+    const tokenInput = $<HTMLInputElement>('cf-turnstile-response');
+    const progress = $<HTMLProgressElement>('upload-progress');
+    const status = $('upload-status');
+    const problems = $('form-problems');
+    const widgetProblem = $('widget-problem');
+    const submit = $<HTMLButtonElement>('submit');
+    const field = (id: string) => $<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(id);
+
+    // Preselect from ?entity= and ?fiscal_year=, only when the value is offered.
+    const query = new URLSearchParams(location.search);
+    for (const [param, id] of [['entity', 'entity'], ['fiscal_year', 'fiscal_year']] as const) {
+      const wanted = query.get(param);
+      const select = field(id) as HTMLSelectElement;
+      if (wanted && [...select.options].some((o) => o.value === wanted)) select.value = wanted;
+    }
+    const d = new Date();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    field('retrieved_date').value = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+    let uploading = false;
+    let picked: { name: string; bytes: number } | null = null;
+    let touched = false;
+    let widgetId: string | null = null;
+    let widgetFailed = false;
+    const tokenWaiters = createTokenWaiters();
+    // Each file pick gets a run number; only the newest run may touch shared state.
+    let currentRun = 0;
+    const WIDGET_PROBLEM =
+      'The human check could not start. Please reload the page, or send the document through the GitHub form instead.';
+    const WIDGET_WAIT_MS = 10_000;
+
+    function refresh() {
+      const errors = clientErrors({
+        hasUpload: uploadIdInput.value !== '',
+        uploading,
+        documentUrl: field('document_url').value,
+        sourceUrl: field('source_url').value,
+        retrievedDate: field('retrieved_date').value,
+        retrievalMethod: field('retrieval_method').value,
+        note: field('note').value,
+        fileName: picked?.name ?? null,
+        fileBytes: picked?.bytes ?? null,
+      });
+      problems.replaceChildren(...(touched ? errors : []).map((e) => Object.assign(document.createElement('li'), { textContent: e })));
+      submit.disabled = errors.length > 0 || uploading || tokenInput.value === '';
+    }
+
+    function onToken(token: string) {
+      tokenInput.value = token;
+      tokenWaiters.give(token);
+      refresh();
+    }
+    function takeToken(): Promise<string> {
+      if (tokenInput.value !== '') return Promise.resolve(tokenInput.value);
+      if (widgetFailed) return Promise.reject(new Error(WIDGET_PROBLEM));
+      return tokenWaiters.wait();
+    }
+    const widgetDeadline = Date.now() + WIDGET_WAIT_MS;
+    function startWidget() {
+      const el = $('turnstile-widget');
+      const sitekey = el.dataset.sitekey ?? '';
+      if (!sitekey) return failWidget();
+      if (!w.turnstile) {
+        // The script may be blocked (ad blocker, offline); stop polling after a while.
+        if (Date.now() >= widgetDeadline) return failWidget();
+        return void setTimeout(startWidget, 100);
+      }
+      widgetId = w.turnstile.render(el, {
+        sitekey,
+        'response-field': false,
+        callback: onToken,
+        'expired-callback': () => {
+          tokenInput.value = '';
+          refresh();
+        },
+        'error-callback': failWidget,
+      });
+    }
+    function failWidget() {
+      widgetFailed = true;
+      widgetProblem.hidden = false;
+      widgetProblem.textContent = WIDGET_PROBLEM;
+      tokenWaiters.fail(new Error(WIDGET_PROBLEM));
+      refresh();
+    }
+
+    fileInput.addEventListener('change', async () => {
+      const run = ++currentRun;
+      const isCurrent = () => run === currentRun;
+      touched = true;
+      uploading = false; // a newer pick supersedes any run still in flight
+      uploadIdInput.value = '';
+      progress.hidden = true;
+      status.textContent = '';
+      const file = fileInput.files?.[0];
+      if (!file) {
+        picked = null;
+        return refresh();
+      }
+      picked = { name: file.name, bytes: file.size };
+      if (fileErrors(file.name, file.size).length > 0) return refresh();
+      if (widgetFailed) return refresh();
+
+      uploading = true;
+      fileInput.disabled = true;
+      progress.hidden = false;
+      progress.value = 0;
+      status.textContent = `Uploading ${file.name}…`;
+      refresh();
+      try {
+        const token = await takeToken();
+        // The token is single-use: clear it and ask for a fresh one for the form post.
+        tokenInput.value = '';
+        if (widgetId !== null) w.turnstile?.reset(widgetId);
+        const id = await uploadFile(file, token, { onProgress: (f) => (progress.value = f) });
+        if (!isCurrent()) return;
+        uploadIdInput.value = id;
+        status.textContent = `Uploaded ${file.name}. You can now fill in the rest and send it in.`;
+      } catch (e) {
+        if (!isCurrent()) return;
+        picked = null;
+        fileInput.value = '';
+        progress.hidden = true;
+        status.textContent = e instanceof Error ? e.message : 'The upload failed. Please try again.';
+      } finally {
+        if (isCurrent()) {
+          uploading = false;
+          fileInput.disabled = false;
+          refresh();
+        }
+      }
+    });
+
+    form.addEventListener('input', () => {
+      touched = true;
+      refresh();
+    });
+    form.addEventListener('submit', (event) => {
+      touched = true;
+      if (submit.disabled) {
+        event.preventDefault();
+        refresh();
+      }
+    });
+
+    refresh();
+    startWidget();
+  </script>
+</Base>
+
+<style>
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .stack input:not([type='file']),
+  .stack textarea {
+    width: 100%;
+    max-width: 36rem;
+    box-sizing: border-box;
+  }
+  textarea {
+    font: inherit;
+    padding: 0.55rem 0.75rem;
+    border: 2px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .field {
+    min-width: 0;
+    max-width: 100%;
+  }
+  select {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  progress {
+    width: 100%;
+    max-width: 36rem;
+  }
+  .trap {
+    position: absolute;
+    left: -10000px;
+    height: 0;
+    overflow: hidden;
+  }
+  .problems {
+    color: var(--state-missing);
+    padding-left: 1.25rem;
+    margin: 1rem 0;
+  }
+  .problems:empty {
+    display: none;
+  }
+  button[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+</style>

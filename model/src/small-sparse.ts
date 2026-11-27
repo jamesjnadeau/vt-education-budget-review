@@ -1,5 +1,6 @@
 /**
- * Small / sparse school support grants under Act 73 of 2025, Sec. 37.
+ * Small / sparse school support grants: 16 V.S.A. § 4019 as added by Act 170 of 2026 Sec. 29
+ * (which repealed Act 73 of 2025 Sec. 37).
  *
  * Emits computation-tree nodes in the same shape as the rest of the engine, so
  * the walkthrough renders these steps exactly as it renders weighted membership.
@@ -40,9 +41,9 @@
  *       inside it.
  *     - Grants are computed per SCHOOL and summed to the district, so district
  *       payment = EOP + the sum of school grants + categorical aid.
- *     - The small and sparse grants may BOTH apply to one school. Whether they
- *       add or the school takes the greater is unread; until then this module
- *       emits separate lines and never a total.
+ *     - The small and sparse grants may BOTH apply to one school, and they add
+ *       (James Nadeau's reading, 2026-11-22; see the stacking_rule note). This
+ *       module still emits separate lines and no per-school total.
  *     - The density test applies to the municipality the school BUILDING sits
  *       in.
  *     - "Per square mile of land" means Census TIGER ALAND, not total area.
@@ -50,6 +51,17 @@
  *     - The enrollment screen is a candidate filter and not a gate, because the
  *       framework's population-trajectory criterion exists to cover schools
  *       temporarily above the threshold.
+ *     - The grade count behind average grade size is taken from the registry's
+ *       normalized grade span, which assumes a school operates every grade
+ *       between its lowest and highest. The statute says "grades above
+ *       prekindergarten operated by the school".
+ *
+ *   READ AND SETTLED against Act 170 of 2026 Sec. 29 (16 V.S.A. § 4019, effective
+ *   July 1, 2029 if the Act 73 Sec. 70(f)(1) contingency is met): the small test
+ *   is average grade size under 12, not enrollment under 100; the density test
+ *   is the school's own town, land area; the grants are $3,157 and $1,954 times
+ *   two-year average enrollment. The statute does not say in one sentence whether the
+ *   two grants stack; they are read as additive (stacking_rule, James Nadeau).
  *
  *   Correct any of these here and in the parameter file's structural_note in the
  *   same commit as the reading. A wrong structure with right numbers produces
@@ -118,7 +130,7 @@ export interface EnrollmentSeries {
   readonly byYear: Readonly<Record<number, number | null>>;
 }
 
-export type PopulationSeries = 'decennial_2020' | 'acs_5yr' | 'state_estimate' | 'unknown';
+export type PopulationSeries = 'decennial_2020' | 'acs_5yr' | 'pep_july1_2025' | 'state_estimate' | 'unknown';
 
 export interface MunicipalityDemographics {
   readonly municipality: string;
@@ -143,8 +155,9 @@ export type EnrollmentBasis = 'two_year_average' | 'single_year';
 export interface ScreenOptions {
   readonly fiscalYear: number;
   /**
-   * No default, because the statute's basis is unread and the two readings
-   * disagree for borderline schools. The caller states which frame it is using
+   * No default. The statute's basis is the two-year average (§ 4019(a)(6)), but the
+   * single-year reading is kept as a sensitivity, and the two disagree for borderline
+   * schools. The caller states which frame it is using
    * and the record carries it.
    */
   readonly enrollmentBasis: EnrollmentBasis;
@@ -159,8 +172,17 @@ export interface ScreenOptions {
 export type ScreenOutcome = boolean | null;
 
 export interface ScreenResult {
-  /** The measured quantity: average enrollment, or persons per square mile. */
+  /**
+   * The measured quantity: average grade size (small-school screen) or persons
+   * per square mile (sparse screen).
+   */
   readonly value: number | null;
+  /**
+   * Small-school screen only: the two-year average enrollment the grant is paid
+   * on. Kept apart from `value` because the screen tests average GRADE SIZE and
+   * the payment multiplies unrounded average ENROLLMENT.
+   */
+  readonly averageEnrollment?: number | null;
   readonly threshold: number | null;
   readonly comparator: 'lt' | 'lte' | null;
   readonly meets: ScreenOutcome;
@@ -231,9 +253,9 @@ export interface SmallSparseResult {
     readonly small: GrantLine;
     readonly sparse: GrantLine;
     /**
-     * Intentionally typed as null rather than merely left empty. Whether the two
-     * grants add or a school takes the greater is unread; see the parameter
-     * file's structural_note on statutory.grants.stacking_rule.
+     * Typed as null: no per-school total is emitted yet, only the two lines. The
+     * grants are read as additive; see the parameter file's structural_note on
+     * statutory.grants.stacking_rule.
      */
     readonly total: null;
   };
@@ -350,6 +372,26 @@ export function enrollmentYears(opts: ScreenOptions): number[] {
     : [opts.fiscalYear - 1];
 }
 
+/**
+ * Grades above prekindergarten the school operates, from its normalized span
+ * (PK and EE are -1, K is 0). Null when the span is unknown or is pre-K only:
+ * a school with no grades above pre-K has no average grade size.
+ */
+export function gradesAbovePreK(span: SchoolRef['gradeSpan']): number | null {
+  if (span === null) return null;
+  const n = span.high - Math.max(span.low, 0) + 1;
+  return n > 0 ? n : null;
+}
+
+/**
+ * 16 V.S.A. § 4019(a)(1) and (3)(A) as added by Act 170 (2026) Sec. 29: a small
+ * school has an average grade size of fewer than 12 students, where average
+ * grade size is the two-year average enrollment divided by the number of grades
+ * above prekindergarten the school operates, rounded downward.
+ *
+ * Meeting this is half of the statutory definition; the other half is AOE's
+ * annual "small by necessity" determination, which no code here can supply.
+ */
 export function enrollmentScreen(
   ctx: EngineContext,
   school: SchoolRef,
@@ -368,28 +410,51 @@ export function enrollmentScreen(
     }),
   );
 
-  const quantity =
+  const averageNode =
     yearNodes.length === 1
       ? relabel(ctx, `${school.name} enrollment`, yearNodes[0] as CalcNode, 'pupils')
       : mean(ctx, `${school.name} average enrollment`, yearNodes, 'pupils');
 
-  return screenAgainstThreshold(ctx, {
-    label: `${school.name}: small school enrollment screen`,
+  const grades = gradesAbovePreK(school.gradeSpan);
+  const gradesNode = input(ctx, `${school.name} grades above prekindergarten`, grades, 'count', {
+    ...(grades !== null ? { source: 'AOE grade span, as normalized in the registry' } : {}),
+    notes:
+      grades === null
+        ? [
+            `${school.name} has no usable grade span, so its average grade size cannot be ` +
+              `computed. The statute divides by the grades the school operates above prekindergarten.`,
+          ]
+        : [],
+  });
+
+  const quantity = derive(ctx, {
+    op: 'quotient',
+    label: `${school.name} average grade size`,
+    unit: 'count',
+    inputs: [averageNode, gradesNode],
+    compute: ([n, d]) => ((d as number) === 0 ? Number.NaN : Math.floor((n as number) / (d as number))),
+    explain: (value, ops) =>
+      `${school.name} average grade size is ${value === null ? '—' : value}: ` +
+      `${ops[0]?.value?.toFixed(1) ?? '—'} average enrollment across ${ops[1]?.value ?? '—'} ` +
+      `grades above prekindergarten, rounded downward.`,
+  });
+
+  const screen = screenAgainstThreshold(ctx, {
+    label: `${school.name}: small school grade size screen`,
     quantity,
     thresholdKey: 'statutory.screens.small_enrollment.threshold',
     comparatorKey: 'statutory.screens.small_enrollment.comparator',
     sentence: ({ value, threshold, meets }) =>
       `${school.name} enrolled ${yearNodes.map((n) => (n.value === null ? 'no published figure' : n.value)).join(' and ')} ` +
-      `in ${years.join(' and ')}, ${
-        opts.enrollmentBasis === 'two_year_average'
-          ? `a two-year average of ${value?.toFixed(1)}`
-          : `${value?.toFixed(1)}`
-      }. Act 73 defines a small school as one below ${threshold} students, so this school ` +
-      `${meets ? 'meets' : 'does not meet'} the enrollment screen. Whether the statutory test uses a ` +
-      `single year or a two-year average is unsettled; this figure uses ` +
-      `${opts.enrollmentBasis.replace(/_/g, ' ')}. Meeting the screen does not mean the school ` +
-      `qualifies for a grant.`,
+      `in ${years.join(' and ')}, an average of ${averageNode.value?.toFixed(1) ?? '—'} across ` +
+      `${grades ?? 'an unknown number of'} grades above prekindergarten, an average grade size of ${value ?? '—'}. ` +
+      `Act 170 defines a small school as one with an average grade size of fewer than ${threshold} ` +
+      `students, so this school ${meets ? 'meets' : 'does not meet'} the size screen. The statute ` +
+      `also requires an annual AOE "small by necessity" determination, so meeting the screen does ` +
+      `not mean the school qualifies for a grant.`,
   });
+
+  return { ...screen, averageEnrollment: averageNode.value };
 }
 
 // ---------------------------------------------------------------------------
@@ -826,7 +891,7 @@ export function evaluateSmallSparse(ctx: EngineContext, args: SmallSparseInput):
     ctx,
     school,
     { smallScreenMet: enrollmentResult.meets, sparseScreenMet: densityResult.meets },
-    enrollmentResult.value,
+    enrollmentResult.averageEnrollment ?? null,
     options.enrollmentBasis,
     applicable ? assumption : { basis: 'none', note: null },
   );

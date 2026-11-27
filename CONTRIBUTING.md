@@ -5,6 +5,16 @@ someone reading a statute carefully.
 
 ## Sending in a budget document
 
+### The web form (no account needed)
+
+The [coverage dashboard](https://vermont-school-budgets.org/admin/coverage/) and each supervisory
+union's page link to the [web form](https://vermont-school-budgets.org/contribute/), already filled
+in with the supervisory union and fiscal year. Choose the file, say where it came from, pass the
+human check, and submit. No GitHub login, no local checkout, no `git-lfs`. The submission goes
+through the same bot and the same reviewed pull request as the issue form below.
+
+### The GitHub issue form
+
 The [coverage dashboard](https://vermont-school-budgets.org/admin/coverage/) shows every gap. Each missing
 cell opens a short issue form, already filled in with the supervisory union and fiscal year.
 Drag the PDF or spreadsheet into it, answer where it came from, and submit. No local checkout,

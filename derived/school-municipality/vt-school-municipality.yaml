@@ -128,11 +128,8 @@ schools:
     longitude: -72.17973713
     geoid: "5001903550"
     census_name: Barton town
-    municipality: null
-    note: The coordinates fall in "Barton town" (GEOID 5001903550), which the census
-      import could not join to a registry town. Resolve that join first; this
-      record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/barton-id
+    note: null
   - school: school/beeman-elementary-school
     latitude: 44.12541916
     longitude: -73.15320985
@@ -180,11 +177,8 @@ schools:
     longitude: -73.19351396
     geoid: "5000304825"
     census_name: Bennington town
-    municipality: null
-    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bennington-id
+    note: null
   - school: school/benson-village-school
     latitude: 43.70702581
     longitude: -73.30216408
@@ -232,11 +226,8 @@ schools:
     longitude: -72.12219238
     geoid: "5001707375"
     census_name: Bradford town
-    municipality: null
-    note: The coordinates fall in "Bradford town" (GEOID 5001707375), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bradford-id
+    note: null
   - school: school/braintree-school
     latitude: 43.95573761
     longitude: -72.72237787
@@ -482,13 +473,6 @@ schools:
     census_name: Duxbury town
     municipality: town/duxbury
     note: null
-  - school: school/currier-memorial-union-school
-    latitude: 43.35004271
-    longitude: -72.99513347
-    geoid: "5002116825"
-    census_name: Danby town
-    municipality: town/danby
-    note: null
   - school: school/danville-school
     latitude: 44.41082764
     longitude: -72.14350128
@@ -502,13 +486,6 @@ schools:
     geoid: "5001917350"
     census_name: Derby town
     municipality: town/derby
-    note: null
-  - school: school/dorset-elementary-school
-    latitude: 43.22192764
-    longitude: -73.06585693
-    geoid: "5000317725"
-    census_name: Dorset town
-    municipality: town/dorset
     note: null
   - school: school/dothan-brook-school
     latitude: 43.68760719
@@ -867,13 +844,6 @@ schools:
     census_name: Burlington city
     municipality: town/burlington
     note: null
-  - school: school/jamaica-village-school
-    latitude: 43.10406588
-    longitude: -72.77502243
-    geoid: "5002536175"
-    census_name: Jamaica town
-    municipality: town/jamaica
-    note: null
   - school: school/jay-westfield-joint-elementary-school
     latitude: 44.95266342
     longitude: -72.43502808
@@ -907,11 +877,8 @@ schools:
     longitude: -72.2206491
     geoid: "5001903550"
     census_name: Barton town
-    municipality: null
-    note: The coordinates fall in "Barton town" (GEOID 5001903550), which the census
-      import could not join to a registry town. Resolve that join first; this
-      record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/barton-id
+    note: null
   - school: school/lakeview-early-education-center
     latitude: 44.58081885
     longitude: -72.29399645
@@ -1003,26 +970,12 @@ schools:
     census_name: Colchester town
     municipality: town/colchester
     note: null
-  - school: school/manchester-elementary-middle-school
-    latitude: 43.17874272
-    longitude: -73.05366878
-    geoid: "5000342850"
-    census_name: Manchester town
-    municipality: town/manchester
-    note: null
   - school: school/marion-w-cross-school
     latitude: 43.71332471
     longitude: -72.30649485
     geoid: "5002752900"
     census_name: Norwich town
     municipality: town/norwich
-    note: null
-  - school: school/marlboro-elementary-school
-    latitude: 42.86869812
-    longitude: -72.71968842
-    geoid: "5002543375"
-    census_name: Marlboro town
-    municipality: town/marlboro
     note: null
   - school: school/mettawee-community-school
     latitude: 43.38572867
@@ -1106,11 +1059,8 @@ schools:
     longitude: -73.20246124
     geoid: "5000304825"
     census_name: Bennington town
-    municipality: null
-    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bennington-id
+    note: null
   - school: school/monkton-central-school
     latitude: 44.24424149
     longitude: -73.13871678
@@ -1137,11 +1087,8 @@ schools:
     longitude: -73.21075017
     geoid: "5000304825"
     census_name: Bennington town
-    municipality: null
-    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bennington-id
+    note: null
   - school: school/moretown-elementary-school
     latitude: 44.24754137
     longitude: -72.76261474
@@ -1168,21 +1115,15 @@ schools:
     longitude: -73.19141249
     geoid: "5000304825"
     census_name: Bennington town
-    municipality: null
-    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bennington-id
+    note: null
   - school: school/mt-anthony-union-middle-school
     latitude: 42.90544236
     longitude: -73.18774748
     geoid: "5000304825"
     census_name: Bennington town
-    municipality: null
-    note: The coordinates fall in "Bennington town" (GEOID 5000304825), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bennington-id
+    note: null
   - school: school/mt-holly-school
     latitude: 43.44584953
     longitude: -72.82305519
@@ -1307,11 +1248,8 @@ schools:
     longitude: -72.19683422
     geoid: "5001903550"
     census_name: Barton town
-    municipality: null
-    note: The coordinates fall in "Barton town" (GEOID 5001903550), which the census
-      import could not join to a registry town. Resolve that join first; this
-      record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/barton-id
+    note: null
   - school: school/orwell-village-school
     latitude: 43.8045275
     longitude: -73.29908239
@@ -1338,11 +1276,8 @@ schools:
     longitude: -72.11379667
     geoid: "5001707375"
     census_name: Bradford town
-    municipality: null
-    note: The coordinates fall in "Bradford town" (GEOID 5001707375), which the
-      census import could not join to a registry town. Resolve that join first;
-      this record is not the place to make a second, possibly different decision
-      about it.
+    municipality: town/bradford-id
+    note: null
   - school: school/peacham-elementary-school
     latitude: 44.3260184
     longitude: -72.16651956
@@ -1440,13 +1375,6 @@ schools:
     geoid: "5002758375"
     census_name: Reading town
     municipality: town/reading
-    note: null
-  - school: school/readsboro-elementary-school
-    latitude: 42.77189568
-    longitude: -72.9404752
-    geoid: "5000358600"
-    census_name: Readsboro town
-    municipality: town/readsboro
     note: null
   - school: school/richford-elementary-school
     latitude: 44.98357582
@@ -1591,13 +1519,6 @@ schools:
     census_name: Sheldon town
     municipality: town/sheldon
     note: null
-  - school: school/shoreham-elementary-school
-    latitude: 43.89185059
-    longitude: -73.3163309
-    geoid: "5000165050"
-    census_name: Shoreham town
-    municipality: town/shoreham
-    note: null
   - school: school/shrewsbury-mountain-school
     latitude: 43.52550989
     longitude: -72.83046913
@@ -1702,13 +1623,6 @@ schools:
     geoid: "5000724175"
     census_name: Essex town
     municipality: town/essex-town
-    note: null
-  - school: school/sunderland-elementary-school
-    latitude: 43.08461562
-    longitude: -73.1275985
-    geoid: "5000371425"
-    census_name: Sunderland town
-    municipality: town/sunderland
     note: null
   - school: school/sustainability-academy-at-lawrence-barnes
     latitude: 44.4842885

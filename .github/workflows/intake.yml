@@ -13,6 +13,10 @@ on:
     # `labeled` is here so applying the budget-intake label to an existing issue
     # re-runs intake -- the clean way to reprocess one after a fix ships.
     types: [opened, edited, labeled]
+  # The Netlify web form dispatches this once a submission has passed its
+  # captcha. The payload is public input: it is only ever read from an env var.
+  repository_dispatch:
+    types: [web-intake]
 
 # Least privilege: open a PR and comment, never more. In particular no direct
 # push to main -- human merge stays the gate, the same one validate.yml is.
@@ -24,7 +28,8 @@ permissions:
 concurrency:
   # Serialise runs for the same issue so an `edited` fired while an `opened` run
   # is still going cannot race on the branch.
-  group: intake-${{ github.event.issue.number }}
+  # (A repository_dispatch has no issue; its web-intake job sets its own group.)
+  group: intake-${{ github.event.issue.number || github.run_id }}
   cancel-in-progress: false
 
 jobs:
@@ -38,8 +43,9 @@ jobs:
     # the worst possible failure. Junk that merely shares the prefix is caught
     # by the validator and answered with a comment, not silence.
     if: >-
+      github.event_name == 'issues' && (
       startsWith(github.event.issue.title, 'Budget intake:') ||
-      contains(github.event.issue.labels.*.name, 'budget-intake')
+      contains(github.event.issue.labels.*.name, 'budget-intake'))
     runs-on: ubuntu-latest
     steps:
       - name: Mint a GitHub App token
@@ -85,3 +91,66 @@ jobs:
           ISSUE_AUTHOR_ID: ${{ github.event.issue.user.id }}
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: npm run intake
+
+  web-intake:
+    # A submission from the web form (see tools/src/web-intake/). Same shape as
+    # the issue job; the difference is where the document comes from (the
+    # Netlify upload store or a link) and that a failure opens an issue rather
+    # than commenting on one.
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: web-intake-${{ github.event.client_payload.submission_id || github.run_id }}
+      cancel-in-progress: false
+    steps:
+      - name: Mint a GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.INTAKE_APP_ID }}
+          private-key: ${{ secrets.INTAKE_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v5
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          lfs: false
+
+      - name: Install Git LFS filters
+        run: git lfs install
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Ensure the failure label exists
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: gh label create web-intake-failed --description 'A web form submission that could not be filed' --color B60205 || true
+
+      - name: Process the submission
+        # The payload is public input: it is passed as an environment variable
+        # and read by the Node script -- never interpolated into this run block.
+        env:
+          INTAKE_MODE: web
+          WEB_INTAKE_PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+          INTAKE_SITE_ORIGIN: ${{ vars.INTAKE_SITE_ORIGIN }}
+          INTAKE_DOWNLOAD_SECRET: ${{ secrets.INTAKE_DOWNLOAD_SECRET }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: npm run intake
+
+      - name: Report a workflow failure
+        # The upload would otherwise be deleted by the 14-day cleanup unseen.
+        # Only the run URL and a sanitised submission id go in the issue; both
+        # arrive through env, never interpolated into the script.
+        if: failure()
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          SUBMISSION_ID: ${{ github.event.client_payload.submission_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          id=$(printf '%s' "$SUBMISSION_ID" | tr -cd 'A-Za-z0-9_-' | cut -c1-64)
+          printf 'The web intake workflow failed before the submission could be filed.\n\n- Run: %s\n- Submission id: %s\n' "$RUN_URL" "${id:-unknown}" > "$RUNNER_TEMP/failure.md"
+          gh issue create --title 'Web intake failed: workflow error' --label web-intake-failed --body-file "$RUNNER_TEMP/failure.md"

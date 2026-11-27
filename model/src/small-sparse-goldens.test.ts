@@ -61,13 +61,13 @@ interface Fixture {
   };
   options: { fiscal_year: number; enrollment_basis: EnrollmentBasis };
   expected: {
-    enrollment_value: number | null;
+    average_grade_size: number | null;
     small_screen_met: boolean | null;
     density_value: number | null;
     sparse_screen_met: boolean | null;
     density_if_total_area_used?: number;
     grant_amount: null;
-    under_single_year_basis?: { enrollment_value: number | null; small_screen_met: boolean | null };
+    under_single_year_basis?: { average_grade_size: number | null; small_screen_met: boolean | null };
   };
 }
 
@@ -161,7 +161,7 @@ describe.each(all)('$file', ({ fixture }) => {
       enrollmentOf(fixture),
       options,
     );
-    expect(result.value).toBe(fixture.expected.enrollment_value);
+    expect(result.value).toBe(fixture.expected.average_grade_size);
     expect(result.meets).toBe(fixture.expected.small_screen_met);
   });
 
@@ -199,7 +199,7 @@ describe.each(all)('$file', ({ fixture }) => {
         ...options,
         enrollmentBasis: 'single_year',
       });
-      expect(result.value).toBe(other.enrollment_value);
+      expect(result.value).toBe(other.average_grade_size);
       expect(result.meets).toBe(other.small_screen_met);
     },
   );

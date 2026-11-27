@@ -12,35 +12,62 @@ schema_version: "1.0"
 layer: small-sparse
 parameter_set_ref: model/parameters/fy2030-small-sparse.yaml
 entries:
-  - input: screens.small_enrollment.threshold
-    source: 2025 Acts and Resolves No. 73, Sec. 37
-    supplied: false
-    whose: ours
+  - input: statutory_parameters
+    source: Act 170 of 2026 Sec. 29 (16 V.S.A. § 4019), intake/vt-legislature/2026-acts/
+    supplied: true
+    whose: null
     note: >-
-      Null and unverified, along with every other statutory value in this layer.
-      legislature.vermont.gov serves an incomplete TLS chain to automated clients and
-      education.vermont.gov returns 403, so nothing here was read from a primary source.
-      Neither obstructs a person with a browser. This is a manual afternoon, and it gates
-      every figure downstream: with the threshold null the engine declines to screen any
-      school, independently of how complete the enrollment and geography data become.
+      Read from the enacted act and verified with the verbatim sentence: the small test is an
+      average grade size under 12 (two-year average enrollment over the grades above
+      prekindergarten, rounded down), the sparse test is under 55 persons per square mile of
+      land in the school's own town, and the grants are $3,157 and $1,954 times two-year average
+      enrollment, inflated by the NIPA state and local deflator. The earlier "fewer than 100"
+      reading was Act 73 Sec. 37, repealed by Act 170 Sec. 28. Read 2026-11-22: Act 73 Sec. 70(f)(1), as
+      amended by Act 170 Sec. 18, gates the July 1, 2029 effective date on the General Assembly
+      receiving the Sec. 45a foundation formula report and the merger facilitator report, and on
+      enacted legislation addressing the report's components (including "sparsity measures"),
+      a pre-K funding mechanism, and legacy bargaining agreements and debt. None is confirmed met,
+      and sparsity may change before 2029. Struck-through text does not carry into the signed bill, so the extracted
+      text of the act is taken as the enacted wording (James Nadeau, 2026-11-22). The two
+      grants are read as additive (see statutory.grants.stacking_rule).
 
-  - input: screens.sparse_density.threshold
-    source: 2025 Acts and Resolves No. 73, Sec. 37
-    supplied: false
-    whose: ours
-    note: Same. See docs/small-sparse-verification-worksheet.md for what to read.
+  - input: grade_span_operated
+    source: AOE school grade span, normalized in the registry
+    supplied: true
+    whose: null
+    note: >-
+      Average grade size divides by the grades above prekindergarten the school operates. The
+      engine derives that count from the registry's low and high grade, which assumes every
+      grade between them is operated. James Nadeau confirmed on 2026-11-22 that this
+      assumption is correct. A school with no grade span has no average grade size, and
+      the screen declines rather than guessing.
 
   - input: school_enrollment
-    source: AOE Public Data API
-    supplied: false
-    whose: the source's
+    source: AOE Vermont Education Dashboard enrollment dataset (data.vermont.gov 3y6q-qqc7), intake/aoe-enrollment/
+    supplied: true
+    whose: null
     note: >-
-      No per-school enrollment series is published. AOE publishes average daily membership by
-      RESIDENT DISTRICT, which is a town rather than a school, and the Public Data API carries
-      no membership data at all. A town's ADM standing in for a school's roll would be a
-      fabrication that looked like data: a town with three schools has one ADM figure and three
-      different answers to the enrollment screen. Left missing until a per-school source is
-      found and landed in intake/ with a hash.
+      The statute's "enrollment" is an October 1 headcount of K-12 students in a school operated
+      by the district, part-time students counted as one (§ 4019(a)(2)), averaged over two years.
+      Average daily membership, FTE and any other count are different quantities and must not be
+      substituted. Any per-school source must be checked for its count date and its treatment of
+      part-time students and prekindergarten before use.
+
+      SOURCE (identified and confirmed 2026-11-22, landed in intake/aoe-enrollment/2026-dashboard/ with a hash): AOE's "Vermont
+      Education Dashboard: Enrollment 2004-2026", data.vermont.gov dataset 3y6q-qqc7, linked from
+      the dashboard page's "complete dataset" link. One row per school per collection per year,
+      with pre-school, full-time kindergarten, part-time kindergarten and grades 1-12 as separate
+      columns, plus `total` and `nonpreschooltotal`. The data holds many collection names; the two that
+      matter are DC#06_FALL_ADM_Official and DC#04_YearEndCollection_Official, which differ (Beeman
+      Elementary FY2026: 81 vs 86 non-preschool). James Nadeau, who has calculated this
+      count, confirmed that DC#06_FALL_ADM_Official is the October 1 headcount; the year-end
+      collection is not used. The dataset's own description is empty, so this rests on that
+      confirmation and not on AOE documentation. The school-year label N is the year ending in spring N, so
+      its October 1 count was taken in the fall of N-1 (confirmed by James Nadeau, 2026-11-22). Part-time kindergarten is a separate column and the statute counts
+      it as one student, so the screen must sum full-time and part-time kindergarten.
+      Average daily membership by RESIDENT DISTRICT is a town figure, not a school's, and is
+      never substituted: a town with three schools has one ADM figure and three different
+      answers to the enrollment screen.
 
   - input: municipality_of_school_building
     source: derived/school-municipality/
@@ -137,3 +164,14 @@ entries:
       precision, so geocode_precision is `unknown` for every school and the criterion would
       return indeterminate even with routing in place — establishing precision is part of that
       work, not separate from it.
+
+  - input: golden_from_published_figure
+    source: a school's average grade size as calculated for the State
+    supplied: false
+    whose: ours
+    note: >-
+      No golden fixture reproduces a published state figure, so the engine's arithmetic is
+      unchecked against anything outside this project. To do: James Nadeau supplies one or two
+      schools with their enrollment, grade span and calculated average grade size, and they are
+      encoded under model/goldens/small-sparse/. Scope is public schools only (AOE organization
+      ID beginning "PS").

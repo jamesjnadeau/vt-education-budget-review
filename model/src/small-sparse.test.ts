@@ -90,33 +90,70 @@ const nearest = (over: Partial<NearestSameSpanResult> = {}): NearestSameSpanResu
 // --------------------------------------------------------------------------
 
 describe('the enrollment screen', () => {
-  it('averages the two most recent years and compares against the threshold', () => {
+  it('divides the two-year average by the grades above prekindergarten, rounding down', () => {
     const ctx = createContext(syntheticParameters());
-    const result = enrollmentScreen(ctx, school(), { byYear: { 2028: 80, 2029: 90 } }, options());
+    // 70 and 80 average 75 across K-6's seven grades: 10.7, rounded DOWN to 10.
+    const result = enrollmentScreen(ctx, school(), { byYear: { 2028: 70, 2029: 80 } }, options());
 
-    expect(result.value).toBe(85);
-    expect(result.threshold).toBe(100);
+    expect(result.averageEnrollment).toBe(75);
+    expect(result.value).toBe(10);
+    expect(result.threshold).toBe(12);
     expect(result.meets).toBe(true);
     expect(result.node.status).toBe('ok');
   });
 
+  it('rounds down, so a school just under the next integer stays on the lower side', () => {
+    const ctx = createContext(syntheticParameters());
+    // 90 / 7 = 12.86, which floors to 12 and so is NOT under 12.
+    const result = enrollmentScreen(ctx, school(), { byYear: { 2028: 90, 2029: 90 } }, options());
+    expect(result.value).toBe(12);
+    expect(result.meets).toBe(false);
+  });
+
+  it('does not count prekindergarten as a grade', () => {
+    const ctx = createContext(syntheticParameters());
+    // PK-5 is six grades above prekindergarten. 72 / 6 = 12. Counting PK would
+    // give seven grades, 10, and wrongly pass the screen.
+    const result = enrollmentScreen(
+      ctx,
+      school({ gradeSpan: { low: -1, high: 5 } }),
+      { byYear: { 2028: 72, 2029: 72 } },
+      options(),
+    );
+    expect(result.value).toBe(12);
+    expect(result.meets).toBe(false);
+  });
+
+  it('declines when the grade span is unknown', () => {
+    const ctx = createContext(syntheticParameters());
+    const result = enrollmentScreen(
+      ctx,
+      school({ gradeSpan: null }),
+      { byYear: { 2028: 40, 2029: 40 } },
+      options(),
+    );
+    expect(result.value).toBeNull();
+    expect(result.meets).toBeNull();
+    expect(result.node.status).toBe('missing_input');
+  });
+
   it('uses a single year when that basis is chosen, and can disagree with the average', () => {
     const ctx = createContext(syntheticParameters());
-    const enrolment = { byYear: { 2028: 80, 2029: 130 } };
+    const enrolment = { byYear: { 2028: 130, 2029: 50 } };
 
     const averaged = enrollmentScreen(ctx, school(), enrolment, options());
     const single = enrollmentScreen(ctx, school(), enrolment, options({ enrollmentBasis: 'single_year' }));
 
-    // 105 on a two-year average, 130 on the latest year. The statute's basis is
-    // unread and this is exactly the school whose status the reading decides.
-    expect(averaged.value).toBe(105);
-    expect(single.value).toBe(130);
+    // 90 / 7 = 12 on the two-year average; 50 / 7 = 7 on the latest year alone.
+    // The statute fixes the two-year basis, so single-year is a scenario only.
+    expect(averaged.value).toBe(12);
+    expect(single.value).toBe(7);
     expect(averaged.meets).toBe(false);
-    expect(single.meets).toBe(false);
+    expect(single.meets).toBe(true);
   });
 
   it('is decided by the comparator at exactly the threshold', () => {
-    // Vermont has schools at exactly 100 pupils. `lt` and `lte` decide them
+    // 84 across seven grades is exactly 12. `lt` and `lte` decide it
     // differently, which is why the comparator is a parameter and not a
     // convention.
     const strict = createContext(syntheticParameters());
@@ -126,9 +163,9 @@ describe('the enrollment screen', () => {
       }),
     );
 
-    const at100 = { byYear: { 2028: 100, 2029: 100 } };
-    expect(enrollmentScreen(strict, school(), at100, options()).meets).toBe(false);
-    expect(enrollmentScreen(inclusive, school(), at100, options()).meets).toBe(true);
+    const atThreshold = { byYear: { 2028: 84, 2029: 84 } };
+    expect(enrollmentScreen(strict, school(), atThreshold, options()).meets).toBe(false);
+    expect(enrollmentScreen(inclusive, school(), atThreshold, options()).meets).toBe(true);
   });
 
   it('treats a year with no published figure as missing, never as zero', () => {
@@ -425,11 +462,12 @@ describe('the grant gate', () => {
 describe('the shipped small/sparse parameter file', () => {
   const set = loadParameterFile(SHIPPED_FILE);
 
-  it('holds no verified statutory value', () => {
+  it('verifies every statutory value, the stacking rule on James Nadeau\'s reading', () => {
     const statutory = [...set.parameters.values()].filter((p) => p.key.startsWith('statutory.'));
     expect(statutory.length).toBeGreaterThan(0);
-    expect(statutory.every((p) => !p.citation.verified)).toBe(true);
-    expect(statutory.every((p) => p.value === null)).toBe(true);
+    const unverified = statutory.filter((p) => !p.citation.verified).map((p) => p.key);
+    expect(unverified).toEqual([]);
+    expect(statutory.filter((p) => p.citation.verified).every((p) => p.citation.quote)).toBe(true);
   });
 
   it('marks every framework parameter as not law', () => {
@@ -438,10 +476,9 @@ describe('the shipped small/sparse parameter file', () => {
     expect(framework.every((p) => p.is_law === false)).toBe(true);
   });
 
-  it('computes nothing at all for a real school', () => {
-    // The whole layer against the real file: every screen unverified, every
-    // grant suppressed. This is the correct output as of drafting, and the test
-    // exists so that the day it changes, it changes because someone read an act.
+  it('screens a real school but pays nothing without an eligibility assumption', () => {
+    // The screens run against the verified values; the grant stays suppressed
+    // because no "by necessity" determination exists and none was assumed.
     const ctx = createContext(set);
     const result = evaluateSmallSparse(ctx, {
       school: school(),
@@ -453,10 +490,9 @@ describe('the shipped small/sparse parameter file', () => {
       determinationStatus: 'undetermined',
     });
 
-    expect(result.statutory.smallScreenMet).toBeNull();
-    expect(result.statutory.sparseScreenMet).toBeNull();
-    expect(result.statutory.enrollment.node.status).toBe('unverified');
-    expect(result.statutory.density.node.status).toBe('unverified');
+    // 43 across seven grades is 6, under 12.
+    expect(result.statutory.enrollment.value).toBe(6);
+    expect(result.statutory.smallScreenMet).toBe(true);
     expect(result.grant.small.amount).toBeNull();
     expect(result.grant.sparse.amount).toBeNull();
     expect(result.grant.total).toBeNull();

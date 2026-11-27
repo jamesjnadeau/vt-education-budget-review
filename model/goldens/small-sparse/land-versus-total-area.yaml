@@ -10,7 +10,7 @@ why: |
   water_area_sq_mi is carried here for exactly one purpose: to be ignored.
 
 thresholds:
-  enrollment: { threshold: 100, comparator: lt }
+  enrollment: { threshold: 12, comparator: lt }
   density: { threshold: 55, comparator: lt }
 
 school:
@@ -31,7 +31,7 @@ options:
   enrollment_basis: two_year_average
 
 expected:
-  enrollment_value: 70
+  average_grade_size: 10
   small_screen_met: true
   density_value: 56.666666666666664
   sparse_screen_met: false

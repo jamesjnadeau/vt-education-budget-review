@@ -1,0 +1,28 @@
+---
+/**
+ * A grid of dots, one per town in the comparison. The resident's own dot is
+ * highlighted. The same information always exists as words in the visible
+ * caption and the aria-label, never in colour alone.
+ */
+interface Props {
+  total: number;
+  /** Index into the grid of the resident's dot, or null when not shown. */
+  mineIndex: number | null;
+  caption: string;
+}
+
+const { total, mineIndex, caption } = Astro.props;
+const dots = Array.from({ length: total }, (_, i) => i);
+---
+
+<div class="journey-dotgrid">
+  <div class="journey-dotgrid-dots" role="img" aria-label={caption}>
+    {dots.map((i) => (
+      <span
+        class:list={['journey-dot', i === mineIndex ? 'journey-dot--mine' : '']}
+        title={i === mineIndex ? 'your town' : undefined}
+      />
+    ))}
+  </div>
+  <p class="journey-caption">{caption}</p>
+</div>
