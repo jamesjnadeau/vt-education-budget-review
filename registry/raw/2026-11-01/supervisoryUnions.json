@@ -1,0 +1,432 @@
+[
+  {
+    "ServerId": 4,
+    "Name": "Mt. Abraham Unified School District",
+    "OrgID": "SU001",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU001",
+    "EdFi_ID": 9001
+  },
+  {
+    "ServerId": 5,
+    "Name": "Addison Northwest Supervisory District",
+    "OrgID": "SU002",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU002",
+    "EdFi_ID": 9002
+  },
+  {
+    "ServerId": 6,
+    "Name": "Addison Central Supervisory District",
+    "OrgID": "SU003",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU003",
+    "EdFi_ID": 9003
+  },
+  {
+    "ServerId": 7,
+    "Name": "Slate Valley Unified Union School District",
+    "OrgID": "SU004",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU004",
+    "EdFi_ID": 9004
+  },
+  {
+    "ServerId": 8,
+    "Name": "Southwest Vermont Supervisory Union",
+    "OrgID": "SU005",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU005",
+    "EdFi_ID": 9005
+  },
+  {
+    "ServerId": 9,
+    "Name": "Bennington Rutland Supervisory Union",
+    "OrgID": "SU006",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU006",
+    "EdFi_ID": 9006
+  },
+  {
+    "ServerId": 10,
+    "Name": "Colchester Supervisory District",
+    "OrgID": "SU007",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU007",
+    "EdFi_ID": 9007
+  },
+  {
+    "ServerId": 11,
+    "Name": "Caledonia Central Supervisory Union",
+    "OrgID": "SU009",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU009",
+    "EdFi_ID": 9009
+  },
+  {
+    "ServerId": 12,
+    "Name": "Milton Supervisory District",
+    "OrgID": "SU010",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU010",
+    "EdFi_ID": 9010
+  },
+  {
+    "ServerId": 13,
+    "Name": "Saint Johnsbury Supervisory District",
+    "OrgID": "SU011",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU011",
+    "EdFi_ID": 9011
+  },
+  {
+    "ServerId": 14,
+    "Name": "Mount Mansfield Unified Union School District",
+    "OrgID": "SU012",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU012",
+    "EdFi_ID": 9012
+  },
+  {
+    "ServerId": 15,
+    "Name": "Champlain Valley Supervisory District",
+    "OrgID": "SU014",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU014",
+    "EdFi_ID": 9014
+  },
+  {
+    "ServerId": 18,
+    "Name": "Burlington Supervisory District",
+    "OrgID": "SU015",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU015",
+    "EdFi_ID": 9015
+  },
+  {
+    "ServerId": 19,
+    "Name": "South Burlington Supervisory District",
+    "OrgID": "SU016",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU016",
+    "EdFi_ID": 9016
+  },
+  {
+    "ServerId": 20,
+    "Name": "Winooski Supervisory District",
+    "OrgID": "SU017",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU017",
+    "EdFi_ID": 9017
+  },
+  {
+    "ServerId": 21,
+    "Name": "Essex North Supervisory Union",
+    "OrgID": "SU019",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU019",
+    "EdFi_ID": 9019
+  },
+  {
+    "ServerId": 22,
+    "Name": "Franklin Northeast Supervisory Union",
+    "OrgID": "SU020",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU020",
+    "EdFi_ID": 9020
+  },
+  {
+    "ServerId": 23,
+    "Name": "Missisquoi Valley School District",
+    "OrgID": "SU021",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU021",
+    "EdFi_ID": 9021
+  },
+  {
+    "ServerId": 24,
+    "Name": "Franklin West Supervisory Union",
+    "OrgID": "SU022",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU022",
+    "EdFi_ID": 9022
+  },
+  {
+    "ServerId": 25,
+    "Name": "Maple Run Supervisory District",
+    "OrgID": "SU023",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU023",
+    "EdFi_ID": 9023
+  },
+  {
+    "ServerId": 26,
+    "Name": "Grand Isle Supervisory Union",
+    "OrgID": "SU024",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU024",
+    "EdFi_ID": 9024
+  },
+  {
+    "ServerId": 27,
+    "Name": "Lamoille North Supervisory Union",
+    "OrgID": "SU025",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU025",
+    "EdFi_ID": 9025
+  },
+  {
+    "ServerId": 28,
+    "Name": "Lamoille South Supervisory Union",
+    "OrgID": "SU026",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU026",
+    "EdFi_ID": 9026
+  },
+  {
+    "ServerId": 29,
+    "Name": "Orange East Supervisory Union",
+    "OrgID": "SU027",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU027",
+    "EdFi_ID": 9027
+  },
+  {
+    "ServerId": 30,
+    "Name": "Orange Southwest Supervisory District",
+    "OrgID": "SU028",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU028",
+    "EdFi_ID": 9028
+  },
+  {
+    "ServerId": 31,
+    "Name": "White River Valley Supervisory Union",
+    "OrgID": "SU030",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU030",
+    "EdFi_ID": 9030
+  },
+  {
+    "ServerId": 32,
+    "Name": "North Country Supervisory Union",
+    "OrgID": "SU031",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU031",
+    "EdFi_ID": 9031
+  },
+  {
+    "ServerId": 33,
+    "Name": "Washington Central Supervisory District",
+    "OrgID": "SU032",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU032",
+    "EdFi_ID": 9032
+  },
+  {
+    "ServerId": 34,
+    "Name": "Mill River Unified Union Supervisory District",
+    "OrgID": "SU033",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU033",
+    "EdFi_ID": 9033
+  },
+  {
+    "ServerId": 35,
+    "Name": "Orleans Central Supervisory Union",
+    "OrgID": "SU034",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU034",
+    "EdFi_ID": 9034
+  },
+  {
+    "ServerId": 36,
+    "Name": "Orleans Southwest Supervisory Union",
+    "OrgID": "SU035",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU035",
+    "EdFi_ID": 9035
+  },
+  {
+    "ServerId": 37,
+    "Name": "Rutland Northeast Supervisory Union",
+    "OrgID": "SU036",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU036",
+    "EdFi_ID": 9036
+  },
+  {
+    "ServerId": 38,
+    "Name": "Rutland City Supervisory District",
+    "OrgID": "SU040",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU040",
+    "EdFi_ID": 9040
+  },
+  {
+    "ServerId": 39,
+    "Name": "Harwood Unified Union Supervisory District",
+    "OrgID": "SU042",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU042",
+    "EdFi_ID": 9042
+  },
+  {
+    "ServerId": 40,
+    "Name": "Windham Central Supervisory Union",
+    "OrgID": "SU046",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU046",
+    "EdFi_ID": 9046
+  },
+  {
+    "ServerId": 41,
+    "Name": "Windham Northeast Supervisory Union",
+    "OrgID": "SU047",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU047",
+    "EdFi_ID": 9047
+  },
+  {
+    "ServerId": 42,
+    "Name": "Windham Southeast Supervisory Union",
+    "OrgID": "SU048",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU048",
+    "EdFi_ID": 9048
+  },
+  {
+    "ServerId": 43,
+    "Name": "Windham Southwest Supervisory Union",
+    "OrgID": "SU049",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU049",
+    "EdFi_ID": 9049
+  },
+  {
+    "ServerId": 44,
+    "Name": "Mountain Views Supervisory Union",
+    "OrgID": "SU051",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU051",
+    "EdFi_ID": 9051
+  },
+  {
+    "ServerId": 45,
+    "Name": "Windsor Southeast Supervisory Union",
+    "OrgID": "SU052",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU052",
+    "EdFi_ID": 9052
+  },
+  {
+    "ServerId": 46,
+    "Name": "Hartford Supervisory District",
+    "OrgID": "SU054",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU054",
+    "EdFi_ID": 9054
+  },
+  {
+    "ServerId": 47,
+    "Name": "School Administrative Unit #70",
+    "OrgID": "SU055",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU055",
+    "EdFi_ID": 9055
+  },
+  {
+    "ServerId": 48,
+    "Name": "Springfield Supervisory District",
+    "OrgID": "SU056",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU056",
+    "EdFi_ID": 9056
+  },
+  {
+    "ServerId": 50,
+    "Name": "Barre Supervisory District",
+    "OrgID": "SU061",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU061",
+    "EdFi_ID": 9061
+  },
+  {
+    "ServerId": 51,
+    "Name": "Two Rivers Supervisory Union",
+    "OrgID": "SU063",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU063",
+    "EdFi_ID": 9063
+  },
+  {
+    "ServerId": 52,
+    "Name": "Rivendell Interstate Supervisory District",
+    "OrgID": "SU064",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU064",
+    "EdFi_ID": 9064
+  },
+  {
+    "ServerId": 53,
+    "Name": "Essex-Westford Supervisory District",
+    "OrgID": "SU065",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU065",
+    "EdFi_ID": 9065
+  },
+  {
+    "ServerId": 54,
+    "Name": "Greater Rutland County Supervisory Union",
+    "OrgID": "SU066",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU066",
+    "EdFi_ID": 9066
+  },
+  {
+    "ServerId": 55,
+    "Name": "Kingdom East Supervisory District",
+    "OrgID": "SU067",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU067",
+    "EdFi_ID": 9067
+  },
+  {
+    "ServerId": 56,
+    "Name": "Central Vermont Supervisory Union",
+    "OrgID": "SU068",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU068",
+    "EdFi_ID": 9068
+  },
+  {
+    "ServerId": 57,
+    "Name": "Montpelier Roxbury Supervisory District",
+    "OrgID": "SU069",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU069",
+    "EdFi_ID": 9069
+  },
+  {
+    "ServerId": 1640,
+    "Name": "University of Vermont",
+    "OrgID": "HE001",
+    "OrgType": "Supervisory Union (SU)",
+    "EdFi_ID": 99901
+  },
+  {
+    "ServerId": 1642,
+    "Name": "Department of Corrections",
+    "OrgID": "SU099",
+    "OrgType": "Supervisory Union (SU)",
+    "EdFi_ID": 9099
+  },
+  {
+    "ServerId": 1649,
+    "Name": "Lincoln Supervisory District",
+    "OrgID": "SU070",
+    "OrgType": "Supervisory Union (SU)",
+    "OperatedBy": "SU070",
+    "EdFi_ID": 9070
+  }
+]
