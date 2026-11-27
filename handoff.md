@@ -92,6 +92,10 @@ golden fixtures pass, and none is marked as a known disagreement.
   2026-11-27: the academies are private, career centers are technical education, and SC001
   is treated as an independent school for reporting. They have no supervisory union by
   design, so there is nothing to report to AOE. The warning is noise for these types.
+- **SU099 (Department of Corrections) and HE001 (University of Vermont)** on AOE's
+  supervisory-union endpoint are not part of financial calculations; they are records AOE
+  uses for other purposes. Confirmed 2026-11-27. The sync's "deliberately not tracked"
+  entries for them are correct and need no report to AOE.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
 - **Fetching State sites from the container.** On 2026-11-27, `curl` reached
