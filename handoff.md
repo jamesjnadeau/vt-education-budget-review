@@ -77,11 +77,25 @@ golden fixtures pass, and none is marked as a known disagreement.
   fetch fails the run if any intake spreadsheet is still a pointer.
 - `npm run coverage` points at `tools/src/cli/coverage.ts`, which does not exist. Fix the
   script or remove it.
-- **Dead collector source URLs.** Thirteen weekly dead-URL issues are open (#19 through #71),
-  along with eight "Collector source liveness check" issues. Consolidate them into one
-  tracking issue. The real work is finding where each district moved its budget page, which
-  unblocks budget collection.
-- Registry sync issue #53 (AOE directory changed) is open.
+- **Dead collector source URLs.** Issue #71 is the single tracker; the twelve earlier
+  weekly issues were closed into it on 2026-11-27. The real work is finding where each
+  district moved its budget page, which unblocks budget collection. The weekly workflow
+  comments on the oldest open `dead-link` issue instead of opening a new one, and uses one
+  fixed PR branch (`liveness/weekly`).
+- **The `Test` org ID in AOE's `independentSchools` and `organizations` endpoints is the
+  project owner's own test record**, confirmed 2026-11-27. The sync's placeholder warning
+  about it is expected and correct (`registry/placeholder.ts` skips it); it is not an
+  upstream error and needs no report to AOE.
+- **Registry-sync warnings that a supervisory union "is not present in this snapshot"** for
+  `academy/*` (PA002-PA005), `techcenter/central-vermont-career-center` (TE004) and
+  `state/woodside-juvenile-rehabilitation-center` (SC001) are expected, confirmed
+  2026-11-27: the academies are private, career centers are technical education, and SC001
+  is treated as an independent school for reporting. They have no supervisory union by
+  design, so there is nothing to report to AOE. The warning is noise for these types.
+- **SU099 (Department of Corrections) and HE001 (University of Vermont)** on AOE's
+  supervisory-union endpoint are not part of financial calculations; they are records AOE
+  uses for other purposes. Confirmed 2026-11-27. The sync's "deliberately not tracked"
+  entries for them are correct and need no report to AOE.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
 - **Fetching State sites from the container.** On 2026-11-27, `curl` reached
