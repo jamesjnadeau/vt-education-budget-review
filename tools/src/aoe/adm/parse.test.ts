@@ -1,8 +1,8 @@
-import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { isFetched } from '../../lfs.ts';
 import { REPO_ROOT } from '../../paths.ts';
 import { parseReport, parseRows } from './parse.ts';
 import type { Cell } from './xlsx.ts';
@@ -149,7 +149,7 @@ describe('reading rows', () => {
   });
 });
 
-describe.skipIf(!existsSync(ADM24))('against the real ADM-24 artifact', () => {
+describe.skipIf(!isFetched(ADM24))('against the real ADM-24 artifact', () => {
   it('reproduces the pinned golden totals', async () => {
     const parsed = await parseReport(ADM24);
     expect(parsed.labels.fiscal_year).toBe(2024);

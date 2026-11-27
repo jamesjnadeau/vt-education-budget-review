@@ -25,7 +25,7 @@ The pipeline is built, tested and running end to end. What it lacks is inputs.
 | Schools located in a municipality | **269 of 430** |
 | Vermont towns with Census land area | **252 of 256** county subdivisions |
 | Site pages built | **348** |
-| Tests | **1,273 passing**, 27 skipped; 6 more read LFS artifacts and fail until `git lfs pull` |
+| Tests | **1,278 passing**, 33 skipped (6 of them real-artifact tests that run once `git lfs pull` has fetched the spreadsheets) |
 
 Three of those gaps are load-bearing and deliberate.
 

@@ -1,8 +1,8 @@
-import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { isFetched } from '../../lfs.ts';
 import { REPO_ROOT } from '../../paths.ts';
 import { readRegistry } from '../../registry/store.ts';
 import type { RegistryEntity } from '../../registry/types.ts';
@@ -195,7 +195,7 @@ describe('the guard is wired to the totals that get published', () => {
 });
 
 describe.skipIf(
-  !existsSync(
+  !isFetched(
     join(REPO_ROOT, 'intake/aoe-adm/fy2024/edu-average-daily-membership-by-resident-district-fy24.xlsx'),
   ),
 )('conservation against the real ADM-24 artifact', () => {

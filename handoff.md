@@ -70,10 +70,9 @@ golden fixtures pass, and none is marked as a known disagreement.
 
 ## Housekeeping
 
-- **Real-artifact tests fail locally without `git lfs pull`.** Six tests in
-  `tools/src/aoe/adm/` and `tools/src/aoe/adm-subgroups/record.test.ts` read xlsx files that
-  are LFS pointers in a fresh container. CI passes now, but these tests should skip when the
-  file is a pointer instead of failing.
+- **Real-artifact tests skip on an unfetched LFS pointer** (`tools/src/lfs.ts`, `isFetched`).
+  A fresh clone's `npm test` is clean without `git lfs pull`. CI still runs them: its LFS
+  fetch fails the run if any intake spreadsheet is still a pointer.
 - `npm run coverage` points at `tools/src/cli/coverage.ts`, which does not exist. Fix the
   script or remove it.
 - **Dead collector source URLs.** Thirteen weekly dead-URL issues are open (#19 through #71),
@@ -96,7 +95,7 @@ Results as of 2026-11-27 on `fix/typecheck-test-files`, without `git lfs pull`:
 ```bash
 npm run typecheck                             # clean
 npx vitest run model/src/goldens.test.ts     # 42 passed, 0 expected fail
-npm test                                      # 1273 passed, 27 skipped, 6 failed (LFS pointers)
+npm test                                      # 1278 passed, 33 skipped, 0 failed
 npm run validate                              # 0 errors, 22 warnings (LFS pointers)
 npm run params                                # FY2026 25/25 verified; FY2027 26/27, draft
 gh run list --branch main --workflow validate.yml -L 3   # latest: success
