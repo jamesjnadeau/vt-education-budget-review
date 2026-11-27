@@ -84,11 +84,12 @@ golden fixtures pass, and none is marked as a known disagreement.
 - Registry sync issue #53 (AOE directory changed) is open.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
-- In the cloud container, `legislature.vermont.gov`, `education.vermont.gov` and
-  `tax.vermont.gov` are not reachable from `curl` or `npm run vt:fetch`, because the outbound
-  proxy presents its own certificate chain, which the fetcher's pinned chain rejects.
-  Artifacts retrieved another way must be hashed and placed in intake by hand, with the
-  provenance record saying so.
+- **Fetching State sites from the container.** On 2026-11-27, `curl` reached
+  `tax.vermont.gov` when given a browser User-Agent; the default one gets a 403. Earlier
+  sessions saw the outbound proxy's certificate chain rejected by `npm run vt:fetch`'s pinned
+  chain, and that is untested since. `git lfs` is not installed in the image; a user-level
+  binary in `~/.local/bin` works, and without it a new intake spreadsheet would be committed
+  as a plain blob.
 
 ## How to check this handoff's claims
 
