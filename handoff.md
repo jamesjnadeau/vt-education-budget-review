@@ -10,7 +10,7 @@ The pipeline is built and runs end to end: registry sync, validation, parameter 
 engine, site. The warehouse holds AOE's education spending, pupils and tax rates for every
 town for FY2023–FY2026, ADM by resident district, Act 127 subgroup counts by town, and Census
 land area. All twenty Act 170 groupings are transcribed. FY2026 parameters are 25/25 verified
-and countersigned (`status: verified`, 2026-11-25). FY2027 is 26/27 verified, `status: draft`.
+and countersigned (`status: verified`, 2026-11-25). FY2027 is 27/27 verified, `status: draft`.
 The engine models the Act 127 tax-rate transition (2024 Acts No. 84, Sec. 3, as amended by
 Act 183) and reproduces the Tax Department's published FY2026 district rate for 86 of the 97
 districts that match one-to-one. Before the transition was modelled, it reproduced 51. Six
@@ -39,11 +39,13 @@ golden fixtures pass, and none is marked as a known disagreement.
 
 ## Open findings, in the order they block things
 
-1. **FY2027 is still blocked.** The one unverified parameter is `tax.statewide_adjustment`.
-   The FY2027 rate page prints 70.33%. Enter it from a fetched artifact of that page, not
-   from the current-use worked example (that example is where the wrong FY2026 value came
-   from). The Act 73 prekindergarten contingency and the yield act figures also still hold
-   it back.
+1. **Countersign FY2027.** `fy2027.yaml` is 27/27 verified and still `status: draft`. The
+   Act 73 contingency (did not fire; pre-repeal prekindergarten weight governs) and the
+   yield-act figures ($9,401 / $12,960) were already settled; the statewide adjustment,
+   0.7033, was entered 2026-11-27 from the Department's FY2027 rate table, now on file at
+   `intake/tax-rates/fy2027/`. A person reads the sources against the file and flips the
+   status. Next after that: import the FY2027 table into the warehouse
+   (`tax-rates:import` is hard-wired to FY2026) and add FY2027 golden fixtures.
 2. **Billed-rate rounding.** The Department divides by CLA ÷ SA rounded to four places, and
    the engine divides by the unrounded quotient. The fixtures allow one unit of error in the
    fourth place and say why. Two billed rates miss by slightly more and are left out of
@@ -82,11 +84,12 @@ golden fixtures pass, and none is marked as a known disagreement.
 - Registry sync issue #53 (AOE directory changed) is open.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
-- In the cloud container, `legislature.vermont.gov`, `education.vermont.gov` and
-  `tax.vermont.gov` are not reachable from `curl` or `npm run vt:fetch`, because the outbound
-  proxy presents its own certificate chain, which the fetcher's pinned chain rejects.
-  Artifacts retrieved another way must be hashed and placed in intake by hand, with the
-  provenance record saying so.
+- **Fetching State sites from the container.** On 2026-11-27, `curl` reached
+  `tax.vermont.gov` when given a browser User-Agent; the default one gets a 403. Earlier
+  sessions saw the outbound proxy's certificate chain rejected by `npm run vt:fetch`'s pinned
+  chain, and that is untested since. `git lfs` is not installed in the image; a user-level
+  binary in `~/.local/bin` works, and without it a new intake spreadsheet would be committed
+  as a plain blob.
 
 ## How to check this handoff's claims
 
@@ -95,8 +98,8 @@ Results as of 2026-11-27 on `fix/typecheck-test-files`, without `git lfs pull`:
 ```bash
 npm run typecheck                             # clean
 npx vitest run model/src/goldens.test.ts     # 42 passed, 0 expected fail
-npm test                                      # 1278 passed, 33 skipped, 0 failed
+npm test                                      # 1278 passed, 33 skipped, 0 failed (before build:data)
 npm run validate                              # 0 errors, 22 warnings (LFS pointers)
-npm run params                                # FY2026 25/25 verified; FY2027 26/27, draft
+npm run params                                # FY2026 25/25 verified; FY2027 27/27, draft
 gh run list --branch main --workflow validate.yml -L 3   # latest: success
 ```
