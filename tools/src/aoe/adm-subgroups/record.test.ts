@@ -1,8 +1,8 @@
-import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { isFetched } from '../../lfs.ts';
 import { PATHS } from '../../paths.ts';
 import type { RegistryEntity } from '../../registry/types.ts';
 import { parseExtract, type ParsedExtract, type RawRow } from './parse.ts';
@@ -200,7 +200,7 @@ const EXTRACT = join(
   'ADM_Sums_by_ADMTDIST_Across_Years.xlsx',
 );
 
-describe.skipIf(!existsSync(EXTRACT))('reading the real records-request extract', () => {
+describe.skipIf(!isFetched(EXTRACT))('reading the real records-request extract', () => {
   it('carries the four suppression rules verbatim and the three delivered years', async () => {
     const parsed = await parseExtract(EXTRACT);
     expect(schoolYears(parsed)).toEqual(['SY24', 'SY25', 'SY26']);

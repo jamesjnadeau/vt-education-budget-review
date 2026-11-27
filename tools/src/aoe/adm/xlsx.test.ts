@@ -1,21 +1,22 @@
-import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { isFetched } from '../../lfs.ts';
 import { REPO_ROOT } from '../../paths.ts';
 import { readSheetRows } from './xlsx.ts';
 
 // Tests read the real hashed artifacts from intake/ rather than a copied
 // fixture, so what is verified is the same bytes provenance records. They skip
-// rather than fail when the artifact is not present locally, because it lives in
-// LFS and a fresh clone may not have fetched it.
+// rather than fail when the artifact is absent or still an LFS pointer, because
+// it lives in LFS and a fresh clone may not have fetched it. CI cannot skip
+// them this way: its LFS fetch fails the run if a spreadsheet is a pointer.
 const ADM24 = join(
   REPO_ROOT,
   'intake/aoe-adm/fy2024/edu-average-daily-membership-by-resident-district-fy24.xlsx',
 );
 
-describe.skipIf(!existsSync(ADM24))('reading a real AOE spreadsheet', () => {
+describe.skipIf(!isFetched(ADM24))('reading a real AOE spreadsheet', () => {
   it('reads the title row, the header row and every data row', async () => {
     const rows = await readSheetRows(ADM24);
 
