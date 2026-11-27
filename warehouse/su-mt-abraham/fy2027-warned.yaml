@@ -1,0 +1,81 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-27
+entity: su/mt-abraham
+fiscal_year: 2027
+status: warned
+source: intake/su-mt-abraham/fy2027/MAUSD Annual Report 2026.pdf
+source_pages: pp. 30-32 (presentation, tax impact, budget summary), 37 (AOE form), 40 (Article 10, CLAs)
+adopted_date: null
+education_spending: 29108585
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/bristol
+      homestead_rate_stated: 1.8791
+      nonhomestead_rate_stated: 2.0629
+      cla: 0.8653
+    - town: town/monkton
+      homestead_rate_stated: 1.2
+      nonhomestead_rate_stated: 1.3173
+      cla: 1.355
+    - town: town/new-haven
+      homestead_rate_stated: 1.8575
+      nonhomestead_rate_stated: 2.0391
+      cla: 0.8754
+    - town: town/starksboro
+      homestead_rate_stated: 1.2427
+      nonhomestead_rate_stated: 1.3642
+      cla: 1.3085
+notes: "Article 10 as warned for the March 3, 2026 vote: total budget $37,862,780 (+8.51% on FY26's
+  $34,894,443); offsetting union revenues $8,754,195; education spending $29,108,585; LTWADM 1,923.59;
+  education spending per pupil $15,132.43 (the report prints +3.45%). Town homestead and non-homestead rates
+  and CLAs (after statewide adjustment) are the district's estimates from its 13 Jan 2026 presentation (p.
+  30), not the Tax Department's. The vote result is not in this document. The district's school site reports
+  the budget passed 1,060 to 749: https://mta.mausd.org/apps/news/article/2174101?categoryId=15587"
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: "Two figures in the report: $29,108,585 on the AOE form (p. 37) and presentation (p. 30), and
+      $29,108,385 in the budget summary (p. 32), which also gives local revenue $8,754,395 vs $8,754,195. A
+      $200 difference. The form figure is recorded."
+    resolution: pending
+  - path: education_spending
+    issue: Printed +2.6% change is computed against the FY26 figure on p. 32 ($28,358,586). Against the AOE form's
+      FY26 ($28,534,233) the change is +2.0%. Printed per-pupil change of +3.45% does not reproduce from the
+      form's FY26 $14,718.91 (+2.8%). Printed percentages recorded in notes, not recomputed.
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: Two FY2027 rate estimates in the report. Town rates recorded here come from the Jan 13, 2026
+      presentation (p. 30; district rate $1.6261 on a $9,212 yield). The AOE form (p. 37) prints a higher
+      equalized rate, $1.7101 or $1.6935 after the cent discount, on an $8,849 yield and the older 72.36%
+      adjuster.
+    resolution: pending
+  - path: tax.towns.cla
+    issue: CLAs are printed 'after SA' (statewide adjustment) as ratios 0.8653, 1.3550, 0.8754, 1.3085 on p. 30,
+      and as percentages on p. 40 (86.53% etc.). Recorded as ratios. Not the Tax Department's published CLAs.
+    resolution: recorded_as_other
+  - path: adm.prekindergarten
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null

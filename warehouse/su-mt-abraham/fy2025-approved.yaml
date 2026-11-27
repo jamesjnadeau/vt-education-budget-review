@@ -1,0 +1,69 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-27
+entity: su/mt-abraham
+fiscal_year: 2025
+status: approved
+source: intake/su-mt-abraham/fy2027/MAUSD Annual Report 2026.pdf
+source_pages: pp. 37 (AOE three-prior-years form), 32 (budget summary)
+adopted_date: null
+education_spending: 28351015
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/bristol
+      homestead_rate_stated: null
+      cla: null
+    - town: town/monkton
+      homestead_rate_stated: null
+      cla: null
+    - town: town/new-haven
+      homestead_rate_stated: null
+      cla: null
+    - town: town/starksboro
+      homestead_rate_stated: null
+      cla: null
+notes: Taken from the prior-year column of the FY2027 annual report's AOE 'Three Prior Years Comparisons'
+  form, which the report marks PRELIMINARY (PDF p. 37). The report prints this as the adopted budget; it gives
+  no vote date, so adopted_date is null. Total union budget $35,381,196; offsetting union revenues $7,030,181;
+  education spending $28,351,015; LTWADM 1,981.36; education spending per pupil $14,308.87; equalized union
+  homestead rate $1.4264 (printed for all four towns, before CLA). Per-town rates and CLAs are not printed for
+  this year. The report's narrative says the FY25 budget passed on the third vote.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: Only the equalized union homestead rate ($1.4264, before each town's CLA) is printed for FY2025, not
+      per-town rates. Equalized rate kept in notes rather than entered as a town rate.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: The report prints town CLAs only for FY2027 (p. 30, p. 40).
+    resolution: left_null
+  - path: education_spending
+    issue: The report prints two figures for this year. The AOE form (p. 37) gives the value recorded here; the
+      budget summary (p. 32) gives $27,954,716 with local revenue $7,426,480 (difference $396,299). Recorded,
+      not reconciled.
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY24), not the four
+      statutory grade bands. Text layer of the whole PDF searched; no band breakdown found. Graphic-only pages
+      were not individually inspected.
+    resolution: left_null
