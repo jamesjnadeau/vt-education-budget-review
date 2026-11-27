@@ -82,6 +82,10 @@ golden fixtures pass, and none is marked as a known disagreement.
   district moved its budget page, which unblocks budget collection. The weekly workflow
   comments on the oldest open `dead-link` issue instead of opening a new one, and uses one
   fixed PR branch (`liveness/weekly`).
+- **The `Test` org ID in AOE's `independentSchools` and `organizations` endpoints is the
+  project owner's own test record**, confirmed 2026-11-27. The sync's placeholder warning
+  about it is expected and correct (`registry/placeholder.ts` skips it); it is not an
+  upstream error and needs no report to AOE.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
 - **Fetching State sites from the container.** On 2026-11-27, `curl` reached
