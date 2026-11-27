@@ -77,11 +77,11 @@ golden fixtures pass, and none is marked as a known disagreement.
   fetch fails the run if any intake spreadsheet is still a pointer.
 - `npm run coverage` points at `tools/src/cli/coverage.ts`, which does not exist. Fix the
   script or remove it.
-- **Dead collector source URLs.** Thirteen weekly dead-URL issues are open (#19 through #71),
-  along with eight "Collector source liveness check" issues. Consolidate them into one
-  tracking issue. The real work is finding where each district moved its budget page, which
-  unblocks budget collection.
-- Registry sync issue #53 (AOE directory changed) is open.
+- **Dead collector source URLs.** Issue #71 is the single tracker; the twelve earlier
+  weekly issues were closed into it on 2026-11-27. The real work is finding where each
+  district moved its budget page, which unblocks budget collection. The weekly workflow
+  still opens a new dated issue each Monday; make it comment on #71 instead. The liveness PR
+  now uses one fixed branch (`liveness/weekly`), so a new run updates the open PR.
 - The VLC's redrawn Act 170 committee roster is still unobtained.
   `intake/vlc-act170/README.md` has the contact and the leads.
 - **Fetching State sites from the container.** On 2026-11-27, `curl` reached

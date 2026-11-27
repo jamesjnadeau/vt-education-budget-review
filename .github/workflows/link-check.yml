@@ -66,7 +66,7 @@ jobs:
       - name: Commit updated last_checked timestamps
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: liveness/${{ github.run_id }}
+          branch: liveness/weekly
           title: 'Collector source liveness check'
           commit-message: 'Record weekly source URL liveness results'
           labels: collectors
