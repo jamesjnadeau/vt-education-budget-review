@@ -1,0 +1,31 @@
+schema_version: "1.0"
+entity: su/mt-abraham
+fiscal_year: 2027
+artifacts:
+  - file: MAUSD Annual Report 2026.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1bK5v5SsjGaNoCIwj8Z01hxzcmDPtrOQV
+    retrieved_date: 2026-11-27
+    retrieval_method: http-fetch
+    sha256: d805bbf1de9e21a9ab7e89cec27553d5c4eb752873d084aba58d2937472fdecf
+    bytes: 53065988
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Mount Abraham Unified School District
+    title: MAUSD Annual Report 2026
+    published_date: null
+    document_page: https://www.mausd.org/apps/pages/index.jsp?uREC_ID=1684642&type=d&pREC_ID=1962560
+    supersedes: null
+    note: >-
+      The annual report mailed ahead of the March 3, 2026 vote. It carries the
+      FY27 proposed budget ($37,862,780, Article 10), the AOE education-spending
+      form with FY25, FY26 and FY27 columns, and the budget summary by category.
+      The district's separate "Proposed Budget and Detail FY27" link was dead
+      when checked on 2026-11-27 (Drive "Page Not Found"), so this report is the
+      only FY27 budget document held. Saved under the filename the server sent
+      (Content-Disposition), byte-for-byte as downloaded. The PDF's internal
+      title is "Copy of Mount Abraham Unified School District", its author
+      field is "Jennifer Bauer", and it was created in Canva on 2026-02-12;
+      the district's own publication date is not stated, so published_date is
+      null. Vote result (passed 1,060 to 749) is not in this document; it is
+      posted at https://mta.mausd.org/apps/news/article/2174101?categoryId=15587.
