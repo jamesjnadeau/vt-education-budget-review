@@ -1,0 +1,46 @@
+CITATION: 24 V.S.A. § 2804
+SOURCE:   https://legislature.vermont.gov/statutes/section/24/077/02804
+RETRIEVED:2026-11-28T11:59:44Z
+HTTP:     200
+SHA256:   06a740d5241602f423d5f55624cda8a96c7ec12adae2786868cac31eab6cac81 (raw page via npm run vt:fetch)
+
+Text as published by the Vermont General Assembly (page text; navigation removed). Do not edit it.
+----------------------------------------------------------------------------
+
+§ 2804
+Title 24 : Municipal and County Government
+Chapter
+077
+:
+Construction; Condemnation
+(Cite as: 24 V.S.A. § 2804)
+§ 2804. Reserve funds; use
+(a) At an annual or special meeting duly warned, a municipality may establish a reserve
+fund to be under the control and direction of the legislative branch of the municipality.
+The reserve fund shall be kept in a separate account and invested as are other public
+funds and may be expended for such purposes for which established, or when authorized
+by a majority of the voters present and voting at an annual or special meeting duly
+warned, for other purposes.
+(b) If a reserve fund is established under subsection (a) of this section to pay a school
+district’s future school capital construction costs approved under 16 V.S.A. chapter
+123, any funds raised by the district as part of its education spending to pay for
+those future costs shall be considered “approved school capital construction spending”
+in calculating excess spending under 32 V.S.A. § 5401(12). Districts shall submit to the Agency of Education annually a report of deposits
+into and expenditures from a school capital construction reserve fund. If the Agency
+of Education determines that any amount in the reserve fund has not been used for
+approved school capital construction within five years after deposit into the fund,
+then 150 percent of that amount shall be added to the district’s education spending
+in the then-current year for purposes of calculating the excess spending penalty.
+The definitions in 16 V.S.A. chapter 133 shall apply to this subsection. (Amended 1997, No. 71 (Adj. Sess.), § 103, eff. March 11, 1998; 2005, No. 38, § 23; 2013, No. 92 (Adj. Sess.), § 271, eff. Feb. 14, 2014.)
+Statutes
+Vermont Statutes Online
+Statutes Search
+Vermont Statutes at Lexis/Nexis
+Constitution
+Constitution of the State of Vermont
+Acts
+Acts & Resolves
+Acts Affecting VSA Sections
+Rules
+State Agency Rules at Lexis/Nexis
+Court Rules at Lexis/Nexis

@@ -369,12 +369,19 @@ parameters:
     description: nonhomestead education property tax rate, before division by the statewide adjustment
     applies_to: all nonhomestead property
     citation:
-      statute: "32 V.S.A. § 5402(a)(1)"
-      session_law: null
-      source_url: "https://legislature.vermont.gov/statutes/section/32/135/05402"
+      statute: "2026 Acts and Resolves No. 169 (H.949), Sec. 1(3), overriding 32 V.S.A. § 5402(a)(1)"
+      session_law: "2026 Acts and Resolves No. 169, Sec. 1(3), eff. July 1, 2026 (Sec. 16(a))"
+      source_url: "https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT169/ACT169%20As%20Enacted.pdf"
       quote: >-
-        The tax rate for nonhomestead property shall be $1.59 per $100.00 divided by
-        the statewide adjustment.
+        For fiscal year 2027 only: ... (3) Notwithstanding 32 V.S.A. § 5402(a)(1) and
+        any other provision of law to the contrary, the nonhomestead property tax
+        rate shall be $1.643 per $100.00 of equalized education property value.
+        The codified § 5402(a)(1) still reads "$1.59 per $100.00 divided by the
+        statewide adjustment" (model/statute/2026-07-29/32-vsa-5402.txt, line 15);
+        for FY2027 the Act replaces that $1.59 with $1.643. Snapshot of the Act:
+        model/statute/2026-11-28/act-2026-169-secs-1-2-6-7-16.txt. The Tax
+        Department's FY2027 rate table ("State Rate" column, 1.643 on every row)
+        agrees.
       verified: true
       verified_date: "2026-07-29"
       verified_by: "automated retrieval from legislature.vermont.gov; snapshot in model/statute/2026-07-29/32-vsa-5402.txt; awaiting human countersignature"
