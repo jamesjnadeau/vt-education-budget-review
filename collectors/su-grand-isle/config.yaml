@@ -2,16 +2,41 @@ schema_version: "1.0"
 entity: su/grand-isle
 priority: null
 sources:
-  - url: http://www.gisu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.gisu.org/page/budget
+    kind: budget_page
+    document_pattern: "Per fiscal year: GISU Budget Presentation (Google Slides), GISU Expense Budget and Revenue Budget (Drive PDFs, FY27 only), and links to each member district's budget page."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.alburghschool.org/o/acec/page/school-board
+    kind: board_docs
+    document_pattern: "Alburgh FY27 official warnings (annual meeting and June 2 revote), flyer, presentation, Drive folder of detailed budget."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.grandisleschool.org/o/gis/page/school-board
+    kind: board_docs
+    document_pattern: "Champlain Islands UUSD budget links; on 2026-11-28 the page showed an empty FY28 heading and FY26 only, FY27 links already removed."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.gofolsom.org/o/fecc/page/school-board
+    kind: board_docs
+    document_pattern: "South Hero FY27 official warning (Drive PDF), flyer, presentation, Drive folder of detailed budget."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    The registry URL http://www.gisu.org/ still works (redirects to https://www.gisu.org/, an Apptegy
+    site); the budget page is https://www.gisu.org/page/budget. GISU is a supervisory union with three
+    member school districts that each set their own budget (Alburgh, Champlain Islands UUSD, South
+    Hero); the SU budget is assessed to them. Drive links download with
+    https://drive.google.com/uc?export=download&id=<ID> and the server sends the filename. The SU
+    budget PDFs are Google Sheets prints with a text layer. South Hero's warning is an image-only scan
+    named SchoolArticles2025.pdf although it is the FY27 warning.
 known_not_published: []
 contacts: []

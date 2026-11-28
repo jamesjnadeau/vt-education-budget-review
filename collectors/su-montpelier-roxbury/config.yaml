@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/montpelier-roxbury
 priority: null
 sources:
-  - url: https://www.mrpsvt.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.mrpsvt.org/budget
+    kind: budget_page
+    document_pattern: "Per-year lists (FY'21-FY'27) of draft-budget presentations, approved warnings and flyers, linked as Google Drive file/view URLs; vote results are typed into the list."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    The existing source (https://www.mrpsvt.org/) is current but is the home page;
+    the budget documents are on /budget (Squarespace). Drive links are
+    /file/d/<ID>/view; the download form is
+    https://drive.google.com/uc?export=download&id=<ID> and the server sends the
+    filename. Some older years link Google Docs/Slides (not downloadable
+    originals) or board-meeting pages. The district publishes no annual report
+    or AOE Three Prior Years form of its own; the AOE form block is printed in
+    the City of Montpelier annual report (montpelier-vt.org). The FY28 budget
+    page links a Google Doc only.
 known_not_published: []
 contacts: []

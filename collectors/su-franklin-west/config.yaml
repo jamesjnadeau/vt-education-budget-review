@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/franklin-west
 priority: null
 sources:
-  - url: http://www.franklinwestsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.fwsu.org/page/budget-info
+    kind: budget_page
+    document_pattern: "SCHOOL BUDGETS page: per-district sections (Georgia, Fairfax, Fletcher, Franklin West SU) for FY27 and past years FY21-FY26; links are aptg.co short links that 301 to files-backend.assets.thrillshare.com PDFs, plus Google Slides/Docs/Drive items."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale franklinwestsu.org source (registry website; returns
+    502 Bad Gateway on 2026-11-28). The current SU site is fwsu.org (Apptegy).
+    FWSU has three member districts that each set their own budget (Fairfax,
+    Fletcher, Georgia Town School Districts) plus the SU's own assessed budget.
+    The budget page is an accordion; the links are only in the page's embedded
+    JSON, not in the rendered markdown. Short links https://aptg.co/<code>
+    redirect to PDFs and the server sends no Content-Disposition. The mailed
+    'AnnualBudget' guides are not the AOE form. The Fletcher guide is
+    image-only and the Fairfax guide has a garbled text layer.
 known_not_published: []
 contacts: []

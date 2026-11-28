@@ -2,16 +2,32 @@ schema_version: "1.0"
 entity: su/springfield
 priority: null
 sources:
-  - url: http://www.ssdvt.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.ssdvt.org/apps/pages/index.jsp?uREC_ID=1549987&type=d&pREC_ID=1676375
+    kind: annual_report_page
+    document_pattern: "Annual School Reports page: 'SSD FY 2027 Budget Book' plus FY18-FY25 school reports (files.edl.io PDFs)."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.ssdvt.org/apps/pages/index.jsp?uREC_ID=1549987&type=d&pREC_ID=2717083
+    kind: budget_page
+    document_pattern: "FY27 Budget Information page: proposed/draft/adopted budget versions (V1, V2, V2.3, Version 3 revote), warning, FAQ, flyers, revote trifold, board letter."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    The registry URL http://www.ssdvt.org/ redirects to https://www.ssdvt.org/
+    and returns 200 (an Edlio site); it is the district home page, not a budget
+    page, so the two pages above replace it. Springfield School District is
+    one budget-setting district (Springfield SU = Springfield Town School
+    District). Documents are PDFs on 4.files.edl.io; the server sends a
+    Content-Disposition filename that differs from the link text (e.g.
+    "SSDFY2027BudgetBook.pdf"). The FY27 book carries the AOE Three Prior
+    Years form on PDF p. 24 (text layer). The warning is a scanned image. The
+    revote budget ("Budget Version 3", 15.9 MB, browser-printed workbook) is on
+    the FY27 Budget Information page.
 known_not_published: []
 contacts: []

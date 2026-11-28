@@ -2,16 +2,24 @@ schema_version: "1.0"
 entity: su/south-burlington
 priority: null
 sources:
-  - url: http://www.district.sf.sbschools.net/
-    kind: other
-    document_pattern: null
+  - url: https://www.sbschools.net/page/fy27-budget-information/
+    kind: budget_page
+    document_pattern: "FY27 Budget Resources links (Google Drive): FY27 Budget Book, FY27 Approved Budget Proposal, 2026 Annual Meeting Notice. Earlier years at /budgetfy26 and similar pages."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027]
+  notes: >-
+    Replaces the stale www.district.sf.sbschools.net source. The district is
+    South Burlington School District (Apptegy site sbschools.net); it is a
+    single-district SU. Documents are Google Drive files; download with
+    drive.google.com/uc?export=download&id=<ID> (Content-Disposition gives the
+    filename). The FY27 budget book is a combined City and School book (also
+    at southburlingtonvt.gov/DocumentCenter/View/5368) with a text layer; the
+    AOE form is on PDF p. 27. Certified March 2026 results are on
+    southburlingtonvt.gov/697/March-3-2026-Town-Meeting-Day-Results.
 known_not_published: []
 contacts: []

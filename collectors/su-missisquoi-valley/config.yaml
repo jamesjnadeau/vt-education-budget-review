@@ -2,16 +2,30 @@ schema_version: "1.0"
 entity: su/missisquoi-valley
 priority: null
 sources:
-  - url: http://www.fnwsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2531584
+    kind: budget_page
+    document_pattern: "Budget Information page (School Board menu): warning text, FAQ, revote video and an embedded OpenGov story (stories.opengov.com/mvsdschools) with a revenue/tax-rate summary image."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2480823
+    kind: board_docs
+    document_pattern: "Meeting Agendas & Minutes page: Google Drive PDFs for the signed annual meeting warnings and the 'Budget Revote Official Result'."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    Replaces the stale fnwsu.org source (old Franklin Northwest SU domain; no
+    response on 2026-11-28). The district is Missisquoi Valley School District
+    (Swanton; towns Franklin, Highgate, Swanton), site mvsdschools.org. No
+    annual report or AOE Three Prior Years Comparisons form was found; the
+    district publishes signed warnings (scanned, image-only PDFs), the
+    certified revote result (text PDF), and a revenue/tax-rate summary as a
+    JPEG inside an OpenGov story (served without Content-Disposition; use the
+    URL filename). Drive links download with uc?export=download&id=<ID>.
 known_not_published: []
 contacts: []

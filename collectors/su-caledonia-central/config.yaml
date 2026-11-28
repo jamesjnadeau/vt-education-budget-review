@@ -2,16 +2,36 @@ schema_version: "1.0"
 entity: su/caledonia-central
 priority: null
 sources:
-  - url: http://www.ccsuonline.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.ccsuvt.net/budget
+    kind: budget_page
+    document_pattern: "SU-office FY27 budget and visual budget walk-through PDFs hosted on files.smartsites.parentsquare.com/8206/."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.ccsuvt.net/188132_3
+    kind: budget_page
+    document_pattern: "CCSD Budget Information: Caledonia Cooperative warning, annual report, approved budget and election results per year (Google Drive file links)."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.twinfield.net/141363_3
+    kind: budget_page
+    document_pattern: "Twinfield School Budget: annual report, approved budget, warning and annual meeting minutes per year (Google Drive file links)."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale registry URL http://www.ccsuonline.org/ (host no longer
+    resolves). The SU site is now www.ccsuvt.net. The SU budget (assessments to
+    five districts) is at /budget; Caledonia Cooperative (Barnet, Walden,
+    Waterford) budgets are at /188132_3 as Google Drive links (download with
+    drive.google.com/uc?export=download&id=ID; the server sends the filename).
+    Twinfield (Marshfield, Plainfield) publishes on twinfield.net (the registry
+    lists washnesu.org/twinfield, also stale). The district warning PDF is an
+    image-only scan; the annual report and budget PDFs have a text layer.
 known_not_published: []
 contacts: []

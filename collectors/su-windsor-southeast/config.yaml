@@ -2,16 +2,37 @@ schema_version: "1.0"
 entity: su/windsor-southeast
 priority: null
 sources:
-  - url: http://www.wsesu.net/
-    kind: other
-    document_pattern: null
+  - url: https://budget.wsesu.net/
+    kind: budget_page
+    document_pattern: "WSESU budget book site; entire-book PDF at /pdf/wsesu-fy28-budget-book.pdf (download page /download/). Currently FY28 live draft covering Hartland, Mt. Ascutney, Weathersfield."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.wsesu.net/en-US/pages/4e29b4d1-c4ad-44c1-97d8-1e3f5ef30974
+    kind: board_docs
+    document_pattern: "School Boards page: Google Drive folders of agendas/minutes/board documents per board (Hartland, Mt. Ascutney, Weathersfield, WSESU). FY27 standalone budget book not found on the SU site."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.weathersfieldvt.org/285/Town-Reports
+    kind: town_page
+    document_pattern: "Town report PDFs; the 'FY2025 Town Report' (published Feb 2026) embeds the WSESU FY27 budget book Weathersfield edition. Hartland's 2026 town report at hartlandvt.gov embeds the Hartland edition."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027, 2028]
+  notes: >-
+    The registry URL http://www.wsesu.net/ is current (redirects to
+    https://www.wsesu.net/en-US, a JS-rendered SchoolBlocks site) but links
+    no budget documents. Windsor Southeast SU has three member districts that
+    set their own budgets (Hartland, Mt. Ascutney, Weathersfield), so
+    budgets are published as per-district editions of the SU budget book,
+    embedded in town reports. Hartland and Weathersfield editions found;
+    the Mt. Ascutney (Windsor / West Windsor) FY27 edition was not found.
+    Town report pages are mostly image-only; the AOE 3-year form needs
+    rendering and vision reading.
 known_not_published: []
 contacts: []

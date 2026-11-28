@@ -2,16 +2,31 @@ schema_version: "1.0"
 entity: su/essex-north
 priority: null
 sources:
-  - url: http://www.essexnorth.org/
+  - url: https://www.ensuvt.org/
     kind: other
-    document_pattern: null
+    document_pattern: "District boards pages hold the budget links: /page/canaan-school-distrtict-board (Canaan budgets, warrants and annual reports) and /o/nek/page/nek-choice-board (NEK Choice budgets). The SU's own budget is printed inside the Canaan annual report."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.ensuvt.org/o/nek/page/nek-choice-board
+    kind: budget_page
+    document_pattern: "NEK Choice Proposed Budget FY<yy> and Budget Summary links (aptg.co short links)."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    Replaces the dead registry URL http://www.essexnorth.org/ (no response on
+    2026-11-28). The current site is ensuvt.org (Apptegy/Thrillshare). Document
+    links are injected by JavaScript, so a plain curl of the page shows none;
+    read them with a browser. Links are aptg.co short URLs that redirect to
+    signed S3 URLs; fetch with GET (HEAD returns 403) and take the filename from
+    Content-Disposition (the NEK Choice file sends none; the name is the last
+    path segment of the redirect target). ENSU has no separate annual report on
+    the site; its budget is printed inside the Canaan School District annual
+    report and the NEK Choice annual report in the town reports.
 known_not_published: []
 contacts: []

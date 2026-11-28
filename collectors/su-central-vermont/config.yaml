@@ -2,16 +2,27 @@ schema_version: "1.0"
 entity: su/central-vermont
 priority: null
 sources:
-  - url: https://www.cvsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    kind: budget_page
+    document_pattern: "Google Drive file links (drive.google.com/file/d/<ID>/view) labelled 'FY27 <CVSU|PMSD|EVCSD> Proposed Expenditures / Revenue / Tax Rate', grouped by vote (March 2026, April 2026 revote, June 2026 2nd revote). Prior year at /central-office/business-office/fy26-budget-page."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    The registry source https://www.cvsu.org/ is the Finalsite home page (200)
+    and links to the budget pages. Documents are Drive PDFs downloadable with
+    https://drive.google.com/uc?export=download&id=<ID> (server sends the
+    filename in Content-Disposition). All FY27 PDFs have a text layer. No
+    annual report / AOE Three Prior Years form was found on the SU site; the
+    PMSD FY27 annual report is only a link in a Smore newsletter
+    (app.smore.com/n/xdfu8-pmsd-budget-newsletter) and was not fetched. Older
+    annual reports (FY21-FY24) are in the Drive folders 'Past Annual Budget
+    Reports' on the PMSD and EVCSD board pages. Two member districts (Paine
+    Mountain SD, Echo Valley CSD) each set their own budget; CVSU itself
+    adopts only the shared-services budget funded by assessments.
 known_not_published: []
 contacts: []

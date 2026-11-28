@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/colchester
 priority: null
 sources:
-  - url: http://www.csdvt.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.csdvt.org/district/schoolboard/budget.php
+    kind: budget_page
+    document_pattern: "Budget Book PDFs under /district/schoolboard/budget/FY<YY>/BudgetBook/<section>/ (e.g. 3PropertyTaxes/FY27 Four Year Comparison.pdf); annual report at /district/about/docs/<year>community.pdf"
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2017, 2020, 2023, 2027, 2028]
+  notes: >-
+    Registry URL (csdvt.org root) works, but the budget page is the useful
+    source. The page shows only the current budget cycle (FY28 as of Nov 2026),
+    so FY27 PDFs are no longer linked from it; they stay online at
+    /district/schoolboard/budget/FY27/BudgetBook/... and were found by search.
+    Older folders seen in search results: FY17, FY20, FY23 (Budget Book).
+    The AOE 'Three Prior Years Comparisons' form is in 3PropertyTaxes
+    ('FY27 Four Year Comparison.pdf'); it has a text layer. Servers send no
+    Content-Disposition, so filenames are URL basenames. The Voting Record
+    History PDF (all votes since 1994) sits in the current year's folder.
 known_not_published: []
 contacts: []

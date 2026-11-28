@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/champlain-valley
 priority: null
 sources:
-  - url: http://www.cssu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.cvsdvt.org/budget-district/budget-home
+    kind: budget_page
+    document_pattern: "Past Budget Resources: FY27 Budget, FY27 Annual Report (https://www.cvsdvt.org/budget-district/fy27-annual-report), FY26 Budget; older reports at /fs/pages/2092 (FY26), 2430 (FY25), 2082 (FY24), 2086 (FY23)."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale cssu.org source (old SU domain; did not respond when
+    checked 2026-11-28). The district is Champlain Valley School District
+    (cvsdvt.org; towns Charlotte, Hinesburg, Shelburne, St. George, Williston).
+    The FY27 annual report is a Google Drive file (about 160 pages, text layer
+    present) whose download filename is sent in Content-Disposition; the same
+    page also links individual components (three prior years form, revenue and
+    expense summaries, 25 MB budget book) as separate Drive files. The AOE form
+    is marked PRELIMINARY / ESTIMATES ONLY. Certified town-level vote results
+    are not published because ballots are commingled.
 known_not_published: []
 contacts: []

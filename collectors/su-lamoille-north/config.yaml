@@ -2,16 +2,27 @@ schema_version: "1.0"
 entity: su/lamoille-north
 priority: null
 sources:
-  - url: http://lnsu.cloudaccess.net/
-    kind: other
-    document_pattern: null
+  - url: https://www.lnsd.org/community/finance-information
+    kind: budget_page
+    document_pattern: "Per-year budget pages (e.g. /community/finance-information/lnmuusd-fy27-budget-information-resource-page) linking the annual report PDF, annual warning PDF, per-district budget tables, presentation (Canva); older annual reports (FY20-FY25) listed under 'Previous Budgets & Annual Reports'."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale lnsu.cloudaccess.net source (old SU domain; no longer
+    resolves). The SU's current site is lnsd.org (Finalsite). Two budget-setting
+    districts: Lamoille North Modified Unified Union School District #058A
+    (PreK-6 elementary; Belvidere, Eden, Hyde Park, Johnson, Waterville) and
+    #058B (7-12 plus Green Mountain Technology & Career Center; adds
+    Cambridge). The FY27 annual report (Canva-made, 50 pages, 34 MB) is a
+    direct PDF on resources.finalsite.net; its AOE Three Prior Years forms
+    (PDF pp. 38 and 43) are image-only pages and must be read visually. The
+    server sends no Content-Disposition, so the filename is the URL's last
+    path segment. Annual meeting minutes (with the March 3, 2026 Australian
+    ballot results) are posted as a PDF on the same CDN.
 known_not_published: []
 contacts: []

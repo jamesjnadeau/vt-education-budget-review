@@ -1,17 +1,32 @@
-schema_version: "1.0"
+schema_version: '1.0'
 entity: su/harwood-unified-union
 priority: null
 sources:
-  - url: http://www.wwsu.org/
-    kind: other
-    document_pattern: null
-    link_selector: null
-    last_checked: 2026-11-23
-    last_status: 200
+- url: https://huusd.org/budget-annual-reports
+  kind: annual_report_page
+  document_pattern: Budget by fiscal year (FY2018-FY2028) pages at https://huusd.org/budget-fy<YYYY>; annual report
+    PDFs are Google Drive links.
+  link_selector: null
+  last_checked: '2026-11-28'
+  last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available:
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  - 2027
+  notes: Replaces stale wwsu.org (old Washington West SU domain). District is Harwood Unified Union School District
+    (huusd.org). FY2027 page https://huusd.org/budget-fy2027 links the annual report PDF and the warning/ballot
+    (a scan, image-only) as Drive file links; direct download works via drive.google.com/uc?export=download&id=<ID>
+    and sends Content-Disposition. Annual report has a text layer. The listing also shows an FY2028 page, which
+    was not inspected.
 known_not_published: []
 contacts: []

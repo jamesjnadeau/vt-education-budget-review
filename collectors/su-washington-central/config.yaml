@@ -2,16 +2,31 @@ schema_version: "1.0"
 entity: su/washington-central
 priority: null
 sources:
-  - url: http://www.wcsuonline.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.wcuusd.org/budget-info
+    kind: budget_page
+    document_pattern: "Per-fiscal-year panels (FY 28 ... FY 23) of resource-manager PDFs: Final Warned Budget, Final Detail/Summary Sheet, Budget Presentations, Drafts; Annual Report links are on /budget-info/annual-reports."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.wcuusd.org/budget-info/annual-reports
+    kind: annual_report_page
+    document_pattern: "WCUUSD Annual Report <year>; the 2026 edition is a Heyzine flipbook, 2020-2025 are resource-manager PDFs."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale wcsuonline.org source from the registry (did not respond when tried on
+    2026-11-28). The district is Washington Central Unified Union School District (Montpelier;
+    towns Berlin, Calais, East Montpelier, Middlesex, Worcester) at wcuusd.org. District links
+    are finalsite resource-manager URLs that 302-redirect to resources.finalsite.net PDFs with
+    no Content-Disposition (use the URL filename). The FY2027 annual report is shown as a
+    Heyzine flipbook, but the uploaded source PDF is downloadable from
+    cdnm.heyzine.com/files/uploaded/<hash>.pdf (found in the flipbook page HTML). Certified
+    vote results are on https://www.wcuusd.org/school-board/vote-results as image-only PDFs.
+    Some links on the annual reports page (2023, 2024) are broken.
 known_not_published: []
 contacts: []

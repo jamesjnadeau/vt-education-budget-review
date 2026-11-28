@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/mount-mansfield
 priority: null
 sources:
-  - url: http://mmuusd.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.mmuusd.org/school_board/budget_and_annual_report_info
+    kind: budget_page
+    document_pattern: "FY27 Budget Development page: Budget Vote Results, Official Warning, Fact Sheet, Flyer, Presentation Slides, Proposed Budget Detail (Drive PDFs) and the annual report PDF. Prior year at /school_board/budget_and_annual_report_info/f_y26_budget_archive."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: 409
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    Replaces http://mmuusd.org/ (returns 409 Conflict without the www host; the
+    live site is https://www.mmuusd.org/). Mount Mansfield Unified Union School
+    District #401 is one district (Bolton, Huntington, Jericho, Richmond,
+    Underhill). Documents are Google Drive links on the budget page; download
+    with https://drive.google.com/uc?export=download&id=<ID>&confirm=t (the
+    server sends the filename). The FY27 annual report is a 50-page, 51.5 MB
+    Google Docs export; the tax-rate charts and budget-detail tables (PDF pp.
+    32-33, 35-36, 38-44) are images with no text layer. It has no AOE
+    'Three Prior Years Comparisons' form. FY26 archive page not read.
 known_not_published: []
 contacts: []

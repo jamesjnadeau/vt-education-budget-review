@@ -2,16 +2,23 @@ schema_version: "1.0"
 entity: su/school-administrative-unit-70
 priority: null
 sources:
-  - url: http://sau70.hanovernorwichschools.org//
-    kind: other
-    document_pattern: null
+  - url: https://www.sau70.org/departments/business-finance/budgets
+    kind: budget_page
+    document_pattern: "Per-year (2019-20..2026-27) tabs for SAU 70, Dresden, Hanover, Norwich; annual reports and voter brochures at resources.finalsite.net/images/.../*.pdf; 2026-27 hearings and adoption documents are in Simbli (eboardsolutions) links."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale sau70.hanovernorwichschools.org registry URL (now
+    redirects to a Google sign-in page). SAU #70 is a New Hampshire administrative
+    unit serving Hanover NH, Norwich VT and the Dresden interstate district; the
+    SAU itself has no Vermont AOE budget form. Annual reports (Dresden and
+    Hanover) and a separate Norwich voter brochure are text-layer PDFs on
+    finalsite with no Content-Disposition (use the URL filename). Budget books with
+    exhibits and adoption documents are on Simbli/BoardDocs and were not fetched.
 known_not_published: []
 contacts: []

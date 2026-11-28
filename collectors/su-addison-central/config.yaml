@@ -2,16 +2,23 @@ schema_version: "1.0"
 entity: su/addison-central
 priority: null
 sources:
-  - url: http://www.acsu.k12.vt.us/
-    kind: other
-    document_pattern: null
+  - url: https://www.acsdvt.org/district-link/budget-development
+    kind: budget_page
+    document_pattern: "Per-year pages /district-link/budget-development/fy27-budget (FY27), /fy26budget (FY26); budget books on resources.finalsite.net (FY25, FY27) or Google Drive embeds."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale acsu.k12.vt.us source (old SU domain, no response). The district is Addison
+    Central School District (Middlebury; towns Bridport, Cornwall, Middlebury, Ripton, Salisbury,
+    Shoreham, Weybridge). The FY27 budget book and overview are plain PDFs on resources.finalsite.net
+    (no Content-Disposition, use the URL basename). The FY26 budget book is a Google Drive embed with
+    downloads disabled (404 on the export URL); only the FY26 voter overview PDF is downloadable.
+    FY21-FY24 books are Google Docs links. The AOE form (p. 11) and town tax table (p. 35) in the
+    FY27 book are images and need vision reading. Budget Development page already lists FY28.
 known_not_published: []
 contacts: []

@@ -2,16 +2,30 @@ schema_version: "1.0"
 entity: su/franklin-northeast
 priority: null
 sources:
-  - url: http://fnesu.net/
-    kind: other
-    document_pattern: null
+  - url: https://www.fnesu.org/o/fnesu/page/fy27budget
+    kind: budget_page
+    document_pattern: "FY27 Budget Info page: three sections (Enosburgh-Richford UUSD, Northern Mountain Valley UUSD, FNESU) of Google Drive PDFs named like 'FY27 ER D1 Budget Overview', 'FY27 NMV J1 Warning', 'FNE FY27 K2 Budget Overview'. Earlier years at /o/fnesu/page/fy25budget."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.fnesu.org/article/2678802
+    kind: annual_report_page
+    document_pattern: "2026 Annual Report article; links one Google Drive PDF (Canva-built community report, no AOE form)."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2025, 2026, 2027]
+  notes: >-
+    The registry URL http://fnesu.net/ redirects (302/301) to https://www.fnesu.org/
+    (Apptegy site), so it is not dead, but it has no budget documents on the front
+    page. The SU has two budget-setting districts (Enosburgh-Richford UUSD #88 and
+    Northern Mountain Valley UUSD #85) plus its own central-office budget. All
+    documents are Google Drive links; the server sends a Content-Disposition
+    filename. The district budget books are one-page-per-section PDFs printed from
+    Google Sheets (text layer present, not AOE forms). Earlier years' budget pages
+    were not examined.
 known_not_published: []
 contacts: []

@@ -2,16 +2,34 @@ schema_version: "1.0"
 entity: su/orleans-southwest
 priority: null
 sources:
-  - url: http://www.ossu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.ossu.org/en-US/budgets-reports/annual-reports
+    kind: annual_report_page
+    document_pattern: "Per-district lists (OSSU, Craftsbury Town, Hazen Union, Stannard Town, Wolcott Town, Mountain View Union), 2022-2026 Annual Report, Google Drive links."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.ossu.org/en-US/budgets-reports/budgets
+    kind: budget_page
+    document_pattern: "Per-district lists, FY23-FY27 Budget, Google Drive links; FY28 budget forums at /budgets-reports/fy28-budgets."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.ossu.org/en-US/annual-school-district-meeting-warnings
+    kind: other
+    document_pattern: "Warnings (Drive) and March 3 / April 7 / May 20, 2026 vote results posted as page text."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the bare http://www.ossu.org/ homepage (301 to https://www.ossu.org/,
+    then 307 to /en-US). The SU has five member districts that each set their own
+    budget (Craftsbury, Hazen Union, Mountain View Union, Stannard, Wolcott), each
+    with its own annual report and budget file on Google Drive. Drive downloads
+    work with https://drive.google.com/uc?export=download&id=<ID> and send a
+    Content-Disposition filename. All reports have a text layer.
 known_not_published: []
 contacts: []
