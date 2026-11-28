@@ -16,6 +16,7 @@ import JourneyNext from '../../../../components/JourneyNext.astro';
 import DotGrid from '../../../../components/DotGrid.astro';
 import ScaleBar from '../../../../components/ScaleBar.astro';
 import Donut from '../../../../components/Donut.astro';
+import RateHistory from '../../../../components/RateHistory.astro';
 
 export function getStaticPaths() {
   // Which student count each year uses, so a page can say when its neighbour differs.
@@ -32,6 +33,12 @@ export function getStaticPaths() {
 
 const { page, rateOrder, year, notes, studentsSource, rateSource } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// This town's homestead rate in every year on file, oldest first, for the chart above the heading.
+const rateSeries = YEARS.map((y) => {
+  const r = journeyFor(y).towns[page.slug]?.rate;
+  return { year: y, rate: r && r.kind === 'value' ? r.value : null };
+});
 
 // The note about this site's own math applies only to the year that math was run for.
 const residual = year === RESIDUAL_YEAR ? (residualFor(page.districtSlug) ?? residualFor(`town/${page.slug}`)) : null;
@@ -91,6 +98,8 @@ const shareCards = [
 
 <Base title={`Your town: ${page.name}, fiscal year ${year} — Vermont School Budgets`}>
   <JourneyTop steps={page.steps} current="town" year={year} kind="town" slug={page.slug} />
+
+  <RateHistory townName={page.name} slug={page.slug} year={year} series={rateSeries} />
 
   <div class="journey-town-head">
     <h1>
