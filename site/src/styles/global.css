@@ -1049,38 +1049,6 @@ button:hover {
   max-width: 60ch;
 }
 
-.journey-progress {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem;
-}
-.journey-progress-step {
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  max-width: none;
-}
-.journey-progress-step:not(.journey-progress-step--current) {
-  color: var(--text-muted);
-}
-.journey-progress-label {
-  font-weight: 600;
-}
-.journey-progress-step--current .journey-progress-label {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-color: var(--gold);
-  text-underline-offset: 4px;
-}
-.journey-progress-mark {
-  font-size: 0.78rem;
-  color: var(--accent);
-  font-weight: 600;
-}
-
 .journey-cta {
   margin: 1.5rem 0 0.25rem;
   font-weight: 600;
