@@ -61,7 +61,7 @@ describe('buildJourney against the real data', () => {
       // different one (an unassigned district must never be routed to a group).
       for (const u of Object.values(j.unions)) {
         if (u.next?.id !== 'grouping') continue;
-        const nextNumber = Number(u.next.href.split('/')[3]);
+        const nextNumber = Number(u.next.href.split('/').filter(Boolean).pop());
         const numbers = u.members.map((m) => j.towns[m.town]?.committeeNumber);
         expect(numbers.every((n) => n === nextNumber)).toBe(true);
       }

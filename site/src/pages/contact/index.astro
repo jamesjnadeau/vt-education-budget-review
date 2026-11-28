@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Contact — Vermont School Budgets"
+  description="Send a question, correction or comment to the people behind Vermont School Budgets."
+>
+  <h1>Contact</h1>
+  <p class="lede">
+    Found a mistake, have a question, or want to tell us something? Write here. Your message goes to the person who
+    runs this site. If you have a budget document to share, use <a href="/contribute/">the document form</a> instead.
+  </p>
+
+  <form
+    name="contact"
+    method="POST"
+    action="/contact/thanks/"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="stack"
+  >
+    <input type="hidden" name="form-name" value="contact" />
+    <p class="trap" aria-hidden="true">
+      <label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    <div class="field">
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="email">Your email, so we can reply</label>
+      <input id="email" name="email" type="email" autocomplete="email" required />
+      <p class="field-help">Used only to answer you. We never publish it.</p>
+    </div>
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="8" required></textarea>
+    </div>
+
+    <div><button type="submit">Send message</button></div>
+  </form>
+</Base>
+
+<style>
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .stack input,
+  .stack textarea {
+    width: 100%;
+    max-width: 36rem;
+    box-sizing: border-box;
+  }
+  textarea {
+    font: inherit;
+    padding: 0.55rem 0.75rem;
+    border: 2px solid var(--text-muted);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+  }
+  .trap {
+    position: absolute;
+    left: -10000px;
+    height: 0;
+    overflow: hidden;
+  }
+</style>

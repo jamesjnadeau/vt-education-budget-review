@@ -282,7 +282,7 @@ describe('buildJourney', () => {
     expect(j2.towns['y']?.committeeNumber).toBe(9);
     // one town per district -> no district step, straight to union then grouping
     expect(j2.towns['x']?.steps.map((s) => s.id)).toEqual(['town', 'union', 'grouping']);
-    expect(j2.towns['x']?.steps[2]?.href).toBe('/my/grouping/7/');
+    expect(j2.towns['x']?.steps[2]?.href).toBe('/my/2026/grouping/7/');
   });
 
   it('does not route a union to a single grouping when a member district is unassigned', () => {
@@ -325,5 +325,128 @@ describe('buildJourney', () => {
     expect(j3.towns['p']?.committeeNumber).toBe(7);
     expect(j3.towns['q']?.committeeNumber).toBeNull();
     expect(j3.towns['q']?.steps.map((s) => s.id)).toEqual(['town', 'union']);
+  });
+});
+
+describe('buildJourney for a chosen fiscal year', () => {
+  const R = (rate: number | null, students?: number) =>
+    students === undefined ? { homestead_rate: rate } : { homestead_rate: rate, students };
+  const SOURCE = { publisher: 'Tax', title: 'T', published_date: '2023-08-25', document_page: 'https://tax.vermont.gov/x' };
+
+  function withYears(): JourneyInputs {
+    const inputs = mkInputs();
+    // FY2025 reads the town file's SY24 count: half of SY25's for shared-b, nothing else delivered.
+    inputs.subgroups.years = [
+      { school_year: 'SY24', count_year: '2023-2024', fiscal_year: 2025, preliminary: false },
+      { school_year: 'SY25', count_year: '2024-2025', fiscal_year: 2026, preliminary: false },
+    ];
+    inputs.subgroups.towns['town/shared-b'] = {
+      ...inputs.subgroups.towns['town/shared-b'],
+      SY24: sy25(bands(5)),
+    };
+    inputs.years = {
+      years: [
+        {
+          fiscal_year: 2023,
+          rate_source: null,
+          students_source: null,
+          towns: { 'town/shared-a': R(1.5) },
+        },
+        {
+          fiscal_year: 2024,
+          rate_source: SOURCE,
+          students_source: { kind: 'resident_district_report', count_year: '2022-2023', title: 'ADM-24', preliminary: false },
+          // Rates in the opposite order to FY2026, and no rate at all for shared-c.
+          towns: {
+            'town/shared-a': R(3.0, 30),
+            'town/shared-b': R(2.0, 10.5),
+            'town/shared-c': R(null, 59.5),
+            'town/alone': R(1.0, 7),
+          },
+        },
+        {
+          fiscal_year: 2025,
+          rate_source: SOURCE,
+          students_source: { kind: 'town_file', count_year: '2023-2024', title: null, preliminary: false },
+          towns: { 'town/shared-b': R(2.5) },
+        },
+        {
+          fiscal_year: 2026,
+          rate_source: SOURCE,
+          students_source: { kind: 'town_file', count_year: '2024-2025', title: null, preliminary: false },
+          towns: { 'town/shared-a': R(1.0), 'town/shared-b': R(2.0) },
+        },
+      ],
+    };
+    return inputs;
+  }
+
+  it('reads each year its own rates, order and comparison', () => {
+    const y24 = buildJourney(withYears(), 2024);
+    const y26 = buildJourney(withYears(), 2026);
+    expect(y24.year).toBe(2024);
+    expect(y24.towns['shared-a']?.rate).toEqual({ kind: 'value', value: 3.0 });
+    expect(y26.towns['shared-a']?.rate).toEqual({ kind: 'value', value: 1.0 });
+    expect(y24.rateOrder.map((t) => t.slug)).toEqual(['alone', 'shared-b', 'shared-a']);
+    expect(y26.rateOrder.map((t) => t.slug)).toEqual(['shared-a', 'shared-b']);
+    // A town with no rate that year is a blank with a reason and is left out of the comparison.
+    expect(y24.towns['shared-c']?.rate.kind).toBe('blank');
+    expect(y24.towns['shared-c']?.rateScale.kind).toBe('blank');
+    const a = y24.towns['shared-a']?.rateScale;
+    expect(a?.kind === 'value' && a.value.of).toBe(3);
+  });
+
+  it('carries the year through every step address', () => {
+    const y24 = buildJourney(withYears(), 2024);
+    expect(y24.towns['shared-a']?.steps.map((s) => s.href)).toEqual([
+      '/my/2024/town/shared-a/',
+      '/my/2024/district/big-district/',
+      '/my/2024/union/big-union/',
+      '/my/2024/grouping/7/',
+    ]);
+    expect(y24.districts['big-district']?.next?.href).toBe('/my/2024/union/big-union/');
+    expect(y24.unions['big-union']?.next?.href).toBe('/my/2024/grouping/7/');
+  });
+
+  it('takes exact students and shares from the resident district report', () => {
+    const y24 = buildJourney(withYears(), 2024);
+    expect(y24.studentsSource?.kind).toBe('resident_district_report');
+    expect(y24.towns['shared-a']?.students).toEqual({ kind: 'sum', sum: { kind: 'exact', value: 30 } });
+    // district: 30 + 10.5 + 59.5 = 100 across the towns the report lists
+    expect(y24.districts['big-district']?.students).toEqual({ kind: 'sum', sum: { kind: 'exact', value: 100 } });
+    expect(y24.towns['shared-a']?.shares.district?.students).toEqual({ kind: 'value', value: 0.3 });
+    // A town the report does not list has no students counted, never a number from another year.
+    expect(y24.towns['norate']?.students.kind).toBe('blank');
+  });
+
+  it('reads the town file school year that belongs to the fiscal year', () => {
+    const y25 = buildJourney(withYears(), 2025);
+    expect(y25.studentsSource).toEqual({ kind: 'town_file', count_year: '2023-2024', title: null, preliminary: false });
+    expect(y25.towns['shared-b']?.students).toEqual({ kind: 'sum', sum: { kind: 'exact', value: 20 } });
+    expect(y25.towns['shared-a']?.students.kind).toBe('blank');
+    const y26 = buildJourney(withYears(), 2026);
+    expect(y26.towns['shared-b']?.students).toEqual({ kind: 'sum', sum: { kind: 'exact', value: 40 } });
+  });
+
+  it('says the count is not on file when a year has no student source', () => {
+    const y23 = buildJourney(withYears(), 2023);
+    expect(y23.studentsSource).toBeNull();
+    expect(y23.towns['shared-a']?.students).toEqual({
+      kind: 'blank',
+      why: 'not_computable',
+      reason: "the state's student count for this year is not on file here.",
+    });
+    expect(y23.towns['shared-a']?.studentsScale.kind).toBe('blank');
+    expect(y23.towns['shared-a']?.rate).toEqual({ kind: 'value', value: 1.5 });
+  });
+
+  it('keeps people the same in every year', () => {
+    expect(buildJourney(withYears(), 2024).towns['shared-a']?.people).toEqual(
+      buildJourney(withYears(), 2026).towns['shared-a']?.people,
+    );
+  });
+
+  it('refuses a year the years file does not hold', () => {
+    expect(() => buildJourney(withYears(), 2019)).toThrow(/2019/);
   });
 });
