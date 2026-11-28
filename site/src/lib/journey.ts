@@ -132,7 +132,7 @@ export interface JourneyYearRecord {
     title: string | null;
     preliminary: boolean;
   } | null;
-  towns: Record<string, { homestead_rate: number | null; students?: number }>;
+  towns: Record<string, { homestead_rate: number | null; cla?: number | null; students?: number }>;
 }
 
 /** Narrow shapes of the generated JSON, with only the fields used. */
