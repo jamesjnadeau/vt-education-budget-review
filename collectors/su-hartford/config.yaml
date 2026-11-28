@@ -2,16 +2,31 @@ schema_version: "1.0"
 entity: su/hartford
 priority: null
 sources:
+  - url: https://hsdvt.com/213316_3
+    kind: budget_page
+    document_pattern: "files.smartsites.parentsquare.com/11463/fy<YY>_proposed_budget_packet.pdf (budget packet), 2026_school_dist_warnings_both.pdf, 2026_official_school_dist_results.pdf; archives of earlier budget seasons at https://hsdvt.com/213317_3"
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
   - url: http://www.hsdvt.com/
     kind: other
     document_pattern: null
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    The registry URL (www.hsdvt.com) is the current district site, not stale;
+    the budget page is /213316_3 (Budget Updates Home). Hartford School
+    District (Hartford SU, town of Hartford) hosts files on
+    files.smartsites.parentsquare.com/11463/ with no Content-Disposition header
+    (filename = last URL path segment). The FY27 packet and the warning and
+    certificate of results are scanned, noisy or image-only; figures must be read
+    from renders. The p. 11 education-tax form carries FY25-FY27 columns. FY26
+    appears in the 2024 Town and School Annual Report on hartford-vt.org (not
+    collected). Earlier seasons live under the Archives links on the budget page.
 known_not_published: []
 contacts: []

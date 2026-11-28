@@ -2,16 +2,32 @@ schema_version: "1.0"
 entity: su/two-rivers
 priority: null
 sources:
-  - url: http://su.trsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.trsu.org/home
+    kind: budget_page
+    document_pattern: "Home page 'Important Messages' list links Drive folders 'GMUSD 2026-2027 Budget', 'LMHUUSD 2026-2027 Budget', 'TRSU 2026-2027 Budget' and the annual reports ('2025-2026 GMUSD Annual Report', '2025-2026 LMHUUSD Annual Report')."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.trsu.org/boards/annual-reports
+    kind: annual_report_page
+    document_pattern: "Links to per-district subpages /boards/annual-reports/gmusd-annual-reports and /boards/annual-reports/lmhuusd-annual-reports."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027]
+  notes: >-
+    Replaces the stale su.trsu.org source, which now 301s to https://su.trsu.org/
+    and then redirects to a Google sign-in page. The live site is
+    https://www.trsu.org (Google Sites). Two member districts set their own
+    budgets: Green Mountain USD #77 (Andover, Baltimore, Cavendish, Chester) and
+    Ludlow Mt. Holly UUSD #83 (Ludlow, Mt. Holly). Documents are Google Drive
+    files; direct download works with
+    https://drive.google.com/uc?export=download&id=<ID> and the server sends the
+    filename. Drive folder contents can be listed without login at
+    https://drive.google.com/embeddedfolderview?id=<FOLDER_ID>. The
+    per-district annual-report subpages were not read.
 known_not_published: []
 contacts: []

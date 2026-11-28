@@ -2,16 +2,27 @@ schema_version: "1.0"
 entity: su/lincoln
 priority: null
 sources:
-  - url: https://lincolnsd.org/
-    kind: other
-    document_pattern: null
+  - url: https://lincolnsd.org/budget-1
+    kind: budget_page
+    document_pattern: "Links to /s/*.pdf files (Squarespace; each redirects to static1.squarespace.com): Warning, School pages of the Town Report, FY27 Adopted Budget, Three Year Comparison (/s/3-Prior-years.pdf), brochures and slide decks. Older years via /budget-1-1 and /prior-years-budget-info."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://lincolnsd.org/board-meeting-agendas-minutes
+    kind: other
+    document_pattern: "Annual meeting minutes under /s/*.pdf (e.g. 2026-Feb-28-LSD-Minutes-DRAFT-1.pdf)."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the registry's bare https://lincolnsd.org/ home page (200, but it carries no budget links). Lincoln School
+    District is its own supervisory district (SU070; no member districts). Squarespace /s/ links send no
+    Content-Disposition, so the filename is the redirect target's last path segment, URL-decoded. The 'FY27 Adopted
+    Budget' PDF is image-only (no text layer). The Drive-hosted 'Statement on Updated FY27 Education Tax Rates'
+    and 'LSD final FY27 Homestead tax rate statement.pdf' download with a Content-Disposition filename.
 known_not_published: []
 contacts: []

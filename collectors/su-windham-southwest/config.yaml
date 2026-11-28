@@ -2,16 +2,26 @@ schema_version: "1.0"
 entity: su/windham-southwest
 priority: null
 sources:
-  - url: http://www.windhamsw.k12.vt.us/
-    kind: other
-    document_pattern: null
+  - url: https://www.wswsu49.org/Meeting-Calendar
+    kind: board_docs
+    document_pattern: "Per-district board pages (halifax-board, readsboro-board, searsburg-board, stamford-board, tvuusd-board). Each lists the current-year SCHOOL WARNING, Proposed FY27 Budget (Adobe Acrobat share links, not downloadable) and Annual Report (embedded Google Drive PDF viewer); prior annual reports are Drive links."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: 404
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale http://www.windhamsw.k12.vt.us/ source (returns 404; old
+    SU domain). The current SU site is https://www.wswsu49.org (Google Sites).
+    The SU has five budget-setting districts (Halifax, Readsboro, Searsburg,
+    Stamford, Twin Valley USD) plus Somerset; each posts its own annual report.
+    The current-year report is embedded as a Drive viewer on the board page: the
+    file id is in the iframe src (drive.google.com/file/d/<id>/preview) and the
+    download URL is drive.google.com/uc?export=download&id=<id>. Several budget
+    pages (Halifax pp.6-14, TVUUSD pp.22-37) are image-only PDFs. Searsburg's
+    "SEARSBURG ANNUAL REPORT 2025.pdf" is an image-only FY2024 (year ended 30
+    June 2024) town report, not an FY27 document.
 known_not_published: []
 contacts: []

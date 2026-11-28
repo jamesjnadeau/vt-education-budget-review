@@ -2,16 +2,24 @@ schema_version: "1.0"
 entity: su/lamoille-south
 priority: null
 sources:
-  - url: https://lamoillesouth.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.lamoillesouth.org/budgets
+    kind: budget_page
+    document_pattern: "Squarespace page with image-only links (no link text) to Google Drive PDFs: one 'FY27 Budget Development' index PDF per entity (LSSU, EMUU, SSD), each a one-page list whose hyperlinks open the real documents (summary, assessments, presentations, warning, revenues, expenditures)."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    The registry URL https://lamoillesouth.org/ redirects to https://www.lamoillesouth.org/ (200); the budget
+    material is at /budgets. Budget links are logo images with no text, so identify each by downloading it
+    (Drive uc?export=download&id=<ID> sends Content-Disposition with the filename). The index PDFs carry the
+    real document links as PDF URI annotations (strings or pdftotext will not show them; grep the raw bytes
+    for drive.google.com/file/d/<ID>). Three budget-setting entities: the SU (assessments) and its two member
+    districts, Elmore-Morristown UUSD and Stowe SD. Presentations and the EMUU packet are image-only PDFs.
+    No AOE Three Prior Years Comparisons form was found for FY27. FY26 index PDFs are linked on the page but
+    were not downloaded.
 known_not_published: []
 contacts: []

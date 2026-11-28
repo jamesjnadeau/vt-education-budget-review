@@ -2,16 +2,26 @@ schema_version: "1.0"
 entity: su/winooski
 priority: null
 sources:
-  - url: http://www.wsdschools.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.wsdvt.org/school-board/budget/
+    kind: budget_page
+    document_pattern: "Annual Report archive (wp-content/uploads/<year>/<month>/*Annual-Report*.pdf; FY14-FY27) and 'FY27 Documents' / budget presentation PDFs; election results link to winooskivt.gov DocumentCenter."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: 403
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2015, 2016, 2020, 2022, 2023, 2024, 2027]
+  notes: >-
+    Replaces the stale www.wsdschools.org source (old district domain; returns
+    403 to curl). Winooski School District (Winooski ID, T249) is a
+    single-district SU. The FY27 annual report (127th Annual Report, Jan 2026)
+    is a directly downloadable text PDF carrying the AOE Three Prior Years
+    form on p. 12. Several newer documents are Google Drive links on the page
+    (FY25/FY26 reports and board presentations) and were not fetched.
+    Certified election results are on winooskivt.gov (scanned return).
+    Fiscal years listed are the annual reports linked directly on the page
+    (FY15-16, FY20, FY22-23, FY27) plus the FY24 board presentation; FY25-FY26
+    annual reports were not identified.
 known_not_published: []
 contacts: []

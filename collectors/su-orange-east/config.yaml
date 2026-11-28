@@ -2,16 +2,30 @@ schema_version: "1.0"
 entity: su/orange-east
 priority: null
 sources:
+  - url: https://www.oesu.org/about-us/finance/budgets-audit-reports
+    kind: budget_page
+    document_pattern: "Per-district Google Drive folders: Budgets (FY25, FY26, FY27, Proposed FY28 sub-folders), Annual Reports (e.g. '2026 BMU Annual Report.pdf'), Audit Reports. Board pages: /fs/pages/359 (Blue Mountain), 714 (Oxbow), 712 (Thetford), 713 (Waits River Valley)."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
   - url: http://www.oesu.org/
     kind: other
     document_pattern: null
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2025, 2026, 2027]
+  notes: >-
+    The registry URL (www.oesu.org) is current, but the home page carries no
+    documents. Budgets live on the finance page and on four district board
+    pages (the union has four budget-setting member districts: Blue Mountain
+    Union, Oxbow Unified Union, Thetford Town, Waits River Valley; the registry
+    lists only three). Documents are Google Drive files in public folders; list
+    a folder at https://drive.google.com/embeddedfolderview?id=<folderId> and
+    download with https://drive.google.com/uc?export=download&id=<fileId>
+    (the server sends Content-Disposition). Some tally sheets are scanned images.
 known_not_published: []
 contacts: []

@@ -2,16 +2,27 @@ schema_version: "1.0"
 entity: su/barre
 priority: null
 sources:
-  - url: http://bsuvt.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.buusd.org/budget
+    kind: budget_page
+    document_pattern: "Per-year panels ('FY27 Budget Vote & Tax Resources' etc.) of links to /fs/resource-manager/view/<uuid> (302 to resources.finalsite.net/images/.../<file>.pdf): warnings, budget summary revenues/expenses, budget details, mailers, slide decks."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces http://bsuvt.org/ (old Barre Supervisory Union domain, now 301 to
+    https://www.buusd.org/). District is Barre Unified Union School District
+    (a supervisory district; towns Barre City and Barre Town). The server sends
+    no Content-Disposition; the filename is the last path segment of the
+    redirect target. No AOE Three Prior Years Comparisons form or FY27 annual
+    report is linked on the budget page (the newest annual report link is the
+    2022 report); town annual reports on barrecity.org carry the form in
+    earlier years. The FY27 budget went to voters four times (Mar 3, May 12,
+    Sept 15, Nov 3, 2026); each vote has its own warning link on the page.
+    The 68-page, 21.7 MB Tyler 'FY27 Budget Detail 2-17-26' PDF is on the page
+    but was not staged (over the 15 MB second-document limit).
 known_not_published: []
 contacts: []

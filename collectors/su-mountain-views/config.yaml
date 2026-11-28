@@ -2,16 +2,29 @@ schema_version: "1.0"
 entity: su/mountain-views
 priority: null
 sources:
-  - url: http://www.wcsu.net/
-    kind: other
-    document_pattern: null
+  - url: https://mtnviews.org/budget-annual-meetings
+    kind: budget_page
+    document_pattern: "Google Drive file links under 'Budget information' and 'Other Financials' (FY27 Proposed Budget, Detailed Budget, Three prior years comparisons, Tax Rate Presentation); warning PDFs at https://mtnviews.org/s/*.pdf; archive pages /mvsd-budget-information-fy26, /budget-info-fy25, /fy24-budget-info."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://mtnviews.org/district-annual-reports
+    kind: annual_report_page
+    document_pattern: "Squarespace-hosted PDFs at https://mtnviews.org/s/MVSU-<year>-Annual-Report.pdf (2024, 2025); older reports are Google Slides/Drive."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale wcsu.net source (old SU domain; 301 to https://mtnviews.org/).
+    The SU hosts the Mountain Views School District (MVSD, AOE U076; seven towns)
+    and the separately budgeted Pittsfield School District (page /pittsfield-school-board).
+    Budget files are Google Drive links; downloading uc?export=download&id=<ID>
+    returns the file with a Content-Disposition filename. The FY27 AOE Three Prior
+    Years form is a text-layer PDF stamped PRELIMINARY / ESTIMATES ONLY. The annual
+    meeting official results are a Google Doc (export?format=txt works), not a PDF.
 known_not_published: []
 contacts: []

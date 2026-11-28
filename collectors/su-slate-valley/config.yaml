@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/slate-valley
 priority: null
 sources:
-  - url: http://www.arsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.slatevalleyunified.org/o/svusd/page/fy27-budget
+    kind: budget_page
+    document_pattern: "Resources list on the budget page (the same URL now carries the FY28 page): annual report, warning, tax-rate estimates and budget presentation, each linked through aptg.co short URLs that 301-redirect to files-backend.assets.thrillshare.com PDFs."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027]
+  notes: >-
+    Replaces the stale arsu.org source (old Addison-Rutland SU domain; no longer
+    resolves). The district is Slate Valley Unified Union School District
+    (Fair Haven; towns Benson, Castleton, Fair Haven, Hubbardton, Orwell, West
+    Haven). The site sits behind Cloudflare: plain curl of the HTML page gets a
+    403 challenge (last_status 200 is from a successful text extraction), while
+    the aptg.co short links and the thrillshare PDFs download with curl and send
+    no Content-Disposition. Tax-rate estimates and the budget presentation are Google
+    Slides (no downloadable original). The earlier FY26 annual report exists only
+    as a simplebooklet.com viewer. The AOE form in the FY27 report is an image.
 known_not_published: []
 contacts: []

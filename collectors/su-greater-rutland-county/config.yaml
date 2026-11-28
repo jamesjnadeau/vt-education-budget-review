@@ -2,16 +2,25 @@ schema_version: "1.0"
 entity: su/greater-rutland-county
 priority: null
 sources:
-  - url: http://wp.grcsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://grcsu.org/budget-information-27/
+    kind: budget_page
+    document_pattern: "Per-district FY27 pages: /fy27-budget-information-qvuusd/ (Quarry Valley), /fy27-budget-information-wsuusd/ (Wells Springs), /fy27-budget-information-rts/ (Rutland Town), /fy26-budget-information-ira-district/ (Ira; carries FY27 files). Each links Google Drive files."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    Replaces the registry wp.grcsu.org source (301-redirects to the current site,
+    grcsu.org). GRCSU has four member districts, not the two in the registry:
+    Quarry Valley UUSD, Wells Springs UUSD, Rutland Town SD and Ira SD. Quarry
+    Valley and Wells Springs publish combined annual reports (Drive PDFs, about
+    24 MB each, text layer present, with the AOE Three Prior Years form stamped
+    PRELIMINARY / ESTIMATES ONLY). Rutland Town and Ira publish only Excel
+    line-item budgets exported to PDF. Drive links download with
+    drive.google.com/uc?export=download&id=<ID> and the server sends the
+    filename. Vote results appear in Rutland Herald town-meeting recaps.
 known_not_published: []
 contacts: []

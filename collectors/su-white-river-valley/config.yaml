@@ -2,16 +2,34 @@ schema_version: "1.0"
 entity: su/white-river-valley
 priority: null
 sources:
-  - url: http://www.owsu.org/
-    kind: other
-    document_pattern: null
+  - url: https://wrvsu.org/en-US
+    kind: budget_page
+    document_pattern: "Home page quick link 'Budgets & Audits' opens a Google Drive folder with one subfolder per member district (FBUD, GHUD, Newton/Strafford, RSUD, Sharon, WRUD, WRVSU). Look for files named '... Annual Report & FY27 Budget', '... 2026 Annual Mailer'."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://drive.google.com/drive/folders/1FhKgUd5gZXiq8v9mtNnuciIZYnWTuf8X
+    kind: board_docs
+    document_pattern: "Budgets & Audits root folder (Drive). Subfolders hold audits and annual reports/mailers per member district, FY18-FY27."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale owsu.org source (old SU domain; no longer resolves). The
+    union serves six districts (First Branch USD, Granville-Hancock USD,
+    Rochester-Stockbridge USD, White River USD, Sharon, Strafford) although the
+    AOE registry lists only four. The wrvsu.org Budgets page itself renders
+    empty to a fetcher; the Drive folder is reached from the home page quick
+    link. Drive files download with
+    https://drive.google.com/uc?export=download&id=<ID>&confirm=t and the
+    server sends the filename. FY27 files are text-based PDFs; the AOE Three
+    Prior Years form is stamped PRELIMINARY / ESTIMATES ONLY. No standalone
+    WRVSU (SU office) FY27 budget file was found; the RSUD mailer contains a
+    WRVSU FY27 budget section. Newspaper results (Valley News) are the only
+    vote-result source found.
 known_not_published: []
 contacts: []

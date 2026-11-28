@@ -2,16 +2,31 @@ schema_version: "1.0"
 entity: su/orange-southwest
 priority: null
 sources:
-  - url: https://www.orangesouthwest.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.orangesouthwest.org/central-office/annual-report
+    kind: annual_report_page
+    document_pattern: "OSSD Annual Report <year> links (fs/resource-manager/view/<uuid>, 302 to resources.finalsite.net/.../OSSD<year>AnnualReport.pdf); 2022-2026 listed."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.orangesouthwest.org/central-office/financial-budget-data
+    kind: budget_page
+    document_pattern: "Meeting minutes and 'Voting Results' PDFs by year (2023-2026); links are fs/resource-manager/view/<uuid>."
+    link_selector: null
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    The registry URL (site root) works but lists nothing. The district is
+    Orange Southwest School District (towns Braintree, Brookfield, Randolph);
+    its Finalsite site hides links from plain HTML (use web_extract or a
+    browser). The page also shows an unnecessary Heyzine flipbook of the same
+    report; the true PDF is the resource-manager link below it. Resource-manager
+    links redirect to a finalsite PDF and send no Content-Disposition, so the
+    filename is the URL's last segment. The FY27 report (2026) has broken font
+    encodings (digits missing from text extraction), so read pp. 5 and 25 as
+    images. Voting results PDFs are scans.
 known_not_published: []
 contacts: []

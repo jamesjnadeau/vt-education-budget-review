@@ -2,16 +2,33 @@ schema_version: "1.0"
 entity: su/orleans-central
 priority: null
 sources:
+  - url: https://www.ocsu.org/documents/school-boards/board-annual-reports/435544
+    kind: annual_report_page
+    document_pattern: "Board Annual Reports list (Thrillshare/Apptegy). Per year: LRUEMSD and LRUHS annual reports, OCSU annual report, plus '<entity> FY27 BUDGET DETAIL <date>' line-item PDFs. Newest first."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
   - url: http://www.ocsu.org/
     kind: other
     document_pattern: null
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027]
+  notes: >-
+    The registry URL http://www.ocsu.org/ is current (redirects to https) but is
+    only the home page; budgets live on the Board Annual Reports documents page.
+    The union has two budget-setting member districts (Lake Region Union
+    Elementary-Middle SD and Lake Region Union High School SD) plus the SU's own
+    central budget funded by assessments. Files are served from
+    files-backend.assets.thrillshare.com with no Content-Disposition; older
+    files exist on core-docs.s3.us-east-1.amazonaws.com. The pages list FY11
+    through FY27 annual reports (not all years downloaded). District reports
+    carry a revenue/LTW ADM page, not the AOE Three Prior Years form. A
+    unified union district (Orleans Central UUSD) was put to voters on
+    2026-11-03; first unified budget would be FY28.
 known_not_published: []
 contacts: []

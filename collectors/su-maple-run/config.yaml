@@ -2,16 +2,26 @@ schema_version: "1.0"
 entity: su/maple-run
 priority: null
 sources:
-  - url: http://www.fcsuvt.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.maplerun.org/documents/notices-%26-reports/annual-reports/34988
+    kind: annual_report_page
+    document_pattern: "Annual Reports list (2017-2026) with a Notice of Availability for most years; PDFs are served from files-backend.assets.thrillshare.com."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]
+  notes: >-
+    Replaces the stale fcsuvt.org source (old Franklin Central SU domain; no
+    response on 2026-11-28). The SU holds one district, Maple Run Unified
+    School District #57 (St. Albans City, St. Albans Town, Fairfield), site
+    www.maplerun.org. Annual reports are plain PDFs, but the newest ones are
+    large (2026: 28 MB, 2025: 46 MB). The 2026 report's warning, expenditure
+    and revenue summaries and AOE three-year comparison form (PDF pp. 14-21)
+    are images with no text layer and need vision reading. The server sends
+    no Content-Disposition; use the URL filename. The district posts vote
+    results as news items ("Maple Run FY27 School Budget Approved!", March 4,
+    2026).
 known_not_published: []
 contacts: []

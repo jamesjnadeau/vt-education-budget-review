@@ -1,17 +1,30 @@
-schema_version: "1.0"
+schema_version: '1.0'
 entity: su/windham-southeast
 priority: null
 sources:
-  - url: http://www.wssu.k12.vt.us/
-    kind: other
-    document_pattern: null
-    link_selector: null
-    last_checked: 2026-11-23
-    last_status: null
+- url: https://wsesu.org/wsesd-budget-documents/
+  kind: budget_page
+  document_pattern: Per-year blocks on /wsesd-budget-documents/ (current and prior years; FY28 drafts already posted)
+    and /wsesd-documents/ (warnings, minutes, election results); Google Drive links 'WSESD Annual Report & Proposed
+    FYxx Budget', 'Budget Summary', 'Budget Detail'.
+  link_selector: null
+  last_checked: '2026-11-28'
+  last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available:
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  - 2027
+  notes: Replaces the stale www.wssu.k12.vt.us source. Site is wsesu.org (Windham Southeast Supervisory Union),
+    which hosts the WSESD (Windham Southeast School District, ud/windham-southeast-96; Brattleboro, Dummerston,
+    Guilford, Putney), Vernon School District and WSESU budget pages. Documents are Google Drive links; direct download
+    via drive.google.com/uc?export=download&id=<ID> returns the original with Content-Disposition. FY23 documents
+    are plain wp-content PDFs. The annual report is 158 pages with a text layer but has no AOE Three Prior Years
+    form; it holds a district-prepared 'Homestead School Tax Rate, State Funding Formula' sheet instead. Vernon
+    (a separate SU member district, not in the registry as a WSESU member) is not covered here.
 known_not_published: []
 contacts: []

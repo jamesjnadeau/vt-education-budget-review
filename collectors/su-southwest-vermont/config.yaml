@@ -2,16 +2,32 @@ schema_version: "1.0"
 entity: su/southwest-vermont
 priority: null
 sources:
-  - url: http://www.svsu.org/education/district/district.php?sectionid=1
-    kind: other
-    document_pattern: null
+  - url: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+    kind: budget_page
+    document_pattern: "FY27 Budget Information page (Finance): 'Current Budgets by District' list of adopted-budget PDFs (SVSU, MAU, NBGSD, Arlington, Sandgate, SVUESD), Budget at a Glance one-pagers, SVUESD revote draft, LTW ADM worksheet. PDFs are hosted on 4.files.edl.io."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: 403
+    last_checked: 2026-11-28
+    last_status: 200
+  - url: https://www.svsu.org/apps/news/article/2174892?categoryId=14734
+    kind: other
+    document_pattern: "Town Meeting Day Election Results news post (budget yes/no counts per member district; undated on the page)."
+    link_selector: null
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027]
+  notes: >-
+    Replaces the stale www.svsu.org/education/district/district.php?sectionid=1
+    source (old site layout; now 403 behind Cloudflare; the live site is an
+    Edlio site under the same domain). The SU has five budget-setting member
+    districts (Arlington, Mount Anthony UHSD #14, North Bennington Graded,
+    Sandgate, SVUESD) plus the SU shared-services budget, so there is no single
+    SU-level budget book; each is a separate Excel-printed PDF with a text
+    layer and an estimated homestead tax rate calculation (not the AOE form).
+    Earlier years (FY26 and before) were not checked on the site. Members also
+    include Southwest Vermont Regional Technical School District, whose budget
+    was not located.
 known_not_published: []
 contacts: []

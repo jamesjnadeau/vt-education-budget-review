@@ -2,16 +2,17 @@ schema_version: "1.0"
 entity: su/mill-river-unified-union
 priority: null
 sources:
-  - url: http://www.rssu.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.mruusd.org/
+    kind: annual_report_page
+    document_pattern: "Homepage link 'YYYY Annual Report' (Google Drive file) and 'YYYY Budget Presentation' (Google Slides). Annual reports are also hosted on member-town sites, e.g. https://www.wallingfordvt.com/wp-content/uploads/2026/02/MRUUSD-2026-Annual-Report.pdf."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2027]
+  notes: >-
+    Replaces the stale rssu.org source (the old Rutland South SU domain, now an unrelated personal site). The district is Mill River Unified Union School District #52 (Clarendon, Shrewsbury, Tinmouth, Wallingford), a single budget-setting district. The annual report is a Google Drive file linked from the homepage (served as 'application/octet-stream' with Content-Disposition filename '2026 Annual Report .pdf'); the AOE form (p. 25) and operating fund pages (pp. 15-26) are images with no text layer, so figures need vision or manual reading. There is no /budget or /annual-report page (404). Wallingford's site hosts a differing copy and a '-Rev' copy.
 known_not_published: []
 contacts: []

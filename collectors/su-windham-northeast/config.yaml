@@ -2,16 +2,23 @@ schema_version: "1.0"
 entity: su/windham-northeast
 priority: null
 sources:
-  - url: http://www.wnesu.org/Pages/index
-    kind: other
-    document_pattern: null
+  - url: https://www.wnesu.org/school-boards/budgets
+    kind: budget_page
+    document_pattern: "Budgets & Notices: per-board tabs (WNESU, Bellows Falls UHSD #27, Rockingham, Westminster, Athens/Grafton) by year, with warning, budget summary, Excel budget and AOE Three Prior Years links; Annual Reports section by year."
     link_selector: null
-    last_checked: 2026-11-23
-    last_status: 404
+    last_checked: 2026-11-28
+    last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    Replaces the stale www.wnesu.org/Pages/index source (404).
+    The site is now Finalsite. FY27 annual report is one combined PDF on
+    resources.finalsite.net (16 MB, text layer present, AOE forms stamped
+    PRELIMINARY) covering the SU plus Bellows Falls UHSD #27, Rockingham,
+    Westminster and Athens Grafton. The SU and each district also publish a
+    budget summary PDF and a full Excel budget under /fs/resource-manager/view/<uuid>.
+    The FY26 annual report is linked from the same page (FY26AnnualReport_22025_org.pdf, same host) and was not downloaded.
 known_not_published: []
 contacts: []

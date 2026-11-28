@@ -2,16 +2,22 @@ schema_version: "1.0"
 entity: su/rutland-city
 priority: null
 sources:
-  - url: http://rutlandcitypublicschools.org/
-    kind: other
-    document_pattern: null
+  - url: https://www.rutlandcitypublicschools.org/central-office/school-finance
+    kind: budget_page
+    document_pattern: "Links labeled HERE under 'FY 2027 School Budget Information' and 'FY 2026 School Budget Information' (Finalsite resource-manager links that 302 to resources.finalsite.net PDFs)."
     link_selector: null
-    last_checked: 2026-11-23
+    last_checked: 2026-11-28
     last_status: 200
 acquisition:
   method: manual
   detection: page_hash
-  fiscal_years_available: []
-  notes: null
+  fiscal_years_available: [2026, 2027]
+  notes: >-
+    The registry URL (http://rutlandcitypublicschools.org/) only redirects to
+    the district home page. Budget material is on the Central Office > School
+    Finance page as board slide decks (PowerPoint PDFs with table images, no
+    AOE form or annual report). The City of Rutland's annual report (rutlandcity.org)
+    carries the school budget and election results are posted on rutlandcity.org
+    as .xlsx.
 known_not_published: []
 contacts: []
