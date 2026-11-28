@@ -1,0 +1,111 @@
+CITATION: 2026 Acts and Resolves No. 169 (H.949), Secs. 1, 2, 6, 7 and 16
+SOURCE:   https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT169/ACT169%20As%20Enacted.pdf
+RETRIEVED:2026-11-28T11:59:44Z
+HTTP:     200
+SHA256:   883ac714e3716259fe5857871f1972c2ed445a1e616ca7ac6180012b3536e3b6 (raw PDF via npm run vt:fetch)
+
+Text extracted from the enacted PDF with pdftotext -layout; blank lines removed. Signed June 18, 2026.
+Secs. 2, 6, 7: effective July 1, 2027, apply to fiscal year 2028 and after (Sec. 16(c),(d)); they do not change FY2027.
+Do not edit.
+----------------------------------------------------------------------------
+
+No. 169                                                             Page 1 of 18
+2026
+No. 169. An act relating to homestead property tax yields, the
+nonhomestead property tax rate, and technical changes to education
+finance.
+                                     (H.949)
+It is hereby enacted by the General Assembly of the State of Vermont:
+                                * * * Yields * * *
+Sec. 1. PROPERTY DOLLAR EQUIVALENT YIELD, INCOME
+          DOLLAR EQUIVALENT YIELD, AND NONHOMESTEAD
+          PROPERTY TAX RATE FOR FISCAL YEAR 2027
+   For fiscal year 2027 only:
+      (1) Pursuant to 32 V.S.A. § 5402b(b), the property dollar equivalent
+yield shall be $9,401.00.
+      (2) Pursuant to 32 V.S.A. § 5402b(b), the income dollar equivalent yield
+shall be $12,960.00.
+      (3) Notwithstanding 32 V.S.A. § 5402(a)(1) and any other provision of
+law to the contrary, the nonhomestead property tax rate shall be $1.643 per
+$100.00 of equalized education property value.
+                    * * * Excess Spending Exemption * * *
+Sec. 2. 16 V.S.A. § 4001(6) is amended to read:
+      (6) “Education spending” means the amount of the school district
+budget, any assessment for a joint contract school, career technical center
+payments made on behalf of the district under subsection 1561(b) of this title,
+and any amount added to pay a deficit pursuant to 24 V.S.A. § 1523(b) that is
+                                                                  VT LEG #390262 v.1
+No. 169                                                               Page 2 of 18
+2026
+paid for by the school district, but excluding any portion of the school budget
+paid for from any other sources such as endowments, parental fundraising,
+federal funds, nongovernmental grants, or other State funds such as special
+Sec. 6. 32 V.S.A. § 5401 is amended to read:
+§ 5401. DEFINITIONS
+   As used in this chapter:
+                                       ***
+      (12) “Excess spending” means:
+           (A) The the per pupil spending amount of the district’s education
+spending, as defined in 16 V.S.A. § 4001(6), plus any amount required to be
+added from a capital construction reserve fund under 24 V.S.A. § 2804(b), that
+exceeds the excess spending threshold, as determined by the Secretary of
+Education on or before November 15 of each year based on the passed budgets
+to date.
+           (B) In excess of 118 percent of the statewide average district per
+pupil education spending increased by inflation, as determined by the Secretary
+of Education on or before November 15 of each year based on the passed
+budgets to date. As used in this subdivision, “increased by inflation” means
+increasing the statewide average district per pupil education spending for
+fiscal year 2025 by the most recent New England Economic Project cumulative
+price index, as of November 15, for state and local government purchases of
+                                                                   VT LEG #390262 v.1
+No. 169                                                              Page 8 of 18
+2026
+goods and services, from fiscal year 2025 through the fiscal year for which the
+amount is being determined.
+                                       ***
+        (18) “Excess spending base” means the statewide average district per
+pupil education spending for fiscal year 2025, as adjusted for inflation. The
+excess spending base shall be adjusted for inflation by adjusting the excess
+spending base by the change in the National Income and Product Accounts
+(NIPA) implicit price deflator for state and local government consumption
+expenditures published by the U.S. Department of Commerce, Bureau of
+Economic Analysis, as of November 15, from fiscal year 2025 through the
+fiscal year for which the amount is being determined, and rounding upward to
+the nearest whole dollar amount.
+        (19) “Excess spending threshold” means 112.5 percent of the excess
+spending base.
+Sec. 7. EXCESS SPENDING PENALTY; TRANSITION
+   Notwithstanding 32 V.S.A. § 5401(19), beginning in fiscal year 2028, the
+excess spending threshold shall annually decrease according to the following
+schedule until reaching the statutory excess spending threshold in fiscal year
+2032:
+        (1) in fiscal year 2028, 115.5 percent of the excess spending base;
+        (2) in fiscal year 2029, 114.5 percent of the excess spending base;
+        (3) in fiscal year 2030, 113.5 percent of the excess spending base;
+                                                                   VT LEG #390262 v.1
+No. 169                                                                 Page 9 of 18
+2026
+         (4) in fiscal year 2031, 113 percent of the excess spending base; and
+         (5) in fiscal year 2032, 112.5 percent of the excess spending base.
+               * * * Renter Credit Expansion Claim Year 2027 * * *
+Sec. 16. EFFECTIVE DATES
+   (a) This section, Sec. 1 (yields), Sec. 3 (statewide adjustment correction),
+Sec. 4 (Barre TIF overpayment refund), and Sec. 5 (census grant inflator) shall
+take effect on July 1, 2026.
+   (b) Secs. 8 and 9 (one-year renter credit expansion) shall take effect on July
+1, 2026, and apply to claim year 2027.
+   (c) Sec. 2 (excess spending exemption) shall take effect on July 1, 2027,
+and apply to fiscal year 2028 and after.
+   (d) Secs. 6 and 7 (excess spending penalty transition) shall take effect on
+July 1, 2027, and apply to fiscal year 2028 and after.
+   (e) Secs. 10 and 11 (circuit breaker expansion) shall take effect on July 1,
+2027, and apply to fiscal year 2028 and after, except that amendments to the
+renter credit shall apply to claim year 2028 and after.
+   (f) Sec. 15 (tuition for fiscal years 2028–2032) shall take effect on July 1,
+2027, and apply to fiscal years 2028–2032.
+   (g) Sec. 12 (excess spending repeal) shall take effect on June 30, 2029.
+   (h) Secs. 13 and 14 (conforming changes for foundation formula) shall take
+effect on July 2, 2029.
+Date Governor signed bill: June 18, 2026
+                                                                   VT LEG #390262 v.1
