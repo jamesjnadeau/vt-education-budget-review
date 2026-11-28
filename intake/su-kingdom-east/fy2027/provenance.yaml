@@ -2,6 +2,31 @@ schema_version: '1.0'
 entity: su/kingdom-east
 fiscal_year: 2027
 artifacts:
+- file: 2026 KESD Annual Report-Final.pdf
+  source_url: https://irp.cdn-website.com/6417ac47/files/uploaded/2026+KESD+Annual+Report-Final.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 5094effa056411a99454745195d554bccb9935b63aad671bec3c6de0682ad36e
+  bytes: 68244372
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Kingdom East School District
+  title: Kingdom East School District Annual Report (2026 KESD Annual Report-Final)
+  published_date: null
+  document_page: https://www.kingdomeast.org/fy27-budget
+  supersedes: null
+  note: 'Annual report issued ahead of the March 3, 2026 FY2027 budget vote (44 pp.). Chart 1 (PDF p. 10) and Chart
+    7 (p. 19) give the FY27 proposed budget $53,401,362 and estimated rates; Chart 8 (p. 20) gives estimated per-town
+    tax rates and CLAs for the eight member towns; Chart 10 (PDF p. 22, printed p. 20) is the AOE ''Three Prior
+    Years Comparisons'' form (FY2024-FY2027), stamped PRELIMINARY, and is an image with no text layer: figures were
+    read from 300-dpi renders and re-added. The file is 68 MB. The server sent no Content-Disposition, so the filename
+    is the last URL path segment with ''+'' read as a space. The district''s news post dated 2026-02-18 announces
+    the report; the PDF''s internal creation date is 2026-02-09 (producer ''OutlinePDF-Advance''). Page 2 of the
+    report is headed ''2025 ANNUAL REPORT''. The PDF''s last-modified header is 2026-02-11. No publication date
+    is stated by the district on the document itself, so published_date is null. This is the document for the FIRST
+    budget vote (defeated 632-730); the budget that finally passed on June 11, 2026 is the later $53,251,362 version
+    in the documents below.'
 - file: FY27 DRAFT Budget 1.6.26 with Tiered Reductions Board Approved.pdf
   source_url: https://irp.cdn-website.com/6417ac47/files/uploaded/FY27+DRAFT+Budget+1.6.26+with+Tiered+Reductions+Board+Approved.pdf
   retrieved_date: '2026-11-28'
@@ -16,11 +41,12 @@ artifacts:
   published_date: null
   document_page: https://www.kingdomeast.org/fy27-budget
   supersedes: null
-  note: '4-page Excel-origin line-item expenditure summary: FY27 DRAFT, FY26 DRAFT, FY25 actuals, FY25 approved, dollar and
-    percent change. Total row ''FY27 KESD DRAFT Budget Total'' $53,401,362 vs FY26 $50,349,157 (+6.06%), the same total as
-    the first warned budget. Expenditures only; no revenues or education spending. Header is dated 1/6/2026; the district
-    page says it was presented to and approved by the School Board 1/7/26. The server sent no Content-Disposition, so the
-    filename is the last URL path segment (spaces for ''+''). Created 2026-01-07 by Acrobat PDFMaker for Excel.'
+  note: '4-page Excel-origin line-item expenditure summary: FY27 DRAFT, FY26 DRAFT, FY25 actuals, FY25 approved,
+    dollar and percent change. Total row ''FY27 KESD DRAFT Budget Total'' $53,401,362 vs FY26 $50,349,157 (+6.06%),
+    the same total as the first warned budget. Expenditures only; no revenues or education spending. Header is dated
+    1/6/2026; the district page says it was presented to and approved by the School Board 1/7/26. The server sent
+    no Content-Disposition, so the filename is the last URL path segment (spaces for ''+''). Created 2026-01-07
+    by Acrobat PDFMaker for Excel.'
 - file: 'Budget_Vote3_Taxpayer_Summary #1.pdf'
   source_url: https://drive.google.com/uc?export=download&id=1x0uHmvP0860x30wO4CyMnFrcuUy7foYM
   retrieved_date: '2026-11-28'
@@ -35,11 +61,11 @@ artifacts:
   published_date: '2026-05-13'
   document_page: https://www.kingdomeast.org/fy27-budget
   supersedes: null
-  note: 'One-page summary ''Prepared for Public Review May 13, 2026'' (district page also labels it 5.14.26). Budget draft
-    history: 1st full draft $56,689,640; 2nd $55,305,158; 3rd $53,401,362 (first vote 3/03/26); 4th $53,251,362 (second vote
-    4/28/26); total reductions $3,438,278; vote #3 uses an additional $250,000 of Tax Stabilization Funds (total $850,000),
-    estimated homestead rate change (1.80% decrease / $.0288). No education-spending dollar figure or per-town table is printed.
-    Saved under the filename the server sent (Drive Content-Disposition).'
+  note: 'One-page summary ''Prepared for Public Review May 13, 2026'' (district page also labels it 5.14.26). Budget
+    draft history: 1st full draft $56,689,640; 2nd $55,305,158; 3rd $53,401,362 (first vote 3/03/26); 4th $53,251,362
+    (second vote 4/28/26); total reductions $3,438,278; vote #3 uses an additional $250,000 of Tax Stabilization
+    Funds (total $850,000), estimated homestead rate change (1.80% decrease / $.0288). No education-spending dollar
+    figure or per-town table is printed. Saved under the filename the server sent (Drive Content-Disposition).'
 - file: 6.3.26 KESD budget warning.pdf
   source_url: https://drive.google.com/uc?export=download&id=1TY4vzf17WalznCYKstV6yjWJbJ07NaT5
   retrieved_date: '2026-11-28'
@@ -50,13 +76,14 @@ artifacts:
   retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
   document_type: town_meeting_warning
   publisher: Kingdom East School District
-  title: '2026 Warning, Revised Budget #2 Informational Meeting, Kingdom East Unified Union School District (internal PDF
-    title: 6.11.26 KESD budget warning)'
+  title: '2026 Warning, Revised Budget #2 Informational Meeting, Kingdom East Unified Union School District (internal
+    PDF title: 6.11.26 KESD budget warning)'
   published_date: '2026-05-14'
   document_page: https://www.kingdomeast.org/fy27-budget
   supersedes: null
-  note: 'One-page scanned warning (no text layer; read from a 130-dpi render), dated May 14, 2026 and signed by board chair
-    Lindsay Carpenter. Informational meeting June 3, 2026; Article 1 (Australian ballot June 11, 2026): expend $53,251,362;
-    estimated per-pupil education spending $14,742, stated as 7.08% above the current year. The page heading reads ''REVISED
-    BUDGET #2 INFORMATIONAL MEETING'' although the district page calls this the third vote. Filename is the Drive Content-Disposition
-    filename; the PDF''s internal title is ''6.11.26 KESD budget warning''.'
+  note: 'One-page scanned warning (no text layer; read from a 130-dpi render), dated May 14, 2026 and signed by
+    board chair Lindsay Carpenter. Informational meeting June 3, 2026; Article 1 (Australian ballot June 11, 2026):
+    expend $53,251,362; estimated per-pupil education spending $14,742, stated as 7.08% above the current year.
+    The page heading reads ''REVISED BUDGET #2 INFORMATIONAL MEETING'' although the district page calls this the
+    third vote. Filename is the Drive Content-Disposition filename; the PDF''s internal title is ''6.11.26 KESD
+    budget warning''.'

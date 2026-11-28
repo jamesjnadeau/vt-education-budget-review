@@ -1,0 +1,84 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/kingdom-east
+fiscal_year: 2024
+status: approved
+source: intake/su-kingdom-east/fy2027/2026 KESD Annual Report-Final.pdf
+source_pages: PDF p. 22
+adopted_date: null
+education_spending: 35494665
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/burke
+    homestead_rate_stated: null
+    cla: null
+  - town: town/concord
+    homestead_rate_stated: null
+    cla: null
+  - town: town/lunenburg
+    homestead_rate_stated: null
+    cla: null
+  - town: town/lyndon
+    homestead_rate_stated: null
+    cla: null
+  - town: town/newark
+    homestead_rate_stated: null
+    cla: null
+  - town: town/sheffield
+    homestead_rate_stated: null
+    cla: null
+  - town: town/sutton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/wheelock
+    homestead_rate_stated: null
+    cla: null
+notes: 'Prior-year column (FY2024) of the AOE form, PDF p. 22 (stamped PRELIMINARY; image read at 300 dpi): adopted
+  budget $41,083,575; offsetting revenues $5,588,910; education spending $35,494,665; 1,820.73 equalized pupils
+  (FY23-FY24 are equalized pupils, not LTWADM, and are not comparable with FY25+); per pupil $19494.74; equalized
+  union homestead rate $1.2624; income cap 2.22%. Form note: ''FY25 was the first year of Act 127 Long Term Weighted
+  Average Daily Membership for pupil counts. Equalized pupils are shown for FY23 & FY24.'' Budget minus revenues
+  equals education spending; spending / pupils equals per-pupil (rechecked). No vote date is stated, so adopted_date
+  is null.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: Prior-year column of a form stamped PRELIMINARY (image page, read from a 300-dpi render).
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: Only the equalized union homestead rate ($1.2624, before each town's CLA) is printed for FY2024, identical
+    for every town; no per-town rates. Kept in notes.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: Town CLAs are printed only for FY2027 in this report.
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: education_spending
+  issue: FY2024 per-pupil ($19,494.74) uses equalized pupils (1,820.73), a different basis than LTWADM in FY25+
+    (3,293.79 in FY25); the pupil count roughly doubles between columns on the form. Recorded as printed, not reconciled.
+  resolution: pending

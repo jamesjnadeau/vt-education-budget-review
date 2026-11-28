@@ -1,0 +1,79 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/kingdom-east
+fiscal_year: 2026
+status: approved
+source: intake/su-kingdom-east/fy2027/2026 KESD Annual Report-Final.pdf
+source_pages: PDF pp. 20, 22
+adopted_date: null
+education_spending: 44824278
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/burke
+    homestead_rate_stated: 1.267
+    cla: null
+  - town: town/concord
+    homestead_rate_stated: 1.1939
+    cla: null
+  - town: town/lunenburg
+    homestead_rate_stated: 1.1424
+    cla: null
+  - town: town/lyndon
+    homestead_rate_stated: 1.7456
+    cla: null
+  - town: town/newark
+    homestead_rate_stated: 1.6021
+    cla: null
+  - town: town/sheffield
+    homestead_rate_stated: 1.6578
+    cla: null
+  - town: town/sutton
+    homestead_rate_stated: 1.4996
+    cla: null
+  - town: town/wheelock
+    homestead_rate_stated: 1.7554
+    cla: null
+notes: 'Prior-year column (FY2026) of the AOE form, PDF p. 22 (stamped PRELIMINARY; image read at 300 dpi): adopted
+  budget $50,349,157; offsetting revenues $5,524,879; education spending $44,824,278; LTWADM 3,255.81; per pupil
+  $13,767.47; excess spending threshold $15,926; equalized union homestead rate $1.6016; income cap 2.26%. Chart
+  7 labels the column ''FY26 APPROVED''. Budget minus revenues equals education spending; spending / LTWADM equals
+  per-pupil (rechecked). No vote date is stated, so adopted_date is null. Town rates are the ''FY26 Tax Rate'' column
+  of Chart 8 (PDF p. 20), after CLA including the statewide adjustment.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: Prior-year column of a form stamped PRELIMINARY (image page, read from a 300-dpi render).
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: Rates are Chart 8's 'FY26 Tax Rate' (after CLA, including the statewide adjustment). The form's own FY2026
+    town rows (p. 22) print the union rate $1.6016 for every town before CLA, so it is not a town rate.
+  resolution: recorded_as_other
+- path: tax.towns.cla
+  issue: FY2026 CLAs are not printed in the report (only FY27 CLAs in Chart 8).
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null

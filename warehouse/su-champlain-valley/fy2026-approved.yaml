@@ -1,0 +1,62 @@
+schema_version: "1.0"
+extracted_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+extracted_date: 2026-11-28
+entity: su/champlain-valley
+fiscal_year: 2026
+status: approved
+source: "intake/su-champlain-valley/fy2027/FY27 Annual Report - FULL PDF.pdf"
+source_pages: "pp. 28, 31, 61"
+adopted_date: null
+education_spending: 88294084
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/charlotte
+      homestead_rate_stated: 1.26
+      cla: 1.29
+    - town: town/hinesburg
+      homestead_rate_stated: 1.02
+      cla: 1.59
+    - town: town/shelburne
+      homestead_rate_stated: 1.88
+      cla: 0.86
+    - town: town/st-george
+      homestead_rate_stated: 1.8
+      cla: 0.9
+    - town: town/williston
+      homestead_rate_stated: 1.86
+      cla: 0.87
+notes: "Prior-year column of the FY27 report's AOE 'Three Prior Years Comparisons' form (p. 31, marked PRELIMINARY), printed as adopted. Total union budget $102,724,062; offsetting revenues $14,429,978; education spending $88,294,084 (also p. 28 'State Education Spending Grant'); LTWADM 5,683.51; per pupil $15,535.13; union spending adjustment 180.725%; equalized union homestead rate $1.6193 (yield $8,596); income cap 2.55% on the district line but 2.36% in the per-town table. Town rates and CLAs are from the FY26 columns of the p. 61 table ('Expected FY27 Tax Rates with CLA Applied', pre-CLA $1.62). Re-added: 102,724,062 - 14,429,978 = 88,294,084; 88,294,084 / 5,683.51 = 15,535.13. The district's own March 2025 vote result is not in this document (Seven Days reported it passed, https://www.sevendaysvt.com/news/voters-approve-most-school-budgets-on-town-meeting-day-43018636/; not relied on)."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: "The AOE form (p. 31) is marked 'PRELIMINARY' and 'ESTIMATES ONLY', based on the revised Dec 1, 2025 Education Fund Outlook (property yield $8,849; income yield $12,154). Final yields are set by the Legislature, so tax figures are estimates."
+    resolution: pending
+  - path: education_spending
+    issue: "The p. 27 summary print FY26 cost per weighted pupil as $15,532; the AOE form (p. 31) prints $15,535.13 for the same year (88,294,084 / 5,683.51 = 15,535.13)."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "FY26 town rates ($1.26, $1.02, $1.88, $1.80, $1.86) are the district's p. 61 figures (pre-CLA $1.62 / CLA), rounded to the cent; the form's equalized rate is $1.6193."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "FY26 CLAs (129%, 159%, 86%, 90%, 87%) are printed as whole percents on p. 61 and recorded as ratios."
+    resolution: recorded_as_other
+  - path: income_cap
+    issue: "The form (p. 31) prints the FY26 income cap as 2.55% on line 30 but 2.36% in the per-town prorated table; recorded only in notes, not reconciled."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY24) on the AOE form (p. 31) and the p. 27 summary, not the four statutory grade bands. Text layer searched for band counts; none found. Enrollment by school is a separate Drive component, not read."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY24) on the AOE form (p. 31) and the p. 27 summary, not the four statutory grade bands. Text layer searched for band counts; none found. Enrollment by school is a separate Drive component, not read."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY24) on the AOE form (p. 31) and the p. 27 summary, not the four statutory grade bands. Text layer searched for band counts; none found. Enrollment by school is a separate Drive component, not read."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY24) on the AOE form (p. 31) and the p. 27 summary, not the four statutory grade bands. Text layer searched for band counts; none found. Enrollment by school is a separate Drive component, not read."
+    resolution: left_null

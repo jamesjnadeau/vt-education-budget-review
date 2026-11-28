@@ -1,42 +1,75 @@
-schema_version: '1.0'
+schema_version: "1.0"
 entity: su/lamoille-north
 fiscal_year: 2027
 artifacts:
-- file: LNMUUSDFY27AnnualWarning.pdf
-  source_url: https://resources.finalsite.net/images/v1769014426/lnsuorg/e7ozfhyfthfntn2bu0ic/LNMUUSDFY27AnnualWarning.pdf
-  retrieved_date: 2026-11-28
-  retrieval_method: http-fetch
-  sha256: a5fe71fbdf998707144bcef0fcb71c35e25d9e116f1640c094237022b641bf15
-  bytes: 1084804
-  media_type: application/pdf
-  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
-  document_type: town_meeting_warning
-  publisher: Lamoille North Modified Unified Union School District
-  title: Warning of Annual Meeting (LNMUUSD
-  published_date: null
-  document_page: https://www.lnsd.org/community/finance-information/lnmuusd-fy27-budget-information-resource-page
-  supersedes: null
-  note: 'Two-page warning for the 2026 annual meeting and March 3, 2026 ballot. Budget articles: #058A PreK-6 $19,154,689
-    (est. $14,882 per LT ADM, 4.31% over current year); #058B 7-12 $21,956,152 ($12,965 per LT ADM, 5.74%); #058B Green Mountain
-    Technology & Career Center $4,555,903. The date line reads "day of January 2026" with the day number not legible in the
-    text layer, so no publication date is recorded. Server sent no Content-Disposition; filename is the URL''s last path segment.'
-- file: LNMUUSDAnnualMeeting2-16-26.pdf
-  source_url: https://resources.finalsite.net/images/v1773071133/lnsuorg/culmmokosj4p27oxmc85/LNMUUSDAnnualMeeting2-16-26.pdf
-  retrieved_date: 2026-11-28
-  retrieval_method: http-fetch
-  sha256: fbc1287d57751e1b89c6a1fdfdbd58ef27c1e588c4921b99ce41984d6c6d4e24
-  bytes: 148250
-  media_type: application/pdf
-  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
-  document_type: other
-  publisher: Lamoille North Modified Unified Union School District
-  title: LNMUUSD Annual Meeting Minutes, February 16, 2026
-  published_date: null
-  document_page: https://www.lnsd.org/community/finance-information
-  supersedes: null
-  note: 'Seven-page minutes of the February 16, 2026 annual meeting, including the March 3, 2026 Australian-ballot results
-    for the three budget articles (XII #058A: 482-340-1 blank, passed; XIII #058B: 678-452-2 blank-1 spoiled, passed; XIV
-    GMTCC: 828-299-6 blank, passed). Word-generated PDF (internal title "Annual meeting", author "donna", created 2026-03-09).
-    Not a budget document; staged as the vote-result evidence. Server sent no Content-Disposition; filename is the URL''s
-    last path segment. The document_page is the finance index page (the minutes link was found via search, not confirmed on
-    the FY27 resource page).'
+  - file: LNMUUSD2026AnnualReport.pdf
+    source_url: https://resources.finalsite.net/images/v1770388071/lnsuorg/c9dcrhigjjx4a1x9q0lo/LNMUUSD2026AnnualReport.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: bf4989cd8a6f9c018d2a86dbbf5386f881f6e766b5b25b873ec6a1ac8e8f5a20
+    bytes: 34174962
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Lamoille North Modified Unified Union School District
+    title: Lamoille North 2026 Annual Report
+    published_date: null
+    document_page: https://www.lnsd.org/community/finance-information/lnmuusd-fy27-budget-information-resource-page
+    supersedes: null
+    note: >-
+      Annual report for the March 2026 vote on the FY2027 budgets (50 pages,
+      created in Canva 2026-02-05; internal title "FINAL FOR PRINTING- 2026
+      Annual Report", author Rene Thibault). Carries the AOE "Three Prior
+      Years Comparisons" forms for district #058A (PDF p. 38) and #058B
+      (PDF p. 43), FY2024-FY2027 columns, both stamped PRELIMINARY / ESTIMATES
+      ONLY. Pages 33-48 (budget charts, line-item tables, the two AOE forms,
+      GMTCC tables, treasurer's and reserves reports) are images with no text
+      layer, so figures were read from 200-dpi renders. The server sent no
+      Content-Disposition header; the filename is the URL's last path segment.
+      Saved byte-for-byte as downloaded.
+  - file: LNMUUSDFY27AnnualWarning.pdf
+    source_url: https://resources.finalsite.net/images/v1769014426/lnsuorg/e7ozfhyfthfntn2bu0ic/LNMUUSDFY27AnnualWarning.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: a5fe71fbdf998707144bcef0fcb71c35e25d9e116f1640c094237022b641bf15
+    bytes: 1084804
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Lamoille North Modified Unified Union School District
+    title: Warning of Annual Meeting (LNMUUSD #58, February 16, 2026)
+    published_date: null
+    document_page: https://www.lnsd.org/community/finance-information/lnmuusd-fy27-budget-information-resource-page
+    supersedes: null
+    note: >-
+      Two-page warning for the 2026 annual meeting and March 3, 2026 ballot.
+      Budget articles: #058A PreK-6 $19,154,689 (est. $14,882 per LT ADM,
+      4.31% over current year); #058B 7-12 $21,956,152 ($12,965 per LT ADM,
+      5.74%); #058B Green Mountain Technology & Career Center $4,555,903. The
+      date line reads "day of January 2026" with the day number not legible
+      in the text layer, so no publication date is recorded. Server sent no Content-Disposition;
+      filename is the URL's last path segment.
+  - file: LNMUUSDAnnualMeeting2-16-26.pdf
+    source_url: https://resources.finalsite.net/images/v1773071133/lnsuorg/culmmokosj4p27oxmc85/LNMUUSDAnnualMeeting2-16-26.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: fbc1287d57751e1b89c6a1fdfdbd58ef27c1e588c4921b99ce41984d6c6d4e24
+    bytes: 148250
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Lamoille North Modified Unified Union School District
+    title: LNMUUSD Annual Meeting Minutes, February 16, 2026
+    published_date: null
+    document_page: https://www.lnsd.org/community/finance-information
+    supersedes: null
+    note: >-
+      Seven-page minutes of the February 16, 2026 annual meeting, including the
+      March 3, 2026 Australian-ballot results for the three budget articles
+      (XII #058A: 482-340-1 blank, passed; XIII #058B: 678-452-2 blank-1
+      spoiled, passed; XIV GMTCC: 828-299-6 blank, passed). Word-generated PDF
+      (internal title "Annual meeting", author "donna", created 2026-03-09).
+      Not a budget document; staged as the vote-result evidence. Server sent no
+      Content-Disposition; filename is the URL's last path segment. The
+      document_page is the finance index page (the minutes link was found via
+      search, not confirmed on the FY27 resource page).

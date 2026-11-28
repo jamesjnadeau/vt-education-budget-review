@@ -1,0 +1,79 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/slate-valley
+fiscal_year: 2024
+status: approved
+source: intake/su-slate-valley/fy2027/Web-25-26-Slate-Valley-Annual-Report-and-FY27-Budget.pdf
+source_pages: PDF p. 10 (AOE form)
+adopted_date: null
+education_spending: 23274925
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/benson
+    homestead_rate_stated: null
+    cla: null
+  - town: town/castleton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/fair-haven
+    homestead_rate_stated: null
+    cla: null
+  - town: town/hubbardton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/orwell
+    homestead_rate_stated: null
+    cla: null
+  - town: town/west-haven
+    homestead_rate_stated: null
+    cla: null
+notes: 'FY2024 column of the FY27 AOE form: union budget $28,056,400; offsetting revenues $4,781,475; education
+  spending $23,274,925; pupils 1,285.69 (EQUALIZED pupils, not LTWADM; per the form''s own note); per pupil $18,103.06;
+  equalized union rate $1.1723; income cap 2.06%. The FY24 per-pupil figure is not comparable with FY25-FY27 (different
+  pupil basis).'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: 'Printed in the ''Three Prior Years Comparison'' column for FY2024 of the FY27 annual report. The column
+    is headed ''Adopted or warned union district budget''; the document does not say the budget was adopted or give
+    a vote date, so status ''approved'' and adopted_date null follow the form''s prior-year column. The AOE form
+    is an embedded image with no text layer; figures were read from the extracted embedded image and re-added. Re-added:
+    28,056,400 - 4,781,475 = 23,274,925.'
+  resolution: pending
+- path: source_pages
+  issue: 'FY2024 pupil count 1,285.69 is equalized pupils (form header: ''Equalized pupils are shown for FY23 &
+    FY24''); it is much smaller than the FY25 LTWADM 2,355.43 and is not comparable.'
+  resolution: recorded_as_other
+- path: tax.towns.homestead_rate_stated
+  issue: The form prints one prorated equalized union rate for the year, identical in all six town rows, not a town
+    rate after CLA. Left null.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No CLA is printed for any member town.
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null

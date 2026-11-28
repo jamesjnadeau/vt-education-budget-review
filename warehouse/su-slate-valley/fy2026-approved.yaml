@@ -1,0 +1,80 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/slate-valley
+fiscal_year: 2026
+status: approved
+source: intake/su-slate-valley/fy2027/Web-25-26-Slate-Valley-Annual-Report-and-FY27-Budget.pdf
+source_pages: PDF p. 10 (AOE form)
+adopted_date: null
+education_spending: 27080580
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/benson
+    homestead_rate_stated: null
+    cla: null
+  - town: town/castleton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/fair-haven
+    homestead_rate_stated: null
+    cla: null
+  - town: town/hubbardton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/orwell
+    homestead_rate_stated: null
+    cla: null
+  - town: town/west-haven
+    homestead_rate_stated: null
+    cla: null
+notes: 'FY2026 column of the FY27 AOE form: adopted/warned union budget $31,623,010; offsetting revenues $4,542,430;
+  education spending $27,080,580; LTWADM 2,341.66; per pupil $11,564.69; equalized union rate $1.3454 (same for
+  all six towns); income cap 2.00%. The adopted budget differs from the $32,086,270 that the district''s earlier
+  FY26 annual report proposed, i.e. the FY26 budget was apparently revised and re-voted; the district page for that
+  vote was not examined. The same page''s detail book shows FY26 budget total $31,623,010.89.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: 'Printed in the ''Three Prior Years Comparison'' column for FY2026 of the FY27 annual report. The column
+    is headed ''Adopted or warned union district budget''; the document does not say the budget was adopted or give
+    a vote date, so status ''approved'' and adopted_date null follow the form''s prior-year column. The AOE form
+    is an embedded image with no text layer; figures were read from the extracted embedded image and re-added. Re-added:
+    31,623,010 - 4,542,430 = 27,080,580.'
+  resolution: pending
+- path: source_pages
+  issue: FY26 budget on this form ($31,623,010) disagrees with the $32,086,270 proposed in the district's earlier
+    FY26 annual report (found only as a simplebooklet page, not staged). Recorded as printed on the FY27 form.
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: The form prints one prorated equalized union rate for the year, identical in all six town rows, not a town
+    rate after CLA. Left null.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No CLA is printed for any member town.
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The form prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column), not the four
+    statutory grade bands. The AOE form page and the text layer of the staged documents were searched; no band breakdown
+    found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null

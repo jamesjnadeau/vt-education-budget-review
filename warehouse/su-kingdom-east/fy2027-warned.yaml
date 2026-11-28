@@ -1,0 +1,104 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/kingdom-east
+fiscal_year: 2027
+status: warned
+source: intake/su-kingdom-east/fy2027/2026 KESD Annual Report-Final.pdf
+source_pages: PDF pp. 10, 19-20, 22
+adopted_date: null
+education_spending: 47276483
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/burke
+    homestead_rate_stated: 1.4021
+    cla: 1.1511
+  - town: town/concord
+    homestead_rate_stated: 1.2712
+    cla: 1.2696
+  - town: town/lunenburg
+    homestead_rate_stated: 1.1942
+    cla: 1.3515
+  - town: town/lyndon
+    homestead_rate_stated: 1.8703
+    cla: 0.8629
+  - town: town/newark
+    homestead_rate_stated: 1.7733
+    cla: 0.9101
+  - town: town/sheffield
+    homestead_rate_stated: 1.851
+    cla: 0.8719
+  - town: town/sutton
+    homestead_rate_stated: 1.6916
+    cla: 0.9541
+  - town: town/wheelock
+    homestead_rate_stated: 1.869
+    cla: 0.8635
+notes: 'FY27 budget as first warned for the March 3, 2026 Town Meeting vote, from the AOE form (PDF p. 22) and Charts
+  1/7/8: total union budget $53,401,362 (FY26 $50,349,157, +6.06%); offsetting union revenues $6,124,879; education
+  spending $47,276,483; LTWADM 3,179.88; education spending per pupil $14,867.38 (+7.99% over FY26 $13,767.47);
+  excess spending threshold $16,470; property dollar equivalent yield $9,212; equalized union homestead rate $1.6139
+  (+0.77% vs FY26 $1.6016); income cap 2.45%. Budget minus revenues equals education spending, and spending / LTWADM
+  equals the printed per-pupil figure (rechecked). Vote result: FAILED 632 yes, 730 no (district results page https://www.kingdomeast.org/kingdom-east-fy27-budget-results,
+  Article 4, 1,414 ballots cast). Revised $53,251,362 budget failed April 28, 2026 (460-614, Caledonian Record).
+  The version that passed is in fy2027-approved.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: 'The AOE ''Three Prior Years Comparisons'' form is stamped PRELIMINARY and is an image; its FY2027 column
+    is shaded/estimated, and the right edge of the page (including the title-bar word that begins ''ES'') is cut
+    off by a black bar in the district''s pasted image. Footnote: figures are based on the Dec 1, 2025 Education
+    Fund outlook ($9,212 yield) and ''new and updated data will likely change the proposed property and income yields'';
+    final figures are set by the Legislature. Chart 7 and 8 (pp. 19-20) say the estimated rates assume a one-time
+    $75M General Fund transfer.'
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: 'Rates are the district''s ''FY27 Estimated Town Tax Rate'' from Chart 8 (PDF p. 20): union estimated rate
+    $1.6139 divided by the printed CLA. CLAs are printed as percentages (e.g. 115.11%) and include a statewide adjustment
+    of 70.33%; they are estimates (''subject to change''), not the Tax Department''s final CLAs. Each town rate
+    recomputes from 1.6139/CLA to within $0.0001 (Lunenburg prints 1.1942; 1.6139/1.3515 = 1.19415).'
+  resolution: recorded_as_other
+- path: tax.towns.cla
+  issue: CLAs are the 'FY27 CLA' column of Chart 8 (PDF p. 20), recorded as ratios; estimates that include the 70.33%
+    statewide adjustment.
+  resolution: recorded_as_other
+- path: education_spending
+  issue: Chart 7 (PDF p. 19) prints 'Excess Spending Per LTW ADM Over Threshold' FY27 as $16,470, which equals the
+    excess spending threshold; the AOE form (PDF p. 22, row 24) prints '-' for the amount over threshold. Recorded,
+    not reconciled.
+  resolution: pending
+- path: status
+  issue: This record is the FIRST budget put to voters ($53,401,362, March 3, 2026). The district states it FAILED,
+    632 yes to 730 no (https://www.kingdomeast.org/kingdom-east-fy27-budget-results). A revised $53,251,362 budget
+    also failed on April 28, 2026 (460-614, Caledonian Record, secondary source) and a third version passed June
+    11, 2026; see the separate fy2027-approved record.
+  resolution: pending
+- path: adm
+  issue: Report page 2 is headed '2025 ANNUAL REPORT' although the report is the 2026 annual report for the FY2027
+    budget (stale heading).
+  resolution: pending
+- path: adm.prekindergarten
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The annual report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four statutory
+    grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown found. Enrollment
+    by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.
+  resolution: left_null
