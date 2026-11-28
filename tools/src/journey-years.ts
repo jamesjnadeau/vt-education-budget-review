@@ -1,7 +1,8 @@
 /**
  * Per-fiscal-year figures for the "My journey" pages: each town's published
  * homestead rate, and, for the years the AOE resident district report covers,
- * its student total.
+ * its student total. Each town also carries the year's common level of
+ * appraisal (CLA) from the same table, as the fraction the table stores.
  *
  * Kept apart from combiner.json on purpose. The combiner pools one year
  * (FY2026) against that year's spending; this file only carries what a
@@ -32,7 +33,7 @@ export interface JourneyYear {
   readonly rate_source: RateSource | null;
   readonly students_source: StudentsSource | null;
   /** Keyed by registry slug. `students` is set only in resident_district_report years. */
-  readonly towns: Record<string, { homestead_rate: number | null; students?: number }>;
+  readonly towns: Record<string, { homestead_rate: number | null; cla: number | null; students?: number }>;
   /** Tax table rows that matched no registry town, by name as published. */
   readonly unmatched: string[];
 }
@@ -46,7 +47,7 @@ export interface JourneyYearsInputs {
   readonly registry: ReadonlyArray<{ slug: string; name: string; type: string }>;
   readonly taxRates: ReadonlyArray<{
     fiscal_year: number;
-    towns: ReadonlyArray<{ town: string; homestead_rate?: number | null }>;
+    towns: ReadonlyArray<{ town: string; homestead_rate?: number | null; cla?: number | null }>;
   }>;
   readonly rateSources: Readonly<Record<number, RateSource | undefined>>;
   readonly admReports: ReadonlyArray<{
@@ -103,6 +104,7 @@ export function buildJourneyYears(inputs: JourneyYearsInputs): JourneyYears {
         if (!row && !values) continue;
         towns[e.slug] = {
           homestead_rate: typeof row?.homestead_rate === 'number' ? row.homestead_rate : null,
+          cla: typeof row?.cla === 'number' ? row.cla : null,
           ...(values ? { students: round2(values.reduce((a, b) => a + b, 0)) } : {}),
         };
       }

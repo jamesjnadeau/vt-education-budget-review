@@ -20,7 +20,7 @@ const base: JourneyYearsInputs = {
     {
       fiscal_year: 2024,
       towns: [
-        { town: 'Mount Holly', homestead_rate: 1.5 },
+        { town: 'Mount Holly', homestead_rate: 1.5, cla: 0.91 },
         { town: 'Barton', homestead_rate: 1.2 },
         { town: 'Addison', homestead_rate: null },
         { town: 'Atlantis', homestead_rate: 9 },
@@ -43,8 +43,8 @@ const base: JourneyYearsInputs = {
 describe('buildJourneyYears', () => {
   it('matches tax rows to registry towns by normalised name and alias', () => {
     const y = buildJourneyYears(base).years[0]!;
-    expect(y.towns['town/mount-holly']).toEqual({ homestead_rate: 1.5 });
-    expect(y.towns['town/barton-id']).toEqual({ homestead_rate: 1.2 });
+    expect(y.towns['town/mount-holly']).toEqual({ homestead_rate: 1.5, cla: 0.91 });
+    expect(y.towns['town/barton-id']).toEqual({ homestead_rate: 1.2, cla: null });
     expect(y.towns['ud/somewhere']).toBeUndefined();
   });
 
@@ -54,7 +54,7 @@ describe('buildJourneyYears', () => {
 
   it('keeps a null rate null and sums the report bands for students', () => {
     const y = buildJourneyYears(base).years[0]!;
-    expect(y.towns['town/addison']).toEqual({ homestead_rate: null, students: 146.53 });
+    expect(y.towns['town/addison']).toEqual({ homestead_rate: null, cla: null, students: 146.53 });
     expect(y.students_source).toEqual({
       kind: 'resident_district_report', count_year: '2022-2023', title: 'ADM-24', preliminary: false,
     });
@@ -67,7 +67,7 @@ describe('buildJourneyYears', () => {
       townFileYears: [{ fiscal_year: 2024, count_year: '2022-2023', preliminary: true }],
     }).years[0]!;
     expect(y.students_source).toEqual({ kind: 'town_file', count_year: '2022-2023', title: null, preliminary: true });
-    expect(y.towns['town/addison']).toEqual({ homestead_rate: null });
+    expect(y.towns['town/addison']).toEqual({ homestead_rate: null, cla: null });
   });
 
   it('has no student source when neither is on file', () => {

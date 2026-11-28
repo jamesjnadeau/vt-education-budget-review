@@ -1,109 +1,157 @@
 ---
 /**
- * A line chart of one town's homestead tax rate across the fiscal years on
- * file. Each year is a point linking to that year's page; the current year is
- * filled in the accent colour. A year with no published rate is a gap (the line
- * breaks) and is listed in the caption, never silently dropped. Every value is
- * also in the point's label, so nothing rests on position or colour alone.
+ * Two small line charts of one town across the fiscal years on file, sharing
+ * one year axis: the homestead tax rate, and the common level of appraisal
+ * (CLA). They are separate panels, not one chart with two axes, because the
+ * two figures have different units and a second axis invites reading the
+ * lines against each other.
+ *
+ * Each year is a point linking to that year's page; the viewed year is ringed.
+ * A year with no figure is a gap (the line breaks) and is named in the
+ * caption. Every value is printed beside its point.
  */
-import { DEFAULT_YEAR, myHref } from '../lib/years.ts';
+import { myHref } from '../lib/years.ts';
 
 interface Props {
   townName: string;
   slug: string;
   /** The page's own year. */
   year: number;
-  /** One entry per fiscal year, oldest first; rate is null when none was published. */
-  series: { year: number; rate: number | null }[];
+  /** One entry per fiscal year, oldest first; null when none was published. */
+  series: { year: number; rate: number | null; cla: number | null }[];
 }
 
 const { townName, slug, year, series } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const W = 900;
-const H = 240;
-const M = { top: 18, right: 22, bottom: 34, left: 52 };
+const M = { top: 22, right: 22, left: 52 };
 const PAD = 28; // keeps the first and last labels clear of the axis
 const iw = W - M.left - M.right - PAD * 2;
-const ih = H - M.top - M.bottom;
-
-const known = series.filter((p) => p.rate !== null) as { year: number; rate: number }[];
-const missing = series.filter((p) => p.rate === null).map((p) => p.year);
-const fmt = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
-
-let lo = 0;
-let hi = 1;
-if (known.length > 0) {
-  const min = Math.min(...known.map((p) => p.rate));
-  const max = Math.max(...known.map((p) => p.rate));
-  const pad = Math.max((max - min) * 0.15, 0.05);
-  lo = Math.max(0, Math.floor((min - pad) * 10) / 10);
-  hi = Math.ceil((max + pad) * 10) / 10;
-  if (hi - lo < 0.2) hi = lo + 0.2;
-}
-const ticks = Array.from({ length: 5 }, (_, i) => lo + ((hi - lo) * i) / 4);
-
 const x = (i: number) => M.left + PAD + (series.length === 1 ? iw / 2 : (iw * i) / (series.length - 1));
-const y = (v: number) => M.top + ih - ((v - lo) / (hi - lo)) * ih;
 
-const points = series.map((p, i) => ({ ...p, cx: x(i), cy: p.rate === null ? null : y(p.rate) }));
+const fmtRate = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+const fmtCla = (v: number) => `${(v * 100).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}%`;
+const tickRate = (v: number) => v.toFixed(2);
+const tickCla = (v: number) => `${Math.round(v * 100)}%`;
 
-// Runs of consecutive years with a rate; a gap year ends the run so the line breaks.
-const runs: { cx: number; cy: number }[][] = [];
-for (const p of points) {
-  if (p.cy === null) {
-    runs.push([]);
-  } else {
-    if (runs.length === 0) runs.push([]);
-    runs[runs.length - 1].push({ cx: p.cx, cy: p.cy });
-  }
+interface PanelSpec {
+  id: 'rate' | 'cla';
+  title: string;
+  values: { year: number; v: number | null }[];
+  fmt: (v: number) => string;
+  tick: (v: number) => string;
+  /** Smallest axis step worth drawing, so a flat series is not blown up. */
+  minSpan: number;
+  /** The last panel carries the year labels. */
+  showYears: boolean;
+  height: number;
 }
-const paths = runs.filter((r) => r.length > 1).map((r) => r.map((q, i) => `${i === 0 ? 'M' : 'L'}${q.cx.toFixed(1)},${q.cy.toFixed(1)}`).join(' '));
 
-const first = known[0];
-const last = known[known.length - 1];
-const summary =
-  known.length > 1
-    ? `${townName}'s homestead tax rate went from ${fmt(first.rate)} in FY${first.year} to ${fmt(last.rate)} in FY${last.year}, per $100 of property value.`
-    : known.length === 1
-      ? `${townName}'s homestead tax rate was ${fmt(first.rate)} in FY${first.year}, per $100 of property value.`
-      : `No homestead tax rate is on file for ${townName}.`;
+const specs: PanelSpec[] = [
+  { id: 'rate', title: 'Homestead tax rate', values: series.map((p) => ({ year: p.year, v: p.rate })), fmt: fmtRate, tick: tickRate, minSpan: 0.2, showYears: false, height: 190 },
+  { id: 'cla', title: 'Common level of appraisal (CLA)', values: series.map((p) => ({ year: p.year, v: p.cla })), fmt: fmtCla, tick: tickCla, minSpan: 0.1, showYears: true, height: 225 },
+];
+
+const panels = specs.map((spec) => {
+  const bottom = spec.showYears ? 34 : 14;
+  const ih = spec.height - M.top - bottom;
+  const known = spec.values.filter((p) => p.v !== null) as { year: number; v: number }[];
+  let lo = 0;
+  let hi = 1;
+  if (known.length > 0) {
+    const min = Math.min(...known.map((p) => p.v));
+    const max = Math.max(...known.map((p) => p.v));
+    const pad = Math.max((max - min) * 0.15, spec.minSpan / 4);
+    // Three equal gaps between four ticks, each a multiple of 0.1 (rate) or 0.05 (CLA = 5%), so tick labels are round.
+    const unit = spec.id === 'rate' ? 0.1 : 0.05;
+    lo = Math.max(0, Math.round(Math.floor((min - pad) / unit + 1e-9) * unit * 1e4) / 1e4);
+    const gaps = Math.max(1, Math.ceil((max + pad - lo) / (unit * 3) - 1e-9));
+    hi = Math.round((lo + gaps * unit * 3) * 1e4) / 1e4;
+  }
+  const ticks = Array.from({ length: 4 }, (_, i) => lo + ((hi - lo) * i) / 3);
+  const y = (v: number) => M.top + ih - ((v - lo) / (hi - lo)) * ih;
+  const points = spec.values.map((p, i) => ({ ...p, cx: x(i), cy: p.v === null ? null : y(p.v) }));
+  const runs: { cx: number; cy: number }[][] = [];
+  for (const p of points) {
+    if (p.cy === null) runs.push([]);
+    else {
+      if (runs.length === 0) runs.push([]);
+      runs[runs.length - 1].push({ cx: p.cx, cy: p.cy });
+    }
+  }
+  const paths = runs.filter((r) => r.length > 1).map((r) => r.map((q, i) => `${i === 0 ? 'M' : 'L'}${q.cx.toFixed(1)},${q.cy.toFixed(1)}`).join(' '));
+  const first = known[0];
+  const last = known[known.length - 1];
+  const summary =
+    known.length > 1
+      ? `${townName}, ${spec.title}: ${spec.fmt(first.v)} in FY${first.year}, ${spec.fmt(last.v)} in FY${last.year}.`
+      : known.length === 1
+        ? `${townName}, ${spec.title}: ${spec.fmt(first.v)} in FY${first.year}.`
+        : `No ${spec.title} on file for ${townName}.`;
+  return {
+    spec,
+    bottom,
+    known,
+    ticks,
+    y,
+    points,
+    paths,
+    summary,
+    missing: spec.values.filter((p) => p.v === null).map((p) => p.year),
+  };
+});
+
+const rateMissing = panels[0].missing;
+const claMissing = panels[1].missing;
+const hasAny = panels.some((p) => p.known.length > 0);
 ---
 
 <figure class="rate-history">
-  <figcaption class="rate-history-title">Homestead tax rate by fiscal year</figcaption>
-  {known.length === 0 ? (
-    <p class="blank-reason">The state has not published a homestead tax rate for this town in any year on file.</p>
+  <figcaption class="rate-history-title">Homestead tax rate and common level of appraisal, by fiscal year</figcaption>
+  {!hasAny ? (
+    <p class="blank-reason">The state has not published a homestead tax rate or a common level of appraisal for this town in any year on file.</p>
   ) : (
-    <div class="rate-history-scroll" tabindex="0" role="region" aria-label="Homestead tax rate chart (scrolls sideways on narrow screens)">
-    <svg viewBox={`0 0 ${W} ${H}`} role="group" aria-label={summary} class="rate-history-svg">
-      {ticks.map((t) => (
-        <g>
-          <line x1={M.left} x2={W - M.right} y1={y(t)} y2={y(t)} class="rate-history-grid" />
-          <text x={M.left - 8} y={y(t)} class="rate-history-tick" text-anchor="end" dominant-baseline="middle">{t.toFixed(2)}</text>
-        </g>
-      ))}
-      {paths.map((d) => <path d={d} class="rate-history-line" />)}
-      {points.map((p) => (
-        <g>
-          <text x={p.cx} y={H - 12} class:list={['rate-history-year', p.year === year && 'is-current']} text-anchor="middle">{p.year}</text>
-          {p.cy !== null && p.rate !== null && (
-            <a href={`${base}${myHref(p.year, 'town', slug)}`} aria-label={`FY${p.year}: ${fmt(p.rate)}${p.year === year ? ' (this page)' : ''}`} aria-current={p.year === year ? 'page' : undefined}>
-              <title>{`FY${p.year}: ${fmt(p.rate)}`}</title>
-              <circle cx={p.cx} cy={p.cy} r="14" class="rate-history-hit" />
-              <circle cx={p.cx} cy={p.cy} r={p.year === year ? 6 : 4.5} class:list={['rate-history-dot', p.year === year && 'is-current', p.year > DEFAULT_YEAR && 'is-later']} />
-              <text x={p.cx} y={p.cy - (p.year === year ? 15 : 11)} class:list={['rate-history-value', p.year === year && 'is-current']} text-anchor="middle">{fmt(p.rate)}</text>
-            </a>
+    <div class="rate-history-scroll" tabindex="0" role="region" aria-label="Homestead tax rate and common level of appraisal charts (scroll sideways on narrow screens)">
+      {panels.map((panel) => (
+        <div class="rate-history-panel">
+          <p class="rate-history-panel-title">{panel.spec.title}</p>
+          {panel.known.length === 0 ? (
+            <p class="blank-reason">None on file for this town.</p>
+          ) : (
+            <svg viewBox={`0 0 ${W} ${panel.spec.height}`} role="group" aria-label={panel.summary} class="rate-history-svg">
+              {panel.ticks.map((t) => (
+                <g>
+                  <line x1={M.left} x2={W - M.right} y1={panel.y(t)} y2={panel.y(t)} class="rate-history-grid" />
+                  <text x={M.left - 8} y={panel.y(t)} class="rate-history-tick" text-anchor="end" dominant-baseline="middle">{panel.spec.tick(t)}</text>
+                </g>
+              ))}
+              {panel.paths.map((d) => <path d={d} class:list={['rate-history-line', `rate-history-line--${panel.spec.id}`]} />)}
+              {panel.points.map((p) => (
+                <g>
+                  {panel.spec.showYears && (
+                    <text x={p.cx} y={panel.spec.height - 12} class:list={['rate-history-year', p.year === year && 'is-current']} text-anchor="middle">{p.year}</text>
+                  )}
+                  {p.cy !== null && p.v !== null && (
+                    <a href={`${base}${myHref(p.year, 'town', slug)}`} aria-label={`${panel.spec.title}, FY${p.year}: ${panel.spec.fmt(p.v)}${p.year === year ? ' (this page)' : ''}`} aria-current={p.year === year ? 'page' : undefined}>
+                      <title>{`FY${p.year}: ${panel.spec.fmt(p.v)}`}</title>
+                      <circle cx={p.cx} cy={p.cy} r="14" class="rate-history-hit" />
+                      <circle cx={p.cx} cy={p.cy} r={p.year === year ? 6 : 4.5} class:list={['rate-history-dot', `rate-history-dot--${panel.spec.id}`, p.year === year && 'is-current']} />
+                      <text x={p.cx} y={p.cy - (p.year === year ? 15 : 11)} class:list={['rate-history-value', p.year === year && 'is-current']} text-anchor="middle">{panel.spec.fmt(p.v)}</text>
+                    </a>
+                  )}
+                </g>
+              ))}
+            </svg>
           )}
-        </g>
+        </div>
       ))}
-    </svg>
     </div>
   )}
   <p class="journey-caption">
-    Dollars of tax per $100 of property value, for a home. Select a year to see this town that year.
-    {missing.length > 0 && ` No rate was published for FY${missing.join(', FY')}.`}
-    {series.some((p) => p.year > DEFAULT_YEAR && p.rate !== null) && ` Hollow dots are years whose figures are not complete yet.`}
+    Rate: dollars of tax per $100 of property value, for a home. Common level of appraisal (CLA): how close the town's listed property values are to market value, so 100% means they match; the state uses it to even out rates between towns. Select a year to see this town that year.
+    {rateMissing.length > 0 && ` No rate was published for FY${rateMissing.join(', FY')}.`}
+    {claMissing.length > 0 && ` No CLA was published for FY${claMissing.join(', FY')}.`}
   </p>
 </figure>
 
@@ -115,14 +163,20 @@ const summary =
     font-weight: 600;
     margin-bottom: 0.25rem;
   }
-  /* Under 40rem the chart keeps a readable size and scrolls sideways instead of shrinking its text. */
+  .rate-history-panel-title {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  /* Narrow screens keep a readable size and scroll sideways instead of shrinking the text. */
   .rate-history-scroll {
     overflow-x: auto;
   }
   .rate-history-svg {
-    min-width: 36rem;
     display: block;
     width: 100%;
+    min-width: 36rem;
     height: auto;
     overflow: visible;
   }
@@ -145,19 +199,23 @@ const summary =
     stroke-width: 2;
     stroke-linejoin: round;
   }
+  /* The CLA line is dashed with square-ish weight so the two series differ by more than position. */
+  .rate-history-line--cla {
+    stroke-dasharray: 6 4;
+  }
   .rate-history-dot {
     fill: var(--accent);
     stroke: var(--surface, #fff);
     stroke-width: 1.5;
   }
-  .rate-history-dot.is-current {
-    stroke: var(--text, #000);
-    stroke-width: 2;
-  }
-  .rate-history-dot.is-later {
+  .rate-history-dot--cla {
     fill: var(--surface, #fff);
     stroke: var(--accent);
     stroke-width: 2;
+  }
+  .rate-history-dot.is-current {
+    stroke: var(--text, #000);
+    stroke-width: 2.5;
   }
   .rate-history-hit {
     fill: transparent;

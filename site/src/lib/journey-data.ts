@@ -36,3 +36,13 @@ export function journeyFor(year: number): Journey {
   }
   return j;
 }
+
+/**
+ * A town's common level of appraisal (CLA) in one fiscal year, as the fraction
+ * the Tax Department's table stores (0.9776 = 97.76%), or null when the year's
+ * table has no figure for the town.
+ */
+export function claFor(year: number, slug: string): number | null {
+  const years = generated<{ years: { fiscal_year: number; towns: Record<string, { cla?: number | null }> }[] }>('journey-years').years;
+  return years.find((y) => y.fiscal_year === year)?.towns[slug]?.cla ?? null;
+}

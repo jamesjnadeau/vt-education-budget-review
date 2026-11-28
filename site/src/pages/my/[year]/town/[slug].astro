@@ -1,6 +1,6 @@
 ---
 import Base from '../../../../layouts/Base.astro';
-import { journeyFor } from '../../../../lib/journey-data.ts';
+import { claFor, journeyFor } from '../../../../lib/journey-data.ts';
 import { YEARS } from '../../../../lib/years.ts';
 import { studentsLabel, yearNotes } from '../../../../lib/year-notes.ts';
 import JourneyTop from '../../../../components/JourneyTop.astro';
@@ -37,7 +37,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // This town's homestead rate in every year on file, oldest first, for the chart above the heading.
 const rateSeries = YEARS.map((y) => {
   const r = journeyFor(y).towns[page.slug]?.rate;
-  return { year: y, rate: r && r.kind === 'value' ? r.value : null };
+  return { year: y, rate: r && r.kind === 'value' ? r.value : null, cla: claFor(y, `town/${page.slug}`) };
 });
 
 // The note about this site's own math applies only to the year that math was run for.
