@@ -1,0 +1,67 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-27
+entity: su/addison-northwest
+fiscal_year: 2025
+status: approved
+source: intake/su-addison-northwest/fy2026/FY26 ANWSD Annual Report.pdf
+source_pages: p. 53
+adopted_date: null
+education_spending: 23258655
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/addison
+      homestead_rate_stated: null
+      cla: null
+    - town: town/ferrisburgh
+      homestead_rate_stated: null
+      cla: null
+    - town: town/panton
+      homestead_rate_stated: null
+      cla: null
+    - town: town/vergennes
+      homestead_rate_stated: null
+      cla: null
+    - town: town/waltham
+      homestead_rate_stated: null
+      cla: null
+notes: Prior-year column of the FY26 annual report's AOE 'Three Prior Years Comparisons' form (PDF p. 53,
+  marked PRELIMINARY; read from an image). Printed as the adopted budget; no vote date is given, so
+  adopted_date is null. Total union budget $27,250,000; offsetting union revenues $3,991,345; education
+  spending $23,258,655; LTWADM 1,537.04; education spending per pupil $15,132.11; equalized union homestead
+  rate $1.5096. The $27,250,000 matches the line-item total in the FY25 budget book (Revote 2) held under
+  intake/su-addison-northwest/fy2025.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: Only the equalized union homestead rate ($1.5096, before each town's CLA) is printed for this year, not
+      per-town rates. Kept in notes rather than entered as a town rate.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: Town CLAs are printed only for FY2026 in this report.
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints one weighted pupil count (LTWADM, or equalized pupils for FY23-FY24), not the four
+      statutory grade bands. The text layer was searched and the form pages (53-54) were read as images; no
+      band breakdown found. Other graphic-only pages were not individually inspected.
+    resolution: left_null

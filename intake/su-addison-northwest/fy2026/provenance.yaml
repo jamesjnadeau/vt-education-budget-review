@@ -1,0 +1,47 @@
+schema_version: "1.0"
+entity: su/addison-northwest
+fiscal_year: 2026
+artifacts:
+  - file: FY26 ANWSD Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1mUhTvObtnQuyvm0lhZn5LW3GfkYtcEz7
+    retrieved_date: 2026-11-27
+    retrieval_method: http-fetch
+    sha256: 86cfefb50e1dadbea970294b52f15b5eb333c204303a840da216a6295dd42711
+    bytes: 55192467
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Addison Northwest School District
+    title: FY26 ANWSD Annual Report
+    published_date: null
+    document_page: https://www.anwsd.org/budget2
+    supersedes: null
+    note: >-
+      The annual report issued ahead of the FY26 budget vote. Carries the AOE
+      "Three Prior Years Comparisons" form (PDF p. 53) and the Act 127
+      homestead tax rate calculation (p. 54) for FY2026, with FY2023-FY2025
+      columns. Those two pages, and the treasurer's report and audit
+      management letter, are images with no text layer, so figures were read
+      from 260-dpi renders and cross-checked arithmetically. Saved under the
+      filename the server sent, byte-for-byte as downloaded. The district's
+      own publication date is not stated.
+  - file: fy26 proposed budget expenditures Book.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1MzcN3nMrphEHo6ZsqMyvvoPwrL5sXfJ8
+    retrieved_date: 2026-11-27
+    retrieval_method: http-fetch
+    sha256: b4ad350d3eb09b0df36238d1030b9824b1974ae0b2ba98db23a323854ed98f67
+    bytes: 106301
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Addison Northwest School District
+    title: 2025/2026 Budget Proposed Expenditures
+    published_date: null
+    document_page: https://www.anwsd.org/budget2
+    supersedes: null
+    note: >-
+      Two-page line-item general operating fund sheet: FY24 actuals (audited
+      draft), FY24 and FY25 budgeted, FY26 proposed ($27,653,000 total). The
+      PDF was created from an Excel file on 2025-01-27. Expenditures only; it
+      states no revenues or education spending. Saved under the filename the
+      server sent.
