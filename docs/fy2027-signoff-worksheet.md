@@ -6,24 +6,22 @@ For each box: read the snapshot lines, then confirm **value**, **structure** (ho
 
 ## Review log (2026-11-28)
 
-Boxes below were ticked by James Nadeau while walking this worksheet. A ticked box here is a reading note; **the record is `model/parameters/fy2027.yaml`**, which has not been changed, and the file stays `status: draft` until every entry is countersigned there.
+Boxes below were ticked by James Nadeau while walking this worksheet. A ticked box here is a reading note; **the record is `model/parameters/fy2027.yaml`**, whose signatures and `status: draft` were not changed by this log or by the fixes below.
 
-**Ticked (22 of 27):** every entry from `membership.long_term_membership_years` through `tax.income_percentage_target`, plus `foundation.base_amount` and `foundation.statewide_homestead_rate`.
+**Ticked now: 18 of 27.** Every entry from `membership.long_term_membership_years` through `tax.income_percentage_target` except the two unticked below. Originally 22 were ticked; four were unticked after the second look (below).
 
-**Not ticked (5):** `yield.property_dollar_equivalent`, `yield.income_dollar_equivalent`, `tax.statewide_adjustment`, `tax.transition.phase_out_share`, `tax.transition.rate_floor`. The two yield figures are already signed in the YAML (2026-08-01); the generator had pre-ticked them and they were unticked here, so they still want a second look. The other three have no signature yet.
+**Unticked (9):** `tax.nonhomestead_base_rate`, `tax.excess_spending_capital_reserve_multiplier`, `foundation.base_amount`, `foundation.statewide_homestead_rate`, `yield.property_dollar_equivalent`, `yield.income_dollar_equivalent`, `tax.statewide_adjustment`, `tax.transition.phase_out_share`, `tax.transition.rate_floor`.
 
-**Second look at the ticked boxes (agent check, not a sign-off).** Each ticked entry was compared with its quote and snapshot. Fourteen are consistent: the value appears in the statute text matched in the snapshot. These need attention before the YAML is signed:
+### What the second look found and what was done (agent work, not a sign-off)
 
-1. `tax.nonhomestead_base_rate` = 1.643: **value does not match its own quote.** The quote and snapshot (`32-vsa-5402.txt` line 15) say $1.59 per $100 divided by the statewide adjustment. 1.643 is the "State Rate" column of the Tax Department's FY2027 table (`intake/tax-rates/fy2027/`), per the note under `tax.statewide_adjustment`. The FY2026 entry has the same gap (1.703 against the same $1.59 text). Reconcile where 1.643 comes from (a yield-act figure, or an annual adjustment to $1.59) and cite that, or tick only once the quote supports the number.
-2. `foundation.statewide_homestead_rate` = 1: **not a statutory value.** Its own quote says the rate "has not been set"; the 1 is the midpoint of a 0.9-1.1 placeholder range, and the provision is contingent (effective July 1, 2028). Nothing to verify against law; leave unticked.
-3. `foundation.base_amount` = null: contingent on Act 73 and a price index, so there is no value to sign. Leave unticked. (Both foundation entries already carry a 2026-08-01 signature in the YAML.)
-4. `tax.excess_spending_capital_reserve_multiplier` = 1.5: the cited source is an AOE summary (Aug 19, 2024), not statute text. `docs/parameter-verification.md` says an agency document is never the citation of record. Read 32 V.S.A. § 5401(12) / Act 183 of 2024 itself.
-5. `weights.grade.prekindergarten` = -0.54: no snapshot cited. It rests on the Act 73 contingency determination (did not fire), which the entry marks as your judgment. Fine to tick if you have re-read the Act text; note that the snapshot has both versions of § 4010(d)(1).
-6. `weights.grade.kindergarten_through_5` = 0: 0/2 quote sentences matched; the quote is our inference from § 4010(d)(1) listing only three bands. Consistent with `16-vsa-4010.txt` lines 60-70.
-7. `membership.hold_harmless_applies` = false: 0/1 matched because the quote mixes the bracketed note with our sentence. The note is verbatim at `16-vsa-4010.txt` line 104.
-8. `weights.small_school.density_ceiling` = 55: 0/1 matched only because the statute line wraps ("55 or / fewer", lines 91-95); the text is there.
+1. `tax.nonhomestead_base_rate` = 1.643: **fixed in the YAML, needs your re-read.** The old quote said $1.59, which is the codified § 5402(a)(1). The $1.643 comes from **2026 Acts and Resolves No. 169 (H.949), Sec. 1(3)**: "Notwithstanding 32 V.S.A. § 5402(a)(1) ... the nonhomestead property tax rate shall be $1.643 per $100.00 of equalized education property value", for FY2027 only, effective July 1, 2026 (Sec. 16(a)). The enacted Act was fetched with `npm run vt:fetch` and snapshotted at `model/statute/2026-11-28/act-2026-169-secs-1-2-6-7-16.txt` (lines 20-31 for Sec. 1). The entry's `statute`, `session_law`, `source_url` and `quote` now cite the Act; `verified_by` is untouched (still "awaiting human countersignature", and it still names the old 5402 snapshot, which your signature will replace). Because the quote changed under your earlier tick, the box is unticked: read Sec. 1(3), then tick and sign.
+2. `yield.property_dollar_equivalent` / `yield.income_dollar_equivalent`: the same Act, Sec. 1(1) and 1(2), gives $9,401.00 and $12,960.00, matching the YAML values. Both entries are already signed by you; they are cross-checked, nothing changed. Snapshot lines 24-27.
+3. `foundation.statewide_homestead_rate` = 1 and `foundation.base_amount` = null: **unticked, YAML unchanged.** Neither is a statutory value for FY2027 (rate placeholder at the midpoint of 0.9-1.1, "has not been set"; base amount contingent on Act 73 and a price index). Both carry your 2026-08-01 signature in the YAML; whether to withdraw it is your call. They are the two entries flagged `contingent`, which is why `npm run params` reports 27/27 verified with 2 contingent.
+4. `tax.excess_spending_capital_reserve_multiplier` = 1.5: **unticked, YAML unchanged** (it carries your 2026-08-02 signature, so I did not edit the text under it). The YAML cites an AOE summary; the statute that carries the 150 percent is **24 V.S.A. § 2804(b)**: "If the Agency of Education determines that any amount in the reserve fund has not been used for approved school capital construction within five years after deposit into the fund, then 150 percent of that amount shall be added to the district's education spending in the then-current year for purposes of calculating the excess spending penalty." Now snapshotted at `model/statute/2026-11-28/24-vsa-2804.txt` (lines 29-32). Suggested fix when you sign: cite § 2804(b) and quote that sentence. Act 169 does not change this for FY2027: its excess-spending amendments (Secs. 2, 6, 7) take effect July 1, 2027 and apply to FY2028 onward (Sec. 16(c),(d)), so the 118 percent threshold and the 1.5 multiplier still govern FY2027. Act 169 does change FY2028+ (threshold becomes 112.5 percent of an "excess spending base", phased in 115.5 percent in FY2028 down to 112.5 in FY2032), which matters when the FY2028 file is built.
+5. Fine on a hand read, resting on your judgment: `membership.hold_harmless_applies` (bracketed note verbatim at `16-vsa-4010.txt` line 104; "0/1 found" is the script, not the statute), `weights.small_school.density_ceiling` (statute line wraps, lines 91-95), `weights.grade.kindergarten_through_5` (our inference from § 4010(d)(1) listing three bands), `weights.grade.prekindergarten` (rests on your Act 73 contingency determination; re-read the Act text before relying on it).
+6. The other 14 ticked entries match: each value appears in the statute text found in the snapshot.
 
-Items 6-8 are fine on a hand read. Items 1-4 should stay open, in the YAML and here.
+Not fixed: the FY2026 file has the same kind of gap for `tax.nonhomestead_base_rate` (1.703 against the $1.59 text; its yield act was not looked up). `docs/fy2026-signoff-worksheet.md` is untouched.
 
 ---
 
@@ -328,24 +326,18 @@ _Effective-date flags in this snapshot:_ L10, L63, L64, L70, L71, L74
   20| or unified union school district shall be calculated as required under subsection
 ```
 
-## [X] `tax.nonhomestead_base_rate` = 1.643 rate_per_100
+## [ ] `tax.nonhomestead_base_rate` = 1.643 rate_per_100
 
-- Statute: 32 V.S.A. § 5402(a)(1)
+- Statute: 2026 Acts and Resolves No. 169 (H.949), Sec. 1(3), overriding 32 V.S.A. § 5402(a)(1) — 2026 Acts and Resolves No. 169, Sec. 1(3), eff. July 1, 2026 (Sec. 16(a))
 - Status: AWAITING countersignature (2026-07-29)
 
 **Quote in file:**
 
-> The tax rate for nonhomestead property shall be $1.59 per $100.00 divided by the statewide adjustment.
+> For fiscal year 2027 only: ... (3) Notwithstanding 32 V.S.A. § 5402(a)(1) and any other provision of law to the contrary, the nonhomestead property tax rate shall be $1.643 per $100.00 of equalized education property value. The codified § 5402(a)(1) still reads "$1.59 per $100.00 divided by the statewide adjustment" (model/statute/2026-07-29/32-vsa-5402.txt, line 15); for FY2027 the Act replaces that $1.59 with $1.643. Snapshot of the Act: model/statute/2026-11-28/act-2026-169-secs-1-2-6-7-16.txt. The Tax Department's FY2027 rate table ("State Rate" column, 1.643 on every row) agrees.
 
-**Snapshot** `model/statute/2026-07-29/32-vsa-5402.txt` — 1/1 quote sentences found verbatim.
+**Snapshot** `model/statute/2026-07-29/32-vsa-5402.txt` — 0/7 quote sentences found verbatim.
 
-```text
-  14| the following rates:
-  15| (1) The tax rate for nonhomestead property shall be $1.59 per $100.00 divided by the statewide
-  16| adjustment.
-  17| (2) The tax rate for homestead property shall be $1.00 multiplied by the education property
-  18| tax spending adjustment for the municipality per $100.00 of equalized education property
-```
+_No match: the quote is paraphrase or commentary. Find the operative text by hand._
 
 ## [X] `tax.spending_adjustment_floor` = 1 ratio
 
@@ -385,7 +377,7 @@ _Effective-date flags in this snapshot:_ L10, L63, L64, L70, L71, L74
  137| “increased by inflation” means increasing the statewide average district per pupil
 ```
 
-## [X] `tax.excess_spending_capital_reserve_multiplier` = 1.5 multiplier
+## [ ] `tax.excess_spending_capital_reserve_multiplier` = 1.5 multiplier
 
 - Statute: 32 V.S.A. § 5401(12) — Act 183 of 2024
 - Status: signed: James Nadeau (2026-08-02)
@@ -512,7 +504,7 @@ _Effective-date flags in this snapshot:_ L10, L63, L64, L70, L71, L74
  122| 
 ```
 
-## [X] `foundation.base_amount` = null usd_per_pupil
+## [ ] `foundation.base_amount` = null usd_per_pupil
 
 - Statute: 16 V.S.A. § 4011(b) — 2025 Acts and Resolves No. 73 (contingently effective July 1, 2028)
 - Status: signed: James Nadeau (2026-08-01)
@@ -523,7 +515,7 @@ _Effective-date flags in this snapshot:_ L10, L63, L64, L70, L71, L74
 
 **Snapshot:** none cited (https://legislature.vermont.gov/statutes/section/16/133/04011). Check the source by hand.
 
-## [X] `foundation.statewide_homestead_rate` = 1 rate_per_100
+## [ ] `foundation.statewide_homestead_rate` = 1 rate_per_100
 
 - Statute: 32 V.S.A. § 5402(a) (effective July 1, 2028 if contingency met) — 2025 Acts and Resolves No. 73
 - Status: signed: James Nadeau (2026-08-01)
