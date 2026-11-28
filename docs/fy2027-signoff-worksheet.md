@@ -21,7 +21,9 @@ Boxes below were ticked by James Nadeau while walking this worksheet. A ticked b
 5. Fine on a hand read, resting on your judgment: `membership.hold_harmless_applies` (bracketed note verbatim at `16-vsa-4010.txt` line 104; "0/1 found" is the script, not the statute), `weights.small_school.density_ceiling` (statute line wraps, lines 91-95), `weights.grade.kindergarten_through_5` (our inference from § 4010(d)(1) listing three bands), `weights.grade.prekindergarten` (rests on your Act 73 contingency determination; re-read the Act text before relying on it).
 6. The other 14 ticked entries match: each value appears in the statute text found in the snapshot.
 
-Not fixed: the FY2026 file has the same kind of gap for `tax.nonhomestead_base_rate` (1.703 against the $1.59 text; its yield act was not looked up). `docs/fy2026-signoff-worksheet.md` is untouched.
+Also looked into: the FY2026 file's `tax.nonhomestead_base_rate` = 1.703 has the same gap as FY2027 had. Its source is **2025 Acts and Resolves No. 24 (H.491), Sec. 1(3)**: "Notwithstanding 32 V.S.A. § 5402(a)(1) ... the nonhomestead property tax rate shall be $1.703 per $100.00 of equalized education property value", for FY2026 only, effective July 1, 2025 (Sec. 3). Snapshot: `model/statute/2026-11-28/act-2025-024-secs-1-3.txt` (lines 17-27); the same Sec. 1 gives the FY2026 yields $8,596 and $12,172. The value 1.703 is right, but the quote in `fy2026.yaml` still says "Left null rather than assumed: read it off the FY2026 yield act", which no longer matches the value. That entry carries your 2026-08-01 signature in a countersigned file, so I did not edit it; the replacement quote is above, for you to put in and re-date. `docs/fy2026-signoff-worksheet.md` is untouched.
+
+Act 169's changes to the excess spending test start in FY2028 and do not affect FY2027; they are written up in `docs/excess-spending-threshold.md` (new last section).
 
 ---
 
