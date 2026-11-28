@@ -1,0 +1,93 @@
+---
+/**
+ * "for year 2026" with a dropdown of the other fiscal years, and a line of
+ * dates saying what that year is. Choosing a year goes to the same page in
+ * that year. Without JavaScript the dropdown cannot navigate, so a plain list
+ * of year links is shown in its place.
+ */
+import { YEARS, fiscalYearDates, fiscalYearHelp, fiscalYearSentence, myHref, type JourneyKind } from '../lib/years.ts';
+
+interface Props {
+  year: number;
+  kind: JourneyKind;
+  slug: string | number;
+}
+
+const { year, kind, slug } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const options = [...YEARS]
+  .sort((a, b) => b - a)
+  .map((y) => ({ year: y, href: `${base}${myHref(y, kind, slug)}`, dates: fiscalYearDates(y).short }));
+---
+
+<div class="year-switcher" title={fiscalYearHelp(year)}>
+  <label class="year-switcher-label" for="year-switcher-select">for year {year}</label>
+  <select id="year-switcher-select" class="year-switcher-select" data-year-switcher aria-describedby="year-switcher-dates">
+    {options.map((o) => (
+      <option value={o.href} selected={o.year === year}>{o.year} ({o.dates})</option>
+    ))}
+  </select>
+  <noscript>
+    <ul class="year-switcher-links">
+      {options.map((o) => (
+        <li>{o.year === year ? <strong>{o.year}</strong> : <a href={o.href}>{o.year}</a>}</li>
+      ))}
+    </ul>
+  </noscript>
+  <p id="year-switcher-dates" class="year-switcher-dates">{fiscalYearSentence(year)}</p>
+</div>
+
+<script>
+  for (const select of document.querySelectorAll<HTMLSelectElement>('[data-year-switcher]')) {
+    // A page restored from the back/forward cache can show the year that was
+    // chosen on the way out; put the dropdown back on this page's own year.
+    const own = select.querySelector<HTMLOptionElement>('option[selected]')?.value;
+    window.addEventListener('pageshow', () => {
+      if (own) select.value = own;
+    });
+    select.addEventListener('change', () => {
+      if (select.value && select.value !== own) window.location.assign(select.value);
+    });
+  }
+</script>
+
+<style>
+  .year-switcher {
+    flex: 0 0 auto;
+    width: 17.5rem;
+    max-width: 100%;
+  }
+  .year-switcher-label {
+    display: block;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
+  }
+  .year-switcher-select {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+  .year-switcher-dates {
+    margin: 0.4rem 0 0;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    color: var(--text-muted);
+  }
+  .year-switcher-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem 0 0;
+    font-size: 0.9rem;
+  }
+</style>
+<noscript>
+  <style>
+    .year-switcher-select {
+      display: none;
+    }
+  </style>
+</noscript>

@@ -1,88 +1,21 @@
 ---
-import Base from '../../../layouts/Base.astro';
-import registry from '../../../generated/registry.json';
-import combiner from '../../../generated/combiner.json';
-import subgroups from '../../../generated/adm-subgroups.json';
-import groupings from '../../../generated/groupings.json';
-import { buildJourney } from '../../../lib/journey.ts';
-import { titleCase } from '../../../lib/display.ts';
-import { rateRangeText } from '../../../lib/rate-format.ts';
-import { groupRateReason, showsGroupRateCard, EXPLAIN } from '../../../lib/rate-copy.ts';
-import ResidualNote from '../../../components/ResidualNote.astro';
-import { residualFor } from '../../../lib/rate-residuals.ts';
-import JourneyStats from '../../../components/JourneyStats.astro';
-import JourneyProgress from '../../../components/JourneyProgress.astro';
-import JourneyNext from '../../../components/JourneyNext.astro';
+/**
+ * The address this page had before the fiscal year was part of it. Kept so
+ * old links and bookmarks still arrive: it sends the visitor on to the default
+ * year's page.
+ */
+import YearRedirect from '../../../components/YearRedirect.astro';
+import { journeyFor } from '../../../lib/journey-data.ts';
+import { DEFAULT_YEAR } from '../../../lib/years.ts';
 
 export function getStaticPaths() {
-  const journey = buildJourney({
-    registry: registry.entities,
-    combiner: combiner as never,
-    subgroups: subgroups as never,
-    groupings: groupings as never,
-  });
-  return Object.values(journey.districts).map((d) => ({ params: { slug: d.slug }, props: { page: d } }));
+  return Object.values(journeyFor(DEFAULT_YEAR).districts).map((p) => ({
+    params: { slug: p.slug },
+    props: { slug: p.slug, name: `Your school district: ${p.name}` },
+  }));
 }
 
-const { page } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const residual = residualFor(`ud/${page.slug}`);
+const { slug, name } = Astro.props;
 ---
 
-<Base title={`Your school district: ${page.name} — Vermont School Budgets`}>
-  <JourneyProgress steps={page.steps} current="district" />
-
-  <h1>Your school district: {page.name}</h1>
-  <p class="lede">A few towns share this district's school budget. Yours is one of them.</p>
-
-  {
-    page.rateRange.kind === 'value' ? (
-      <dl class="facts">
-        <dt>Homestead tax rate (FY2026)</dt>
-        <dd>
-          {rateRangeText(page.rateRange.value.low, page.rateRange.value.high)}{' '}
-          Across{' '}
-          {page.rateRange.value.covers} of {page.rateRange.value.of} towns. School tax only,{' '}
-          <a href={`${base}${EXPLAIN.credit}`}>before the property tax credit</a>.
-        </dd>
-      </dl>
-    ) : (
-      <div class="notice">
-        <p class="blank-reason">{page.rateRange.reason}</p>
-      </div>
-    )
-  }
-
-  <JourneyStats
-    rate={{ kind: 'blank' as const, why: 'not_computable', reason: groupRateReason('district') }}
-    showRate={showsGroupRateCard(page.rateRange)}
-    students={page.students}
-    people={page.people}
-    rateLabel="Homestead tax rate (FY2026)"
-    studentsLabel="Students, combined (school year 2025)"
-    peopleLabel="People, combined (2020 Census)"
-  />
-  <p class="muted">
-    Read more about the <a href={`${base}${EXPLAIN.cla}`}>common level of appraisal</a>.
-  </p>
-
-  {residual && <ResidualNote reason={residual} />}
-
-  <h2>Your town is one of these</h2>
-  <p>All of these towns pay for this district together.</p>
-  <ul class="grid">
-    {page.members.map((m) => (
-      <li class="card">
-        <a href={`${base}/my/town/${m.town}/`}>{titleCase(m.name)}</a>
-      </li>
-    ))}
-  </ul>
-
-  {
-    page.next && <JourneyNext next={page.next} base={base} />
-  }
-
-  <p class="journey-change">
-    <a href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
-  </p>
-</Base>
+<YearRedirect kind="district" slug={slug} name={name} />

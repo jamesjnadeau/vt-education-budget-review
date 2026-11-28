@@ -1,17 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import registry from '../../generated/registry.json';
-import combiner from '../../generated/combiner.json';
-import subgroups from '../../generated/adm-subgroups.json';
-import groupings from '../../generated/groupings.json';
-import { buildJourney } from '../../lib/journey.ts';
+import { journeyFor } from '../../lib/journey-data.ts';
+import { DEFAULT_YEAR, myHref } from '../../lib/years.ts';
 
-const journey = buildJourney({
-  registry: registry.entities,
-  combiner: combiner as never,
-  subgroups: subgroups as never,
-  groupings: groupings as never,
-});
+const journey = journeyFor(DEFAULT_YEAR);
 const townList = journey.townList;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -41,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <ul class="grid journey-townlist">
     {townList.map((t) => (
       <li class="card">
-        <a href={`${base}/my/town/${t.slug}/`}>{t.name}</a>
+        <a href={`${base}${myHref(DEFAULT_YEAR, 'town', t.slug)}`}>{t.name}</a>
       </li>
     ))}
   </ul>

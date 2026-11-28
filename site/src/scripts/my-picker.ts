@@ -8,6 +8,7 @@
  * what keeps this safe there.
  */
 import { buildTownSelected } from '../lib/journey-event.ts';
+import { DEFAULT_YEAR, myHref } from '../lib/years.ts';
 import { readTownCookie, serializeTownCookie, shouldRedirect } from '../lib/journey-cookie.ts';
 
 declare global {
@@ -39,7 +40,7 @@ export function initPicker(options: PickerOptions): void {
   if (shouldRedirect(window.location.search, readTownCookie(document.cookie, valid))) {
     const slug = readTownCookie(document.cookie, valid);
     if (slug) {
-      window.location.replace(`${base}/my/town/${slug}/`);
+      window.location.replace(`${base}${myHref(DEFAULT_YEAR, 'town', slug)}`);
       return;
     }
   }
@@ -54,6 +55,6 @@ export function initPicker(options: PickerOptions): void {
     document.cookie = serializeTownCookie(slug, secure);
     const captured = buildTownSelected(slug);
     window.posthog?.capture(captured.event, captured.properties);
-    window.location.assign(`${base}/my/town/${slug}/`);
+    window.location.assign(`${base}${myHref(DEFAULT_YEAR, 'town', slug)}`);
   });
 }

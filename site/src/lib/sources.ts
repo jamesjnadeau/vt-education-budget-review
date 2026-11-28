@@ -41,6 +41,16 @@ function fromProvenance(text: string): Source {
 
 export const TAX_RATES_FY2026: Source = fromProvenance(provenanceText);
 
+/** A year's tax rate source as journey-years.json carries it (copied there from provenance at build time). */
+export function sourceFromRecord(r: {
+  publisher: string;
+  title: string;
+  published_date: string;
+  document_page: string;
+}): Source {
+  return { publisher: r.publisher, document: r.title, date: longDate(r.published_date), url: r.document_page };
+}
+
 export function sourceText(s: Source, label = 'Source:'): string {
   return `${label} ${s.publisher}, “${s.document}”, ${s.date}.`;
 }

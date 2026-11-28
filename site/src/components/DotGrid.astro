@@ -8,6 +8,8 @@
  * the town's name and figure), and the grid reads as a list of links rather
  * than one picture. Without it the dots are plain and the grid is one image.
  */
+import { DEFAULT_YEAR, myHref } from '../lib/years.ts';
+
 interface DotTown {
   slug: string;
   name: string;
@@ -24,9 +26,11 @@ interface Props {
   towns?: DotTown[];
   /** Words for what the dots are, read before the links ("Towns by tax rate, lowest first"). */
   groupLabel?: string;
+  /** The fiscal year the town links go to. */
+  year?: number;
 }
 
-const { total, mineIndex, caption, towns, groupLabel } = Astro.props;
+const { total, mineIndex, caption, towns, groupLabel, year = DEFAULT_YEAR } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const dots = Array.from({ length: total }, (_, i) => i);
 const linked = towns !== undefined && towns.length === total;
@@ -40,7 +44,7 @@ const linked = towns !== undefined && towns.length === total;
           {i === mineIndex ? (
             <span class="journey-dot journey-dot--mine" title={`${t.name} (your town): ${t.detail}`} role="img" aria-label={`${t.name}, your town: ${t.detail}`} />
           ) : (
-            <a class="journey-dot-link" href={`${base}/my/town/${t.slug}/`} title={`${t.name}: ${t.detail}`} aria-label={`${t.name}: ${t.detail}`}>
+            <a class="journey-dot-link" href={`${base}${myHref(year, 'town', t.slug)}`} title={`${t.name}: ${t.detail}`} aria-label={`${t.name}: ${t.detail}`}>
               <span class="journey-dot" />
             </a>
           )}
