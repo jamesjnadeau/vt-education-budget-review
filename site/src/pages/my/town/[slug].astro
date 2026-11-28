@@ -5,7 +5,7 @@ import combiner from '../../../generated/combiner.json';
 import subgroups from '../../../generated/adm-subgroups.json';
 import groupings from '../../../generated/groupings.json';
 import { buildJourney } from '../../../lib/journey.ts';
-import { percentileWords, percentText } from '../../../lib/journey-scale.ts';
+import { percentileWords } from '../../../lib/journey-scale.ts';
 import JourneyStats from '../../../components/JourneyStats.astro';
 import SourceLine from '../../../components/SourceLine.astro';
 import ResidualNote from '../../../components/ResidualNote.astro';
@@ -16,6 +16,7 @@ import JourneyProgress from '../../../components/JourneyProgress.astro';
 import JourneyNext from '../../../components/JourneyNext.astro';
 import DotGrid from '../../../components/DotGrid.astro';
 import ScaleBar from '../../../components/ScaleBar.astro';
+import Donut from '../../../components/Donut.astro';
 
 export function getStaticPaths() {
   const journey = buildJourney({
@@ -39,31 +40,52 @@ const peoplePct = page.peopleScale.kind === 'value' ? page.peopleScale.value : n
 // DotGrid dots are 0-indexed; mineIndex is the count below (its position).
 const mineIndex = ratePct ? ratePct.lower : null;
 
-const shareText = (s: number): string => percentText(s);
+type ShareFigure = { kind: string; value?: number; reason?: string };
 
-function renderShare(
-  s: { students: { kind: string; value?: number; reason?: string }; people: { kind: string; value?: number; reason?: string } },
+/** The donuts a share can show (only exact values), or the reasons when none can. */
+function shareDonuts(
+  s: { students: ShareFigure; people: ShareFigure },
   what: string,
-): string {
-  const values: string[] = [];
+): { donuts: { fraction: number; caption: string }[]; reasons: string[] } {
+  const donuts: { fraction: number; caption: string }[] = [];
   if (s.students.kind === 'value' && s.students.value != null) {
-    values.push(`${shareText(s.students.value)} of the students`);
+    donuts.push({ fraction: s.students.value, caption: `of the students in ${what}` });
   }
   if (s.people.kind === 'value' && s.people.value != null) {
-    values.push(`${shareText(s.people.value)} of the people`);
+    donuts.push({ fraction: s.people.value, caption: `of the people in ${what}` });
   }
-  if (values.length > 0) {
-    return `This works out to about ${values.join(' and ')} of ${what}.`;
-  }
-  const reasons = [s.students.reason, s.people.reason].filter(Boolean);
-  return `The share of ${what} can't be given right now. ${reasons.join(' ')}`;
+  const reasons = [s.students, s.people].filter((f) => f.kind !== 'value' && f.reason).map((f) => (f.reason as string).replace(/^[a-z]/, (c) => c.toUpperCase()));
+  return { donuts, reasons };
 }
+
+const shareCards = [
+  page.shares.district && {
+    title: 'Your share of the school district',
+    what: 'your school district',
+    help: undefined as string | undefined,
+    share: page.shares.district,
+  },
+  page.shares.union && {
+    title: 'Your share of the supervisory union',
+    what: 'your supervisory union',
+    help: "A supervisory union is a group of nearby school districts that run their schools' business together.",
+    share: page.shares.union,
+  },
+  page.shares.grouping && {
+    title: 'Your share of your group',
+    what: 'your group',
+    help: undefined as string | undefined,
+    share: page.shares.grouping,
+  },
+].filter(Boolean) as { title: string; what: string; help: string | undefined; share: typeof page.shares.district & object }[];
 ---
 
 <Base title={`Your town: ${page.name} — Vermont School Budgets`}>
   <JourneyProgress steps={page.steps} current="town" />
 
-  <h1>Your town: {page.name}</h1>
+  <h1>
+    <a class="journey-heading-link" href={`${base}/my/?change=1`} title="Choose a different town">Your town</a>: {page.name}
+  </h1>
 
   <JourneyStats
     rate={page.rate}
@@ -72,6 +94,8 @@ function renderShare(
     rateLabel="Homestead tax rate (FY2026)"
     studentsLabel="Students counted by the state (school year 2025)"
     peopleLabel="People (2020 Census)"
+    rateHelp="The school tax rate for the home you live in."
+    studentsHelp="Public school students who live here (called ADM)."
     county={page.county}
     comparators={page.comparators}
   />
@@ -85,12 +109,6 @@ function renderShare(
   }
 
   <h2>How {page.name} fits in</h2>
-  <p class="lede">
-    In the figures below, the <strong>homestead tax rate</strong> is the school tax rate for the
-    home you live in; <strong>students counted by the state</strong> (ADM) are the public school
-    students who live here; and a <strong>supervisory union</strong> is a group of nearby school
-    districts that run their schools' business together.
-  </p>
 
   {/* --- Rate scale --- */}
   <h3>Your town's tax rate, compared</h3>
@@ -134,26 +152,25 @@ function renderShare(
 
   {/* --- Shares --- */}
   {
-    page.shares.district && (
-      <div class="journey-share">
-        <h3>Your share of the school district</h3>
-        {renderShare(page.shares.district, 'your school district')}
-      </div>
-    )
-  }
-  {
-    page.shares.union && (
-      <div class="journey-share">
-        <h3>Your share of the supervisory union</h3>
-        {renderShare(page.shares.union, 'your supervisory union')}
-      </div>
-    )
-  }
-  {
-    page.shares.grouping && (
-      <div class="journey-share">
-        <h3>Your share of your group</h3>
-        {renderShare(page.shares.grouping, 'your group')}
+    shareCards.length > 0 && (
+      <div class="journey-shares">
+        {shareCards.map((c) => {
+          const { donuts, reasons } = shareDonuts(c.share, c.what);
+          return (
+            <section class="journey-share">
+              <h3>{c.title}</h3>
+              {c.help && <p class="journey-share-help">{c.help}</p>}
+              {donuts.length > 0 ? (
+                <div class="journey-share-donuts">
+                  {donuts.map((d) => <Donut fraction={d.fraction} caption={d.caption} />)}
+                </div>
+              ) : (
+                <p class="blank-reason">{`The share of ${c.what} can't be given right now.`}</p>
+              )}
+              {reasons.map((r) => <p class="journey-share-reason">{r}</p>)}
+            </section>
+          );
+        })}
       </div>
     )
   }
