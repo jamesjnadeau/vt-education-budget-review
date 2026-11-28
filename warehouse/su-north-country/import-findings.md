@@ -16,8 +16,8 @@
 ## Documents found
 | Year | Doc | URL | Size | Downloadable |
 |---|---|---|---|---|
-| FY2027 (2026 report) | "NCSU Annual Report 2026" (52 pp, Adobe Acrobat share link; title "Copy of NCSU ANNUAL REPORT 2026 (1)") | https://acrobat.adobe.com/id/urn:aaid:sc:US:236a4087-4705-49cc-ad06-9de677ed0544 | **222.9 MB** original (Adobe also offers an 8.9 MB "compressed" re-render, which is not the original) | Not staged: > 100 MB limit |
-| FY2025 (2024 report) | Annual Report 2024 FINAL (VT).pdf (Canva, 56 pp), Drive id 1ULfSQjv0PmGc5tDcjOTDouDAnUftyX0d | https://drive.usercontent.google.com/download?id=1ULfSQjv0PmGc5tDcjOTDouDAnUftyX0d&export=download&confirm=t | **142.2 MB** (Content-Length) | Not staged: > 100 MB; I fetched it by mistake into /tmp and deleted it unread |
+| FY2027 (2026 report) | "NCSU Annual Report 2026" (52 pp, Adobe Acrobat share link; title "Copy of NCSU ANNUAL REPORT 2026 (1)") | https://acrobat.adobe.com/id/urn:aaid:sc:US:236a4087-4705-49cc-ad06-9de677ed0544 | **222.9 MB** original (Adobe also offers an 8.9 MB "compressed" re-render, which is not the original) | Not kept; read in the Adobe viewer on 2026-11-28 (see *Large NCSU reports*) |
+| FY2025 (2024 report) | Annual Report 2024 FINAL (VT).pdf (Canva, 56 pp), Drive id 1ULfSQjv0PmGc5tDcjOTDouDAnUftyX0d | https://drive.usercontent.google.com/download?id=1ULfSQjv0PmGc5tDcjOTDouDAnUftyX0d&export=download&confirm=t | **142.2 MB** (Content-Length) | Downloaded 2026-11-28, read, then deleted (see *Large NCSU reports*) |
 | FY2027 | Brighton Town School District 2025 Annual Report.pdf (48 pp, scan) | https://drive.google.com/uc?export=download&id=1IIHSIRnTceK0865TaUSNgrvbhuHWG1aF | 31.4 MB | **Staged** (intake/su-north-country/fy2027) |
 - 2023..2017 annual reports (Drive links on the /34701 page) were not checked.
 - Other member districts' own FY27 annual reports (Charleston, Coventry, Derby, Holland, Jay/Westfield, Lowell, Morgan, Newport City, Newport Town, Troy, NCUHS/NCUJHS) were NOT looked for in this pass (budget of ~40 calls; they are on each school's site under ncsuvt.org). The staged Brighton report is an only partial substitute. Note: the 2026 NCSU report is likely the combined book of those, but is too large to stage.
@@ -39,13 +39,38 @@ Newport Vermont Daily Express, Mar 5, 2026 (https://www.newportvermontdailyexpre
 
 ## needs_decision
 - Per-district records (Brighton, NCUHS, NCUJHS, each elementary) need a modelling decision: this SU has ~12 budget-setting districts, so none staged. Brighton's FY27 and prior columns are above if the lead wants them as a district entity.
-- The 222.9 MB 2026 report and 142 MB 2024 report exceed the limit; decide whether to ask the SU for a smaller PDF or a lead-approved exception.
+- The 222.9 MB 2026 report and 142 MB 2024 report were read and their contents are summarised under *Large NCSU reports*. They hold no budget tables, so no further decision is needed on them.
 
 ## Ask the district for
-A downloadable (<100 MB) PDF of the 2026 NCSU Annual Report, plus the AOE "Three Prior Years Comparisons" forms for NCUHS/NCUJHS and each elementary district, and the Mar 2026 certified vote results (Coventry and Newport City defeated; revote status unknown).
+The AOE "Three Prior Years Comparisons" forms for NCUHS/NCUJHS and each elementary district, and the Mar 2026 certified vote results (Coventry and Newport City defeated; revote status unknown).
 
 ## Not done
 No warehouse records, no collector change. Brighton PDF pp. 6-16, 17-25 (line items except two spot-checked), 28-36, 43-48 were not read in detail; pp.1-48 were only skimmed as thumbnails.
+
+## Large NCSU reports (read 2026-11-28; files not kept)
+
+Both are SU-wide community reports. Neither has an AOE Three Prior Years form, a warning or district budget tables, so nothing here goes into a record. Both were read and the files were not stored in `intake/`. Page numbers are PDF pages (printed page + 2).
+
+### "Annual Report 2024 FINAL (VT).pdf" (FY2025 report, March 2024)
+- **Source:** https://drive.usercontent.google.com/download?id=1ULfSQjv0PmGc5tDcjOTDouDAnUftyX0d&export=download&confirm=t (Content-Disposition filename `Annual Report 2024 FINAL (VT).pdf`)
+- **Retrieved:** 2026-11-28, plain HTTP fetch. 142,150,777 bytes, 56 pages, made in Canva (created 2024-03-21), no text layer.
+- **sha256:** `ed1104a0811e01a61e44506b9e15dd33c6a4543f3e58d29f2f5704fd5a9456f3` (the file was deleted afterwards, so this hash can be used to confirm a later re-download)
+- **Contents:** narrative programme pages and student features. No budget, warning or AOE table.
+- **Labelled figures (p. 38):** SU enrollment 2020-2024 = 2,673 / 2,748 / 2,618 / 2,626 / 2,715; low income (free/reduced) 1,477 / 1,528 / 1,398 / 1,838 / 1,814; special education 637 / 627 / 606 / 603 / 604.
+- **Unlabelled charts, not transcribed:** p. 35 homestead tax rate FY2020 vs FY2024 and p. 36 education spending per equalized pupil FY2020 vs FY2024, each for Brighton, Charleston, Coventry, Derby, Holland, Jay, Lowell, Morgan, Newport City, Newport Town, Troy, Westfield, NCUJHS, NCUHS, NCSU average and state average. They have no data labels, so values would only be by eye and are not recorded.
+
+### "Copy of NCSU ANNUAL REPORT 2026 (1)" (March 2026 report, 52 pages)
+- **Source:** https://acrobat.adobe.com/id/urn:aaid:sc:US:236a4087-4705-49cc-ad06-9de677ed0544
+- **Not downloaded.** The viewer lists "This PDF (222.9MB)" and "Compressed PDF (8.9MB)", but both downloads require signing in to Adobe or starting a trial, so no hash exists. I did not sign in. Pages were read in the browser viewer instead.
+- **Pages read:** the table of contents (p. 2), p. 25, p. 27, p. 29 and p. 31. The homestead tax rate page (printed p. 24, PDF p. 26) did not render and was not read. Other pages were not opened.
+- **Table of contents:** printed pp. 23-24 "Enrollment, low income & special education numbers & ed spending" and "Homestead tax rates"; pp. 27-39 district enrollment and one page per member school; no budget section.
+- **Labelled figures (p. 25):** SU enrollment 2021-2025 = 2,748 / 2,618 / 2,626 / 2,715 / 2,659; low income 1,528 / 1,398 / 1,838 / 1,814 / 1,676; special education 627 / 606 / 603 / 604 / 580. These match the 2024 report for the overlapping years.
+- **Unlabelled chart, not transcribed (p. 25, lower half):** "Education spending per equalized pupil FY2022 and LTW ADM FY2026" for the same districts. It has no data labels.
+- **p. 29:** monthly enrollment by school, June 2025 to January 2026, with a table. First column (Jun 2025): Brighton 124, Charleston 121, Coventry 126, Derby 484, Jay-Westfield 82, Lowell 86, Newport City 312, Newport Town 121, NCUJHS 237, Troy 205, NCUHS 716, NCCC 208. Only the first rows were read.
+- **p. 27:** NCSU Community Schools text says state Community Schools support was paused in FY25 and that NCSU will fund Community Schools staffing through Special Services from FY27.
+
+### What this means
+- The AOE forms and warnings for the other districts still have to come from each member school's own report or from the districts. The "Ask the district for" list above stands, minus the request for a smaller copy of the 2026 report, which would add enrollment and unlabelled charts only.
 
 ## Large files (over 30 MB)
 
