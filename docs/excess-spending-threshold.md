@@ -179,3 +179,42 @@ state average CLA) from the Department of Taxes, not a placeholder.
   on the tool. The bond exclusion computes; the capital-reserve add-on blocks on the
   unverified `tax.excess_spending_capital_reserve_multiplier` (1.5) until it is checked
   against the operative statute per `docs/parameter-verification.md`.
+
+## FY2028 and later: Act 169 of 2026 changes the rule again
+
+Everything above describes FY2025–FY2027. **2026 Acts and Resolves No. 169 (H.949)**, signed
+June 18, 2026, rewrites the excess spending test from **FY2028**. Secs. 2, 6 and 7 take effect
+July 1, 2027 and apply to fiscal year 2028 and after (Sec. 16(c), (d)), so **nothing here
+changes FY2027**; `tax.excess_spending_threshold_ratio = 1.18` and the NEEP-based base stay
+right for FY2025–FY2027. The Act's text is snapshotted at
+`model/statute/2026-11-28/act-2026-169-secs-1-2-6-7-16.txt`. Which words were struck and which
+inserted was read from the PDF page images (the text extraction loses it); the snapshot header
+says so.
+
+What changes, by section:
+
+| Change | FY2025–FY2027 (Act 183 of 2024) | FY2028 onward (Act 169) |
+|---|---|---|
+| Threshold | 118% of the statewide average per pupil spending, inflated from FY2025 (32 V.S.A. § 5401(12)(B)) | "Excess spending threshold" = **112.5%** of the **excess spending base** (§ 5401(19), new) |
+| Phase-in (Sec. 7) | none | 115.5% in FY2028, 114.5% in FY2029, 113.5% in FY2030, 113% in FY2031, 112.5% in FY2032 |
+| Inflation index | New England Economic Project (NEEP) price index | **NIPA** implicit price deflator for state and local government consumption expenditures, as of November 15, **rounded up to the nearest whole dollar** (§ 5401(18), new) |
+| Base | statewide average per pupil spending for FY2025, inflated | same FY2025 statewide average, now defined as the "excess spending base" |
+| Bond exclusion (16 V.S.A. § 4001(6)(B)) | bonds approved by voters before **July 1, 2024** | bonds approved before **July 1, 2026**; paragraph (A) stays repealed |
+| Capital reserve add-on (24 V.S.A. § 2804(b)) | 150% after five years | unchanged by the Act |
+| Sunset (Sec. 12, Sec. 16(g)) | | the base and threshold definitions, (18) and (19), are repealed June 30, 2029 |
+
+What this means for the model, none of it needed for FY2027:
+
+- A future `fy2028.yaml` needs its own threshold ratio (115.5%, not 1.18), and a different
+  one each year to FY2032. That is a schedule, not one number, so the ratio should be a
+  per-year parameter with the Sec. 7 citation, not a carried-forward 1.18.
+- The inflation index changes from NEEP to NIPA with whole-dollar rounding up; the tool's
+  base input (`statewide_average_per_pupil`) will need to say which index it used.
+- The bond-exclusion cutoff date moves to July 1, 2026; the tool's "bonds approved before
+  July 1, 2024" wording and any input labels must follow.
+- The earlier note in this document that NEEP, "not the NIPA deflator", is right holds for
+  FY2025–FY2027 only.
+- Sec. 12 repeals (18) and (19) on June 30, 2029, and the Act's Secs. 13 and 14 make
+  conforming foundation-formula changes effective July 2, 2029 (Sec. 16(h)). What replaces
+  the threshold after June 30, 2029 is outside this Act's text on these pages; check before
+  modelling FY2030.

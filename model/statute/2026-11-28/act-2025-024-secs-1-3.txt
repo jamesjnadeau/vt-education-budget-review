@@ -1,0 +1,45 @@
+CITATION: 2025 Acts and Resolves No. 24 (H.491), Secs. 1 and 3
+SOURCE:   https://legislature.vermont.gov/Documents/2026/Docs/ACTS/ACT024/ACT024%20As%20Enacted.pdf
+RETRIEVED:2026-11-28T12:02:39Z
+HTTP:     200
+SHA256:   6b66712489e1c050a86bbff55b86d4e2f9fce07411e93ac39447bab7b9de2dc8 (raw PDF via npm run vt:fetch)
+
+Text extracted from the enacted PDF with pdftotext -layout; blank lines removed. Signed May 19, 2025; effective July 1, 2025.
+Sec. 1 is the FY2026 yields and nonhomestead rate. Do not edit.
+----------------------------------------------------------------------------
+
+No. 24                                                                  Page 1 of 2
+2025
+No. 24. An act relating to setting the homestead property tax yields and
+the nonhomestead property tax rate.
+                                     (H.491)
+It is hereby enacted by the General Assembly of the State of Vermont:
+Sec. 1. PROPERTY DOLLAR EQUIVALENT YIELD, INCOME
+         DOLLAR EQUIVALENT YIELD, AND NONHOMESTEAD
+         PROPERTY TAX RATE FOR FISCAL YEAR 2026
+   For fiscal year 2026 only:
+      (1) Pursuant to 32 V.S.A. § 5402b(b), the property dollar equivalent
+yield shall be $8,596.00.
+      (2) Pursuant to 32 V.S.A. § 5402b(b), the income dollar equivalent yield
+shall be $12,172.00.
+      (3) Notwithstanding 32 V.S.A. § 5402(a)(1) and any other provision of
+law to the contrary, the nonhomestead property tax rate shall be $1.703 per
+$100.00 of equalized education property value.
+Sec. 2. 32 V.S.A. § 6061 is amended to read:
+§ 6061. DEFINITIONS
+   As used in this chapter unless the context requires otherwise:
+                                      ***
+      (17) “Equalized value of the housesite in the taxable year” means the
+value of the housesite on the grand list for April 1 of the taxable year, divided
+by the number resulting from dividing the municipality’s common level of
+appraisal determined by equalization of the grand list for April 1 of the year
+                                                                    VT LEG #383902 v.1
+No. 24                                                               Page 2 of 2
+2025
+preceding the taxable year by the statewide adjustment of the taxable year as
+defined in subdivision 5401(17) of this title.
+                                      ***
+Sec. 3. EFFECTIVE DATE
+   This act shall take effect on July 1, 2025.
+Date Governor signed bill: May 19, 2025
+                                                                 VT LEG #383902 v.1
