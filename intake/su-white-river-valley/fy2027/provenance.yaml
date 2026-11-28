@@ -1,0 +1,146 @@
+schema_version: "1.0"
+entity: su/white-river-valley
+fiscal_year: 2027
+artifacts:
+  - file: "FBUD ANNUAL REPORT & FY27 BUDGET.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1TB33V4N482j3WuA2gtznpuBb_2VQiask
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: c26acc97c7aaa983b40d9b4e310793ce7aa8194a5d910778aaa590c43cba375f
+    bytes: 21915397
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "First Branch Unified School District #82"
+    title: "FBUD Annual Report & FY27 Budget"
+    published_date: null
+    document_page: https://wrvsu.org/en-US
+    supersedes: null
+    note: >-
+      First Branch USD (Chelsea, Tunbridge) annual report and FY27 budget. Carries
+      the AOE 'Three Prior Years Comparisons' form on PDF p. 27 (stamped
+      PRELIMINARY / ESTIMATES ONLY; FY2024-FY2027 columns; FY27 education spending
+      $8,661,613, 615.32 LTWADM). Text-based PDF (Nitro Pro 13, created
+      2026-01-23); no internal title/author. Saved under the filename the server
+      sent (Content-Disposition), byte-for-byte as downloaded. Linked from the
+      Budgets & Audits Drive folder on https://wrvsu.org/ (district subfolder).
+  - file: "GHUD 2026 Annual Mailer.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1UUq04jxfqk9rBB_G5VtlmsBRejeA6fZg
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 9ba79216fbe0804b5eac87165664175ef0338bf0020cc469ca128db5f43b88f1
+    bytes: 1829542
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "Granville Hancock Unified School District"
+    title: "GHUD 2026 Annual Mailer"
+    published_date: null
+    document_page: https://wrvsu.org/en-US
+    supersedes: null
+    note: >-
+      Granville-Hancock USD (Granville, Hancock) 2026 annual mailer with warning,
+      prior-year minutes and FY27 budget. AOE 'Three Prior Years Comparisons' form
+      on PDF p. 15 (stamped PRELIMINARY / ESTIMATES ONLY; FY27 education spending
+      $2,274,001, 181.53 LTWADM; property yield printed as $9,170 for Addison
+      County). Text-based PDF (Nitro Pro 13, created 2026-04-06, later than the
+      other WRVSU mailers; the district may have reissued it). Saved under the
+      filename the server sent (Content-Disposition), byte-for-byte as downloaded.
+      Linked from the Budgets & Audits Drive folder (https://drive.google.com/drive/folders/1FhKgUd5gZXiq8v9mtNnuciIZYnWTuf8X) on the SU home page
+      (district subfolder).
+  - file: "Town of Strafford & Newton School Annual Report FY27 Budget.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1os7sboITruLr5YHuDllrQrCq877Da8Da
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: bec55ca378bc577ebe27ef384642c04cf1ff303ccbd89c07758714fcb4b40438
+    bytes: 8532006
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "Town of Strafford / Newton School (Strafford School District)"
+    title: "Town of Strafford & Newton School Annual Report FY27 Budget"
+    published_date: null
+    document_page: https://wrvsu.org/en-US
+    supersedes: null
+    note: >-
+      Combined Town of Strafford and Newton School annual report (156 pages,
+      432x648 pt, Adobe InDesign) including the FY27 school budget warning
+      (Australian ballot, Tuesday March 3, 2026). AOE 'Three Prior Years
+      Comparisons' form on PDF p. 43 (stamped PRELIMINARY / ESTIMATES ONLY; FY27
+      education spending $4,384,858, 298.50 LTWADM). Strafford is a WRVSU member
+      district that is not among the four member districts listed in the AOE
+      registry.
+      Saved under the filename the server sent (Content-Disposition), byte-for-
+      byte as downloaded. Linked from the Budgets & Audits Drive folder on
+      https://wrvsu.org/ (district subfolder).
+  - file: "RSUD 2026 Annual Mailer.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=18lHmeyvWf_FOrN8vl9L5grFsJAi5SORZ
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 62d7007436c22fd7644b79f2ca7b926f17a66740c6c587a0e47583fd0dede183
+    bytes: 17936302
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "Rochester Stockbridge Unified School District #81"
+    title: "RSUD 2026 Annual Mailer"
+    published_date: null
+    document_page: https://wrvsu.org/en-US
+    supersedes: null
+    note: >-
+      Rochester-Stockbridge USD (Rochester, Stockbridge) 2026 annual mailer with
+      warning, budget letters and WRVSU FY27 SU budget section (SU budget pp.
+      36-48). AOE 'Three Prior Years Comparisons' form on PDF p. 35 (stamped
+      PRELIMINARY / ESTIMATES ONLY; FY27 education spending $4,635,901, 353.16
+      LTWADM). The meeting instructions say Articles 1-10 are voted from the floor
+      Tuesday May 5, 2026, not on Town Meeting Day; a business manager letter
+      refers to 'this revised budget'. Text-based PDF (Nitro Pro 13, created
+      2026-03-30). Contains a WRVSU FY27 budget section useful for the SU's own
+      budget. Saved under the filename the server sent (Content-Disposition),
+      byte-for-byte as downloaded. Linked from the Budgets & Audits Drive folder
+      on https://wrvsu.org/ (district subfolder).
+  - file: "Sharon Annual Report & FY27 Budget.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1QitLcUm4_SHEIOz9BQ6kvXs2GTMYW8Vk
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 3ac32bf9e9448286239293f410c3beec318813d12cf9f5f55cd93c3e85567423
+    bytes: 2678532
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "Sharon School District"
+    title: "Sharon Annual Report & FY27 Budget"
+    published_date: null
+    document_page: https://wrvsu.org/en-US
+    supersedes: null
+    note: >-
+      Sharon School District annual report and FY27 budget. AOE 'Three Prior Years
+      Comparisons' form on PDF p. 26 (stamped PRELIMINARY / ESTIMATES ONLY; FY27
+      education spending $6,641,791, 482.71 LTWADM). Sharon is a WRVSU member
+      district that is not among the four member districts listed in the AOE
+      registry. Text-based PDF (Nitro Pro 13, created 2026-01-23). Saved under the
+      filename the server sent (Content-Disposition), byte-for-byte as downloaded.
+      Linked from the Budgets & Audits Drive folder (https://drive.google.com/drive/folders/1FhKgUd5gZXiq8v9mtNnuciIZYnWTuf8X) on the SU home page
+      (district subfolder).
+  - file: "WRUD ANNUAL REPORT & FY27 BUDGET MAILER.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1no1PpwH_BOM8dmQTwJbDxC_K5dnwPiEN
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 949a342a557e7c2788380d3193df7078843d33e9e1774a219f202dd5f21edf8d
+    bytes: 5125610
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "White River Unified School District #79"
+    title: "WRUD Annual Report & FY27 Budget Mailer"
+    published_date: null
+    document_page: https://wrvsu.org/en-US
+    supersedes: null
+    note: >-
+      White River USD (Bethel, Royalton) annual report and FY27 budget mailer. AOE
+      'Three Prior Years Comparisons' form on PDF p. 40 (stamped PRELIMINARY /
+      ESTIMATES ONLY; FY27 education spending $14,223,634, 1,109.64 LTWADM). Text-
+      based PDF (Nitro Pro 13, created 2026-01-23). Saved under the filename the
+      server sent (Content-Disposition), byte-for-byte as downloaded. Linked from
+      the Budgets & Audits Drive folder on https://wrvsu.org/ (district
+      subfolder).

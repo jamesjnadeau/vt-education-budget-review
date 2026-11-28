@@ -1,0 +1,68 @@
+schema_version: "1.0"
+entity: su/greater-rutland-county
+fiscal_year: 2027
+artifacts:
+  - file: QVCombinedFY27-final2.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1zKKG5tFYjCz3UIk24S1FLYSgPk40aekw
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: dd3da0a428fa53869a2c4f961b30e503aca26336d746f29fb18bf63872e8d298
+    bytes: 23765173
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Quarry Valley Unified Union School District
+    title: QVCombinedFY27-final2 (Quarry Valley UUSD Annual Report 2026)
+    published_date: null
+    document_page: https://grcsu.org/fy27-budget-information-qvuusd/
+    supersedes: null
+    note: >-
+      The Quarry Valley UUSD (Poultney, Proctor, West Rutland) 2026 annual report, 50 pages, issued ahead of the March 2026 vote on the FY2027 budget. Text layer present. Carries the estimated FY27 tax-rate summary (PDF p. 35), the AOE "Three Prior Years Comparisons" form with FY2024-FY2027 columns (PDF p. 36; stamped PRELIMINARY / ESTIMATES ONLY), and GRCSU assessment pages (pp. 38-42). The warned articles are not in this file; the only meeting minutes are the February 25, 2025 informational meeting (pp. 44-45, FY26 cycle). PDF is Acrobat-combined with no internal title or author. Saved under the filename the server sent (Content-Disposition), byte-for-byte.
+  - file: WSCombinedFY27-final2.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1l2DzzJmWNP2MgeVvIYoroFj-Sh9jfoPl
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 73cd0aa87d7e8d3b1c40c8aad4f1ff0618b6a8d780053a8b3fdb3b8ccea739f5
+    bytes: 24533132
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Wells Spring Unified Union School District
+    title: WSCombinedFY27-final2 (Wells Springs UUSD Annual Report 2026)
+    published_date: null
+    document_page: https://grcsu.org/fy27-budget-information-wsuusd/
+    supersedes: null
+    note: >-
+      The Wells Springs UUSD (Middletown Springs, Wells) 2026 annual report, 40 pages, issued ahead of the March 2026 vote on the FY2027 budget. Text layer present. Carries the estimated FY27 tax-rate summary (PDF p. 19), the AOE "Three Prior Years Comparisons" form with FY2024-FY2027 columns (PDF p. 20; stamped PRELIMINARY / ESTIMATES ONLY), line-item budget pages (pp. 21-26) and GRCSU assessment pages (pp. 27-30). PDF is Acrobat-combined with no internal title or author. Saved under the filename the server sent (Content-Disposition), byte-for-byte.
+  - file: FY27 Rutland Town Budget - Board Approved.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1WO2ArulVLkX7fyFM5hizt9t8OO5hG6eN
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 05f4a666849d0f0c0ec6504e09ea0cb4bb107603cb3668498e899d4a6afd9905
+    bytes: 155149
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Rutland Town School District
+    title: FY27 Rutland Town Budget - Board Approved
+    published_date: null
+    document_page: https://grcsu.org/fy27-budget-information-rts/
+    supersedes: null
+    note: >-
+      Five-page line-item general fund budget for Rutland Town School District, headed "FY27 Budget - Board Approved 1/20/26": FY25 actual, FY26 budget, FY27 budget ($11,508,760.44 total expense). Exported from Excel (author Louis Milazzo). No AOE education-spending form in this file; the district's annual report was not found on the page. Rutland Town is a fourth GRCSU member district not listed in the AOE registry as a union district. Saved under the filename the server sent.
+  - file: Ira FY27 Budget Final Approved.pdf
+    source_url: https://drive.google.com/uc?export=download&id=16wTJnG5MqQhJd5huSZQzHXf2hHwQpQH2
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 82fb5582b333e4fccbf908761bca8277ef693a1a96004f136f930906119cd790
+    bytes: 58835
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Ira School District
+    title: Ira FY27 Budget Final Approved
+    published_date: null
+    document_page: https://grcsu.org/fy26-budget-information-ira-district/
+    supersedes: null
+    note: >-
+      One-page line-item budget for Ira School District, headed "FY27 Budget - Board Approved 1/7/26": FY25 actual, FY26 budget, FY27 budget ($852,788.14 total expense; $845,811.43 total educational expense). Exported from Excel (author Louis Milazzo). No AOE education-spending form in this file. The page that links it is titled FY27 Budget Information Ira District but its URL slug says fy26. Saved under the filename the server sent.

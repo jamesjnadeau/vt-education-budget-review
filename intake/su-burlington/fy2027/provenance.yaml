@@ -1,0 +1,66 @@
+schema_version: "1.0"
+entity: su/burlington
+fiscal_year: 2027
+artifacts:
+  - file: BSD_AnnualReport_2025.pdf
+    source_url: https://www.bsdvt.org/wp-content/uploads/2026/02/BSD_AnnualReport_2025.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: bfd757d48e741e23451594dcd45dc46f71a17e423f2f5210c5b374c0c39c98a5
+    bytes: 1875973
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Burlington School District
+    title: Burlington School District 2025 Annual Report
+    published_date: null
+    document_page: https://www.bsdvt.org/district/budget/
+    supersedes: null
+    note: >-
+      20-page annual report headed "February 2026", issued for the March 3, 2026
+      vote on the FY2027 budget. PDF p. 18 carries the AOE "Three Prior Years
+      Comparisons" form (FY2024-FY2027; marked PRELIMINARY / ESTIMATES ONLY);
+      pp. 16-17 carry the budget summary, ballot question and hypothetical tax
+      impacts. Text layer is present. Internal metadata: Adobe InDesign 21.0,
+      created 2026-02-10. The server sent no Content-Disposition header, so the
+      filename is the last segment of the URL. The report's cover title says
+      "2025 Annual Report"; the date on the page is February 2026. Saved
+      byte-for-byte as downloaded.
+  - file: FY27-Budget-by-Function.pdf
+    source_url: https://www.bsdvt.org/wp-content/uploads/2026/05/FY27-Budget-by-Function.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: ee8b258bccd76660e19b023db622b7d535fd75c870a6cd0282014e9c5ec0a284
+    bytes: 42785
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Burlington School District
+    title: FY27 Budget Summary by Function
+    published_date: null
+    document_page: https://www.bsdvt.org/district/budget/
+    supersedes: null
+    note: >-
+      Two-page line-item summary by function code, FY26 Budget vs FY27 Proposed;
+      grand total $134,779,831 -> $140,807,830 (matches the annual report form).
+      Expenditures only; no revenues or education spending. PDF title is
+      "FY27 1st Draft Line Item.xlsx" (author nlavery, made with PrimoPDF on
+      2026-05-01), though the district links it as the FY27 line-item budget.
+  - file: FY27-Budget-by-Object.pdf
+    source_url: https://www.bsdvt.org/wp-content/uploads/2026/05/FY27-Budget-by-Object.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: a34a704e1cb020c68164e4d7efede2945751edf5233741f7059d6ee046eaaba9
+    bytes: 47382
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Burlington School District
+    title: FY27 Budget Summary by Object
+    published_date: null
+    document_page: https://www.bsdvt.org/district/budget/
+    supersedes: null
+    note: >-
+      Two-page line-item summary by object code, FY26 Budget vs FY27 Proposed;
+      grand total $134,779,831 -> $140,807,830. Expenditures only. PDF title is
+      "FY27 1st Draft Line Item.xlsx" (author nlavery, PrimoPDF, 2026-05-01).

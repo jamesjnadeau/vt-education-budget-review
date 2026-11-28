@@ -1,0 +1,121 @@
+schema_version: "1.0"
+entity: su/franklin-west
+fiscal_year: 2027
+artifacts:
+  - file: 78765_FWSU_AnnualBudget-Georgia_PROOF-(1).pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3106/Fwsu/8c8a047c-26f7-408d-aa49-bea6bbf9973f/78765_FWSU_AnnualBudget-Georgia_PROOF-%281%29.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: cccdacb444517a9e136c294928fbc81f7945056ad5e7f220c293d3c8e81c85fb
+    bytes: 6737443
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Georgia Town School District
+    title: "FY27 Budget Guide (Georgia Town School District, 2026-27)"
+    published_date: null
+    document_page: https://www.fwsu.org/page/budget-info
+    supersedes: null
+    note: >-
+      Five-page mailed voter budget guide for the FIRST FY27 Georgia budget put to
+      voters on Town Meeting Day (March 3, 2026): Article 2 $18,869,484; tax rate
+      calculation (p. 3: expenditures $18,869,484, offsetting revenues $452,500,
+      education spending $18,416,984, pupil count 1,163.42, per pupil $15,830.04,
+      actual homestead rate 2.0041 at CLA 83.72%); pupil-count (LTWADM) table and
+      secondary tuition table (p. 4). It is a mailer, not the AOE form: no Three
+      Prior Years Comparisons table. Text layer present. Georgia voters defeated
+      this budget; the revised budget put to a revote on March 31, 2026 is in the
+      separate 2nd-attempt file. The server sent no Content-Disposition; filename
+      is the URL-decoded last path segment (the district's own '(1)' suffix
+      included).
+  - file: 78786_FWSU_AnnualBudget-Fairfax_lowrezPROOF.pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3106/Fwsu/3d33d8ea-3aa2-4b16-a4e2-ba34121c17ae/78786_FWSU_AnnualBudget-Fairfax_lowrezPROOF.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 2f2f7ac1110d6f01e85055e6ca50ddb6b4481750095cabada297873e775088e6
+    bytes: 10352604
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Fairfax Town School District
+    title: "FY27 Budget Guide (Fairfax Town School District, 2026-27)"
+    published_date: null
+    document_page: https://www.fwsu.org/page/budget-info
+    supersedes: null
+    note: >-
+      Five-page mailed voter budget guide for the FY27 Fairfax budget (Town
+      Meeting Day March 3, 2026). Tax rate calculation on p. 3 (total expenditures
+      $22,822,478, offsetting revenues $3,160,500, education spending $19,661,978,
+      pupil count 1,369.37, per pupil $14,358.41, actual homestead rate 1.4004 at
+      CLA 107.37%). Not the AOE form: no Three Prior Years Comparisons table. The
+      text layer is garbled (custom font encoding), so figures were read from a
+      110-dpi render of p. 3 and re-checked arithmetically. The server sent no
+      Content-Disposition; filename is the last URL path segment.
+  - file: 78768_FWSU_AnnualBudget-Fletcher_PROOF.pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3106/Fwsu/4f9ccadb-6208-4057-9d0a-98dfb16100b1/78768_FWSU_AnnualBudget-Fletcher_PROOF.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 1d8cb9ef12aa575232d702ecd5525a281df6faff64b3bdd40204a41c831e5af3
+    bytes: 7827552
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Fletcher Town School District
+    title: "FY27 Budget Guide (Fletcher Town School District, 2026-27)"
+    published_date: null
+    document_page: https://www.fwsu.org/page/budget-info
+    supersedes: null
+    note: >-
+      Five-page mailed voter budget guide for the FY27 Fletcher budget. Pages are
+      images (no usable text layer); tax rate calculation on p. 3 read from a
+      110-dpi render (total expenditures $4,861,727, offsetting revenues $412,000,
+      education spending $4,449,727, pupil count 348.42, per pupil $12,771.16,
+      actual homestead rate 1.1424 at CLA 126.33%). Not the AOE form: no Three
+      Prior Years Comparisons table. The server sent no Content-Disposition;
+      filename is the last URL path segment.
+  - file: FY27-FWSU-Proposed-Budget.pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3106/Fwsu/58b8bf15-cb57-474e-b979-17756dfed074/FY27-FWSU-Proposed-Budget.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 04981a708551bfacf104f0b0dea4c04afd7ea9886988ca54af8215138e767499
+    bytes: 249077
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Franklin West Supervisory Union
+    title: "FWSU FY27 Proposed Budget (December 17, 2025)"
+    published_date: null
+    document_page: https://www.fwsu.org/page/budget-info
+    supersedes: null
+    note: >-
+      Nine-page line-item budget of the supervisory union itself (browser print of
+      a spreadsheet, header dated December 17, 2025, labelled 'FY27 Proposed
+      Budget'): total expenditures $16,761,043, general fund revenues $16,761,434
+      (the two do not agree; both printed), with FY24 actual, FY25 budget/actual,
+      FY26 budget columns. The district's page labels the link 'Approved FY27 SU
+      Budget' but the document itself says Proposed. The SU budget is funded by
+      assessments to the three member districts. The server sent no Content-
+      Disposition; filename is the last URL path segment.
+  - file: FY27-Georgia-Town-School-District-2nd-Budget-Attempt---Google-Sheets.pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3106/Fwsu/1a837427-98be-4b06-886b-be12f9f86563/FY27-Georgia-Town-School-District-2nd-Budget-Attempt---Google-Sheets.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f9e04245354f0de618ab2dfdd8c6badf2f6485feeb0e2a7ecd0e1ef3fd2888be
+    bytes: 294352
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Georgia Town School District
+    title: "FY27 Georgia Town School District 2nd Budget Attempt - Google Sheets"
+    published_date: null
+    document_page: https://www.fwsu.org/page/budget-info
+    supersedes: null
+    note: >-
+      Seven-page line-item budget for the REVOTE (March 31, 2026) of the Georgia
+      FY27 budget: grand total $18,741,372, FY24 actual, FY25 budget/actual, FY26
+      budget columns. Every page header still reads 'FY27 Board Approved Budget
+      1/6/2026' (stale heading from the first attempt, whose total was
+      $18,869,484); the revote total is confirmed by the revote warning and the
+      district's revote tax-impact sheet. Expenditures and revenues only;
+      education spending is on the separate tax-impact sheet (not staged). The
+      server sent no Content-Disposition; filename is the last URL path segment.

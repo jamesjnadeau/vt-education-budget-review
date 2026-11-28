@@ -1,0 +1,43 @@
+schema_version: '1.0'
+entity: su/harwood-unified-union
+fiscal_year: 2027
+artifacts:
+- file: 2026-02-13 HUUSD FY2027 Budget and Annual Report.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1kaF9WGFx1F7attxtYUkLKPsrPHMOsWop
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: a4344992970920744569ffa170198d15e5947dbd7a77047b93dbf76a8618ffaa
+  bytes: 5327518
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Harwood Unified Union School District
+  title: HUUSD FY2027 Budget and Annual Report
+  published_date: '2026-02-13'
+  supersedes: null
+  document_page: https://huusd.org/budget-fy2027
+  note: 24-page annual report that carries the proposed 2026-27 budget for the March 3, 2026 vote. Text
+    layer present. p. 19 'FY27 Budget Numbers to Know'; p. 22 AOE 'Three Prior Years Comparisons' form
+    (stamped PRELIMINARY) with FY2024-FY2027 columns and prorated town rates; p. 23 ballot explainer.
+    Internal PDF created 2026-02-12 with Adobe InDesign; no title/author metadata. The district's blog
+    dates the report's release 2026-02-13 (the filename the server sent also starts 2026-02-13). Saved
+    under the filename the server sent, byte-for-byte.
+- file: HUUSD Annual Meeting Warning and Sample Ballot  2026 (FY27).pdf
+  source_url: https://drive.google.com/uc?export=download&id=10HDDRx1BhPCMpWh5GXLDyMaP76AyguIj
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: bf16df2bbec3be506a09a07dfdc2c91de31dbf04cd74a839aacccb63ca3f96ab
+  bytes: 2600261
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Harwood Unified Union School District
+  title: HUUSD Annual Meeting Warning and Sample Ballot 2026 (FY27)
+  published_date: null
+  supersedes: null
+  document_page: https://huusd.org/budget-fy2027
+  note: '4-page scan, image-only (no text layer; 300-dpi JPEG per page, producer Haru Free PDF Library).
+    Page 1 read as an image: official warning for floor meeting March 2, 2026 (6:00 pm, Harwood Union
+    High School, Duxbury) and Australian-ballot vote March 3, 2026 (polls 7am-7pm). Pages 2-4 (budget
+    and maintenance-reserve articles, sample ballot) were not read. Saved under the filename the server
+    sent, which has a double space before ''2026''.'

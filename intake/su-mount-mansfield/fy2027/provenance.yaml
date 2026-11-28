@@ -1,0 +1,21 @@
+schema_version: '1.0'
+entity: su/mount-mansfield
+fiscal_year: 2027
+artifacts:
+- file: Budget Vote Results.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1wMwVtKQc5r1Vpw5XSPj0YvRAi2kbIkij
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: fde1c2e8de0ed9337df0853e389191c7abc8ef1c5f96773062b372f3f7d92b1b
+  bytes: 619835
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Mount Mansfield Unified Union School District
+  title: Budget Vote Results (superintendent letter, March 4, 2026)
+  published_date: 2026-03-04
+  document_page: https://www.mmuusd.org/school_board/budget_and_annual_report_info
+  supersedes: null
+  note: 'One-page letter from Superintendent John Muldoon dated March 4, 2026: voters of Bolton, Huntington, Jericho, Richmond
+    and Underhill approved the 2026-2027 budget, 2,251 in favor and 1,290 opposed (64%). Not a certified election result.
+    Text layer present. Saved byte-for-byte under the filename the server sent.'

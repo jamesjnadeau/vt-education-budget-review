@@ -1,0 +1,157 @@
+schema_version: "1.0"
+entity: su/lamoille-south
+fiscal_year: 2027
+artifacts:
+  - file: Budget Summary for Website.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1w1clOdOAxbpeFBYamOr1rU9hl5I6pFzE
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 08d022e7a56b90fefc3f588e1e2bff08c7bcc08af5bd51159649ff432c914742
+    bytes: 117785
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Lamoille South Supervisory Union
+    title: LAMOILLE SOUTH SUPERVISORY UNION FY27 Budget Summary
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      One-page SU FY27 budget summary: FY26 budget vs FY27 budget by object (total expenditures
+      $15,821,588), state/local revenues ($5,245,664) and SU Assessment ($10,575,925). Text layer present.
+      Linked from the SU's 'FY27 Budget Development - Adopted December 16, 2025' index PDF (itself a one-
+      page link list, not staged). Saved under the filename the server sent. Internal PDF dates not
+      checked.
+  - file: Estimated Assessments for Website.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1SruWkQ1RS1DPz1N9b6odyYMfqtM31QYf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 02ffb1c3cd6a0b64132725a14434d02e938cffca40bc0104d0cb63daa76cd1ab
+    bytes: 112904
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Lamoille South Supervisory Union
+    title: LAMOILLE SOUTH SUPERVISORY UNION FY27 Estimated Assessments
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      One-page FY27 estimated SU assessments: total $10,575,924, allocated EMUU $5,393,721 and SSD
+      $5,182,203 (FY26 approved $10,174,177). Text layer present. Saved under the filename the server
+      sent.
+  - file: 12.16.25 Presentation.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1w-aRDLrZhewBUPueAhbq8SE3RW5f-b0x
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: cde11d4813517d3e1846e6b7d66edb31a95246746993f4accf8f4a90273f438b
+    bytes: 171827
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Lamoille South Supervisory Union
+    title: LSSU FY27 Budget Development, December 16, 2025
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      Three-page narrative and budget table presented to the SU board on December 16, 2025. Shows FY27
+      expenditures $16,196,588 (+8.9%) and SU Assessment $10,950,925 (7.6%), or $10,705,925 (5.2%) after
+      $245,000 of potential reductions; these differ from the adopted summary ($15,821,588 / $10,575,925).
+      Included as evidence of that difference. Saved under the filename the server sent.
+  - file: Budget Information Packet - January 13, 2026.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1myTQgIwAKjMIl_mcq83yK75yjWeUbX8A
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: a9ae5fb69514ea50a542915027eabf1927aadaa9b3fb7740f22893b3ca55f998
+    bytes: 144045
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Elmore-Morristown Unified Union School District
+    title: Elmore-Morristown UUSD FY27 Budget Information Packet, January 13, 2026
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      Five-page packet: executive summary (total FY27 proposed expenditures $19,316,076; offsetting
+      revenues $2,012,500; education spending $17,303,576; LTWADM 1,349.40; $12,823 per pupil), revenue
+      sheet, expenditures by object, fund balances, and a cost-drivers table. All pages are images with no
+      text layer (pdftotext returns nothing); figures were read from renders. Not the AOE education-
+      spending form. Belongs to Elmore-Morristown UUSD (a member district of this SU, which sets its own
+      budget). Saved under the filename the server sent.
+  - file: EMUU FY27 Budget Review - January, 2026.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1zc8uPpldgrKIpmHZ_Tv0KmLzecb8g70y
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 0c584e5251d5c88201520b8bf962c6c84b624d45d251145648f0b4ec1b3aa76c
+    bytes: 2257371
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Elmore-Morristown Unified Union School District
+    title: Elmore-Morristown Budget Review, January 13, 2026
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      17-slide board presentation, image-only (almost no text layer). Includes revenues, expenditures by
+      object, education spending / LTWADM / per-pupil, a FY26 spending comparison, and tax-rate estimates
+      with CLAs (Elmore 144.43%, Morristown 126.48%; estimates, with and without a governor-proposed
+      buydown). Belongs to Elmore-Morristown UUSD. Saved under the filename the server sent.
+  - file: 01.06 Expenses.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1A-BXd1LaIzUb4SRrNlZzZownFiOgvEAD
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 267d1031717981c8f8b96dbbafe67bac8d3e21cf794bebe329ab16d9e9ef3353
+    bytes: 74525
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Stowe School District
+    title: Stowe School District FY27 Budget Development - Expenditures by Object
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      One-page FY27 expenditures-by-object sheet (FY26 approved $17,762,196; FY27 proposed $18,344,596
+      after a -$650,000 'potential expenditure reductions' line). Text layer present. The printed lines
+      sum to $18,344,545, $51 below the printed total. Belongs to Stowe School District (a member district
+      of this SU, which sets its own budget). Saved under the filename the server sent.
+  - file: 01.06 Write Up.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1F_5hfn-rTKcBr-x59rQXyKVwk0tA8Fp7
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f2a3e66e1d32535a73affd6b606321827cbbd75548fa47fbe5721d1e958851f4
+    bytes: 43793
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Stowe School District
+    title: Stowe School District FY27 Budget Development, January 6, 2026
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      One-page narrative: FY27 proposed expenditures $18,344,596, offsetting revenues $905,000, education
+      spending $17,439,596, LTWADM 1,100.30, $15,850 per pupil (excess spending threshold $16,470). Text
+      layer present. Belongs to Stowe School District. Saved under the filename the server sent.
+  - file: FY27 January 6 Presentation.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1wNOFdmjIlfn3sWm7x5SHTZwPmtIC-a4B
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 88fcffe502fc4e53e93755ae4037e84f43d3545b56dab7dc2e69989b901755b3
+    bytes: 2290175
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Stowe School District
+    title: Stowe School District Budget Review, January 6, 2026
+    published_date: null
+    document_page: https://www.lamoillesouth.org/budgets
+    supersedes: null
+    note: >-
+      17-slide board presentation, image-only (almost no text layer). Includes revenues, expenditures by
+      object and function, fund balances, education spending / LTWADM / per-pupil, and a property tax
+      estimate for Stowe (CLA 138.03%; FY27 education tax $1.2498, or $1.1998 with buydown; estimates).
+      Belongs to Stowe School District. Saved under the filename the server sent.

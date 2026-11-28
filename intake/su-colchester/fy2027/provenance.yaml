@@ -1,0 +1,104 @@
+schema_version: '1.0'
+entity: su/colchester
+fiscal_year: 2027
+artifacts:
+  - file: FY27 Four Year Comparison.pdf
+    source_url: >-
+      https://csdvt.org/district/schoolboard/budget/FY27/BudgetBook/3PropertyTaxes/FY27%20Four%20Year%20Comparison.pdf
+    retrieved_date: '2026-11-28'
+    retrieval_method: http-fetch
+    sha256: 9618195e73c98b066c99028cb3e897e28fdb78379f43e4bbffa2b2c9197c51c0
+    bytes: 199005
+    media_type: application/pdf
+    retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+    document_type: budget_book
+    publisher: Colchester School District
+    title: FY27 Four Year Comparison (AOE Three Prior Years Comparisons, Colchester)
+    published_date: null
+    document_page: https://www.csdvt.org/district/schoolboard/budget.php
+    supersedes: null
+    note: >-
+      One-page AOE 'Three Prior Years Comparisons' form, marked PRELIMINARY / ESTIMATES ONLY, with
+      FY2024-FY2027 columns (budget, offsetting revenues, education spending, pupils, per pupil, equalized and
+      actual homestead rates, income cap). Text layer present. Excel-to-PDF; PDF author 'bradjames', created
+      2026-02-05; the form footer links a district SharePoint file. Server sent no Content-Disposition;
+      filename is the URL basename. Last-Modified 2026-02-05. Listed under Property Taxes in the FY27 Budget
+      Book; the district's budget page now shows FY28, so the FY27 link is no longer on it (URL found by
+      search).
+  - file: FY'27 Tax Rate Calculation.pdf
+    source_url: >-
+      https://csdvt.org/district/schoolboard/budget/FY27/BudgetBook/3PropertyTaxes/FY'27%20Tax%20Rate%20Calculation.pdf
+    retrieved_date: '2026-11-28'
+    retrieval_method: http-fetch
+    sha256: b4bdce48e09362e3b75a7203769e7a1bb12fe91e254a53477730a6c4ec8f9285
+    bytes: 158351
+    media_type: application/pdf
+    retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+    document_type: other
+    publisher: Colchester School District
+    title: FY'27 Homestead and Non-Residential Education Tax Rates (Tax Rate Calculation)
+    published_date: null
+    document_page: https://www.csdvt.org/district/schoolboard/budget.php
+    supersedes: null
+    note: >-
+      One-page tax rate worksheet for FY2027: budget $70,167,602, revenues $13,573,501, education spending
+      $56,594,101, LTWADM 3,593.90, per pupil $15,747.27, CLA 156.41%, actual homestead rate 1.0495 vs FY26
+      1.8634. PDF author 'Trieb, George', created 2026-02-05. Filename is the URL basename (no
+      Content-Disposition). Last-Modified 2026-02-05.
+  - file: Executive Summary FY'27 Budget.pdf
+    source_url: >-
+      https://csdvt.org/district/schoolboard/budget/FY27/BudgetBook/1GeneralInformation/Executive%20Summary%20FY'27%20Budget.pdf
+    retrieved_date: '2026-11-28'
+    retrieval_method: http-fetch
+    sha256: 8ba53707d4daa5212ddc0a8fd83457f37ab366dc436f7a75dfecd776491eae04
+    bytes: 81355
+    media_type: application/pdf
+    retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+    document_type: other
+    publisher: Colchester School District
+    title: Executive Summary - Budget FY'27
+    published_date: null
+    document_page: https://www.csdvt.org/district/schoolboard/budget.php
+    supersedes: null
+    note: >-
+      Two-page narrative summary of the school board's $70,167,602 FY27 budget (+8.13%) with a function-level
+      summary table (general ed, special ed, support, grants). PDF author 'George.Trieb', created 2026-02-25.
+      Filename is the URL basename. Last-Modified 2026-02-25.
+  - file: 2026community.pdf
+    source_url: https://www.csdvt.org/district/about/docs/2026community.pdf
+    retrieved_date: '2026-11-28'
+    retrieval_method: http-fetch
+    sha256: b08f9ce3ab46e18f4cfccbe298f3b22077b650526430f916ba20d2b92119b633
+    bytes: 2030291
+    media_type: application/pdf
+    retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+    document_type: annual_report
+    publisher: Colchester School District
+    title: 2026 Annual Report to the Community (Colchester School District)
+    published_date: null
+    document_page: https://www.csdvt.org/district/schoolboard/budget.php
+    supersedes: null
+    note: >-
+      12-page community annual report (Adobe InDesign, created 2026-02-12): FY27 budget $70,167,602 (+8.13%;
+      4.51% operational, 3.62% facilities bond), reductions $1,077,007, bond schedule, reappraisal and
+      estimated homestead rate $1.0495. It does NOT contain the AOE 'Three Prior Years Comparisons' form.
+      Linked from the budget page as 'Report to the Community'. Filename is the URL basename.
+  - file: Voting Record History.pdf
+    source_url: https://csdvt.org/district/schoolboard/budget/fy28/budgetbook/9budgetvote/Voting%20Record%20History.pdf
+    retrieved_date: '2026-11-28'
+    retrieval_method: http-fetch
+    sha256: e8cbfbe6d6d699e5fbcc7a294730f0bb0abf15b99c0d23ee4764f7601ad24c4b
+    bytes: 65946
+    media_type: application/pdf
+    retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+    document_type: other
+    publisher: Colchester School District
+    title: Colchester School District Voting Record (1994-2026)
+    published_date: null
+    document_page: https://www.csdvt.org/district/schoolboard/budget.php
+    supersedes: null
+    note: >-
+      3-page table of school budget votes FY1995-FY2027 with yes/no counts. Last row: 3-Mar-26, FY2027,
+      $70,167,602, 1,216 yes / 1,083 no, 52.89%, YES. Created 2026-03-06 (PScript5). Staged in the fy2027
+      directory because it states the FY27 vote result; the district hosts it in the FY28 budget book folder.
+      Filename is the URL basename.

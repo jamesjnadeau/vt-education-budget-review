@@ -1,0 +1,42 @@
+schema_version: '1.0'
+entity: su/lamoille-north
+fiscal_year: 2027
+artifacts:
+- file: LNMUUSDFY27AnnualWarning.pdf
+  source_url: https://resources.finalsite.net/images/v1769014426/lnsuorg/e7ozfhyfthfntn2bu0ic/LNMUUSDFY27AnnualWarning.pdf
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: a5fe71fbdf998707144bcef0fcb71c35e25d9e116f1640c094237022b641bf15
+  bytes: 1084804
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Lamoille North Modified Unified Union School District
+  title: Warning of Annual Meeting (LNMUUSD
+  published_date: null
+  document_page: https://www.lnsd.org/community/finance-information/lnmuusd-fy27-budget-information-resource-page
+  supersedes: null
+  note: 'Two-page warning for the 2026 annual meeting and March 3, 2026 ballot. Budget articles: #058A PreK-6 $19,154,689
+    (est. $14,882 per LT ADM, 4.31% over current year); #058B 7-12 $21,956,152 ($12,965 per LT ADM, 5.74%); #058B Green Mountain
+    Technology & Career Center $4,555,903. The date line reads "day of January 2026" with the day number not legible in the
+    text layer, so no publication date is recorded. Server sent no Content-Disposition; filename is the URL''s last path segment.'
+- file: LNMUUSDAnnualMeeting2-16-26.pdf
+  source_url: https://resources.finalsite.net/images/v1773071133/lnsuorg/culmmokosj4p27oxmc85/LNMUUSDAnnualMeeting2-16-26.pdf
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: fbc1287d57751e1b89c6a1fdfdbd58ef27c1e588c4921b99ce41984d6c6d4e24
+  bytes: 148250
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Lamoille North Modified Unified Union School District
+  title: LNMUUSD Annual Meeting Minutes, February 16, 2026
+  published_date: null
+  document_page: https://www.lnsd.org/community/finance-information
+  supersedes: null
+  note: 'Seven-page minutes of the February 16, 2026 annual meeting, including the March 3, 2026 Australian-ballot results
+    for the three budget articles (XII #058A: 482-340-1 blank, passed; XIII #058B: 678-452-2 blank-1 spoiled, passed; XIV
+    GMTCC: 828-299-6 blank, passed). Word-generated PDF (internal title "Annual meeting", author "donna", created 2026-03-09).
+    Not a budget document; staged as the vote-result evidence. Server sent no Content-Disposition; filename is the URL''s
+    last path segment. The document_page is the finance index page (the minutes link was found via search, not confirmed on
+    the FY27 resource page).'

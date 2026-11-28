@@ -1,0 +1,51 @@
+schema_version: "1.0"
+entity: su/south-burlington
+fiscal_year: 2027
+artifacts:
+  - file: Budget Book - Fiscal Year 2027-2028.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1ozJSc24SbssJX5vapDZV8PMdwBVenVtq
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 7e1b96daf09ccfe164566cc6f6ca2338fe0cabfbda19acdaae6dd72a6c80a4b2
+    bytes: 4878433
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: South Burlington School District
+    title: 2026-2027 Proposed City & School District Budgets (Budget Book)
+    published_date: null
+    document_page: https://www.sbschools.net/page/fy27-budget-information/
+    supersedes: null
+    note: >-
+      87-page combined City of South Burlington and School District budget book
+      for the March 3, 2026 vote (the district's page links it as "FY27 Budget
+      Book"; the PDF was created in InDesign on 2026-02-04). The school section
+      (PDF pp. 3-48 approx.) carries the Homestead Tax Rate Estimator (PDF p.
+      24) and the AOE "Three Prior Years Comparisons" form (PDF p. 27, printed
+      p. 24, stamped PRELIMINARY / ESTIMATES ONLY) with FY2024-FY2027 columns.
+      Text layer is present. The filename is the one the server sent in
+      Content-Disposition; it says "Fiscal Year 2027-2028" although the
+      document is the FY2027 (2026-27) budget. The district's own publication
+      date is not stated.
+  - file: 2026 Annual Meeting Notice.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1RXvM17U7al_Gk9t0FE1yBSIvn2ofeGps
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: e1184a62452ff1bc8a6640d04e3f42167bfa45af2f7b8f0c97100f402560ae8f
+    bytes: 111858
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: South Burlington School District
+    title: Warning, City of South Burlington School District 2026 Annual Meeting
+    published_date: null
+    document_page: https://www.sbschools.net/page/fy27-budget-information/
+    supersedes: null
+    note: >-
+      Two-page warning for the March 3, 2026 annual meeting (Australian
+      ballot). Article II: approve School Board to expend $73,939,121.00, with
+      the ballot statement of per-pupil education spending $15,696.08 (8.52%
+      higher than the current year). Article III: allocate $2,554,157.57 of
+      FY2025 audited surplus to the Capital Reserve Fund. Image-only PDF (no
+      text layer); read from a rendered page. Saved under the filename the
+      server sent.

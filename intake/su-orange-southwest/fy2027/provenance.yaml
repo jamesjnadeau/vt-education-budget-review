@@ -1,0 +1,58 @@
+schema_version: "1.0"
+entity: su/orange-southwest
+fiscal_year: 2027
+artifacts:
+  - file: OSSD2026AnnualReport.pdf
+    source_url: https://resources.finalsite.net/images/v1770299462/orangesouthwestorg/f3a29qifrkhx2op99k4p/OSSD2026AnnualReport.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 16cefee00e3a47b6698ef2c1a970b16d4c48e4903a13ba78aa10ba004a59e43b
+    bytes: 9113563
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Orange Southwest School District
+    title: OSSD Annual Report 2026
+    published_date: null
+    document_page: https://www.orangesouthwest.org/central-office/annual-report
+    supersedes: null
+    note: >-
+      The annual report issued ahead of the March 3, 2026 vote on the FY2027
+      (2026-27) budget. 28 pages. Carries the FY27 proposed budget summary,
+      tax-rate outlook and ballot language (p. 5), the line-item general fund
+      budget (pp. 22-24; total voter approval $29,159,606 on p. 24), and
+      "OSSD 2026-27 Budget: Estimated Tax Rate" (p. 25) with education spending,
+      equalized pupils and per-town rates. It does NOT carry the AOE "Three
+      Prior Years Comparisons" table. The PDF's embedded fonts have no usable
+      text mapping, so many digits are lost by pdftotext; figures were read from
+      130-260 dpi renders. The server sent no Content-Disposition; the filename is
+      the last URL path segment (the site's resource-manager link
+      https://www.orangesouthwest.org/fs/resource-manager/view/48cd3f7d-7536-4e41-b237-0caaf312dbf3
+      redirects to this URL). Internal title "OSSD Annual Report 2026.indd"
+      (Adobe InDesign), created 2026-01-29. The district's own publication date is
+      not stated.
+  - file: 21BudgetResults.pdf
+    source_url: https://resources.finalsite.net/images/v1773265686/orangesouthwestorg/e8rclzfztxjzyhsxvzma/21BudgetResults.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 4068050874b763863b6b5a07a14664fef1ae6e2b6997779f3e82be5b21f897b6
+    bytes: 1600704
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Orange Southwest School District
+    title: 2026 OSSD Voting Results
+    published_date: 2026-03-06
+    document_page: https://www.orangesouthwest.org/central-office/financial-budget-data
+    supersedes: null
+    note: >-
+      Clerk-attested results of the March 3, 2026 Australian-ballot vote (3
+      pages; signed by Kyle M. Southworth, Clerk, dated 3-6-2026). Article IX,
+      the $29,159,606 budget: YES 836, NO 407, blank 28, spoiled 1. Article X,
+      transfer of $1,887,000 surplus to the Building Reserve Fund: YES 884, NO
+      354. Also school director elections. Scanned image (creator "Scanner
+      System"), no text layer; read from renders. Server sent no
+      Content-Disposition; filename is the last URL path segment (the site's
+      resource-manager link
+      https://www.orangesouthwest.org/fs/resource-manager/view/28aecc4f-be67-4d56-a467-ee70df067de6
+      redirects to it). Published date is the clerk's attest date.

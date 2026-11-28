@@ -1,0 +1,92 @@
+schema_version: '1.0'
+entity: su/franklin-northeast
+fiscal_year: 2027
+artifacts:
+- file: FY27 ER D1 Budget Overview.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1W5lGrUslbFRwiV5I6NjlAxNoTXBXUsWl
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: bff64aa7d7e8f8150476595f976b5ff2b9b47cc54aeb6d4f9c8eac7d74cf6b40
+  bytes: 108917
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Enosburgh-Richford UUSD (Franklin Northeast Supervisory Union)
+  title: Enosburgh Richford UUSD FY27 Budget Book, D1 Proposed Budget Overview
+  published_date: null
+  document_page: https://www.fnesu.org/o/fnesu/page/fy27budget
+  supersedes: null
+  note: 'One page (page D1 of the ER UUSD FY27 budget book; Google Sheets print, created 2026-01-12). General fund expenses
+    by function (FY25 actual, FY26 budget, FY26 through Dec, FY27 proposed $25,465,229), general fund revenue, and the projected
+    tax rate block: education spending $18,897,427, LTW ADM 1653.28, per pupil $11,430, equalized homestead rate $1.2917,
+    Enosburgh and Richford CLAs and homestead rates. Not an AOE form. Saved under the filename the server sent.'
+- file: FY27 ER J1 Warning.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1S3xuMlTPHXjU3bKv0mL63tA4qoHrtWNo
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: 51857746ed52933e8904dc4fa4b4d9b01a460436211805f0a06dc26323311797
+  bytes: 76355
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Enosburgh-Richford UUSD (Franklin Northeast Supervisory Union)
+  title: Enosburgh-Richford UUSD Annual Meeting Warning, March 3, 2026
+  published_date: null
+  document_page: https://www.fnesu.org/o/fnesu/page/fy27budget
+  supersedes: null
+  note: 'One-page warning (page J1 of the ER FY27 budget book) for the March 3, 2026 Australian-ballot meeting. Article 4:
+    expend $25,465,229, per pupil education spending $11,430, 2.6% higher. Article 5: deposit $336,375 into capital reserve.
+    Adopted by the board on January 6, 2026. Saved under the filename the server sent.'
+- file: FY27 NMV D1 Budget Overview.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1iQZT-bZB0vfuQhPugs7ipsVWU1sKHtp8
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: af894f2abc0e4e7fb9221b171bd0c994367def902371355362076802a8d4b153
+  bytes: 119749
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Northern Mountain Valley UUSD (Franklin Northeast Supervisory Union)
+  title: Northern Mountain Valley UUSD FY27 Budget Book, D1 Proposed Budget Overview
+  published_date: null
+  document_page: https://www.fnesu.org/o/fnesu/page/fy27budget
+  supersedes: null
+  note: 'One page (page D1 of the NMV UUSD FY27 budget book; Google Sheets print, created 2026-01-22). General fund expenses
+    by function (FY27 proposed $24,703,107), revenue, and the projected tax rate block: education spending $24,594,707, LTW
+    ADM 2123.00, per pupil $11,585, equalized rate $1.3092, and CLAs/homestead rates for Bakersfield, Berkshire, Montgomery
+    and Sheldon. Not an AOE form. Saved under the filename the server sent.'
+- file: FY27 NMV J1 Warning.pdf
+  source_url: https://drive.google.com/uc?export=download&id=154kL5LIjA9XEnJZFhsbtN2t_3B89EKwP
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: 50781fe09db76736e79458dfb19fd0b2b54c1cc941e960bbe0b2e7375d0f6eca
+  bytes: 77272
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Northern Mountain Valley UUSD (Franklin Northeast Supervisory Union)
+  title: Northern Mountain Valley UUSD Annual Meeting Warning, March 3, 2026
+  published_date: null
+  document_page: https://www.fnesu.org/o/fnesu/page/fy27budget
+  supersedes: null
+  note: 'One-page warning (page J1 of the NMV FY27 budget book) for the March 3, 2026 Australian-ballot meeting. Article 4:
+    expend $24,703,107, per pupil education spending $11,585, 1.1% lower. Article 5: deposit $18,181 into capital reserve.
+    Adopted by the board on January 7, 2026. Saved under the filename the server sent.'
+- file: FNE FY27 K2 Budget Overview.pdf
+  source_url: https://drive.google.com/uc?export=download&id=16FjLozspnfcFimbHgRBtGmzOxmld6QFX
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: 0163957b72c9441745877595f57452fbd4d90722e35cadabcdaa33a011c80287
+  bytes: 92587
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Franklin Northeast Supervisory Union
+  title: FY27 FNESU Proposed Budget Overview (Franklin Northeast SU FY27 Budget Book, K2)
+  published_date: null
+  document_page: https://www.fnesu.org/o/fnesu/page/fy27budget
+  supersedes: null
+  note: 'Two pages (K2 of the SU''s FY27 budget book; Google Sheets print, created 2026-01-14). The central-office budget
+    itself: general fund expenses $10,322,180 and revenue $9,505,180 (assessments $4,793,947 to the two districts, state $4,686,233),
+    food service fund, bill-back fund and a new transportation fund. This is the SU''s own assessed budget and is separate
+    from the two district budgets. Saved under the filename the server sent.'

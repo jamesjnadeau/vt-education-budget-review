@@ -1,0 +1,27 @@
+schema_version: "1.0"
+entity: su/addison-central
+fiscal_year: 2026
+artifacts:
+  - file: ACSDFY26VoterOverviewAnnualReportFY26Budget5.pdf
+    source_url: https://resources.finalsite.net/images/v1738591692/acsdvtorg/but9z62ierynbxngt5pf/ACSDFY26VoterOverviewAnnualReportFY26Budget5.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: e6b663ec21d000d862826c190af5763da539ca8b623583aed5df21578d4b22ee
+    bytes: 10532465
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Addison Central School District
+    title: "ACSD FY26 Voter Overview, Annual Report and FY26 Budget"
+    published_date: null
+    document_page: https://www.acsdvt.org/district-link/budget-development/fy26budget
+    supersedes: null
+    note: >-
+      Four-page Canva voter overview (created 2025-01-28, author eblistein) for the March 4, 2025
+      vote on the FY26 budget. It is a summary, not the full budget book: it prints the Education
+      Spending Projection box on PDF p. 3 (total expense incl. fund balance, offsetting revenue,
+      FY26 ed spending, FY25 ed spending) but no AOE Three Prior Years form, no LTWADM and no
+      per-town tax rates. The full "FY26 Budget Book Master" is embedded on the district page from
+      Google Drive (file id 1JZdB6HYFW2IjpVRNm-4wF2d1OhGlxttxnm0WG_SsowI) but the Drive download
+      endpoint returns 404 (download disabled), so it could not be captured. The server sent no
+      Content-Disposition; the file is saved under its URL basename, byte-for-byte as downloaded.

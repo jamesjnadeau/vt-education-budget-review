@@ -1,0 +1,44 @@
+schema_version: '1.0'
+entity: su/slate-valley
+fiscal_year: 2027
+artifacts:
+- file: Detail-Expenditure-Budget-FY27-for-Re-Vote-3-31-26.pdf
+  source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/1034/Svusd/d46f1f6d-f78f-41a6-bf7d-730a1cfe4159/Detail-Expenditure-Budget-FY27-for-Re-Vote-3-31-26.pdf?disposition=inline
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: e3c81055137c1c87889f2e7163421ac1d2a8729842dc4a92fa0e926c76911599
+  bytes: 876410
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Slate Valley Unified Union School District
+  title: SLATE VALLEY UUSD FY27 PROPOSED BUDGET EXPENDITURES FOR RE-VOTE 3-31-26 (Detail Budget - Expenditures)
+  published_date: null
+  document_page: https://www.slatevalleyunified.org/o/svusd/page/fy27-budget
+  supersedes: null
+  note: '46-page line-item detail expenditure budget (FY25 actual, FY26 budget, FY27 proposed, variance) for the revised budget
+    put to the March 31, 2026 revote; total FY27 expenditures $32,307,262.49 on the last page (PDF p. 46). Short URL https://aptg.co/Zctc0S
+    redirects to https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/1034/Svusd/d46f1f6d-f78f-41a6-bf7d-730a1cfe4159/Detail-Expenditure-Budget-FY27-for-Re-Vote-3-31-26.pdf?disposition=inline
+    . No Content-Disposition was sent, so the filename is the last URL path segment. Text layer present. PDF metadata title
+    is the leftover ''Annual Budget Report 11-23-21 Prior and Current Yr from FAM (60).xlsx'' (author Cheryl Scarzello, created
+    2026-03-12). Expenditures only: no revenues, education spending or pupil counts.'
+- file: SVUUSD-Annual-Mtg-Warning-26-27-Signed.pdf
+  source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/1034/Svusd/ee590365-2848-4df9-a22e-eb651dc1f623/SVUUSD-Annual-Mtg-Warning-26-27-Signed.pdf?disposition=inline
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 724604d40df4c9169aa6544238694383303c251a202e4f5f16cfa54e8c1fd180
+  bytes: 128424
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Slate Valley Unified Union School District
+  title: 'Warning: Annual Meeting and Budget Vote (SVUUSD Annual Mtg Warning 26-27, signed)'
+  published_date: null
+  document_page: https://www.slatevalleyunified.org/o/svusd/page/fy27-budget
+  supersedes: null
+  note: Two-page signed warning (dated Jan 26, 2026, recorded Jan 27, 2026) for the Feb 19, 2026 annual/informational meeting
+    and Mar 3, 2026 Australian-ballot vote. Article 8 asks $32,509,789.00 and states per-pupil education spending of $11,967.71,
+    3.48% higher than the current year; Article 7 asks a $800,000 transfer to the capital reserve fund. Both pages are scanned
+    images with no text layer; read from a 110-dpi render. Short URL https://aptg.co/bBRCvh redirects to https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/1034/Svusd/ee590365-2848-4df9-a22e-eb651dc1f623/SVUUSD-Annual-Mtg-Warning-26-27-Signed.pdf?disposition=inline
+    . No Content-Disposition was sent; filename is the last URL path segment. This is the warning for the original (defeated)
+    budget, not the Mar 31 revote.

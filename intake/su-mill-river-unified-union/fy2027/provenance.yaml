@@ -1,0 +1,32 @@
+schema_version: "1.0"
+entity: su/mill-river-unified-union
+fiscal_year: 2027
+artifacts:
+  - file: "2026 Annual Report .pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1tySVA-EyznkojFjVTfwjplzL-ZW5G5Qd
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: dd62cd04b335df286e03693f32c9f30ea133ec012d78704d9e599f46672c6599
+    bytes: 2927006
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Mill River Unified Union School District
+    title: 2026 Annual Report
+    published_date: null
+    document_page: https://www.mruusd.org/
+    supersedes: null
+    note: >-
+      Annual report for the Feb 26 / Mar 3, 2026 meeting, proposing the FY2027
+      budget ($22,817,989). 31 pages. Carries the operating fund financial
+      summary and receipts (p. 15), operating fund expenditures (pp. 16-23),
+      balance sheet (p. 24), the AOE "Three Prior Years Comparisons" form (p.
+      25, FY2024-FY2027, stamped PRELIMINARY / ESTIMATES ONLY), the March 4,
+      2025 vote tally (p. 30) and the 2026 warning (p. 31). Pages 15-26 and 31
+      are images with no text layer; the p. 25 form is a 575x729 pixel
+      embedded image. Saved under the filename the server sent
+      (Content-Disposition: "2026 Annual Report .pdf", with a space before the
+      extension), byte-for-byte. The PDF's internal title is "2026 Annual
+      Report  FINAL", created by the Google Docs renderer. A different copy
+      (sha256 0f653033..., 2,923,038 bytes, internal title "2026 Annual
+      Report ") is hosted on wallingfordvt.com and was not staged.

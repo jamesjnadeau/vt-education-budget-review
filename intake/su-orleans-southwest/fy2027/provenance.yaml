@@ -1,0 +1,135 @@
+schema_version: '1.0'
+entity: su/orleans-southwest
+fiscal_year: 2027
+artifacts:
+- file: OSSU Annual Report 2026-Web-FINAL.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1Bkd1QWp73mw6U2sMu4V1nntGuCN3-dd3
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: e20dd1f4760f982710c62a6186378539d4a1a57cc28f9fa2d1bafd6ab8e82966
+  bytes: 10595390
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Orleans Southwest Supervisory Union
+  title: OSSU Annual Report 2026 (FY27)
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/annual-reports
+  supersedes: null
+  note: The supervisory union's own annual report issued for the March 2026 meetings (27 pp., text layer
+    present; PDF title 'Annual Report Cover - OSSU - FY27', created 2026-01-12). Contains the FY27 shared-services
+    assessment budget narrative and assessment summary by member district, FY27 expense budget (assessment
+    $12,663,732), the FY25 treasurer's cash flow report, FY25 grants and the employee compensation report. The SU is not itself a budget-setting district for the
+    AOE education-spending form; each member district sets its own budget (see the member-district reports
+    staged alongside). Saved under the filename the server sent.
+- file: FY27 OSSU Budget - Website.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1lpQRvyI1gxzD2YK9UmFWx3JvPtm9IPl_
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: ae71be37c5d855e8fa51f19fa110765e5da60f9dbe5022b189df50f257145aa9
+  bytes: 860760
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Orleans Southwest Supervisory Union
+  title: FY27 OSSU Budget - Website
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/budgets
+  supersedes: null
+  note: 'Ten-page line-item OSSU budget: combined assessment and purchased-service budgets by function
+    and object, with FY24 actual, FY25 proposed/actual, FY26 budget and FY27 proposed columns, and an
+    FY27 revenue sheet. FY27 proposed grand total $13,634,768.71 (assessment $12,663,731.52 + purchased
+    services $971,037.18); SU assessment revenue $8,894,280. Saved under the filename the server sent.'
+- file: Craftsbury Annual Report-2026-Web-FINAL.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1aESmzZRwCjy3gJGsvHA-WvmeJ6UDPGqg
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: a86bf7f8ba4acc3f165f560b5b5e8a81268f1b47e2959d3b71a61ce581e5d22d
+  bytes: 17046346
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Craftsbury Town School District (Orleans Southwest SU member)
+  title: Craftsbury Town School District Annual Report 2026 (FY27)
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/annual-reports
+  supersedes: null
+  note: Member-district annual report for the March 2026 meeting (57 pp., text layer). AOE 'Three Prior
+    Years Comparisons' on PDF p. 29 (stamped PRELIMINARY / ESTIMATES ONLY), tax impact summary p. 27.
+    Craftsbury sets its own budget. Staged as budget evidence for the SU; one per member district. Saved
+    under the filename the server sent.
+- file: Hazen Annual Report-2026-Web-FINAL.pdf
+  source_url: https://drive.google.com/uc?export=download&id=11Oob4qmIFuzatEgOdlu9tnZch20tA0gx
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: bcc9887c0a18373ce8aabaac9a24af7f4996962460360989daf1a467f5dfcda3
+  bytes: 19402642
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Hazen Union School District (Orleans Southwest SU member)
+  title: Hazen Union School District Annual Report 2026 (FY27)
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/annual-reports
+  supersedes: null
+  note: Member-district annual report for the March 2026 meeting (51 pp., text layer; PDF title 'Annual
+    Report - Hazen'). AOE 'Three Prior Years Comparisons' on PDF p. 20 (stamped PRELIMINARY / ESTIMATES
+    ONLY), tax impact summary p. 18. Hazen Union (U026) sets its own budget. Staged as budget evidence
+    for the SU; one per member district. Saved under the filename the server sent.
+- file: MVU Annual Report 2026-Web-FINAL.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1sF-FKCmCvErz3yDO_tHUeNY1Zezbs3zi
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: e207eb15bcddf4962205145ae8208e017bedead32064d8bc915c64b29b4c33cd
+  bytes: 16654595
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Mountain View Union Elementary School District (Orleans Southwest SU member)
+  title: MVU Annual Report 2026 (FY27)
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/annual-reports
+  supersedes: null
+  note: Member-district annual report for the March 2026 meeting (51 pp., text layer; PDF title 'MVU Annual
+    Report 2026'). AOE 'Three Prior Years Comparisons' on PDF p. 22 (stamped PRELIMINARY / ESTIMATES ONLY),
+    tax impact summary p. 20. This is the first-vote version ($9,173,292); the district's site states
+    the March 3, April 7 votes failed and a May 20, 2026 revote passed at a lower budget, and a text search of this document finds no mention of a revote. Staged as budget evidence for the SU; one per member district. Saved under the filename
+    the server sent.
+- file: Stannard Annual Report 2026-Web-FINAL.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1VpIvJ7Lxxvj9PcZANM7SaW_4aSyMKxWE
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 43fc6de557599d305f95ce453bf17b705a3c594b4dad267f22188432b9e9a48c
+  bytes: 21424032
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Stannard Town School District (Orleans Southwest SU member)
+  title: Stannard Town School District Annual Report 2026 (FY27)
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/annual-reports
+  supersedes: null
+  note: Member-district annual report for the March 2026 meeting (42 pp., text layer; PDF title 'Annual
+    Report Cover - Stannard'). AOE 'Three Prior Years Comparisons' on PDF p. 15 (stamped PRELIMINARY /
+    ESTIMATES ONLY), tax impact summary p. 13. Stannard is a non-operating 7-12 choice district that sets
+    its own budget. Staged as budget evidence for the SU; one per member district. Saved under the filename
+    the server sent.
+- file: Wolcott Annual Report-2026-Web-FINAL.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1PPrfFrwBnMKrR600bmVzE6MxIVZQEaMQ
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 4440e819228562a3835fd63b59d509d1c48c01e323a2ecdadb84b4f840c433f5
+  bytes: 17615060
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Wolcott Town School District (Orleans Southwest SU member)
+  title: Wolcott Town School District Annual Report 2026 (FY27)
+  published_date: null
+  document_page: https://www.ossu.org/en-US/budgets-reports/annual-reports
+  supersedes: null
+  note: Member-district annual report for the March 2026 meeting (50 pp., text layer). AOE 'Three Prior
+    Years Comparisons' on PDF p. 20 (stamped PRELIMINARY / ESTIMATES ONLY), tax impact summary p. 18.
+    This is the first-vote version ($6,364,330); the district's site states the March 3 and April 7 votes
+    failed and a May 20, 2026 revote passed at a lower budget, and a text search of this document finds no mention of a revote. Staged
+    as budget evidence for the SU; one per member district. Saved under the filename the server sent.

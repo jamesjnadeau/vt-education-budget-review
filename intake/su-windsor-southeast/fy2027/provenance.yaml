@@ -1,0 +1,25 @@
+schema_version: '1.0'
+entity: su/windsor-southeast
+fiscal_year: 2027
+artifacts:
+- file: Hartland_Town_Report_2026(1).pdf
+  source_url: https://hartlandvt.gov/vertical/sites/%7B47DC8B4F-778B-408C-BB00-EA7AC4E090E5%7D/uploads/Hartland_Town_Report_2026(1).pdf
+  retrieved_date: 2026-11-28
+  retrieval_method: http-fetch
+  sha256: 92889f15b2910ccced732a18658104daa4c2094f60319e3ebca1bcc479aa20c8
+  bytes: 11201476
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Town of Hartland, Vermont (embeds the Windsor Southeast SU "2026-2027 Budget Book" Hartland edition)
+  title: Town of Hartland, Vermont 2026 Town Report (with WSESU and Hartland School District financials)
+  published_date: null
+  document_page: null
+  supersedes: null
+  note: 'Hartland''s combined town and school annual report for the March 2026 vote (164 pp.). PDF pp. 104-162 are the WSESU
+    "2026-2027 Budget Book" Hartland edition: SU financials, Hartland SD general fund (pp. 135-150), property tax rate calculation
+    (p. 151), tax impact (p. 152), the AOE "Three Prior Years Comparisons" form (p. 153, an image, stamped PRELIMINARY / ESTIMATES
+    ONLY), the 2026 warning (p. 154, image) and 2025 minutes/results. Pages 153-156 have no text layer. This is Hartland SD''s
+    budget only; the other two SU member districts are not in it. No Content-Disposition was sent, so the filename is the
+    last URL path segment, URL-decoded. The PDF was created in Word on 2026-02-06 (author field "Michelle Rielly"); the district
+    states no publication date. The registry URL for this SU (wsesu.net) links no such file; it was found by web search.'

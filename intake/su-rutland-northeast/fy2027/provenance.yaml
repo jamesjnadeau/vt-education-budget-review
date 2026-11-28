@@ -1,0 +1,94 @@
+schema_version: '1.0'
+entity: su/rutland-northeast
+fiscal_year: 2027
+artifacts:
+- file: Barstow FY27 Ed Spending Prior Yr_AOE From.pdf
+  source_url: https://drive.google.com/uc?export=download&id=14j0x0z8znT733uWI0FkNTGLRUtf4COnC
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 3dbc4732bbfe2162b35bdcbd970dab2d2e31273c895f8fde90a523cf0a70a2a4
+  bytes: 500705
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Barstow Unified Union School District (via Rutland Northeast SU website)
+  title: Barstow USD U049 FY27 Three Prior Years Comparisons (AOE format)
+  published_date: null
+  document_page: https://www.rnesu.org/page/budget-2627
+  supersedes: null
+  note: One-page AOE 'Three Prior Years Comparisons' for Barstow USD (U049), FY2024-FY2027, with the Act 127 homestead rate
+    and income-cap calculations. Stamped 'PRELIMINARY ESTIMATES ONLY'; based on the Dec 1, 2025 Education Fund Outlook (yield
+    $8,849). PDF printed from Excel ('Barstow_FY27 EdSpend prior years v04.xlsx') on 2026-01-22; has a text layer. Saved under
+    the filename the server sent (the 'From' typo is the server's).
+- file: SIGNED - BUUSD Warning 01-22-2026.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1Rx5LIaMTqOqwkGx_T6XFRkwJdqjLhnbV
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 0215cb47ad93f8ee2790a919a249aba21c4b4d0a1d4673f307eaf8b659fed5e1
+  bytes: 371068
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Barstow Unified Union School District (via Rutland Northeast SU website)
+  title: Barstow Unified Union School District Annual District Meeting warning (signed 2026-01-22)
+  published_date: null
+  document_page: https://www.rnesu.org/page/budget-2627
+  supersedes: null
+  note: Signed 2-page warning for the Feb 24, 2026 annual meeting and March 3, 2026 Australian-ballot vote. Article 11 asks
+    voters to approve $6,631,248, with per-pupil education spending of $14,811, 4.05% higher than the current year. Scanner
+    PDF (Konica Minolta bizhub), with a text layer. Saved under the filename the server sent.
+- file: OVU FY27 Ed spending Prior Yr_AOE Form (1).pdf
+  source_url: https://drive.google.com/uc?export=download&id=1TD5xjmswBJdP2l5GOK4KKWZDVVrM1OFA
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 52c22a97e5790cc9d44eb7d1d756dfa7ccc04d925593cd614917cd3c589cf6a0
+  bytes: 500925
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Otter Valley Unified Union School District (via Rutland Northeast SU website)
+  title: Otter Valley USD U053 FY27 Three Prior Years Comparisons (AOE format)
+  published_date: null
+  document_page: https://www.rnesu.org/page/budget-2627
+  supersedes: null
+  note: One-page AOE 'Three Prior Years Comparisons' for Otter Valley USD (U053), FY2024-FY2027, with the Act 127 homestead
+    rate and income-cap calculations. Stamped 'PRELIMINARY ESTIMATES ONLY'; based on the Dec 1, 2025 Education Fund Outlook
+    (yield $8,849). Figures are the ORIGINAL $28,841,285 budget (pre-revote). PDF printed from Excel ('OVU FY27 EdSpend prior
+    years v04.xlsx') on 2026-01-15; has a text layer. Saved under the filename the server sent.
+- file: SIGNED - OVUUSD Warning 01-22-2026.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1mVD1bghzlyFBrZ50EUC1DzIP_Yix7zAe
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: b9df4a102fdff9172be9d637bfa09ad230a17bc2b22ade95727db56808721ad8
+  bytes: 155628
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Otter Valley Unified Union School District (via Rutland Northeast SU website)
+  title: Otter Valley Unified Union School District Annual District Meeting warning (signed 2026-01-22)
+  published_date: null
+  document_page: https://www.rnesu.org/page/budget-2627
+  supersedes: null
+  note: Signed 3-page warning for the Feb 25, 2026 annual meeting and March 3, 2026 Australian-ballot vote. Article 11 asks
+    voters to approve $28,841,285, with per-pupil education spending of $14,257, 5.5% higher than the current year. This is
+    the original warning; the budget failed on March 3 and a different, revote warning ($28,663,285, April 7, 2026) exists
+    only as an image on the district page and is not staged. Scanner PDF with a text layer. Saved under the filename the server
+    sent.
+- file: FY27 Proposed Budget 1_All GE by Function.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1JC_BbyEdlCcDDTDTGCpfLr6rk-4XYH1k
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 6a0bc7392090a49f60fae3cbf9d24905ebe3c4331aa9bd218cde1372c821d627
+  bytes: 107182
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Rutland Northeast Supervisory Union
+  title: RNESU FY27 Proposed Budget 1 - Budget Summary Expenditure by Function (All Global Ends)
+  published_date: null
+  document_page: https://www.rnesu.org/page/budget-2627
+  supersedes: null
+  note: 'Two-page ledger report for the supervisory union''s own general-fund budget by function: FY24 and FY25 actuals, FY26
+    budget, FY26 YTD, FY27 proposed $14,381,029 (+$660,073, 4.81% over FY26 $13,720,956). Printed 2025-11-17 from the Nov
+    2025 proposal, so it is an early draft: the final figure on the annual report is $14,295,001 (BUU annual report p. 9).
+    Expenditures only, no revenues. Has a text layer. Saved under the filename the server sent.'

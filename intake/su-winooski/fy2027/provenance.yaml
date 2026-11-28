@@ -1,0 +1,25 @@
+schema_version: '1.0'
+entity: su/winooski
+fiscal_year: 2027
+artifacts:
+- file: 127th-Annual-Report.pdf
+  source_url: https://www.wsdvt.org/wp-content/uploads/2026/01/127th-Annual-Report.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: bc7645dce711d2312d961e357e478d4111a4119a9bd192a2106787f6ff0edb3b
+  bytes: 1943307
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Winooski School District
+  title: 127th Annual Report (February 2026, FY27)
+  published_date: null
+  document_page: https://www.wsdvt.org/school-board/budget/
+  supersedes: null
+  note: 'Annual report for the March 3, 2026 vote proposing FY2027 (22 pages, text layer present). Contains the
+    Board letter (p. 4), general fund FY27 budget by program/object/function and the revenue budget (pp. 5-11),
+    the AOE ''Three Prior Years Comparisons'' form with FY2024-FY2027 columns and the Act 127 homestead rate calculation
+    (p. 12), the treasurer''s report and FY25 audited statements (pp. 13-21) and the Board''s budget flyer (p. 22).
+    The server sent no Content-Disposition, so the filename is the last URL path segment. Internal PDF metadata:
+    author ''Wilmer Chavarria'', created in Adobe Acrobat 2026-01-30, no title. Winooski is a single-district SU
+    (Winooski ID, T249); the district site is www.wsdvt.org, the registry''s www.wsdschools.org returns 403.'

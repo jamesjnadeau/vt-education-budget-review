@@ -1,0 +1,73 @@
+schema_version: "1.0"
+entity: su/milton
+fiscal_year: 2027
+artifacts:
+  - file: "Revised FY27 Proposed Budget .pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1e1oXQbtde9AoyW6AmYdNyMdTklTNj4n7
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 62a348e1495db5c6791844d491e0d8ee14ef190f58e871eda9ec5c056b59d03d
+    bytes: 270223
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Milton Town School District
+    title: Revised FY27 Proposed Budget
+    published_date: null
+    document_page: https://www.mtsd-vt.org/page/fy27
+    supersedes: null
+    note: >-
+      43-page line-item general operating fund budget (Google Sheets export,
+      internal title "Untitled spreadsheet"): FY26 Budget vs revised FY27
+      Budget by account, with $ and % change. Grand Total on p. 43 is
+      $40,812,465 for FY27 vs $39,291,626 for FY26 (+3.87%), matching the
+      amount on the May 19, 2026 revote ballot. Expenditures only; it carries
+      no revenue lines and no AOE education-spending form. The filename the
+      server sent has a space before ".pdf" and is kept as sent. Text layer
+      is present.
+  - file: Final FY27 Budget Revote Informational Presentation.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1RCGR6HIB87PdSdA6xOxxRWd-fNjvGJow
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f3b1ab917bf960d9fb28b4b8e720e34d5c2f3a73a440b641398b7bb98696888c
+    bytes: 1216425
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Milton Town School District
+    title: Final FY27 Budget Revote Informational Presentation
+    published_date: null
+    document_page: https://www.mtsd-vt.org/page/fy27
+    supersedes: null
+    note: >-
+      12-slide board presentation for the May 19, 2026 revote. States the
+      December proposal ($42,236,319), the Board-approved March 3, 2026 budget
+      ($40,895,465), and the revote budget ($40,812,465, per-pupil
+      $14,103.15 on the ballot slide, p. 8), with the tax-impact comparison
+      table (p. 6). No AOE form. Saved under the server-sent filename.
+  - file: FY27 Warn Ballot (1).pdf
+    source_url: https://drive.google.com/uc?export=download&id=1Ck_9vBjhLEMYqSlfFTAnQ0XJC_678VYJ
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 9b55bca704e4bec2fac08321e595a15902b80998c5452e6d5148d0a7a101a35c
+    bytes: 644725
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Milton Town School District
+    title: Milton Town School District Annual Meeting Warning (March 2026)
+    published_date: 2026-01-22
+    document_page: https://www.mtsd-vt.org/page/fy27-copy-old/
+    supersedes: null
+    note: >-
+      One-page scanned warning (image only, no text layer; read from a render),
+      signed and dated January 22, 2026 by the trustees. Article 1 is the
+      ORIGINAL FY27 budget, $40,895,465, per-pupil education spending
+      $14,137.22 (2.73% higher), for the March 3, 2026 Australian ballot
+      (public hearing March 2). Articles 2 and 3 ask to appropriate up to
+      $383,198 of the June 30, 2024 fund balance to a Capital Reserve and
+      Maintenance Fund and to an Education Reserve Fund. This is the first
+      version the voters saw; the amount was later revised (see the revised
+      budget above). The district page that links it is the older FY27 page
+      (fy27-copy-old), not the current Revised FY27 page. Saved under the
+      server-sent filename; internal PDF producer is a Konica Minolta scanner.

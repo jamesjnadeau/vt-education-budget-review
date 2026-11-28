@@ -1,0 +1,71 @@
+schema_version: "1.0"
+entity: su/bennington-rutland
+fiscal_year: 2027
+artifacts:
+  - file: Mettawee Annual Report 2025.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1OAURtevPFf3wIUARBzcJZngYb5C-FLdl
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 47f75803037a5427118da5c2d44dfa14f2309a2678cee57ef0a0c259230d7c93
+    bytes: 15787552
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Mettawee School District (via Bennington-Rutland Supervisory Union)
+    title: Mettawee School District Annual Report - March 2026 (FY27 budget)
+    published_date: null
+    document_page: https://www.brsu.org/page/annual-and-town-reports
+    supersedes: null
+    note: >-
+      Annual report for the March 2026 meeting, proposing FY2027 (warned
+      Mettawee budget $6,935,806). The filename says "2025" but the content is
+      the FY27 report. Has a text layer. Carries the AOE "Three Prior Years
+      Comparisons" form (PDF p. 45, marked PRELIMINARY / ESTIMATES ONLY) with
+      FY2024-FY2027 columns, and also the BRSU supervisory-union budgets
+      (Treasurer's report PDF p. 49, General budget p. 50, general assessments
+      by district p. 52, SPED budget p. 53). Internal PDF title is
+      "9 Minutes and back page.docx", author "Sue", created 2026-02-04. Saved
+      under the filename the server sent, byte-for-byte as downloaded.
+  - file: T&G Annual Report 2025 v2.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1KH5HbqOSJ8MYmVp1lwHD769ebknQOT80
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 61a7e5aebdceaf537543fa3226209073da4d78b2f9ec7c2a1ba658b8c5357622
+    bytes: 24883673
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Taconic and Green Regional School District (via Bennington-Rutland Supervisory Union)
+    title: Taconic & Green Regional School District Annual Report - March 2026 (FY27 budget)
+    published_date: null
+    document_page: https://www.brsu.org/page/annual-and-town-reports
+    supersedes: null
+    note: >-
+      Annual report for the March 2026 meeting, proposing FY2027 (warned T&G
+      budget $41,042,088). The filename says "2025 v2" but the content is the
+      FY27 report. Has a text layer. Carries the AOE "Three Prior Years
+      Comparison" form (PDF p. 59, marked PRELIMINARY / ESTIMATES ONLY),
+      per-town tax rates (printed p. 38) and the BRSU budgets (PDF pp. 64-70).
+      Internal PDF title "14 Misc at end of report", author "Sue", created
+      2026-02-04. Saved under the filename the server sent, byte-for-byte.
+  - file: Winhall FY27 Budget Info Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1IhCYUcLiE0PiPNhQKaA9KIZii9ywRt27
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 045fae96c28a98aad862f18fb668c81d72e510ca2e25ea10f1a4d2b29affc1cd
+    bytes: 14864724
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Winhall Town School District (via Bennington-Rutland Supervisory Union)
+    title: Winhall Town School District FY27 Budget Information Report
+    published_date: null
+    document_page: https://www.brsu.org/page/annual-and-town-reports
+    supersedes: null
+    note: >-
+      FY27 budget information report for Winhall (warned budget $4,630,215).
+      Winhall is a third BRSU member district not listed in the AOE registry
+      member list used for this task. Has a text layer. Carries the AOE "Prior
+      Years Comparison" form (PDF p. 29, marked PRELIMINARY / ESTIMATES ONLY).
+      Internal PDF title "Untitled document", author "Sue", created 2026-02-04.
+      Saved under the filename the server sent, byte-for-byte.

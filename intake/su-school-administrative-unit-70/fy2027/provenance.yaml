@@ -1,0 +1,53 @@
+schema_version: "1.0"
+entity: su/school-administrative-unit-70
+fiscal_year: 2027
+artifacts:
+  - file: SAU70AnnualReport2025-26_FINALUP02192026.pdf
+    source_url: https://resources.finalsite.net/images/v1771601328/hanovernorwichschoolsorg/jb52qpy1a4a7ff591ije/SAU70AnnualReport2025-26_FINALUP02192026.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 7f8c46386c39e01909550e00f5f91fb443aba7e393ec0fa1fe7ee105ca82801c
+    bytes: 6418515
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: School Administrative Unit #70 (Dresden and Hanover School Districts)
+    title: 2025-26 Annual Report & 2026-27 Proposed Budgets (Dresden & Hanover)
+    published_date: null
+    document_page: https://www.sau70.org/departments/business-finance/budgets
+    supersedes: null
+    note: >-
+      63-page text-layer PDF (InDesign, created 2026-02-19 UTC; filename carries
+      FINALUP02192026) for the March 2026 votes. SAU #70 is a New Hampshire
+      administrative unit shared by Hanover NH and Norwich VT; the Dresden
+      interstate district (grades 7-12 for Norwich, 6-12 for Hanover under the
+      1963 NH/VT compact) is governed by the Hanover and Norwich boards. Contains
+      the Dresden warrant and budget exhibits (Exh. 2B net assessment p. 47,
+      Exh. 3B revenue and Exh. 9 ADM allocation p. 38, SAU budget summary p. 48)
+      and the Hanover budget. It has NO Vermont AOE "Three Prior Years
+      Comparisons" form and no LTWADM table; Norwich's elementary (Marion Cross)
+      budget is in the separate Norwich voter brochure. The server sent no
+      Content-Disposition; the filename is the last URL path segment.
+  - file: 89589_Norwich_final-fromRCBrayshaw.pdf
+    source_url: https://resources.finalsite.net/images/v1770209644/hanovernorwichschoolsorg/znb6rvvyxhe4w7xdw0hf/89589_Norwich_final-fromRCBrayshaw.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 300a93af78888e2fae9ebe9ee7d3f8c3f9f1c4c26bf418ecadc489c1c567e0a2
+    bytes: 543075
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Norwich School District, c/o School Administrative Unit #70
+    title: Norwich | Dresden School Districts 2026-27 Voter Information
+    published_date: null
+    document_page: https://www.sau70.org/departments/business-finance/budgets
+    supersedes: null
+    note: >-
+      8-page mailed voter brochure for the Norwich (Vermont) March 3, 2026 vote
+      (PDF created 2026-02-02 UTC, producer OutlinePDF-Advance 3.20). Prints the
+      Norwich School District warrant and $8,888,877 budget by major function
+      (p. 2), Norwich's $9,080,715 share of the Dresden base budget, LTWADM
+      816.35 -> 833.35, per-pupil education spending $19,082, projected tax rate
+      $2.0469 at CLA 142.51% (p. 1-2), Dresden budget summary (p. 6) and SAU 70
+      budget and assessments (p. 7). Not the AOE form. The server sent no
+      Content-Disposition; the filename is the last URL path segment.

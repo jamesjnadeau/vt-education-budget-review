@@ -1,0 +1,95 @@
+schema_version: "1.0"
+entity: su/windham-southwest
+fiscal_year: 2027
+artifacts:
+  - file: Halifax Report 2026 (AutoRecovered).pdf
+    source_url: https://drive.google.com/uc?export=download&id=1WvOlysOHT-BeqI-8392rDvTLHInvFEiu
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f08843928dead093b037d9ca5135ca8f1c332430fd51cc6f9390588ebeaf7be5
+    bytes: 1206087
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Halifax School District
+    title: "Halifax Report 2026"
+    published_date: null
+    document_page: https://www.wswsu49.org/Meeting-Calendar/halifax-board
+    supersedes: null
+    note: >-
+      Halifax School District annual report for the 3 March 2026 vote (FY2027).
+      PDF metadata author "Kristina Milici", created 2026-02-09, empty title.
+      Text pages: superintendent letter, school report, SU assessments (PDF
+      p.15), enrollment (p.16). The budget pages (PDF pp.6-14), including the
+      AOE "Three Prior Years Comparisons" form (PDF p.13, printed p.12), are
+      images with no text layer; figures were read from 250-dpi renders.
+      Embedded on the district board page as a Google Drive viewer; the SU
+      site's own "Proposed FY27 Budget" link is an Adobe Acrobat share page (not
+      downloadable) and was not captured. Saved under the filename the server
+      sent.
+  - file: Readsboro Report 2026.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1ECeFwnVa2tR1yzQfMLhWUY38hOrX701n
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f54f58b6367d29d24eceb5f514d344eac7c7183901a43ace2d8c77f540ef59d6
+    bytes: 2792283
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Readsboro School District
+    title: "Readsboro Report 2026"
+    published_date: null
+    document_page: https://www.wswsu49.org/Meeting-Calendar/readsboro-board
+    supersedes: null
+    note: >-
+      Readsboro School District annual report for the 3 March 2026 vote
+      (FY2027). PDF metadata author "Kristina Milici", created 2026-02-02, empty
+      title; text layer present. Contains the board report on closing Readsboro
+      Central School and becoming a non-operating tuition district (budget
+      labelled "FY 2027-Non-Operating"), the tax rate estimator (PDF p.14) and
+      the AOE "Three Prior Years Comparisons" form (PDF p.15). Saved under the
+      filename the server sent.
+  - file: Town Report 2025 Final.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1sJgk5FLulQFppTRwTlE_yju-iiNlrtg4
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 70abecd3fc8f2d73933f30d081513931fbcf3123f66acae739ed8e0d95f844d2
+    bytes: 11599514
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Stamford School District
+    title: "Town Report 2025 Final (Stamford annual report, includes school district FY 2026-2027 budget)"
+    published_date: null
+    document_page: https://www.wswsu49.org/Meeting-Calendar/stamford-board
+    supersedes: null
+    note: >-
+      Combined Stamford town and school annual report issued Feb 2026 (PDF
+      created 2026-02-02; internal title "Microsoft Word - Dedication D Wright
+      2025 town report 1-2026", author "Dave"). The filename says 2025 but the
+      school section carries the FY 2026-2027 budget: tax rate estimator (PDF
+      p.54) and AOE "Three Prior Years Comparisons" form (PDF p.55). 61 pages,
+      text layer present. Saved under the filename the server sent.
+  - file: tv binder final.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1R-sEv-kYXoeSnDBhqiaWE6pkOR7cwG3X
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 5a36b84bb197974352874863ee279e975955ebec4f11382ff9b511cff724b992
+    bytes: 12612614
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Twin Valley Unified Union School District
+    title: "Twin Valley Unified Union School District Annual Report 2026"
+    published_date: null
+    document_page: https://www.wswsu49.org/Meeting-Calendar/tvuusd-board
+    supersedes: null
+    note: >-
+      TVUUSD (Whitingham and Wilmington) annual report 2026 for the 3 March 2026
+      vote (FY2027); the server filename is "tv binder final.pdf", the cover
+      says "Annual Report 2026". PDF created 2026-01-29, empty title. PDF
+      pp.1-21 have text (board/principal reports, budget comparison, revenues).
+      PDF pp.22-37 are images with no text layer, including the AOE "Three Prior
+      Years Comparisons" form (PDF p.25, printed p.24), the tax calculation,
+      enrollment, SU assessment, warning and abstract; figures were read from
+      250-dpi renders. Saved under the filename the server sent.

@@ -1,0 +1,74 @@
+schema_version: "1.0"
+entity: su/two-rivers
+fiscal_year: 2027
+artifacts:
+  - file: 2025-26 GMUSD Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1msiKbgA49UHIbSNwd8KmVP21xUqRbOW_
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 35fe2a8943b88340712fd191924bf3ea478a4dc4a601fa8750792051d9efb638
+    bytes: 2802784
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Green Mountain Unified School District #77 (Two Rivers Supervisory Union)
+    title: Green Mountain Unified School District Annual Report - Reports from 2024-2025 & Budget Proposal for 2026-2027
+    published_date: null
+    document_page: https://www.trsu.org/home
+    supersedes: null
+    note: >-
+      Member-district report (Andover, Baltimore, Cavendish, Chester) for the
+      March 3, 2026 vote on the FY2027 budget; 64 pages, Acrobat PDF created
+      2026-02-03 with a text layer. AOE "Three Prior Years Comparisons" (stamped
+      PRELIMINARY / ESTIMATES ONLY) with FY2024-FY2027 columns is PDF p. 58;
+      board-approved budget summaries pp. 56-57; superintendent's budget
+      narrative p. 17 (printed p. 14); TRSU central office budget p. 59. The
+      server's Content-Disposition filename is kept. The district's own
+      publication date is not stated. The Drive link text on the district page
+      is "2025-2026 GMUSD Annual Report".
+  - file: 2025-26 LMHUUSD Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1HXmXrG2CXnEXmjyQQ07aOcsdneYKpiOf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 63824299f7d7b98955ed9e7a74d66f59853385ad0967f37cd4732ba4e7929737
+    bytes: 21309456
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Ludlow Mt. Holly Unified Union School District #83 (Two Rivers Supervisory Union)
+    title: Ludlow-Mount Holly Unified Union School District Annual Report 2025-2026 (budget proposal for 2026-2027)
+    published_date: null
+    document_page: https://www.trsu.org/home
+    supersedes: null
+    note: >-
+      Member-district report (Ludlow, Mt. Holly) for the FY2027 budget vote;
+      48 pages, Acrobat PDF created 2026-02-03 with a text layer (internal
+      title is the stray "Microsoft Word - Document2"). AOE "Three Prior Years
+      Comparisons" (stamped PRELIMINARY / ESTIMATES ONLY) with FY2024-FY2027
+      columns is PDF p. 43; board-approved budget summaries pp. 40-41;
+      superintendent's budget narrative p. 16. The server's Content-Disposition
+      filename is kept. The district's own publication date is not stated.
+  - file: TRSU FY27 Central Office Board Approved Budget 1-8-26.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1LoJzkd5RbNaKgnc-EsQ7C1Z-z1smB8AO
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: de23af188c429a122480a9ae591860a8d0d20a78516674ee1e81d66fa27cbdda
+    bytes: 33264
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Two Rivers Supervisory Union
+    title: TRSU FY27 Central Office Board Approved Budget 1-8-26
+    published_date: null
+    document_page: https://www.trsu.org/home
+    supersedes: null
+    note: >-
+      Two Rivers Supervisory Union's own Central Office revenue and expense
+      report (10 pages, line-item, text layer). Definition "FY2627 Proposed
+      Budget", printed 01/16/2026. FY2027 proposed total $2,142,151 (revenues
+      and expenses), vs FY2026 budgeted $1,961,098. SU assessments: regular
+      $1,679,497 and tech support $421,654. The SU budget is funded by
+      assessments on the two member districts. Listed on the district page as
+      one file in the "TRSU 2026-2027 Budget" Drive folder (other files there,
+      the Special Education and Transportation PDFs and three xlsx, were not
+      downloaded). The server's Content-Disposition filename is kept.

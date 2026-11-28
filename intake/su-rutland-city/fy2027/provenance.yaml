@@ -1,0 +1,54 @@
+schema_version: "1.0"
+entity: su/rutland-city
+fiscal_year: 2027
+artifacts:
+  - file: 2026January13_SB_FY27BudgetRatificationandApprovalofFY27BudgetBallotLanguage.pdf
+    source_url: https://resources.finalsite.net/images/v1769031233/rutlandcitypublicschoolscom/tzhwrlnzxqjykxsdldu7/2026January13_SB_FY27BudgetRatificationandApprovalofFY27BudgetBallotLanguage.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 9dd0d830948c317c696deea0a015e89e53c8127632170993186314f5eed33c75
+    bytes: 50795
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Rutland City Public Schools
+    title: FY 2027 Budget Ratification and Approval of FY 2027 Budget Ballot Language (Board of School Commissioners, January 13, 2026)
+    published_date: 2026-01-13
+    document_page: https://www.rutlandcitypublicschools.org/central-office/school-finance
+    supersedes: null
+    note: >-
+      Three-slide PowerPoint export (internal title "PowerPoint Presentation",
+      author Theodore Plemenos, created 2026-01-21). The page links it through
+      https://www.rutlandcitypublicschools.org/fs/resource-manager/view/1adf9606-f5bb-4023-befe-4fd460ba8096
+      (302 to the URL above). The server sent no Content-Disposition, so the
+      filename is the last URL path segment. PDF p. 2 is a figure table
+      (FY26 vs FY27 expenses, federal and local revenue, state funded, LTW ADM,
+      per pupil education spending) plus the Article 1 ballot language
+      ($69,836,000; $12,666 per pupil, 3.8% higher). The table is an image with
+      no text layer; it was read from a rendered page. This is a board slide
+      deck, not the AOE Three Prior Years Comparisons form, which it does not
+      contain. Saved byte-for-byte.
+  - file: 2026January6_FCUpdate_FY27BudgetProposal.pdf
+    source_url: https://resources.finalsite.net/images/v1769031298/rutlandcitypublicschoolscom/jdjlctllktmhhztvqvx2/2026January6_FCUpdate_FY27BudgetProposal.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 20111bc6e612484568f25cd042365cfa9edb3349d5ac0726d7da75fe036fb639
+    bytes: 150120
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Rutland City Public Schools
+    title: FY 2027 Budget Proposal (Finance and Strategic Planning Committee, January 6, 2026)
+    published_date: 2026-01-06
+    document_page: https://www.rutlandcitypublicschools.org/central-office/school-finance
+    supersedes: null
+    note: >-
+      Seven-slide PowerPoint export (author Theodore Plemenos, created
+      2026-01-21). The page links it through
+      https://www.rutlandcitypublicschools.org/fs/resource-manager/view/e90ae81a-c251-4710-9caf-e70e2ff6a853
+      (302 to the URL above). No Content-Disposition was sent; the filename is
+      the last URL path segment. Adds expense categories (PDF p. 3), revenue
+      categories (p. 4), state funding and pupil metrics (p. 5) and the
+      homestead tax rate trend chart FY18-FY26 (p. 6), all as images read from
+      rendered pages. The FY26 LTW ADM on p. 5 (3,554.85) differs from the
+      January 13 deck (3,554.77). Saved byte-for-byte.

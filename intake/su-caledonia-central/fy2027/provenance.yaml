@@ -1,0 +1,109 @@
+schema_version: "1.0"
+entity: su/caledonia-central
+fiscal_year: 2027
+artifacts:
+  - file: "CalCoop 2025-26 Annual Report.pdf"
+    source_url: "https://drive.google.com/uc?export=download&id=13PAdQMYkWjwvGRVRx1VfKnn1Fc5mAKO1"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 11940b9812974ea79a2abda115382b922a7af0de89190599575e70207d19cfcf
+    bytes: 7516750
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "Caledonia Cooperative School District (Caledonia Central Supervisory Union)"
+    title: "Caledonia Cooperative 2025-26 Annual Report"
+    published_date: null
+    document_page: "https://www.ccsuvt.net/188132_3"
+    supersedes: null
+    note: "45-page annual report for the March 3, 2026 vote proposing FY2027 for Caledonia Cooperative School District #78 (Barnet, Walden, Waterford). Carries the education tax rate computation / 3-year comparison (PDF p. 27), per-town Tax Impact tables with CLAs and homestead rates (p. 28), line-item expenditure pages and the revenue page (p. 35), and unapproved Feb 2025 informational-meeting minutes (p. 43; stale, from the prior year). Text layer present (PDF pages 1 and 5-7 have none). FY25 and FY26 columns are labelled Voter Approved; FY27 is labelled PROPOSED. Saved under the filename the server sent, byte-for-byte."
+  - file: "FY27 CCSD APPROVED Budget.pdf"
+    source_url: "https://drive.google.com/uc?export=download&id=1JLi_4SxJpy6SL96berRjfSTCWXOWzsFS"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 33cd804c7050bcdf5ed0223a51bf962b635e9facd0f151d4094b3087ddb573d3
+    bytes: 1207929
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Caledonia Cooperative School District (Caledonia Central Supervisory Union)"
+    title: "FY27 CCSD APPROVED Budget"
+    published_date: null
+    document_page: "https://www.ccsuvt.net/188132_3"
+    supersedes: null
+    note: "10-page extract (linked as 'FY27 Approved Budget') of the same budget pages that appear in the annual report: education fund sources (p. 1, headed 'FY26 CCSD Education Fund sources'), 3-year education tax rate computation (p. 2), per-town Tax Impact (p. 3), expenditure and revenue detail. Figures match the annual report and are still headed PROPOSED for FY27 despite the APPROVED filename. Saved under the filename the server sent."
+  - file: "CCSD Election 2026 Results.pdf"
+    source_url: "https://drive.google.com/uc?export=download&id=1qpuWJbdufc24qD0esClnTSkjlPg-MJFp"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: de28fec44b6a69fe4a28ac59eb982370c25c7a5fd139e64396186fdb1760cfe4
+    bytes: 135209
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Caledonia Cooperative School District (Caledonia Central Supervisory Union)"
+    title: "CCSD Election 2026 Results"
+    published_date: null
+    document_page: "https://www.ccsuvt.net/188132_3"
+    supersedes: null
+    note: "Two-page certified vote totals for the March 3, 2026 Caledonia Cooperative School District election. Article 8 (school budget) passed 302 yes - 201 no (Barnet 125-82, Walden 58-63, Waterford 119-56). Page footers read 'CCSD 2025 Election Results' (stale template) although the heading is March 3, 2026."
+  - file: "ccsu_fy27_budget.pdf"
+    source_url: "https://files.smartsites.parentsquare.com/8206/ccsu_fy27_budget.pdf"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 6fc73d76d0bd3788df1a97df705130aafc194cd96a5d77bff1f25f4028d194de
+    bytes: 31942
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Caledonia Central Supervisory Union"
+    title: "CCSU FY27 Budget (Caledonia Central Supervisory Union Budget Summary)"
+    published_date: null
+    document_page: "https://www.ccsuvt.net/budget"
+    supersedes: null
+    note: "Two-page SU-office budget created in Excel 2016 (author Pat Amsden). p. 1: FY24-FY27 revenue estimates (FY27 total $14,976,385; local $8,607,051; state/other $6,369,334). p. 2: FY27 and FY26 assessments by member school district (Caledonia Coop, Danville, Peacham, Cabot, Twinfield; Funds 1 and 6; FY27 grand total $9,220,040). Footnote says member districts had not finalized their budgets as of 12/31/2025. Revenue estimates only; no SU expenditure total or AOE education-spending form is printed."
+  - file: "TWINFIELD Annual Report FINAL.pdf"
+    source_url: "https://drive.google.com/uc?export=download&id=1p1XTC0lGvgMQCqknvxwj6-YxQ_SkfBN1"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: cfbcbeb23261d8a05dc449005fc4c17729f5415931e5efe975f14beea8e75eba
+    bytes: 6717508
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: "Twinfield Union School District #33 (Caledonia Central Supervisory Union)"
+    title: "Twinfield Union School District 2025-2026 Annual Report"
+    published_date: null
+    document_page: "https://www.twinfield.net/141363_3"
+    supersedes: null
+    note: "49-page annual report for the March 3, 2026 vote proposing FY2027 for Twinfield Union School District #33 (Marshfield, Plainfield). Includes education funding sources, the 3-year education tax rate computation (printed p. 24) and per-town tax impact (printed p. 25). Text layer present. Saved under the filename the server sent."
+  - file: "Twinfield Union School District Proposed FY27 Budget.pdf"
+    source_url: "https://drive.google.com/uc?export=download&id=1M8pRssZbsvzNE5c3EbzFGcbhLjQZpdKZ"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 962b93553673e31d8e6eb7e2fdf1c7084f2f64c4d2fae673977418ba171f0d17
+    bytes: 1873705
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Twinfield Union School District #33 (Caledonia Central Supervisory Union)"
+    title: "Twinfield Union School District Proposed FY27 Budget"
+    published_date: null
+    document_page: "https://www.twinfield.net/141363_3"
+    supersedes: null
+    note: "15-page budget extract (linked as 'FY27 Approved Budget'): education funding sources (p. 1), 3-year tax rate computation (p. 2), per-town tax impact (p. 3), revenue and expenditure detail. FY27 total budgeted expenditures $8,756,753; education spending $8,678,346; 580.84 LTWADM; $14,941 per pupil. Still headed PROPOSED. The FY25 and FY26 columns of the p. 2 computation are blank (they are filled on p. 3). Saved under the filename the server sent."
+  - file: "Twinfield Union School Board Annual Meeting Minutes 2_10_26.pdf"
+    source_url: "https://drive.google.com/uc?export=download&id=1D6eMQCklAH4Ec4yjOJ3UuKQ3ig0jDR85"
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 54410b61f7817c0c97b76bbd727c145caad31064b4c667152267f3d1c5a665a5
+    bytes: 97695
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Twinfield Union School District #33 (Caledonia Central Supervisory Union)"
+    title: "Twinfield Union School District February 10, 2026 Annual Meeting Minutes with FY27 Budget Results"
+    published_date: null
+    document_page: "https://www.twinfield.net/141363_3"
+    supersedes: null
+    note: "Two pages: Feb 10, 2026 annual meeting minutes and March 3, 2026 ballot results. Article Five (school budget, $8,756,753) passed 350 yes - 238 no (595 ballots; 6 blank, 1 overvote). A second article (Article Six) passed 424-154."
