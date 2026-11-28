@@ -24,6 +24,7 @@ import { parse as parseYaml } from 'yaml';
 import { parseParameterSet, unverifiedParameters } from '@vt-budget/model';
 import { act84Prefill } from '../act84-prefill.ts';
 import { buildHomesteadAdm } from '../adm-lookup.ts';
+import { buildJourneyYears, type JourneyYearsInputs, type RateSource } from '../journey-years.ts';
 import { buildPrefillAdm, type PrefillBudget } from '../adm-town-sums.ts';
 import { isBudgetRecordPath } from '../warehouse-budgets.ts';
 import { edspendEntities, prefillSpending, type EdspendRecord } from '../edspend-prefill.ts';
@@ -326,6 +327,46 @@ function main(): number {
         censusTowns: censusTownsForCombiner(),
         subgroupTowns: subgroupTownsForCombiner(subgroupPublication),
         schools: smallSparseResult?.schools ?? [],
+      }),
+    );
+  }
+
+  // --- my journey: every fiscal year on file -------------------------------
+  // The published homestead rate per town per year, and the resident district
+  // report's student total for the years before the town file begins.
+  const taxRateDir = join(PATHS.warehouse, 'tax-rates');
+  if (existsSync(taxRateDir)) {
+    const taxTables = walkFiles(taxRateDir, (n) => /^fy\d{4}\.yaml$/.test(n)).map(
+      (file) => parseYaml(readFileSync(file, 'utf8')) as JourneyYearsInputs['taxRates'][number],
+    );
+    const rateSources: Record<number, RateSource | undefined> = {};
+    for (const t of taxTables) {
+      const provenance = join(PATHS.intake, 'tax-rates', `fy${t.fiscal_year}`, 'provenance.yaml');
+      if (!existsSync(provenance)) continue;
+      const doc = parseYaml(readFileSync(provenance, 'utf8')) as { artifacts?: Array<Partial<RateSource>> };
+      const a = doc.artifacts?.find((x) => x.publisher && x.title && x.published_date && x.document_page);
+      if (a) {
+        rateSources[t.fiscal_year] = {
+          publisher: a.publisher as string,
+          title: a.title as string,
+          published_date: a.published_date as string,
+          document_page: a.document_page as string,
+        };
+      }
+    }
+    writeJson(
+      join(PATHS.siteGenerated, 'journey-years.json'),
+      buildJourneyYears({
+        registry: [...registry.values()],
+        taxRates: taxTables,
+        rateSources,
+        admReports: admRecords as JourneyYearsInputs['admReports'],
+        townFileYears: (subgroupPublication?.years ?? []).map((y) => ({
+          fiscal_year: y.fiscal_year,
+          count_year: y.count_year,
+          preliminary: y.preliminary,
+        })),
+        generated: today.toISOString(),
       }),
     );
   }
