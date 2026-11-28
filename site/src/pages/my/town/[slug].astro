@@ -83,9 +83,12 @@ const shareCards = [
 <Base title={`Your town: ${page.name} — Vermont School Budgets`}>
   <JourneyProgress steps={page.steps} current="town" />
 
-  <h1>
-    <a class="journey-heading-link" href={`${base}/my/?change=1`} title="Choose a different town">Your town</a>: {page.name}
-  </h1>
+  <div class="journey-town-head">
+    <h1>
+      <a class="journey-heading-link" href={`${base}/my/?change=1`} title="Choose a different town">Your town</a>: {page.name}
+    </h1>
+    <a class="journey-change-link" href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
+  </div>
 
   <JourneyStats
     rate={page.rate}
@@ -191,8 +194,4 @@ const shareCards = [
   {
     page.next && <JourneyNext next={page.next} base={base} />
   }
-
-  <p class="journey-change">
-    <a href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
-  </p>
 </Base>

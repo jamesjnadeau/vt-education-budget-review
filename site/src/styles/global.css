@@ -1106,4 +1106,25 @@ button:hover {
   font-size: 0.9rem;
   color: var(--text-muted);
 }
+.journey-town-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: 0.85rem;
+}
+.journey-town-head h1 {
+  margin-bottom: 0;
+}
+.journey-change-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: auto;
+}
+.journey-change-link:hover {
+  color: var(--link);
+}
 
