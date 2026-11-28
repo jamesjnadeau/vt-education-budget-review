@@ -1018,10 +1018,37 @@ button:hover {
   max-width: 100%;
 }
 .journey-dot {
+  display: block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--border);
+}
+/* Linked dots: a 14px hit area around each 10px dot, so spacing is unchanged. */
+ul.journey-dotgrid-dots {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+.journey-dot-cell {
+  display: block;
+  padding: 2px;
+  max-width: none;
+  line-height: 0;
+}
+.journey-dot-link {
+  display: block;
+  line-height: 0;
+  border-radius: 50%;
+}
+.journey-dot-link:hover .journey-dot,
+.journey-dot-link:focus-visible .journey-dot {
+  background: var(--accent);
+}
+.journey-dot-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .journey-dot--mine {
   background: var(--accent);

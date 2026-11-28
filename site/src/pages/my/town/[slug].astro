@@ -25,10 +25,10 @@ export function getStaticPaths() {
     subgroups: subgroups as never,
     groupings: groupings as never,
   });
-  return Object.values(journey.towns).map((t) => ({ params: { slug: t.slug }, props: { page: t } }));
+  return Object.values(journey.towns).map((t) => ({ params: { slug: t.slug }, props: { page: t, rateOrder: journey.rateOrder } }));
 }
 
-const { page } = Astro.props;
+const { page, rateOrder } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const residual = residualFor(page.districtSlug) ?? residualFor(`town/${page.slug}`);
@@ -37,8 +37,14 @@ const ratePct = page.rateScale.kind === 'value' ? page.rateScale.value : null;
 const studentsPct = page.studentsScale.kind === 'value' ? page.studentsScale.value : null;
 const peoplePct = page.peopleScale.kind === 'value' ? page.peopleScale.value : null;
 
-// DotGrid dots are 0-indexed; mineIndex is the count below (its position).
-const mineIndex = ratePct ? ratePct.lower : null;
+// One dot per town with a published rate, lowest first. This town's dot is its own place in that order.
+const rateDots = rateOrder.map((t) => ({
+  slug: t.slug,
+  name: t.name,
+  detail: t.rate.toLocaleString('en-US', { maximumFractionDigits: 4 }),
+}));
+const foundIndex = rateOrder.findIndex((t) => t.slug === page.slug);
+const mineIndex = ratePct && foundIndex >= 0 ? foundIndex : null;
 
 type ShareFigure = { kind: string; value?: number; reason?: string };
 
@@ -120,7 +126,9 @@ const shareCards = [
       <DotGrid
         total={ratePct.of}
         mineIndex={mineIndex}
-        caption={`${percentileWords(ratePct, 'towns')}. Your dot is shown in green.`}
+        towns={rateDots}
+        groupLabel="Towns by homestead tax rate, lowest first"
+        caption={`${percentileWords(ratePct, 'towns')}. Each dot is a town, lowest rate first; your dot is shown in green. Select any dot to go to that town.`}
       />
     ) : (
       <p class="blank-reason">{page.rateScale.kind === 'blank' ? page.rateScale.reason : 'The tax rate is not published, so there is nothing to compare.'}</p>

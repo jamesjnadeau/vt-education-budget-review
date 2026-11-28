@@ -146,6 +146,8 @@ export interface Journey {
   unions: Record<string, GroupPage>;
   groupings: Record<number, GroupPage>;
   townList: { slug: string; name: string }[];
+  /** Every town with a published rate, lowest rate first (ties by name): one entry per dot in the rate comparison. */
+  rateOrder: { slug: string; name: string; rate: number }[];
 }
 
 const SY25 = 'SY25';
@@ -501,5 +503,9 @@ export function buildJourney(inputs: JourneyInputs): Journey {
     unions,
     groupings,
     townList: activeTowns.map((t) => ({ slug: slugTail(t.slug), name: titleCase(t.name) })),
+    rateOrder: activeTowns
+      .map((t) => ({ slug: slugTail(t.slug), name: titleCase(t.name), rate: rateOf(t.slug) }))
+      .filter((t): t is { slug: string; name: string; rate: number } => t.rate !== null)
+      .sort((a, b) => a.rate - b.rate || a.name.localeCompare(b.name)),
   };
 }

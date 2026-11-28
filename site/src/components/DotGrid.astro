@@ -2,27 +2,60 @@
 /**
  * A grid of dots, one per town in the comparison. The resident's own dot is
  * highlighted. The same information always exists as words in the visible
- * caption and the aria-label, never in colour alone.
+ * caption, never in colour alone.
+ *
+ * When `towns` is given, each dot is a link to that town's page (labelled with
+ * the town's name and figure), and the grid reads as a list of links rather
+ * than one picture. Without it the dots are plain and the grid is one image.
  */
+interface DotTown {
+  slug: string;
+  name: string;
+  /** The figure shown beside the name, already formatted. */
+  detail: string;
+}
+
 interface Props {
   total: number;
   /** Index into the grid of the resident's dot, or null when not shown. */
   mineIndex: number | null;
   caption: string;
+  /** One entry per dot, in dot order. Makes every dot except the resident's a link. */
+  towns?: DotTown[];
+  /** Words for what the dots are, read before the links ("Towns by tax rate, lowest first"). */
+  groupLabel?: string;
 }
 
-const { total, mineIndex, caption } = Astro.props;
+const { total, mineIndex, caption, towns, groupLabel } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const dots = Array.from({ length: total }, (_, i) => i);
+const linked = towns !== undefined && towns.length === total;
 ---
 
 <div class="journey-dotgrid">
-  <div class="journey-dotgrid-dots" role="img" aria-label={caption}>
-    {dots.map((i) => (
-      <span
-        class:list={['journey-dot', i === mineIndex ? 'journey-dot--mine' : '']}
-        title={i === mineIndex ? 'your town' : undefined}
-      />
-    ))}
-  </div>
+  {linked ? (
+    <ul class="journey-dotgrid-dots" aria-label={groupLabel ?? caption}>
+      {towns.map((t, i) => (
+        <li class="journey-dot-cell">
+          {i === mineIndex ? (
+            <span class="journey-dot journey-dot--mine" title={`${t.name} (your town): ${t.detail}`} role="img" aria-label={`${t.name}, your town: ${t.detail}`} />
+          ) : (
+            <a class="journey-dot-link" href={`${base}/my/town/${t.slug}/`} title={`${t.name}: ${t.detail}`} aria-label={`${t.name}: ${t.detail}`}>
+              <span class="journey-dot" />
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <div class="journey-dotgrid-dots" role="img" aria-label={caption}>
+      {dots.map((i) => (
+        <span
+          class:list={['journey-dot', i === mineIndex ? 'journey-dot--mine' : '']}
+          title={i === mineIndex ? 'your town' : undefined}
+        />
+      ))}
+    </div>
+  )}
   <p class="journey-caption">{caption}</p>
 </div>
