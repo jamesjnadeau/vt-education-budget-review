@@ -141,7 +141,7 @@ const BAND_LABELS: Record<string, string> = {
  * Town names are written differently in the Tax Department table and the
  * registry ("Mount Holly" / "MT HOLLY", "Isle La Motte" / "ISLE LAMOTTE").
  */
-function normalizeTown(name: string): string {
+export function normalizeTown(name: string): string {
   return name
     .toLowerCase()
     .replace(/\./g, '')
@@ -156,7 +156,7 @@ function normalizeTown(name: string): string {
 // one row for each, with no "ID" in the name). Underhill ID / Underhill Town
 // and Orford NH are left unmatched on purpose: the table has one "Underhill"
 // row that could be either, and no row at all for a New Hampshire town.
-const TAX_NAME_ALIASES: Record<string, string> = {
+export const TAX_NAME_ALIASES: Record<string, string> = {
   'barton id': 'barton',
   'bennington id': 'bennington',
   'bradford id': 'bradford',

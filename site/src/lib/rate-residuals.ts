@@ -8,6 +8,9 @@
  * what this site's own math gets. The page does not show that math, so each
  * sentence says which one is lower or higher.
  */
+/** The only year this site's math was compared with the State's table. */
+export const RESIDUAL_YEAR = 2026;
+
 const lower = (name: string, why: string): string =>
   `The State's published rate for ${name} is lower than what this site's math gets, ${why}.`;
 const higher = (name: string): string =>

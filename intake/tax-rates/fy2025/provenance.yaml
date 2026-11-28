@@ -1,0 +1,24 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2025
+artifacts:
+  - file: FY25EdTaxRates_102424.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/FY25EdTaxRates_102424.xlsx
+    retrieved_date: "2026-11-28"
+    retrieval_method: http-fetch
+    sha256: 257d8152c698aac5a9e9205eca8209bcf7786fe1bc4f8756117b9966c0e73c04
+    bytes: 28481
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2025 Education Property Tax Rates
+    published_date: "2024-10-24"
+    document_page: https://tax.vermont.gov/document/fy2025-education-property-tax-rates
+    note: >-
+      Vermont Department of Taxes, "FY2025 Education Property Tax Rates". Fetched with
+      npm run vt:fetch; the saved name is the released name with spaces replaced by
+      underscores. Columns: School Code, Town, CLA, 2024 Reappraisal, District Rate,
+      Homestead Rate, State Rate, Nonhomestead Rate, Reappraisal Status, Budget Status.
+      CLA is a fraction (0.7235). No SA column: the statewide adjustment begins in
+      FY2026. Rates are per $100 of assessed value.

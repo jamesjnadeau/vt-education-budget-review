@@ -44,8 +44,9 @@ golden fixtures pass, and none is marked as a known disagreement.
    yield-act figures ($9,401 / $12,960) were already settled; the statewide adjustment,
    0.7033, was entered 2026-11-27 from the Department's FY2027 rate table, now on file at
    `intake/tax-rates/fy2027/`. A person reads the sources against the file and flips the
-   status. Next after that: import the FY2027 table into the warehouse
-   (`tax-rates:import` is hard-wired to FY2026) and add FY2027 golden fixtures.
+   status. Next after that: add FY2027 golden fixtures. (The rate tables for FY2020 to
+   FY2027 are in `warehouse/tax-rates/`; `tax-rates:import` reads every year on file. The
+   `/my/` pages show any of those years; the combiner and budget pages stay on FY2026.)
 2. **Billed-rate rounding.** The Department divides by CLA ÷ SA rounded to four places, and
    the engine divides by the unrounded quotient. The fixtures allow one unit of error in the
    fourth place and say why. Two billed rates miss by slightly more and are left out of

@@ -1,0 +1,1306 @@
+# FY2022 per-town common level of appraisal (CLA) and education tax rates.
+#
+# Transcribed from intake/tax-rates/fy2022/FY22TaxRates-2021.0818.xlsx
+# by npm run tax-rates:import. Do not hand-edit: re-run the import instead, so the
+# record always matches the hashed artifact.
+#
+# CLA is the fraction the sheet stores (0.6659 = 66.59%). Rates are per $100.
+fiscal_year: 2022
+source: intake/tax-rates/fy2022/FY22TaxRates-2021.0818.xlsx
+sha256: c8ab43d91095001e6ec9fe64e7261d335b12ab8265e609b1b8bc13201a382f19
+towns:
+  - town: Addison
+    cla: 0.9891
+    district_rate: null
+    homestead_rate: 1.6929
+    nonhomestead_rate: 1.6298
+  - town: Albany
+    cla: 1.0649
+    district_rate: null
+    homestead_rate: 1.1734
+    nonhomestead_rate: 1.5138
+  - town: Alburgh
+    cla: 1.0167
+    district_rate: null
+    homestead_rate: 1.4725
+    nonhomestead_rate: 1.5855
+  - town: Andover
+    cla: 1.0105
+    district_rate: null
+    homestead_rate: 1.5009
+    nonhomestead_rate: 1.5952
+  - town: Arlington
+    cla: 1.0893
+    district_rate: null
+    homestead_rate: 1.4507
+    nonhomestead_rate: 1.4798
+  - town: Athens
+    cla: 1.1159
+    district_rate: null
+    homestead_rate: 1.575
+    nonhomestead_rate: 1.4446
+  - town: Averill
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.028
+    nonhomestead_rate: 1.6571
+  - town: Averys Gore
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.028
+    nonhomestead_rate: 1.6571
+  - town: Bakersfield
+    cla: 0.9303
+    district_rate: null
+    homestead_rate: 1.4789
+    nonhomestead_rate: 1.7328
+  - town: Baltimore
+    cla: 0.9708
+    district_rate: null
+    homestead_rate: 1.5623
+    nonhomestead_rate: 1.6605
+  - town: Barnard
+    cla: 0.9326
+    district_rate: null
+    homestead_rate: 1.7326
+    nonhomestead_rate: 1.7285
+  - town: Barnet
+    cla: 0.9959
+    district_rate: null
+    homestead_rate: 1.7041
+    nonhomestead_rate: 1.6186
+  - town: Barre City
+    cla: 0.9497
+    district_rate: null
+    homestead_rate: 1.4268
+    nonhomestead_rate: 1.6974
+  - town: Barre Town
+    cla: 1.1026
+    district_rate: null
+    homestead_rate: 1.2289
+    nonhomestead_rate: 1.462
+  - town: Barton
+    cla: 0.9372
+    district_rate: null
+    homestead_rate: 1.3539
+    nonhomestead_rate: 1.72
+  - town: Belvidere
+    cla: 0.9161
+    district_rate: null
+    homestead_rate: 1.66
+    nonhomestead_rate: 1.7596
+  - town: Bennington
+    cla: 0.938
+    district_rate: null
+    homestead_rate: 1.4828
+    nonhomestead_rate: 1.7186
+  - town: Benson
+    cla: 0.9929
+    district_rate: null
+    homestead_rate: 1.4481
+    nonhomestead_rate: 1.6235
+  - town: Berkshire
+    cla: 1.019
+    district_rate: null
+    homestead_rate: 1.3501
+    nonhomestead_rate: 1.5819
+  - town: Berlin
+    cla: 1.0877
+    district_rate: null
+    homestead_rate: 1.5772
+    nonhomestead_rate: 1.482
+  - town: Bethel
+    cla: 1.018
+    district_rate: null
+    homestead_rate: 1.5636
+    nonhomestead_rate: 1.5835
+  - town: Bloomfield
+    cla: 1.0402
+    district_rate: null
+    homestead_rate: 1.4728
+    nonhomestead_rate: 1.5497
+  - town: Bolton
+    cla: 0.8961
+    district_rate: null
+    homestead_rate: 1.6498
+    nonhomestead_rate: 1.7989
+  - town: Bradford
+    cla: 0.9574
+    district_rate: null
+    homestead_rate: 1.6648
+    nonhomestead_rate: 1.6837
+  - town: Braintree
+    cla: 1.0113
+    district_rate: null
+    homestead_rate: 1.5627
+    nonhomestead_rate: 1.594
+  - town: Brandon
+    cla: 0.9856
+    district_rate: null
+    homestead_rate: 1.3862
+    nonhomestead_rate: 1.6356
+  - town: Brattleboro
+    cla: 0.9881
+    district_rate: null
+    homestead_rate: 1.7401
+    nonhomestead_rate: 1.6314
+  - town: Bridgewater
+    cla: 0.965
+    district_rate: null
+    homestead_rate: 1.6744
+    nonhomestead_rate: 1.6705
+  - town: Bridport
+    cla: 0.9213
+    district_rate: null
+    homestead_rate: 1.7893
+    nonhomestead_rate: 1.7497
+  - town: Brighton
+    cla: 1.0809
+    district_rate: null
+    homestead_rate: 1.4984
+    nonhomestead_rate: 1.4913
+  - town: Bristol
+    cla: 0.9225
+    district_rate: null
+    homestead_rate: 1.7641
+    nonhomestead_rate: 1.7474
+  - town: Brookfield
+    cla: 1.0086
+    district_rate: null
+    homestead_rate: 1.5669
+    nonhomestead_rate: 1.5983
+  - town: Brookline
+    cla: 1.0045
+    district_rate: null
+    homestead_rate: 1.8093
+    nonhomestead_rate: 1.6048
+  - town: Brownington
+    cla: 1.0797
+    district_rate: null
+    homestead_rate: 1.1676
+    nonhomestead_rate: 1.493
+  - town: Brunswick
+    cla: 0.9467
+    district_rate: null
+    homestead_rate: 1.6183
+    nonhomestead_rate: 1.7028
+  - town: Buels Gore
+    cla: 0.9263
+    district_rate: null
+    homestead_rate: 1.0796
+    nonhomestead_rate: 1.7403
+  - town: Burke
+    cla: 0.937
+    district_rate: null
+    homestead_rate: 1.5211
+    nonhomestead_rate: 1.7204
+  - town: Burlington
+    cla: 1.0532
+    district_rate: null
+    homestead_rate: 1.4553
+    nonhomestead_rate: 1.5306
+  - town: Cabot
+    cla: 0.9725
+    district_rate: null
+    homestead_rate: 1.7175
+    nonhomestead_rate: 1.6576
+  - town: Calais
+    cla: 0.9393
+    district_rate: null
+    homestead_rate: 1.8264
+    nonhomestead_rate: 1.7162
+  - town: Cambridge
+    cla: 0.9165
+    district_rate: null
+    homestead_rate: 1.5984
+    nonhomestead_rate: 1.7589
+  - town: Canaan
+    cla: 1.0802
+    district_rate: null
+    homestead_rate: 1.5416
+    nonhomestead_rate: 1.4923
+  - town: Castleton
+    cla: 0.9374
+    district_rate: null
+    homestead_rate: 1.5338
+    nonhomestead_rate: 1.7197
+  - town: Cavendish
+    cla: 1.0025
+    district_rate: null
+    homestead_rate: 1.5129
+    nonhomestead_rate: 1.608
+  - town: Charleston
+    cla: 0.9866
+    district_rate: null
+    homestead_rate: 1.4603
+    nonhomestead_rate: 1.6339
+  - town: Charlotte
+    cla: 0.9499
+    district_rate: null
+    homestead_rate: 1.5409
+    nonhomestead_rate: 1.697
+  - town: Chelsea
+    cla: 0.9891
+    district_rate: null
+    homestead_rate: 1.6564
+    nonhomestead_rate: 1.6298
+  - town: Chester
+    cla: 1.0084
+    district_rate: null
+    homestead_rate: 1.5041
+    nonhomestead_rate: 1.5986
+  - town: Chittenden
+    cla: 0.9654
+    district_rate: null
+    homestead_rate: 1.5793
+    nonhomestead_rate: 1.6698
+  - town: Clarendon
+    cla: 0.9922
+    district_rate: null
+    homestead_rate: 1.5665
+    nonhomestead_rate: 1.6247
+  - town: Colchester
+    cla: 0.8629
+    district_rate: null
+    homestead_rate: 1.5982
+    nonhomestead_rate: 1.8681
+  - town: Concord
+    cla: 0.9822
+    district_rate: null
+    homestead_rate: 1.4511
+    nonhomestead_rate: 1.6412
+  - town: Corinth
+    cla: 1.0241
+    district_rate: null
+    homestead_rate: 1.4546
+    nonhomestead_rate: 1.5741
+  - town: Cornwall
+    cla: 0.9451
+    district_rate: null
+    homestead_rate: 1.7443
+    nonhomestead_rate: 1.7056
+  - town: Coventry
+    cla: 1.3387
+    district_rate: null
+    homestead_rate: 1.0505
+    nonhomestead_rate: 1.2042
+  - town: Craftsbury
+    cla: 0.9744
+    district_rate: null
+    homestead_rate: 1.6864
+    nonhomestead_rate: 1.6544
+  - town: Danby
+    cla: 1.1217
+    district_rate: null
+    homestead_rate: 1.3871
+    nonhomestead_rate: 1.4371
+  - town: Danville
+    cla: 1.0616
+    district_rate: null
+    homestead_rate: 1.4612
+    nonhomestead_rate: 1.5185
+  - town: Derby
+    cla: 0.9943
+    district_rate: null
+    homestead_rate: 1.3405
+    nonhomestead_rate: 1.6212
+  - town: Dorset
+    cla: 1.0302
+    district_rate: null
+    homestead_rate: 1.5103
+    nonhomestead_rate: 1.5647
+  - town: Dover
+    cla: 1.0158
+    district_rate: null
+    homestead_rate: 1.6931
+    nonhomestead_rate: 1.5869
+  - town: Dummerston
+    cla: 1.0646
+    district_rate: null
+    homestead_rate: 1.6151
+    nonhomestead_rate: 1.5142
+  - town: Duxbury
+    cla: 0.9025
+    district_rate: null
+    homestead_rate: 1.8295
+    nonhomestead_rate: 1.7861
+  - town: East Haven
+    cla: 0.9262
+    district_rate: null
+    homestead_rate: 1.6541
+    nonhomestead_rate: 1.7404
+  - town: East Montpelier
+    cla: 0.9418
+    district_rate: null
+    homestead_rate: 1.8215
+    nonhomestead_rate: 1.7116
+  - town: Eden
+    cla: 0.9309
+    district_rate: null
+    homestead_rate: 1.6336
+    nonhomestead_rate: 1.7317
+  - town: Elmore
+    cla: 0.9936
+    district_rate: null
+    homestead_rate: 1.5147
+    nonhomestead_rate: 1.6224
+  - town: Enosburgh
+    cla: 0.9731
+    district_rate: null
+    homestead_rate: 1.3782
+    nonhomestead_rate: 1.6566
+  - town: Essex Town
+    cla: 0.8905
+    district_rate: null
+    homestead_rate: 1.6555
+    nonhomestead_rate: 1.8102
+  - town: Fair Haven
+    cla: 1.1098
+    district_rate: null
+    homestead_rate: 1.2955
+    nonhomestead_rate: 1.4525
+  - town: Fairfax
+    cla: 0.8593
+    district_rate: null
+    homestead_rate: 1.5042
+    nonhomestead_rate: 1.8759
+  - town: Fairfield
+    cla: 0.8755
+    district_rate: null
+    homestead_rate: 1.7027
+    nonhomestead_rate: 1.8412
+  - town: Fairlee
+    cla: 0.9151
+    district_rate: null
+    homestead_rate: 2.138
+    nonhomestead_rate: 1.7616
+  - town: Fayston
+    cla: 0.9263
+    district_rate: null
+    homestead_rate: 1.7825
+    nonhomestead_rate: 1.7403
+  - town: Ferdinand
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.028
+    nonhomestead_rate: 1.6571
+  - town: Ferrisburgh
+    cla: 0.9822
+    district_rate: null
+    homestead_rate: 1.7047
+    nonhomestead_rate: 1.6412
+  - town: Fletcher
+    cla: 0.8634
+    district_rate: null
+    homestead_rate: 1.7366
+    nonhomestead_rate: 1.867
+  - town: Franklin
+    cla: 0.961
+    district_rate: null
+    homestead_rate: 1.4036
+    nonhomestead_rate: 1.6774
+  - town: Georgia
+    cla: 0.898
+    district_rate: null
+    homestead_rate: 1.5719
+    nonhomestead_rate: 1.7951
+  - town: Glastenbury
+    cla: 0.9511
+    district_rate: null
+    homestead_rate: 1.0514
+    nonhomestead_rate: 1.6949
+  - town: Glover
+    cla: 1.0943
+    district_rate: null
+    homestead_rate: 1.1674
+    nonhomestead_rate: 1.4731
+  - town: Goshen
+    cla: 0.9338
+    district_rate: null
+    homestead_rate: 1.4631
+    nonhomestead_rate: 1.7263
+  - town: Grafton
+    cla: 1.0373
+    district_rate: null
+    homestead_rate: 1.6942
+    nonhomestead_rate: 1.554
+  - town: Granby
+    cla: 0.998
+    district_rate: null
+    homestead_rate: 1.2179
+    nonhomestead_rate: 1.6152
+  - town: Grand Isle
+    cla: 0.9541
+    district_rate: null
+    homestead_rate: 1.6717
+    nonhomestead_rate: 1.6896
+  - town: Granville
+    cla: 0.9592
+    district_rate: null
+    homestead_rate: 1.7837
+    nonhomestead_rate: 1.6806
+  - town: Greensboro
+    cla: 0.9566
+    district_rate: null
+    homestead_rate: 1.7521
+    nonhomestead_rate: 1.6851
+  - town: Groton
+    cla: 1.0117
+    district_rate: null
+    homestead_rate: 1.476
+    nonhomestead_rate: 1.5934
+  - town: Guildhall
+    cla: 1.038
+    district_rate: null
+    homestead_rate: 1.171
+    nonhomestead_rate: 1.553
+  - town: Guilford
+    cla: 0.9734
+    district_rate: null
+    homestead_rate: 1.7664
+    nonhomestead_rate: 1.6561
+  - town: Halifax
+    cla: 1.0517
+    district_rate: null
+    homestead_rate: 1.4387
+    nonhomestead_rate: 1.5328
+  - town: Hancock
+    cla: 1.0525
+    district_rate: null
+    homestead_rate: 1.6256
+    nonhomestead_rate: 1.5316
+  - town: Hardwick
+    cla: 0.9415
+    district_rate: null
+    homestead_rate: 1.7782
+    nonhomestead_rate: 1.7122
+  - town: Hartford
+    cla: 0.9333
+    district_rate: null
+    homestead_rate: 1.6324
+    nonhomestead_rate: 1.7272
+  - town: Hartland
+    cla: 1.006
+    district_rate: null
+    homestead_rate: 1.7367
+    nonhomestead_rate: 1.6024
+  - town: Highgate
+    cla: 0.9741
+    district_rate: null
+    homestead_rate: 1.3848
+    nonhomestead_rate: 1.6549
+  - town: Hinesburg
+    cla: 0.939
+    district_rate: null
+    homestead_rate: 1.5588
+    nonhomestead_rate: 1.7167
+  - town: Holland
+    cla: 0.8909
+    district_rate: null
+    homestead_rate: 1.5473
+    nonhomestead_rate: 1.8094
+  - town: Hubbardton
+    cla: 0.9547
+    district_rate: null
+    homestead_rate: 1.506
+    nonhomestead_rate: 1.6885
+  - town: Huntington
+    cla: 0.8988
+    district_rate: null
+    homestead_rate: 1.6449
+    nonhomestead_rate: 1.7935
+  - town: Hyde Park
+    cla: 0.9265
+    district_rate: null
+    homestead_rate: 1.6413
+    nonhomestead_rate: 1.7399
+  - town: Ira
+    cla: 0.9609
+    district_rate: null
+    homestead_rate: 1.4968
+    nonhomestead_rate: 1.6776
+  - town: Irasburg
+    cla: 0.9936
+    district_rate: null
+    homestead_rate: 1.2704
+    nonhomestead_rate: 1.6224
+  - town: Isle La Motte
+    cla: 0.9711
+    district_rate: null
+    homestead_rate: 1.6425
+    nonhomestead_rate: 1.66
+  - town: Jamaica
+    cla: 0.9669
+    district_rate: null
+    homestead_rate: 1.8796
+    nonhomestead_rate: 1.6672
+  - town: Jay
+    cla: 1.0327
+    district_rate: null
+    homestead_rate: 1.5249
+    nonhomestead_rate: 1.561
+  - town: Jericho
+    cla: 0.9309
+    district_rate: null
+    homestead_rate: 1.5881
+    nonhomestead_rate: 1.7317
+  - town: Johnson
+    cla: 0.9925
+    district_rate: null
+    homestead_rate: 1.5322
+    nonhomestead_rate: 1.6242
+  - town: Killington
+    cla: 0.8924
+    district_rate: null
+    homestead_rate: 1.8106
+    nonhomestead_rate: 1.8064
+  - town: Kirby
+    cla: 1.0117
+    district_rate: null
+    homestead_rate: 1.5143
+    nonhomestead_rate: 1.5934
+  - town: Landgrove
+    cla: 0.9841
+    district_rate: null
+    homestead_rate: 1.581
+    nonhomestead_rate: 1.638
+  - town: Leicester
+    cla: 0.9874
+    district_rate: null
+    homestead_rate: 1.3836
+    nonhomestead_rate: 1.6326
+  - town: Lemington
+    cla: 1.04
+    district_rate: null
+    homestead_rate: 1.4639
+    nonhomestead_rate: 1.55
+  - town: Lewis
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.028
+    nonhomestead_rate: 1.6571
+  - town: Lincoln
+    cla: 1.066
+    district_rate: null
+    homestead_rate: 1.5266
+    nonhomestead_rate: 1.5122
+  - town: Londonderry
+    cla: 0.9736
+    district_rate: null
+    homestead_rate: 1.5981
+    nonhomestead_rate: 1.6557
+  - town: Lowell
+    cla: 0.9418
+    district_rate: null
+    homestead_rate: 1.5735
+    nonhomestead_rate: 1.7116
+  - town: Ludlow
+    cla: 1.0099
+    district_rate: null
+    homestead_rate: 1.6207
+    nonhomestead_rate: 1.5962
+  - town: Lunenburg
+    cla: 1.002
+    district_rate: null
+    homestead_rate: 1.4225
+    nonhomestead_rate: 1.6088
+  - town: Lyndon
+    cla: 0.9661
+    district_rate: null
+    homestead_rate: 1.4753
+    nonhomestead_rate: 1.6686
+  - town: Maidstone
+    cla: 0.9499
+    district_rate: null
+    homestead_rate: 1.2796
+    nonhomestead_rate: 1.697
+  - town: Manchester
+    cla: 1.0022
+    district_rate: null
+    homestead_rate: 1.5525
+    nonhomestead_rate: 1.6085
+  - town: Marlboro
+    cla: 1.0595
+    district_rate: null
+    homestead_rate: 1.6389
+    nonhomestead_rate: 1.5215
+  - town: Marshfield
+    cla: 0.8795
+    district_rate: null
+    homestead_rate: 1.8241
+    nonhomestead_rate: 1.8329
+  - town: Mendon
+    cla: 1.3169
+    district_rate: null
+    homestead_rate: 1.1578
+    nonhomestead_rate: 1.2241
+  - town: Middlebury
+    cla: 1
+    district_rate: null
+    homestead_rate: 1.6485
+    nonhomestead_rate: 1.612
+  - town: Middlesex
+    cla: 0.9589
+    district_rate: null
+    homestead_rate: 1.789
+    nonhomestead_rate: 1.6811
+  - town: Middletown Springs
+    cla: 0.9875
+    district_rate: null
+    homestead_rate: 1.5822
+    nonhomestead_rate: 1.6324
+  - town: Milton
+    cla: 0.9157
+    district_rate: null
+    homestead_rate: 1.552
+    nonhomestead_rate: 1.7604
+  - town: Monkton
+    cla: 0.9309
+    district_rate: null
+    homestead_rate: 1.7482
+    nonhomestead_rate: 1.7317
+  - town: Montgomery
+    cla: 1.0136
+    district_rate: null
+    homestead_rate: 1.3573
+    nonhomestead_rate: 1.5904
+  - town: Montpelier
+    cla: 0.8444
+    district_rate: null
+    homestead_rate: 1.7744
+    nonhomestead_rate: 1.909
+  - town: Moretown
+    cla: 0.9294
+    district_rate: null
+    homestead_rate: 1.7765
+    nonhomestead_rate: 1.7345
+  - town: Morgan
+    cla: 0.9826
+    district_rate: null
+    homestead_rate: 1.3054
+    nonhomestead_rate: 1.6405
+  - town: Morristown
+    cla: 0.9439
+    district_rate: null
+    homestead_rate: 1.5944
+    nonhomestead_rate: 1.7078
+  - town: Mount Holly
+    cla: 1.0643
+    district_rate: null
+    homestead_rate: 1.5378
+    nonhomestead_rate: 1.5146
+  - town: Mount Tabor
+    cla: 1.0282
+    district_rate: null
+    homestead_rate: 1.5132
+    nonhomestead_rate: 1.5678
+  - town: New Haven
+    cla: 0.9142
+    district_rate: null
+    homestead_rate: 1.7801
+    nonhomestead_rate: 1.7633
+  - town: Newark
+    cla: 1.009
+    district_rate: null
+    homestead_rate: 1.4126
+    nonhomestead_rate: 1.5976
+  - town: Newbury
+    cla: 1.0038
+    district_rate: null
+    homestead_rate: 1.5879
+    nonhomestead_rate: 1.6059
+  - town: Newfane
+    cla: 0.9642
+    district_rate: null
+    homestead_rate: 1.8849
+    nonhomestead_rate: 1.6719
+  - town: Newport City
+    cla: 0.9655
+    district_rate: null
+    homestead_rate: 1.5787
+    nonhomestead_rate: 1.6696
+  - town: Newport Town
+    cla: 1.0604
+    district_rate: null
+    homestead_rate: 1.5127
+    nonhomestead_rate: 1.5202
+  - town: North Bennington
+    cla: 0.9359
+    district_rate: null
+    homestead_rate: 1.6453
+    nonhomestead_rate: 1.7224
+  - town: North Hero
+    cla: 0.929
+    district_rate: null
+    homestead_rate: 1.7169
+    nonhomestead_rate: 1.7352
+  - town: Northfield
+    cla: 0.9196
+    district_rate: null
+    homestead_rate: 1.5669
+    nonhomestead_rate: 1.7529
+  - town: Norton
+    cla: 0.904
+    district_rate: null
+    homestead_rate: 1.6947
+    nonhomestead_rate: 1.7832
+  - town: Norwich
+    cla: 0.9028
+    district_rate: null
+    homestead_rate: 1.8625
+    nonhomestead_rate: 1.7856
+  - town: Orange
+    cla: 0.9636
+    district_rate: null
+    homestead_rate: 1.4387
+    nonhomestead_rate: 1.6729
+  - town: Orleans ID
+    cla: 0.9356
+    district_rate: null
+    homestead_rate: 1.3426
+    nonhomestead_rate: 1.723
+  - town: Orwell
+    cla: 0.987
+    district_rate: null
+    homestead_rate: 1.4567
+    nonhomestead_rate: 1.6332
+  - town: Panton
+    cla: 0.9724
+    district_rate: null
+    homestead_rate: 1.7219
+    nonhomestead_rate: 1.6578
+  - town: Pawlet
+    cla: 1.0584
+    district_rate: null
+    homestead_rate: 1.3347
+    nonhomestead_rate: 1.5231
+  - town: Peacham
+    cla: 1.0362
+    district_rate: null
+    homestead_rate: 1.7239
+    nonhomestead_rate: 1.5557
+  - town: Peru
+    cla: 1.0091
+    district_rate: null
+    homestead_rate: 1.5419
+    nonhomestead_rate: 1.5975
+  - town: Pittsfield
+    cla: 1.0915
+    district_rate: null
+    homestead_rate: 1.2005
+    nonhomestead_rate: 1.4769
+  - town: Pittsford
+    cla: 0.9469
+    district_rate: null
+    homestead_rate: 1.4428
+    nonhomestead_rate: 1.7024
+  - town: Plainfield
+    cla: 0.9116
+    district_rate: null
+    homestead_rate: 1.7599
+    nonhomestead_rate: 1.7683
+  - town: Plymouth
+    cla: 0.9697
+    district_rate: null
+    homestead_rate: 1.6663
+    nonhomestead_rate: 1.6624
+  - town: Pomfret
+    cla: 1.075
+    district_rate: null
+    homestead_rate: 1.5031
+    nonhomestead_rate: 1.4995
+  - town: Poultney
+    cla: 0.975
+    district_rate: null
+    homestead_rate: 1.4807
+    nonhomestead_rate: 1.6533
+  - town: Pownal
+    cla: 1.0378
+    district_rate: null
+    homestead_rate: 1.3478
+    nonhomestead_rate: 1.5533
+  - town: Proctor
+    cla: 0.9987
+    district_rate: null
+    homestead_rate: 1.4456
+    nonhomestead_rate: 1.6141
+  - town: Putney
+    cla: 0.9674
+    district_rate: null
+    homestead_rate: 1.773
+    nonhomestead_rate: 1.6663
+  - town: Randolph
+    cla: 1.0095
+    district_rate: null
+    homestead_rate: 1.5655
+    nonhomestead_rate: 1.5968
+  - town: Reading
+    cla: 1.0769
+    district_rate: null
+    homestead_rate: 1.5004
+    nonhomestead_rate: 1.4969
+  - town: Readsboro
+    cla: 1.1
+    district_rate: null
+    homestead_rate: 1.2725
+    nonhomestead_rate: 1.4655
+  - town: Richford
+    cla: 1.1234
+    district_rate: null
+    homestead_rate: 1.1938
+    nonhomestead_rate: 1.4349
+  - town: Richmond
+    cla: 0.8565
+    district_rate: null
+    homestead_rate: 1.7261
+    nonhomestead_rate: 1.8821
+  - town: Ripton
+    cla: 0.8978
+    district_rate: null
+    homestead_rate: 1.8362
+    nonhomestead_rate: 1.7955
+  - town: Rochester
+    cla: 1.0298
+    district_rate: null
+    homestead_rate: 1.5886
+    nonhomestead_rate: 1.5654
+  - town: Rockingham
+    cla: 0.9555
+    district_rate: null
+    homestead_rate: 1.9323
+    nonhomestead_rate: 1.6871
+  - town: Roxbury
+    cla: 1.0219
+    district_rate: null
+    homestead_rate: 1.4662
+    nonhomestead_rate: 1.5775
+  - town: Royalton
+    cla: 0.9498
+    district_rate: null
+    homestead_rate: 1.6758
+    nonhomestead_rate: 1.6972
+  - town: Rupert
+    cla: 1.0346
+    district_rate: null
+    homestead_rate: 1.3654
+    nonhomestead_rate: 1.5581
+  - town: Rutland City
+    cla: 0.9339
+    district_rate: null
+    homestead_rate: 1.6402
+    nonhomestead_rate: 1.7261
+  - town: Rutland Town
+    cla: 1.0002
+    district_rate: null
+    homestead_rate: 1.4751
+    nonhomestead_rate: 1.6117
+  - town: Ryegate
+    cla: 1.0185
+    district_rate: null
+    homestead_rate: 1.4662
+    nonhomestead_rate: 1.5827
+  - town: Salisbury
+    cla: 0.8788
+    district_rate: null
+    homestead_rate: 1.8759
+    nonhomestead_rate: 1.8343
+  - town: Sandgate
+    cla: 1.0222
+    district_rate: null
+    homestead_rate: 1.379
+    nonhomestead_rate: 1.577
+  - town: Searsburg
+    cla: 1.0119
+    district_rate: null
+    homestead_rate: 1.4176
+    nonhomestead_rate: 1.593
+  - town: Shaftsbury
+    cla: 1.0398
+    district_rate: null
+    homestead_rate: 1.3481
+    nonhomestead_rate: 1.5503
+  - town: Shaftsbury ID
+    cla: 1.022
+    district_rate: null
+    homestead_rate: 1.5067
+    nonhomestead_rate: 1.5773
+  - town: Sharon
+    cla: 0.9493
+    district_rate: null
+    homestead_rate: 1.6764
+    nonhomestead_rate: 1.6981
+  - town: Sheffield
+    cla: 0.9202
+    district_rate: null
+    homestead_rate: 1.5489
+    nonhomestead_rate: 1.7518
+  - town: Shelburne
+    cla: 0.9147
+    district_rate: null
+    homestead_rate: 1.6002
+    nonhomestead_rate: 1.7623
+  - town: Sheldon
+    cla: 0.942
+    district_rate: null
+    homestead_rate: 1.4605
+    nonhomestead_rate: 1.7113
+  - town: Shoreham
+    cla: 0.983
+    district_rate: null
+    homestead_rate: 1.677
+    nonhomestead_rate: 1.6399
+  - town: Shrewsbury
+    cla: 0.9883
+    district_rate: null
+    homestead_rate: 1.5727
+    nonhomestead_rate: 1.6311
+  - town: Somerset
+    cla: 0.9885
+    district_rate: null
+    homestead_rate: 1.0116
+    nonhomestead_rate: 1.6308
+  - town: South Burlington
+    cla: 1.1203
+    district_rate: null
+    homestead_rate: 1.3249
+    nonhomestead_rate: 1.4389
+  - town: South Hero
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.6357
+    nonhomestead_rate: 1.6571
+  - town: Springfield
+    cla: 0.9478
+    district_rate: null
+    homestead_rate: 1.7004
+    nonhomestead_rate: 1.7008
+  - town: St. Albans City
+    cla: 0.8923
+    district_rate: null
+    homestead_rate: 1.6706
+    nonhomestead_rate: 1.8066
+  - town: St. Albans Town
+    cla: 0.9502
+    district_rate: null
+    homestead_rate: 1.5688
+    nonhomestead_rate: 1.6965
+  - town: St. George
+    cla: 0.848
+    district_rate: null
+    homestead_rate: 1.7261
+    nonhomestead_rate: 1.9009
+  - town: St. Johnsbury
+    cla: 0.9906
+    district_rate: null
+    homestead_rate: 1.4048
+    nonhomestead_rate: 1.6273
+  - town: Stamford
+    cla: 0.9207
+    district_rate: null
+    homestead_rate: 1.4996
+    nonhomestead_rate: 1.7508
+  - town: Stannard
+    cla: 0.9045
+    district_rate: null
+    homestead_rate: 1.7988
+    nonhomestead_rate: 1.7822
+  - town: Starksboro
+    cla: 0.9307
+    district_rate: null
+    homestead_rate: 1.7486
+    nonhomestead_rate: 1.732
+  - town: Stockbridge
+    cla: 1.0136
+    district_rate: null
+    homestead_rate: 1.614
+    nonhomestead_rate: 1.5904
+  - town: Stowe
+    cla: 0.8751
+    district_rate: null
+    homestead_rate: 1.7198
+    nonhomestead_rate: 1.8421
+  - town: Strafford
+    cla: 0.9767
+    district_rate: null
+    homestead_rate: 1.6638
+    nonhomestead_rate: 1.6505
+  - town: Stratton
+    cla: 0.958
+    district_rate: null
+    homestead_rate: 1.4838
+    nonhomestead_rate: 1.6827
+  - town: Sudbury
+    cla: 1.094
+    district_rate: null
+    homestead_rate: 1.2488
+    nonhomestead_rate: 1.4735
+  - town: Sunderland
+    cla: 0.988
+    district_rate: null
+    homestead_rate: 1.2303
+    nonhomestead_rate: 1.6316
+  - town: Sutton
+    cla: 1.0833
+    district_rate: null
+    homestead_rate: 1.3211
+    nonhomestead_rate: 1.488
+  - town: Swanton
+    cla: 0.9839
+    district_rate: null
+    homestead_rate: 1.371
+    nonhomestead_rate: 1.6384
+  - town: Thetford
+    cla: 0.9218
+    district_rate: null
+    homestead_rate: 1.8848
+    nonhomestead_rate: 1.7488
+  - town: Tinmouth
+    cla: 0.9825
+    district_rate: null
+    homestead_rate: 1.582
+    nonhomestead_rate: 1.6407
+  - town: Topsham
+    cla: 1.0072
+    district_rate: null
+    homestead_rate: 1.4791
+    nonhomestead_rate: 1.6005
+  - town: Townshend
+    cla: 0.9979
+    district_rate: null
+    homestead_rate: 1.8615
+    nonhomestead_rate: 1.6154
+  - town: Troy
+    cla: 0.9733
+    district_rate: null
+    homestead_rate: 1.4641
+    nonhomestead_rate: 1.6562
+  - town: Tunbridge
+    cla: 1.0322
+    district_rate: null
+    homestead_rate: 1.5872
+    nonhomestead_rate: 1.5617
+  - town: Underhill
+    cla: 0.8937
+    district_rate: null
+    homestead_rate: 1.6542
+    nonhomestead_rate: 1.8037
+  - town: Vergennes
+    cla: 0.919
+    district_rate: null
+    homestead_rate: 1.822
+    nonhomestead_rate: 1.7541
+  - town: Vernon
+    cla: 1.0562
+    district_rate: null
+    homestead_rate: 1.4753
+    nonhomestead_rate: 1.5262
+  - town: Vershire
+    cla: 0.9133
+    district_rate: null
+    homestead_rate: 2.1422
+    nonhomestead_rate: 1.765
+  - town: Victory
+    cla: 1.0112
+    district_rate: null
+    homestead_rate: 1.7621
+    nonhomestead_rate: 1.5941
+  - town: Waitsfield
+    cla: 0.9609
+    district_rate: null
+    homestead_rate: 1.7183
+    nonhomestead_rate: 1.6776
+  - town: Walden
+    cla: 0.9672
+    district_rate: null
+    homestead_rate: 1.6628
+    nonhomestead_rate: 1.6667
+  - town: Wallingford
+    cla: 0.9942
+    district_rate: null
+    homestead_rate: 1.5634
+    nonhomestead_rate: 1.6214
+  - town: Waltham
+    cla: 0.9703
+    district_rate: null
+    homestead_rate: 1.7257
+    nonhomestead_rate: 1.6613
+  - town: Wardsboro
+    cla: 0.9508
+    district_rate: null
+    homestead_rate: 1.8089
+    nonhomestead_rate: 1.6954
+  - town: Warners Grant
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.028
+    nonhomestead_rate: 1.6571
+  - town: Warren
+    cla: 0.924
+    district_rate: null
+    homestead_rate: 1.7869
+    nonhomestead_rate: 1.7446
+  - town: Warren Gore
+    cla: 0.9728
+    district_rate: null
+    homestead_rate: 1.028
+    nonhomestead_rate: 1.6571
+  - town: Washington
+    cla: 0.9785
+    district_rate: null
+    homestead_rate: 1.4168
+    nonhomestead_rate: 1.6474
+  - town: Waterbury
+    cla: 0.918
+    district_rate: null
+    homestead_rate: 1.7986
+    nonhomestead_rate: 1.756
+  - town: Waterford
+    cla: 1.0494
+    district_rate: null
+    homestead_rate: 1.6172
+    nonhomestead_rate: 1.5361
+  - town: Waterville
+    cla: 0.9197
+    district_rate: null
+    homestead_rate: 1.6535
+    nonhomestead_rate: 1.7527
+  - town: Weathersfield
+    cla: 0.9311
+    district_rate: null
+    homestead_rate: 1.9482
+    nonhomestead_rate: 1.7313
+  - town: Wells
+    cla: 0.9487
+    district_rate: null
+    homestead_rate: 1.6253
+    nonhomestead_rate: 1.6992
+  - town: Wells River
+    cla: 1.0172
+    district_rate: null
+    homestead_rate: 1.468
+    nonhomestead_rate: 1.5847
+  - town: West Fairlee
+    cla: 1.0171
+    district_rate: null
+    homestead_rate: 1.9236
+    nonhomestead_rate: 1.5849
+  - town: West Haven
+    cla: 0.9657
+    district_rate: null
+    homestead_rate: 1.4889
+    nonhomestead_rate: 1.6693
+  - town: West Rutland
+    cla: 1.0564
+    district_rate: null
+    homestead_rate: 1.3666
+    nonhomestead_rate: 1.5259
+  - town: West Windsor
+    cla: 0.9579
+    district_rate: null
+    homestead_rate: 1.4576
+    nonhomestead_rate: 1.6828
+  - town: Westfield
+    cla: 1.0232
+    district_rate: null
+    homestead_rate: 1.3708
+    nonhomestead_rate: 1.5754
+  - town: Westford
+    cla: 0.898
+    district_rate: null
+    homestead_rate: 1.6416
+    nonhomestead_rate: 1.7951
+  - town: Westminster
+    cla: 0.9575
+    district_rate: null
+    homestead_rate: 1.8361
+    nonhomestead_rate: 1.6836
+  - town: Westmore
+    cla: 1.0666
+    district_rate: null
+    homestead_rate: 1.1572
+    nonhomestead_rate: 1.5113
+  - town: Weston
+    cla: 0.9686
+    district_rate: null
+    homestead_rate: 1.6063
+    nonhomestead_rate: 1.6643
+  - town: Weybridge
+    cla: 0.9662
+    district_rate: null
+    homestead_rate: 1.7062
+    nonhomestead_rate: 1.6684
+  - town: Wheelock
+    cla: 0.9885
+    district_rate: null
+    homestead_rate: 1.4419
+    nonhomestead_rate: 1.6308
+  - town: Whiting
+    cla: 1.0529
+    district_rate: null
+    homestead_rate: 1.2976
+    nonhomestead_rate: 1.531
+  - town: Whitingham
+    cla: 1.0064
+    district_rate: null
+    homestead_rate: 1.6852
+    nonhomestead_rate: 1.6017
+  - town: Williamstown
+    cla: 1.0137
+    district_rate: null
+    homestead_rate: 1.4214
+    nonhomestead_rate: 1.5902
+  - town: Williston
+    cla: 0.9203
+    district_rate: null
+    homestead_rate: 1.5905
+    nonhomestead_rate: 1.7516
+  - town: Wilmington
+    cla: 1.0031
+    district_rate: null
+    homestead_rate: 1.6908
+    nonhomestead_rate: 1.607
+  - town: Windham
+    cla: 0.9783
+    district_rate: null
+    homestead_rate: 1.6402
+    nonhomestead_rate: 1.6478
+  - town: Windsor
+    cla: 0.9867
+    district_rate: null
+    homestead_rate: 1.415
+    nonhomestead_rate: 1.6337
+  - town: Winhall
+    cla: 0.9824
+    district_rate: null
+    homestead_rate: 1.7793
+    nonhomestead_rate: 1.6409
+  - town: Winooski
+    cla: 0.7957
+    district_rate: null
+    homestead_rate: 1.9024
+    nonhomestead_rate: 2.0259
+  - town: Wolcott
+    cla: 0.9421
+    district_rate: null
+    homestead_rate: 1.6757
+    nonhomestead_rate: 1.7111
+  - town: Woodbury
+    cla: 0.9833
+    district_rate: null
+    homestead_rate: 1.7022
+    nonhomestead_rate: 1.6394
+  - town: Woodford
+    cla: 1.0093
+    district_rate: null
+    homestead_rate: 1.376
+    nonhomestead_rate: 1.5971
+  - town: Woodstock
+    cla: 0.9039
+    district_rate: null
+    homestead_rate: 1.7876
+    nonhomestead_rate: 1.7834
+  - town: Worcester
+    cla: 0.9955
+    district_rate: null
+    homestead_rate: 1.7233
+    nonhomestead_rate: 1.6193

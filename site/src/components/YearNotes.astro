@@ -1,0 +1,40 @@
+---
+/**
+ * The short notes about a journey page's year: which student count it uses,
+ * whether that count is preliminary or differs from the next year's, and that
+ * memberships are today's. Renders nothing when there is nothing to say.
+ */
+import type { YearNotes } from '../lib/year-notes.ts';
+
+interface Props {
+  notes: YearNotes;
+}
+
+const { notes } = Astro.props;
+const plain = [notes.preliminary, notes.countChange, notes.membership].filter((n): n is string => n !== null);
+---
+
+{
+  (plain.length > 0 || notes.studentsSource) && (
+    <div class="year-notes">
+      {notes.studentsSource && (
+        <p>
+          {notes.studentsSource.text} <a href={notes.studentsSource.url}>See the state's reports.</a>
+        </p>
+      )}
+      {plain.map((n) => <p>{n}</p>)}
+    </div>
+  )
+}
+
+<style>
+  .year-notes {
+    margin: 0.5rem 0 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .year-notes p {
+    margin: 0 0 0.3rem;
+    max-width: 75ch;
+  }
+</style>

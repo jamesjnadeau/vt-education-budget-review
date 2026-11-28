@@ -1,0 +1,24 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2020
+artifacts:
+  - file: FY20_Education_Tax_Rates_2019.0930.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/FY20%20Education%20Tax%20Rates%202019.0930.xlsx
+    retrieved_date: "2026-11-28"
+    retrieval_method: http-fetch
+    sha256: 1cead75ae55886ff68143c212de476d20544eb89bc41f05bfb6ff77b6c34fa06
+    bytes: 22293
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2020 Education Property Tax Rates
+    published_date: "2019-09-30"
+    document_page: https://tax.vermont.gov/content/fy2020-education-property-tax-rates
+    note: >-
+      Vermont Department of Taxes, "FY2020 Education Property Tax Rates". Fetched with
+      npm run vt:fetch; the saved name is the released name with spaces replaced by
+      underscores. The document page is titled "FY2020 Education Tax Rates - As of
+      09/30/2019" and carries no other date, so published_date is that as-of date.
+      Columns: TOWN, STATUS, CALC, CLA, HS_TAXRATE, NHS_TAXRATE. CLA is a percent
+      (101.27). No school code column. Rates are per $100 of assessed value.

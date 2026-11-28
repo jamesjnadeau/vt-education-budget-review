@@ -1,0 +1,50 @@
+---
+/**
+ * The top of every journey page: the year switcher on the left, the route map
+ * taking the rest of the width. Under 36rem, where the route map turns
+ * vertical, the switcher sits above it.
+ */
+import type { Step } from '../lib/journey.ts';
+import type { JourneyKind } from '../lib/years.ts';
+import JourneyProgress from './JourneyProgress.astro';
+import YearSwitcher from './YearSwitcher.astro';
+
+interface Props {
+  steps: Step[];
+  current: Step['id'];
+  year: number;
+  kind: JourneyKind;
+  slug: string | number;
+}
+
+const { steps, current, year, kind, slug } = Astro.props;
+---
+
+<div class="journey-top">
+  <YearSwitcher year={year} kind={kind} slug={slug} />
+  <div class="journey-top-route">
+    <JourneyProgress steps={steps} current={current} />
+  </div>
+</div>
+
+<style>
+  .journey-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem 2rem;
+    margin-bottom: 1rem;
+  }
+  .journey-top-route {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  @media (max-width: 48rem) {
+    .journey-top {
+      flex-direction: column;
+    }
+    .journey-top-route {
+      width: 100%;
+      flex: none;
+    }
+  }
+</style>

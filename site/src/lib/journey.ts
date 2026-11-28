@@ -27,6 +27,7 @@ import {
 } from './groupings.ts';
 import { percentileOf, shareOf, median, mean, type Percentile } from './journey-scale.ts';
 import { isOutOfState, slugTail, titleCase } from './display.ts';
+import { DEFAULT_YEAR, myHref } from './years.ts';
 
 export type BlankKind = 'missing_input' | 'unverified' | 'undetermined' | 'not_computable';
 
@@ -35,7 +36,7 @@ export type Figure<T> =
   | { kind: 'value'; value: T }
   | { kind: 'blank'; why: BlankKind; reason: string };
 
-/** Students for a place: a sum of the four SY25 bands, or a not-computable blank. */
+/** Students for a place: a sum of the year's counts, or a not-computable blank. */
 export type Students =
   | { kind: 'sum'; sum: Sum }
   | { kind: 'blank'; why: 'not_computable'; reason: string };
@@ -61,9 +62,9 @@ export interface Comparator {
 
 /** State and county comparators for the three headline statistics a town page shows. */
 export interface Comparators {
-  /** Fiscal year 2026 homestead rate: the MEDIAN of published rates (a mean of rates is a figure nobody publishes). */
+  /** The year's homestead rate: the MEDIAN of published rates (a mean of rates is a figure nobody publishes). */
   rate: { state: Comparator | null; county: Comparator | null };
-  /** Town-of-residence students (SY25): the MEAN per town, over towns with an exact count. */
+  /** Town-of-residence students (the year's count): the MEAN per town, over towns with an exact count. */
   students: { state: Comparator | null; county: Comparator | null };
   /** People (2020 Census): the MEAN per town, over towns with a published population. */
   people: { state: Comparator | null; county: Comparator | null };
@@ -110,6 +111,28 @@ export interface JourneyInputs {
   combiner: CombinerJson;
   subgroups: SubgroupsJson;
   groupings: GroupingsJson;
+  /**
+   * journey-years.json: each fiscal year's rates and student source. When it is
+   * left out (hand-made test worlds), the one year asked for is read the old
+   * way: rates from the combiner record, students from the town file.
+   */
+  years?: JourneyYearsJson;
+}
+
+/** The slice of journey-years.json the model reads. */
+export interface JourneyYearsJson {
+  years: JourneyYearRecord[];
+}
+export interface JourneyYearRecord {
+  fiscal_year: number;
+  rate_source: { publisher: string; title: string; published_date: string; document_page: string } | null;
+  students_source: {
+    kind: 'resident_district_report' | 'town_file';
+    count_year: string;
+    title: string | null;
+    preliminary: boolean;
+  } | null;
+  towns: Record<string, { homestead_rate: number | null; students?: number }>;
 }
 
 /** Narrow shapes of the generated JSON, with only the fields used. */
@@ -133,6 +156,8 @@ export interface CombinerJson {
   >;
 }
 export interface SubgroupsJson {
+  /** Which fiscal year each school year's count belongs to. Optional in test worlds. */
+  years?: { school_year: string; count_year: string; fiscal_year: number; preliminary: boolean }[];
   towns: Record<string, Record<string, TownYear>>;
 }
 export interface GroupingsJson {
@@ -141,6 +166,12 @@ export interface GroupingsJson {
 }
 
 export interface Journey {
+  /** The fiscal year every figure here belongs to. */
+  year: number;
+  /** Where the year's rates come from; null when no table is on file. */
+  rateSource: JourneyYearRecord['rate_source'];
+  /** Which state count the year's student figures use; null when none is on file. */
+  studentsSource: JourneyYearRecord['students_source'];
   towns: Record<string, TownPage>;
   districts: Record<string, GroupPage>;
   unions: Record<string, GroupPage>;
@@ -154,24 +185,63 @@ const SY25 = 'SY25';
 
 type Delivered = Exclude<TownYear, { row: 'not_applicable' }>;
 
-/** The four SY25 band cells for a town, or null when the year is not delivered. */
-function sy25Cells(inputs: JourneyInputs, slug: string): Cell[] | null {
-  const town = inputs.subgroups.towns[slug]?.[SY25] as Delivered | { row: 'not_applicable' } | undefined;
-  if (town === undefined || town.row === 'not_applicable') return null;
-  const b = town.bands;
-  return [b.prekindergarten, b.kindergarten_through_5, b.grades_6_through_8, b.grades_9_through_12];
+const NO_STUDENT_SOURCE = "the state's student count for this year is not on file here.";
+
+/** The year's record, or one made from the combiner and the town file when no years file is given. */
+function yearRecord(inputs: JourneyInputs, year: number): JourneyYearRecord {
+  if (inputs.years) {
+    const found = inputs.years.years.find((y) => y.fiscal_year === year);
+    if (!found) throw new Error(`journey-years has no record for fiscal year ${year}`);
+    return found;
+  }
+  const fileYear = inputs.subgroups.years?.find((y) => y.fiscal_year === year);
+  return {
+    fiscal_year: year,
+    rate_source: null,
+    students_source: {
+      kind: 'town_file',
+      count_year: fileYear?.count_year ?? '2024-2025',
+      title: null,
+      preliminary: fileYear?.preliminary ?? false,
+    },
+    towns: Object.fromEntries(
+      Object.entries(inputs.combiner.towns).map(([slug, t]) => [slug, { homestead_rate: t.published_homestead_rate }]),
+    ),
+  };
 }
 
-export function buildJourney(inputs: JourneyInputs): Journey {
+export function buildJourney(inputs: JourneyInputs, year: number = DEFAULT_YEAR): Journey {
   const registry = inputs.registry;
   const bySlug = new Map(registry.map((e) => [e.slug, e]));
   const activeTowns = registry.filter((e) => e.type === 'town' && !e.effective_to && !e.reporting_only && !isOutOfState(e));
 
-  const rateOf = (slug: string): number | null => inputs.combiner.towns[slug]?.published_homestead_rate ?? null;
+  const record = yearRecord(inputs, year);
+  const source = record.students_source;
+  // The town file's key for this fiscal year ("SY25" for FY2026).
+  const schoolYear =
+    source?.kind === 'town_file'
+      ? (inputs.subgroups.years?.find((y) => y.fiscal_year === year)?.school_year ?? SY25)
+      : null;
+
+  /** The year's student cells for a town, or null when the year has none for it. */
+  const cellsOf = (slug: string): Cell[] | null => {
+    if (source?.kind === 'resident_district_report') {
+      const total = record.towns[slug]?.students;
+      return total === undefined ? null : [{ value: total }];
+    }
+    if (schoolYear === null) return null;
+    const town = inputs.subgroups.towns[slug]?.[schoolYear] as Delivered | { row: 'not_applicable' } | undefined;
+    if (town === undefined || town.row === 'not_applicable') return null;
+    const b = town.bands;
+    return [b.prekindergarten, b.kindergarten_through_5, b.grades_6_through_8, b.grades_9_through_12];
+  };
+
+  const rateOf = (slug: string): number | null => record.towns[slug]?.homestead_rate ?? null;
   const peopleOf = (slug: string): number | null => inputs.combiner.towns[slug]?.population_2020 ?? null;
 
   const studentsOf = (towns: string[]): Students => {
-    const all = towns.flatMap((s) => sy25Cells(inputs, s) ?? []);
+    if (source === null) return { kind: 'blank', why: 'not_computable', reason: NO_STUDENT_SOURCE } as const;
+    const all = towns.flatMap((s) => cellsOf(s) ?? []);
     if (all.length === 0) {
       return { kind: 'blank', why: 'not_computable', reason: 'no students are counted as living here.' } as const;
     }
@@ -191,7 +261,7 @@ export function buildJourney(inputs: JourneyInputs): Journey {
   };
 
   const exactStudentValue = (slug: string): number | null => {
-    const cells = sy25Cells(inputs, slug);
+    const cells = cellsOf(slug);
     if (cells === null) return null;
     const sum = sumCells(cells);
     return sum.kind === 'exact' ? sum.value : null;
@@ -269,20 +339,20 @@ export function buildJourney(inputs: JourneyInputs): Journey {
     return [...on];
   };
 
-  const townStep = (slug: string): Step => ({ id: 'town', href: `/my/town/${slug}/`, label: 'Your town' });
+  const townStep = (slug: string): Step => ({ id: 'town', href: myHref(year, 'town', slug), label: 'Your town' });
   const districtStep = (slug: string): Step => ({
     id: 'district',
-    href: `/my/district/${slug}/`,
+    href: myHref(year, 'district', slug),
     label: 'Your school district',
   });
   const unionStep = (slug: string): Step => ({
     id: 'union',
-    href: `/my/union/${slug}/`,
+    href: myHref(year, 'union', slug),
     label: 'Your supervisory union',
   });
   const groupingStep = (number: number): Step => ({
     id: 'grouping',
-    href: `/my/grouping/${number}/`,
+    href: myHref(year, 'grouping', number),
     label: 'Your group',
   });
 
@@ -498,6 +568,9 @@ export function buildJourney(inputs: JourneyInputs): Journey {
   }
 
   return {
+    year,
+    rateSource: record.rate_source,
+    studentsSource: source,
     towns,
     districts,
     unions,

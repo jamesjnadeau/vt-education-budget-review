@@ -8,6 +8,8 @@
  * here, where it changes nothing about what is stored.
  */
 
+import { DEFAULT_YEAR, myHref } from './years.ts';
+
 const KEEP_UPPER = new Set(['ii', 'iii', 'iv', 'nh', 'id']);
 const KEEP_LOWER = new Set(['of', 'the', 'and', 'at', 'in', 'on']);
 
@@ -58,7 +60,7 @@ export function operatorHref(
   if (!slug) return null;
   const [kind, tail] = slug.split('/');
   if (!tail) return null;
-  if ((kind === 'ud' || kind === 'town') && districtPages.has(tail)) return `${base}/my/district/${tail}/`;
+  if ((kind === 'ud' || kind === 'town') && districtPages.has(tail)) return `${base}${myHref(DEFAULT_YEAR, 'district', tail)}`;
   if (kind === 'town' || kind === 'su') return `${base}/${kind}/${tail}/`;
   return null;
 }

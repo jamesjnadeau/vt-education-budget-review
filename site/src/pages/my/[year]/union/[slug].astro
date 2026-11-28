@@ -1,0 +1,112 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import { journeyFor } from '../../../../lib/journey-data.ts';
+import { YEARS, myHref } from '../../../../lib/years.ts';
+import { studentsLabel, yearNotes } from '../../../../lib/year-notes.ts';
+import JourneyTop from '../../../../components/JourneyTop.astro';
+import YearNotes from '../../../../components/YearNotes.astro';
+import { slugTail, titleCase } from '../../../../lib/display.ts';
+import { rateRangeText } from '../../../../lib/rate-format.ts';
+import { groupRateReason, showsGroupRateCard, EXPLAIN } from '../../../../lib/rate-copy.ts';
+import JourneyStats from '../../../../components/JourneyStats.astro';
+import JourneyNext from '../../../../components/JourneyNext.astro';
+
+export function getStaticPaths() {
+  // Which student count each year uses, so a page can say when its neighbour differs.
+  const kinds = new Map(YEARS.map((y) => [y, journeyFor(y).studentsSource?.kind ?? null] as const));
+  return YEARS.flatMap((year) => {
+    const journey = journeyFor(year);
+    const notes = yearNotes(journey, kinds);
+    return Object.values(journey.unions).map((p) => ({
+      params: { year: String(year), slug: p.slug },
+      props: { page: p, year, notes, studentsSource: journey.studentsSource },
+    }));
+  });
+}
+
+const { page, year, notes, studentsSource } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title={`Your supervisory union: ${page.name}, fiscal year ${year} — Vermont School Budgets`}>
+  <JourneyTop steps={page.steps} current="union" year={year} kind="union" slug={page.slug} />
+
+  <h1>Your supervisory union: {page.name}</h1>
+  <p class="lede">
+    A supervisory union is a group of nearby school districts that share staff and run the
+    business of their schools together.
+  </p>
+
+  {
+    page.rateRange.kind === 'value' ? (
+      <dl class="facts">
+        <dt>Homestead tax rate (FY{year})</dt>
+        <dd>
+          {rateRangeText(page.rateRange.value.low, page.rateRange.value.high)}{' '}
+          Across{' '}
+          {page.rateRange.value.covers} of {page.rateRange.value.of} towns. School tax only,{' '}
+          <a href={`${base}${EXPLAIN.credit}`}>before the property tax credit</a>.
+        </dd>
+      </dl>
+    ) : (
+      <div class="notice">
+        <p class="blank-reason">{page.rateRange.reason}</p>
+      </div>
+    )
+  }
+
+  <JourneyStats
+    rate={{ kind: 'blank' as const, why: 'not_computable', reason: groupRateReason('union') }}
+    showRate={showsGroupRateCard(page.rateRange)}
+    students={page.students}
+    people={page.people}
+    rateLabel={`Homestead tax rate (FY${year})`}
+    studentsLabel={studentsLabel(studentsSource, true)}
+    peopleLabel="People, combined (2020 Census)"
+  />
+  <YearNotes notes={notes} />
+
+  <h2>Towns in this supervisory union</h2>
+  <ul class="grid">
+    {page.members.map((m) => (
+      <li class="card">
+        <a href={`${base}${myHref(year, 'town', m.town)}`}>{titleCase(m.name)}</a>
+      </li>
+    ))}
+  </ul>
+
+  {
+    page.split && (
+      <div class="notice">
+        <h3>The towns here do not all meet in the same group</h3>
+        <p>The people who placed districts into Act 170 groups did it by school district, not by
+        supervisory union, so your union's town (or towns) can sit in more than one group.</p>
+        <p>
+          {page.split.map((s, i) => (
+            <span>
+              {i > 0 && ' · '}Group {s.number}: {s.towns.map(slugTail).join(', ')}
+            </span>
+          ))}
+        </p>
+      </div>
+    )
+  }
+
+  {
+    page.unassignedTowns && page.unassignedTowns.length > 0 && (
+      <div class="notice">
+        <h3>Some districts here are not in a group yet</h3>
+        <p>These towns' school districts are not in any of the study's groups right now, so the
+        journey stops at this union for anyone living there: {page.unassignedTowns.map((t) => t.name).join(', ')}.</p>
+      </div>
+    )
+  }
+
+  {
+    page.next && <JourneyNext next={page.next} base={base} />
+  }
+
+  <p class="journey-change">
+    <a href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
+  </p>
+</Base>

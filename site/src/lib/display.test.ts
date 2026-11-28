@@ -25,10 +25,10 @@ describe('isOutOfState', () => {
 describe('operatorHref', () => {
   const built = new Set(['barre-97', 'rivendell-interstate']);
   it('links a union district whose page is built', () => {
-    expect(operatorHref('ud/barre-97', built, '/b')).toBe('/b/my/district/barre-97/');
+    expect(operatorHref('ud/barre-97', built, '/b')).toBe('/b/my/2026/district/barre-97/');
   });
   it('links a town that runs a built district', () => {
-    expect(operatorHref('town/rivendell-interstate', built, '')).toBe('/my/district/rivendell-interstate/');
+    expect(operatorHref('town/rivendell-interstate', built, '')).toBe('/my/2026/district/rivendell-interstate/');
   });
   it('is null for a district with no page', () => {
     expect(operatorHref('ud/nope-1', built, '')).toBeNull();

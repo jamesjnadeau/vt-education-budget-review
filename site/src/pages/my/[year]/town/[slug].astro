@@ -1,0 +1,210 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import { journeyFor } from '../../../../lib/journey-data.ts';
+import { YEARS } from '../../../../lib/years.ts';
+import { studentsLabel, yearNotes } from '../../../../lib/year-notes.ts';
+import JourneyTop from '../../../../components/JourneyTop.astro';
+import YearNotes from '../../../../components/YearNotes.astro';
+import { percentileWords } from '../../../../lib/journey-scale.ts';
+import JourneyStats from '../../../../components/JourneyStats.astro';
+import SourceLine from '../../../../components/SourceLine.astro';
+import ResidualNote from '../../../../components/ResidualNote.astro';
+import { residualFor, RESIDUAL_YEAR } from '../../../../lib/rate-residuals.ts';
+import { showsTownRateNotes } from '../../../../lib/rate-copy.ts';
+import { sourceFromRecord } from '../../../../lib/sources.ts';
+import JourneyNext from '../../../../components/JourneyNext.astro';
+import DotGrid from '../../../../components/DotGrid.astro';
+import ScaleBar from '../../../../components/ScaleBar.astro';
+import Donut from '../../../../components/Donut.astro';
+
+export function getStaticPaths() {
+  // Which student count each year uses, so a page can say when its neighbour differs.
+  const kinds = new Map(YEARS.map((y) => [y, journeyFor(y).studentsSource?.kind ?? null] as const));
+  return YEARS.flatMap((year) => {
+    const journey = journeyFor(year);
+    const notes = yearNotes(journey, kinds);
+    return Object.values(journey.towns).map((p) => ({
+      params: { year: String(year), slug: p.slug },
+      props: { page: p, year, notes, studentsSource: journey.studentsSource, rateOrder: journey.rateOrder, rateSource: journey.rateSource },
+    }));
+  });
+}
+
+const { page, rateOrder, year, notes, studentsSource, rateSource } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// The note about this site's own math applies only to the year that math was run for.
+const residual = year === RESIDUAL_YEAR ? (residualFor(page.districtSlug) ?? residualFor(`town/${page.slug}`)) : null;
+
+const ratePct = page.rateScale.kind === 'value' ? page.rateScale.value : null;
+const studentsPct = page.studentsScale.kind === 'value' ? page.studentsScale.value : null;
+const peoplePct = page.peopleScale.kind === 'value' ? page.peopleScale.value : null;
+
+// One dot per town with a published rate, lowest first. This town's dot is its own place in that order.
+const rateDots = rateOrder.map((t) => ({
+  slug: t.slug,
+  name: t.name,
+  detail: t.rate.toLocaleString('en-US', { maximumFractionDigits: 4 }),
+}));
+const foundIndex = rateOrder.findIndex((t) => t.slug === page.slug);
+const mineIndex = ratePct && foundIndex >= 0 ? foundIndex : null;
+
+type ShareFigure = { kind: string; value?: number; reason?: string };
+
+/** The donuts a share can show (only exact values), or the reasons when none can. */
+function shareDonuts(
+  s: { students: ShareFigure; people: ShareFigure },
+  what: string,
+): { donuts: { fraction: number; caption: string }[]; reasons: string[] } {
+  const donuts: { fraction: number; caption: string }[] = [];
+  if (s.students.kind === 'value' && s.students.value != null) {
+    donuts.push({ fraction: s.students.value, caption: `of the students in ${what}` });
+  }
+  if (s.people.kind === 'value' && s.people.value != null) {
+    donuts.push({ fraction: s.people.value, caption: `of the people in ${what}` });
+  }
+  const reasons = [s.students, s.people].filter((f) => f.kind !== 'value' && f.reason).map((f) => (f.reason as string).replace(/^[a-z]/, (c) => c.toUpperCase()));
+  return { donuts, reasons };
+}
+
+const shareCards = [
+  page.shares.district && {
+    title: 'Your share of the school district',
+    what: 'your school district',
+    help: undefined as string | undefined,
+    share: page.shares.district,
+  },
+  page.shares.union && {
+    title: 'Your share of the supervisory union',
+    what: 'your supervisory union',
+    help: "A supervisory union is a group of nearby school districts that run their schools' business together.",
+    share: page.shares.union,
+  },
+  page.shares.grouping && {
+    title: 'Your share of your group',
+    what: 'your group',
+    help: undefined as string | undefined,
+    share: page.shares.grouping,
+  },
+].filter(Boolean) as { title: string; what: string; help: string | undefined; share: typeof page.shares.district & object }[];
+---
+
+<Base title={`Your town: ${page.name}, fiscal year ${year} — Vermont School Budgets`}>
+  <JourneyTop steps={page.steps} current="town" year={year} kind="town" slug={page.slug} />
+
+  <div class="journey-town-head">
+    <h1>
+      <a class="journey-heading-link" href={`${base}/my/?change=1`} title="Choose a different town">Your town</a>: {page.name}
+    </h1>
+    <a class="journey-change-link" href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
+  </div>
+
+  <JourneyStats
+    rate={page.rate}
+    students={page.students}
+    people={page.people}
+    rateLabel={`Homestead tax rate (FY${year})`}
+    studentsLabel={studentsLabel(studentsSource)}
+    peopleLabel="People (2020 Census)"
+    rateHelp="The school tax rate for the home you live in."
+    studentsHelp="Public school students who live here (called ADM)."
+    county={page.county}
+    comparators={page.comparators}
+  />
+  {
+    showsTownRateNotes(page.rate) && (
+      <>
+        {rateSource && <SourceLine source={sourceFromRecord(rateSource)} label="Tax rate source:" />}
+        {residual && <ResidualNote reason={residual} />}
+      </>
+    )
+  }
+  <YearNotes notes={notes} />
+
+  <h2>How {page.name} fits in</h2>
+
+  {/* --- Rate scale --- */}
+  <h3>Your town's tax rate, compared</h3>
+  {
+    ratePct ? (
+      <DotGrid
+        total={ratePct.of}
+        mineIndex={mineIndex}
+        towns={rateDots}
+        year={year}
+        groupLabel="Towns by homestead tax rate, lowest first"
+        caption={`${percentileWords(ratePct, 'towns')}. Each dot is a town, lowest rate first; your dot is shown in green. Select any dot to go to that town.`}
+      />
+    ) : (
+      <p class="blank-reason">{page.rateScale.kind === 'blank' ? page.rateScale.reason : 'The tax rate is not published, so there is nothing to compare.'}</p>
+    )
+  }
+
+  {/* --- Students scale --- */}
+  <h3>Your town's students, compared</h3>
+  {
+    studentsPct ? (
+      <ScaleBar
+        fraction={studentsPct.lower > 0 ? Math.min(1, studentsPct.lower / Math.max(1, studentsPct.of)) : 0}
+        caption={`${percentileWords(studentsPct, 'towns')}.`}
+      />
+    ) : (
+      <p class="blank-reason">{page.studentsScale.kind === 'blank' ? page.studentsScale.reason : 'The student count is not an exact number, so there is nothing to compare.'}</p>
+    )
+  }
+
+  {/* --- People scale --- */}
+  <h3>Your town's people, compared</h3>
+  {
+    peoplePct ? (
+      <ScaleBar
+        fraction={peoplePct.lower > 0 ? Math.min(1, peoplePct.lower / Math.max(1, peoplePct.of)) : 0}
+        caption={`${percentileWords(peoplePct, 'towns')}.`}
+      />
+    ) : (
+      <p class="blank-reason">{page.peopleScale.kind === 'blank' ? page.peopleScale.reason : 'The population is not published, so there is nothing to compare.'}</p>
+    )
+  }
+
+  {/* --- Shares --- */}
+  {
+    shareCards.length > 0 && (
+      <div class="journey-shares">
+        {shareCards.map((c) => {
+          const { donuts, reasons } = shareDonuts(c.share, c.what);
+          return (
+            <section class="journey-share">
+              <h3>{c.title}</h3>
+              {c.help && <p class="journey-share-help">{c.help}</p>}
+              {donuts.length > 0 ? (
+                <div class="journey-share-donuts">
+                  {donuts.map((d) => <Donut fraction={d.fraction} caption={d.caption} />)}
+                </div>
+              ) : (
+                <p class="blank-reason">{`The share of ${c.what} can't be given right now.`}</p>
+              )}
+              {reasons.map((r) => <p class="journey-share-reason">{r}</p>)}
+            </section>
+          );
+        })}
+      </div>
+    )
+  }
+
+  {
+    page.committeeNumber === null && page.unionSlug !== null && (
+      <div class="notice journey-no-group">
+        <strong>The Vermont Learning Collaborative has not placed your school district in a group yet.</strong>
+        <p>
+          Act 170 of 2026 lets the study's facilitators change the groups, and the Vermont
+          Learning Collaborative publishes them. This journey stops at your supervisory union until your district
+          has a group.
+        </p>
+      </div>
+    )
+  }
+
+  {
+    page.next && <JourneyNext next={page.next} base={base} />
+  }
+</Base>

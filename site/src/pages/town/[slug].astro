@@ -1,4 +1,5 @@
 ---
+import { DEFAULT_YEAR, myHref } from '../../lib/years.ts';
 import Base from '../../layouts/Base.astro';
 import registry from '../../generated/registry.json';
 import subgroups from '../../generated/adm-subgroups.json';
@@ -232,5 +233,5 @@ const unusableYears = shownYears.filter((y) => y.not_published.length > 0);
       </>
     )
   }
-  <p class="journey-cta"><a href={`${base}/my/town/${town.slug.split('/')[1]}/`}>See this town in your journey →</a></p>
+  <p class="journey-cta"><a href={`${base}${myHref(DEFAULT_YEAR, 'town', town.slug.split('/')[1] ?? '')}`}>See this town in your journey →</a></p>
 </Base>

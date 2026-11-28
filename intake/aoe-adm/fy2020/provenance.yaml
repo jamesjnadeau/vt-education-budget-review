@@ -1,0 +1,20 @@
+schema_version: "1.0"
+entity: source/aoe-adm
+fiscal_year: 2020
+artifacts:
+  - file: edu-average-daily-membership-by-resident-district-fy20.xlsx
+    source_url: https://education.vermont.gov/sites/aoe/files/documents/edu-average-daily-membership-by-resident-district-fy20.xlsx
+    retrieved_date: "2026-11-28"
+    retrieval_method: http-fetch
+    sha256: 40a4778391276776d463d3119cb8b87680e34fb595ad539310bd80291752b7ff
+    bytes: 26554
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: aoe_report
+    note: >-
+      Average Daily Membership (ADM) Report for 2018-2019 (ADM-20) by Resident District,
+      from the document page https://education.vermont.gov/documents/average-daily-
+      membership-by-resident-district-fy20. Fetched with npm run vt:fetch, whose user
+      agent education.vermont.gov serves (see AGENT.md). Publishes two grade bands, Elem
+      (K-6) and SEC (7-12), which are pre-Act-127 and not reducible to the K-5 / 6-8 /
+      9-12 bands 16 V.S.A. § 4010 weights.

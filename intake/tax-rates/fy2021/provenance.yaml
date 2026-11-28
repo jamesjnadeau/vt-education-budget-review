@@ -1,0 +1,24 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2021
+artifacts:
+  - file: TaxRates12FEB2021.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/TaxRates12FEB2021.xlsx
+    retrieved_date: "2026-11-28"
+    retrieval_method: http-fetch
+    sha256: 7ef6d594f96b726dcf60985d44e6e14a748a796db0393335a247a37438e77189
+    bytes: 23794
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2021 Education Property Tax Rates
+    published_date: "2021-02-17"
+    document_page: https://tax.vermont.gov/content/fy2021-education-property-tax-rates
+    note: >-
+      Vermont Department of Taxes, "FY2021 Education Property Tax Rates". Fetched with
+      npm run vt:fetch; the saved name is the released name with spaces replaced by
+      underscores. The document page is dated Wednesday, February 17, 2021 and describes
+      the file as "FY2021 Education Property Tax Rates - as of 2/12/2021". Columns:
+      TOWN, STATUS, CALC, CLA, HS_TAXRATE, NH_TAXRATE, CALCDATE. CLA is a percent. No
+      school code column. Rates are per $100 of assessed value.
