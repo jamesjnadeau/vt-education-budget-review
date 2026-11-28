@@ -1,0 +1,66 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/rivendell-interstate
+source: intake/su-rivendell-interstate/fy2027/RISD 2026 Annual Report WEB.pdf
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+not_published: []
+fiscal_year: 2024
+status: approved
+source_pages: PDF p. 16
+adopted_date: null
+education_spending: 8530036
+tax:
+  towns:
+  - town: town/fairlee
+    homestead_rate_stated: null
+    cla: null
+  - town: town/vershire
+    homestead_rate_stated: null
+    cla: null
+  - town: town/west-fairlee
+    homestead_rate_stated: null
+    cla: null
+notes: 'This is the VERMONT (Unified) share of an interstate district, taken from the AOE-format ''VT Three Prior
+  Years Comparisons'' form (PDF p. 16, printed p. 13); the Orford NH share is not on it. FY2024 column: union budget
+  $10,756,729; revenues $2,226,693; education spending $8,530,036; pupils 296.43 (EQUALIZED pupils, not LTWADM;
+  not comparable with FY25+); per pupil $28,775.89; equalized union homestead rate $1.8634; income cap 3.28%. The
+  form states that the excess spending penalty was suspended for FY24 and FY25 (Sec. 8 of Act 127 of 2022).'
+lines_flagged:
+- path: education_spending
+  issue: 'Vermont share only (see FY2027 record); form stamped PRELIMINARY / ESTIMATES ONLY; column labelled "Adopted
+    or warned", treated as approved per the brief. Recomputed: 10,756,729 - 2,226,693 = 8,530,036; / 296.43 = $28,775.89
+    (match).'
+  resolution: recorded_as_other
+- path: tax.towns.homestead_rate_stated
+  issue: The form prints one prorated union homestead rate for all three Vermont towns ($1.8634, equalized, before
+    any CLA adjustment), not per-town rates after CLA. No per-town rate for FY2024 is stated in a form column; left
+    null rather than transcribing the equalized union rate as a town rate.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No town CLAs are printed for FY2024 in this document (the CLA row on PDF p. 15 is FY2027 only).
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The report prints one weighted pupil count for the Vermont share (equalized pupils 296.43), not the four
+    statutory grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as
+    an image; no band breakdown found. Other pages not individually inspected.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The report prints one weighted pupil count for the Vermont share (equalized pupils 296.43), not the four
+    statutory grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as
+    an image; no band breakdown found. Other pages not individually inspected.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The report prints one weighted pupil count for the Vermont share (equalized pupils 296.43), not the four
+    statutory grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as
+    an image; no band breakdown found. Other pages not individually inspected.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The report prints one weighted pupil count for the Vermont share (equalized pupils 296.43), not the four
+    statutory grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as
+    an image; no band breakdown found. Other pages not individually inspected.
+  resolution: left_null

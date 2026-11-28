@@ -1,0 +1,71 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/montpelier-roxbury
+fiscal_year: 2027
+status: warned
+source: intake/su-montpelier-roxbury/fy2027/Informational Meeting March 2, 2026.pdf
+source_pages: p. 30 (also p. 31)
+adopted_date: null
+education_spending: 28714530
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/montpelier
+      homestead_rate_stated: 1.32
+      cla: 1.2226
+    - town: town/roxbury
+      homestead_rate_stated: 1.702
+      cla: 0.948
+notes: "FY27 proposal as printed on slide 30 of the district's March 2, 2026 informational-meeting deck (not an AOE form;
+  the district publishes no annual report): general budget $34,469,275 + capital plan $285,000 = total budget
+  $34,754,275 (matches the Article 3 amount in the warning, intake/su-montpelier-roxbury/fy2027/MRSD Warning of 2026
+  Annual Meeting.pdf); non-tax revenues $6,039,745; education spending $28,714,530 (budget minus revenues, re-added);
+  LTW ADM 1,909.88; education spending per LTW ADM $15,034.73 (28,714,530 / 1,909.88; matches the warning); property
+  dollar yield $8,849 (estimated); equalized residential rate $1.699, less a $0.0853 cent reduction = adjusted $1.614.
+  Town rates are the slide's 'Residential Tax Rate w/ CLA': Montpelier $1.320 (CLA 122.26%), Roxbury $1.702 (CLA 94.8%).
+  Vote result: the district's budget page (https://www.mrpsvt.org/budget) states 'The budget passed (yes: 1,608 | no: 759)'
+  on 3/3/26; recorded here only as a note, adopted_date left null because the deck and warning do not state a result."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: "No AOE 'Three Prior Years Comparisons' form was found on the district's site. The figure is the district's
+      own education-spending line from deck slide 30, not an AOE-form figure. The 1/21/26 'Final FY27 Draft Budget'
+      presentation (separate Drive file, not staged) prints a different draft: total $34,469,275 with capital plan $0,
+      education spending $28,429,530, $14,885.51 per LTW ADM. The warning approved the same evening carries
+      $34,754,275, i.e. the draft plus the $285,000 capital plan."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "Slide 30 is labelled 'Estimated Residential Tax Impact' and uses an estimated $8,849 property dollar yield
+      ('not set into law until spring' per the district's FY27 flyer). The one-page FY27 flyer (not staged) prints Montpelier
+      $1.319 where slide 30 prints $1.320. Rates are the district's estimates, not the Tax Department's."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "Montpelier CLA is 122.26% on slide 30 but 122.27% on slide 31 and in the district's flyer and 1/21 deck; recorded
+      as 1.2226 as printed on the slide the rates come from. Roxbury 94.8% / 94.80%. CLAs are the district's inputs,
+      printed as percentages and recorded as ratios."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "The district's flyer prints non-tax revenues up 24.04% from FY26; slide 30 prints 23.04%, and recomputing
+      (6,039,745 / 4,908,597 - 1) gives 23.04%. Percentage not recorded in the warehouse; noted for the record."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,909.88), not the four statutory grade bands. Text layer
+      searched; enrollment slides give fall head counts by school, not the four bands. Not extracted."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,909.88), not the four statutory grade bands. Text layer
+      searched; enrollment slides give fall head counts by school, not the four bands. Not extracted."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,909.88), not the four statutory grade bands. Text layer
+      searched; enrollment slides give fall head counts by school, not the four bands. Not extracted."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,909.88), not the four statutory grade bands. Text layer
+      searched; enrollment slides give fall head counts by school, not the four bands. Not extracted."
+    resolution: left_null

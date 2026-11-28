@@ -1,0 +1,63 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/essex-westford
+fiscal_year: 2026
+status: approved
+source: intake/su-essex-westford/fy2027/2026-EWSD-Annual-Report-(FINAL).pdf
+source_pages: pp. 4, 6, 7
+adopted_date: null
+education_spending: 76570170
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/essex-junction
+      homestead_rate_stated: 2.0194
+      cla: null
+    - town: town/essex-town
+      homestead_rate_stated: 2.0229
+      cla: null
+    - town: town/westford
+      homestead_rate_stated: 1.0038
+      cla: null
+notes: "FY26 column ('FY26 BUDGET') of the FY27 annual report's FY26-vs-FY27 table (pp. 4, 6), read from
+  images: total budget $94,712,480; offsetting revenues $18,142,310; net education spending $76,570,170;
+  LTWADM 5,441.46; spending per LTWADM $14,072; estimated homestead yield $8,596; equalized homestead rate
+  $1.6370, $1.5370 after the $0.1000 Act 127 credit. Town rates are the p. 7 'after CLA' figures for 2026.
+  The report does not state the vote date or result; the district's FY27 budget book (not staged) prints
+  the April 8, 2025 official result for the $94,712,480 article as passed 2,646-1,501. Re-added: 94,712,480
+  - 18,142,310 = 76,570,170; 76,570,170 / 5,441.46 = 14,071.8."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: Taken from the district's FY26-vs-FY27 table, not the AOE 'Three Prior Years Comparisons' form,
+      which this report does not print. FY23-FY25 education spending is not printed, so no records were
+      written for those years.
+    source_text: "Net Education Spending $76,570,170"
+    resolution: pending
+  - path: tax.towns.cla
+    issue: Town CLAs are not printed in the report. Left null.
+    source_text: null
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: Rates are the report's historical 'after CLA' rates for 2026 (p. 7), after the Act 127 credit.
+      Westford (1.0038) is lower than the equalized rate (1.5370) unlike the two Essex entities. Recorded
+      as printed.
+    source_text: "2026: Essex Junction after CLA $2.0194; Essex Town $2.0229; Westford $1.0038"
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: Only one LTWADM total printed (5,441.46); no grade-band breakdown in the pages read (4-8).
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: Only one LTWADM total printed (5,441.46); no grade-band breakdown in the pages read (4-8).
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: Only one LTWADM total printed (5,441.46); no grade-band breakdown in the pages read (4-8).
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: Only one LTWADM total printed (5,441.46); no grade-band breakdown in the pages read (4-8).
+    resolution: left_null

@@ -1,0 +1,60 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/washington-central
+fiscal_year: 2026
+status: approved
+source: intake/su-washington-central/fy2027/46f4928c9c8eee7638f458e92d07180fc50d5d1a.pdf
+source_pages: pp. 31, 33
+adopted_date: null
+education_spending: 36203852
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/berlin
+      homestead_rate_stated: 1.9079
+      cla: 0.9312
+    - town: town/calais
+      homestead_rate_stated: 2.051
+      cla: 0.8662
+    - town: town/east-montpelier
+      homestead_rate_stated: 2.0872
+      cla: 0.8512
+    - town: town/middlesex
+      homestead_rate_stated: 1.9679
+      cla: 0.9028
+    - town: town/worcester
+      homestead_rate_stated: 1.2483
+      cla: 0.8097
+notes: "FY2026 column of the AOE 'Three Prior Years Comparisons' form in the WCUUSD Annual Report 2026 (PDF p. 31, stamped PRELIMINARY ESTIMATES ONLY). Union budget $43,225,002; offsetting union revenues $7,021,150; education spending $36,203,852 (budget minus revenue re-added, matches); pupils 2,370.68 (LTWADM); education spending per pupil $15,271.51 (spending / pupils re-computed, matches); equalized union homestead rate $1.7766. No vote date or result is printed in the document."
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: "The annual report prints one weighted pupil count (2,370.68 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The annual report prints one weighted pupil count (2,370.68 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The annual report prints one weighted pupil count (2,370.68 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The annual report prints one weighted pupil count (2,370.68 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: "Rates are the FY2026 column of the 'Prorated homestead union tax rates' table on the AOE form (PDF p. 31), which is stamped 'PRELIMINARY ESTIMATES ONLY' as a whole. Not the Tax Department's published rates."
+    resolution: recorded_as_other
+  - path: tax.towns.homestead_rate_stated
+    issue: "Worcester's FY26 rate $1.2483 does not reproduce from the FY26 equalized rate and the FY26 CLA printed on p. 33: $1.7766 / 0.8097 = $2.1941, versus $1.2483 printed. The other four towns reproduce exactly (e.g. Berlin $1.7766 / 0.9312 = $1.9079). Worcester's FY25 rate on the same table is $1.8379. Recorded as printed; unexplained (possibly reappraisal-related)."
+    source_text: "Worcester 80.97% ... $1.2483"
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "CLAs are the 'Statewide Adjusted CLA FY 25-26' column on p. 33 (percentages recorded as ratios), not the Tax Department's published CLAs."
+    resolution: recorded_as_other
+  - path: status
+    issue: "The AOE form prints this column as 'Adopted or warned union district budget'; it does not say whether FY2026 was adopted at first vote or a revote, and gives no vote date. Recorded as approved with adopted_date null; the whole form is stamped PRELIMINARY ESTIMATES ONLY."
+    resolution: pending

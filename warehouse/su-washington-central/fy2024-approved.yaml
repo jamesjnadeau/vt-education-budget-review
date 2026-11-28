@@ -1,0 +1,56 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/washington-central
+fiscal_year: 2024
+status: approved
+source: intake/su-washington-central/fy2027/46f4928c9c8eee7638f458e92d07180fc50d5d1a.pdf
+source_pages: p. 31
+adopted_date: null
+education_spending: 31697238
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/berlin
+      homestead_rate_stated: 1.7343
+      cla: null
+    - town: town/calais
+      homestead_rate_stated: 1.8637
+      cla: null
+    - town: town/east-montpelier
+      homestead_rate_stated: 1.7968
+      cla: null
+    - town: town/middlesex
+      homestead_rate_stated: 1.8229
+      cla: null
+    - town: town/worcester
+      homestead_rate_stated: 1.7444
+      cla: null
+notes: "FY2024 column of the AOE 'Three Prior Years Comparisons' form in the WCUUSD Annual Report 2026 (PDF p. 31, stamped PRELIMINARY ESTIMATES ONLY). Union budget $38,921,331; offsetting union revenues $7,224,093; education spending $31,697,238 (budget minus revenue re-added, matches); pupils 1,376.82 (equalized pupils, not LTWADM; not comparable to FY25+); education spending per pupil $23,022.06 (spending / pupils re-computed, matches); equalized union homestead rate $1.4908. No vote date or result is printed in the document."
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: "The annual report prints one weighted pupil count (1,376.82 (equalized pupils, not LTWADM; not comparable to FY25+)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The annual report prints one weighted pupil count (1,376.82 (equalized pupils, not LTWADM; not comparable to FY25+)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The annual report prints one weighted pupil count (1,376.82 (equalized pupils, not LTWADM; not comparable to FY25+)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The annual report prints one weighted pupil count (1,376.82 (equalized pupils, not LTWADM; not comparable to FY25+)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: "The report prints town CLAs only for FY2026 and FY2027 (p. 33). None printed for FY2024; left null rather than back-calculated."
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: "Rates are the FY2024 column of the 'Prorated homestead union tax rates' table on the AOE form (PDF p. 31), which is stamped 'PRELIMINARY ESTIMATES ONLY' as a whole. Not the Tax Department's published rates."
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: "FY2024 column uses equalized pupils (1,376.82), not LTWADM; per-pupil ($23,022.06) is not comparable with FY25+. The whole form is stamped PRELIMINARY ESTIMATES ONLY. Prior-year column printed as adopted with no vote date."
+    resolution: pending

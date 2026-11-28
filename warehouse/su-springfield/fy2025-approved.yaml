@@ -1,0 +1,44 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/springfield
+fiscal_year: 2025
+status: approved
+source: intake/su-springfield/fy2027/SSDFY2027BudgetBook.pdf
+source_pages: "PDF p. 24 (printed p. 46)"
+adopted_date: null
+education_spending: 30332069
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/springfield
+      homestead_rate_stated: 1.5342
+      cla: 0.8819
+notes: "FY2025 column of the AOE 'Three Prior Years Comparisons' form in the FY2027 Budget Book (PDF p. 24, printed p. 46; stamped PRELIMINARY / ESTIMATES ONLY). Printed as the adopted budget in the 'Approved' column; the book states no vote date, so adopted_date is null. Total budget (line 1/6) $40,479,702; offsetting revenues $10,147,633; education spending 30,332,069; pupils 2,266.10 (LTWADM); education spending per pupil $13,385.14; equalized district homestead rate $1.3530 per $100; town rate (line 33) $1.5342. Re-added: budget minus revenue equals education spending. The form's 'SU' is Springfield; the town school district is the only budget-setting district."
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "Line 33 of the FY27 book's AOE form, prior-year column (PRELIMINARY / ESTIMATES ONLY stamp on the form). Not the Tax Department's final rate."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "Line 32 prints 'Common Level of Appraisal (CLA) divided by Statewide Adjustment' as a percentage (88.19%); recorded as a ratio. It is the adjusted CLA, not the raw CLA, and not the Tax Department's published CLA."
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: "The form (line 11) prints $30,332,069; the book's revenue page (PDF p. 23) prints 'Education Spending Grant' FY2025 actual (unaudited) of $30,364,573. Form figure used; difference $32,504."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null

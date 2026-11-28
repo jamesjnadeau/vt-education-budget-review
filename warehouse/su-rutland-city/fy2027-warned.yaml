@@ -1,0 +1,66 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/rutland-city
+fiscal_year: 2027
+status: warned
+source: intake/su-rutland-city/fy2027/2026January13_SB_FY27BudgetRatificationandApprovalofFY27BudgetBallotLanguage.pdf
+source_pages: p. 2 (slide titled 'Funding, Pupil Metrics, FY 2027 Ballot Language'); also Jan 6 deck pp. 3-5
+adopted_date: null
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/rutland-city
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  FY27 budget as ratified by the Board of School Commissioners on January 13,
+  2026 and put to voters (Article #1 of the school ballot; Article 2 on the
+  city ballot) at the March 3, 2026 city election. Figures are in $ thousands
+  on the slides: expenses $69,836 (ballot $69,836,000); revenues, federal and
+  local $26,640; 'State Funded' $43,196; LTW ADM 3,410.51; per pupil education
+  spending $12,665.5 (ballot language rounds to $12,666, 3.8% higher than the
+  current year). 43,196 / 3,410.51 = 12,665.5. No AOE education spending
+  figure is printed; the nearest is 'State Funded' $43,196 thousand (not
+  entered). Revenue detail (Jan 6 deck PDF p. 4): federal grants and
+  reimbursements 14,769; tuition 3,250; working capital 3,150; special ed and
+  local 5,471. Expenses by category (p. 3): compensation 55,610; direct
+  instructional 3,860; special education 1,176; buildings, grounds,
+  transportation 2,319; food service 1,840; financing 839; IT 1,265;
+  utilities 777; other 2,150 (sums to 69,836). Vote result from the City of
+  Rutland's official results, not the district page: Yes 1,688, No 1,520,
+  overvote 1, undervote 67 (total 3,276), so the budget passed
+  (https://www.rutlandcity.org/wp-content/uploads/2026/03/Election-Results-March-3-2026.xlsx).
+  The district's own pages were not found to state the result. adopted_date is
+  left null because the decks do not state a vote date.
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: Neither deck contains the AOE Three Prior Years Comparisons form, so no AOE Education Spending figure is printed. Left null rather than substituted. Nearest printed figure is 'State Funded' on the funding slide (Jan 13 deck PDF p. 2; Jan 6 deck PDF p. 5), in $ thousands, equal to expenses minus federal and local revenue (the same arithmetic as education spending, rounded to thousands). It is in notes.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: No per-town homestead rate is printed for FY2027. The district is one town (Rutland City). The Jan 6 deck p. 6 chart shows a homestead rate of $1.6058 for FY26 but not for FY27; it is not entered here.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: No CLA is printed in either deck.
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: notes
+    issue: The two decks are image slides from a board presentation (Jan 6 committee draft and Jan 13 ratification). The tables were read from rendered pages and re-added (expenses minus revenue equals State Funded; categories sum to totals). FY27 figures agree between the two decks.
+    resolution: pending

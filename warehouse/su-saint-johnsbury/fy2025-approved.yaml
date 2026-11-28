@@ -1,0 +1,51 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/saint-johnsbury
+fiscal_year: 2025
+status: approved
+source: intake/su-saint-johnsbury/fy2027/2026 Annual Report.pdf
+source_pages: pp. 10, 12
+adopted_date: null
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/st-johnsbury
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  Oldest column of the FY2027 annual report; only the revenue summary (p. 10)
+  and expenditure summary (p. 12) print FY2025. Printed "FY2025 BUDGET" total
+  $29,281,753 (revenue summary total), with "Education Spending Fund" revenue
+  line $24,127,999; FY2025 ACTUAL expenditures $29,011,143 (p. 12). The report
+  does not say adopted and gives no vote date, so adopted_date is null. No LTW
+  ADM, per-pupil or tax rate is printed for FY2025.
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: No AOE form and no "net education spending" row for FY2025. The nearest printed figure is the "Education Spending Fund" revenue line $24,127,999 (p. 10), which is a revenue line, not a labelled education-spending figure. Left null.
+    source_text: "EDUCATION SPENDING FUND $24,127,999"
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: No FY2025 tax rate is printed in this report.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: No FY2025 CLA is printed in this report.
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: No FY2025 ADM of any kind is printed in this report; text layer searched.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: No FY2025 ADM of any kind is printed in this report; text layer searched.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: No FY2025 ADM of any kind is printed in this report; text layer searched.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: No FY2025 ADM of any kind is printed in this report; text layer searched.
+    resolution: left_null

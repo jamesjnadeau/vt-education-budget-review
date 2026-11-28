@@ -1,0 +1,69 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/colchester
+fiscal_year: 2026
+status: approved
+source: intake/su-colchester/fy2027/FY27 Four Year Comparison.pdf
+source_pages: p. 1
+adopted_date: null
+education_spending: 52542808
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/colchester
+      homestead_rate_stated: 1.8634
+      cla: 0.8507
+notes: >-
+  FY2026 column of the FY27 'Three Prior Years Comparisons' form (marked PRELIMINARY / ESTIMATES ONLY; PDF p.
+  1). Total budget $64,889,466; offsetting revenues $12,346,658; education spending $52,542,808; pupils
+  3,653.26 (LTWADM); education spending per pupil $14,382.44; equalized homestead rate (line 27) $1.5852.
+  Re-added: budget - revenue = education spending; spending / pupils = printed per-pupil. Vote: Vote per the
+  district Voting Record History (not the AOE form): March 4, 2025, yes 1,489 / no 1,262 (54.13%),
+  $64,889,466, YES. adopted_date left null because the staged AOE form does not state it.
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: >-
+      Rate is form line 33 'Portion of actual district homestead rate to be assessed by town' as printed in
+      the FY27 form's prior-year column (PRELIMINARY / ESTIMATES ONLY form, not an official Tax Department
+      rate).
+    resolution: recorded_as_other
+  - path: tax.towns.cla
+    issue: >-
+      CLA is form line 32 ('CLA divided by Statewide Adjustment', 85.07%), recorded as ratio 0.8507; equalized
+      rate / CLA ties to the printed rate (1.5852 / 0.8507 = 1.8634).
+    resolution: recorded_as_other
+  - path: notes.income_cap
+    issue: >-
+      Line 34 income cap percent 2.36% and line 35 'portion applied by State' 2.27% differ for FY26 although
+      line 30 is 100%. Not a record field; noted only.
+    resolution: pending

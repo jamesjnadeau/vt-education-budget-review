@@ -1,0 +1,88 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/harwood-unified-union
+fiscal_year: 2027
+status: warned
+source: intake/su-harwood-unified-union/fy2027/2026-02-13 HUUSD FY2027 Budget and Annual Report.pdf
+source_pages: pp. 19, 22-23
+adopted_date: null
+education_spending: 42601368
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/duxbury
+    homestead_rate_stated: null
+    cla: null
+  - town: town/fayston
+    homestead_rate_stated: null
+    cla: null
+  - town: town/moretown
+    homestead_rate_stated: null
+    cla: null
+  - town: town/waitsfield
+    homestead_rate_stated: null
+    cla: null
+  - town: town/warren
+    homestead_rate_stated: null
+    cla: null
+  - town: town/waterbury
+    homestead_rate_stated: null
+    cla: null
+notes: 'FY27 proposed budget as printed in the annual report for the March 3, 2026 vote: total union budget $51,884,847
+  (+5.44% over FY26 $49,209,927); offsetting union revenues $9,283,479; education spending $42,601,368 (+$1,413,253
+  / 3.43% vs FY26); LTWADM 2,625.05 (raw enrollment 1787 incl. PreK); education spending per pupil $16,228.78 (+4.80%);
+  excess spending threshold $16,470; equalized union homestead rate $1.8340, $1.7570 after the $0.077 cent discount,
+  same for all six towns; income cap percent 2.67%; construction cost per pupil $214.78. Arithmetic re-checked:
+  budget minus revenue equals education spending; spending / LTWADM equals the printed per-pupil. Vote: the district''s
+  blog says ''FY27 Budget Passes'' (March 4, 2026, https://huusd.org/blog/fy27-budget-passes); the Waterbury Roundabout
+  reports 2,104 to 1,343 (https://www.waterburyroundabout.org/news-archive/by-a-wide-margin-voters-approve-519m-harwood-budget-4t3x2).
+  Article VI, a separate $500,000 maintenance reserve allocation, was reported passing 2,687 to 736. Status stays
+  ''warned'' because this is the budget as printed in the document; adopted_date is null (newspaper counts are not
+  recorded there). Harwood Unified Union School District #60 is the only member district of the SU and sets the
+  budget for all six towns.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: The p. 22 form is stamped PRELIMINARY and its footnote says it uses the December 1, 2025 Education Fund
+    Outlook (property yield $8,849, income yield $12,154, non-residential rate $1.785); final figures are set by
+    the Legislature. FY27 figures are estimates.
+  resolution: pending
+- path: notes
+  issue: The p. 23 ballot explainer is headed 'MARCH 4, 2025' but the vote was March 3, 2026 (confirmed by the warning
+    PDF p. 1 and the district blog). Its callout says '$51,844,847 provides education for 1787 students' while Article
+    V and the p. 19 and p. 22 figures are $51,884,847 (digits transposed).
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: p. 22 prints a 'prorated homestead union tax rate' of $1.7570 for each of the six towns (after the cent
+    discount; the pre-discount equalized rate is $1.8340). Line 28 labels the $0.077 cent discount 'adjusted by
+    statewide adjuster of 70.33%'; $1.8340 - $0.077 = $1.7570 agrees with line 29. It is the same for every town
+    and is not divided by a town CLA, so it is not a town homestead rate; left null and kept in notes.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No town CLAs are printed in the report (text layer searched).
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null

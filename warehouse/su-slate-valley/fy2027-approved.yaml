@@ -1,0 +1,85 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/slate-valley
+fiscal_year: 2027
+status: approved
+source: intake/su-slate-valley/fy2027/Detail-Expenditure-Budget-FY27-for-Re-Vote-3-31-26.pdf
+source_pages: PDF p. 46 (grand total)
+adopted_date: null
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/benson
+    homestead_rate_stated: null
+    cla: null
+  - town: town/castleton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/fair-haven
+    homestead_rate_stated: null
+    cla: null
+  - town: town/hubbardton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/orwell
+    homestead_rate_stated: null
+    cla: null
+  - town: town/west-haven
+    homestead_rate_stated: null
+    cla: null
+notes: 'Revised FY27 budget put to the March 31, 2026 revote: total expenditures $32,307,262.49 (grand total, PDF
+  p. 46 of the detail budget; $202,526.51 below the original $32,509,789; +2.16% over FY26 $31,623,010.89 on the
+  same page). Vote result: approved, 778 yes / 546 no on March 31, 2026 per https://mountaintimes.info/2026/04/15/otter-valley-budget-squeaks-by
+  (newspaper count, not an official canvass); the district''s own live feed (https://www.slatevalleyunified.org/live-feed?page_no=8,
+  as found by search, not opened in full) thanks voters ''for your support in approving the school budget on the
+  revote'' and describes the revised budget as $32.3 million. adopted_date left null because no staged document
+  states the result date. The staged detail budget prints expenditures only: no offsetting revenues, education spending
+  or pupil count for the revised budget, and no revised AOE form was found.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: 'The revote document (detail expenditure budget) has no revenues and no AOE form. Nearest printed figure:
+    total expenditures $32,307,262.49 (p. 46). The original AOE form''s education spending was $27,516,031 on a
+    $32,509,789 budget with $4,993,758 revenues; if revenues were unchanged the revised figure would be $27,313,504,
+    but this is not stated and is NOT recorded. Castleton Elementary''s live-feed post says education spending (budget
+    less local revenue) rises 0.86%, a district claim not verified here. A revised AOE form or LTWADM must be requested
+    from the district.'
+  resolution: left_null
+- path: status
+  issue: Status 'approved' rests on the district live-feed thank-you post and newspaper tallies, not on a staged
+    certified result; the revote budget dollar figure ($32,307,262.49) comes from the detail budget titled 'FOR
+    RE-VOTE 3-31-26' and is matched to the '$32.3 million' revised budget by rounding and by the ~$202,500 reduction
+    the district states.
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: The revote detail budget prints no tax rates.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: The revote detail budget prints no CLAs.
+  resolution: left_null
+- path: adm.prekindergarten
+  issue: The revote detail budget prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column),
+    not the four statutory grade bands. The AOE form page and the text layer of the staged documents were searched;
+    no band breakdown found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The revote detail budget prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column),
+    not the four statutory grade bands. The AOE form page and the text layer of the staged documents were searched;
+    no band breakdown found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The revote detail budget prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column),
+    not the four statutory grade bands. The AOE form page and the text layer of the staged documents were searched;
+    no band breakdown found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The revote detail budget prints one weighted pupil count (LTWADM; equalized pupils in the FY2024 column),
+    not the four statutory grade bands. The AOE form page and the text layer of the staged documents were searched;
+    no band breakdown found. Principal and director report pages were not read for enrollment tables.
+  resolution: left_null

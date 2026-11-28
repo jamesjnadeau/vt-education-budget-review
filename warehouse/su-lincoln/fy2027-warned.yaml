@@ -1,0 +1,80 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/lincoln
+fiscal_year: 2027
+status: warned
+source: intake/su-lincoln/fy2027/3 Prior years.pdf
+source_pages: p. 1
+adopted_date: null
+education_spending: 4537596
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/lincoln
+    homestead_rate_stated: 1.1398
+    cla: 1.34
+notes: 'FY27 budget put to voters at the Feb 28, 2026 annual school district meeting (Article 6: expend $5,407,140.12;
+  the AOE form prints $5,407,140). AOE form: budget $5,407,140; offsetting revenues $869,544; education spending
+  $4,537,596; LTWADM 330.98; per pupil $13,709.58 (excess spending threshold $16,470, no excess); equalized union
+  homestead rate $1.5493, $1.5273 after the $0.022 cent discount; income cap percent 2.26%. Re-added: 5,407,140
+  - 869,544 = 4,537,596; 4,537,596 / 330.98 = 13,709.58. Vote result: the district''s DRAFT minutes (staged in intake;
+  https://lincolnsd.org/s/2026-Feb-28-LSD-Minutes-DRAFT-1.pdf, PDF p. 2) record Article 6 as passed by clicker vote,
+  YES 137, NO 17. The district''s page https://lincolnsd.org/budget-1 labels the budget ''FY27 Adopted Budget (adopted
+  1/13/26)''; that is the board''s adoption of the warned budget, not the voter approval. adopted_date is left null
+  because this record is the warned budget. After the legislature acted, the district''s statement (https://lincolnsd.org/budget-1,
+  not staged) updates the homestead rate to $1.0653 and the income rate to 2.09%.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: FY2027 column of an AOE form stamped PRELIMINARY / ESTIMATES ONLY. Figure recorded as printed.
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: 'The AOE form is stamped PRELIMINARY and ESTIMATES ONLY (it uses the Dec 1, 2025 Education Fund Outlook:
+    property yield $8,849, income yield $12,154), so rates are estimates, not the Tax Department''s. Form shows
+    $1.1398 (= $1.5273 / 134.00%; $0.022 cent discount at a 72.36% statewide adjuster). The annual report PDF p.
+    21 (calculation dated Jan 21, 2026) instead shows $1.1326 (= $1.5323 / 1.3529; discount $0.017; Lincoln CLA
+    95.15% / statewide adjustment 70.33%). Two different estimates in the district''s own documents. The district''s
+    later statement (Drive PDF ''LSD final FY27 Homestead tax rate statement.pdf'', linked from https://lincolnsd.org/budget-1,
+    not staged) gives an updated rate of $1.0653.'
+  resolution: pending
+- path: tax.towns.cla
+  issue: 'CLA printed on the form as a percentage and recorded as a ratio. It is the statewide-adjusted CLA the
+    form divides the rate by, not the Tax Department''s published CLA. Form: 134.00%. Annual report p. 21: raw CLA
+    95.15% / 70.33% = 1.3529; its text says CLA fell ''from 106% to 95%''.'
+  resolution: recorded_as_other
+- path: education_spending
+  issue: Annual report revenue detail (PDF p. 14) has an 'Education Spending' revenue line of $4,468,787.29 for
+    FY27 ($4,389,842.76 for FY26), not the AOE figures $4,537,596.13 / $4,441,394.76. The differences ($68,808.84
+    and $51,552.00) equal the 'State on Behalf Pmt - Tech Center' line. Recorded figure is the AOE form's.
+  resolution: pending
+- path: notes
+  issue: 'Total budget: the warning (annual report p. 24; draft minutes) says $5,407,140.12; the overview, tax steps
+    and year-to-year table (pp. 13, 19, 21) say $5,407,140.13; the form rounds to $5,407,140. Per-pupil change:
+    warning and board letter say +1.89%, the year-to-year table (p. 19) says 1.87% ($13,456.00 -> $13,709.58); 13,709.58
+    / 13,455.51 = +1.89%.'
+  resolution: pending
+- path: adm.prekindergarten
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null

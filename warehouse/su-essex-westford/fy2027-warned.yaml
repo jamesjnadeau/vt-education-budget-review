@@ -1,0 +1,88 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/essex-westford
+fiscal_year: 2027
+status: warned
+source: intake/su-essex-westford/fy2027/2026-EWSD-Annual-Report-(FINAL).pdf
+source_pages: pp. 4, 6, 8
+adopted_date: null
+education_spending: 80261486
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/essex-junction
+      homestead_rate_stated: 2.0838
+      cla: null
+    - town: town/essex-town
+      homestead_rate_stated: 2.0902
+      cla: null
+    - town: town/westford
+      homestead_rate_stated: 1.0427
+      cla: null
+notes: "FY27 budget put to voters April 14, 2026 (Article 2): total budget $102,014,901 (p. 4/6 tables;
+  the warning on p. 8 prints $102,014,902); offsetting revenues $21,753,415; 'Net Education Spending'
+  $80,261,486 (the figure recorded as education spending); LTWADM 5,547.36; spending per LTWADM $14,468
+  (+2.82% vs FY26 $14,072; the warning also prints $14,468 and 2.82%); estimated homestead yield $8,849;
+  estimated equalized homestead rate $1.6350, $1.5582 after the $0.0768 Act 127 credit (+1.38%). Town
+  rates are the printed 'Estimated ... Tax Rate after CLA' figures, which are after the Act 127 credit;
+  CLAs are not printed. Separate CTE (Center for Technology Essex) FY27 budget $9,747,737 (Article 4)
+  is not included in these figures. Vote result: the district reports Article 2 passed 1,875-1,165
+  (https://www.ewsd.org/article/2822090 and https://www.ewsd.org/page/ewsd-budget-fy27). The PDF is
+  image-only; figures were read from renders and re-added (102,014,901 - 21,753,415 = 80,261,486;
+  80,261,486 / 5,547.36 = 14,468.2)."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: The report prints no AOE 'Three Prior Years Comparisons' form. 'Net Education Spending' is
+      taken from the district's own FY26-vs-FY27 table (pp. 4 and 6) and is not confirmed against the
+      AOE form. FY24 and FY25 education spending are not printed in this document, so no FY24/FY25
+      records were written.
+    source_text: "Net Education Spending $80,261,486"
+    resolution: pending
+  - path: notes.total_budget
+    issue: Total budget differs by $1 inside the document. Tables on pp. 4, 5 (expense total) and 6 show
+      $102,014,901 or $102,014,902 (p. 5 general fund summary shows revenue and expense totals of
+      $102,014,902); the warning on p. 8 prints $102,014,902. $102,014,902 minus $21,753,415 would give
+      $80,261,487, not the printed $80,261,486. Recorded as printed, not reconciled.
+    source_text: "Expenses $102,014,901 (pp. 4, 6) vs expend $102,014,902 (p. 8)"
+    resolution: pending
+  - path: notes.offsetting_revenues
+    issue: Offsetting revenues $21,753,415 (pp. 4, 6) are not itemised in the report. The p. 5 general fund
+      summary shows FY27 revenue of local sources $8,757,193 plus state sources $93,257,709 (total
+      $102,014,902), a different presentation, so the two were not reconciled.
+    source_text: "Offsetting Revenues $21,753,415"
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: Rates are the district's 'Estimated ... Tax Rate after CLA' figures (p. 4/6/7), after the Act
+      127 credit and based on the December 1 estimated yield of $8,849. The report says Essex Town and
+      Essex Junction are being reappraised, so those rates will be updated. The Westford rate (1.0427) is
+      lower than the equalized rate (1.5582), the opposite direction from Essex Town and Essex Junction;
+      it is recorded as printed and was not checked against the Tax Department.
+    source_text: "Estimated Westford Tax Rate after CLA $1.0427; Essex Town $2.0902; Essex Junction $2.0838"
+    resolution: pending
+  - path: tax.towns.cla
+    issue: Town CLAs are not printed anywhere in the report (searched all pages 4-7 as images). Left null
+      rather than back-computed, because the printed rates are after the Act 127 credit.
+    source_text: null
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: The report prints only one LTWADM total (5,547.36); no grade-band breakdown. Pages 4-8 were read
+      as images; other pages were not inspected for bands.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints only one LTWADM total (5,547.36); no grade-band breakdown. Pages 4-8 were read
+      as images; other pages were not inspected for bands.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints only one LTWADM total (5,547.36); no grade-band breakdown. Pages 4-8 were read
+      as images; other pages were not inspected for bands.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints only one LTWADM total (5,547.36); no grade-band breakdown. Pages 4-8 were read
+      as images; other pages were not inspected for bands.
+    resolution: left_null

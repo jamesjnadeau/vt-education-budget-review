@@ -1,0 +1,51 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/maple-run
+fiscal_year: 2024
+status: approved
+source: intake/su-maple-run/fy2027/MRUSD-2025-2026-Annual-Report-.pdf
+source_pages: PDF p. 21
+adopted_date: null
+education_spending: 51064329
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/fairfield
+      homestead_rate_stated: null
+      cla: null
+    - town: town/st-albans-city
+      homestead_rate_stated: null
+      cla: null
+    - town: town/st-albans-town
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  FY2024 column of the AOE 'Three Prior Years Comparisons' form (PDF p. 21, PRELIMINARY), printed as the adopted budget: $69,422,742; offsetting union revenues $18,358,413; education spending $51,064,329; equalized pupils 2,426.77 (not LTWADM); per pupil $21,042.10; equalized union homestead rate $1.3626; income cap percent 2.40%. No vote date is stated for FY2024 in this document.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "Only the equalized union homestead rate ($1.3626) is printed for FY2024 (PDF p. 21); no per-town rates."
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: "The form prints no CLAs for Fairfield, St. Albans City or St. Albans Town (PDF p. 21), so town rates cannot be computed as equalized rate / CLA."
+    resolution: left_null
+  - path: notes
+    issue: "FY2024 pupils (2,426.77) are equalized pupils, not LTWADM; the per-pupil figure ($21,042.10) is not comparable with FY2025-FY2027."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null

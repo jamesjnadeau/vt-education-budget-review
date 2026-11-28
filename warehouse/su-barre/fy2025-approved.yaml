@@ -1,0 +1,47 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/barre
+fiscal_year: 2025
+status: approved
+source: intake/su-barre/fy2027/BUUSDFY27BUDGETSUMMARY-REVENUES2-17-26.pdf
+source_pages: p. 1
+adopted_date: null
+education_spending: 40871402
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/barre-city
+      homestead_rate_stated: null
+      cla: null
+    - town: town/barre-town
+      homestead_rate_stated: null
+      cla: null
+notes: "FY25 column of the FY27 revenue summary: budgeted general-fund revenue $53,308,338 (expense budget $53,308,337 in the Vote 4 slides budget history, 7.40% increase); education spending $40,871,402 (same figure in the budget and unaudited-actuals columns). Per-pupil $11,415 (LTWADM basis; FY24 and earlier are equalized pupils and not comparable). FY25 needed several votes (the district's budget page lists Vote 2, Vote 3 and Vote 4 resource panels for FY25); no adoption date stated in this source. FY24 column is actuals ($39,645,397 education spending, $51,040,127 general-fund revenue) and is not recorded because no adopted FY24 budget figure is printed."
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: "This source prints no per-town homestead rate. Other FY27 documents print estimated rates (March mailer: Barre City 1.457, Barre Town 1.428; Vote 4 slides: Barre City $0.928, Barre Town $1.294) but they are estimates for different budget versions and are not in this source file."
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: "No CLA ratio is printed in this source. The Vote 4 slides mention only a 'CLA change of 48.74%' for Barre City (reappraisal)."
+    resolution: left_null
+  - path: education_spending
+    issue: "Taken from the line labelled 'EDUCATION SPENDING' on the district's revenue summary (the state education-fund revenue line), not from the AOE Three Prior Years Comparisons form, which the district does not post for this year. Column sums were re-added: the 17 revenue lines of the FY27 column sum to $57,829,257, FY26 to $55,949,143 and FY25 budget to $53,308,338."
+    resolution: pending

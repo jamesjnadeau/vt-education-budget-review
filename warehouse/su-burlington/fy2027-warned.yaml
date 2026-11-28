@@ -1,0 +1,52 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/burlington
+fiscal_year: 2027
+status: warned
+source: intake/su-burlington/fy2027/BSD_AnnualReport_2025.pdf
+source_pages: pp. 16-18
+adopted_date: null
+education_spending: 109078822
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/burlington
+      homestead_rate_stated: 1.5982
+      cla: 1.0714
+notes: >-
+  FY27 budget put to voters on Town Meeting Day, March 3, 2026, as printed in the district's annual report (Feb 2026): total budget $140,807,830 (+4.47%); offsetting revenues $31,729,008; education spending $109,078,822; LTWADM 6,914.85; education spending per pupil $15,774.58 (6.40% over FY26 per the ballot question); equalized district homestead rate $1.7124 (cent discount line 28 blank); income cap percent 2.48%; excess spending threshold $16,470; bond P&I per LTWADM $2,692.55 (line 14). Education spending checked: $140,807,830 - $31,729,008 = $109,078,822. The $140,807,830 matches the grand total of the FY27 line-item PDFs held in the same intake directory. Vote result: the district reports voters approved it by more than two-thirds (https://www.bsdvt.org/2026/03/05/two-thirds-of-burlington-voters-pass-budget/); the district page gives no counts. Secondary reports give 5,900 yes / 2,879 no (https://burlingtondailynews.net/2026/03/03/voters-re-elect-incumbents-approve-all-ballot-items/ and WCAX); not verified against the city's official results. adopted_date left null (this document predates the vote).
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: >-
+      Rate is line 33 "Portion of actual district homestead rate to be assessed by town" ($1.7124 / 107.14% = $1.5982). The form is headed PRELIMINARY / ESTIMATES ONLY and relies on the Dec 1, 2025 Education Fund outlook (property yield $9,212 assuming a $75 million buydown); final figures are set by the Legislature and Governor.
+    resolution: pending
+  - path: tax.towns.cla
+    issue: >-
+      The form prints 107.14% on line 32 labelled "Common Level of Appraisal (CLA) divided by Statewide Adjustment", i.e. an adjusted CLA (not the Tax Department CLA). Recorded as the ratio 1.0714.
+    resolution: recorded_as_other
+  - path: notes
+    issue: >-
+      Form is headed PRELIMINARY / ESTIMATES ONLY (p. 18) and states property yield $9,212 / income yield $12,711 from the Dec 1, 2025 Education Fund outlook, assuming a $75 million rate buydown that the Legislature had not yet approved; figures may change.
+    resolution: pending

@@ -1,0 +1,52 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/burlington
+fiscal_year: 2024
+status: approved
+source: intake/su-burlington/fy2027/BSD_AnnualReport_2025.pdf
+source_pages: p. 18
+adopted_date: null
+education_spending: 78964438
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/burlington
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  Prior-year column of the FY27 annual report's AOE form (p. 18, PRELIMINARY). Total budget $117,760,191; offsetting revenues $38,795,753; education spending $78,964,438 (check: $117,760,191 - $38,795,753); pupils 3,702.88 EQUALIZED pupils (not LTWADM; not comparable with FY25+); per pupil $21,325.14 (recomputes); equalized district homestead rate $1.3809; line 32 95.33%; line 33 $1.4485; income cap percent 2.43%.
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: >-
+      The p. 18 form prints line 33 ($1.4485) and line 32 (95.33%) for FY2024 but the form is labelled PRELIMINARY / ESTIMATES ONLY; left null.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: >-
+      Left null for the same reason as the rate; the printed line 32 adjusted CLA is quoted in notes.
+    resolution: left_null
+  - path: notes
+    issue: >-
+      FY2024 pupil count 3,702.88 is equalized pupils, not LTWADM, so FY24 per-pupil ($21,325.14) is not comparable with FY25-FY27 (FY25 form prints 6,798.20 LTWADM).
+    resolution: recorded_as_other

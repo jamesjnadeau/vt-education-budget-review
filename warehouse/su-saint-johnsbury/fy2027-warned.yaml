@@ -1,0 +1,65 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/saint-johnsbury
+fiscal_year: 2027
+status: warned
+source: intake/su-saint-johnsbury/fy2027/2026 Annual Report.pdf
+source_pages: pp. 9-13
+adopted_date: null
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/st-johnsbury
+      homestead_rate_stated: 1.137
+      cla: null
+notes: >-
+  FY2027 budget put to voters on Australian ballot March 3, 2026 (Article 1).
+  The report has no AOE form; figures are from the district's own "Estimated
+  Homestead Tax Rates" table (p. 11): total expenditures $31,830,266 (+5.34%
+  over FY2026 $30,217,239); total revenues $5,484,947 (includes $250,000
+  anticipated FY2025 surplus); "Net Education Spending" $26,345,319; LTW average
+  daily membership 1,820; education spending per pupil $14,479 (+8.39%); dollar
+  equivalent yield $9,212; school district tax rate $1.5627; "2025 statewide
+  adjustment to CLA" 1.3744; estimated homestead tax rate $1.1370 (p. 11; the
+  letter on p. 9 rounds to $1.14, +$0.074). The rate is a district estimate
+  that includes the anticipated state buy-down, marked preliminary. Article 1
+  (and the ballot, p. 10 and 20) says $31,830,266 and education spending of
+  $14,479 per pupil. Article 2 asks to put up to 50% of the FY2025 surplus into
+  a capital reserve fund. Vote result: not on the district or town sites read;
+  local outlet News7 reports Article 1 passed 627 to 606
+  (https://www.news7newslinc.net/index.php/around-the-nek/st-johnsbury,
+  retrieved 2026-11-28); not independently confirmed, so adopted_date stays null.
+  Article 2 result not found.
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: The document has no AOE education-spending form. The nearest printed figure is "NET EDUCATION SPENDING" $26,345,319 (p. 11; also the "Education Spending Fund" revenue line on p. 10, which balances the $31,830,266 revenue summary). Not substituted because it is the district's own table, not the AOE form. Left null; figure kept in notes.
+    source_text: "NET EDUCATION SPENDING $24,967,147 $26,345,319 $1,378,172 5.52%"
+    resolution: left_null
+  - path: education_spending_per_pupil
+    issue: Printed per-pupil $14,479 does not equal recomputed $26,345,319 / 1,820 = $14,475.45 (about $3.5 off; 1,820 may be rounded). FY2026 column recomputes correctly ($24,967,147 / 1,869 = $13,358.56, printed $13,359). Recorded, not reconciled.
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: Estimated homestead rate $1.1370 on p. 11 (= $1.5627 / 1.3744, checks) is the district's preliminary estimate including the anticipated state tax-rate buy-down; p. 9 prints $1.14. Not the Tax Department's rate.
+    resolution: recorded_as_other
+  - path: tax.towns.cla
+    issue: No town CLA is printed. Only the "2025 statewide adjustment to CLA" 1.3744 (a statewide divisor, not a town CLA) appears on p. 11, so cla is left null; the figure is in notes.
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: The report prints one weighted LTW average daily membership (1,820), not the four statutory grade bands. Text layer searched for band breakdowns; none found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints one weighted LTW average daily membership (1,820), not the four statutory grade bands. Text layer searched for band breakdowns; none found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints one weighted LTW average daily membership (1,820), not the four statutory grade bands. Text layer searched for band breakdowns; none found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints one weighted LTW average daily membership (1,820), not the four statutory grade bands. Text layer searched for band breakdowns; none found.
+    resolution: left_null

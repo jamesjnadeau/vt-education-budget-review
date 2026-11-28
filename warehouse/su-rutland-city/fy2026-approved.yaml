@@ -1,0 +1,60 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/rutland-city
+fiscal_year: 2026
+status: approved
+source: intake/su-rutland-city/fy2027/2026January13_SB_FY27BudgetRatificationandApprovalofFY27BudgetBallotLanguage.pdf
+source_pages: p. 2 (prior-year column); also Jan 6 deck pp. 3-5
+adopted_date: null
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/rutland-city
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  FY26 column ('FY26 Budget') of the district's January 13, 2026 slide. In $
+  thousands: expenses $67,187; revenues, federal and local $23,831; 'State
+  Funded' $43,356; LTW ADM 3,554.77; per pupil education spending $12,196.6.
+  43,356 / 3,554.77 = 12,196.6. The slides label it 'FY26 Budget', not
+  'adopted'. The City of Rutland's official March 4, 2025 results show the
+  $67,187,000 school budget passed, Yes 2,296, No 1,346
+  (https://www.rutlandcity.org/wp-content/uploads/2025/03/Election-Results-March-4-2025-3.xlsx);
+  adopted_date is left null because the decks give no vote date. FY26 revenue
+  detail (Jan 6 deck p. 4): federal grants 15,397; tuition 3,184; special ed
+  and local 5,250; no working capital. The Jan 6 deck p. 6 chart prints
+  $1.6058 for FY26 (a homestead rate; it is not labeled as town or equalized).
+  No AOE education spending figure is printed; the nearest is 'State Funded'
+  $43,356 thousand (not entered).
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: Neither deck contains the AOE Three Prior Years Comparisons form, so no AOE Education Spending figure is printed. Left null rather than substituted. Nearest printed figure is 'State Funded' on the funding slide (Jan 13 deck PDF p. 2; Jan 6 deck PDF p. 5), in $ thousands, equal to expenses minus federal and local revenue (the same arithmetic as education spending, rounded to thousands). It is in notes.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: No per-town homestead rate is printed for FY2026. The district is one town (Rutland City). The Jan 6 deck p. 6 chart prints $1.6058 for FY26 with no label saying whether it is the equalized or the town rate; kept in notes, not entered as a town rate.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: No CLA is printed in either deck.
+    resolution: left_null
+  - path: notes
+    issue: FY26 LTW ADM is 3,554.85 on the Jan 6 deck (p. 5, per pupil $12,196.3) and 3,554.77 on the Jan 13 deck (p. 2, per pupil $12,196.6). The Jan 13 value is the one recorded; not reconciled.
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The deck prints one weighted pupil count (LTW ADM), not the four statutory grade bands. Both decks were read in full (text layer plus rendered pages); no band breakdown found.
+    resolution: left_null

@@ -1,0 +1,76 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/winooski
+fiscal_year: 2027
+status: warned
+source: intake/su-winooski/fy2027/127th-Annual-Report.pdf
+source_pages: p. 12
+adopted_date: null
+education_spending: 32136631
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/winooski
+    homestead_rate_stated: 1.2287
+    cla: 1.3703
+notes: 'FY2027 column of the AOE ''Three Prior Years Comparisons'' form for Winooski ID (T249), PDF p. 12 of the
+  127th Annual Report (February 2026; text layer, rendered and checked). Total budget $37,048,854; offsetting revenues
+  $4,912,223; education spending $32,136,631; pupils 2,157.00 (LTWADM); education spending per pupil $14,898.76;
+  equalized district homestead rate $1.6837 (before CLA); income cap percent 2.45%. Re-added: budget minus revenue
+  equals education spending; spending / pupils equals the printed per-pupil; equalized rate / CLA equals the town
+  rate. Budget put to voters March 3, 2026 (annual report letter, p. 4; warning on https://www.wsdvt.org/school-board/budget/).
+  Vote result per the City Clerk''s Official Return of Votes, https://winooskivt.gov/DocumentCenter/View/10778/ORV-3326-Final
+  (scanned; read via text extraction): school budget article ($34,818,909) YES 696, NO 198, blanks 7, 901 ballots
+  - i.e. approved; that return is not in the staged annual report, so this record stays ''warned'' with adopted_date
+  null. The ballot article amount is $34,818,909 (Board ''operational budget'', = general fund incl. state aid,
+  p. 11 ''Sub Total General Fund''); the AOE form''s $37,048,854 adds $2,229,945 of federal/other grant programs,
+  which are also counted in offsetting revenues.'
+not_published: []
+lines_flagged:
+- path: tax.towns.cla
+  issue: The form's CLA line is headed 'Common Level of Appraisal (CLA) divided by Statewide Adjustment' and is
+    printed as a percentage (137.03%); recorded as a ratio. Town rate = equalized rate / this figure ($1.6837 /
+    1.3703 = $1.2287), matching the printed 'Portion of actual district homestead rate to be assessed by town'.
+    Not the Tax Department's published CLA.
+  resolution: recorded_as_other
+- path: adm.prekindergarten
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: education_spending
+  issue: Form budget $37,048,854 (p. 12) differs from the $34,818,909 operational budget on the flyer (p. 22), letter
+    (p. 4) and ballot article; the difference is the $2,229,945 federal budget (p. 11). Both are as printed; education
+    spending is the form's figure.
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: Flyer (p. 22) shows homestead rate $1.25 (FY26) -> $1.23 (FY27), weighted pupils 2005 -> 2157 and per-pupil
+    $15,262 -> $14,899; the form prints FY26 $1.2403 (actual town rate), 2,005.63 pupils and $15,255.78 per pupil.
+    FY27 $1.2287 vs $1.23 agrees after rounding. Flyer budget increase is '4.60%' (p. 22) vs 4.59% in the letter
+    (p. 4); 34,818,909/33,289,732 = 4.594%.
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: The FY2027 column's input cells are shaded yellow (draft-style entry cells) and the form has a note reference
+    '<--See bottom note' but no bottom note is printed on the page. No PRELIMINARY or ESTIMATES ONLY stamp is on
+    the form. Not labelled as estimates by the district, but it is a pre-vote form.
+  resolution: pending

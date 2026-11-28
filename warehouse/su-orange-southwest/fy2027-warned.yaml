@@ -1,0 +1,85 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/orange-southwest
+fiscal_year: 2027
+status: warned
+source: intake/su-orange-southwest/fy2027/OSSD2026AnnualReport.pdf
+source_pages: pp. 5, 24-25
+adopted_date: null
+education_spending: 21945071
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/braintree
+      homestead_rate_stated: 1.9644
+      cla: 0.8939
+    - town: town/brookfield
+      homestead_rate_stated: 1.6123
+      cla: 1.0892
+    - town: town/randolph
+      homestead_rate_stated: 1.3010
+      cla: 1.3498
+notes: "FY27 proposed budget as printed in the annual report for the March 3, 2026 vote (p. 25, 'Budget - Proposed
+  Draft 3'): school budget $27,976,946 (matches line-item SCHOOL TOTAL on p. 24); categorical grant revenue
+  $6,031,875; education spending (Act 68) $21,945,071 (= budget minus revenue); equalized LTW pupils 1,412.22
+  (labelled '2025-26 (Projection 1/05/26)'); education spending per equalized pupil $15,539.41; excess spending
+  threshold $16,470; amount over threshold $0; property yield $12,582.11; statewide adjustment 70.33%; equalized
+  homestead rate $1.7561 (p. 5 says down 4.22% from last year's $1.8301). Total voter approval on the ballot is
+  $29,159,606 = school total $27,976,946 + federal funds $1,182,660 (p. 24). Per-town rates are the 'Projected
+  2026-27 Tax Rates' on p. 25 (equalized rate / statewide adjusted CLA); the CLAs recorded are the 'Statewide
+  Adjusted CLA' column (89.39%, 108.92%, 134.98%) as ratios, not the raw 2025 town common level of appraisal
+  (62.87%, 76.60%, 94.93%). Weighted pupils are one total, not grade bands. Vote result (not in the annual report):
+  the district's 'Results of Budget Vote - Tuesday, March 3, 2026' (clerk-attested 3-6-2026) shows the $29,159,606
+  budget passed, YES 836 / NO 407 / blank 28 / spoiled 1; staged at intake/su-orange-southwest/fy2027/21BudgetResults.pdf,
+  source https://www.orangesouthwest.org/central-office/financial-budget-data. Status left 'warned' because this
+  record transcribes the pre-vote document. The annual report has no AOE 'Three Prior Years Comparisons' table
+  and does not print FY24-FY26 education spending, so no FY2024-FY2026 records were written."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: "The p. 25 form is headed 'OSSD 2026-27 BUDGET: ESTIMATED TAX RATE', 'Budget - Proposed Draft 3' and
+      'STATE ESTIMATES' with equalized pupils 'Projection 1/05/26'. It is the district's estimate on a draft
+      budget, not an AOE-certified form; the page is not the AOE 'Three Prior Years Comparisons' table."
+    resolution: pending
+  - path: notes.per_pupil
+    issue: "Per-pupil education spending is printed two ways: $15,539.41 on p. 5 ('Overall Impact') and p. 25, but
+      $15,339.41 in the p. 5 ballot language, and again $15,339.41 in the clerk-attested ballot (Article IX, voting
+      results p. 3). $21,945,071 / 1,412.22 = $15,539.41, so the ballot figure appears to be a $200 typo in the
+      ballot text. Both recorded; not reconciled."
+    resolution: pending
+  - path: notes.tax_rate_change
+    issue: "p. 5 says the equalized homestead rate $1.7561 is 'down 4.22%' from last year's $1.8301; recomputed
+      (1.7561 / 1.8301 - 1) is -4.04%. Not reconciled."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "Braintree: $1.7561 / 0.8939 = $1.9645 but p. 5 and p. 25 print $1.9644 (likely unrounded CLA). Brookfield
+      and Randolph recompute exactly. Rates are 'projected'/'estimated' (p. 5 'Preliminary Tax Rate Outlook',
+      p. 25 'State Estimates'), not Tax Department figures."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "p. 5 tax table's CLA column prints the raw 2025 common level of appraisal (Braintree 62.87%, Brookfield
+      76.60%, Randolph 94.93%); p. 25 also prints the 'Statewide Adjusted CLA' (89.39%, 108.92%, 134.98% = CLA /
+      70.33%). The adjusted CLA is recorded because it reproduces the printed town rates."
+    resolution: recorded_as_other
+  - path: notes.pupils
+    issue: "Pupil count 1,412.22 is labelled 'Equalized LTW Pupils - 2025-26 (Projection 1/05/26)' on a 2026-27
+      form; p. 5 says the budget raises long-term weighted ADM by 28.01 students (a 2% increase). Whether 1,412.22
+      is the FY27 LTWADM was not confirmed."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The report prints one weighted pupil count (1,412.22), not the four statutory grade bands. Text layer and pp. 5, 24, 25 searched/read; no band breakdown found. Other pages not individually inspected."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The report prints one weighted pupil count (1,412.22), not the four statutory grade bands. Text layer and pp. 5, 24, 25 searched/read; no band breakdown found. Other pages not individually inspected."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The report prints one weighted pupil count (1,412.22), not the four statutory grade bands. Text layer and pp. 5, 24, 25 searched/read; no band breakdown found. Other pages not individually inspected."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The report prints one weighted pupil count (1,412.22), not the four statutory grade bands. Text layer and pp. 5, 24, 25 searched/read; no band breakdown found. Other pages not individually inspected."
+    resolution: left_null

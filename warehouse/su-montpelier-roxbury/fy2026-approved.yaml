@@ -1,0 +1,55 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/montpelier-roxbury
+fiscal_year: 2026
+status: approved
+source: intake/su-montpelier-roxbury/fy2027/Informational Meeting March 2, 2026.pdf
+source_pages: p. 30
+adopted_date: null
+education_spending: 27725667
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/montpelier
+      homestead_rate_stated: 1.268
+      cla: 1.2772
+    - town: town/roxbury
+      homestead_rate_stated: 1.303
+      cla: 1.2436
+notes: "FY26 column ('FY26') of slide 30 in the FY27 informational-meeting deck: general budget $32,364,264 + capital plan
+  $270,000 = total budget $32,634,264; non-tax revenues $4,908,597; education spending $27,725,667 (re-added); LTW ADM
+  1,873.76; per LTW ADM $14,796.81; property dollar yield $8,553; equalized residential rate $1.7300, less $0.11 cent
+  reduction = adjusted $1.620. Town rates with CLA: Montpelier $1.268 (CLA 127.72%), Roxbury $1.303 (CLA 124.36%). The
+  deck labels the column only 'FY26' and does not say it was adopted or give a vote date; the district's budget page
+  (https://www.mrpsvt.org/budget) states the FY26 budget passed on 3/4/25 (yes: 1,637 | no: 788). adopted_date left null."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: "Prior-year column of a FY27 presentation slide, not an AOE form; the column is headed 'FY26' without an adopted
+      or budgeted label. The district's own FY26 documents (not staged) were not read."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "Town rates are the district's 'Residential Tax Rate w/ CLA' for FY26 as shown on the FY27 slide, computed by
+      the district; not the Tax Department's published rates."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,873.76 for FY26), not the four statutory grade bands. Text layer
+      searched; no band breakdown found."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,873.76 for FY26), not the four statutory grade bands. Text layer
+      searched; no band breakdown found."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,873.76 for FY26), not the four statutory grade bands. Text layer
+      searched; no band breakdown found."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "Deck prints one weighted pupil count (LTW ADM 1,873.76 for FY26), not the four statutory grade bands. Text layer
+      searched; no band breakdown found."
+    resolution: left_null

@@ -1,0 +1,63 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/missisquoi-valley
+fiscal_year: 2026
+status: approved
+source: intake/su-missisquoi-valley/fy2027/735866f921ba-FY27_MVSD_Revenue_and_Tax_Rate_Page_REVOTE_1.jpg
+source_pages: single-page image
+adopted_date: null
+education_spending: 39683045
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/franklin
+    homestead_rate_stated: 1.573
+    cla: 0.9015
+  - town: town/highgate
+    homestead_rate_stated: 1.4017
+    cla: 1.0117
+  - town: town/swanton
+    homestead_rate_stated: 1.4678
+    cla: 0.9661
+notes: 'FY26 budget as the ''Current Year'' column of the FY27 revote summary image. Total operating budget $50,956,879;
+  projected revenues $11,273,834; education spending PreK-12 $39,683,045; LTWADM 3,255.49; $12,190 per LTWADM; property
+  yield $8,596; equalized rate $1.4181. The district''s news page reports the FY26 budget passed (Article II YES
+  782, NO 674): https://www.mvsdschools.org/apps/news/article/2042103. No vote date is stated in the staged document,
+  so adopted_date is null.'
+not_published: []
+lines_flagged:
+- path: source
+  issue: 'FY2026 is the ''Current Year'' column of the FY27 revote summary image, not a FY26 budget document and
+    not the AOE form. Arithmetic re-added: $50,956,879 - $11,273,834 = $39,683,045; $39,683,045 / 3,255.49 = $12,189.58
+    (printed $12,190).'
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: FY26 rates are the district's projected homestead rates after CLA as printed in the FY27 image (FY26 uses
+    72.36% statewide adjustment). Franklin 1.4181/0.9015 = 1.5731 vs printed 1.5730 (rounding). Not Tax Department
+    rates.
+  resolution: pending
+- path: tax.towns.cla
+  issue: Printed as e.g. Franklin FY26 (65.23%/72.36%)=90.15%; recorded as ratio 0.9015. Highgate 101.17%, Swanton
+    96.61%.
+  resolution: recorded_as_other
+- path: adm.prekindergarten
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null

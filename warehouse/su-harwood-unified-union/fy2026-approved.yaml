@@ -1,0 +1,75 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/harwood-unified-union
+fiscal_year: 2026
+status: approved
+source: intake/su-harwood-unified-union/fy2027/2026-02-13 HUUSD FY2027 Budget and Annual Report.pdf
+source_pages: p. 22
+adopted_date: null
+education_spending: 41188115
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/duxbury
+    homestead_rate_stated: null
+    cla: null
+  - town: town/fayston
+    homestead_rate_stated: null
+    cla: null
+  - town: town/moretown
+    homestead_rate_stated: null
+    cla: null
+  - town: town/waitsfield
+    homestead_rate_stated: null
+    cla: null
+  - town: town/warren
+    homestead_rate_stated: null
+    cla: null
+  - town: town/waterbury
+    homestead_rate_stated: null
+    cla: null
+notes: Prior-year column of the FY27 annual report's AOE 'Three Prior Years Comparisons' form (PDF p. 22, stamped
+  PRELIMINARY), printed as the adopted/warned union budget; no vote date is given, so adopted_date is null. Total
+  union budget $49,209,927; offsetting union revenues $8,021,812; education spending $41,188,115; LTWADM 2,659.72;
+  education spending per pupil $15,485.88; equalized union homestead rate $1.7015, same for all six towns. Arithmetic
+  re-checked (budget minus revenue = education spending; spending / pupils = per-pupil). Excess spending threshold
+  $15,926; construction per pupil $198.36; income cap percent 2.54% on line 30 but 2.44% in the town rows of the
+  p. 22 income cap table.
+not_published: []
+lines_flagged:
+- path: tax.towns.homestead_rate_stated
+  issue: p. 22 prints a 'prorated homestead union tax rate' of $1.7015 for each of the six towns. It is the same
+    for every town and is not divided by a town CLA, so it is not a town homestead rate; left null and kept in notes.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No town CLAs are printed in the report (text layer searched).
+  resolution: left_null
+- path: notes
+  issue: FY2026 income cap percent is 2.54% on line 30 but 2.44% in each town row of the prorated income cap table
+    on p. 22.
+  resolution: pending
+- path: adm.prekindergarten
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The annual report prints one weighted pupil count per year (LTWADM for FY25-FY27; equalized pupils for
+    FY24), not the four statutory grade bands. The text layer was searched (p. 22 form, p. 19 summary); p. 19 also
+    gives raw enrollment of 1787 including PreK but no band split.
+  resolution: left_null
