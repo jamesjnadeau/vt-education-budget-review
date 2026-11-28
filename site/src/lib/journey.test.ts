@@ -206,6 +206,20 @@ describe('buildJourney', () => {
     );
   });
 
+  it('orders towns with a published rate lowest first for the rate dots', () => {
+    // norate (null) and closed are left out; every other town appears exactly once
+    expect(j.rateOrder).toEqual([
+      { slug: 'shared-a', name: expect.any(String), rate: 1 },
+      { slug: 'shared-b', name: expect.any(String), rate: 2 },
+      { slug: 'shared-c', name: expect.any(String), rate: 3 },
+      { slug: 'alone', name: expect.any(String), rate: 4 },
+      { slug: 'nopop', name: expect.any(String), rate: 5 },
+      { slug: 'hiddendm', name: expect.any(String), rate: 6 },
+    ]);
+    // same count the page's rateScale compares against
+    expect(town('shared-a').rateScale).toMatchObject({ kind: 'value', value: { of: j.rateOrder.length } });
+  });
+
   it('computes state and county comparators: median rate, mean students/people, nulls excluded', () => {
     // State: published rates among the 6 non-null of 7 active towns -> median 3.5
     expect(j.towns['shared-a']?.comparators.rate.state).toEqual({ value: 3.5, over: 6 });

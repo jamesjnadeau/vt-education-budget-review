@@ -922,6 +922,92 @@ button:hover {
   max-width: 30ch;
 }
 
+/* Share cards: one per level (district, union, group), three across on wide screens. */
+.journey-shares {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 1.25rem 0;
+}
+@media (min-width: 56rem) {
+  .journey-shares {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.journey-share {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  padding: 1.1rem 1.25rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.journey-share-reason {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.journey-share h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+}
+.journey-share-help {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.journey-share-donuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  justify-content: center;
+}
+.journey-donut {
+  margin: 0;
+  flex: 1 1 7rem;
+  max-width: 10rem;
+  text-align: center;
+}
+.journey-donut-chart {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+.journey-donut-chart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.journey-donut circle {
+  fill: none;
+  stroke-width: 16;
+}
+.journey-donut-track {
+  stroke: var(--surface-alt);
+}
+.journey-donut-arc {
+  stroke: var(--accent);
+}
+.journey-donut-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.journey-donut-caption {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 .journey-dotgrid {
   margin: 1rem 0;
 }
@@ -932,10 +1018,37 @@ button:hover {
   max-width: 100%;
 }
 .journey-dot {
+  display: block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--border);
+}
+/* Linked dots: a 14px hit area around each 10px dot, so spacing is unchanged. */
+ul.journey-dotgrid-dots {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+.journey-dot-cell {
+  display: block;
+  padding: 2px;
+  max-width: none;
+  line-height: 0;
+}
+.journey-dot-link {
+  display: block;
+  line-height: 0;
+  border-radius: 50%;
+}
+.journey-dot-link:hover .journey-dot,
+.journey-dot-link:focus-visible .journey-dot {
+  background: var(--accent);
+}
+.journey-dot-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .journey-dot--mine {
   background: var(--accent);
@@ -963,38 +1076,6 @@ button:hover {
   max-width: 60ch;
 }
 
-.journey-progress {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem;
-}
-.journey-progress-step {
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  max-width: none;
-}
-.journey-progress-step:not(.journey-progress-step--current) {
-  color: var(--text-muted);
-}
-.journey-progress-label {
-  font-weight: 600;
-}
-.journey-progress-step--current .journey-progress-label {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-color: var(--gold);
-  text-underline-offset: 4px;
-}
-.journey-progress-mark {
-  font-size: 0.78rem;
-  color: var(--accent);
-  font-weight: 600;
-}
-
 .journey-cta {
   margin: 1.5rem 0 0.25rem;
   font-weight: 600;
@@ -1005,9 +1086,40 @@ button:hover {
   text-decoration-color: var(--gold-dark);
   text-underline-offset: 4px;
 }
+.journey-heading-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--gold-dark);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.journey-heading-link:hover {
+  color: var(--link);
+}
 .journey-change {
   margin: 0.5rem 0 0;
   font-size: 0.9rem;
   color: var(--text-muted);
+}
+.journey-town-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: 0.85rem;
+}
+.journey-town-head h1 {
+  margin-bottom: 0;
+}
+.journey-change-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: auto;
+}
+.journey-change-link:hover {
+  color: var(--link);
 }
 
