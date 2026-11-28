@@ -39,3 +39,16 @@
 
 ## needs_decision
 None; single-district SU, so records written.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### FY27 Annual Report - FULL PDF.pdf
+
+- **Path:** `intake/su-champlain-valley/fy2027/FY27 Annual Report - FULL PDF.pdf`
+- **Size:** 33,720,518 bytes (34 MB)
+- **sha256:** `2f7870b411d3107ddab357349411847b27558b43335705c665e2b512cc4ca2c0`
+- **Source:** https://drive.google.com/uc?export=download&id=1x6ASsbzUEkxYrR82c2YfAveU0sCigFeN
+- **Records citing it:** `warehouse/su-champlain-valley/fy2024-approved.yaml`, `warehouse/su-champlain-valley/fy2025-approved.yaml`, `warehouse/su-champlain-valley/fy2026-approved.yaml`, `warehouse/su-champlain-valley/fy2027-warned.yaml`
+- **Provenance note:** The full FY27 annual report (170 pages, text layer present) issued ahead of the March 3, 2026 vote. Carries the AOE "Three Prior Years Comparisons" form (PDF p. 31; FY2024-FY2027 columns, marked PRELIMINARY / ESTIMATES ONLY), the revenue summary (p. 28), budget implications with per-town CLAs (pp. 27, 61-62), the budget-by-function sections, and the annual warning (pp. 158-159, 170). Internal PDF title is "FY27 Annual Report Opener - FINAL" (created 2026-03-20 on macOS Quartz PDFContext). The server sent the filename shown (Content-Disposition); saved byte-for-byte. The district does not print a publication date. The district's separate Drive files (three-prior-years page, 25 MB budget book, tax implications) are components of or companions to this report and were not downloaded.

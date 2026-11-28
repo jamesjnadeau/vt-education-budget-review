@@ -66,3 +66,16 @@ PDF pp. 33–37, 39–42, 44–48 (budget charts, line-item tables, GMTCC, treas
 
 ## Ask the district for
 Nothing essential. Optionally: the final (post-legislature) AOE forms, and per-town combined homestead rates with CLA.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### LNMUUSD2026AnnualReport.pdf
+
+- **Path:** `intake/su-lamoille-north/fy2027/LNMUUSD2026AnnualReport.pdf`
+- **Size:** 34,174,962 bytes (34 MB)
+- **sha256:** `bf4989cd8a6f9c018d2a86dbbf5386f881f6e766b5b25b873ec6a1ac8e8f5a20`
+- **Source:** https://resources.finalsite.net/images/v1770388071/lnsuorg/c9dcrhigjjx4a1x9q0lo/LNMUUSD2026AnnualReport.pdf
+- **Records citing it:** none (no records for this SU: see the status above)
+- **Provenance note:** Annual report for the March 2026 vote on the FY2027 budgets (50 pages, created in Canva 2026-02-05; internal title "FINAL FOR PRINTING- 2026 Annual Report", author Rene Thibault). Carries the AOE "Three Prior Years Comparisons" forms for district #058A (PDF p. 38) and #058B (PDF p. 43), FY2024-FY2027 columns, both stamped PRELIMINARY / ESTIMATES ONLY. Pages 33-48 (budget charts, line-item tables, the two AOE forms, GMTCC tables, treasurer's and reserves reports) are images with no text layer, so figures were read from 200-dpi renders. The server sent no Content-Disposition header; the filename is the URL's last path segment. Saved byte-for-byte as downloaded.

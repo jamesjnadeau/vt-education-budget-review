@@ -71,9 +71,31 @@ Not staged:
 ## needs_decision
 - 2 member districts set their own budgets, so no warehouse records were written. If the project wants per-district (ud/barstow-49, ud/otter-valley-53) records, they need a decision on the entity type; the figures are in the section above.
 - OVUU FY27: warned $28,841,285 (failed) vs adopted $28,663,285 (revote). Any record needs to treat these as two versions.
-- The two annual reports are 62 MB and 98 MB, mostly photos. The lead may prefer to drop them from the PR in favour of the small AOE forms and warnings, which carry the figures. They are staged because the brief prefers the annual report.
+- The two annual reports are 62 MB and 98 MB, mostly photos. They are in the PR because the brief prefers the annual report; the small AOE forms and warnings carry the figures.
 
 ## Should be asked for
 - The OVUU revote AOE Three Prior Years form (for $28,663,285), the revote warning as a PDF, and the official April 7, 2026 result.
 - Final (non-PRELIMINARY) AOE forms for both districts.
 - The supplemental documents (line-item function/object detail) if wanted.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### LOW RES FINAL DRAFT Jan 23 BUU 2026-2027 Annual Report (8.5 x 11 in).pdf
+
+- **Path:** `intake/su-rutland-northeast/fy2027/LOW RES FINAL DRAFT Jan 23 BUU 2026-2027 Annual Report (8.5 x 11 in).pdf`
+- **Size:** 62,161,687 bytes (62 MB)
+- **sha256:** `53cc78fd1896331ef8a57d182355ca068cb4caf04dbaf04d57ee75a1dfbf3a2e`
+- **Source:** https://drive.google.com/uc?export=download&id=162dlBapPwSVM03sOTLNtd3Aq8aIhSwJU
+- **Records citing it:** none (no records for this SU: see the status above)
+- **Provenance note:** Barstow UUSD annual report for the March 3, 2026 vote on the FY2027 budget; 12 letter-size pages made in Canva (internal title 'FINAL DRAFT Jan 23 BUU 2026-2027 Annual Report (8.5 x 11 in)', PDF created 2026-02-19). Image-only: no text layer, pages were read from renders. PDF p. 7 'FY27 Proposed Budget Information' (budget $6,631,248, +6.17%, by object and by level); p. 9 is the RNESU (supervisory union) budget page. It carries no AOE Three Prior Years form; that is the separate Barstow AOE form staged beside it. The file name says 'FINAL DRAFT'. Saved under the filename the server sent.
+
+### LOW RES FINAL Jan 27 OVUU 2026-2027 Annual Report  (2).pdf
+
+- **Path:** `intake/su-rutland-northeast/fy2027/LOW RES FINAL Jan 27 OVUU 2026-2027 Annual Report  (2).pdf`
+- **Size:** 98,019,487 bytes (98 MB)
+- **sha256:** `6031f84ea3e57169eb939d664982617f8b9af1ef026843759cf3ef6dc50344ec`
+- **Source:** https://drive.google.com/uc?export=download&id=1XpkLqycu0KmklJG2MrDQhtHFVCapW9w6
+- **Records citing it:** none (no records for this SU: see the status above)
+- **Provenance note:** Otter Valley UUSD annual report for the March 3, 2026 vote on the FY2027 budget; 20 letter-size pages made in Canva (internal title 'FINAL Jan 27 OVUU 2026-2027 Annual Report', PDF created 2026-02-19). Image-only: no text layer, pages were read from renders. PDF p. 7 'FY2027 Otter Valley Unified Union School District Proposed Budget' ($28,841,285, +2.92%, by object and by site, plus FY25 treasurer's report). Reflects the ORIGINAL budget that voters defeated on March 3, 2026, not the revote budget. 98,019,487 bytes (about 98 MB): just under the 100 MB cap. No AOE Three Prior Years form inside; see the separate OVUU AOE form. Filename has a double space before '(2)', as the server sent it.

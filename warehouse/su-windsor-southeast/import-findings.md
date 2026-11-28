@@ -65,3 +65,16 @@ FY27: threshold 16,470, excess 449.61 → 17,777.68; yield 9,212; eq rate 1.9298
 1. Mt. Ascutney SD: FY27 annual report / AOE three-year form and warning (Windsor and West Windsor town reports).
 2. A standalone FY27 SU budget book PDF (all three editions) and certified March/April 2026 vote results for each district (Hartland, Mt. Ascutney, Weathersfield revote).
 3. Revised Weathersfield April 2026 budget AOE form.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### FY2025 Town Report.pdf
+
+- **Path:** `intake/su-windsor-southeast/fy2027/FY2025 Town Report.pdf`
+- **Size:** 32,777,815 bytes (33 MB)
+- **sha256:** `a9b989a55b354df2ac6e3c8be823322444ec78ccecdaf255a371971a92378b18`
+- **Source:** https://www.weathersfieldvt.org/DocumentCenter/View/419/FY2025-Town-Report
+- **Records citing it:** none (no records for this SU: see the status above)
+- **Provenance note:** Weathersfield's town and school annual report for the March 2026 vote (182 pp.; QuarkXPress layout created 2026-02-06). The Weathersfield School District section embeds the WSESU 2026-2027 budget book: general fund (PDF pp. 93-107), FY27 property tax rate calculation (p. 108), tax impact (p. 109), AOE "Three Prior Years Comparisons" form (p. 110, stamped PRELIMINARY / ESTIMATES ONLY), plus 2025 minutes and results. Almost every page is image-only (no text layer); figures were read from 150-200 dpi renders. Weathersfield SD only. The form carries the original $9,953,590 proposal that voters defeated on 2026-03-03; it does not show the revised $9.8M budget. Filename from the server's Content-Disposition (FY2025%20Town%20Report.pdf), byte-for-byte.

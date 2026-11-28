@@ -62,3 +62,16 @@ Annual report pp. 2-15 and 19-20 skimmed via text only; charts on pp. 16-17 not 
 
 ## Ask the district for
 The AOE "Three Prior Years Comparisons" forms (or confirm none are published) for each UUSD, and certified district-wide FY27 vote totals.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### 2026 FNESU Annual Report (Web - Final 01.25.26).pdf
+
+- **Path:** `intake/su-franklin-northeast/fy2027/2026 FNESU Annual Report (Web - Final 01.25.26).pdf`
+- **Size:** 49,698,878 bytes (50 MB)
+- **sha256:** `a7c1b443d5bb79c6b13505162590b9ed68ac18bbb9c8e737de38573a714c31a8`
+- **Source:** https://drive.google.com/uc?export=download&id=1UnnSGbnhgx9bizNl8iZXczq59mzc7jVq
+- **Records citing it:** none (no records for this SU: see the status above)
+- **Provenance note:** 20-page, Canva-built community annual report issued ahead of the March 3, 2026 votes (internal PDF title '2026 FNESU Annual Report (Web - Final)', author Ben Dickie, created 2026-01-25). It has NO AOE Three Prior Years Comparisons form and no education-spending table. Budget content is on PDF p. 16 (Enosburgh-Richford UUSD FY27 budget $25,465,229, +1.0%, per pupil +2.6%), p. 17 (Northern Mountain Valley UUSD FY27 budget $24,703,107, +1.7%, per pupil -1.1%), p. 18 (FY26 per-pupil ranking chart) and p. 1 (polling places). The tax-estimate charts on pp. 16-17 are not in the text layer and were not read. Full budget book is pointed to at bit.ly/fy27budget. The page also links this same file. Saved under the filename the server sent, byte-for-byte.

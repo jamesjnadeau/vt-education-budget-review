@@ -58,3 +58,16 @@ Staged under intake/su-slate-valley/fy2027/ with provenance.yaml. The annual rep
 
 ## Not read
 - Most narrative pages of the annual report (principal/director reports, minutes) beyond what is cited; revenue summary and "expenditures by account" chart images; the line items of the 46-page detail budget beyond the grand total and first pages; Google Slides and the 2/19 meeting file.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### Web-25-26-Slate-Valley-Annual-Report-and-FY27-Budget.pdf
+
+- **Path:** `intake/su-slate-valley/fy2027/Web-25-26-Slate-Valley-Annual-Report-and-FY27-Budget.pdf`
+- **Size:** 42,313,345 bytes (42 MB)
+- **sha256:** `48229796298fd5b700a48ce6513d9e473411d929c9d9101a3b23bf10420deffe`
+- **Source:** https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/1034/Svusd/40109614-4622-4db0-b6e4-3e2f4433dc5e/Web-25-26-Slate-Valley-Annual-Report-and-FY27-Budget.pdf?disposition=inline
+- **Records citing it:** `warehouse/su-slate-valley/fy2024-approved.yaml`, `warehouse/su-slate-valley/fy2025-approved.yaml`, `warehouse/su-slate-valley/fy2026-approved.yaml`, `warehouse/su-slate-valley/fy2027-warned.yaml`
+- **Provenance note:** Annual report issued ahead of the Feb 19 / Mar 3, 2026 votes (25 PDF pages, each a two-page spread; PDF created 2026-01-27 per its metadata, author Lisa Cacciatore). The district page links it through the short URL https://aptg.co/QbpD6L, which 301-redirects to https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/1034/Svusd/40109614-4622-4db0-b6e4-3e2f4433dc5e/Web-25-26-Slate-Valley-Annual-Report-and-FY27-Budget.pdf?disposition=inline . The server sent no Content-Disposition, so the filename is the last URL path segment. Carries the AOE 'Three Prior Years Comparison' form (PDF p. 10, left half, booklet p. 16) with FY2024-FY2027 columns and the expense summary by functional area (p. 10 right half). The form, the functional expense summary, the revenue summary and the expenditure-by-account charts are embedded images (no text layer); figures were read from the extracted embedded image and re-added. Other pages have a text layer. Byte-for-byte as downloaded. This is the ORIGINAL $32,509,789 proposal that voters defeated on March 3, 2026.

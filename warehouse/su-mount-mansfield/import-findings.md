@@ -47,3 +47,16 @@ warehouse/su-mount-mansfield/fy2027-warned.yaml; collectors/config.yaml.
 ## Not read
 Annual report pp. 3-31 school narratives (only skimmed text layer for finance terms), p. 35-37 charts, minutes (pp. 47-50),
 fact sheet beyond text, FY26 archive page, flyer, slides.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### Annual Report 25-26 Final Final.pdf
+
+- **Path:** `intake/su-mount-mansfield/fy2027/Annual Report 25-26 Final Final.pdf`
+- **Size:** 51,536,480 bytes (52 MB)
+- **sha256:** `10e5f1b14b646804ea9a9368fe5554a865eab166ab4fb1ed6196af7969544abb`
+- **Source:** https://drive.google.com/uc?export=download&id=1o3875c0xsbkoxfqqTSveWu3K4Rykzjnr
+- **Records citing it:** `warehouse/su-mount-mansfield/fy2027-warned.yaml`
+- **Provenance note:** Annual report issued ahead of the March 3, 2026 vote on the FY2027 budget (the district announced availability on February 13, 2026). 50 PDF pages (PDF page = printed page + 1); internal title "Annual Report 25-26 Final Final", produced by the Google Docs renderer. Contains the district's own estimated homestead tax rate charts (PDF pp. 33-34), a 5-year budget comparison chart of total budget and education spending FY23-FY27 (PDF p. 32), the FY27 proposed budget detail (PDF pp. 38-44; total $64,963,496 on PDF p. 43), the official warning (printed pp. 44-45) and January 12, 2026 annual meeting minutes. It does NOT contain the AOE 'Three Prior Years Comparisons' form. The tax-rate charts, 5-year chart and budget-detail tables are images with no text layer; figures were read from renders. Saved byte-for-byte under the filename the server sent.

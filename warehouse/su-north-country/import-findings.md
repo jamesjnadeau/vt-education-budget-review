@@ -46,3 +46,16 @@ A downloadable (<100 MB) PDF of the 2026 NCSU Annual Report, plus the AOE "Three
 
 ## Not done
 No warehouse records, no collector change. Brighton PDF pp. 6-16, 17-25 (line items except two spot-checked), 28-36, 43-48 were not read in detail; pp.1-48 were only skimmed as thumbnails.
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### Brighton Town School District 2025 Annual Report.pdf
+
+- **Path:** `intake/su-north-country/fy2027/Brighton Town School District 2025 Annual Report.pdf`
+- **Size:** 31,373,858 bytes (31 MB)
+- **sha256:** `933e9933aba32833ca99660c59ce5a9a433ab2d5574fbd18306db9ffe950f8b3`
+- **Source:** https://drive.google.com/uc?export=download&id=1IIHSIRnTceK0865TaUSNgrvbhuHWG1aF
+- **Records citing it:** none (no records for this SU: see the status above)
+- **Provenance note:** Annual report for the year ended June 30, 2025, issued ahead of the March 2026 meeting; it warns and prints the FY2027 proposed budget of the Brighton Town School District (one of the supervisory union's member districts), so it is filed under fy2027. It also reproduces the North Country Supervisory Union's FY2027 Board Approved Assessment Budget (PDF pp. 37-41; the table of contents mislabels it FY2026) and the NCUHS / NCUJHS warning (PDF pp. 42-43). It carries no AOE Three Prior Years Comparisons form. The whole file is a scan with no text layer (created on a Toshiba e-STUDIO copier, 2026-02-02), and PDF page n is printed page n-2. Saved under the filename the server sent (Content-Disposition), byte-for-byte. The district's publication date is not stated.

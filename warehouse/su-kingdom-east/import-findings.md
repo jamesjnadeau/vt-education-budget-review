@@ -46,3 +46,16 @@ Annual report and line-item PDF: server sent no Content-Disposition, so filename
 
 ## Not read
 Per-department draft PDFs, slide decks, the recount warning, enrollment reports, text of the annual report beyond Charts 1, 6-10 and front matter (audit/treasurer sections skimmed only by text search).
+
+## Large files (over 30 MB)
+
+These were first held back from the import for size and were then added to the PR. They are in `intake/` as received. Notes below are the provenance notes for each file, with the records that cite it.
+
+### 2026 KESD Annual Report-Final.pdf
+
+- **Path:** `intake/su-kingdom-east/fy2027/2026 KESD Annual Report-Final.pdf`
+- **Size:** 68,244,372 bytes (68 MB)
+- **sha256:** `5094effa056411a99454745195d554bccb9935b63aad671bec3c6de0682ad36e`
+- **Source:** https://irp.cdn-website.com/6417ac47/files/uploaded/2026+KESD+Annual+Report-Final.pdf
+- **Records citing it:** `warehouse/su-kingdom-east/fy2024-approved.yaml`, `warehouse/su-kingdom-east/fy2025-approved.yaml`, `warehouse/su-kingdom-east/fy2026-approved.yaml`, `warehouse/su-kingdom-east/fy2027-warned.yaml`
+- **Provenance note:** Annual report issued ahead of the March 3, 2026 FY2027 budget vote (44 pp.). Chart 1 (PDF p. 10) and Chart 7 (p. 19) give the FY27 proposed budget $53,401,362 and estimated rates; Chart 8 (p. 20) gives estimated per-town tax rates and CLAs for the eight member towns; Chart 10 (PDF p. 22, printed p. 20) is the AOE 'Three Prior Years Comparisons' form (FY2024-FY2027), stamped PRELIMINARY, and is an image with no text layer: figures were read from 300-dpi renders and re-added. The file is 68 MB. The server sent no Content-Disposition, so the filename is the last URL path segment with '+' read as a space. The district's news post dated 2026-02-18 announces the report; the PDF's internal creation date is 2026-02-09 (producer 'OutlinePDF-Advance'). Page 2 of the report is headed '2025 ANNUAL REPORT'. The PDF's last-modified header is 2026-02-11. No publication date is stated by the district on the document itself, so published_date is null. This is the document for the FIRST budget vote (defeated 632-730); the budget that finally passed on June 11, 2026 is the later $53,251,362 version in the documents below.
