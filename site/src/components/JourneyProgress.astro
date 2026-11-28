@@ -47,7 +47,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     list-style: none;
     padding: 0;
     margin: 0 0 1.75rem;
-    max-width: 52rem;
+    width: 100%;
   }
   .journey-progress-step {
     position: relative;
@@ -143,7 +143,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   @media (max-width: 36rem) {
     .journey-progress {
       flex-direction: column;
-      max-width: none;
     }
     .journey-progress-step {
       flex-direction: row;
