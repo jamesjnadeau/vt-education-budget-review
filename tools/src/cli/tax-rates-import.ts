@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 /**
- * Imports the Vermont Department of Taxes FY2026 education property tax rate
- * table, keeping the per-town common level of appraisal (CLA).
+ * Imports the Vermont Department of Taxes education property tax rate tables,
+ * one workbook per fiscal year, keeping each town's common level of appraisal
+ * (CLA) and rates.
  *
- *   npm run tax-rates:import              write warehouse/tax-rates/fy2026.yaml
- *   npm run tax-rates:import -- --check   parse and report, write nothing
+ *   npm run tax-rates:import                    every intake/tax-rates/fy<YEAR>/
+ *   npm run tax-rates:import -- --year 2027     one year
+ *   npm run tax-rates:import -- --check         parse and report, write nothing
  */
 
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
@@ -17,8 +19,23 @@ import { readSheetRows } from '../aoe/adm/xlsx.ts';
 import { PATHS, rel } from '../paths.ts';
 import { parseTaxRates } from '../tax-rates/parse.ts';
 
-const FILE = join(PATHS.intake, 'tax-rates', 'fy2026', 'FY26EdTaxRates_081825.xlsx');
-const OUT = join(PATHS.warehouse, 'tax-rates', 'fy2026.yaml');
+const INTAKE = join(PATHS.intake, 'tax-rates');
+
+/** The one workbook in each intake/tax-rates/fy<YEAR>/ folder, oldest year first. */
+function workbooks(): Array<{ year: number; file: string }> {
+  if (!existsSync(INTAKE)) return [];
+  const out: Array<{ year: number; file: string }> = [];
+  for (const dir of readdirSync(INTAKE).sort()) {
+    const m = /^fy(\d{4})$/.exec(dir);
+    if (!m) continue;
+    const books = readdirSync(join(INTAKE, dir)).filter((n) => /\.xlsx$/i.test(n));
+    if (books.length !== 1) {
+      throw new Error(`${rel(join(INTAKE, dir))} holds ${books.length} workbooks; expected exactly one.`);
+    }
+    out.push({ year: Number(m[1]), file: join(INTAKE, dir, books[0] as string) });
+  }
+  return out;
+}
 
 interface ProvenanceArtifact {
   readonly file?: string;
@@ -44,29 +61,46 @@ function verifiedHash(file: string): string {
   return actual;
 }
 
-async function main(): Promise<number> {
-  const check = process.argv.slice(2).includes('--check');
-  const sha256 = verifiedHash(FILE);
-  const towns = parseTaxRates(await readSheetRows(FILE));
+async function importYear(year: number, file: string, check: boolean): Promise<void> {
+  const out = join(PATHS.warehouse, 'tax-rates', `fy${year}.yaml`);
+  const sha256 = verifiedHash(file);
+  const towns = parseTaxRates(await readSheetRows(file));
   const names = towns.map((t) => t.town);
   if (new Set(names).size !== names.length) {
-    throw new Error(`${rel(FILE)} lists a town more than once`);
+    throw new Error(`${rel(file)} lists a town more than once`);
   }
-  console.log(`${rel(FILE)}: ${towns.length} town(s)`);
-  if (check) return 0;
+  const noRate = towns.filter((t) => t.homestead_rate === null).map((t) => t.town);
+  console.log(
+    `${rel(file)}: ${towns.length} town(s)` +
+      (noRate.length > 0 ? `, no homestead rate for ${noRate.join(', ')}` : ''),
+  );
+  if (check) return;
 
+  // Fields a year's layout does not have are left out rather than written as null.
   const record = {
-    fiscal_year: 2026,
-    source: rel(FILE),
+    fiscal_year: year,
+    source: rel(file),
     sha256,
-    towns: towns.map(({ town, ...rest }) => ({ town, ...rest })),
+    towns: towns.map((t) => {
+      const { town, school_code, statewide_adjustment, cla_over_sa, ...rest } = t;
+      return {
+        town,
+        ...(school_code === null ? {} : { school_code }),
+        cla: rest.cla,
+        ...(statewide_adjustment === null ? {} : { statewide_adjustment }),
+        ...(cla_over_sa === null ? {} : { cla_over_sa }),
+        district_rate: rest.district_rate,
+        homestead_rate: rest.homestead_rate,
+        nonhomestead_rate: rest.nonhomestead_rate,
+      };
+    }),
   };
-  mkdirSync(dirname(OUT), { recursive: true });
+  mkdirSync(dirname(out), { recursive: true });
   writeFileSync(
-    OUT,
-    `# FY2026 per-town common level of appraisal (CLA) and education tax rates.\n` +
+    out,
+    `# FY${year} per-town common level of appraisal (CLA) and education tax rates.\n` +
       `#\n` +
-      `# Transcribed from ${rel(FILE)}\n` +
+      `# Transcribed from ${rel(file)}\n` +
       `# by npm run tax-rates:import. Do not hand-edit: re-run the import instead, so the\n` +
       `# record always matches the hashed artifact.\n` +
       `#\n` +
@@ -74,10 +108,22 @@ async function main(): Promise<number> {
       stringifyYaml(record, { lineWidth: 88 }),
     'utf8',
   );
-  console.log(`  wrote ${rel(OUT)}`);
-  return 0;
+  console.log(`  wrote ${rel(out)}`);
 }
 
+async function main(): Promise<number> {
+  const argv = process.argv.slice(2);
+  const check = argv.includes('--check');
+  const yearAt = argv.indexOf('--year');
+  const only = yearAt >= 0 ? Number(argv[yearAt + 1]) : null;
+  const books = workbooks().filter((b) => only === null || b.year === only);
+  if (books.length === 0) {
+    console.error(`No tax rate workbook found under ${rel(INTAKE)}${only === null ? '' : ` for FY${only}`}.`);
+    return 1;
+  }
+  for (const b of books) await importYear(b.year, b.file, check);
+  return 0;
+}
 main().then(
   (code) => process.exit(code),
   (error) => {

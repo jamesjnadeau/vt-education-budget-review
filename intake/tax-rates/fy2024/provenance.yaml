@@ -1,0 +1,23 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2024
+artifacts:
+  - file: FY24_TaxRates_8252023.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/FY24%20TaxRates_8252023.xlsx
+    retrieved_date: "2026-11-28"
+    retrieval_method: http-fetch
+    sha256: 435844cc7dbfd769103b6ecd3a94c0c1e572a3c15f0ff133a0bea3c455a82424
+    bytes: 24581
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2024 Education Property Tax Rates
+    published_date: "2023-08-25"
+    document_page: https://tax.vermont.gov/document/fy2024-education-property-tax-rates
+    note: >-
+      Vermont Department of Taxes, "FY2024 Education Property Tax Rates". Fetched with
+      npm run vt:fetch; the saved name is the released name with spaces replaced by
+      underscores. Columns: SCHOOL CODE, TOWN, 2023 Reappraisal, Common Level of
+      Appraisal, Homestead Tax Rate, Nonhomestead Tax Rate, Calculation Date. CLA is a
+      percent. Rates are per $100 of assessed value.

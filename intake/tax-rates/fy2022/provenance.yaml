@@ -1,0 +1,23 @@
+schema_version: "1.0"
+entity: source/tax-ed-rates
+fiscal_year: 2022
+artifacts:
+  - file: FY22TaxRates-2021.0818.xlsx
+    source_url: https://tax.vermont.gov/sites/tax/files/documents/FY22TaxRates-2021.0818.xlsx
+    retrieved_date: "2026-11-28"
+    retrieval_method: http-fetch
+    sha256: c8ab43d91095001e6ec9fe64e7261d335b12ab8265e609b1b8bc13201a382f19
+    bytes: 22303
+    media_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    retrieved_by: "Claude Code session (npm run vt:fetch), for James Nadeau"
+    document_type: tax_department_report
+    publisher: Vermont Department of Taxes
+    title: FY2022 Education Property Tax Rates
+    published_date: "2021-08-18"
+    document_page: https://tax.vermont.gov/document/fy2022-education-property-tax-rates
+    note: >-
+      Vermont Department of Taxes, "FY2022 Education Property Tax Rates". Fetched with
+      npm run vt:fetch; the saved name is the released name with spaces replaced by
+      underscores. Columns: TOWN, 2021 Reappraisal, Common Level of Appraisal, Homestead
+      Tax Rate, Nonhomestead Tax Rate, Calculation Date. CLA is a percent. No school
+      code column. Rates are per $100 of assessed value.

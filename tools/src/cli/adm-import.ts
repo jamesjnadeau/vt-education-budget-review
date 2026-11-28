@@ -6,10 +6,9 @@
  *   npm run adm:import -- --check      parse and report, write nothing
  *   npm run adm:import -- --discover   list years the saved page snapshot offers
  *
- * Retrieval is not automated and cannot be: education.vermont.gov returns HTTP
- * 403 to every non-browser client, for page and direct file URLs alike, and
- * AGENT.md rules out working around it. A human downloads the files. Everything
- * after that is deterministic.
+ * Retrieval is a separate step: fetch each report into intake/aoe-adm/fy<YEAR>/
+ * with `npm run vt:fetch` (see AGENT.md, "Fetching from vermont.gov") and record
+ * its provenance. Everything after that is deterministic.
  */
 
 import { createHash } from 'node:crypto';
@@ -138,8 +137,7 @@ function discover(): number {
   if (snapshots.length === 0) {
     console.error(
       `No saved page snapshot under ${rel(ADM_INTAKE)}.\n\n` +
-        `The page cannot be fetched: education.vermont.gov returns 403 to every ` +
-        `non-browser client. Save it from a browser as page-<date>.html.`,
+        `Save the AOE page there as page-<date>.html.`,
     );
     return 1;
   }
@@ -167,7 +165,7 @@ async function main(): Promise<number> {
   if (files.length === 0) {
     console.error(
       `No ADM spreadsheets under ${rel(ADM_INTAKE)}.\n\n` +
-        `Download them from the AOE page by hand -- the host refuses scripted clients -- ` +
+        `Fetch them from the AOE page with npm run vt:fetch (see AGENT.md) ` +
         `into ${rel(ADM_INTAKE)}/fy<YEAR>/.`,
     );
     return 1;

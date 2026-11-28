@@ -1,0 +1,1571 @@
+# FY2025 per-town common level of appraisal (CLA) and education tax rates.
+#
+# Transcribed from intake/tax-rates/fy2025/FY25EdTaxRates_102424.xlsx
+# by npm run tax-rates:import. Do not hand-edit: re-run the import instead, so the
+# record always matches the hashed artifact.
+#
+# CLA is the fraction the sheet stores (0.6659 = 66.59%). Rates are per $100.
+fiscal_year: 2025
+source: intake/tax-rates/fy2025/FY25EdTaxRates_102424.xlsx
+sha256: 257d8152c698aac5a9e9205eca8209bcf7786fe1bc4f8756117b9966c0e73c04
+towns:
+  - town: Addison
+    school_code: "001"
+    cla: 0.7235
+    district_rate: 1.5096
+    homestead_rate: 2.0865
+    nonhomestead_rate: 1.9226
+  - town: Albany
+    school_code: "002"
+    cla: 0.8640000000000001
+    district_rate: 1.2478
+    homestead_rate: 1.4442
+    nonhomestead_rate: 1.61
+  - town: Alburgh
+    school_code: "003"
+    cla: 0.7211
+    district_rate: 1.2227
+    homestead_rate: 1.6956
+    nonhomestead_rate: 1.929
+  - town: Andover
+    school_code: "004"
+    cla: 0.7011
+    district_rate: 1.2495
+    homestead_rate: 1.7822
+    nonhomestead_rate: 1.984
+  - town: Arlington
+    school_code: "005"
+    cla: 0.8016
+    district_rate: 1.2542
+    homestead_rate: 1.5646
+    nonhomestead_rate: 1.7353
+  - town: Athens
+    school_code: "006"
+    cla: 0.8304
+    district_rate: 1.2187000000000001
+    homestead_rate: 1.4676
+    nonhomestead_rate: 1.6751
+  - town: Averill
+    school_code: "255"
+    cla: 1.0188
+    district_rate: 1
+    homestead_rate: 0.9815
+    nonhomestead_rate: 1.3653
+  - town: Averys Gore
+    school_code: "256"
+    cla: 1.0188
+    district_rate: 1
+    homestead_rate: 0.9815
+    nonhomestead_rate: 1.3653
+  - town: Bakersfield
+    school_code: "007"
+    cla: 0.7425
+    district_rate: 1.0706
+    homestead_rate: 1.4419
+    nonhomestead_rate: 1.8734
+  - town: Baltimore
+    school_code: "008"
+    cla: 0.9757000000000001
+    district_rate: 1.2495
+    homestead_rate: 1.2806
+    nonhomestead_rate: 1.4256
+  - town: Barnard
+    school_code: "009"
+    cla: 1.0456999999999999
+    district_rate: 1.6742
+    homestead_rate: 1.601
+    nonhomestead_rate: 1.3302
+  - town: Barnet
+    school_code: "010"
+    cla: 0.8158
+    district_rate: 1.4611
+    homestead_rate: 1.791
+    nonhomestead_rate: 1.7051
+  - town: Barre City
+    school_code: "011"
+    cla: 0.7662
+    district_rate: 1.0855
+    homestead_rate: 1.4167
+    nonhomestead_rate: 1.8155
+  - town: Barre Town
+    school_code: "012"
+    cla: 0.8693
+    district_rate: 1.0855
+    homestead_rate: 1.2487
+    nonhomestead_rate: 1.6001
+  - town: Barton
+    school_code: "013"
+    cla: 0.7137
+    district_rate: 1.2493
+    homestead_rate: 1.7505
+    nonhomestead_rate: 1.949
+  - town: Belvidere
+    school_code: "014"
+    cla: 0.8427
+    district_rate: 1.3357999999999999
+    homestead_rate: 1.5851
+    nonhomestead_rate: 1.6506
+  - town: Bennington
+    school_code: "015"
+    cla: 0.6957
+    district_rate: 1.0578
+    homestead_rate: 1.5205
+    nonhomestead_rate: 1.9994
+  - town: Benson
+    school_code: "016"
+    cla: 0.7268000000000001
+    district_rate: 1.1283
+    homestead_rate: 1.5524
+    nonhomestead_rate: 1.9139
+  - town: Berkshire
+    school_code: "017"
+    cla: 0.7771000000000001
+    district_rate: 1.0706
+    homestead_rate: 1.3777
+    nonhomestead_rate: 1.79
+  - town: Berlin
+    school_code: "018"
+    cla: 0.7228999999999999
+    district_rate: 1.4536
+    homestead_rate: 2.0108
+    nonhomestead_rate: 1.9242
+  - town: Bethel
+    school_code: "019"
+    cla: 0.802
+    district_rate: 1.208
+    homestead_rate: 1.5062
+    nonhomestead_rate: 1.7344
+  - town: Bloomfield
+    school_code: "020"
+    cla: 0.7634000000000001
+    district_rate: 1.2559
+    homestead_rate: 1.6451
+    nonhomestead_rate: 1.8221
+  - town: Bolton
+    school_code: "021"
+    cla: 1.0408
+    district_rate: 1.2405
+    homestead_rate: 1.1919
+    nonhomestead_rate: 1.3365
+  - town: Bradford
+    school_code: "022"
+    cla: 0.6972
+    district_rate: 1.3054
+    homestead_rate: 1.8723
+    nonhomestead_rate: 1.9951
+  - town: Braintree
+    school_code: "023"
+    cla: 0.7957
+    district_rate: 1.2986
+    homestead_rate: 1.632
+    nonhomestead_rate: 1.7481
+  - town: Brandon
+    school_code: "024"
+    cla: 0.7469
+    district_rate: 1.2489
+    homestead_rate: 1.6721
+    nonhomestead_rate: 1.8624
+  - town: Brattleboro
+    school_code: "025"
+    cla: 0.7759
+    district_rate: 1.5018
+    homestead_rate: 1.9356
+    nonhomestead_rate: 1.7928
+  - town: Bridgewater
+    school_code: "026"
+    cla: 1.1948999999999999
+    district_rate: 1.6742
+    homestead_rate: 1.4011
+    nonhomestead_rate: 1.1641
+  - town: Bridport
+    school_code: "027"
+    cla: 1.2501
+    district_rate: 1.4974
+    homestead_rate: 1.1978
+    nonhomestead_rate: 1.1127
+  - town: Brighton
+    school_code: "028"
+    cla: 0.7456
+    district_rate: 1.1509
+    homestead_rate: 1.5436
+    nonhomestead_rate: 1.8656
+  - town: Bristol
+    school_code: "029"
+    cla: 0.7217
+    district_rate: 1.4264
+    homestead_rate: 1.9764
+    nonhomestead_rate: 1.9274
+  - town: Brookfield
+    school_code: "030"
+    cla: 0.9521
+    district_rate: 1.2986
+    homestead_rate: 1.3639
+    nonhomestead_rate: 1.461
+  - town: Brookline
+    school_code: "031"
+    cla: 0.7570999999999999
+    district_rate: 1.6593
+    homestead_rate: 2.1917
+    nonhomestead_rate: 1.8373
+  - town: Brownington
+    school_code: "032"
+    cla: 0.7879999999999999
+    district_rate: 1.2522
+    homestead_rate: 1.5891
+    nonhomestead_rate: 1.7652
+  - town: Brunswick
+    school_code: "033"
+    cla: 1.3288
+    district_rate: 1.2559
+    homestead_rate: 0.9451
+    nonhomestead_rate: 1.0468
+  - town: Buels Gore
+    school_code: "252"
+    cla: 1.0138
+    district_rate: 1
+    homestead_rate: 0.9864
+    nonhomestead_rate: 1.3721
+  - town: Burke
+    school_code: "034"
+    cla: 0.9996
+    district_rate: 1.3017
+    homestead_rate: 1.3022
+    nonhomestead_rate: 1.3916
+  - town: Burlington
+    school_code: "035"
+    cla: 0.8783
+    district_rate: 1.404
+    homestead_rate: 1.5985
+    nonhomestead_rate: 1.5837
+  - town: Cabot
+    school_code: "036"
+    cla: 1.0539
+    district_rate: 1.412
+    homestead_rate: 1.3398
+    nonhomestead_rate: 1.3199
+  - town: Calais
+    school_code: "037"
+    cla: 0.7234
+    district_rate: 1.4536
+    homestead_rate: 2.0094
+    nonhomestead_rate: 1.9229
+  - town: Cambridge
+    school_code: "038"
+    cla: 0.7182
+    district_rate: 1.2891
+    homestead_rate: 1.7949
+    nonhomestead_rate: 1.9368
+  - town: Canaan
+    school_code: "039"
+    cla: 0.9795
+    district_rate: 1.3171
+    homestead_rate: 1.3447
+    nonhomestead_rate: 1.4201
+  - town: Castleton
+    school_code: "040"
+    cla: 0.7002000000000002
+    district_rate: 1.1283
+    homestead_rate: 1.6114
+    nonhomestead_rate: 1.9866
+  - town: Cavendish
+    school_code: "041"
+    cla: 0.7254999999999999
+    district_rate: 1.2495
+    homestead_rate: 1.7223
+    nonhomestead_rate: 1.9173
+  - town: Charleston
+    school_code: "042"
+    cla: 0.7817000000000001
+    district_rate: 1.336
+    homestead_rate: 1.7091
+    nonhomestead_rate: 1.7795
+  - town: Charlotte
+    school_code: "043"
+    cla: 1.0449
+    district_rate: 1.3501
+    homestead_rate: 1.2921
+    nonhomestead_rate: 1.3312
+  - town: Chelsea
+    school_code: "044"
+    cla: 0.6995999999999999
+    district_rate: 1.2103
+    homestead_rate: 1.73
+    nonhomestead_rate: 1.9883
+  - town: Chester
+    school_code: "045"
+    cla: 0.7809
+    district_rate: 1.2495
+    homestead_rate: 1.6001
+    nonhomestead_rate: 1.7813
+  - town: Chittenden
+    school_code: "046"
+    cla: 0.7644
+    district_rate: 1.3222
+    homestead_rate: 1.7297
+    nonhomestead_rate: 1.8197
+  - town: Clarendon
+    school_code: "047"
+    cla: 0.7816
+    district_rate: 1.3049
+    homestead_rate: 1.6695
+    nonhomestead_rate: 1.7797
+  - town: Colchester
+    school_code: "048"
+    cla: 0.6679999999999999
+    district_rate: 1.2157
+    homestead_rate: 1.8199
+    nonhomestead_rate: 2.0823
+  - town: Concord
+    school_code: "049"
+    cla: 1.1472
+    district_rate: 1.3017
+    homestead_rate: 1.1347
+    nonhomestead_rate: 1.2125
+  - town: Corinth
+    school_code: "050"
+    cla: 0.7951
+    district_rate: 1.058
+    homestead_rate: 1.3307
+    nonhomestead_rate: 1.7495
+  - town: Cornwall
+    school_code: "051"
+    cla: 0.706
+    district_rate: 1.4974
+    homestead_rate: 2.121
+    nonhomestead_rate: 1.9703
+  - town: Coventry
+    school_code: "052"
+    cla: 0.8149
+    district_rate: 1.3792
+    homestead_rate: 1.6925
+    nonhomestead_rate: 1.707
+  - town: Craftsbury
+    school_code: "053"
+    cla: 0.7784
+    district_rate: 1.5422
+    homestead_rate: 1.9812
+    nonhomestead_rate: 1.787
+  - town: Danby
+    school_code: "054"
+    cla: 1.1167
+    district_rate: 1.3111
+    homestead_rate: 1.1741
+    nonhomestead_rate: 1.2456
+  - town: Danville
+    school_code: "055"
+    cla: 0.8559
+    district_rate: 1.4538
+    homestead_rate: 1.6986
+    nonhomestead_rate: 1.6252
+  - town: Derby
+    school_code: "056"
+    cla: 0.7811
+    district_rate: 1.1366
+    homestead_rate: 1.4551
+    nonhomestead_rate: 1.7808
+  - town: Dorset
+    school_code: "057"
+    cla: 0.7096000000000001
+    district_rate: 1.3111
+    homestead_rate: 1.8477
+    nonhomestead_rate: 1.9603
+  - town: Dover
+    school_code: "058"
+    cla: 0.7082999999999999
+    district_rate: 1.4888
+    homestead_rate: 2.1019
+    nonhomestead_rate: 1.9639
+  - town: Dummerston
+    school_code: "059"
+    cla: 0.8413
+    district_rate: 1.5018
+    homestead_rate: 1.7851
+    nonhomestead_rate: 1.6534
+  - town: Duxbury
+    school_code: "060"
+    cla: 0.6843
+    district_rate: 1.4515
+    homestead_rate: 2.1211
+    nonhomestead_rate: 2.0327
+  - town: East Haven
+    school_code: "061"
+    cla: 0.8104
+    district_rate: 1.2559
+    homestead_rate: 1.5497
+    nonhomestead_rate: 1.7164
+  - town: East Montpelier
+    school_code: "062"
+    cla: 0.7033
+    district_rate: 1.4536
+    homestead_rate: 2.0668
+    nonhomestead_rate: 1.9778
+  - town: Eden
+    school_code: "063"
+    cla: 0.738
+    district_rate: 1.3357999999999999
+    homestead_rate: 1.81
+    nonhomestead_rate: 1.8848
+  - town: Elmore
+    school_code: "064"
+    cla: 0.6479
+    district_rate: 1.1325
+    homestead_rate: 1.748
+    nonhomestead_rate: 2.1469
+  - town: Enosburgh
+    school_code: "065"
+    cla: 0.7471
+    district_rate: 1.0364
+    homestead_rate: 1.3872
+    nonhomestead_rate: 1.8619
+  - town: Essex Junction
+    school_code: "066"
+    cla: 0.6783
+    district_rate: 1.2877
+    homestead_rate: 1.8984
+    nonhomestead_rate: 2.0507
+  - town: Essex Town
+    school_code: "067"
+    cla: 0.6922
+    district_rate: 1.2877
+    homestead_rate: 1.8603
+    nonhomestead_rate: 2.0095
+  - town: Fair Haven
+    school_code: "070"
+    cla: 0.8585
+    district_rate: 1.1283
+    homestead_rate: 1.3143
+    nonhomestead_rate: 1.6203
+  - town: Fairfax
+    school_code: "068"
+    cla: 0.9586
+    district_rate: 1.1245
+    homestead_rate: 1.1731
+    nonhomestead_rate: 1.4511
+  - town: Fairfield
+    school_code: "069"
+    cla: 1.092
+    district_rate: 1.4132
+    homestead_rate: 1.2941
+    nonhomestead_rate: 1.2738
+  - town: Fairlee
+    school_code: "071"
+    cla: 1.0368
+    district_rate: 1.4027
+    homestead_rate: 1.3529
+    nonhomestead_rate: 1.3416
+  - town: Fayston
+    school_code: "072"
+    cla: 0.7101
+    district_rate: 1.4515
+    homestead_rate: 2.0441
+    nonhomestead_rate: 1.9589
+  - town: Ferdinand
+    school_code: "257"
+    cla: 1.0188
+    district_rate: 1
+    homestead_rate: 0.9815
+    nonhomestead_rate: 1.3653
+  - town: Ferrisburgh
+    school_code: "073"
+    cla: 0.726
+    district_rate: 1.5096
+    homestead_rate: 2.0793
+    nonhomestead_rate: 1.916
+  - town: Fletcher
+    school_code: "074"
+    cla: 1.0288
+    district_rate: 1.2329
+    homestead_rate: 1.1984
+    nonhomestead_rate: 1.3521
+  - town: Franklin
+    school_code: "075"
+    cla: 0.7285
+    district_rate: 1.1975
+    homestead_rate: 1.6438
+    nonhomestead_rate: 1.9094
+  - town: Georgia
+    school_code: "076"
+    cla: 0.7070000000000001
+    district_rate: 1.1883
+    homestead_rate: 1.6808
+    nonhomestead_rate: 1.9675
+  - town: Glastenbury
+    school_code: "258"
+    cla: 0.5955
+    district_rate: 1
+    homestead_rate: 1.6793
+    nonhomestead_rate: 2.3359
+  - town: Glover
+    school_code: "077"
+    cla: 0.8195999999999999
+    district_rate: 1.2526
+    homestead_rate: 1.5283
+    nonhomestead_rate: 1.6972
+  - town: Goshen
+    school_code: "078"
+    cla: 0.7021
+    district_rate: 1.2489
+    homestead_rate: 1.7788
+    nonhomestead_rate: 1.9812
+  - town: Grafton
+    school_code: "079"
+    cla: 0.9006000000000001
+    district_rate: 1.2156
+    homestead_rate: 1.3498
+    nonhomestead_rate: 1.5445
+  - town: Granby
+    school_code: "080"
+    cla: 0.7805
+    district_rate: 1.2559
+    homestead_rate: 1.6091
+    nonhomestead_rate: 1.7822
+  - town: Grand Isle
+    school_code: "081"
+    cla: 0.7939
+    district_rate: 1.4554
+    homestead_rate: 1.8332
+    nonhomestead_rate: 1.7521
+  - town: Granville
+    school_code: "082"
+    cla: 0.6684
+    district_rate: 1.197
+    homestead_rate: 1.7908
+    nonhomestead_rate: 2.0811
+  - town: Greensboro
+    school_code: "083"
+    cla: 0.7161
+    district_rate: 1.3308
+    homestead_rate: 1.8584
+    nonhomestead_rate: 1.9425
+  - town: Groton
+    school_code: "084"
+    cla: 0.7742999999999999
+    district_rate: 1.2799
+    homestead_rate: 1.653
+    nonhomestead_rate: 1.7965
+  - town: Guildhall
+    school_code: "085"
+    cla: 1.015
+    district_rate: 1.2559
+    homestead_rate: 1.2373
+    nonhomestead_rate: 1.3704
+  - town: Guilford
+    school_code: "086"
+    cla: 0.9571
+    district_rate: 1.5018
+    homestead_rate: 1.5691
+    nonhomestead_rate: 1.4533
+  - town: Halifax
+    school_code: "087"
+    cla: 0.7146000000000001
+    district_rate: 1.13
+    homestead_rate: 1.5813
+    nonhomestead_rate: 1.9465
+  - town: Hancock
+    school_code: "088"
+    cla: 0.6629999999999999
+    district_rate: 1.197
+    homestead_rate: 1.8054
+    nonhomestead_rate: 2.098
+  - town: Hardwick
+    school_code: "089"
+    cla: 0.6729
+    district_rate: 1.3336000000000001
+    homestead_rate: 1.9819
+    nonhomestead_rate: 2.0672
+  - town: Hartford
+    school_code: "090"
+    cla: 0.6631
+    district_rate: 1.365
+    homestead_rate: 2.0585
+    nonhomestead_rate: 2.0977
+  - town: Hartland
+    school_code: "091"
+    cla: 0.69
+    district_rate: 1.5897
+    homestead_rate: 2.3039
+    nonhomestead_rate: 2.0159
+  - town: Highgate
+    school_code: "092"
+    cla: 0.7883
+    district_rate: 1.1975
+    homestead_rate: 1.5191
+    nonhomestead_rate: 1.7646
+  - town: Hinesburg
+    school_code: "093"
+    cla: 0.6765000000000001
+    district_rate: 1.3501
+    homestead_rate: 1.9957
+    nonhomestead_rate: 2.0562
+  - town: Holland
+    school_code: "094"
+    cla: 0.6675
+    district_rate: 1.0865
+    homestead_rate: 1.6277
+    nonhomestead_rate: 2.0839
+  - town: Hubbardton
+    school_code: "095"
+    cla: 0.6803
+    district_rate: 1.1283
+    homestead_rate: 1.6585
+    nonhomestead_rate: 2.0447
+  - town: Huntington
+    school_code: "096"
+    cla: 0.6557999999999999
+    district_rate: 1.2405
+    homestead_rate: 1.8916
+    nonhomestead_rate: 2.1211
+  - town: Hyde Park
+    school_code: "097"
+    cla: 0.6492999999999999
+    district_rate: 1.3357999999999999
+    homestead_rate: 2.0573
+    nonhomestead_rate: 2.1423
+  - town: Ira
+    school_code: "098"
+    cla: 0.7619
+    district_rate: 1.0339
+    homestead_rate: 1.357
+    nonhomestead_rate: 1.8257
+  - town: Irasburg
+    school_code: "099"
+    cla: 0.7023
+    district_rate: 1.2497
+    homestead_rate: 1.7794
+    nonhomestead_rate: 1.9806
+  - town: Isle La Motte
+    school_code: "100"
+    cla: 0.7053
+    district_rate: 1.4554
+    homestead_rate: 2.0635
+    nonhomestead_rate: 1.9722
+  - town: Jamaica
+    school_code: "101"
+    cla: 0.7367
+    district_rate: 1.6593
+    homestead_rate: 2.2523
+    nonhomestead_rate: 1.8881
+  - town: Jay
+    school_code: "102"
+    cla: 0.8478
+    district_rate: 1.4865
+    homestead_rate: 1.7534
+    nonhomestead_rate: 1.6407
+  - town: Jericho
+    school_code: "103"
+    cla: 0.7313
+    district_rate: 1.2405
+    homestead_rate: 1.6963
+    nonhomestead_rate: 1.9021
+  - town: Johnson
+    school_code: "104"
+    cla: 0.7415
+    district_rate: 1.3357999999999999
+    homestead_rate: 1.8015
+    nonhomestead_rate: 1.8759
+  - town: Killington
+    school_code: "185"
+    cla: 0.5235
+    district_rate: 1.6742
+    homestead_rate: 3.1981
+    nonhomestead_rate: 2.6571
+  - town: Kirby
+    school_code: "105"
+    cla: 1.1162999999999998
+    district_rate: 1.2559
+    homestead_rate: 1.1251
+    nonhomestead_rate: 1.2461
+  - town: Landgrove
+    school_code: "106"
+    cla: 0.8376
+    district_rate: 1.3111
+    homestead_rate: 1.5653
+    nonhomestead_rate: 1.6607
+  - town: Leicester
+    school_code: "107"
+    cla: 0.6917
+    district_rate: 1.2489
+    homestead_rate: 1.8056
+    nonhomestead_rate: 2.011
+  - town: Lemington
+    school_code: "108"
+    cla: 0.8353
+    district_rate: 1.2559
+    homestead_rate: 1.5035
+    nonhomestead_rate: 1.6653
+  - town: Lewis
+    school_code: "259"
+    cla: 1.0188
+    district_rate: 1
+    homestead_rate: 0.9815
+    nonhomestead_rate: 1.3653
+  - town: Lincoln
+    school_code: "109"
+    cla: 1.1574
+    district_rate: 1.4639
+    homestead_rate: 1.2648
+    nonhomestead_rate: 1.2018
+  - town: Londonderry
+    school_code: "110"
+    cla: 0.7581
+    district_rate: 1.3111
+    homestead_rate: 1.7295
+    nonhomestead_rate: 1.8349
+  - town: Lowell
+    school_code: "111"
+    cla: 0.7471
+    district_rate: 1.2692
+    homestead_rate: 1.6988
+    nonhomestead_rate: 1.8619
+  - town: Ludlow
+    school_code: "112"
+    cla: 0.7773
+    district_rate: 1.2924
+    homestead_rate: 1.6627
+    nonhomestead_rate: 1.7895
+  - town: Lunenburg
+    school_code: "113"
+    cla: 1.1018999999999999
+    district_rate: 1.3017
+    homestead_rate: 1.1813
+    nonhomestead_rate: 1.2624
+  - town: Lyndon
+    school_code: "114"
+    cla: 0.7591
+    district_rate: 1.3017
+    homestead_rate: 1.7148
+    nonhomestead_rate: 1.8324
+  - town: Maidstone
+    school_code: "115"
+    cla: 1.1345
+    district_rate: 1.2559
+    homestead_rate: 1.107
+    nonhomestead_rate: 1.2261
+  - town: Manchester
+    school_code: "116"
+    cla: 1.0557
+    district_rate: 1.3111
+    homestead_rate: 1.2419
+    nonhomestead_rate: 1.3176
+  - town: Marlboro
+    school_code: "117"
+    cla: 0.8396000000000001
+    district_rate: 1.6853
+    homestead_rate: 2.0073
+    nonhomestead_rate: 1.6567
+  - town: Marshfield
+    school_code: "118"
+    cla: 0.8702
+    district_rate: 1.3246
+    homestead_rate: 1.5222
+    nonhomestead_rate: 1.5985
+  - town: Mendon
+    school_code: "119"
+    cla: 0.8977
+    district_rate: 1.3222
+    homestead_rate: 1.4729
+    nonhomestead_rate: 1.5495
+  - town: Middlebury
+    school_code: "120"
+    cla: 0.7695000000000001
+    district_rate: 1.4974
+    homestead_rate: 1.9459
+    nonhomestead_rate: 1.8077
+  - town: Middlesex
+    school_code: "121"
+    cla: 0.7172
+    district_rate: 1.4536
+    homestead_rate: 2.0268
+    nonhomestead_rate: 1.9395
+  - town: Middletown Springs
+    school_code: "122"
+    cla: 0.8288
+    district_rate: 1.2236
+    homestead_rate: 1.4764
+    nonhomestead_rate: 1.6783
+  - town: Milton
+    school_code: "123"
+    cla: 0.9615
+    district_rate: 1.2769
+    homestead_rate: 1.328
+    nonhomestead_rate: 1.4467
+  - town: Monkton
+    school_code: "124"
+    cla: 1.1493
+    district_rate: 1.4264
+    homestead_rate: 1.2411
+    nonhomestead_rate: 1.2103
+  - town: Montgomery
+    school_code: "125"
+    cla: 0.7718
+    district_rate: 1.0706
+    homestead_rate: 1.3871
+    nonhomestead_rate: 1.8023
+  - town: Montpelier
+    school_code: "126"
+    cla: 1.0018
+    district_rate: 1.2903
+    homestead_rate: 1.288
+    nonhomestead_rate: 1.3885
+  - town: Moretown
+    school_code: "127"
+    cla: 1.1057
+    district_rate: 1.4515
+    homestead_rate: 1.3127
+    nonhomestead_rate: 1.258
+  - town: Morgan
+    school_code: "128"
+    cla: 0.7242000000000001
+    district_rate: 1.059
+    homestead_rate: 1.4623
+    nonhomestead_rate: 1.9207
+  - town: Morristown
+    school_code: "129"
+    cla: 1.0281
+    district_rate: 1.1325
+    homestead_rate: 1.1015
+    nonhomestead_rate: 1.353
+  - town: Mount Holly
+    school_code: "130"
+    cla: 0.7701
+    district_rate: 1.2924
+    homestead_rate: 1.6782
+    nonhomestead_rate: 1.8063
+  - town: Mount Tabor
+    school_code: "131"
+    cla: 0.7914
+    district_rate: 1.3111
+    homestead_rate: 1.6567
+    nonhomestead_rate: 1.7576
+  - town: New Haven
+    school_code: "135"
+    cla: 0.7348
+    district_rate: 1.4264
+    homestead_rate: 1.9412
+    nonhomestead_rate: 1.893
+  - town: Newark
+    school_code: "132"
+    cla: 0.8177
+    district_rate: 1.3017
+    homestead_rate: 1.5919
+    nonhomestead_rate: 1.7011
+  - town: Newbury
+    school_code: "133"
+    cla: 0.7898
+    district_rate: 1.3054
+    homestead_rate: 1.6528
+    nonhomestead_rate: 1.7612
+  - town: Newfane
+    school_code: "134"
+    cla: 0.8012
+    district_rate: 1.6593
+    homestead_rate: 2.071
+    nonhomestead_rate: 1.7361
+  - town: Newport City
+    school_code: "136"
+    cla: 0.7611
+    district_rate: 1.3454
+    homestead_rate: 1.7677
+    nonhomestead_rate: 1.8276
+  - town: Newport Town
+    school_code: "137"
+    cla: 0.8197
+    district_rate: 1.2588
+    homestead_rate: 1.5357
+    nonhomestead_rate: 1.697
+  - town: North Bennington
+    school_code: "138"
+    cla: 0.6651
+    district_rate: 1.1113
+    homestead_rate: 1.6709
+    nonhomestead_rate: 2.0914
+  - town: North Hero
+    school_code: "140"
+    cla: 0.7395
+    district_rate: 1.4554
+    homestead_rate: 1.9681
+    nonhomestead_rate: 1.881
+  - town: Northfield
+    school_code: "139"
+    cla: 0.6725999999999999
+    district_rate: 1.1767
+    homestead_rate: 1.7495
+    nonhomestead_rate: 2.0681
+  - town: Norton
+    school_code: "141"
+    cla: 0.9541
+    district_rate: 1.2559
+    homestead_rate: 1.3163
+    nonhomestead_rate: 1.4579
+  - town: Norwich
+    school_code: "142"
+    cla: 0.6757
+    district_rate: 1.5722
+    homestead_rate: 2.3268
+    nonhomestead_rate: 2.0586
+  - town: Orange
+    school_code: "143"
+    cla: 0.8286
+    district_rate: 1.058
+    homestead_rate: 1.2769
+    nonhomestead_rate: 1.6787
+  - town: Orleans ID
+    school_code: "144"
+    cla: 0.7204999999999999
+    district_rate: 1.2434
+    homestead_rate: 1.7257
+    nonhomestead_rate: 1.9306
+  - town: Orwell
+    school_code: "145"
+    cla: 1.1543999999999999
+    district_rate: 1.1283
+    homestead_rate: 0.9774
+    nonhomestead_rate: 1.205
+  - town: Panton
+    school_code: "146"
+    cla: 1.2115
+    district_rate: 1.5096
+    homestead_rate: 1.2461
+    nonhomestead_rate: 1.1482
+  - town: Pawlet
+    school_code: "147"
+    cla: 0.7400999999999999
+    district_rate: 1.2709
+    homestead_rate: 1.7172
+    nonhomestead_rate: 1.8795
+  - town: Peacham
+    school_code: "148"
+    cla: 0.8312
+    district_rate: 1.6397
+    homestead_rate: 1.9727
+    nonhomestead_rate: 1.6735
+  - town: Peru
+    school_code: "149"
+    cla: 0.6779
+    district_rate: 1.3111
+    homestead_rate: 1.9341
+    nonhomestead_rate: 2.0519
+  - town: Pittsfield
+    school_code: "150"
+    cla: 0.8878
+    district_rate: 1.1319
+    homestead_rate: 1.2749
+    nonhomestead_rate: 1.5668
+  - town: Pittsford
+    school_code: "151"
+    cla: 0.7263
+    district_rate: 1.2489
+    homestead_rate: 1.7195
+    nonhomestead_rate: 1.9152
+  - town: Plainfield
+    school_code: "152"
+    cla: 0.6986
+    district_rate: 1.3246
+    homestead_rate: 1.8961
+    nonhomestead_rate: 1.9911
+  - town: Plymouth
+    school_code: "153"
+    cla: 0.6225
+    district_rate: 1.6742
+    homestead_rate: 2.6895
+    nonhomestead_rate: 2.2345
+  - town: Pomfret
+    school_code: "154"
+    cla: 1.0053
+    district_rate: 1.6742
+    homestead_rate: 1.6654
+    nonhomestead_rate: 1.3837
+  - town: Poultney
+    school_code: "155"
+    cla: 0.8073
+    district_rate: 1.0502
+    homestead_rate: 1.3009
+    nonhomestead_rate: 1.723
+  - town: Pownal
+    school_code: "156"
+    cla: 0.7963
+    district_rate: 1.0678
+    homestead_rate: 1.341
+    nonhomestead_rate: 1.7468
+  - town: Proctor
+    school_code: "157"
+    cla: 0.7961
+    district_rate: 1.0502
+    homestead_rate: 1.3192
+    nonhomestead_rate: 1.7473
+  - town: Putney
+    school_code: "158"
+    cla: 1.1079
+    district_rate: 1.5018
+    homestead_rate: 1.3555
+    nonhomestead_rate: 1.2555
+  - town: Randolph
+    school_code: "159"
+    cla: 1.1637
+    district_rate: 1.2986
+    homestead_rate: 1.1159
+    nonhomestead_rate: 1.1953
+  - town: Reading
+    school_code: "160"
+    cla: 1.0061
+    district_rate: 1.6742
+    homestead_rate: 1.664
+    nonhomestead_rate: 1.3826
+  - town: Readsboro
+    school_code: "161"
+    cla: 0.8946999999999999
+    district_rate: 1.3253
+    homestead_rate: 1.4813
+    nonhomestead_rate: 1.5547
+  - town: Richford
+    school_code: "162"
+    cla: 1.0771
+    district_rate: 1.0364
+    homestead_rate: 0.9622
+    nonhomestead_rate: 1.2914
+  - town: Richmond
+    school_code: "163"
+    cla: 1.0345
+    district_rate: 1.2405
+    homestead_rate: 1.1991
+    nonhomestead_rate: 1.3446
+  - town: Ripton
+    school_code: "164"
+    cla: 0.7329000000000001
+    district_rate: 1.4974
+    homestead_rate: 2.0431
+    nonhomestead_rate: 1.8979
+  - town: Rochester
+    school_code: "165"
+    cla: 0.738
+    district_rate: 1.2605
+    homestead_rate: 1.708
+    nonhomestead_rate: 1.8848
+  - town: Rockingham
+    school_code: "166"
+    cla: 0.7495
+    district_rate: 1.1821000000000002
+    homestead_rate: 1.5772
+    nonhomestead_rate: 1.8559
+  - town: Roxbury
+    school_code: "167"
+    cla: 0.9451
+    district_rate: 1.2903
+    homestead_rate: 1.3653
+    nonhomestead_rate: 1.4718
+  - town: Royalton
+    school_code: "168"
+    cla: 0.7944
+    district_rate: 1.208
+    homestead_rate: 1.5206
+    nonhomestead_rate: 1.751
+  - town: Rupert
+    school_code: "169"
+    cla: 0.7459
+    district_rate: 1.2709
+    homestead_rate: 1.7038
+    nonhomestead_rate: 1.8649
+  - town: Rutland City
+    school_code: "170"
+    cla: 0.7490000000000001
+    district_rate: 1.2542
+    homestead_rate: 1.6745
+    nonhomestead_rate: 1.8571
+  - town: Rutland Town
+    school_code: "171"
+    cla: 0.7543
+    district_rate: 1.1863
+    homestead_rate: 1.5727
+    nonhomestead_rate: 1.8441
+  - town: Ryegate
+    school_code: "172"
+    cla: 0.8584
+    district_rate: 1.2799
+    homestead_rate: 1.491
+    nonhomestead_rate: 1.6205
+  - town: Salisbury
+    school_code: "177"
+    cla: 0.9911
+    district_rate: 1.4974
+    homestead_rate: 1.5108
+    nonhomestead_rate: 1.4035
+  - town: Sandgate
+    school_code: "178"
+    cla: 0.9477
+    district_rate: 1.3667
+    homestead_rate: 1.4421
+    nonhomestead_rate: 1.4678
+  - town: Searsburg
+    school_code: "179"
+    cla: 0.9727
+    district_rate: 1.5088
+    homestead_rate: 1.5511
+    nonhomestead_rate: 1.43
+  - town: Shaftsbury
+    school_code: "180"
+    cla: 0.7692
+    district_rate: 1.0622
+    homestead_rate: 1.3809
+    nonhomestead_rate: 1.8084
+  - town: Shaftsbury ID
+    school_code: "254"
+    cla: 0.7738
+    district_rate: 1.1113
+    homestead_rate: 1.4362
+    nonhomestead_rate: 1.7976
+  - town: Sharon
+    school_code: "181"
+    cla: 0.7367
+    district_rate: 1.2454
+    homestead_rate: 1.6905
+    nonhomestead_rate: 1.8881
+  - town: Sheffield
+    school_code: "182"
+    cla: 0.7659999999999999
+    district_rate: 1.3017
+    homestead_rate: 1.6993
+    nonhomestead_rate: 1.8159
+  - town: Shelburne
+    school_code: "183"
+    cla: 0.687
+    district_rate: 1.3501
+    homestead_rate: 1.9652
+    nonhomestead_rate: 2.0247
+  - town: Sheldon
+    school_code: "184"
+    cla: 0.7553
+    district_rate: 1.0706
+    homestead_rate: 1.4175
+    nonhomestead_rate: 1.8417
+  - town: Shoreham
+    school_code: "186"
+    cla: 1.2985
+    district_rate: 1.4974
+    homestead_rate: 1.1532
+    nonhomestead_rate: 1.0712
+  - town: Shrewsbury
+    school_code: "187"
+    cla: 0.784
+    district_rate: 1.3049
+    homestead_rate: 1.6644
+    nonhomestead_rate: 1.7742
+  - town: Somerset
+    school_code: "260"
+    cla: 0.9498000000000001
+    district_rate: 1
+    homestead_rate: 1.0529
+    nonhomestead_rate: 1.4645
+  - town: South Burlington
+    school_code: "188"
+    cla: 0.8254
+    district_rate: 1.2049
+    homestead_rate: 1.4598
+    nonhomestead_rate: 1.6852
+  - town: South Hero
+    school_code: "189"
+    cla: 0.6739
+    district_rate: 1.4915
+    homestead_rate: 2.2132
+    nonhomestead_rate: 2.0641
+  - town: Springfield
+    school_code: "190"
+    cla: 0.8819
+    district_rate: 1.353
+    homestead_rate: 1.5342
+    nonhomestead_rate: 1.5773
+  - town: St. Albans City
+    school_code: "173"
+    cla: 0.6402
+    district_rate: 1.4132
+    homestead_rate: 2.2074
+    nonhomestead_rate: 2.1728
+  - town: St. Albans Town
+    school_code: "174"
+    cla: 0.8025
+    district_rate: 1.4132
+    homestead_rate: 1.761
+    nonhomestead_rate: 1.7333
+  - town: St. George
+    school_code: "175"
+    cla: 0.7155
+    district_rate: 1.3501
+    homestead_rate: 1.8869
+    nonhomestead_rate: 1.9441
+  - town: St. Johnsbury
+    school_code: "176"
+    cla: 0.7250999999999999
+    district_rate: 1.2979
+    homestead_rate: 1.79
+    nonhomestead_rate: 1.9184
+  - town: Stamford
+    school_code: "191"
+    cla: 1.2316
+    district_rate: 1.0575
+    homestead_rate: 0.8586
+    nonhomestead_rate: 1.1294
+  - town: Stannard
+    school_code: "192"
+    cla: 0.8528999999999999
+    district_rate: 1.4377
+    homestead_rate: 1.6857
+    nonhomestead_rate: 1.6309
+  - town: Starksboro
+    school_code: "193"
+    cla: 1.2929
+    district_rate: 1.4264
+    homestead_rate: 1.1033
+    nonhomestead_rate: 1.0759
+  - town: Stockbridge
+    school_code: "194"
+    cla: 0.6785
+    district_rate: 1.2605
+    homestead_rate: 1.8578
+    nonhomestead_rate: 2.0501
+  - town: Stowe
+    school_code: "195"
+    cla: 1.2465000000000002
+    district_rate: 1.3924
+    homestead_rate: 1.117
+    nonhomestead_rate: 1.1159
+  - town: Strafford
+    school_code: "196"
+    cla: 0.8276
+    district_rate: 1.3633
+    homestead_rate: 1.6473
+    nonhomestead_rate: 1.6808
+  - town: Stratton
+    school_code: "197"
+    cla: 1.0725
+    district_rate: 1
+    homestead_rate: 0.9324
+    nonhomestead_rate: 1.297
+  - town: Sudbury
+    school_code: "198"
+    cla: 0.7871000000000001
+    district_rate: 1.2489
+    homestead_rate: 1.5867
+    nonhomestead_rate: 1.7672
+  - town: Sunderland
+    school_code: "199"
+    cla: 0.74
+    district_rate: 1.3111
+    homestead_rate: 1.7718
+    nonhomestead_rate: 1.8797
+  - town: Sutton
+    school_code: "200"
+    cla: 0.9127
+    district_rate: 1.3017
+    homestead_rate: 1.4262
+    nonhomestead_rate: 1.524
+  - town: Swanton
+    school_code: "201"
+    cla: 0.7898
+    district_rate: 1.1975
+    homestead_rate: 1.5162
+    nonhomestead_rate: 1.7612
+  - town: Thetford
+    school_code: "202"
+    cla: 0.7287
+    district_rate: 1.6868
+    homestead_rate: 2.3148
+    nonhomestead_rate: 1.9089
+  - town: Tinmouth
+    school_code: "203"
+    cla: 1.0189
+    district_rate: 1.3049
+    homestead_rate: 1.2807
+    nonhomestead_rate: 1.3652
+  - town: Topsham
+    school_code: "204"
+    cla: 0.767
+    district_rate: 1.058
+    homestead_rate: 1.3794
+    nonhomestead_rate: 1.8136
+  - town: Townshend
+    school_code: "205"
+    cla: 0.8204
+    district_rate: 1.6593
+    homestead_rate: 2.0225
+    nonhomestead_rate: 1.6955
+  - town: Troy
+    school_code: "206"
+    cla: 1.1458
+    district_rate: 1.1545999999999998
+    homestead_rate: 1.0077
+    nonhomestead_rate: 1.214
+  - town: Tunbridge
+    school_code: "207"
+    cla: 0.795
+    district_rate: 1.2103
+    homestead_rate: 1.5224
+    nonhomestead_rate: 1.7497
+  - town: Underhill
+    school_code: "209"
+    cla: 0.9722
+    district_rate: 1.2405
+    homestead_rate: 1.276
+    nonhomestead_rate: 1.4308
+  - town: Vergennes
+    school_code: "210"
+    cla: 0.7078
+    district_rate: 1.5096
+    homestead_rate: 2.1328
+    nonhomestead_rate: 1.9652
+  - town: Vernon
+    school_code: "211"
+    cla: 0.9258
+    district_rate: 1.3847
+    homestead_rate: 1.4957
+    nonhomestead_rate: 1.5025
+  - town: Vershire
+    school_code: "212"
+    cla: 1.1022
+    district_rate: 1.4027
+    homestead_rate: 1.2726
+    nonhomestead_rate: 1.262
+  - town: Victory
+    school_code: "213"
+    cla: 0.8062
+    district_rate: 1.2559
+    homestead_rate: 1.5578
+    nonhomestead_rate: 1.7254
+  - town: Waitsfield
+    school_code: "214"
+    cla: 0.6685
+    district_rate: 1.4515
+    homestead_rate: 2.1713
+    nonhomestead_rate: 2.0808
+  - town: Walden
+    school_code: "215"
+    cla: 0.8926
+    district_rate: 1.4611
+    homestead_rate: 1.6369
+    nonhomestead_rate: 1.5584
+  - town: Wallingford
+    school_code: "216"
+    cla: 0.7686
+    district_rate: 1.3049
+    homestead_rate: 1.6978
+    nonhomestead_rate: 1.8098
+  - town: Waltham
+    school_code: "217"
+    cla: 0.7379000000000001
+    district_rate: 1.5096
+    homestead_rate: 2.0458
+    nonhomestead_rate: 1.8851
+  - town: Wardsboro
+    school_code: "218"
+    cla: 1.0103
+    district_rate: 1.4888
+    homestead_rate: 1.4736
+    nonhomestead_rate: 1.3768
+  - town: Warners Grant
+    school_code: "261"
+    cla: 1.0188
+    district_rate: 1
+    homestead_rate: 0.9815
+    nonhomestead_rate: 1.3653
+  - town: Warren
+    school_code: "219"
+    cla: 0.613
+    district_rate: 1.4515
+    homestead_rate: 2.3679
+    nonhomestead_rate: 2.2692
+  - town: Warren Gore
+    school_code: "262"
+    cla: 1.0188
+    district_rate: 1
+    homestead_rate: 0.9815
+    nonhomestead_rate: 1.3653
+  - town: Washington
+    school_code: "220"
+    cla: 0.782
+    district_rate: 1.058
+    homestead_rate: 1.3529
+    nonhomestead_rate: 1.7788
+  - town: Waterbury
+    school_code: "221"
+    cla: 0.6607
+    district_rate: 1.4515
+    homestead_rate: 2.1969
+    nonhomestead_rate: 2.1053
+  - town: Waterford
+    school_code: "222"
+    cla: 0.8439
+    district_rate: 1.4611
+    homestead_rate: 1.7314
+    nonhomestead_rate: 1.6483
+  - town: Waterville
+    school_code: "223"
+    cla: 0.9937
+    district_rate: 1.3357999999999999
+    homestead_rate: 1.3443
+    nonhomestead_rate: 1.3998
+  - town: Weathersfield
+    school_code: "224"
+    cla: 0.7218000000000001
+    district_rate: 1.3045
+    homestead_rate: 1.8073
+    nonhomestead_rate: 1.9271
+  - town: Wells
+    school_code: "225"
+    cla: 1.0776
+    district_rate: 1.2236
+    homestead_rate: 1.1355
+    nonhomestead_rate: 1.2908
+  - town: Wells River
+    school_code: "226"
+    cla: 0.7984
+    district_rate: 1.2799
+    homestead_rate: 1.6031
+    nonhomestead_rate: 1.7422
+  - town: West Fairlee
+    school_code: "227"
+    cla: 0.7837
+    district_rate: 1.4027
+    homestead_rate: 1.7898
+    nonhomestead_rate: 1.7749
+  - town: West Haven
+    school_code: "230"
+    cla: 0.7014
+    district_rate: 1.1283
+    homestead_rate: 1.6086
+    nonhomestead_rate: 1.9832
+  - town: West Rutland
+    school_code: "234"
+    cla: 0.7877
+    district_rate: 1.0502
+    homestead_rate: 1.3332
+    nonhomestead_rate: 1.7659
+  - town: West Windsor
+    school_code: "235"
+    cla: 1.2135
+    district_rate: 1.3369
+    homestead_rate: 1.1017
+    nonhomestead_rate: 1.1463
+  - town: Westfield
+    school_code: "228"
+    cla: 0.7293
+    district_rate: 1.2715
+    homestead_rate: 1.7435
+    nonhomestead_rate: 1.9073
+  - town: Westford
+    school_code: "229"
+    cla: 0.7376
+    district_rate: 1.2877
+    homestead_rate: 1.7458
+    nonhomestead_rate: 1.8858
+  - town: Westminster
+    school_code: "231"
+    cla: 0.7683
+    district_rate: 1.2652999999999999
+    homestead_rate: 1.6469
+    nonhomestead_rate: 1.8105
+  - town: Westmore
+    school_code: "232"
+    cla: 0.7794
+    district_rate: 1.2281
+    homestead_rate: 1.5757
+    nonhomestead_rate: 1.7847
+  - town: Weston
+    school_code: "233"
+    cla: 0.7836
+    district_rate: 1.3111
+    homestead_rate: 1.6732
+    nonhomestead_rate: 1.7751
+  - town: Weybridge
+    school_code: "236"
+    cla: 0.7707
+    district_rate: 1.4974
+    homestead_rate: 1.9429
+    nonhomestead_rate: 1.8049
+  - town: Wheelock
+    school_code: "237"
+    cla: 0.7824
+    district_rate: 1.3017
+    homestead_rate: 1.6637
+    nonhomestead_rate: 1.7779
+  - town: Whiting
+    school_code: "238"
+    cla: 0.7625
+    district_rate: 1.2489
+    homestead_rate: 1.6379
+    nonhomestead_rate: 1.8243
+  - town: Whitingham
+    school_code: "239"
+    cla: 0.791
+    district_rate: 1.4034
+    homestead_rate: 1.7742
+    nonhomestead_rate: 1.7585
+  - town: Williamstown
+    school_code: "240"
+    cla: 0.7895
+    district_rate: 1.1767
+    homestead_rate: 1.4904
+    nonhomestead_rate: 1.7619
+  - town: Williston
+    school_code: "241"
+    cla: 0.6923999999999999
+    district_rate: 1.3501
+    homestead_rate: 1.9499
+    nonhomestead_rate: 2.009
+  - town: Wilmington
+    school_code: "242"
+    cla: 1.025
+    district_rate: 1.4034
+    homestead_rate: 1.3692
+    nonhomestead_rate: 1.3571
+  - town: Windham
+    school_code: "243"
+    cla: 1.0956000000000001
+    district_rate: 1.6858
+    homestead_rate: 1.5387
+    nonhomestead_rate: 1.2696
+  - town: Windsor
+    school_code: "244"
+    cla: 1.1098000000000001
+    district_rate: 1.3369
+    homestead_rate: 1.2046
+    nonhomestead_rate: 1.2534
+  - town: Winhall
+    school_code: "245"
+    cla: 0.6599
+    district_rate: 1.1864
+    homestead_rate: 1.7978
+    nonhomestead_rate: 2.1079
+  - town: Winooski
+    school_code: "246"
+    cla: 1.0798999999999999
+    district_rate: 1.3608
+    homestead_rate: 1.2601
+    nonhomestead_rate: 1.2881
+  - town: Wolcott
+    school_code: "247"
+    cla: 0.7872
+    district_rate: 1.1323
+    homestead_rate: 1.4384
+    nonhomestead_rate: 1.767
+  - town: Woodbury
+    school_code: "248"
+    cla: 0.7347
+    district_rate: 1.3370000000000002
+    homestead_rate: 1.8198
+    nonhomestead_rate: 1.8933
+  - town: Woodford
+    school_code: "249"
+    cla: 0.8004000000000001
+    district_rate: 1.0653000000000001
+    homestead_rate: 1.331
+    nonhomestead_rate: 1.7379
+  - town: Woodstock
+    school_code: "250"
+    cla: 0.6365
+    district_rate: 1.6742
+    homestead_rate: 2.6303
+    nonhomestead_rate: 2.1854
+  - town: Worcester
+    school_code: "251"
+    cla: 0.7909
+    district_rate: 1.4536
+    homestead_rate: 1.8379
+    nonhomestead_rate: 1.7588
