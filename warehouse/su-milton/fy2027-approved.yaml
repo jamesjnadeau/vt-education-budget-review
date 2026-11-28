@@ -1,0 +1,71 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/milton
+fiscal_year: 2027
+status: approved
+source: "intake/su-milton/fy2027/Revised FY27 Proposed Budget .pdf"
+source_pages: p. 43 (Grand Total)
+adopted_date: 2026-05-19
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/milton
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  Revised FY27 budget put to a revote on May 19, 2026: total budget $40,812,465
+  (FY26 $39,291,626; +3.87%), from the Grand Total on p. 43 of the revised
+  budget sheet. The ballot article (Final FY27 Budget Revote Informational
+  Presentation, p. 8, same intake directory) states per-pupil education
+  spending of $14,103.15, 2.48% higher than the current year. No AOE
+  education-spending form, offsetting revenue, or LTWADM is in any staged
+  document, so education_spending is null. The first FY27 budget ($40,895,465;
+  per-pupil $14,137.22; warning dated Jan 22, 2026, March 3 vote) was
+  followed by a revote, which implies the March 3 vote did not pass, but no
+  staged document states the March 3 result; that first version is NOT
+  recorded as a separate record here. Vote result for May 19: the district's
+  Revised FY27 Budget page (https://www.mtsd-vt.org/page/fy27) is headed
+  "SCHOOL BUDGET PASSED!" and its May 20, 2026 article
+  (https://www.mtsd-vt.org/article/2923102/) thanks the community for
+  "passing the FY27 School Budget". Reported count 972-851 (WCAX,
+  https://www.wcax.com/2026/05/20/milton-voters-pass-revised-school-budget-with-deep-cuts/;
+  WPTZ https://www.mynbc5.com/article/revised-school-budget-passes-milton/71357966).
+  adopted_date is the revote date printed in the presentation and flyer.
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: No AOE education-spending form (Three Prior Years Comparisons) is in any document found on the district
+      site. Nearest printed figures are the total budget $40,812,465 (revised budget p. 43) and per-pupil education
+      spending $14,103.15 (revote ballot, presentation p. 8). Not substituted.
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: No pupil count by band (or LTWADM) is printed in the staged documents; the text layers were searched for
+      ADM, LTWADM, and equalized pupils. The flyer (not staged) cites 1,465 scholars; the Dec 2025 article cites
+      about 1,480 students; neither is an ADM band.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: Same as adm.prekindergarten; no band breakdown printed.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: Same as adm.prekindergarten; no band breakdown printed.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: Same as adm.prekindergarten; no band breakdown printed.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: The staged documents give only projected percentage tax-rate increases (9.80% March 3; 2.91% revote), no
+      homestead rate in dollars per $100 and no CLA.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: No CLA value is printed (the presentation discusses the CLA qualitatively, p. 11).
+    resolution: left_null
+  - path: notes
+    issue: "The revote presentation disagrees with itself on the March 3 tax impact: p. 4 says 9.80% and the p. 6
+      table says 9.88% for the Dec 1 ($8,849 yield) $40,895,465 row. The district's May 4 article says 9.80%."
+    resolution: pending

@@ -1,0 +1,31 @@
+schema_version: "1.0"
+entity: su/essex-westford
+fiscal_year: 2027
+artifacts:
+  - file: 2026-EWSD-Annual-Report-(FINAL).pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3564/Ewsd/1e989930-b9b9-4e83-a8ec-fe2ba28911b3/2026-EWSD-Annual-Report-%28FINAL%29.pdf?disposition=inline
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 125f3728419ac086d1f54828636891a218bd09d6149dae4829db4f27b5e78218
+    bytes: 28761093
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Essex Westford School District
+    title: 2026 EWSD Annual Report (FY27)
+    published_date: null
+    document_page: https://www.ewsd.org/page/ewsd-budget-fy27
+    supersedes: null
+    note: >-
+      Ten-page Canva-designed annual report for the April 14, 2026 vote on the
+      FY2027 budget (the district's page links it as "PDF Version" via the
+      short link https://aptg.co/Kh415_, which redirects to the URL above).
+      Every page is an image with no text layer, so figures were read from
+      170-300 dpi renders. It is not the AOE "Three Prior Years Comparisons"
+      form: it carries an FY26-vs-FY27 budget/tax table (PDF pp. 4 and 6), the
+      EWSD and CTE general fund summaries for FY23-FY27 (p. 5), equalized
+      property values and historical tax rates (p. 7), and the 2026 annual
+      warning (p. 8). The server sent no Content-Disposition header; the
+      filename is taken from the URL path. PDF metadata: title "2026 EWSD
+      Annual Report", author "Ben Dickie", creator Canva, created 2026-03-23.
+      Saved byte-for-byte as downloaded.

@@ -1,0 +1,73 @@
+schema_version: "1.0"
+extracted_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+extracted_date: 2026-11-28
+entity: su/addison-central
+fiscal_year: 2026
+status: warned
+source: intake/su-addison-central/fy2026/ACSDFY26VoterOverviewAnnualReportFY26Budget5.pdf
+source_pages: p. 3
+adopted_date: null
+education_spending: 41372610
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/bridport
+      homestead_rate_stated: null
+      cla: null
+    - town: town/cornwall
+      homestead_rate_stated: null
+      cla: null
+    - town: town/middlebury
+      homestead_rate_stated: null
+      cla: null
+    - town: town/ripton
+      homestead_rate_stated: null
+      cla: null
+    - town: town/salisbury
+      homestead_rate_stated: null
+      cla: null
+    - town: town/shoreham
+      homestead_rate_stated: null
+      cla: null
+    - town: town/weybridge
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  FY26 proposed budget as printed in the voter overview for the March 4, 2025 vote (Education
+  Spending Projection box, "Operations and Finance Director's Message"): total expense (incl.
+  fund balance) $51,719,284; offsetting revenue $10,346,674; projected FY26 ed spending
+  $41,372,610; FY25 ed spending $40,041,512; difference $1,331,098 (3.32%). Re-added: 51,719,284 -
+  10,346,674 = 41,372,610; 41,372,610 - 40,041,512 = 1,331,098. The same FY26 figures (budget
+  $51,719,284, revenue $10,346,674, ed spending $41,372,610) appear in the FY2026 column of the AOE
+  form in the FY27 budget book (intake/su-addison-central/fy2027/FY27BudgetBookMaster.pdf p. 11), which also
+  prints 2,743.20 pupils and $15,081.88 per pupil there (FY27 book p. 32 prints FY26 LTWADM
+  2,740.36 and $15,098). This overview prints no pupil count or per-pupil figure. The full FY26
+  budget book is on the district page only as a Google Drive embed with downloads disabled, so it
+  was not read. Vote result: not found on the district FY26 page or in the documents read.
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: The FY26 voter overview prints no per-town homestead rates (it states only that the budget lowers taxes in every ACSD town). The full FY26 budget book was not downloadable.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: The FY26 voter overview prints no per-town CLAs. The full FY26 budget book was not downloadable.
+    resolution: left_null
+  - path: adm.prekindergarten
+    issue: The overview prints no pupil count and no grade-band breakdown (4 pages, text layer read in full). The full FY26 budget book was not downloadable.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The overview prints no pupil count and no grade-band breakdown (4 pages, text layer read in full). The full FY26 budget book was not downloadable.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The overview prints no pupil count and no grade-band breakdown (4 pages, text layer read in full). The full FY26 budget book was not downloadable.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The overview prints no pupil count and no grade-band breakdown (4 pages, text layer read in full). The full FY26 budget book was not downloadable.
+    resolution: left_null
+  - path: education_spending
+    issue: Figure is the district's projection in a four-page voter overview, not the AOE form. The FY27 budget book's FY2026 column of the AOE form gives the same $41,372,610.
+    resolution: pending
+not_published: []

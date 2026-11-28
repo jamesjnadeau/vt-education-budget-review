@@ -1,0 +1,28 @@
+schema_version: '1.0'
+entity: su/rivendell-interstate
+fiscal_year: 2027
+artifacts:
+- file: RISD 2026 Annual Report WEB.pdf
+  source_url: https://content.myconnectsuite.com/api/documents/12cea5f7f5fd4882b70bf1b01dbeb326.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 36d122702e3b0526fa0286e452cf7483845738731f34b1ede82b2be54c666266
+  bytes: 2394163
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Rivendell Interstate School District
+  title: Annual Report of the Rivendell Interstate School District (2026)
+  published_date: null
+  document_page: https://www.rivendellschool.org/voterinformation
+  supersedes: null
+  note: Annual report issued ahead of the March 21, 2026 district meeting (warrant dated Feb 25, 2026;
+    PDF created 2026-02-25, 52 pages) proposing FY2027. Rivendell is an interstate district (Fairlee,
+    Vershire, West Fairlee VT; Orford NH). The report prints the whole-district budget ($16,604,487, PDF
+    pp. 9-10) and the Vermont (Unified) share ($12,305,543); the AOE-format 'VT Three Prior Years Comparisons'
+    form (PDF p. 16, printed p. 13, stamped PRELIMINARY / ESTIMATES ONLY) covers only the Vermont share,
+    FY2024-FY2027. The VT form page has a garbled text layer (pdftotext returns control characters), so
+    it was read from 300-dpi renders. Also contains the 2025 annual meeting minutes (PDF pp. 43-44). Saved
+    under the filename the server sent in Content-Disposition (RISD 2026 Annual Report WEB.pdf), byte-for-byte.
+    The server reported Last-Modified 2026-03-02; the district states no publication date. The Orford
+    (NH) share is not on the VT form.

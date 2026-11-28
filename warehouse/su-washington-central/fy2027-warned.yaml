@@ -1,0 +1,66 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/washington-central
+fiscal_year: 2027
+status: warned
+source: intake/su-washington-central/fy2027/46f4928c9c8eee7638f458e92d07180fc50d5d1a.pdf
+source_pages: pp. 31, 33
+adopted_date: null
+education_spending: 36337813
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/berlin
+      homestead_rate_stated: 1.9437
+      cla: 0.9144
+    - town: town/calais
+      homestead_rate_stated: 2.31
+      cla: 0.7694
+    - town: town/east-montpelier
+      homestead_rate_stated: 2.3016
+      cla: 0.7722
+    - town: town/middlesex
+      homestead_rate_stated: 2.2136
+      cla: 0.8029
+    - town: town/worcester
+      homestead_rate_stated: 1.2084
+      cla: 1.4708
+notes: "FY2027 column of the AOE 'Three Prior Years Comparisons' form in the WCUUSD Annual Report 2026 (PDF p. 31, stamped PRELIMINARY ESTIMATES ONLY). Union budget $43,271,845; offsetting union revenues $6,934,032; education spending $36,337,813 (budget minus revenue re-added, matches); pupils 2,219.40 (LTWADM); education spending per pupil $16,372.81 (spending / pupils re-computed, matches); equalized union homestead rate $1.7773 (no cent discount printed on line 28). Budget put to voters by Australian ballot at the WCUUSD annual meeting on March 3, 2026 (Article 5). Vote result: approved 1,684 yes to 1,379 no (66 undervotes, 0 overvotes), per the district clerk's Certification of Final Votes, image-only PDF at https://resources.finalsite.net/images/v1772631374/wcsu32org/z90f8s5pmgvhy7meh8p2/Voteresults3326_1.pdf (linked from https://www.wcuusd.org/school-board/vote-results; read from a rendered image). The vote result is not in the staged annual report, so adopted_date stays null and the record stays 'warned' (the document's own status); the district's tax pages also state the same ballot per-pupil $16,372.81, 7.21% over the current year. Annual report p. 32 projects tax-bill changes per $100,000 home: Berlin +$35.80, Calais +$259.00, East Montpelier +$214.40, Middlesex +$245.70, Worcester -$39.90. The same $43,271,845 / $6,934,032 / $36,337,813 appear in the staged FY27 Final Warned Budget (3-school version)."
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: "The annual report prints one weighted pupil count (2,219.40 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The annual report prints one weighted pupil count (2,219.40 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The annual report prints one weighted pupil count (2,219.40 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The annual report prints one weighted pupil count (2,219.40 (LTWADM)), not the four statutory grade bands. Text layer of the AOE form (PDF p. 31), the budget summary (p. 32) and tax-rate pages (p. 33) searched; no band breakdown found. Other pages not individually read."
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: "Rates are the 'Prorated homestead union tax rates' for FY2027 printed on the AOE form (PDF p. 31), one per member town (all 100% members). The form is stamped 'PRELIMINARY ESTIMATES ONLY', so these are the district's estimates, not the Tax Department's."
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: "The AOE form (p. 31) is stamped PRELIMINARY ESTIMATES ONLY and uses the Jan 21, 2026 Education Fund Outlook (property yield $9,212; income yield $12,711). Figures may have changed after the legislative session. Line 28 (cent discount) is blank; line 29 repeats $1.7773."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "The p. 33 'Tax Rate Change' table's column headings read 'POST LEGISLATIVE SESSION TAX RATES FY 25-26' then 'ESTIMATED TAX RATES FY 26-27', but the values under them are FY27 first and FY26 second (Berlin $1.9437 then $1.9079), which agrees with the AOE form (p. 31: FY2027 $1.9437, FY2026 $1.9079). The headings look reversed; the values used here follow p. 31 and the CLA arithmetic."
+    source_text: "Berlin 91.44% $1.9437 $1.9079"
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "Worcester's FY27 rate of $1.2084 is far below the other towns because its statewide-adjusted CLA is printed as 147.08% (reappraisal). $1.7773 / 1.4708 = $1.2084 reproduces it. Recorded as printed."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "CLAs are the 'Statewide Adjusted CLA FY 26-27' column on p. 33 (printed as percentages, recorded as ratios). Each reproduces the printed rate: $1.7773 / CLA (Berlin 1.9437, Calais 2.3100, East Montpelier 2.3016, Middlesex 2.2136, Worcester 1.2084). Not the Tax Department's published CLAs."
+    resolution: recorded_as_other
+  - path: source
+    issue: "The annual report (printed before the Feb/Mar 2026 vote) itemizes the budget (pp. 26-30) for THREE elementary schools; the district's later FY 27 Final Detail Budget Sheet itemizes the same $43,271,845 for five elementary schools. Totals, revenue and education spending are identical in both; only the allocation among schools differs. The Final Warned Budget in the same intake dir is the three-school version too (it states that the same expenditures will be re-allocated if five schools operate)."
+    resolution: pending

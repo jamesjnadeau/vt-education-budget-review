@@ -1,0 +1,92 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/rivendell-interstate
+source: intake/su-rivendell-interstate/fy2027/RISD 2026 Annual Report WEB.pdf
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+not_published: []
+fiscal_year: 2027
+status: warned
+source_pages: PDF pp. 9-10, 15-16 (printed pp. 6-7, 12-13)
+adopted_date: null
+education_spending: 8846318
+tax:
+  towns:
+  - town: town/fairlee
+    homestead_rate_stated: 1.4569
+    cla: 1.2268
+  - town: town/vershire
+    homestead_rate_stated: 1.348
+    cla: 1.3259
+  - town: town/west-fairlee
+    homestead_rate_stated: 1.9446
+    cla: 0.9191
+notes: 'This is the VERMONT (Unified) share of an interstate district, taken from the AOE-format ''VT Three Prior
+  Years Comparisons'' form (PDF p. 16, printed p. 13); the Orford NH share is not on it. FY2027 as warned for the
+  March 21, 2026 district meeting (Article 4: $16,604,487 operating budget for the whole district; Article 5: apply
+  $450,000 of unassigned fund balance to offset tax rates, $320,251 of it the Vermont share). VT form: union budget
+  $12,305,543 (VT share, 71.17% by ADM); offsetting revenues $3,459,225; education spending $8,846,318; Vermont
+  LTWADM 537.29; per pupil $16,464.70; union spending adjustment 178.731%; equalized union homestead rate $1.7873
+  (cent discount adjusted by the 70.33% statewide adjuster); income cap 2.51%. Education spending is the form''s
+  figure and ASSUMES Article 5 passes (revenues include the $320,251 surplus share); without it VT assessments are
+  $9,166,569 (PDF p. 10). Town rates are the ''Equals Estimated Vermont Local Education Tax Rates per $100'' on
+  PDF p. 15 (equalized rate / statewide-adjusted CLA); cla is the ''Statewide Adjusted CLA'' ratio (122.68%, 91.91%,
+  132.59%). Unadjusted town CLAs printed: Fairlee 86.28%, West Fairlee 64.64%, Vershire 93.25%. Whole-district (RISD)
+  figures: expenditure budget $16,604,487, funds raised by taxes $12,690,084 before the surplus ($12,240,084 after).
+  Orford (NH) share: education spending $4,298,945, assessment $3,523,515, estimated rate $11.95 per $1,000. Vote
+  result: not stated in this document or found on the district site; the Valley News reports approval 135-83 with
+  two blanks (https://vnews.com/2026/03/22/rivendell-school-budget-approved), not used for adopted_date.'
+lines_flagged:
+- path: education_spending
+  issue: The union budget and education spending on the AOE form are the Vermont share only ($12,305,543 / $8,846,318).
+    The district's warrant Article 4 and the voted budget are the whole-district $16,604,487 (VT share + Orford
+    NH share $4,298,945). Recorded as the Vermont AOE form figure per the brief; a human should decide how interstate
+    districts are represented.
+  source_text: Adopted or warned union district budget $12,305,543; Education Spending $8,846,318
+  resolution: recorded_as_other
+- path: education_spending
+  issue: The AOE form is stamped PRELIMINARY and ESTIMATES ONLY. Its yields/tax rates are estimates, and the report
+    itself says final rates are set by the Legislature.
+  resolution: pending
+- path: education_spending
+  issue: 'Form revenue $3,459,225 = VT ''Total Revenues'' $3,138,974 (PDF p. 10) + $320,251 VT share of the $450,000
+    fund-balance use (Warrant Article 5). So the form figure $8,846,318 assumes Article 5 passes; the Vermont assessment
+    without it is $9,166,569 (printed ''Budgeted District Member Assessments''). Recomputed: 12,305,543 - 3,459,225
+    = 8,846,318 (matches); 8,846,318 / 537.29 = $16,464.70 (matches).'
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: Form note says the revised Dec 1, 2025 Education Fund Outlook gives a property yield of $8,849 (income
+    yield $12,154, nonresidential rate $1.785), but the form's calculations use yield $9,212 and income yield $13,098
+    (p. 16 header and p. 15 'Adjusted Yield 13,098.25 x 70.33%'). Rates recorded are the district's estimates as
+    printed.
+  resolution: pending
+- path: tax.towns.cla
+  issue: Recorded cla is the statewide-adjusted CLA ratio (town CLA / 70.33%) because the printed town rate = $1.7873
+    / adjusted CLA; unadjusted CLAs are 0.8628 (Fairlee), 0.6464 (West Fairlee), 0.9325 (Vershire). Not the Tax
+    Department's published CLAs. Town assessments on p. 15 (3,623,397 + 2,706,852 + 2,516,068 = 8,846,317) differ
+    by $1 from the form's 8,846,318 (rounding).
+  resolution: recorded_as_other
+- path: adm.prekindergarten
+  issue: The report prints one weighted pupil count for the Vermont share (LTWADM 537.29), not the four statutory
+    grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as an image;
+    no band breakdown found. Other pages not individually inspected.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The report prints one weighted pupil count for the Vermont share (LTWADM 537.29), not the four statutory
+    grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as an image;
+    no band breakdown found. Other pages not individually inspected.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The report prints one weighted pupil count for the Vermont share (LTWADM 537.29), not the four statutory
+    grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as an image;
+    no band breakdown found. Other pages not individually inspected.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The report prints one weighted pupil count for the Vermont share (LTWADM 537.29), not the four statutory
+    grade bands. Searched the text layer (ADM statistics PDF p. 15) and read the VT form (PDF p. 16) as an image;
+    no band breakdown found. Other pages not individually inspected.
+  resolution: left_null

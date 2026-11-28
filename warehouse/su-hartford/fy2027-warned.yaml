@@ -1,0 +1,49 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/hartford
+fiscal_year: 2027
+status: warned
+source: intake/su-hartford/fy2027/fy27_proposed_budget_packet.pdf
+source_pages: pp. 2, 11
+adopted_date: null
+education_spending: 37117897
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/hartford
+      homestead_rate_stated: 1.3924
+      nonhomestead_rate_stated: 1.2669
+      cla: 1.4089
+notes: >-
+  FY27 proposed budget put to voters 3 Mar 2026 (Article 2: expend $58,707,341; estimated $17,677.97 per equalized pupil, 10.24% above the current year, per the warning in intake/su-hartford/fy2027/2026_school_dist_warnings_both.pdf). Source is the p. 11 'Vermont State Education Tax for Hartford School District' form, which is the district's own form, not an image of the AOE form, and is not stamped preliminary or estimate. Figures as printed: total expenditure budget all funds $58,707,341 (p. 2 and p. 11 line 2); revenues without state education tax $21,589,444; education spending $37,117,897; long-term weighted average pupils 2,099.67 (LTWADM); education spending per weighted pupil $17,677.97; homestead rate $1.3924; non-homestead rate $1.2669; CLA 140.89%. Budget minus revenue and spending divided by pupils both re-add to the printed figures. Vote result: PASSED, Yes 763 / No 542 (1,372 ballots counted), per the Town Clerk's certificate of results attested 4 Mar 2026, https://files.smartsites.parentsquare.com/11463/2026_official_school_dist_results.pdf (staged in intake). Status is warned because the source document is the pre-vote packet; adopted_date is left null because the packet itself states no vote date (the certificate gives 2026-03-03).
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "Rate is line 12 of the p. 11 form ('Portion of Actual Equalized Homestead Tax Rate Assessed by the Town'), the district's own calculation, not the Tax Department's. Not recomputed here. Hartford is the sole member town; SU and town are the same budget-setting district."
+    resolution: recorded_as_other
+  - path: tax.towns.cla
+    issue: "CLA is line 11 of the p. 11 form, printed as a percentage (140.89%) and recorded as a ratio. The district's figure, not the Tax Department's published CLA."
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: "Pupil count on the form is labelled 'Long-Term Weighted Average (Formerly Equalized Pupils)' while the warning says 'per equalized pupil'; both give $17,677.97, so they are the same figure under the older/newer name."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "Rate arithmetic not independently reproduced: the form's own formula (line 6 / $8,849 yield - .036) / CLA with printed inputs does not obviously give 1.3924; the district may apply a different yield or discount. Printed value recorded."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null

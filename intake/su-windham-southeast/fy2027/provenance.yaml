@@ -1,0 +1,66 @@
+schema_version: '1.0'
+entity: su/windham-southeast
+fiscal_year: 2027
+artifacts:
+- file: 1 WSESD 2026 Annual Report and Proposed FY'27 Budget.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1cs8sOLkdy4hzSv9dCcSteE-YzcBQk1dy
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 0754b09683ccc6522e85a5451473c8477378dea1e6d1e82016023767daaa063a
+  bytes: 17468418
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Windham Southeast School District
+  title: WSESD 2026 Annual Report and Proposed FY'27 Budget
+  published_date: null
+  document_page: https://wsesu.org/wsesd-budget-documents/
+  supersedes: null
+  note: 'The district''s annual report for the March 17, 2026 annual meeting (158 pages, text layer present):
+    FY27 warning (PDF p. 18; Article 4 $69,874,600), FY27 Financial Overview (p. 20), the district-prepared
+    ''Homestead School Tax Rate, State Funding Formula'' sheet (p. 21, updated 1.12.26; FY2025 amended
+    / FY2026 amd / FY2027 columns, per-town CLAs and homestead rates), revenue estimates (pp. 25-27),
+    per-school budgets, minutes of the March 18, 2025 annual meeting (pp. 6-13), the WSESU (supervisory
+    union) program budget and allocation reports, and the audit. It does NOT carry the AOE ''Three Prior
+    Years Comparisons'' form. PDF metadata: creator Adobe Acrobat 25.1.21111, created 2026-01-29, no title/author.
+    Saved under the filename the server sent (Content-Disposition), byte-for-byte.'
+- file: 'FY27 WSESD Proposed Budget Summary - updated 1.29.26 prime wPage #s.pdf'
+  source_url: https://drive.google.com/uc?export=download&id=1Oiq-YP3uKfpFS_cNNjJ_HdarwS-hBF47
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 14ad5d1b241b834e64fe2401f878208230ca67052f28eb9e9b273f40428d371a
+  bytes: 1923466
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Windham Southeast School District
+  title: WSESD FY27 Proposed Budget Summary (listed on the district page as 'WSESD FY27 Approved Budget
+    Summary')
+  published_date: null
+  document_page: https://wsesu.org/wsesd-budget-documents/
+  supersedes: null
+  note: '47-page Excel-generated summary of the FY27 general operating budget by school/function (FY25
+    actual, FY26 amended, FY27 proposed), updated 1.29.26. PDF metadata: author Frank Rucker, created
+    from Excel 2026-01-22. The district''s link text on the budget page reads ''Approved Budget Summary''
+    while the file name says ''Proposed''; the same file is linked on /wsesd-documents/ as ''FY27 Proposed
+    Budget- Summary''. Saved under the filename the server sent.'
+- file: VTSDfy27 Budget 01.27.2026.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1myH-Qt-YuSPb8E3fxLINCQ8AuBOyRbv7
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: a0de600c5e566a990c185fd93d370f92ae0d41a2584689a91bbbfb8ba7e7caf5
+  bytes: 1108045
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Vernon Town School District
+  title: Vernon FY27 Proposed Budget - Board Approved (1/27/26)
+  published_date: null
+  document_page: https://wsesu.org/vernon-school-district-budget-documents/
+  supersedes: null
+  note: '11-page Excel-generated budget for the Vernon Town School District, a second budget-setting member
+    district of WSESU, board approved 1/27/26: revenue and expense summary (p. 1) and a district-prepared
+    ''School Funding Law Statistics as of 1.26.26'' sheet (p. 2) with FY2025amd/FY2026/FY2027 columns
+    (budget $7,933,289; offsetting revenues $605,628; ''Education Spending'' $7,327,661; LTWA pupils 465.0).
+    Not the AOE Three Prior Years form. PDF author Frank Rucker, created from Excel 2026-01-27. Saved
+    under the filename the server sent (VTSD = Vernon Town School District).'

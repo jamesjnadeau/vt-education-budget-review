@@ -1,0 +1,50 @@
+schema_version: "1.0"
+entity: su/addison-central
+fiscal_year: 2027
+artifacts:
+  - file: FY27BudgetBookMaster.pdf
+    source_url: https://resources.finalsite.net/images/v1771270530/acsdvtorg/acsdvtorg/acsdvtorg/atszblvlqgtwlktou8kv/FY27BudgetBookMaster.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 11c02b1244e63a2bfb89f62e9c7f83dc9594c107751efa4b12beb5330afe4a24
+    bytes: 4162569
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Addison Central School District
+    title: "Annual Report and FY27 Budget Book"
+    published_date: null
+    document_page: https://www.acsdvt.org/district-link/budget-development/fy27-budget
+    supersedes: null
+    note: >-
+      60-page Annual Report and Budget Book (internal title "FY27 Budget Book Master", Google Docs
+      renderer). Contains the annual meeting and March 3, 2026 Australian ballot warnings (pp. 7-8),
+      the AOE "Three Prior Years Comparison" form (p. 11, an image), financial summaries (p. 24),
+      the LTWADM table (p. 29), per-pupil and tax-rate pages (pp. 32-33) and a preliminary town tax
+      rate projection (p. 35, image). The p. 11 form is stale: it is marked PRELIMINARY / ESTIMATES
+      ONLY and shows FY2024-FY2026 only, with no FY2027 column. Last-Modified header is 2026-02-16.
+      An earlier version of this file (URL .../images/v1770662045/acsdvtorg/atszblvlqgtwlktou8kv/FY27BudgetBookMaster.pdf,
+      4,170,400 bytes, sha256 e6918abb2539b764a756c2fc5f354da9e4d088f42f97a7089c547457df5c74b6)
+      is still served and differs (its Superintendent message still carries FY26 text); the
+      version linked from the district page is the one staged. The server sent no
+      Content-Disposition; saved under its URL basename, byte-for-byte.
+  - file: FY27ACSDBudgetOverview.pdf
+    source_url: https://resources.finalsite.net/images/v1769024049/acsdvtorg/glhm76snml4rarfrrino/FY27ACSDBudgetOverview.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: e0aa9cfd9c02024d5c63a2ef2f5e17a641a2c54546bee5468afe96910450f733
+    bytes: 5340448
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Addison Central School District
+    title: "ACSD Fiscal Year 2027 Budget Overview"
+    published_date: null
+    document_page: https://www.acsdvt.org/district-link/budget-development/fy27-budget
+    supersedes: null
+    note: >-
+      Four-page Canva voter overview (created 2026-01-21) for the March 3, 2026 vote. Prints the
+      Education Spending Projection: total expense $52,995,189, offsetting revenue $10,423,357,
+      FY27 ed spending $42,576,137, tax rate $1.65, per pupil $15,638. Its total expense differs
+      from the budget book and warning ($52,999,495). The server sent no Content-Disposition;
+      saved under its URL basename.

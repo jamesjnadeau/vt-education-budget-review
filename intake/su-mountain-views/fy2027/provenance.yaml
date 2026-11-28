@@ -1,0 +1,71 @@
+schema_version: "1.0"
+entity: su/mountain-views
+fiscal_year: 2027
+artifacts:
+  - file: MVSD FY27 EdSpend prior years AOE 011526.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1FUl5sEHSUjeVhlDujMenYhPs8nLPjEyN
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: b68fad331e0daa76c3cdb865ac5614678011605ee468d9853f5b611b006f0e80
+    bytes: 500660
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Mountain Views School District (Mountain Views Supervisory Union)
+    title: Three Prior Years Comparisons - Format as Provided by AOE (MVSD FY27)
+    published_date: null
+    document_page: https://mtnviews.org/budget-annual-meetings
+    supersedes: null
+    note: >-
+      One-page AOE "Three Prior Years Comparisons" form for Mountain Views SD
+      U076, FY2024-FY2027 columns, stamped PRELIMINARY / ESTIMATES ONLY. Text layer
+      present. Covers the unified district's seven towns only; Pittsfield School
+      District, also in this SU, sets a separate budget and is not on this form.
+      Internal title is the Excel file name; author Jim Fenn; created 2026-01-16
+      via "Microsoft: Print To PDF". Saved under the filename the server sent
+      (Content-Disposition).
+  - file: MVSD FY27 Budget summary worksheet  011626.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1v-2fuv5iMjrWbdzVA_R0m6o_4nf7useU
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: ba2c46f1a68892eebc9e483535a33f923fd7b1e4979325989f6ab7f5753a94b0
+    bytes: 255571
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Mountain Views School District (Mountain Views Supervisory Union)
+    title: Mountain Views School District Proposed Budget - Fiscal Year 2027 (summary worksheet)
+    published_date: null
+    document_page: https://mtnviews.org/budget-annual-meetings
+    supersedes: null
+    note: >-
+      Five-page summary worksheet by school/cost center (FY25 budget, FY25 actual,
+      FY26 budget, FY27 requested). Total Mountain Views School District
+      expenditures on p. 4 are $28,886,832 (FY27 requested), plus a separate
+      district-wide food service page (p. 5, $1,350,873); these do not by
+      themselves match the $32,469,506 warned budget. Created from Excel
+      2026-01-16 (Apache POI). Page 5 headings read "WCUUSD", the district's old
+      name. Saved under the filename the server sent (double space is in the
+      original name).
+  - file: Warning for print.pdf
+    source_url: https://mtnviews.org/s/Warning-for-print.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 0ebfc45fe4afabe67a31863b024dca9401ee58d9a0aed680a4245e57ac9b18e4
+    bytes: 167193
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Mountain Views School District (Mountain Views Supervisory Union)
+    title: Warning for Annual Meeting of the Mountain Views School District, March 3, 2026
+    published_date: null
+    document_page: https://mtnviews.org/budget-annual-meetings
+    supersedes: null
+    note: >-
+      Two-page warning for the March 3, 2026 Australian-ballot annual meeting.
+      Article 1 puts a $32,469,506 budget to voters (stated LTW per-pupil
+      education spending $18,075.87, 4.7% above the current year); Articles 2-4
+      are bond questions. The server sent no Content-Disposition; the URL
+      redirects (302) to static1.squarespace.com/.../Warning+for+print.pdf, so the
+      filename is that last path segment, URL-decoded. Internal author Rayna
+      Bishop, created 2026-02-02.

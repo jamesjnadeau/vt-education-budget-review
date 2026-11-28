@@ -1,0 +1,50 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/springfield
+fiscal_year: 2027
+status: warned
+source: intake/su-springfield/fy2027/SSDFY2027BudgetBook.pdf
+source_pages: "PDF p. 24 (printed p. 46)"
+adopted_date: null
+education_spending: 32363791
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/springfield
+      homestead_rate_stated: 1.72
+      cla: 0.9586
+notes: "FY2027 column of the AOE 'Three Prior Years Comparisons' form in the FY2027 Budget Book (PDF p. 24, printed p. 46; stamped PRELIMINARY / ESTIMATES ONLY). Budget put to voters on the March 3, 2026 warning (Article 13); the board adopted it for warning. The district states the voters said no in March (board letter); WCAX reported 741-599 against on March 3, 2026 (https://www.wcax.com/2026/03/04/vermonts-larger-communities-approve-school-budgets/). Revote May 5, 2026 passed 544-468 per WCAX (https://www.wcax.com/2026/05/06/springfield-passes-school-budget/), a different, reduced budget. Total budget (line 1/6) $42,654,251; offsetting revenues $10,290,460; education spending 32,363,791; pupils 2,130.75 (LTWADM); education spending per pupil $15,188.92; equalized district homestead rate $1.6488 per $100; town rate (line 33) $1.7200. Re-added: budget minus revenue equals education spending. The form's 'SU' is Springfield; the town school district is the only budget-setting district."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: "The form is stamped PRELIMINARY (top left) and ESTIMATES ONLY (top right); it is based on the Education Fund Outlook FY27 forecast (property yield $9,212, income yield $12,711, non-residential rate $1.713), which the page says may change."
+    resolution: pending
+  - path: tax.towns.homestead_rate_stated
+    issue: "Town rate is line 33 of the AOE form (equalized rate $1.6488 divided by line 32). The form is stamped PRELIMINARY / ESTIMATES ONLY, so it is the district's estimate and not the Tax Department's final rate."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "Line 32 prints 'Common Level of Appraisal (CLA) divided by Statewide Adjustment' as a percentage (95.86%); recorded as a ratio. It is the adjusted CLA, not the raw CLA, and not the Tax Department's published CLA."
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: "Article 13 on the March 3, 2026 warning asks for $41,458,651 (the local article); the AOE form's budget is $42,654,251, i.e. $1,195,600 more, which the book's expenditure summary (PDF p. 18) lists separately as the 'RVTC Obligation'. The warning also states $15,189 per pupil; the form prints $15,188.92."
+    resolution: pending
+  - path: fiscal_year
+    issue: "This is the March 2026 version. Voters rejected it on March 3, 2026 (741-599 per WCAX). A reduced version passed on May 5, 2026 (544-468 per WCAX). That revote version is a different budget and has no record here; the board letter says net +$207,861 vs this version ($42,862,112 if added), per pupil $15,008."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The book prints one pupil count per year (equalized pupils FY2024, LTWADM FY2025-FY2027) on the AOE form (PDF p. 24); the text layer was searched and the form was viewed as a render. No grade-band breakdown found; the demographic/enrollment pages (PDF pp. 12-13) were not read for band ADM."
+    resolution: left_null

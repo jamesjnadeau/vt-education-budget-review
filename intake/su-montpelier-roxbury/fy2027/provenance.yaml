@@ -1,0 +1,53 @@
+schema_version: "1.0"
+entity: su/montpelier-roxbury
+fiscal_year: 2027
+artifacts:
+  - file: Informational Meeting March 2, 2026.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1gmaGvtwXyBaxvAEHTRJ3PdBXQDNTLj1G
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 1009e09db360523ed393be1c27670abe1b8fcb49f7959d5f58b69cb403f2b1ae
+    bytes: 3980218
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: board_presentation
+    publisher: Montpelier Roxbury Public Schools
+    title: FY27 Budget Informational Meeting, March 2, 2026
+    published_date: 2026-03-02
+    document_page: https://www.mrpsvt.org/budget
+    supersedes: null
+    note: >-
+      34-slide presentation for the FY27 budget informational meeting held the
+      day before the March 3, 2026 vote. Slide 30 ("Estimated Residential Tax
+      Impact") is the district's own FY26-vs-FY27 build-up of total budget,
+      non-tax revenues, education spending, LTW ADM (1,909.88), per-LTW-ADM
+      spending and the Montpelier / Roxbury town rates with CLA; slide 31 is the
+      non-residential rate (an image of a spreadsheet). The district publishes no
+      annual report and no AOE "Three Prior Years Comparisons" form on its own
+      site; this deck is the closest district-published equivalent. Text layer
+      present; slide 25 is a photo montage. Internal PDF title is the file name,
+      creator "Google" (exported from Google Slides). Saved under the filename
+      the server sent (Content-Disposition), byte-for-byte as downloaded. The
+      published_date is the meeting date printed on slide 1, not a posting date.
+  - file: MRSD Warning of 2026 Annual Meeting.pdf
+    source_url: https://drive.google.com/uc?export=download&id=18YV6kd9MhH8VdUMCfOCMLP5jp7V1Uqyl
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 70700b1ed8dda7e6b0b3723157fa18d597fb9f4e36c4736baff02b25bcf863c5
+    bytes: 103439
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Montpelier Roxbury School District
+    title: Warning of 2026 Annual Meeting (Montpelier Roxbury School District)
+    published_date: null
+    document_page: https://www.mrpsvt.org/budget
+    supersedes: null
+    note: >-
+      One-page warning for the March 3, 2026 Australian-ballot meeting, approved
+      by the Board of School Directors on January 21, 2026. Article 3 puts
+      $34,754,275.00 to voters and states estimated per-pupil education spending
+      of $15,034.73, 1.61% above the current year. Signature lines are blank in
+      the posted copy. Saved under the filename the server sent, byte-for-byte as
+      downloaded. Posted by the district as "Approved Warning" under FY27 on the
+      budget page.

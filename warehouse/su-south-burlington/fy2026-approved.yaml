@@ -1,0 +1,42 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/south-burlington
+fiscal_year: 2026
+status: approved
+source: intake/su-south-burlington/fy2027/Budget Book - Fiscal Year 2027-2028.pdf
+source_pages: "PDF p. 27 (printed p. 24)"
+adopted_date: null
+education_spending: 58770072
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/south-burlington
+      homestead_rate_stated: 1.5713
+      cla: 1.0289
+notes: >-
+  FY2026 prior-year column of the FY27 AOE Three Prior Years Comparisons form, printed as the locally adopted budget; no vote date is printed for this year, so adopted_date is null. Total budget $71,507,854; offsetting revenues $12,737,782; education spending $58,770,072; pupils 4,063.19 LTWADM; education spending per pupil $14,464.02; equalized homestead rate $1.6167 (after cent discount; line 27); income cap percent 2.31%. Town rate and CLA are the form's lines 33 and 32 (CLA divided by statewide adjustment, recorded as a ratio); South Burlington is the only town. Re-added: budget minus revenue equals education spending; spending / pupils equals the printed per-pupil.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "Prior-year column of an ESTIMATES ONLY form; rate is the form's line 33 value as printed in the FY27 book, not the Tax Department's certified rate."
+    resolution: recorded_as_other
+  - path: tax.towns.cla
+    issue: "CLA is form line 32 (CLA / statewide adjustment) as printed, recorded as a ratio; not the Tax Department's published CLA."
+    resolution: recorded_as_other
+  - path: adm.prekindergarten
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null

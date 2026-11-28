@@ -1,0 +1,54 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/winooski
+fiscal_year: 2026
+status: approved
+source: intake/su-winooski/fy2027/127th-Annual-Report.pdf
+source_pages: p. 12
+adopted_date: null
+education_spending: 30597445
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/winooski
+    homestead_rate_stated: 1.2403
+    cla: 1.431
+notes: 'FY2026 column of the AOE ''Three Prior Years Comparisons'' form for Winooski ID (T249), PDF p. 12 of the
+  127th Annual Report (February 2026; text layer, rendered and checked). Total budget $35,652,457; offsetting revenues
+  $5,055,012; education spending $30,597,445; pupils 2,005.63 (LTWADM); education spending per pupil $15,255.78;
+  equalized district homestead rate $1.7748 (before CLA); income cap percent 2.51%. Re-added: budget minus revenue
+  equals education spending; spending / pupils equals the printed per-pupil; equalized rate / CLA equals the town
+  rate. '
+not_published: []
+lines_flagged:
+- path: tax.towns.cla
+  issue: The form's CLA line is headed 'Common Level of Appraisal (CLA) divided by Statewide Adjustment' and is
+    printed as a percentage (143.10%); recorded as a ratio. Town rate = equalized rate / this figure ($1.7748 /
+    1.4310 = $1.2403), matching the printed 'Portion of actual district homestead rate to be assessed by town'.
+    Not the Tax Department's published CLA.
+  resolution: recorded_as_other
+- path: adm.prekindergarten
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The report prints one weighted pupil count (equalized pupils for FY24, LTWADM for FY25-FY27) on the AOE
+    form (PDF p. 12), not the four statutory grade bands. Text layer searched and the form page rendered and read;
+    no band breakdown found. The flyer and letter give only the weighted count.
+  resolution: left_null

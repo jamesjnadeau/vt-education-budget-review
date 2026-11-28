@@ -1,0 +1,73 @@
+schema_version: "1.0"
+entity: su/springfield
+fiscal_year: 2027
+artifacts:
+  - file: SSDFY2027BudgetBook.pdf
+    source_url: https://4.files.edl.io/1eb7/02/12/26/213949-3086f204-810c-480d-b2a5-378e3b6ab473.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 32e160676a8b4edbc4b40d4d8ae1c6f797092fb45d567fabb3723e5876e13e0f
+    bytes: 9695813
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Springfield School District
+    title: SSD FY 2027 Budget Book
+    published_date: null
+    document_page: https://www.ssdvt.org/apps/pages/index.jsp?uREC_ID=1549987&type=d&pREC_ID=1676375
+    supersedes: null
+    note: >-
+      The district's FY2027 Budget Book (29 PDF pages, two printed pages per
+      spread; printed pp. 1-58). It was the March 2026 budget: voters rejected
+      it on March 3, 2026 and a reduced version passed at a May 5 revote
+      (see FINDINGS.md). Carries the expenditure summary (PDF p. 18),
+      proposed summary and property taxes (p. 22), revenues (p. 23) and the
+      AOE "Three Prior Years Comparisons" form (PDF p. 24, printed p. 46,
+      stamped PRELIMINARY / ESTIMATES ONLY, FY2024-FY2027 columns), followed
+      by the FY25 audit report. Text layer present. PDF title "SSD Budget
+      Book 2026.indd" (InDesign, created 2026-02-06). Saved under the
+      filename the server sent (Content-Disposition), byte-for-byte.
+  - file: 2026AnnualTownMeetingPublicInfoWarning11.pdf
+    source_url: https://4.files.edl.io/584c/03/02/26/232646-07119148-fa48-4eff-ac7c-917cd304c92d.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 6c26371036342911b7921ea418e0ec0c78975dc9b9450d0ba7ed21358115ad71
+    bytes: 241824
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Town of Springfield and Springfield Town School District
+    title: Annual Town and Town School District Meeting warning, March 3, 2026
+    published_date: null
+    document_page: https://www.ssdvt.org/apps/pages/index.jsp?uREC_ID=1549987&type=d&pREC_ID=2717083
+    supersedes: null
+    note: >-
+      Six-page scanned warning (image only, no text layer, no PDF title).
+      Dated January 26 and 28, 2026, posted January 29. Article 13 asks
+      voters to approve $41,458,651 for the school budget with estimated
+      education spending of $15,189 per pupil (9.26% above the current
+      year). Read from renders. The district filed it as
+      "2026AnnualTownMeetingPublicInfoWarning1 (1)"; the server sent the
+      filename recorded here.
+  - file: BoardLetterforDistrict4-21-26.docx1.pdf
+    source_url: https://4.files.edl.io/373b/04/21/26/212531-30650297-dbb5-4b68-a729-8f9013768374.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 9b1b62fcbda0bc9129203c25258354683577027714be338b0de348b1970ea160
+    bytes: 70236
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Springfield School Board
+    title: Board Letter for District 4-21-26
+    published_date: null
+    document_page: https://www.ssdvt.org/apps/pages/index.jsp?uREC_ID=1549987&type=d&pREC_ID=2717083
+    supersedes: null
+    note: >-
+      One-page letter to voters about the May 5, 2026 revote after the March
+      budget failed. States net budget increase of $207,861 (expenses cut
+      $367,139, federal funding up $575,000), expenditures +0.99% over the
+      current year and per-pupil spending $15,008 ($181 below the March
+      budget). The district's file path suggests April 21, 2026; the
+      letter itself is undated. It gives no total budget and no AOE form.
+      Text layer present; Google Docs export.

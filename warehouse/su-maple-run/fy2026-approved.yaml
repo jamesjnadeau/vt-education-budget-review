@@ -1,0 +1,54 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/maple-run
+fiscal_year: 2026
+status: approved
+source: intake/su-maple-run/fy2027/MRUSD-2025-2026-Annual-Report-.pdf
+source_pages: PDF pp. 17, 21
+adopted_date: 2025-03-04
+education_spending: 58751223
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/fairfield
+      homestead_rate_stated: null
+      cla: null
+    - town: town/st-albans-city
+      homestead_rate_stated: null
+      cla: null
+    - town: town/st-albans-town
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  FY2026 column of the AOE 'Three Prior Years Comparisons' form (PDF p. 21, PRELIMINARY): adopted union budget $77,757,499; offsetting union revenues $19,006,276; education spending $58,751,223; LTWADM 3,915.92; per pupil $15,003.17; equalized union homestead rate $1.7124; income cap percent 2.47%. The March 2025 certification of election (PDF p. 17, signed by clerk Anna Bourdon) states voters on March 4, 2025 approved Article IV, expenditure of $77,757,499, per-pupil education spending $15,007, 5.11% higher.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "Only the equalized union homestead rate ($1.7124) is printed for FY2026 (PDF p. 21), the same for all three towns; no per-town rates."
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: "The form prints no CLAs for Fairfield, St. Albans City or St. Albans Town (PDF p. 21), so town rates cannot be computed as equalized rate / CLA."
+    resolution: left_null
+  - path: education_spending
+    issue: "Per-pupil figure printed on the AOE form is $15,003.17 ($58,751,223 / 3,915.92) but the March 2025 certification (PDF p. 17) says $15,007 for FY2026. Education spending itself ($58,751,223) is the form figure."
+    resolution: pending
+  - path: notes
+    issue: "The line-item expenditure summary (PDF p. 19) prints the FY26 adopted budget total as $77,757,497.00 (its sections also sum to $77,757,497), while the form, revenue summary and certification say $77,757,499."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null

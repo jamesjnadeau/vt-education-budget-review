@@ -1,0 +1,147 @@
+schema_version: '1.0'
+entity: su/southwest-vermont
+fiscal_year: 2027
+artifacts:
+- file: _FY27SVSUAdoptedBudget.pdf
+  source_url: https://4.files.edl.io/21df/01/30/26/160052-2b456dc9-6364-47d5-ba8f-2d82fb38e7b0.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: fa0bf4f25695623ef731d6115cb855196d08eaeb14f66b08b0a9d98e9f936f1f
+  bytes: 1521058
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Southwest Vermont Supervisory Union
+  title: FY27 SVSU Adopted Budget
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'Supervisory union shared-services budget (13 pp, Excel print, text layer): FY27 total expenditures
+    $38,079,870 vs FY26 $37,153,157 (+$926,713, 2.5%), by category and detail, plus FY25 budget-to-actual
+    and FY26-to-FY27 summaries. This is the SU''s own (assessed-to-members) budget; it carries no AOE
+    education-spending form. The server sent filename _FY27SVSUAdoptedBudget.pdf (leading underscore).'
+- file: FY27NBGSDAdoptedBudget.pdf
+  source_url: https://4.files.edl.io/5e5f/01/30/26/160051-b0e4a016-276b-4270-9712-df1c53378b64.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: d715dbd9b8ad2fbc607c8843ad77620b8bf6c538bb459aa2bfe35b9370387978
+  bytes: 1426087
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: North Bennington Graded School District
+  title: FY27 NBGSD Adopted Budget
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'North Bennington Graded School District FY27 budget adopted 01/14/2026 (6 pp, Excel print): expenditures
+    $3,222,388 (-0.67%), revenues, and an ESTIMATED homestead tax rate calculation (education spending
+    $2,808,347, LTW ADM 236.12, $11,894 per pupil). Estimates built on AOE FY27 Prelim v15 (12/31/2025),
+    not the AOE form.'
+- file: FY27MAUAdoptedBudget.pdf
+  source_url: https://4.files.edl.io/f413/01/30/26/160051-3d5bc689-b407-44ab-ae3a-71f07b120c37.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 5f1705b687e94998c326672ed0ae44d4b8250c7b4c852b3e5ae092175db43577
+  bytes: 1385787
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: 'Mount Anthony Union High School District #14'
+  title: FY27 MAU Adopted Budget
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'Mount Anthony Union High School District #14 FY27 budget adopted 01/12/2026 (13 pp, Excel print):
+    expenditures $37,086,761 (+4.0%), revenues, and an ESTIMATED homestead tax rate calculation by town
+    (education spending $34,920,208, LTW ADM 2,849.38, $12,255 per pupil), marked ESTIMATES / AOE FY27
+    Prelim v15.'
+- file: FY27ArlingtonAdoptedBudget.pdf
+  source_url: https://4.files.edl.io/925e/01/30/26/160051-ab334584-2ea5-4553-9b5f-44d53b6b855a.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 4026a0cb1dc9710678db96ba379cde2c2e093aab3bc7223f656e211a3e87b475
+  bytes: 1293797
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Arlington School District
+  title: FY27 Arlington Adopted Budget
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'Arlington School District FY27 budget adopted 01/20/2026 (10 pp, Excel print): expenditures $10,046,574
+    (+2.48%), offsetting revenues $985,362, education spending $9,061,212, LTW ADM 598.97 (prelim v15),
+    $15,127.99 per pupil, with FY24-FY26 comparison columns on p. 5 and estimated homestead rate.'
+- file: FY27SandgateAdoptedBudget.pdf
+  source_url: https://4.files.edl.io/cec3/01/30/26/160051-78f814a0-3f5a-42e4-9997-906b7b3a20cb.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 857b5b3e8af389b6a7e2d27a9e1270f3891abb0579a8a6ccfd986e9e46f1ec67
+  bytes: 1271406
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Sandgate School District
+  title: FY27 Sandgate Adopted Budget
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'Sandgate School District FY27 budget adopted 01/08/2026 (5 pp, Excel print): expenditures $1,382,235
+    (+4.28%), education spending $1,329,263, LTW ADM 137.19 (prelim v15), $9,689 per pupil, with FY24-FY26
+    comparison columns on p. 4 and estimated homestead rate.'
+- file: FY27SVUESDAdoptedBudget.pdf
+  source_url: https://4.files.edl.io/2727/01/30/26/160052-b4877c93-e15c-4f4a-9b36-f173d4cc4362.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 01f4c537d6370cc559bc5733e6a53a7c239e02b0adc13bfd448d814ece44f6af
+  bytes: 1674016
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Southwest Vermont Union Elementary School District
+  title: FY27 SVUESD Adopted Budget (first vote)
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'SVUESD FY27 budget as first put to voters in March 2026 (11 pp, Excel print): grand total $33,499,825
+    vs FY26 $33,128,598 (+1.1%), education spending $31,204,892, LTW ADM 2,220.87, $14,051 per pupil,
+    estimated rates by town. Page link is labelled VOTE1. Voters defeated this budget in March 2026 (see
+    FINDINGS.md); superseded as the operative proposal by the April revote version, which is a separate
+    file.'
+- file: FY27SVUESDAdoptedBudgetv220260317.pdf
+  source_url: https://4.files.edl.io/d844/04/01/26/162403-e87c3bae-b155-43ee-a863-9e49faf38c21.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 4d25fce14bca09543af6fdf12faad1e986929e7d0b21403342800d480d0004f9
+  bytes: 1605710
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Southwest Vermont Union Elementary School District
+  title: FY27 SVUESD Adopted Budget v2 (2026 03 17) - revote
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'SVUESD FY27 budget as revised for the April 14, 2026 revote (11 pp, Excel print; PDF created
+    2026-03-25): grand total $33,128,598 (0.0% change from FY26), education spending $30,833,665, LTW
+    ADM 2,220.87, $13,884 per pupil, estimated rates by town. Distinct from the March first-vote version
+    staged beside it.'
+- file: SVSUFY27LTWADMPreliminaryv152-yrADM.pdf
+  source_url: https://4.files.edl.io/c199/01/30/26/155907-835898eb-c8cf-4990-b330-7a125755a3da.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 83750434680b208f2d5415b3eb526509c18d6aaeed3ec898121057d7ba115ab3
+  bytes: 358682
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: spreadsheet
+  publisher: Southwest Vermont Supervisory Union
+  title: SVSU FY27 LTW ADM Preliminary v15 & 2-yr ADM
+  published_date: null
+  document_page: https://www.svsu.org/apps/pages/index.jsp?uREC_ID=1572175&type=d&pREC_ID=2641005
+  supersedes: null
+  note: 'Long-term weighted ADM worksheet for every district/town in the SU (3 pp, Excel print): AOE FY27
+    Prelim v15 as of 12/31/25, with grade, FRL, EL and sparsity weights and a 2-year ADM table by grade.
+    Source for the LTW ADM figures used in the district budget estimates. Wide tables; columns truncated
+    in text extraction were not all read.'

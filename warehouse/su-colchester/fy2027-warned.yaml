@@ -1,0 +1,89 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/colchester
+fiscal_year: 2027
+status: warned
+source: intake/su-colchester/fy2027/FY27 Four Year Comparison.pdf
+source_pages: p. 1
+adopted_date: null
+education_spending: 56594101
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/colchester
+      homestead_rate_stated: 1.0494
+      cla: 1.5641
+notes: >-
+  FY2027 column of the FY27 'Three Prior Years Comparisons' form (marked PRELIMINARY / ESTIMATES ONLY; PDF p.
+  1). Total budget $70,167,602; offsetting revenues $13,573,501; education spending $56,594,101; pupils
+  3,593.90 (LTWADM); education spending per pupil $15,747.27; equalized homestead rate (line 27) $1.7094.
+  Re-added: budget - revenue = education spending; spending / pupils = printed per-pupil. Budget voted March
+  2026 for FY2027 (board approved Jan 20, 2026). The district's annual report estimates the actual homestead
+  rate at $1.0495 vs $1.8634 in FY26 (townwide reappraisal). Vote: March 3, 2026: yes 1,216 / no 1,083
+  (52.89%), PASSED, $70,167,602, per the district's Voting Record History (intake/su-colchester/fy2027/Voting
+  Record History.pdf;
+  https://csdvt.org/district/schoolboard/budget/fy28/budgetbook/9budgetvote/Voting%20Record%20History.pdf).
+  adopted_date left null because the AOE form does not state it. No separate certified-results page was
+  checked.
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: >-
+      The AOE form prints one pupil count (LTWADM) per year, not the four statutory grade bands. Searched the
+      form text layer (p. 1) and the FY'27 Tax Rate Calculation and Executive Summary; no band breakdown
+      found.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: >-
+      Form line 33 prints $1.0494 (line 33 = equalized rate after cent discount / CLA); the FY'27 Tax Rate
+      Calculation sheet and the annual report print $1.0495 (1.6414 / 1.5641 = 1.04942). Recorded the form's
+      1.0494. The form is marked PRELIMINARY / ESTIMATES ONLY.
+    resolution: pending
+  - path: tax.towns.cla
+    issue: >-
+      FY27 CLA 156.41% is the plain CLA (1.6414 / 1.5641 = 1.0494) and is printed in line 32, whose label
+      reads 'CLA divided by Statewide Adjustment'; FY24-FY26 line 32 values (73.44%, 66.80%, 85.07%) are CLA /
+      statewide adjuster, so the FY27 column is not on the same basis. Recorded as printed, as a ratio.
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: >-
+      Form header prints 'Property dollar equivalent yield ... $9,212' and line 27 uses 9,212 (15,747.27 /
+      9,212 = 1.7094), but the bottom note on the same form says the Dec 1, 2025 Education Fund Outlook yield
+      is $8,849 (the district's Jan 2026 presentations also show $8,849). Not reconciled. Education spending
+      itself ties: 70,167,602 - 13,573,501 = 56,594,101.
+    resolution: pending
+  - path: notes.pupils
+    issue: >-
+      Line 12 label reads 'Pupils (eqpup FY23 - FY24, LTWADM FY25 - FY26)', a stale template heading; the FY27
+      column holds LTWADM 3,593.90, which matches the Tax Rate Calculation sheet ('LTW ADM 3,593.90, as of
+      12/31/25').
+    resolution: pending
+  - path: notes.preliminary
+    issue: >-
+      Form marked 'PRELIMINARY' and 'ESTIMATES ONLY'; final yields and rates will be set by the Legislature.
+      The district's Jan 2026 presentations show earlier draft per-pupil figures ($16,042, $16,056) before the
+      $1,077,007 reductions; the board adopted $70,167,602 on Jan 20, 2026.
+    resolution: pending

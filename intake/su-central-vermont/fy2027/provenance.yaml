@@ -1,0 +1,229 @@
+schema_version: "1.0"
+entity: su/central-vermont
+fiscal_year: 2027
+artifacts:
+  - file: "FY27 CVSU Expenditures.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=16sX-ZWSnD4F-TKEtuO7uaFYJxQiBBLp6
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 231fdf15f16e8c06f225f00b777ba72efaac875a4ba722c481110e195287af1c
+    bytes: 206990
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Central Vermont Supervisory Union"
+    title: "FY27 CVSU Expenditures"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "CVSU's own FY27 (2026-27) expenditure budget, 9 pages: summary by department (Superintendent, Fiscal, Technology, Curriculum, Special Services, Special Education, Transportation, etc.) and line detail, with FY25, FY26 and FY27 columns. Total Central Vermont Supervisory Union Budget $15,891,401 (+3.76%). This is the version the CVSU board approved 12/18/25 (the revenue sheet is labelled 'CVSU Approved- 12.18.25'). PDF created from Excel on 2025-12-17. Text layer present."
+  - file: "FY27 CVSU Revenue.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1UoiWWLPpkd6LIzOQwYS_W8biJtJBEF5M
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 0fe18de801f4faf57bdd19dda5f7f8c221c4e6bc45cdbf5b1deb3ffd8190e835
+    bytes: 92079
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Central Vermont Supervisory Union"
+    title: "FY27 CVSU Revenue"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "One-page CVSU FY27 revenue sheet: local assessments to Echo Valley CSD ($1,563,949) and Paine Mountain SD ($8,060,352), total $9,624,300; state/federal $6,063,798; other $203,303; CVSU total revenue $15,891,401 = total expenditures. Percent labels print PMSD as 73.75% on the line item and 83.75% in the footer (see FINDINGS). PDF created from Excel on 2026-02-04. Text layer present."
+  - file: "FY27 CVSU Budget Expenditure REVISIONS MARCH 2026 V.1.1 Reductions.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1DyI3GX76PfpjJz-ezzk8ACfPRqKNIo37
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: d39b1908975f1281bb285de1489f88a19ee3c2ca198f7a69040329710c0a60cf
+    bytes: 131708
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Central Vermont Supervisory Union"
+    title: "FY27 CVSU Budget Expenditure REVISIONS MARCH 2026 V.1.1 Reductions"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "Revised CVSU FY27 expenditure budget dated 3/25/26 on its first page: $15,729,229 (+2.70% over FY26), a reduction of $162,172 from the original $15,891,401. Linked on the district page as both 'FY27 CVSU Revote Expenditures' and 'FY27 CVSU Revote Revenue' (same file; it contains no revenue sheet). PDF created from Excel on 2026-03-22. Text layer present."
+  - file: "PMSD FY27 Budgets Board Approved 1.21.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1aSKIqYAcwqbG4xparxCp4b83BzqOxwKD
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: ac74a0942ceb3db493273aef6dede692a1e6cd915cc64ad4367a98164788f231
+    bytes: 316708
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Paine Mountain School District (Central Vermont Supervisory Union)"
+    title: "PMSD FY27 Budgets Board Approved 1.21.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "Paine Mountain SD FY27 expenditure budget as approved by its board 1/21/26 (voted 5-4 per the district newsletter): total $27,342,863 vs FY26 $25,627,305. 32 pages, by school and function. Failed on Town Meeting Day 2026-03-03. PDF created from Excel on 2026-01-18. Text layer present; some summary cells print #NAME? (spreadsheet errors)."
+  - file: "PMSD FY27 Budgets Board Approved Revenue 1.21.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1E9CJAZppTGs8RLDezJxQVE3WvJzPXUAk
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 730ea65b78e038d44e7444061a396d2a36546cd4c6f176a02b53134555a18e20
+    bytes: 62919
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Paine Mountain School District (Central Vermont Supervisory Union)"
+    title: "PMSD FY27 Budgets Board Approved Revenue 1.21.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "One-page PMSD FY27 revenue summary for the original board-approved budget: total budgeted revenue $1,624,323 (FY26 $2,347,581); expenditures $27,342,863. PDF created from Excel on 2026-02-04. Text layer present."
+  - file: "PMSD FY27 Budgets Board Tax Rate Approved 1.21.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1drRSmRopp7IaHNakWCTID1keKyDdo0Q0
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 84a9ae6e131fb0e4283a4fe3ec258c109b942c8f63d1db2671865bdbd7ff5f1e
+    bytes: 193009
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Paine Mountain School District (Central Vermont Supervisory Union)"
+    title: "PMSD FY27 Budgets Board Tax Rate Approved 1.21.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "Two-page 'Three year tax comparison' for PMSD, one page each for Northfield and Williamstown (FY25, FY26, FY27 budget columns): expenditures, offsetting revenues, education spending need $25,718,540, LTWADM 1,706.20, ed spend per LTWADM $15,074, CLA and homestead rates (Northfield $2.2854, Williamstown $1.7659). PDF created from Excel on 2026-02-04. Text layer present. Not the AOE form itself."
+  - file: "PMSD Revote Expenditures 3.18.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1BdTGEf9Ya48sMmQPEYl4aC-HjB38JVT3
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 916d243083d3ae7161520e034dfec7332f10d5a5f7d6230d725143c3ebf3c4c7
+    bytes: 66343
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Paine Mountain School District (Central Vermont Supervisory Union)"
+    title: "PMSD Revote Expenditures 3.18.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "Revised PMSD FY27 expenditure summary 'Board Approved 3.18.26' (3 pages): total $26,628,238 (+3.91% over FY26 $25,627,305). Linked on the district page as 'FY27 PMSD Revote Proposed Expenditures'. Voters passed the revote 2026-04-28 (498-416 per the district page). PDF created from Excel on 2026-03-25. Text layer present."
+  - file: "PMSD Revote Revenue  3.18.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1CzvjpHbk4s5fJlaIg6URQtnJ4Ntb739I
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 24c921afccb7499a4aa40460dc8b31ae11ee4a00dada7ea14c600ceb46d85b03
+    bytes: 299768
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Paine Mountain School District (Central Vermont Supervisory Union)"
+    title: "PMSD Revote Revenue 3.18.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "File linked as 'FY27 PMSD Revote Proposed Revenue'. 30 pages: the revenue summary (total budgeted revenue $1,751,840; expenditures $26,628,238) plus school/function line detail. Filename has two spaces before '3.18.26' as sent by the server. PDF created from Excel on 2026-03-25. Text layer present."
+  - file: "EVCSD FY27 Budget Board Approved 1.19.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1kiZDS2jGwg-UoCakDA96QChHYK6R1iiQ
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 956d41334206f788d5aa61f287731e2d6922d56944238534c7183bb9ff57115a
+    bytes: 198618
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "EVCSD FY27 Budget Board Approved 1.19.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "Echo Valley CSD FY27 expenditure budget as board-approved 1/19/26, 19 pages: total $7,476,262 vs FY26 $7,363,338. Failed on floor vote 2026-03-02 (30-33 per EVCSD forum slides on orangevt.org). PDF created from Excel on 2026-01-11. Text layer present."
+  - file: "EVCSD FY27 Budget Approved Revenue 1.19.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1wRBtKImBRv7YSDSdASBkYFVU6aVpWygC
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 5375c4d8650a1b64ad1879ce5a45c0141d1e13ed8644e80935b910ca1d79182b
+    bytes: 58231
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "EVCSD FY27 Budget Approved Revenue 1.19.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "One-page EVCSD FY27 revenue summary for the original budget: total budgeted revenue $316,897 (FY26 $788,626); expenditures $7,476,262. PDF created from Excel on 2026-02-04. Text layer present."
+  - file: "EVCSD FY27 Budget Board Approved Tax Rate1.19.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1qBtm_lhCqKqneRK0cW4Llv8393iLFTxd
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 47686b9b37794effeead46e1d3cb4a00ab3878ccaab563cfe74f31a66f6f696b
+    bytes: 194551
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "EVCSD FY27 Budget Board Approved Tax Rate1.19.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "Two-page 'Three year tax comparison' for EVCSD, one page each for Washington and Orange (FY25, FY26, FY27 original budget): education spending need $7,159,365, LTWADM 555.97, ed spend per LTWADM $12,877, CLA and homestead rates (Washington $1.8266, Orange $1.6079). PDF created from Excel on 2026-02-04. Text layer present."
+  - file: "FY27 Budgets REVISIONS MARCH 2026 Expenditures.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1yS5askey9KkX_2GmxHxqTV4qufW-NyxQ
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: c1fe24b735f7dd0e3206cd4b4dc884e50951e4a7abc0fd4e59b2bff604928b41
+    bytes: 172532
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "FY27 Budgets REVISIONS MARCH 2026 Expenditures"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "EVCSD FY27 first-revision expenditure budget, 18 pages: $7,409,032. Linked as 'FY27 EVCSD Revote Proposed Expenditures'. The revote failed 2026-04-28 (96 yes, 112 no per the district page). PDF created from Excel on 2026-04-10. Text layer present."
+  - file: "FY27 Budgets REVISIONS MARCH 2026 Revenue.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1MomUKrHH-_769x2xYo138KpI1aNj6p_g
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 8c8c5ec816f839ce325f83b0b6653c0472de7865d6696460c448930c307eca2c
+    bytes: 42902
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "FY27 Budgets REVISIONS MARCH 2026 Revenue"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "One-page EVCSD first-revision revenue summary: total budgeted revenue $356,642; expenditures $7,409,032. Linked as 'FY27 EVCSD Revote Proposed Revenue'. PDF created from Excel on 2026-04-10. Text layer present."
+  - file: "FY27 Budgets Revisions for 5.13.26.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=13weQ4YSz11R4G_2FF3xH75Fdpvocy6bx
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: c43f613892180b0be050ab54263fd028167279aab2e997fc2d170ea7b5331ac3
+    bytes: 370078
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "FY27 Budgets Revisions for 5.13.26"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "EVCSD FY27 second-revision budget (for the 2026-06-03 revote), 22 pages including the revenue sheet and a tax comparison: expenditures $7,331,175, education spending need $6,974,533, LTWADM 555.97, ed spend per LTWADM $12,545. Linked as 'FY27 EVCSD 2nd Revote Proposed Expenditures'. Contains a leftover revenue sheet still showing $7,409,032 expenditures (see FINDINGS). PDF created from Excel on 2026-05-11. Text layer present."
+  - file: "FY27 Budgets Revisions JUNE 2026 Revenue.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1K-3gQWpJlsxYoGblgexz7cU5dSXDqmDm
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 280ccf0f4e1c0fa0c3ded7b17e6e00601183e9777fc603395f61be3a14e187a6
+    bytes: 50733
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: "Echo Valley Community School District (Central Vermont Supervisory Union)"
+    title: "FY27 Budgets Revisions JUNE 2026 Revenue"
+    published_date: null
+    document_page: https://www.cvsu.org/central-office/business-office/fy27-budget-page
+    supersedes: null
+    note: "One-page file linked as 'FY27 EVCSD 2nd Revote Proposed Revenue'. Its content is identical in figures to the April first-revision revenue sheet (revenue $356,642; expenditures $7,409,032) and its PDF creation date is 2026-04-10, so it does not show the $7,331,175 second-revision expenditures. Saved as sent; see FINDINGS."

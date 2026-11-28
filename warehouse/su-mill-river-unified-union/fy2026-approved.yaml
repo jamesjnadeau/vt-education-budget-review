@@ -1,0 +1,84 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/mill-river-unified-union
+fiscal_year: 2026
+status: approved
+source: intake/su-mill-river-unified-union/fy2027/2026 Annual Report .pdf
+source_pages: pp. 25, 15, 30
+adopted_date: '2025-03-04'
+education_spending: 17287875
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/clarendon
+    homestead_rate_stated: null
+    cla: null
+  - town: town/shrewsbury
+    homestead_rate_stated: null
+    cla: null
+  - town: town/tinmouth
+    homestead_rate_stated: null
+    cla: null
+  - town: town/wallingford
+    homestead_rate_stated: null
+    cla: null
+notes: 'FY2026 column of the AOE form in the 2026 annual report (p. 25, PRELIMINARY). Printed as the adopted/warned
+  union budget $22,042,475; offsetting union revenues $4,754,600; education spending $17,287,875; LTWADM
+  1,273.42; education spending per pupil $13,575.94; equalized union homestead rate $1.5793; income cap
+  2.23%. Vote: p. 30 prints the March 4, 2025 official tally, Article 4 (budget) Yes 576 / No 434, Article
+  5 Yes 702 / No 294; adopted_date 2025-03-04 is that vote date (the tally sheet does not label the article
+  texts; Article 4 of the Feb 27, 2025 warning in the report was the $22,042,475 budget). Operating fund
+  summary p. 15: approved budget 2025-26 expenditures $22,042,475, revenue $21,042,475, anticipated actuals
+  expenditures $21,619,180 and revenue $21,616,181.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: The p. 25 AOE form is stamped 'PRELIMINARY' and 'ESTIMATES ONLY', and its footnote says it uses
+    the revised Dec 1, 2025 Education Fund outlook (property yield $8,849, income yield $12,154) and that
+    final figures will be set by the Legislature. The form is a 575x729 pixel image; figures were read
+    from enlarged renders and re-added arithmetically (budget - revenue = education spending; spending
+    / pupils = per pupil).
+  resolution: pending
+- path: education_spending
+  issue: The p. 25 form shows FY2026 per-pupil spending $13,575.94 but the 2025 warning reproduced in
+    the report (minutes, pp. 27-29) printed $13,570.29 (5.12% higher than the prior year). Recorded, not
+    reconciled.
+  resolution: pending
+- path: adm.prekindergarten
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: tax.towns.homestead_rate_stated
+  issue: The p. 25 form prints 'Prorated homestead union tax rates for members' as $1.5793 for all four
+    towns (Clarendon, Shrewsbury, Tinmouth, Wallingford), i.e. the equalized union rate with no town CLA
+    applied; p. 14 says the anticipated rate 'has not been adjusted for Common Level of Appraisals'. These
+    are not town rates (equalized rate / CLA), so none is entered. The printed values are in notes.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No town CLAs are printed anywhere in the report.
+  resolution: left_null

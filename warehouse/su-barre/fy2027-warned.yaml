@@ -1,0 +1,50 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/barre
+fiscal_year: 2027
+status: warned
+source: intake/su-barre/fy2027/BUUSDFY27BUDGETSUMMARY-REVENUES2-17-26.pdf
+source_pages: p. 1
+adopted_date: null
+education_spending: 45501740
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/barre-city
+      homestead_rate_stated: null
+      cla: null
+    - town: town/barre-town
+      homestead_rate_stated: null
+      cla: null
+notes: "FY27 budget as first put to voters (warning for March 3, 2026; board-adopted Jan 20, 2026): total general-fund budget $57,829,257 (+3.36% over FY26 $55,949,143); education spending $45,501,740 (revenue-summary line); other general-fund revenue $12,327,517 (tuition, interest, transportation aid, Census Block Act 173 $5,132,517, special ed $4,944,000, CVCC $500,000, fund balance $100,000, misc); federal and state grants of $3,000,000 are outside the general fund (total BUUSD revenue $60,829,257). Ballot per-pupil education spending $12,982 (13.12% above current year); the pupil count is LTWADM, not printed as a number. VOTE HISTORY (district Vote 4 slides): Mar 3 2026 not approved; May 12 2026 ($12,748 per pupil) not approved; Sept 15 2026 ($57,129,257, $12,648) not approved; Nov 3 2026 revote $56,621,592 (+1.20%, $12,503 per pupil, 8.95% above current year; warning in intake). The district's own site (buusd.org home and budget pages) does not state the Nov 3 result as of 2026-11-28. Press reports it APPROVED: 2,872 yes to 1,665 no combined, Barre City 1,287-773, Barre Town 1,599-1,263 (https://www.wcax.com/2026/11/04/barre-residents-approve-566-million-school-budget/ and https://vtdigger.org/2026/11/04/barre-voters-approve-school-district-budget-on-4th-attempt/). The approved FY27 figure is $56,621,592; its education spending is not printed in any staged document, so this record holds only the March-vote version and is status warned."
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The source prints no pupil count by statutory grade band (the FY27 documents mention LTWADM only as a drop of about 262-263 weighted pupils and give per-pupil figures). Text of the revenue summary, the warnings and the Vote 4 slides was searched; the 68-page budget detail was text-searched only for LTWADM/equalized and was not staged."
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: "This source prints no per-town homestead rate. Other FY27 documents print estimated rates (March mailer: Barre City 1.457, Barre Town 1.428; Vote 4 slides: Barre City $0.928, Barre Town $1.294) but they are estimates for different budget versions and are not in this source file."
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: "No CLA ratio is printed in this source. The Vote 4 slides mention only a 'CLA change of 48.74%' for Barre City (reappraisal)."
+    resolution: left_null
+  - path: education_spending
+    issue: "Taken from the line labelled 'EDUCATION SPENDING' on the district's revenue summary (the state education-fund revenue line), not from the AOE Three Prior Years Comparisons form, which the district does not post for this year. Column sums were re-added: the 17 revenue lines of the FY27 column sum to $57,829,257, FY26 to $55,949,143 and FY25 budget to $53,308,338."
+    resolution: pending
+  - path: status
+    issue: "The same source file's FY27 revenue column is dated 'Proposed FY27 Revenue Budget, 12-15-25' on the page while the file name says 2-17-26 and the PDF title says 'January 9, 2025'. The budget voters finally approved on Nov 3, 2026 ($56,621,592) differs from this record's $57,829,257."
+    resolution: pending

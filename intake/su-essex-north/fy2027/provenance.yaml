@@ -1,0 +1,88 @@
+schema_version: "1.0"
+entity: su/essex-north
+fiscal_year: 2027
+artifacts:
+  - file: "csd revised Town Report FY ending 2025.pdf"
+    source_url: https://aptg.co/N8FH9X
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 97149ee54efb680f4b120e6f539895315919a71067134f61c6e25f08fbfc2516
+    bytes: 4213076
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Canaan School District
+    title: "Annual Reports of the Canaan School District, Canaan VT, for year ending December 31, 2025 (csd revised Town Report FY ending 2025)"
+    published_date: null
+    document_page: https://www.ensuvt.org/page/canaan-school-distrtict-board
+    supersedes: null
+    note: >-
+      48-page PDF with text layer (Adobe Acrobat Pro, PDF created 2026-01-27).
+      Canaan School District FY27 budget (PDF pp. 22-36), FY27 estimated tax rate
+      page (p. 37), AOE Three Prior Years Comparisons (p. 38, columns FY24-FY27;
+      labelled PRELIMINARY/ESTIMATES), the Essex North Supervisory Union FY27
+      proposed budget split between NEK Choice and Canaan (pp. 44-46), and the NEK
+      Choice FY27 preliminary budget (pp. 47-48). Also the abstract of the March
+      3, 2025 meeting (FY26 vote). This is a Canaan district report, not a
+      supervisory-union report; the ENSU budget is an appendix. Filename as sent
+      by the server; the PDF has no internal title.
+  - file: "7-NEK-BUDGET-FY-27-Board-approved-121825.pdf"
+    source_url: https://aptg.co/Dx_Jqz
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: beafda8646a2d3f89193a8b9e53661e9da3872147fae7a9704c6f990392128d3
+    bytes: 158450
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: NEK Choice School District
+    title: "NEK Choice Proposed Budget FY27 (2026-2027 FY27 Preliminary)"
+    published_date: null
+    document_page: https://www.ensuvt.org/o/nek/page/nek-choice-board
+    supersedes: null
+    note: >-
+      Two-page line-item budget (created from Excel 2026-01-21; filename says
+      Board approved 12/18/25, pages say Preliminary). FY27 proposed $7,594,091 vs
+      FY26 approved $7,630,243; revenue statement with education fund $7,473,091.
+      Prints no pupil count or per-pupil figure. The server sent no Content-
+      Disposition; filename is the last path segment of the redirect URL. Page 1
+      column header reads 'Approved Budget (FY29)', a typo for FY26.
+  - file: "22 FY 27 CSD approved budget town report.pdf"
+    source_url: https://aptg.co/0srKN6
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 923340952354a0131891938dee38491ae79ec0beb6ab2f1ab9cf58ceea1270f7
+    bytes: 361694
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Canaan School District
+    title: "CSD FY27 Proposed Budget (22 FY 27 CSD approved budget town report)"
+    published_date: null
+    document_page: https://www.ensuvt.org/page/canaan-school-distrtict-board
+    supersedes: null
+    note: >-
+      11-page line-item general fund budget (created from Excel 2026-01-27): FY26
+      approved, FY26 anticipated, FY27 proposed ($5,530,704 total, p. 11), by
+      object and program. Same figures as the budget section of the annual report.
+      Filename as sent by the server.
+  - file: "1 Canaan School District Warning.pdf"
+    source_url: https://aptg.co/zLD3Z3
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f08c0f7bc1dafd2b9e71ca8dc025021d2e8a10beb13389949fc4a7184d3a44d4
+    bytes: 55893
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Canaan School District
+    title: "Canaan School District Warning (March 2, 2026 meeting)"
+    published_date: null
+    document_page: https://www.ensuvt.org/page/canaan-school-distrtict-board
+    supersedes: null
+    note: >-
+      One-page scanned image (no text layer), read from a render. School meeting
+      Monday March 2, 2026, 6:00 p.m., Australian ballot for officers March 3.
+      Article 3: expend $5,530,704; estimated per-pupil education spending
+      $17,099, stated as '.082% higher' than the current year. Signed January 26,
+      2026. States no result. Filename as sent by the server.

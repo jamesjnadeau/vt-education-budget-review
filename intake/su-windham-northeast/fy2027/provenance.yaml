@@ -1,0 +1,32 @@
+schema_version: "1.0"
+entity: su/windham-northeast
+fiscal_year: 2027
+artifacts:
+  - file: 01AnnualReport_final.pdf
+    source_url: https://resources.finalsite.net/images/v1770236753/wnesuorg/x5eo3qypmry1kudzzxch/01AnnualReport_final.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 6ae95e4ea0c306e47f624522cdb8587ee9494bbe27ff999c6cc4caaf8af76589
+    bytes: 16458468
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Windham Northeast Supervisory Union
+    title: WNESU Annual Report 2026-2027
+    published_date: null
+    document_page: https://www.wnesu.org/school-boards/budgets
+    supersedes: null
+    note: >-
+      Combined annual report (105 pages) for the Windham Northeast Supervisory
+      Union and its budget-setting districts, issued January-February 2026
+      ahead of the March 3, 2026 vote. Contains the FY27 general fund budget
+      summary of the SU itself (PDF p. 21; $11,344,311) and, for each of four
+      districts, a budget summary, a warning, and the AOE "Three Prior Years
+      Comparisons" form with FY24-FY27 columns, all stamped PRELIMINARY:
+      Bellows Falls UHSD #27 (forms p. 43; warning pp. 31-32), Rockingham
+      (p. 76; warning pp. 58-59), Westminster (p. 91; warning p. 83), and Athens
+      Grafton / Windham Northeast Union Elementary School District (p. 104;
+      warning pp. 97-98). The server sent no Content-Disposition header, so the
+      filename is the last URL path segment. The PDF was made by Adobe Acrobat
+      17.12 "Image Conversion Plug-in" (created 2026-02-03, modified
+      2026-02-04) and has a text layer. Saved byte-for-byte as downloaded.

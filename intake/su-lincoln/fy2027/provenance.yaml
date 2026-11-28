@@ -1,0 +1,65 @@
+schema_version: '1.0'
+entity: su/lincoln
+fiscal_year: 2027
+artifacts:
+- file: 2025 Town Report pp 32-59 v4 School FINAL (1).pdf
+  source_url: https://lincolnsd.org/s/2025-Town-Report-pp-32-59-v4-School-FINAL-1.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: e07eb7874d764c9dad67e2b1a8862bdea31a65a409786c85fe9358f056b9910a
+  bytes: 2952437
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: Lincoln School District
+  title: Town of Lincoln 2025 Annual Report - School pages (pp. 32-59)
+  published_date: null
+  document_page: https://lincolnsd.org/budget-1
+  supersedes: null
+  note: The school-district pages of the Town of Lincoln 2025 annual report, issued ahead of the February
+    28, 2026 annual school district meeting (FY2027 budget). 32 PDF pages (printed pages 32-59 of the
+    town report; PDF page = printed page - 31). Contains the board's FY27 budget letter (PDF p. 12), budget
+    overview and revenue/expenditure detail with FY25-FY27 columns (pp. 13-19), estimated homestead tax
+    calculation (p. 21), the warning (p. 24) and the March 3, 2025 annual meeting minutes (pp. 26-28).
+    It does not contain the AOE 'Three Prior Years Comparisons' form; that is the separate file 3 Prior
+    years.pdf. The server sent no Content-Disposition; the lincolnsd.org/s/ link redirects to a static1.squarespace.com
+    URL and the filename is that URL's last path segment, URL-decoded. PDF Author field is 'Student' (Word-to-PDF
+    export, created 2026-01-23). Text layer present.
+- file: 3 Prior years.pdf
+  source_url: https://lincolnsd.org/s/3-Prior-years.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 89255e8c1d3c23f06ccc7c71b72755b428de136f9a913c5cdbc1f527f2a6050a
+  bytes: 524718
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Lincoln School District
+  title: FY27 Three Prior Years Comparisons (AOE form), FY2024-FY2027
+  published_date: null
+  document_page: https://lincolnsd.org/budget-1
+  supersedes: null
+  note: One-page AOE 'Three Prior Years Comparisons' form, stamped PRELIMINARY / ESTIMATES ONLY, with
+    FY2024-FY2027 columns (budget, offsetting revenues, education spending, pupils, per-pupil, tax rate
+    and CLA). Internal PDF title 'FY27 EdSpend prior years v03.xlsx', created 2026-01-14. Text layer present.
+    The server sent no Content-Disposition; the filename is the last path segment of the redirect target
+    URL, URL-decoded. FY2027 is the district's own form for the budget voted Feb 28, 2026.
+- file: 2026 Feb 28  LSD Minutes DRAFT (1).pdf
+  source_url: https://lincolnsd.org/s/2026-Feb-28-LSD-Minutes-DRAFT-1.pdf
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 9725401fa6eab4ced82917e5d754d1f25c96534bc9fffa97d3cbe2ee585f3f32
+  bytes: 188181
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Lincoln School District
+  title: Minutes, Annual Meeting of the Lincoln School District, February 28, 2026 (DRAFT)
+  published_date: null
+  document_page: https://lincolnsd.org/board-meeting-agendas-minutes
+  supersedes: null
+  note: 'Three-page DRAFT (unapproved) minutes of the Feb 28, 2026 annual school district meeting. Article
+    6 (FY2027 budget of $5,407,140.12) is recorded as ''Passed by clicker vote. YES: 137 NO: 17'' (PDF
+    p. 2). Staged as the district''s own evidence of the vote result. The server sent no Content-Disposition;
+    the filename (with its double space) is the last path segment of the redirect target URL, URL-decoded.
+    Created in Word 2016 on 2026-03-06.'

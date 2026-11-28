@@ -1,0 +1,30 @@
+schema_version: "1.0"
+entity: su/saint-johnsbury
+fiscal_year: 2027
+artifacts:
+  - file: 2026 Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1OlfVZONmzUirdqhblZ55zzaGP_JLoZAj
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 6733007d43fd486bc2b9a3def8fe6713e3c7a8b7fb751cf81b3710e52feb7f7e
+    bytes: 1458608
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Saint Johnsbury School District
+    title: 2026 Annual Report
+    published_date: null
+    document_page: https://www.stjsd.org/en-US/budget/2026-annual-report-b63b8dbe
+    supersedes: null
+    note: >-
+      The district's 2026 annual report issued ahead of the March 3, 2026 vote on
+      the FY2027 budget (20 pages, text layer present). Pages 9-13 carry the
+      FY2027 proposed-budget letter, estimated homestead tax effect, revenue
+      summary, an "Estimated Homestead Tax Rates" table (expenditures, revenues,
+      net education spending, LTW ADM, per-pupil, yield, rates) and the
+      expenditure summary and line-by-line budget. It does NOT contain the AOE
+      "Three Prior Years Comparisons" form. Saved under the filename the server
+      sent in Content-Disposition ("2026 Annual Report.pdf"), byte-for-byte; the
+      district's page lists the Drive file as St_Johnsbury_2026_NEW_WEB.pdf.
+      Internal PDF metadata: Adobe InDesign 21.1, created 2026-01-27; no title
+      field. The district states no publication date.

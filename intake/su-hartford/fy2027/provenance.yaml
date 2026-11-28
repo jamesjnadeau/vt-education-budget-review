@@ -1,0 +1,71 @@
+schema_version: "1.0"
+entity: su/hartford
+fiscal_year: 2027
+artifacts:
+  - file: fy27_proposed_budget_packet.pdf
+    source_url: https://files.smartsites.parentsquare.com/11463/fy27_proposed_budget_packet.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: ea36bd21d3c59d55d7fc1d87c9cd66916114affb337591efa9545642fdcc9299
+    bytes: 1499556
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Hartford School District
+    title: Hartford School District Fiscal Year 2027 Proposed Expenditure and Revenue Budgets
+    published_date: null
+    document_page: https://hsdvt.com/213316_3
+    supersedes: null
+    note: >-
+      14-page FY2027 proposed budget packet (the district's trimmed annual-report
+      financial section). PDF p. 2 all-funds revenue and expenditure budgets
+      ($58,707,341 FY27 proposed); pp. 3-6 general fund and Warrant Article 2
+      function/object summaries; pp. 7-9 revenue; p. 10 FY2026 student
+      population; p. 11 "Vermont State Education Tax for Hartford School
+      District" form (FY25/FY26/FY27 columns: education spending, long-term
+      weighted pupils, per-pupil, CLA, rates). The pages are scans (Canon
+      iR-ADV C5870 scanner, PDF created 2026-02-09) with a noisy OCR text layer;
+      figures were read from page renders. The server sent no
+      Content-Disposition header, so the filename is the last URL path segment.
+      Saved byte-for-byte as downloaded.
+  - file: 2026_school_dist_warnings_both.pdf
+    source_url: https://files.smartsites.parentsquare.com/11463/2026_school_dist_warnings_both.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 5c811cf64183602fee273cc4aeb2e1f5f88ad477f5973f3f487432f83eeda5e6
+    bytes: 753400
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Hartford School District
+    title: Warning for Annual Hartford School District Meeting 2026 (February 28 and March 3, 2026)
+    published_date: 2026-01-14
+    document_page: https://hsdvt.com/213316_3
+    supersedes: null
+    note: >-
+      Two-page scanned warning, dated by the Board of School Directors 14 Jan
+      2026 and recorded by the Hartford Town Clerk 15 Jan 2026. Article 2: expend
+      $58,707,341; estimated education spending $17,677.97 per equalized pupil,
+      10.24% higher than the current year. Image-only (no text layer); read from
+      renders. No Content-Disposition from the server; filename is the last URL
+      path segment.
+  - file: 2026_official_school_dist_results.pdf
+    source_url: https://files.smartsites.parentsquare.com/11463/2026_official_school_dist_results.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: a6bf38b2ab60b8a5bfdbe4cfba87ce8a462726cf6461c782ae76cd04af99fab3
+    bytes: 635415
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Hartford Town Clerk (posted by Hartford School District)
+    title: Certificate of Results, Annual School District Meeting, Town of Hartford, March 3, 2026
+    published_date: 2026-03-04
+    document_page: https://hsdvt.com/213316_3
+    supersedes: null
+    note: >-
+      Two-page scanned certificate of results and annotated official ballot,
+      attested by Town Clerk Lisa M. O'Neil 4 Mar 2026. Article 2 (the
+      $58,707,341 budget): Yes 763, No 542 (1,372 total votes counted: 260
+      early/absentee, 1,113 in person). Image-only; read from renders. No
+      Content-Disposition from the server; filename is the last URL path segment.

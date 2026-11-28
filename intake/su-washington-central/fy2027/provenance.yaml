@@ -1,0 +1,53 @@
+schema_version: "1.0"
+entity: su/washington-central
+fiscal_year: 2027
+artifacts:
+  - file: 46f4928c9c8eee7638f458e92d07180fc50d5d1a.pdf
+    source_url: https://cdnm.heyzine.com/files/uploaded/46f4928c9c8eee7638f458e92d07180fc50d5d1a.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: b309c9e8209db30ab15fff1dad4a85a1e3cc9c17e476d28a395544caad7c810a
+    bytes: 3282846
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Washington Central Unified Union School District
+    title: WCUUSD Annual Report 2026
+    published_date: null
+    document_page: https://www.wcuusd.org/budget-info/annual-reports
+    supersedes: null
+    note: >-
+      36-page annual report for the March 2026 annual meeting (FY2027 budget). The
+      district links it as a Heyzine flipbook (https://heyzine.com/flip-book/46f4928c9c.html);
+      the uploaded source PDF is served directly from Heyzine's file CDN, which is the URL
+      recorded here. The server sent no Content-Disposition, so the file is saved under the
+      last URL path segment. Text layer present. Carries the AOE "Three Prior Years
+      Comparisons" form (PDF p. 31, stamped PRELIMINARY / ESTIMATES ONLY; FY2024-FY2027
+      columns), the district's budget summary (p. 32) and CLA / tax-rate projection by town
+      (p. 33), and the line-item general fund budget (pp. 26-30), which itemizes the FY2027
+      budget for three elementary schools (the five-school itemization is in the Final Detail
+      Budget Sheet, not staged). Internal PDF metadata: created 2026-02-06 by pdftk-java /
+      iText; no title or author. The district does not print a publication date. Saved
+      byte-for-byte as downloaded.
+  - file: FY27FinalWarnedBudget.pdf
+    source_url: https://resources.finalsite.net/images/v1769802816/wcsu32org/j6gjquw3gv0n1ayzeidr/FY27FinalWarnedBudget.pdf
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 126ba7302274870e4a71f981886ad91a95101edd3ba66d71fe1a4b2251a277cb
+    bytes: 99585
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Washington Central Unified Union School District
+    title: FY 27 Final Warned Budget
+    published_date: null
+    document_page: https://www.wcuusd.org/budget-info
+    supersedes: null
+    note: >-
+      6-page Excel-generated comparative summary and line-item budget, FY2025-26 vs FY2026-27
+      "FINAL", for the three-elementary-school scenario: expenditures $43,271,845, revenues
+      $6,934,032, local education spending $36,337,813, LTWADM 2,219.40, per pupil $16,372.81.
+      The district page links it through a resource-manager URL that redirects (302) to the
+      URL recorded here; the server sent no Content-Disposition, so the file is saved under the
+      last URL path segment. Internal PDF metadata: author Gann, Susanne; created 2026-01-30 by
+      Microsoft Excel 2016. Saved byte-for-byte as downloaded.

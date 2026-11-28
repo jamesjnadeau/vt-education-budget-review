@@ -1,0 +1,46 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/hartford
+fiscal_year: 2026
+status: approved
+source: intake/su-hartford/fy2027/fy27_proposed_budget_packet.pdf
+source_pages: pp. 2, 11
+adopted_date: null
+education_spending: 34513512
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/hartford
+      homestead_rate_stated: 1.259
+      nonhomestead_rate_stated: 1.1916
+      cla: 1.4292
+notes: >-
+  Prior-year (FY26) column of the p. 11 form in the FY27 packet. Total expenditure budget all funds $55,095,949 (matches the FY26 adopted figure on p. 2); revenues without state education tax $20,582,437; education spending $34,513,512; long-term weighted average pupils 2,152.34; per weighted pupil $16,035.34; homestead rate $1.2590; non-homestead rate $1.1916; CLA 142.92%. Budget minus revenue and spending / pupils re-add. $55,095,949 and $16,035.34 also appear in the FY26 warning in the Town and School District 2024 Annual Report (https://hartford-vt.org/DocumentCenter/View/12050), seen in search results only, not downloaded. The FY27 packet labels this column ADOPTED (p. 2); no vote date or result is stated in the staged documents, so adopted_date is null.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "Rate is line 12 of the p. 11 form ('Portion of Actual Equalized Homestead Tax Rate Assessed by the Town'), the district's own calculation, not the Tax Department's. Not recomputed here. Hartford is the sole member town; SU and town are the same budget-setting district."
+    resolution: recorded_as_other
+  - path: tax.towns.cla
+    issue: "CLA is line 11 of the p. 11 form, printed as a percentage (142.92%) and recorded as a ratio. The district's figure, not the Tax Department's published CLA."
+    resolution: recorded_as_other
+  - path: tax.towns.cla
+    issue: "Printed CLA of 142.92% (FY26) and 140.89% (FY27) vs 66.31% (FY25) is a very large swing; recorded as printed, not checked against Tax Department CLAs."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The packet prints one weighted pupil count (long-term weighted average on the p. 11 form), not the four statutory grade bands. The text layer was searched and pp. 10-11 were read as images; p. 10 prints a FY2026 headcount table by grade (1,515 total) that is not the statutory ADM and was not transcribed."
+    resolution: left_null

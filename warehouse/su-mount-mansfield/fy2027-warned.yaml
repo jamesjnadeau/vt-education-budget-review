@@ -1,0 +1,95 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/mount-mansfield
+fiscal_year: 2027
+status: warned
+source: intake/su-mount-mansfield/fy2027/Annual Report 25-26 Final Final.pdf
+source_pages: pp. 32-34, 43, 45
+adopted_date: null
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/bolton
+      homestead_rate_stated: 1.4622
+      cla: 1.143
+    - town: town/huntington
+      homestead_rate_stated: 1.0815
+      cla: 1.5454
+    - town: town/jericho
+      homestead_rate_stated: 2.1218
+      cla: 0.7877
+    - town: town/richmond
+      homestead_rate_stated: 1.3779
+      cla: 1.2129
+    - town: town/underhill-town
+      homestead_rate_stated: 1.5588
+      cla: 1.0722
+notes: "FY27 budget as printed in the 2025-26 annual report for the March 3, 2026 Australian-ballot vote:
+  total budget $64,963,496 (PDF p. 43 detail total; the official warning Article 4 prints the same amount and
+  estimates per-pupil education spending of $15,771, 9.79% above the current year). The annual report has no AOE
+  education-spending form; the nearest printed figure is the district's own 'Education Spending' $55,066,098
+  (PDF p. 33 estimated homestead tax rate chart and PDF p. 32 five-year chart), which implies offsetting revenues of
+  $9,897,398 (budget minus that figure; not printed as such). Estimated equalized pupils 3,491.64 (FY26 3,515.00);
+  education spending per equalized pupil $15,771 (+9.78%); estimated property yield 8,849; spending adjustment
+  178.22%; Act 127 discount ($0.1109); estimated equalized homestead rate $1.6713 (FY26 $1.5268). The district
+  fact sheet (FY27_Budget_Fact_Sheet_Final.pdf, not staged) states LTW ADM 3,490. Town rates are 'Proposed
+  Equalized Homestead Tax Rate adjusted for CLA' (PDF p. 33); cla is the 'FY27 Adjusted CLA (%)' from PDF p. 34
+  (unadjusted CLA / 70.33% statewide adjustment), as a ratio; each rate = $1.6713 / cla (re-added). Prior-year
+  columns: FY26 education spending $50,496,414, FY26 total budget $61,290,046 (chart) or $61,290,047 (detail);
+  FY25 education spending $49,838,416; no AOE form printed, so no FY26/FY25 records were written. Vote result:
+  approved 2,251 to 1,290 (64%) per the district's own superintendent letter dated March 4, 2026,
+  https://drive.google.com/file/d/1wMwVtKQc5r1Vpw5XSPj0YvRAi2kbIkij/view (staged in intake/su-mount-mansfield/fy2027);
+  not a certified result. Status stays warned because this record's source is the pre-vote document; adopted_date
+  left null."
+not_published: []
+lines_flagged:
+  - path: education_spending
+    issue: The annual report has no AOE 'Three Prior Years Comparisons' / education-spending form. Nearest printed
+      figure is the district's own estimate 'Education Spending' $55,066,098 (PDF p. 33 chart; also PDF p. 32 5-year
+      chart), described as an estimate pending the 2026 Legislature's yield. Left null rather than substituting it.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: Rates are the district's estimates ('Estimated Homestead Tax Rate', yield 8,849 pending the 2026
+      Legislature), not the Tax Department's. Town rates differ from the January 2026 fact sheet (e.g. Bolton $1.4045,
+      Huntington $1.0924, Jericho $2.0891, Richmond $1.3812, Underhill $1.5767 on a district rate of $1.6713) because
+      the fact sheet uses different CLAs (119/153/80/121/106%).
+    resolution: pending
+  - path: tax.towns.cla
+    issue: CLA is the 'FY27 Adjusted CLA' (unadjusted CLA / 70.33% statewide adjustment) from PDF p. 34 (114.30,
+      154.54, 78.77, 121.29, 107.22%), recorded as ratios. Chart p. 33 rounds them to 114/155/79/121/107%. Jericho is
+      being reappraised; the report says a new CLA will not be available until July and that Jericho is expected to see
+      a rate reduction. Underhill is recorded under town/underhill-town (the registry member district lists underhill-town).
+    resolution: recorded_as_other
+  - path: total_budget
+    issue: PDF p. 32 five-year chart prints FY25 $60,123,046 and FY26 $61,290,046; the PDF p. 43 detail total prints
+      FY25 $60,123,048 and FY26 $61,290,047 (AOE cash flow report prints $61,290,046). $2 / $1 disagreements; FY27
+      $64,963,496 agrees everywhere. Recorded, not reconciled.
+    resolution: pending
+  - path: notes.pupils
+    issue: The tax chart (PDF p. 33) labels 3,491.64 'Estimated Equalized Pupils (EP)' while the fact sheet calls
+      ~3,490 'Long-term weighted ADM'. Not a printed LTWADM in the annual report. Also the printed per-pupil is
+      $15,771 (+9.78% on chart; +9.79% in warning). Chart FY26 $14,366 vs 50,496,414 / 3,515.00 = $14,365.98.
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: The report prints one pupil count (estimated equalized pupils 3,491.64), not the four statutory grade
+      bands. Text layer searched; chart pages read as images. School-level enrollments appear in school reports but
+      are not the statutory bands. Pages 13-30 school narrative not read in full.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The report prints one pupil count (estimated equalized pupils 3,491.64), not the four statutory grade
+      bands. Text layer searched; chart pages read as images.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The report prints one pupil count (estimated equalized pupils 3,491.64), not the four statutory grade
+      bands. Text layer searched; chart pages read as images.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The report prints one pupil count (estimated equalized pupils 3,491.64), not the four statutory grade
+      bands. Text layer searched; chart pages read as images.
+    resolution: left_null

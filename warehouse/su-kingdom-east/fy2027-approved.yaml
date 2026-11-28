@@ -1,0 +1,95 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/kingdom-east
+fiscal_year: 2027
+status: approved
+source: intake/su-kingdom-east/fy2027/6.3.26 KESD budget warning.pdf
+source_pages: p. 1
+adopted_date: '2026-06-11'
+education_spending: null
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/burke
+    homestead_rate_stated: null
+    cla: null
+  - town: town/concord
+    homestead_rate_stated: null
+    cla: null
+  - town: town/lunenburg
+    homestead_rate_stated: null
+    cla: null
+  - town: town/lyndon
+    homestead_rate_stated: null
+    cla: null
+  - town: town/newark
+    homestead_rate_stated: null
+    cla: null
+  - town: town/sheffield
+    homestead_rate_stated: null
+    cla: null
+  - town: town/sutton
+    homestead_rate_stated: null
+    cla: null
+  - town: town/wheelock
+    homestead_rate_stated: null
+    cla: null
+notes: 'FY27 budget as passed on the third vote, June 11, 2026: Article 1, expend $53,251,362 (district summary:
+  ''Total Proposed Expense Budget: $53,251,362''), estimated per-pupil education spending $14,742 (+7.08% over the
+  current year per the warning). Vote result: PASSED 969 yes, 944 no; a recount on June 23, 2026 confirmed it (district
+  page https://www.kingdomeast.org/fy27-budget). Earlier versions: $53,401,362 failed March 3, 2026 (632-730); $53,251,362
+  failed April 28, 2026 (460-614, Caledonian Record, secondary). The vote #3 version differs from the second only
+  in applying an additional $250,000 of Tax Stabilization Funds (total $850,000), per the vote #3 taxpayer summary
+  (Budget_Vote3_Taxpayer_Summary #1.pdf, same intake folder), so the expenditure total is the same as vote #2. Education
+  spending dollars not printed in any staged document: left null, nearest printed figure is the $14,742 per pupil.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: 'No document staged for the final budget prints its education-spending dollar figure. The warning (source)
+    prints only the $53,251,362 budget and per-pupil education spending of $14,742; the vote #3 taxpayer summary
+    prints the budget history and a tax-rate change but not education spending or revenues. Not computed here.'
+  resolution: left_null
+- path: adopted_date
+  issue: Date from the warning (Article 1 voted by Australian ballot Thursday, June 11, 2026) and the district's
+    FY27 budget page, which states 'KESD FY27 Budget - PASSED, Yes 969, No 944' and that a recount on June 23, 2026
+    confirmed the June 11 result. The warning itself does not state the outcome.
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: 'Per-town rates and CLAs for the final budget are not in the staged PDFs; the district page links a ''vote
+    #3 monthly tax impact by town'' section (dollar impacts, not rates), which was not transcribed. Stated change:
+    estimated homestead rate 1.80% lower ($0.0288) than FY26.'
+  resolution: left_null
+- path: tax.towns.cla
+  issue: 'No CLAs printed in the vote #3 documents. The March annual report''s Chart 8 CLAs (see fy2027-warned)
+    were not carried over because they predate this budget.'
+  resolution: left_null
+- path: notes
+  issue: District FAQ (https://www.kingdomeast.org/fy27-budget) says education spending per student 'increased by
+    $945 year-to-year to $14,742'; the warning's own figures give $14,742 - $13,767 = $975 (7.08% over FY26, as
+    the warning states). Recorded, not reconciled. FAQ also says education spending rose 4.5%; not verified.
+  resolution: pending
+- path: adm.prekindergarten
+  issue: 'The vote #3 documents prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four
+    statutory grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown
+    found. Enrollment by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.'
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: 'The vote #3 documents prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four
+    statutory grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown
+    found. Enrollment by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.'
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: 'The vote #3 documents prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four
+    statutory grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown
+    found. Enrollment by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.'
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: 'The vote #3 documents prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four
+    statutory grade bands. Text layer searched and the three-prior-years form read as an image; no band breakdown
+    found. Enrollment by grade is printed elsewhere (enrollment-by-grade tables near printed p. 16) but is not the statutory ADM.'
+  resolution: left_null

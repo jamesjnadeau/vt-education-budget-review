@@ -1,0 +1,57 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/lincoln
+fiscal_year: 2026
+status: approved
+source: intake/su-lincoln/fy2027/3 Prior years.pdf
+source_pages: p. 1
+adopted_date: '2025-03-03'
+education_spending: 4441395
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/lincoln
+    homestead_rate_stated: 1.0519
+    cla: 1.4672
+notes: 'FY2026 column of the FY27 AOE form (PRELIMINARY / ESTIMATES ONLY). Budget $5,179,245 (annual report p. 14
+  prints $5,179,244.76); offsetting revenues $737,850; education spending $4,441,395 (annual report prints $4,441,394.76);
+  LTWADM 330.08; per pupil $13,455.51; district spending adjustment 156.532%; equalized homestead rate $1.5433;
+  $1.0519 after dividing by the 146.72% CLA; income cap percent 2.21% (2.19% applied). Re-added: 5,179,245 - 737,850
+  = 4,441,395; 4,441,395 / 330.08 = 13,455.51. adopted_date 2025-03-03: the school pages of the annual report (PDF
+  pp. 26-28, staged under intake/su-lincoln/fy2027) give the March 3, 2025 annual meeting minutes, Article 7 ($5,179,244.76)
+  ''Passed by voice vote''.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: FY2026 column of an AOE form stamped PRELIMINARY / ESTIMATES ONLY. Figure recorded as printed.
+  resolution: pending
+- path: tax.towns.cla
+  issue: CLA printed on the form as a percentage and recorded as a ratio. It is the statewide-adjusted CLA the form
+    divides the rate by, not the Tax Department's published CLA. The annual report text calls the FY26 CLA 106%;
+    the form prints 146.72%.
+  resolution: recorded_as_other
+- path: adm.prekindergarten
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The form prints one weighted pupil count (LTWADM for FY25-FY27, equalized pupils for FY24), not the four
+    statutory grade bands. The text layer of the form and the school pages of the annual report were searched; no
+    band breakdown found.
+  resolution: left_null

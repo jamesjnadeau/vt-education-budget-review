@@ -1,0 +1,155 @@
+schema_version: '1.0'
+entity: su/windham-central
+fiscal_year: 2027
+artifacts:
+- file: 2026 WRED Annual Report.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1IjGdfmfmz86bHQoVfgQDzL8_ICcHxhS8
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: c6b3015cce736eb9216ba0ea3442f6ebf1a6583f7173c2a6ee81e667d59d7fde
+  bytes: 13834235
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: West River Modified Union Education District (via Windham Central Supervisory Union)
+  title: 2026 WRED Annual Report
+  published_date: null
+  document_page: https://www.windhamcentral.org/wred-annual-reports
+  supersedes: null
+  note: West River Modified Union Education District (towns Brookline, Jamaica, Newfane, Townshend, Windham)
+    annual report issued ahead of the FY27 budget vote (Canva PDF, 28 pp, created 2026-03-12). Has the
+    FY27 budget narrative (PDF p. 17), tax calculator with per-town CLAs and rate estimates (p. 24) and
+    two AOE 'Three Prior Years Comparisons' forms, one for WRED A (U072A, elementary) and one for WRED
+    B (U072B, grades 7-12) (pp. 25-26), FY2024-FY2027 columns. Both AOE forms are stamped PRELIMINARY
+    / ESTIMATES ONLY. Text layer is present. Also contains prior-year (March 2025) meeting minutes. This
+    is the March 2026 version; the district later put a reduced FY27 budget ($15,062,158) to revotes (see
+    FINDINGS.md). Saved under the filename the server sent (Content-Disposition), byte-for-byte.
+- file: ANNUAL REPORT - River Valleys 2026.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1UQjuLmbjn45CKyFz-WsVnS3CHBw0DfX9
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 64f0bfdcba0a28caa6a278487493764ea47f0ffda2ebaae252e9a14591f28cef
+  bytes: 14239280
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: annual_report
+  publisher: 'River Valleys Unified School District #73 (via Windham Central Supervisory Union)'
+  title: ANNUAL REPORT - River Valleys 2026
+  published_date: null
+  document_page: https://www.windhamcentral.org/rvusd-annual-reports
+  supersedes: null
+  note: River Valleys USD (Dover, Wardsboro) annual report for the FY27 budget (Canva PDF, 33 pp, created
+    2026-04-16). Has the FY27 budget narrative (pp. 15-22), tax rate calculation with per-town CLAs (p.
+    23) and the AOE 'Three Prior Years Comparisons' form (p. 24), stamped PRELIMINARY / ESTIMATES ONLY,
+    FY2024-FY2027 columns. Text layer present. Also contains prior-year (April 2025) annual meeting minutes.
+    Internal figures disagree on offsetting revenue (see FINDINGS.md). Saved under the filename the server
+    sent, byte-for-byte.
+- file: WCSU assessments to school districts FY27.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1X0objD-frE_5G1RCen4g3mQOBWwcQJKZ
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: aaf9ddd2ee2996874bf91995d00605cdf7b65f40a62169b11134dd24e626a876
+  bytes: 84600
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Windham Central Supervisory Union
+  title: WCSU assessments to school districts FY27
+  published_date: null
+  document_page: https://www.windhamcentral.org/rvusd-budgets
+  supersedes: null
+  note: One-page FY26 vs FY27 table of WCSU general fund and MTSS assessments to Marlboro, River Valleys,
+    Stratton, West River and Windham (Board approved, 2-year average ADM). Text layer present. Saved under
+    the filename the server sent.
+- file: Summary of FY27 WCSU budgets.xlsx - Google Sheets.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1L8tewPhm73g9EsHsNwAHccWnywRJ8myv
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 4f895e9c0e9c8ba7c87c8a273083c2b29542580e4910cca3f9d753b74f92ef87
+  bytes: 111110
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Windham Central Supervisory Union
+  title: Windham Central Supervisory Union FY27 Budget Summaries
+  published_date: null
+  document_page: https://www.windhamcentral.org/stratton-budgets
+  supersedes: null
+  note: 'One-page summary of the SU''s own FY27 budgets: General Fund (revenue $2,970,343, expense $3,270,343)
+    and MTSS (revenue $8,223,934, expense $9,023,934) with FY26 comparison and fund-balance use. The SU
+    itself does not file an AOE education-spending form; its cost is assessed to member districts. Printed
+    from Google Sheets. Saved under the filename the server sent.'
+- file: Windham proposed budget.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1kUUDv2Tvn9ruK3J9tlA1Pz-h5Wj5HEbY
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: c05b15a67c5965bf1e6e914937b8eccce610f3f2e1c62b9c5e7f03679b5663f1
+  bytes: 125575
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Windham School District (via Windham Central Supervisory Union)
+  title: Windham FY27 Proposed Budget Report - Revenue and Expenditures
+  published_date: null
+  document_page: https://www.windhamcentral.org/windham-budgets
+  supersedes: null
+  note: 'Two pages (Google Sheets print, created 2025-12-14): FY27 proposed revenue and expenditure budget
+    for Windham School District (a tuition district), $598,130 expenditures vs $451,630/$506,398 FY26
+    budget per the two sheets. Posted under ''01-08-26 FINAL Budget Docs''. Companion tax calculation
+    is staged separately. Saved under the filename the server sent.'
+- file: Windham Tax Calculation.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1sXnZNJuXHhvwcCaVhIEK8W07cNFGcOaV
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 0300c77ff98b27a1fbfbb80958286f6ecee94047fe3cb208c0fbc1d383b6ee38
+  bytes: 154916
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Windham School District (via Windham Central Supervisory Union)
+  title: Windham Tax Calculation FY27
+  published_date: null
+  document_page: https://www.windhamcentral.org/windham-budgets
+  supersedes: null
+  note: 'One-page FY27 tax calculation for Windham School District: expenditures $598,130, offsetting
+    revenues $19,800, net education spending $578,330, LTWADM 37.9, $15,259.37 per LTWADM, combined with
+    WRED B for the town rate. Not stamped preliminary on the extract. Saved under the filename the server
+    sent.'
+- file: FY27 Marlboro Non Operating Budget (Budget B)1-6-26.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1rRzvYWtm39NuUxkMP3_hYi5ZmgGkDsDu
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 030eb7a78de13be35f602cdadbe67aca7af838fccf9efedba5d7fbd187c95e55
+  bytes: 158024
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: budget_book
+  publisher: Marlboro School District (via Windham Central Supervisory Union)
+  title: FY 27 Marlboro School Nonoperating Budget - Expenditures (Budget B)
+  published_date: null
+  document_page: https://www.windhamcentral.org/marlboro-budgets
+  supersedes: null
+  note: 'Eight-page expenditure budget for the non-operating scenario (school closed June 30, 2026, students
+    tuitioned): total $3,374,499, the amount later warned as Article 5 on the March 3, 2026 ballot. Expenditures
+    only; no revenues, education spending or LTWADM in this file. The alternative operating Budget A ($3,791,494)
+    is on the same page but not staged. Saved under the filename the server sent.'
+- file: School Warning 20260303.pdf
+  source_url: https://nebula.wsimg.com/866e4ee656f74e75d21804e06c177865?AccessKeyId=9B7F3003F1C4C4A28A0A&disposition=0&alloworigin=1
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: a074305898acc98964c8d0688a2716c7f72303ae93cd4642620333c0fa6f4656
+  bytes: 73613
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Town of Stratton (Stratton School District)
+  title: 'Warning: Town of Stratton Annual School District Meeting March 3, 2026'
+  published_date: null
+  document_page: https://townofstrattonvt.com/town-meeting-report
+  supersedes: null
+  note: 'One-page scanned warning (Ricoh scan, no text layer; read from a render) for the March 3, 2026
+    annual school district meeting. Article 7: expend $1,050,583.00, education spending $11,627.46 per
+    pupil, 0.48% higher than current year. Article 5: Burr & Burton tuition up to $23,050. The server
+    sent no Content-Disposition; the filename is the server''s x-cloud-object-name header (''School Warning
+    20260303.pdf''), the URL path segment being only an opaque hash. Stratton posts this on the town website,
+    not the SU site. Saved byte-for-byte.'

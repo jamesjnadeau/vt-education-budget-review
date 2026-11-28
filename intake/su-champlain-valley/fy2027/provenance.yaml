@@ -1,0 +1,30 @@
+schema_version: "1.0"
+entity: su/champlain-valley
+fiscal_year: 2027
+artifacts:
+  - file: "FY27 Annual Report - FULL PDF.pdf"
+    source_url: https://drive.google.com/uc?export=download&id=1x6ASsbzUEkxYrR82c2YfAveU0sCigFeN
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 2f7870b411d3107ddab357349411847b27558b43335705c665e2b512cc4ca2c0
+    bytes: 33720518
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Champlain Valley School District
+    title: FY27 Annual Report - FULL PDF
+    published_date: null
+    document_page: https://www.cvsdvt.org/budget-district/fy27-annual-report
+    supersedes: null
+    note: >-
+      The full FY27 annual report (170 pages, text layer present) issued ahead of
+      the March 3, 2026 vote. Carries the AOE "Three Prior Years Comparisons"
+      form (PDF p. 31; FY2024-FY2027 columns, marked PRELIMINARY / ESTIMATES
+      ONLY), the revenue summary (p. 28), budget implications with per-town CLAs
+      (pp. 27, 61-62), the budget-by-function sections, and the annual warning
+      (pp. 158-159, 170). Internal PDF title is "FY27 Annual Report Opener -
+      FINAL" (created 2026-03-20 on macOS Quartz PDFContext). The server sent
+      the filename shown (Content-Disposition); saved byte-for-byte. The
+      district does not print a publication date. The district's separate
+      Drive files (three-prior-years page, 25 MB budget book, tax implications)
+      are components of or companions to this report and were not downloaded.

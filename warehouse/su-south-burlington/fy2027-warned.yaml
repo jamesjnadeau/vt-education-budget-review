@@ -1,0 +1,45 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/south-burlington
+fiscal_year: 2027
+status: warned
+source: intake/su-south-burlington/fy2027/Budget Book - Fiscal Year 2027-2028.pdf
+source_pages: "PDF pp. 24, 27 (printed pp. 21, 24)"
+adopted_date: null
+education_spending: 61533183
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/south-burlington
+      homestead_rate_stated: 1.7078
+      cla: 1.0088
+notes: >-
+  FY2027 proposed budget put to voters on March 3, 2026. Total budget $73,939,121 (the book's overview prints $73,939,121.04); offsetting revenues $12,405,938; education spending $61,533,183; pupils 3,920.28 LTWADM; education spending per pupil $15,696.12; equalized homestead rate $1.7738; income cap percent 2.58%. Town rate and CLA are the form's lines 33 and 32 (CLA divided by statewide adjustment, recorded as a ratio); South Burlington is the only town. Re-added: budget minus revenue equals education spending; spending / pupils equals the printed per-pupil. Vote: the district's FY27 budget page (https://www.sbschools.net/page/fy27-budget-information/) says voters approved the FY27 budget on Tuesday, March 3, 2026; the city's certified results (https://www.southburlingtonvt.gov/697/March-3-2026-Town-Meeting-Day-Results) show School Article II Yes 1,915 / No 1,777. The budget book itself predates the vote, so this record is kept as warned; a human may promote it to approved. The estimated FY27 rates are as of the Dec 1, 2025 Education Fund Outlook (yield $8,849) and the 70.33% statewide adjuster; final rates were to be set by the Legislature.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "The AOE form (PDF p. 27) is stamped PRELIMINARY / ESTIMATES ONLY and based on the Dec 1, 2025 Education Fund Outlook. Form line 33 homestead rate is $1.7078 (line 29 $1.7228 / 100.88%); the estimator on PDF p. 24 and the cover print $1.7076 (discounted equalized rate $1.7226, cent discount $0.036 / 0.051 vs form $0.051 / $0.0510 on lines 28-29). Recorded the form's $1.7078."
+    resolution: pending
+  - path: tax.towns.cla
+    issue: "Recorded the form's line 32 (CLA / statewide adjustment) 100.88% as 1.0088. The estimator prints the raw South Burlington CLA as 70.95% and statewide adjusted CLA 100.88%; FY26 equivalents 74.45% raw / 102.89% adjusted. Not the Tax Department's published CLA."
+    resolution: recorded_as_other
+  - path: education_spending
+    issue: "Ballot article (Annual Meeting Notice, intake PDF) states per-pupil education spending of $15,696.08; the AOE form and estimator print $15,696.12 ($61,533,183 / 3,920.28 = $15,696.1194). Total budget prints as $73,939,121 on the form and $73,939,121.04 in the overview narrative (PDF p. 18). Education spending $61,533,183 is consistent across form and estimator."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: The form prints one pupil count (LTWADM, or equalized pupils for FY2024), not the four statutory grade bands. The text layer of the budget book was searched ('LTWADM', 'weighted pupils', 'ADM'); no band breakdown found in the AOE form or estimator.
+    resolution: left_null

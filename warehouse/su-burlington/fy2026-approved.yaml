@@ -1,0 +1,52 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/burlington
+fiscal_year: 2026
+status: approved
+source: intake/su-burlington/fy2027/BSD_AnnualReport_2025.pdf
+source_pages: p. 18
+adopted_date: null
+education_spending: 103360823
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/burlington
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  Prior-year column of the FY27 annual report's AOE form (p. 18, marked PRELIMINARY). Printed as the budget; no vote date given. Total budget $134,779,831; offsetting revenues $31,419,008; education spending $103,360,823 (check: $134,779,831 - $31,419,008); LTWADM 6,971.70; per pupil printed $14,825.07 (recomputes to $14,825.77); equalized district homestead rate $1.7247; excess spending threshold $15,926; line 32 CLA/statewide adjustment 112.99%; line 33 actual rate $1.5264; income cap percent 2.44%. The district's own text notes the FY26 education fund spending is inflated by the BHS/BTC construction project (budget development update of 2026-01-20, not staged).
+not_published: []
+lines_flagged:
+  - path: adm.prekindergarten
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: >-
+      The report prints one pupil count (equalized pupils for FY24, LTWADM for FY25-FY27), not the four statutory grade bands. The text layer of the whole report was searched (pdftotext) and the p. 18 form read; no band breakdown found.
+    resolution: left_null
+  - path: tax.towns.homestead_rate_stated
+    issue: >-
+      The p. 18 form prints a line 33 actual rate ($1.5264) and a line 32 CLA/adjustment (112.99%) for FY2026, but the whole form is labelled PRELIMINARY / ESTIMATES ONLY and these are not the adopted town rate; left null.
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: >-
+      Left null for the same reason as the rate; the printed line 32 adjusted CLA is quoted in notes.
+    resolution: left_null
+  - path: notes
+    issue: >-
+      Per-pupil education spending for FY2026 is printed $14,825.07 on the p. 18 form (line 13) but $103,360,823 / 6,971.70 = $14,825.77, which is also the figure printed in the district's budget-history table (budget recommendation of 2026-01-26, not staged) and implied by the 6.40% ballot-question text. Recorded, not reconciled.
+    resolution: pending

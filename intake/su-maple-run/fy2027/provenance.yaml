@@ -1,0 +1,31 @@
+schema_version: "1.0"
+entity: su/maple-run
+fiscal_year: 2027
+artifacts:
+  - file: MRUSD-2025-2026-Annual-Report-.pdf
+    source_url: https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/218/Mrusd/d4779e34-f5ce-4972-ad25-d56bca1e38a0/MRUSD-2025-2026-Annual-Report-.pdf?disposition=inline
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 87b3940403f88f03c4a8cc5fc9a00fa7cfce25ee379ae86ad98736d4e52bc415
+    bytes: 29482563
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Maple Run Unified School District
+    title: 2026 MRUSD Annual Report
+    published_date: null
+    document_page: https://www.maplerun.org/documents/notices-%26-reports/annual-reports/34988
+    supersedes: null
+    note: >-
+      Annual report for the March 3, 2026 vote (FY2027 budget). The server
+      sent no Content-Disposition, so the filename is the last URL path
+      segment. 22 pages, made in Canva (internal title "MRUSD 2025-2026 Annual
+      Report", author Erin Rocheleau, created 2026-01-30). Text layer covers
+      the superintendent and board letters (PDF pp. 4-7). PDF pp. 13-22 are
+      page-sized images with no text: the warning (pp. 14-16; Article IV
+      $79,653,912), the March 2025 certification of election (p. 17), the
+      line-item expenditure summary (pp. 18-19), the revenue summary (p. 20),
+      and the AOE "Three Prior Years Comparisons" form with FY2024-FY2027
+      columns (p. 21, stamped PRELIMINARY / ESTIMATES ONLY). The figures were
+      read from 260-dpi renders and re-added. The district's own publication
+      date is not stated.

@@ -1,0 +1,183 @@
+schema_version: "1.0"
+entity: su/orange-east
+fiscal_year: 2027
+artifacts:
+  - file: 2026 BMU Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1R448rE9idHcX8_yQH6SxxmQ3vHG1z86_
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 85c2fdd8137811d287ec5840b9740620e75d05b471f36ac9ab8473f9baabfb28
+    bytes: 2741891
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Blue Mountain Union School District
+    title: 2026 BMU Annual Report
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/359
+    supersedes: null
+    note: >-
+      Annual report issued ahead of the FY2027 vote (PDF created 2026-02-10). Tax
+      worksheet p16 and the AOE 'Three Prior Years Comparisons' p18, FY2024-FY2027
+      columns. FY27 warned budget $12,856,291 (original, before the March 25
+      revote). Both AOE pages are stamped PRELIMINARY / ESTIMATES ONLY. The text
+      layer of p18 is overlaid/jumbled; figures were cross-checked against the p16
+      worksheet. Saved under the filename the server sent (Content-Disposition),
+      byte-for-byte.
+  - file: 2026 OUUSD Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1pnV64gsB_u4DnRtQqcNnohdo285Ap8ks
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: c7f9d055a67b372182733ec2e20a8c3a8c0146994796509fcadf200c60eb9365
+    bytes: 6595969
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Oxbow Unified Union School District
+    title: 2026 OUUSD Annual Report (2025-26 Annual Report)
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/714
+    supersedes: null
+    note: >-
+      Annual report for the April 28, 2026 meeting (PDF created 2026-04-13). Tax
+      worksheet p19 and AOE 'Three Prior Years Comparisons' (stamped ESTIMATES)
+      p20, FY2024-FY2027 columns; FY27 proposed budget $23,339,333. That budget
+      was rejected April 28 and a reduced version was voted later (see FINDINGS).
+      Saved under the filename the server sent.
+  - file: 2026 TTSD Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1pLTlRGoOpMxljX0bsIQKT1_Prd7me6xI
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: df1aa6076d43e9ef994bed1d0e029e54ba7d68dd36363e7d6c9a9235796cb67c
+    bytes: 1737455
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Thetford Town School District
+    title: Thetford Town School District 2025/26 Annual Report
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/712
+    supersedes: null
+    note: >-
+      Annual report issued ahead of the March 3, 2026 vote (PDF created
+      2026-02-10). Year-to-year budget comparison p10 and 'Tax Rate Estimate' p11
+      (FY23-24..FY26-27). Does NOT contain the AOE three-prior-years form; that is
+      staged separately. Saved under the filename the server sent.
+  - file: 2025-2026 WRVS Annual Report.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1H_8olRJPIzStobC6OTAy0wsJhHGBskN_
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 1bd30bbfffecf10df75d37152f610de41dbb45a0e733438b03b0f0e0353360d8
+    bytes: 14932178
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: annual_report
+    publisher: Waits River Valley School District (Unified District No. 36)
+    title: Waits River Valley School 2025-2026 Annual Report
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/713
+    supersedes: null
+    note: >-
+      Annual report for the 56th annual meeting of May 4, 2026 (PDF created
+      2026-03-27). Despite the '2025-2026' title it proposes FY2027 ($10,065,244).
+      Budget summary p17-21, OESU assessments p22-24, AOE 'Three Year Comparison'
+      (stamped PRELIMINARY ESTIMATES ONLY) PDF p27 = printed p25, estimated tax
+      worksheet p28. 14.9 MB. Saved under the filename the server sent.
+  - file: FY27 TTSD 3 Year Prior Tax Ed Spending Comparisons by AOE.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1kOJPY60KBIx0RpZYEkDCAPmA4N7ZWyWM
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: c9f85431dddd315c96ab64d6869b4d1cf05d8ec6f067b93e08cfc0b253935fb7
+    bytes: 517205
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Thetford Town School District
+    title: FY27 TTSD 3 Year Prior Tax Ed Spending Comparisons by AOE
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/712
+    supersedes: null
+    note: >-
+      One-page AOE 'Three Prior Years Comparisons' form for Thetford,
+      FY2024-FY2027 (stamped PRELIMINARY / ESTIMATES). Internal title 'FY27
+      EdSpend 3 prior years v05 USE THIS ONE.xlsx'. Supplies the AOE form missing
+      from the TTSD annual report. Saved under the filename the server sent.
+  - file: FY27 Revised Budget Snapshot.pdf
+    source_url: https://drive.google.com/uc?export=download&id=10nRLGh958M6ZyybSC1TUXhcxLmwwugpK
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 724ea18a68c203ff256868fae63850a0cadee50fd503178fa4f7210472a486c4
+    bytes: 485941
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Blue Mountain Union School District
+    title: FY2027 Revised Budget Snapshot (BMU)
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/359
+    supersedes: null
+    note: >-
+      Four-page flyer for the March 25, 2026 revote on a reduced BMU budget
+      ($12,756,291 = original $12,856,291 minus $100,000). Staged because the
+      annual report carries only the original budget. Internal title 'FINAL FY2027
+      Revised Budget Snapshot'. Saved under the filename the server sent.
+  - file: 2026 BMU 2nd Budget Vote Results.pdf
+    source_url: https://drive.google.com/uc?export=download&id=12lWrlZZGCp8afbsgVoK7X58LC1YociWQ
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: f24022a911995100cd72d8db6151f9ed2c4f900e53992c5edaf4b31cf72d7193
+    bytes: 144800
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Blue Mountain Union School District / BMU town clerks
+    title: 2026 BMU 2nd Budget Vote Results
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/359
+    supersedes: null
+    note: >-
+      Scanned clerk tally sheet, image only (no text layer), 2 pages. Page 1 read
+      from a render: March 25, 2026, '2nd VOTE', Article 1: ballots 637, yes 319,
+      no 317, blank/spoiled 1. Page 2 not read. Saved under the filename the
+      server sent.
+  - file: Town of Thetford Local Election 3March2026.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1RxKemIdXUvqXawb2dWi0nnhqeYJ9ZVCL
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: dc903de9e362aea776b0b4ea9b558960a158333dcc8b79b1e178640d819a82bf
+    bytes: 34589
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: other
+    publisher: Town of Thetford
+    title: Town of Thetford Local Election Results - March 3, 2026
+    published_date: null
+    document_page: https://www.oesu.org/fs/pages/712
+    supersedes: null
+    note: >-
+      Scanned one-page results sheet, image only (internal title
+      'SKM_C361i26030319450'). Read from a render: 'School Article IV School
+      Budget' yes 271, no 123, blank 3 (397 ballots). The sheet does not print the
+      article text or dollar amount. Saved under the filename the server sent.
+  - file: FY27 OESU Budget.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1M_RpO9cvXaLEJnd3J9P34Zp2uDA444MZ
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 1b944085a805c663c3c05aed8a9eb4551a3b6a081e887aa66c6fb4b3c2302082
+    bytes: 454583
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Orange East Supervisory Union
+    title: FY27 OESU Budget (ANNUAL REPORT 2027 OESU Expense Budget REVISED)
+    published_date: null
+    document_page: https://www.oesu.org/about-us/finance/budgets-audit-reports
+    supersedes: null
+    note: >-
+      Three-page SU central-office general fund expense budget: FY25 actuals, FY26
+      budget, FY26 YTD, FY27 proposed. Total all general fund FY27 $13,864,650.88
+      vs FY26 $12,193,327.56 (+13.71%, +$1,671,323.32); central admin
+      $2,429,903.65. Expenses only; these costs are assessed to member districts,
+      so the SU does not set a voter-approved budget of its own. PDF created from
+      an Excel file 2026-02-17 (author field: Lori Blood). Saved under the
+      filename the server sent.

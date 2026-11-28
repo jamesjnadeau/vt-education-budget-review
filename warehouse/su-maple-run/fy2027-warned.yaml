@@ -1,0 +1,69 @@
+schema_version: "1.0"
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: 2026-11-28
+entity: su/maple-run
+fiscal_year: 2027
+status: warned
+source: intake/su-maple-run/fy2027/MRUSD-2025-2026-Annual-Report-.pdf
+source_pages: PDF pp. 14, 18-21
+adopted_date: null
+education_spending: 57953912
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+    - town: town/fairfield
+      homestead_rate_stated: null
+      cla: null
+    - town: town/st-albans-city
+      homestead_rate_stated: null
+      cla: null
+    - town: town/st-albans-town
+      homestead_rate_stated: null
+      cla: null
+notes: >-
+  FY2027 budget as warned for the March 3, 2026 vote: Article IV $79,653,912 total budget; AOE form offsetting union revenues $21,700,000; education spending $57,953,912; pupils 3,996.02 (LTWADM); education spending per pupil $14,502.91 (warning says $14,503, 3.36% lower). Equalized union homestead rate $1.6389, or $1.6129 after the $0.026 cent discount (statewide adjuster 70.33%); union spending adjustment 163.893%; income cap percent 2.39%. Form is PRELIMINARY / ESTIMATES ONLY. Vote result: the district posted a news item 'Maple Run FY27 School Budget Approved!' dated March 4, 2026, stating the FY27 budget was approved by voters of St. Albans City, St. Albans Town and Fairfield (seen in search result text of https://www.maplerun.org/o/cardev/news and https://www.maplerun.org/o/sacs/news?page_no=2; the item was not visible on the current page listing and its permalink was not captured; no vote counts found). adopted_date left null because this document does not state a vote date for FY27 results.
+not_published: []
+lines_flagged:
+  - path: tax.towns.homestead_rate_stated
+    issue: "The form's 'Prorated homestead union tax rates' table (PDF p. 21) prints one rate, 1.6129, for all three towns (FY2027), which is the district equalized rate after the cent discount, not a per-town rate (equalized rate / CLA). Left null; 1.6389 and 1.6129 are in notes."
+    resolution: left_null
+  - path: tax.towns.cla
+    issue: "The form prints no CLAs for Fairfield, St. Albans City or St. Albans Town (PDF p. 21), so town rates cannot be computed as equalized rate / CLA."
+    resolution: left_null
+  - path: education_spending
+    issue: "The AOE form (PDF p. 21) is stamped PRELIMINARY and ESTIMATES ONLY; yields ($8,849 property, $12,154 income) are from the Dec 1, 2025 Education Fund forecast and the form says final figures will be set by the Legislature and Governor. Pupils 3,996.02 are in a red/yellow input cell."
+    resolution: pending
+  - path: notes
+    issue: "Warning Article IV (PDF p. 14) and the budget summary pages (pp. 18-19) say $79,653,912, the AOE form says $79,653,912, but the Board Chair letter (printed p. 6, PDF p. 7) says 'proposed budget of $79,655,912'. Recorded the warned figure."
+    resolution: pending
+  - path: notes
+    issue: "Warning says per-pupil education spending $14,503 is (3.36%) lower than the current year. Recomputed from the AOE form, $14,502.91 vs $15,003.17 is -3.33%; 3.36% matches $15,007 (the FY2026 per-pupil figure in the March 2025 certification, PDF p. 17)."
+    resolution: pending
+  - path: notes
+    issue: "Stale template headings: PDF pp. 18-19 are titled 'FY26 Proposed Expenses' and p. 20 'FY26 Summary of Proposed Revenue' but the content is the FY27 budget (tables titled 'for FY27 Budget')."
+    resolution: pending
+  - path: notes
+    issue: "Revenue summary (PDF p. 20) total is $79,653,912.06 and its Education Spending line is $57,953,912.00, against budget $79,653,912.00 and AOE-form non-education-spending revenues $21,700,000 (a $0.06 difference)."
+    resolution: pending
+  - path: notes
+    issue: "Article III (PDF p. 14) allocates $1,200,000 of fund balance as FY27 revenue and $1,250,000 for future budgets; the revenue summary books $1,200,000 as 'Capital Reserve' revenue; the Board Chair letter says $1,250,000 is allocated to the 2026-27 budget. The letters and warning disagree."
+    resolution: pending
+  - path: notes
+    issue: "Tax-impact statements disagree in form: Superintendent letter (PDF p. 5) gives cents per $100 (St. Albans City -10, St. Albans Town +9, Fairfield +4, excluding the legislature's buy-down); Board Chair letter (PDF p. 7) gives percentages (-8%, +5%, +4%). Not reconciled."
+    resolution: pending
+  - path: adm.prekindergarten
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.kindergarten_through_5
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.grades_6_through_8
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null
+  - path: adm.grades_9_through_12
+    issue: "The report prints one weighted pupil count (LTWADM; equalized pupils for FY2024), not the four grade bands. The text layer was searched and the form page (PDF p. 21) was read as an image; no band breakdown found. Other image-only pages were viewed at 100 dpi only."
+    resolution: left_null

@@ -1,0 +1,81 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/mill-river-unified-union
+fiscal_year: 2025
+status: approved
+source: intake/su-mill-river-unified-union/fy2027/2026 Annual Report .pdf
+source_pages: pp. 25, 15
+adopted_date: null
+education_spending: 16931759
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/clarendon
+    homestead_rate_stated: null
+    cla: null
+  - town: town/shrewsbury
+    homestead_rate_stated: null
+    cla: null
+  - town: town/tinmouth
+    homestead_rate_stated: null
+    cla: null
+  - town: town/wallingford
+    homestead_rate_stated: null
+    cla: null
+notes: 'FY2025 column of the AOE form in the 2026 annual report (p. 25, PRELIMINARY). Printed as adopted
+  union budget $21,333,576; offsetting union revenues $4,401,817; education spending $16,931,759; LTWADM
+  1,311.59 (the small image reads 1,311.69 or 1,311.59; 1,311.59 is the figure that reproduces the printed
+  per-pupil); education spending per pupil $12,909.34; equalized union homestead rate $1.3649; income
+  cap 2.55%. The vote date and result for this budget are not in the report; adopted_date null. Operating
+  fund summary (p. 15) gives audited actuals 2024-2025: expenditures $19,511,845, revenue $21,061,592.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: The p. 25 AOE form is stamped 'PRELIMINARY' and 'ESTIMATES ONLY', and its footnote says it uses
+    the revised Dec 1, 2025 Education Fund outlook (property yield $8,849, income yield $12,154) and that
+    final figures will be set by the Legislature. The form is a 575x729 pixel image; figures were read
+    from enlarged renders and re-added arithmetically (budget - revenue = education spending; spending
+    / pupils = per pupil).
+  resolution: pending
+- path: adm
+  issue: 'Pupil count read from a low-resolution image: ''1,311.69'' vs ''1,311.59''. 16,931,759 / 1,311.59
+    = 12,909.34 matches the printed per-pupil; 1,311.69 does not.'
+  resolution: pending
+- path: adm.prekindergarten
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The report prints one weighted pupil count on the AOE form (LTWADM for FY25-FY27; equalized pupils
+    for FY24) and enrollment tables (pp. 12-13), not the four statutory grade bands in the form. The text
+    layer was searched and the p. 25 form was read as an image. Enrollment pages 12-13 were not read for
+    band-level ADM.
+  resolution: left_null
+- path: tax.towns.homestead_rate_stated
+  issue: The p. 25 form prints 'Prorated homestead union tax rates for members' as $1.3649 for all four
+    towns (Clarendon, Shrewsbury, Tinmouth, Wallingford), i.e. the equalized union rate with no town CLA
+    applied; p. 14 says the anticipated rate 'has not been adjusted for Common Level of Appraisals'. These
+    are not town rates (equalized rate / CLA), so none is entered. The printed values are in notes.
+  resolution: left_null
+- path: tax.towns.cla
+  issue: No town CLAs are printed anywhere in the report.
+  resolution: left_null

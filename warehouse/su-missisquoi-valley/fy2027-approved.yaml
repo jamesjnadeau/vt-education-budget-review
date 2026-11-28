@@ -1,0 +1,80 @@
+schema_version: '1.0'
+extracted_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+extracted_date: '2026-11-28'
+entity: su/missisquoi-valley
+fiscal_year: 2027
+status: approved
+source: intake/su-missisquoi-valley/fy2027/735866f921ba-FY27_MVSD_Revenue_and_Tax_Rate_Page_REVOTE_1.jpg
+source_pages: single-page image
+adopted_date: '2026-04-14'
+education_spending: 39298048
+adm:
+  prekindergarten: null
+  kindergarten_through_5: null
+  grades_6_through_8: null
+  grades_9_through_12: null
+tax:
+  towns:
+  - town: town/franklin
+    homestead_rate_stated: 1.5451
+    cla: 0.8406
+  - town: town/highgate
+    homestead_rate_stated: 1.3615
+    cla: 0.9539
+  - town: town/swanton
+    homestead_rate_stated: 1.4575
+    cla: 0.8911
+notes: 'FY27 budget as revised for the April 14, 2026 revote and approved 601 Yes to 374 No (certified result PDF
+  staged in the same intake dir; district clerk Nola Gilbert). Total operating budget $52,153,854; projected revenues
+  $12,855,806 (includes unreserved fund balance $2,219,780); education spending PreK-12 $39,298,048; LTWADM 3,228.17;
+  spending per LTWADM $12,173; property yield $9,373 (estimate); PreK-12 equalized tax rate equivalent $1.2988.
+  FY26 comparison column in the same image: budget $50,956,879, education spending $39,683,045, LTWADM 3,255.49,
+  $12,190 per pupil, rate $1.4181. The first FY27 budget ($52,440,854; per pupil $12,351) was defeated March 3,
+  2026 (https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2531584). Newspaper corroboration
+  of the revote count: https://www.wcax.com/2026/04/15/multiple-school-district-budgets-pass-tuesday/. Parking-lot
+  special article ($1,270,500) was also defeated on March 3 per the district page (''voted down''); it is not part
+  of this record. One budget-setting district (MVSD) covers Franklin, Highgate and Swanton.'
+not_published: []
+lines_flagged:
+- path: education_spending
+  issue: 'Source is the district''s own ''Estimated Revenues & Tax Rate Calculation 2026-2027'' image, not the AOE
+    form (no AOE Three Prior Years Comparisons found). Education spending $39,298,048 = $52,153,854 - $12,855,806
+    re-added and matches. The image is an estimate: footer says ''Based on Estimated Property Yield figure of $9,373
+    ... actual tax bills will be based on rate(s) set by Legislature''.'
+  resolution: pending
+- path: tax.towns.homestead_rate_stated
+  issue: Rates are the district's 'Projected Homestead Tax Rates' after CLA (equalized $1.2988 / CLA), not Tax Department
+    rates. The yield row is labelled 'with Statewide Adjustment FY26 72.36% FY27 TBD' yet the FY27 CLA formulas
+    use 70.33%.
+  resolution: pending
+- path: tax.towns.cla
+  issue: CLA is printed as a computed percentage (e.g. Franklin FY27 (59.12%/70.33%)=84.06%), recorded here as a
+    ratio (0.8406). Not the Tax Department's published CLA.
+  resolution: recorded_as_other
+- path: source
+  issue: 'Figures were read from the image by eye; no text layer. Arithmetic re-checked: $52,153,854 - $12,855,806
+    = $39,298,048; $39,298,048 / 3,228.17 = $12,173.48; $12,173 / $9,373 = 1.2988; 1.2988 / each CLA reproduces
+    each printed town rate.'
+  resolution: pending
+- path: status
+  issue: 'Two FY27 budgets went to voters: $52,440,854 (March 3, defeated) and this revote version $52,153,854 (April
+    14, approved). Only the approved revote version is recorded. The March version''s education spending is not
+    on any district document read; AOE''s 2026-03-17 memo lists $39,870,048 for MVSD (that equals $39,298,048 +
+    the $572,000 cut the district states).'
+  resolution: pending
+- path: adm.prekindergarten
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null
+- path: adm.kindergarten_through_5
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null
+- path: adm.grades_6_through_8
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null
+- path: adm.grades_9_through_12
+  issue: The revenue/tax-rate image prints one LTWADM total, not the four grade bands. The text of the district
+    budget page, the OpenGov story and the revote video transcript were searched; no band breakdown found.
+  resolution: left_null

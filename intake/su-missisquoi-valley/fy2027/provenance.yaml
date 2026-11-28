@@ -1,0 +1,78 @@
+schema_version: '1.0'
+entity: su/missisquoi-valley
+fiscal_year: 2027
+artifacts:
+- file: 735866f921ba-FY27_MVSD_Revenue_and_Tax_Rate_Page_REVOTE_1.jpg
+  source_url: https://stories.opengov.com/mvsdschools/uploads/735866f921ba-FY27_MVSD_Revenue_and_Tax_Rate_Page_REVOTE_1.jpg
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 9aaf2c034816f176d3f00b267cd36cbf8d160c96b4a82df014c49698ce92542a
+  bytes: 1454535
+  media_type: image/jpeg
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Missisquoi Valley School District
+  title: MVSD Estimated Revenues & Tax Rate Calculation 2026-2027 (revote version)
+  published_date: null
+  document_page: https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2531584
+  supersedes: null
+  note: 'A single JPEG (2748x3157 px, Photoshop-exported 2026-03-18 per EXIF), the ''School Budget Summary''
+    image in the OpenGov story embedded on the district''s Budget Information page. Prints FY2026 and
+    FY2027 columns: operating budget, projected revenues by line, education spending PreK-12, LTW ADM,
+    spending per LTWADM, property yield, tax rate equivalent and projected homestead rates for Franklin,
+    Highgate and Swanton after CLA. It is the district''s own summary, not the AOE Three Prior Years Comparisons
+    form. Image only, so figures were read from crops by eye and re-added. Server sent no Content-Disposition;
+    filename is the last URL path segment. Saved byte-for-byte.'
+- file: 2026 Official Result for MVSD April 14, 2026.pdf
+  source_url: https://drive.google.com/uc?export=download&id=1-VwEZqjUiMfOXkWK_pR-h394BJB6delD
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 991acced0dfb89624b0b48bf1c3598510b10bd6b6ab202979a763a6a33db4116
+  bytes: 55939
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: other
+  publisher: Missisquoi Valley School District
+  title: 2026 Official Result for MVSD April 14, 2026
+  published_date: null
+  document_page: https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2480823
+  supersedes: null
+  note: One-page certification by the MVSD Clerk (Nola Gilbert) that the revote budget of $52,153,854
+    was approved 601 Yes to 374 No on April 14, 2026. Text layer present. Listed on the district page
+    as 'Budget Revote Official Result - April 14, 2026'.
+- file: FY27 Budget Annual Meeting Warning Revote 1 (1).pdf
+  source_url: https://drive.google.com/uc?export=download&id=1LlAf-AHyCo58eXcD_JqNfLZECXkxkQCy
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 6cfae5522008fee0af89b820a68d9c1a83f004657c68cc081847f8367dde6911
+  bytes: 74180
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Missisquoi Valley School District
+  title: Warning Annual Meeting (budget revote), April 14, 2026
+  published_date: null
+  document_page: https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2480823
+  supersedes: null
+  note: 'One-page signed warning for the April 14, 2026 revote: Article I, expend $52,153,854; estimated
+    per pupil education spending $12,173, 0.1% lower than the current year. Dated March 18, 2026. A scan
+    with no text layer (KONICA MINOLTA copier); read from a render.'
+- file: FY27 Budget Annual Meeting Warning.pdf
+  source_url: https://drive.google.com/uc?export=download&id=15u7Z9k8j5510glQ7mwLfwHUG6hYC2qtW
+  retrieved_date: '2026-11-28'
+  retrieval_method: http-fetch
+  sha256: 6d65206a8f757924b346ae04123aa6a620b23479ebf05dd7f8bad6f7290b6711
+  bytes: 191449
+  media_type: application/pdf
+  retrieved_by: Hermes agent (dev profile), on behalf of @jamesjnadeau
+  document_type: town_meeting_warning
+  publisher: Missisquoi Valley School District
+  title: Warning Annual Meeting, March 3, 2026
+  published_date: null
+  document_page: https://www.mvsdschools.org/apps/pages/index.jsp?uREC_ID=3916577&type=d&pREC_ID=2480823
+  supersedes: null
+  note: 'One-page signed warning for the March 3, 2026 annual meeting: Article II, expend $52,440,854
+    (per pupil education spending $12,351, 1.3% higher); Article III, $1,270,500 for an MVU parking lot
+    and lighting project. Dated January 27, 2026, DocuSign envelope. The budget in this warning was voted
+    down (per the district''s Budget Information page). Almost no text layer; body is an image, read from
+    a render.'

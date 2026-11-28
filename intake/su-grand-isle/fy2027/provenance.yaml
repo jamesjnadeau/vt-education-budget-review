@@ -1,0 +1,82 @@
+schema_version: "1.0"
+entity: su/grand-isle
+fiscal_year: 2027
+artifacts:
+  - file: FY27 GISU Exp Budget 01_13_26.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1nXwv08oT_OqNkD6lq0nd0lWrxncYYVo9
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 3a41492541e5938e0c6c926652ef1ddc3d6cbf66002c8b762239c66c1ac2b93b
+    bytes: 94192
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Grand Isle Supervisory Union
+    title: GISU Expense Budget FY27
+    published_date: null
+    document_page: https://www.gisu.org/page/budget
+    supersedes: null
+    note: >-
+      7-page line-item general fund expense budget of the supervisory union itself with FY25 budget,
+      FY25 actual, FY26 budget and FY27 budget columns. Printed from a Google Sheet (internal title
+      'Copy of V03 - FY27 GISU Budget 01_06_26.xlsx - Google Sheets', PDF created 2026-01-18, producer
+      Skia/PDF). Text layer is present. FY27 general fund total printed as 10,097,514 (includes a
+      270,000 deficit drawdown line); 12,243,771 with building-based paraeducators. This is the SU
+      office budget assessed to the member districts, not an AOE education spending form. Saved under
+      the filename the server sent.
+  - file: FY27 GISU Revenue Budget 01_13_26.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1AV2Pv_iNM6QgGjJfQUr8yoM9HxtJzq-O
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: e93454b5ee38f7031d8c0a33655806dfc5d008d19f5f6bfe6e041f75d3377d3e
+    bytes: 31417
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: budget_book
+    publisher: Grand Isle Supervisory Union
+    title: GISU State and Local Revenue FY27
+    published_date: null
+    document_page: https://www.gisu.org/page/budget
+    supersedes: null
+    note: >-
+      1-page state and local revenue schedule of the supervisory union (FY25 approved, FY25 pre-audit
+      actual, FY26 approved, FY27 proposed); total FY27 revenue 5,110,525. Printed from the same Google
+      Sheet as the expense budget (PDF created 2026-01-18). Saved under the filename the server sent.
+  - file: Alburgh_warning_FY27.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1aKtf6QzjG1_Cid_rcQLX4fvjg6ptBuA7
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: 4ee3251641c06a99eac980754ab8741bdf7a34a58839325faedbe4b9d1c1effc
+    bytes: 218378
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: Alburgh Town School District
+    title: Alburgh Town School District Official Warning, Annual Meeting (March 3, 2026)
+    published_date: 2026-01-22
+    document_page: https://www.alburghschool.org/o/acec/page/school-board
+    supersedes: null
+    note: >-
+      Member district warning for the March 3, 2026 vote: Article 2 asks to expend $8,315,766, stated
+      per pupil education spending $14,008, 6.9% higher than current year. Dated and posted by the
+      district 22 January 2026. Text layer present. This budget failed at the polls; the district
+      re-warned a smaller budget for June 2, 2026 (not staged). Saved under the filename the server sent.
+  - file: SchoolArticles2025.pdf
+    source_url: https://drive.google.com/uc?export=download&id=1f_v04Jw-KjnixRl6OxcLEoU_U7yxbw17
+    retrieved_date: 2026-11-28
+    retrieval_method: http-fetch
+    sha256: e66d516faaad33d9888f42f2bfa8530db93fe360450aa9497d91f473f2749897
+    bytes: 542229
+    media_type: application/pdf
+    retrieved_by: "Hermes agent (dev profile), on behalf of @jamesjnadeau"
+    document_type: town_meeting_warning
+    publisher: South Hero Town School District
+    title: South Hero Town School District Official Warning, Annual Meeting (March 3, 2026)
+    published_date: 2026-01-08
+    document_page: https://www.gofolsom.org/o/fecc/page/school-board
+    supersedes: null
+    note: >-
+      One-page scan with no text layer; read from a rendered image. Despite the server-sent filename
+      'SchoolArticles2025.pdf', it is the warning for the March 3, 2026 vote on FY27: Article 1 asks to
+      expend $5,752,407, stated per pupil education spending $16,469, 5.27% higher than current year.
+      Dated by the board 8 January 2026 (posted by the town clerk 12 January 2026).
