@@ -99,14 +99,14 @@ const shareCards = [
 <Base title={`Your town: ${page.name}, fiscal year ${year} — Vermont School Budgets`}>
   <JourneyTop steps={page.steps} current="town" year={year} kind="town" slug={page.slug} />
 
-  <RateHistory townName={page.name} slug={page.slug} year={year} series={rateSeries} />
-
   <div class="journey-town-head">
     <h1>
       <a class="journey-heading-link" href={`${base}/my/?change=1`} title="Choose a different town">Your town</a>: {page.name}
     </h1>
     <a class="journey-change-link" href={`${base}/my/?change=1`}>Not your town? Choose a different one.</a>
   </div>
+
+  <RateHistory townName={page.name} slug={page.slug} year={year} series={rateSeries} />
 
   <JourneyStats
     rate={page.rate}
