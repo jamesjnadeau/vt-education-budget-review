@@ -6,6 +6,11 @@ SHA256:   883ac714e3716259fe5857871f1972c2ed445a1e616ca7ac6180012b3536e3b6 (raw 
 
 Text extracted from the enacted PDF with pdftotext -layout; blank lines removed. Signed June 18, 2026.
 Secs. 2, 6, 7: effective July 1, 2027, apply to fiscal year 2028 and after (Sec. 16(c),(d)); they do not change FY2027.
+Struck and inserted words are not distinguishable in this text extraction. Read from the page images of the PDF:
+  Sec. 2, 16 V.S.A. § 4001(6)(B): "2024" struck, "2026" inserted; (A) is "[Repealed.]".
+  Sec. 6, 32 V.S.A. § 5401(12): old (B) (118 percent, NEEP price index) struck; new text of (A) inserted ("that exceeds the excess spending threshold ...").
+  Sec. 6, § 5401(18) and (19): "excess spending base" and "excess spending threshold means 112.5 percent of the excess spending base" are new.
+  Sec. 12 repeals (18) and (19) on June 30, 2029 (Sec. 16(g)).
 Do not edit.
 ----------------------------------------------------------------------------
 
